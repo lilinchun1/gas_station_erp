@@ -5,7 +5,7 @@ $border-color:#ccc; //通用边框颜色
 $container-left-width:200px;  //container 左边栏宽度
 $font-n-color:#333; //默认文字颜色
 $font-h-color:#34acd8; //默认hover文字颜色
-%edit-btn{
+%edit-btn{  //通用按钮样式
   padding: 6px 28px;
   box-shadow: 0 1px 3px rgba(0,0,0,.6);
   border-bottom: 1px solid rgba(0,0,0,.25);
@@ -16,6 +16,13 @@ $font-h-color:#34acd8; //默认hover文字颜色
   color: #ffffff;
   background: $font-h-color;
   cursor: pointer;}
+%input-t{   //输入框通用样式
+  width: 160px;
+  height: 24px;
+  line-height: 24px;
+  text-indent: 4px;
+  border: 1px solid #000;
+}
 
 /*通用头部*/
 #head{
@@ -94,6 +101,7 @@ $font-h-color:#34acd8; //默认hover文字颜色
 
 /*主导航部分*/
 #nav{
+  min-width: 700px;
   height: 48px;
   border-bottom : 2px solid $border-color;}
 .main-nav{
@@ -144,12 +152,12 @@ $font-h-color:#34acd8; //默认hover文字颜色
       margin-bottom: 10px;
       height: 40px;
       line-height: 40px;
-      font-size: 16px;
       color: $font-n-color;
       @extend  %trans-all;
       input{
         background: transparent;
         font-size: 16px;
+        font-weight: bold;
         color: $font-n-color;
         font-family: "Microsoft Yahei";
       }
@@ -162,7 +170,9 @@ $font-h-color:#34acd8; //默认hover文字颜色
     .aside-nav-nth1{
       height: 60px;
       font-size: 20px;
+      font-weight: bold;
       line-height: 60px;
+      color: $font-n-color;
       background: #ffffff;}
     .active{
       background: #ffffff;}
@@ -172,7 +182,9 @@ $font-h-color:#34acd8; //默认hover文字颜色
 .org-right-con{
   margin: 0 auto;
   width: 98%;
-  border: 1px solid $border-color;}
+  min-width: 950px;
+  border: 1px solid $border-color;
+  overflow: hidden;}
 .org-right-btns{
   height: 70px;
     .area-btn {
@@ -180,3 +192,61 @@ $font-h-color:#34acd8; //默认hover文字颜色
       margin: 20px 0 0 40px;
     }
 }
+.org-right-tree{
+  margin-top: 25px;
+  width: 225px;
+  float: left;
+  border-right: 1px dashed $border-color;
+  min-height: 400px;}
+.org-right-info{
+  margin: 25px 0 0 10px;
+  float: left;
+  width: 700px;
+  border: 1px solid $border-color;
+    h3{
+      padding-left: 15px;
+      height: 30px;
+      line-height: 30px;
+      border-bottom: 1px solid $border-color;}
+    .info-left{
+      margin-top: 20px;
+      width: 350px;
+      float: left;
+      }
+    .info-right{
+      @extend .info-left;
+    }
+    label{
+      float: left;
+      margin: 20px 15px 0 0;
+      width: 100px;
+      text-align: right;}
+    em{
+      width: 350px;
+      display: block;}
+    .lab-ckbox{
+      width: 30px;
+      margin-right: 46px;
+      float: right;}
+    .info-bottom{
+      float: left;
+      margin: 40px 20px 0 20px;
+      width: 660px;
+      height: 50px;
+      border-top: 1px dashed $border-color;
+        em{
+          padding-left: 30px;
+          width: 300px;
+          height: 50px;
+          line-height: 50px;
+          float: left;}
+    }
+}
+
+.input-org-info {
+  margin-top: 15px;
+  @extend %input-t;
+}
+.min-w{
+  width: 60px;
+  margin-right: 5px;}

@@ -54,7 +54,39 @@
                         <button class="area-btn">下移</button>
                     </form>
                 </div>
-
+                <div class="org-right-tree">
+                    <!-- 容器 -->
+                    <div id="J_Tree"></div>
+                    <!-- 结果收集、设置回显数据 -->
+                    <input type="hidden" id="J_TreeResult" value='{"id":"291"}'>
+                </div>
+                <div class="org-right-info">
+                    <h3>组织机构信息</h3>
+                    <div class="info-left cf">
+                        <label for="org">组织机构名称</label><input type="text" name="" id="org" class="input-org-info"/>
+                        <label for="linkman">联系人</label><input type="text" name="" id="linkman" class="input-org-info"/>
+                        <label for="address">办公地址</label><input type="text" name="" id="address" class="input-org-info"/>
+                        <label for="contract-number">合同编号</label><input type="text" name="" id="contract-number" class="input-org-info"/>
+                    </div>
+                    <div class="info-right cf">
+                        <label for="org-s">上级组织机构</label><input type="text" name="" id="org-s" class="input-org-info"/>
+                        <label for="phone">联系电话</label><input type="text" name="" id="phone" class="input-org-info"/>
+                        <label for="address">业务范围</label><input type="text" name="" id="address" class="input-org-info"/>
+                        <em>
+                            <label for="date">授权日期</label><input type="text" name="" id="date" class="input-org-info min-w"/>
+                            <input type="text" name="" id="date" class="input-org-info min-w"/>
+                            <input type="checkbox" name="" id="forver" class="org-input-c"/><label class="lab-ckbox" for="forver">永久</label>
+                        </em>
+                    </div>
+                    <div class="info-bottom">
+                        <em>
+                            所属渠道商总数：
+                        </em>
+                        <em>
+                            加油站总数：
+                        </em>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
