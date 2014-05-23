@@ -119,12 +119,24 @@ body, h1, h2, h3, h4, h5, h6, hr, p, blockquote, dl, dt, dd, ul, ol, li, pre, fo
 .bk30 {
   height: 30px; }
 
-a {
+a, .main-nav li, .aside-nav li {
   -webkit-transition: all .3s ease-in-out 0s;
   -moz-transition: all .3s ease-in-out 0s;
   -ms-transition: all .3s ease-in-out 0s;
   -o-transition: all .3s ease-in-out 0s;
   transition: all .3s ease-in-out 0s; }
+
+.org-right-btns .area-btn {
+  padding: 6px 28px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.6);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.25);
+  text-shadow: 0 -1px 1px rgba(0, 0, 0, 0.25);
+  border-radius: 5px;
+  font-size: 16px;
+  font-family: 'Microsoft Yahei';
+  color: #ffffff;
+  background: #34acd8;
+  cursor: pointer; }
 
 /*通用头部*/
 #head {
@@ -231,6 +243,7 @@ a {
     float: right;
     width: 100%; }
     #container .right .right-con {
+      padding-top: 20px;
       margin-left: 200px;
       border-left: 1px solid #cccccc;
       min-height: 500px;
@@ -241,6 +254,7 @@ a {
   width: 100%;
   text-align: center; }
   .aside-nav li {
+    margin-bottom: 10px;
     height: 40px;
     line-height: 40px;
     font-size: 16px;
@@ -252,10 +266,25 @@ a {
       font-family: "Microsoft Yahei"; }
     .aside-nav li:hover {
       background: #ffffff; }
+      .aside-nav li:hover input {
+        color: #34acd8; }
   .aside-nav .aside-nav-nth1 {
     height: 60px;
     font-size: 20px;
     line-height: 60px;
     background: #ffffff; }
+  .aside-nav .active {
+    background: #ffffff; }
+
+/*系统设置右边内容部分*/
+.org-right-con {
+  margin: 0 auto;
+  width: 98%;
+  border: 1px solid #cccccc; }
+
+.org-right-btns {
+  height: 70px; }
+  .org-right-btns .area-btn {
+    margin: 20px 0 0 40px; }
 
 /*# sourceMappingURL=configuration.css.map */

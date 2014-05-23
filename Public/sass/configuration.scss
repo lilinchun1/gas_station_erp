@@ -3,7 +3,19 @@
 
 $border-color:#ccc; //通用边框颜色
 $container-left-width:200px;  //container 左边栏宽度
-$font-n-color:#333;
+$font-n-color:#333; //默认文字颜色
+$font-h-color:#34acd8; //默认hover文字颜色
+%edit-btn{
+  padding: 6px 28px;
+  box-shadow: 0 1px 3px rgba(0,0,0,.6);
+  border-bottom: 1px solid rgba(0,0,0,.25);
+  text-shadow: 0 -1px 1px rgba(0,0,0,.25);
+  border-radius: 5px;
+  font-size: 16px;
+  font-family: 'Microsoft Yahei';
+  color: #ffffff;
+  background: $font-h-color;
+  cursor: pointer;}
 
 /*通用头部*/
 #head{
@@ -87,6 +99,7 @@ $font-n-color:#333;
 .main-nav{
   line-height: 40px;
     li{
+      @extend  %trans-all;
       padding: 0 30px;
       margin-top: 4px;
       height: 40px;
@@ -115,6 +128,7 @@ $font-n-color:#333;
     float: right;
     width: 100%;
       .right-con{
+        padding-top:20px;
         margin-left: $container-left-width;
         border-left: 1px solid $border-color;
         min-height: 500px;
@@ -127,10 +141,12 @@ $font-n-color:#333;
   width: 100%;
   text-align: center;
     li{
+      margin-bottom: 10px;
       height: 40px;
       line-height: 40px;
       font-size: 16px;
       color: $font-n-color;
+      @extend  %trans-all;
       input{
         background: transparent;
         font-size: 16px;
@@ -138,11 +154,29 @@ $font-n-color:#333;
         font-family: "Microsoft Yahei";
       }
       &:hover{
-        background: #ffffff;}
+        background: #ffffff;
+          input{
+            color: $font-h-color;}
+      }
     }
     .aside-nav-nth1{
       height: 60px;
       font-size: 20px;
       line-height: 60px;
       background: #ffffff;}
+    .active{
+      background: #ffffff;}
+}
+
+/*系统设置右边内容部分*/
+.org-right-con{
+  margin: 0 auto;
+  width: 98%;
+  border: 1px solid $border-color;}
+.org-right-btns{
+  height: 70px;
+    .area-btn {
+      @extend %edit-btn;
+      margin: 20px 0 0 40px;
+    }
 }
