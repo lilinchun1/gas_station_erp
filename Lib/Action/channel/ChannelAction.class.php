@@ -6,7 +6,7 @@ foreach ($_GET as $k=>$v) {
 //渠道商类
 class ChannelAction extends CommonAction {
 	public function index(){
-		$userinfo = getUserInfo();
+		/*$userinfo = getUserInfo();
 		$this->is_channel_user = in_array("渠道部", $userinfo['group']); //等于1为渠道部用户
 		$this->agentsid = $userinfo['agentsid']; //agentsid为空则为总公司
 		$this->username = $userinfo['username']; //登录的用户名
@@ -14,8 +14,8 @@ class ChannelAction extends CommonAction {
 		$first_channel_type = getAllChannelType();
 		$all_agent = getAllAgent();
 		$this->assign('first_channel_type', $first_channel_type);
-		$this->assign('all_agent', $all_agent);
-		$this->display('channel:channel_index');
+		$this->assign('all_agent', $all_agent);*/
+		$this->display(':channel_index');
 	}
 
 	public function getAllAgent(){

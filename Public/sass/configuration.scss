@@ -1,0 +1,120 @@
+@charset "UTF-8";
+@import "reset";
+
+$border-color:#000; //通用边框颜色
+$container-left-width:200px;  //container 左边栏宽度
+
+/*通用头部*/
+#head{
+  min-width: 930px;
+  height: 120px;
+  background: #00bcff;
+  border-bottom: 2px solid $border-color;}
+.head-logo{
+  margin: 15px 0 0 15px;
+  float: left;
+  width: 120px;
+  height: 70px;
+  background: #fff url(../../Public/image/1.jpg) 0 0 no-repeat;
+    a{
+      height: 100%;
+      display: block;
+      text-indent: -9999em;}
+}
+.head-tt {
+  padding-left: 20%;
+  margin-top: 40px;
+  float: left;
+  text-align: center;
+  font-size: 24px;
+  color: #ffffff;
+  font-weight: normal; }
+
+#head{
+  .login{
+    width:280px;
+    height: 100%;
+    float: right;
+    .left {
+      width: 100px;
+      float: left;
+      overflow: hidden; }
+    .right{
+      margin: 10px 0 0 5px;
+      float: left;
+      border-left: 2px solid #000;
+      a{
+        padding-left: 5px;
+        font-size: 16px;
+        line-height: 24px;}
+    }
+  }
+}
+
+
+  .left-nav{
+    margin-top: 10px;
+    li {
+      font-size: 16px;
+      line-height: 24px;
+      span{
+        margin-top: 8px;
+        float: right;
+        width: 0;
+        height: 0;
+        border: 6px solid transparent;
+        border-top: 6px solid #000;
+        display: block;}
+      ul{
+        display: none;}
+      &:hover{ background: #ffffff;
+        ul{
+          display: block;}
+      }
+    }
+  }
+
+/*通用底部*/
+#footer{
+  height: 200px;
+  background: #00bcff;}
+
+/*主导航部分*/
+#nav{
+  height: 48px;
+  border-bottom : 2px solid $border-color;}
+.main-nav{
+  line-height: 40px;
+    li{
+      padding: 0 30px;
+      margin-top: 4px;
+      height: 40px;
+      float: left;
+      border-right: 2px solid $border-color;
+      &:hover{ background: #cccccc;}
+        a{
+          font-size: 16px;
+          font-weight: bold;}
+    }
+  .active{ background: #cccccc;}
+}
+
+/*系统设置-container*/
+#container {
+  margin: 0 auto;
+  overflow: hidden;
+  min-width: 860px;
+  .left {
+    position: relative;
+    float: left;
+    margin-right: -$container-left-width;
+    width: $container-left-width;}
+  .right{
+    float: right;
+    width: 100%;
+      .right-con{
+        margin-left: $container-left-width;
+        border-left: 1px solid  $border-color;}
+  }
+}
+

@@ -3,9 +3,87 @@
 <head>
     <meta charset="UTF-8">
     <title>Document</title>
-    <link rel="stylesheet" href="../../Public/css/channel.css"/>
+    <link rel="stylesheet" href="../../Public/css/configuration.css"/>
 </head>
 <body>
+<div id="head">
+    <h1 class="head-logo"><a href="index.html">ERP管理系统</a></h1>
+    <h2 class="head-tt">智能手机加油站ERP管理系统</h2>
+    <div class="login">
+        <div class="left">
+            <ul class="left-nav">
+                <li>赵洋,您好 <span></span>
+                    <ul>
+                        <li><a href="">修改密码</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+        <div class="right">
+            <a href="">推出系统</a>
+        </div>
+    </div>
+</div>
+<div id="nav">
+    <ul class="main-nav">
+        <li><a href="">资源管理</a></li>
+        <li><a href="">渠道管理</a></li>
+        <li><a href="">运维管理</a></li>
+        <li><a href="">报表分析</a></li>
+        <li class="active"><a href="">系统设置</a></li>
+    </ul>
+</div>
+<div id="container">
+    <div class="left">
+        <ul class="aside-nav">
+            <li class="aside-nav-nth1"><a href="">权限管理</a></li>
+            <li><a href="{:U('Area/index')}"><INPUT  type="button" class="" value="区域维护" ></a></li>
+            <li><a href="{:U('Org/index')}"><INPUT  type="button" class="active" value="组织结构" ></a></li>
+            <li><a href="{:U('Role/index')}"><INPUT type="button" class="" value="角色维护" ></a></li>
+            <li><a href="{:U('User/index')}"><INPUT type="button" class="" value="职员维护" ></a></li>
+        </ul>
+    </div>
+    <div class="right">
+        <div class="right-con">
+            <div class="area-maintaining">
+                <div class="area-maintaining-btns">
+                    <form action="">
+                        <button class="area-btn">新增</button>
+                        <button class="area-btn">编辑</button>
+                        <button class="area-btn">删除</button>
+                        <button class="area-btn">上移</button>
+                        <button class="area-btn">下移</button>
+                    </form>
+                </div>
+                <div class="area-con">
+                    <ul class="area-con-list">
+                        <li><a href="">总公司</a>
+                            <ul>
+                                <li><a href="">分公司1</a></li>
+                                <li><a href="">分公司2</a></li>
+                                <li><a href="">分公司3</a>
+                                    <ul>
+                                        <li><a href="">大连分公司</a>
+                                            <ul>
+                                                <li><a href="">大连渠道a</a></li>
+                                                <li><a href="">大连渠道b</a></li>
+                                                <li><a href="">大连渠道c</a></li>
+                                            </ul>
+                                        </li>
+                                        <li><a href="">沈阳分公司</a></li>
+                                        <li><a href="">鞍山分公司</a></li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="footer">
 
+</div>
 </body>
 </html>

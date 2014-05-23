@@ -1,9 +1,4 @@
 <?php
-function p($array)
-{
-	dump($array, true, 'pre', 0);
-}
-
 //根据用户ID返回用户信息
 function getUserInfo($uid='') {
 	$userinfo = null;

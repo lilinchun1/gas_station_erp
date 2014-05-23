@@ -1,6 +1,6 @@
 {
 "version": 3,
-"mappings": "AAAA,IAAI;EACF,KAAK,EAAE,KAAK;EACZ,MAAM,EAAE,MAAM;EACd,MAAM,EAAE,cAAc;EACtB,UAAU,EAAE,OAAO",
+"mappings": "AAAA,IAAI;EACF,KAAK,EAAE,KAAK;EACZ,MAAM,EAAE,KAAK;EACb,MAAM,EAAE,eAAe;EACvB,UAAU,EAAE,yDAAyD",
 "sources": ["../sass/channel.scss"],
 "names": [],
 "file": "channel.css"

@@ -6,14 +6,14 @@ foreach ($_GET as $k=>$v) {
 //设备类
 class DeviceAction extends CommonAction {
 	public function index(){
-		$userinfo = getUserInfo();
+		/*$userinfo = getUserInfo();
 		$this->is_channel_user = in_array("渠道部", $userinfo['group']); //等于1为渠道部用户
 		$this->agentsid = $userinfo['agentsid']; //agentsid为空则为总公司
 		$this->username = $userinfo['username']; //登录的用户名
 		$this->is_have_user_purview = in_array($userinfo['grade'], array(1,2,3));
 		$first_place_type = getAllChannelType();
-		$this->assign('first_place_type', $first_place_type);
-		$this->display('channel:device_index');
+		$this->assign('first_place_type', $first_place_type);*/
+		$this->display(':device_index');
 	}
 
 	//查询设备信息
