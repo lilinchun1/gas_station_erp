@@ -131,7 +131,7 @@ a {
   min-width: 930px;
   height: 120px;
   background: #00bcff;
-  border-bottom: 2px solid black; }
+  border-bottom: 2px solid #cccccc; }
 
 .head-logo {
   margin: 15px 0 0 15px;
@@ -164,7 +164,7 @@ a {
   #head .login .right {
     margin: 10px 0 0 5px;
     float: left;
-    border-left: 2px solid #000; }
+    border-left: 2px solid #cccccc; }
     #head .login .right a {
       padding-left: 5px;
       font-size: 16px;
@@ -181,7 +181,7 @@ a {
       width: 0;
       height: 0;
       border: 6px solid transparent;
-      border-top: 6px solid #000;
+      border-top: 6px solid #cccccc;
       display: block; }
     .left-nav li ul {
       display: none; }
@@ -198,7 +198,7 @@ a {
 /*主导航部分*/
 #nav {
   height: 48px;
-  border-bottom: 2px solid black; }
+  border-bottom: 2px solid #cccccc; }
 
 .main-nav {
   line-height: 40px; }
@@ -207,7 +207,7 @@ a {
     margin-top: 4px;
     height: 40px;
     float: left;
-    border-right: 2px solid black; }
+    border-right: 2px solid #cccccc; }
     .main-nav li:hover {
       background: #cccccc; }
     .main-nav li a {
@@ -220,7 +220,8 @@ a {
 #container {
   margin: 0 auto;
   overflow: hidden;
-  min-width: 860px; }
+  min-width: 860px;
+  background: #f4f8f9; }
   #container .left {
     position: relative;
     float: left;
@@ -231,6 +232,30 @@ a {
     width: 100%; }
     #container .right .right-con {
       margin-left: 200px;
-      border-left: 1px solid black; }
+      border-left: 1px solid #cccccc;
+      min-height: 500px;
+      background: #ffffff; }
+
+/*系统设置左边导航栏*/
+.aside-nav {
+  width: 100%;
+  text-align: center; }
+  .aside-nav li {
+    height: 40px;
+    line-height: 40px;
+    font-size: 16px;
+    color: #333333; }
+    .aside-nav li input {
+      background: transparent;
+      font-size: 16px;
+      color: #333333;
+      font-family: "Microsoft Yahei"; }
+    .aside-nav li:hover {
+      background: #ffffff; }
+  .aside-nav .aside-nav-nth1 {
+    height: 60px;
+    font-size: 20px;
+    line-height: 60px;
+    background: #ffffff; }
 
 /*# sourceMappingURL=configuration.css.map */

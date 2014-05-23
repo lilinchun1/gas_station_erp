@@ -1,8 +1,9 @@
 @charset "UTF-8";
 @import "reset";
 
-$border-color:#000; //通用边框颜色
+$border-color:#ccc; //通用边框颜色
 $container-left-width:200px;  //container 左边栏宽度
+$font-n-color:#333;
 
 /*通用头部*/
 #head{
@@ -42,7 +43,7 @@ $container-left-width:200px;  //container 左边栏宽度
     .right{
       margin: 10px 0 0 5px;
       float: left;
-      border-left: 2px solid #000;
+      border-left: 2px solid $border-color;
       a{
         padding-left: 5px;
         font-size: 16px;
@@ -63,7 +64,7 @@ $container-left-width:200px;  //container 左边栏宽度
         width: 0;
         height: 0;
         border: 6px solid transparent;
-        border-top: 6px solid #000;
+        border-top: 6px solid  $border-color;
         display: block;}
       ul{
         display: none;}
@@ -104,6 +105,7 @@ $container-left-width:200px;  //container 左边栏宽度
   margin: 0 auto;
   overflow: hidden;
   min-width: 860px;
+  background: #f4f8f9;
   .left {
     position: relative;
     float: left;
@@ -114,7 +116,33 @@ $container-left-width:200px;  //container 左边栏宽度
     width: 100%;
       .right-con{
         margin-left: $container-left-width;
-        border-left: 1px solid  $border-color;}
+        border-left: 1px solid $border-color;
+        min-height: 500px;
+        background: #ffffff;}
   }
 }
 
+/*系统设置左边导航栏*/
+.aside-nav{
+  width: 100%;
+  text-align: center;
+    li{
+      height: 40px;
+      line-height: 40px;
+      font-size: 16px;
+      color: $font-n-color;
+      input{
+        background: transparent;
+        font-size: 16px;
+        color: $font-n-color;
+        font-family: "Microsoft Yahei";
+      }
+      &:hover{
+        background: #ffffff;}
+    }
+    .aside-nav-nth1{
+      height: 60px;
+      font-size: 20px;
+      line-height: 60px;
+      background: #ffffff;}
+}
