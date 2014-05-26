@@ -47,11 +47,11 @@
             <div class="org-right-con">
                 <div class="org-right-btns">
                     <form action="">
-                        <button class="area-btn">新增</button>
-                        <button class="area-btn">编辑</button>
-                        <button class="area-btn">删除</button>
-                        <button class="area-btn">上移</button>
-                        <button class="area-btn">下移</button>
+                        <button type="button" class="area-btn">新增</button>
+                        <button type="button" class="area-btn">编辑</button>
+                        <button type="button" class="area-btn">删除</button>
+                        <button type="button" class="area-btn">上移</button>
+                        <button type="button" class="area-btn">下移</button>
                     </form>
                 </div>
                 <div class="org-right-tree">
@@ -62,22 +62,24 @@
                 </div>
                 <div class="org-right-info">
                     <h3>组织机构信息</h3>
-                    <div class="info-left cf">
-                        <label for="org">组织机构名称</label><input type="text" name="" id="org" class="input-org-info"/>
-                        <label for="linkman">联系人</label><input type="text" name="" id="linkman" class="input-org-info"/>
-                        <label for="address">办公地址</label><input type="text" name="" id="address" class="input-org-info"/>
-                        <label for="contract-number">合同编号</label><input type="text" name="" id="contract-number" class="input-org-info"/>
-                    </div>
-                    <div class="info-right cf">
-                        <label for="org-s">上级组织机构</label><input type="text" name="" id="org-s" class="input-org-info"/>
-                        <label for="phone">联系电话</label><input type="text" name="" id="phone" class="input-org-info"/>
-                        <label for="address">业务范围</label><input type="text" name="" id="address" class="input-org-info"/>
-                        <em>
-                            <label for="date">授权日期</label><input type="text" name="" id="date" class="input-org-info min-w"/>
-                            <input type="text" name="" id="date" class="input-org-info min-w"/>
-                            <input type="checkbox" name="" id="forver" class="org-input-c"/><label class="lab-ckbox" for="forver">永久</label>
-                        </em>
-                    </div>
+                    <form action="">
+                        <div class="info-left cf">
+                            <label for="org">组织机构名称</label><input type="text" name="" id="org" class="input-org-info"/>
+                            <label for="linkman">联系人</label><input type="text" name="" id="linkman" class="input-org-info"/>
+                            <label for="address">办公地址</label><input type="text" name="" id="address" class="input-org-info"/>
+                            <label for="contract-number">合同编号</label><input type="text" name="" id="contract-number" class="input-org-info"/>
+                        </div>
+                        <div class="info-right cf">
+                            <label for="org-s">上级组织机构</label><input type="text" name="" id="org-s" class="input-org-info"/>
+                            <label for="phone">联系电话</label><input type="text" name="" id="phone" class="input-org-info"/>
+                            <label for="yw-are">业务范围</label><input type="text" name="" id="yw-are" class="input-org-info"/>
+                            <em>
+                                <label for="sq-date">授权日期</label><input type="text" name="" id="sq-date" class="input-org-info min-w"/>
+                                <input type="text" name="" id="date" class="input-org-info min-w"/>
+                                <input type="checkbox" name="" id="forver" class="org-input-c"/><label class="lab-ckbox" for="forver">永久</label>
+                            </em>
+                        </div>
+                    </form>
                     <div class="info-bottom">
                         <em>
                             所属渠道商总数：
@@ -93,6 +95,34 @@
 </div>
 <div id="footer">
 
+</div>
+<div class="alert-org-add">
+    <div class="org-right-info">
+        <h3>组织机构信息</h3>
+        <form action="">
+            <div class="info-left cf">
+                <label for="org">组织机构名称</label><input type="text" name="" id="org" class="input-org-info"/>
+                <label for="linkman">联系人</label><input type="text" name="" id="linkman" class="input-org-info"/>
+                <label for="address">办公地址</label><input type="text" name="" id="address" class="input-org-info"/>
+                <label for="contract-number">合同编号</label><input type="text" name="" id="contract-number" class="input-org-info"/>
+            </div>
+            <div class="info-right cf">
+                <label for="org-s">上级组织机构</label><input type="text" name="" id="org-s" class="input-org-info"/>
+                <label for="phone">联系电话</label><input type="text" name="" id="phone" class="input-org-info"/>
+                <label for="yw-are">业务范围</label><input type="text" name="" id="yw-are" class="input-org-info"/>
+                <em>
+                    <label for="sq-date">授权日期</label><input type="text" name="" id="sq-date" class="input-org-info min-w"/>
+                    <input type="text" name="" id="date" class="input-org-info min-w"/>
+                    <input type="checkbox" name="" id="forver" class="org-input-c"/><label class="lab-ckbox" for="forver">永久</label>
+                </em>
+            </div>
+        </form>
+        <div class="info-bottom">
+            <button type="button" class="alert-btn">保存</button>
+            <button type="button" class="alert-btn">关闭</button>
+        </div>
+    </div>
+</div>
 </div>
 </body>
 </html>

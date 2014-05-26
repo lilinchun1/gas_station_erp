@@ -15,7 +15,11 @@ $font-h-color:#34acd8; //默认hover文字颜色
   font-family: 'Microsoft Yahei';
   color: #ffffff;
   background: $font-h-color;
-  cursor: pointer;}
+  cursor: pointer;
+  @extend %trans-all;
+    &:hover{
+      background: #3dcdff;}
+}
 %input-t{   //输入框通用样式
   width: 160px;
   height: 24px;
@@ -113,12 +117,20 @@ $font-h-color:#34acd8; //默认hover文字颜色
       height: 40px;
       float: left;
       border-right: 2px solid $border-color;
-      &:hover{ background: #cccccc;}
+      &:hover{ background: #34ACD8;
+        a{
+          color: #ffffff;
+          @extend  %trans-all;
+        }
+      }
         a{
           font-size: 16px;
-          font-weight: bold;}
+          font-weight: bold;
+          }
     }
-  .active{ background: #cccccc;}
+  .active{ background: #34ACD8;
+      a{color: #ffffff;}
+  }
 }
 
 /*系统设置-container*/
@@ -207,7 +219,8 @@ $font-h-color:#34acd8; //默认hover文字颜色
       padding-left: 15px;
       height: 30px;
       line-height: 30px;
-      border-bottom: 1px solid $border-color;}
+      border-bottom: 1px solid $border-color;
+      background: #f4f8f9;}
     .info-left{
       margin-top: 20px;
       width: 350px;
@@ -250,3 +263,11 @@ $font-h-color:#34acd8; //默认hover文字颜色
 .min-w{
   width: 60px;
   margin-right: 5px;}
+
+.alert-btn{
+  padding: 3px 10px;
+  @extend %edit-btn;
+  font-size: 14px;
+  margin: 20px 0 0 160px;
+
+}

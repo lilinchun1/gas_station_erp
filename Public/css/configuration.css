@@ -119,14 +119,14 @@ body, h1, h2, h3, h4, h5, h6, hr, p, blockquote, dl, dt, dd, ul, ol, li, pre, fo
 .bk30 {
   height: 30px; }
 
-a, .main-nav li, .aside-nav li {
+a, .org-right-btns .area-btn, .alert-btn, .main-nav li, .main-nav li:hover a, .aside-nav li {
   -webkit-transition: all .3s ease-in-out 0s;
   -moz-transition: all .3s ease-in-out 0s;
   -ms-transition: all .3s ease-in-out 0s;
   -o-transition: all .3s ease-in-out 0s;
   transition: all .3s ease-in-out 0s; }
 
-.org-right-btns .area-btn {
+.org-right-btns .area-btn, .alert-btn {
   padding: 6px 28px;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.6);
   border-bottom: 1px solid rgba(0, 0, 0, 0.25);
@@ -137,6 +137,8 @@ a, .main-nav li, .aside-nav li {
   color: #ffffff;
   background: #34acd8;
   cursor: pointer; }
+  .org-right-btns .area-btn:hover, .alert-btn:hover {
+    background: #3dcdff; }
 
 .input-org-info {
   width: 160px;
@@ -229,12 +231,16 @@ a, .main-nav li, .aside-nav li {
     float: left;
     border-right: 2px solid #cccccc; }
     .main-nav li:hover {
-      background: #cccccc; }
+      background: #34ACD8; }
+      .main-nav li:hover a {
+        color: #ffffff; }
     .main-nav li a {
       font-size: 16px;
       font-weight: bold; }
   .main-nav .active {
-    background: #cccccc; }
+    background: #34ACD8; }
+    .main-nav .active a {
+      color: #ffffff; }
 
 /*系统设置-container*/
 #container {
@@ -315,7 +321,8 @@ a, .main-nav li, .aside-nav li {
     padding-left: 15px;
     height: 30px;
     line-height: 30px;
-    border-bottom: 1px solid #cccccc; }
+    border-bottom: 1px solid #cccccc;
+    background: #f4f8f9; }
   .org-right-info .info-left, .org-right-info .info-right {
     margin-top: 20px;
     width: 350px;
@@ -351,5 +358,10 @@ a, .main-nav li, .aside-nav li {
 .min-w {
   width: 60px;
   margin-right: 5px; }
+
+.alert-btn {
+  padding: 3px 10px;
+  font-size: 14px;
+  margin: 20px 0 0 160px; }
 
 /*# sourceMappingURL=configuration.css.map */
