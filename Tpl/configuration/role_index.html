@@ -144,7 +144,7 @@
 
 </div>
 <div class="alert-role-add">
-    <h3>角色信息</h3>
+    <h3>添加角色信息</h3>
     <div class="alert-role-add-con">
         <form action="">
             <p>
@@ -156,10 +156,53 @@
                 <textarea name="" id="role-textarea" cols="30" rows="3" class="role-teatarea"></textarea>
             </p>
             <p>
+                <label for="">设置权限</label>
+                <!-- 容器 -->
+                <div id="J_Tree"></div>
+                <!-- 结果收集、设置回显数据 -->
+                <input type="hidden" id="J_TreeResult" value='{"id":"291"}'>
+            </p>
+            <p>
                 <button type="button" class="alert-btn2">保存</button>
                 <button type="button" class="alert-btn2">关闭</button>
             </p>
         </form>
+    </div>
+</div>
+<div class="alert-role-add">
+    <h3>编辑角色信息</h3>
+    <div class="alert-role-add-con">
+        <form action="">
+            <p>
+                <label for="role-addname" class="role-lab">角色名称</label>
+                <input type="text" name="addname" id="role-addname" class="input-role-name"/>
+            </p>
+            <p>
+                <label for="role-textarea" class="role-lab">角色名称</label>
+                <textarea name="" id="role-textarea" cols="30" rows="3" class="role-teatarea"></textarea>
+            </p>
+            <p>
+                <label for="">设置权限</label>
+                <!-- 容器 -->
+            <div id="J_Tree"></div>
+            <!-- 结果收集、设置回显数据 -->
+            <input type="hidden" id="J_TreeResult" value='{"id":"291"}'>
+            </p>
+            <p>
+                <button type="button" class="alert-btn2">保存</button>
+                <button type="button" class="alert-btn2">关闭</button>
+            </p>
+        </form>
+    </div>
+</div>
+<div class="alert-role-add">
+    <h3>角色信息</h3>
+    <div class="alert-role-add-con">
+        <p class="delete-message">请确认是否删除？</p>
+        <p>
+            <button type="button" class="alert-btn2">保存</button>
+            <button type="button" class="alert-btn2">关闭</button>
+        </p>
     </div>
 </div>
 </body>

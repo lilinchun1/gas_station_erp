@@ -427,4 +427,8 @@ a, .alert-btn, .role-control-btn, .alert-btn2, .org-right-btns .area-btn, .main-
 .alert-btn2 {
   margin: 20px 0 0 60px; }
 
+.delete-message {
+  margin-top: 40px;
+  margin-left: 100px; }
+
 /*# sourceMappingURL=configuration.css.map */
