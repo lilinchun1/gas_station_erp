@@ -1,3 +1,166 @@
-<a href="{:U('Org/index')}"><INPUT  type="button" class="" value="组织结构" ></a>
-<a href="{:U('Role/index')}"><INPUT type="button" class="" value="角色维护" ></a>
-<a href="{:U('User/index')}"><INPUT type="button" class="" value="职员维护" ></a>
+<!doctype html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <link rel="stylesheet" href="../../Public/css/configuration.css"/>
+</head>
+<body>
+<div id="head">
+    <h1 class="head-logo"><a href="index.html">ERP管理系统</a></h1>
+    <h2 class="head-tt">智能手机加油站ERP管理系统</h2>
+    <div class="login">
+        <div class="left">
+            <ul class="left-nav">
+                <li>赵洋,您好 <span></span>
+                    <ul>
+                        <li><a href="">修改密码</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+        <div class="right">
+            <a href="">推出系统</a>
+        </div>
+    </div>
+</div>
+<div id="nav">
+    <ul class="main-nav">
+        <li><a href="">资源管理</a></li>
+        <li><a href="">渠道管理</a></li>
+        <li><a href="">运维管理</a></li>
+        <li><a href="">报表分析</a></li>
+        <li class="active"><a href="">系统设置</a></li>
+    </ul>
+</div>
+<div id="container">
+    <div class="left">
+        <ul class="aside-nav">
+            <li class="aside-nav-nth1"><a href="">系统设置</a></li>
+            <li><a href="{:U('Org/index')}"><input  type="button"  value="组织结构" ></a></li>
+            <li class="active"><a href="{:U('Role/index')}"><input type="button" class="" value="角色维护" ></a></li>
+            <li><a href="{:U('User/index')}"><input type="button" class="" value="职员维护" ></a></li>
+        </ul>
+    </div>
+    <div class="right">
+        <div class="right-con">
+            <div class="org-right-con">
+                <div class="role-control">
+                    <div class="role-inquire">
+                        <form action="">
+                            <label for="role-name" class="role-lab">角色名称</label>
+                            <input type="text" name="" id="role-name" class="input-org-info"/>
+                            <button type="button" class="role-control-btn">添加</button>
+                        </form>
+                    </div>
+                    <div class="org-right-btns">
+                        <form action="">
+                            <button type="button" class="area-btn">添加</button>
+                            <button type="button" class="area-btn">编辑</button>
+                            <button type="button" class="area-btn">删除</button>
+                            <button type="button" class="area-btn">查看权限</button>
+                        </form>
+                    </div>
+                </div>
+                <div class="role-table">
+                    <ul class="role-table-list">
+                        <li>
+                            <span></span>
+                            <span><b>角色名称</b></span>
+                            <span><b>角色描述</b></span>
+                            <span><b>创建人</b></span>
+                            <span><b>创建日期</b></span>
+                        </li>
+                        <li>
+                            <span><input type="radio" name="role-info" id="" class="role-table-radio"/></span>
+                            <span>22222222222</span>
+                            <span>33333333333</span>
+                            <span>44444444444</span>
+                            <span>55555555555</span>
+                        </li>
+                        <li>
+                            <span><input type="radio" name="role-info" id="" class="role-table-radio"/></span>
+                            <span>22222222222</span>
+                            <span>33333333333</span>
+                            <span>44444444444</span>
+                            <span>55555555555</span>
+                        </li>
+                        <li>
+                            <span><input type="radio" name="role-info" id="" class="role-table-radio"/></span>
+                            <span>22222222222</span>
+                            <span>33333333333</span>
+                            <span>44444444444</span>
+                            <span>55555555555</span>
+                        </li>
+                        <li>
+                            <span><input type="radio" name="role-info" id="" class="role-table-radio"/></span>
+                            <span>22222222222</span>
+                            <span>33333333333</span>
+                            <span>44444444444</span>
+                            <span>55555555555</span>
+                        </li>
+                        <li>
+                            <span><input type="radio" name="role-info" id="" class="role-table-radio"/></span>
+                            <span>22222222222</span>
+                            <span>33333333333</span>
+                            <span>44444444444</span>
+                            <span>55555555555</span>
+                        </li>
+                        <li>
+                            <span><input type="radio" name="role-info" id="" class="role-table-radio"/></span>
+                            <span>22222222222</span>
+                            <span>33333333333</span>
+                            <span>44444444444</span>
+                            <span>55555555555</span>
+                        </li>
+                        <li>
+                            <span><input type="radio" name="role-info" id="" class="role-table-radio"/></span>
+                            <span>22222222222</span>
+                            <span>33333333333</span>
+                            <span>44444444444</span>
+                            <span>55555555555</span>
+                        </li>
+                        <li>
+                            <span><input type="radio" name="role-info" id="" class="role-table-radio"/></span>
+                            <span>22222222222</span>
+                            <span>33333333333</span>
+                            <span>44444444444</span>
+                            <span>55555555555</span>
+                        </li>
+                        <li>
+                            <span><input type="radio" name="role-info" id="" class="role-table-radio"/></span>
+                            <span>22222222222</span>
+                            <span>33333333333</span>
+                            <span>44444444444</span>
+                            <span>55555555555</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="footer">
+
+</div>
+<div class="alert-role-add">
+    <h3>角色信息</h3>
+    <div class="alert-role-add-con">
+        <form action="">
+            <p>
+                <label for="role-addname" class="role-lab">角色名称</label>
+                <input type="text" name="addname" id="role-addname" class="input-role-name"/>
+            </p>
+            <p>
+                <label for="role-textarea" class="role-lab">角色名称</label>
+                <textarea name="" id="role-textarea" cols="30" rows="3" class="role-teatarea"></textarea>
+            </p>
+            <p>
+                <button type="button" class="alert-btn2">保存</button>
+                <button type="button" class="alert-btn2">关闭</button>
+            </p>
+        </form>
+    </div>
+</div>
+</body>
+</html>

@@ -5,6 +5,7 @@ $border-color:#ccc; //通用边框颜色
 $container-left-width:200px;  //container 左边栏宽度
 $font-n-color:#333; //默认文字颜色
 $font-h-color:#34acd8; //默认hover文字颜色
+$bg-color:#F4F8F9;
 %edit-btn{  //通用按钮样式
   padding: 6px 28px;
   box-shadow: 0 1px 3px rgba(0,0,0,.6);
@@ -20,13 +21,33 @@ $font-h-color:#34acd8; //默认hover文字颜色
     &:hover{
       background: #3dcdff;}
 }
+%small-btn{   //通用小按钮样式
+    padding: 2px 10px;
+    @extend %edit-btn;
+    font-size: 14px;
+
+}
+
 %input-t{   //输入框通用样式
   width: 160px;
   height: 24px;
   line-height: 24px;
   text-indent: 4px;
-  border: 1px solid #000;
+  border: 1px solid #999;
+  box-shadow: 0 1px 4px #CFCFCF inset;
 }
+%input-textarea{   // 文本框通用样式
+  line-height: 24px;
+  text-indent: 4px;
+  border: 1px solid #999;
+  box-shadow: 0 1px 4px #CFCFCF inset;
+}
+%alert-box-tt{    //通用弹出框标题
+  padding-left: 15px;
+  height: 30px;
+  line-height: 30px;
+  border-bottom: 1px solid $border-color;
+  background: $bg-color;}
 
 /*通用头部*/
 #head{
@@ -107,6 +128,7 @@ $font-h-color:#34acd8; //默认hover文字颜色
 #nav{
   min-width: 700px;
   height: 48px;
+  background: $bg-color;
   border-bottom : 2px solid $border-color;}
 .main-nav{
   line-height: 40px;
@@ -138,7 +160,7 @@ $font-h-color:#34acd8; //默认hover文字颜色
   margin: 0 auto;
   overflow: hidden;
   min-width: 860px;
-  background: #f4f8f9;
+  background: $bg-color;
   .left {
     position: relative;
     float: left;
@@ -192,6 +214,7 @@ $font-h-color:#34acd8; //默认hover文字颜色
 
 /*系统设置右边内容部分*/
 .org-right-con{
+  padding-bottom: 30px;
   margin: 0 auto;
   width: 98%;
   min-width: 950px;
@@ -216,11 +239,8 @@ $font-h-color:#34acd8; //默认hover文字颜色
   width: 700px;
   border: 1px solid $border-color;
     h3{
-      padding-left: 15px;
-      height: 30px;
-      line-height: 30px;
-      border-bottom: 1px solid $border-color;
-      background: #f4f8f9;}
+      @extend %alert-box-tt;
+    }
     .info-left{
       margin-top: 20px;
       width: 350px;
@@ -265,9 +285,70 @@ $font-h-color:#34acd8; //默认hover文字颜色
   margin-right: 5px;}
 
 .alert-btn{
-  padding: 3px 10px;
-  @extend %edit-btn;
-  font-size: 14px;
+  @extend %small-btn;
   margin: 20px 0 0 160px;
+}
 
+/*角色维护页面*/
+.role-control{
+  padding: 20px 0;
+  width: 98%;
+  border-bottom: 1px dashed $border-color;
+    label{
+      padding:0 20px 0 40px;}
+}
+.role-control-btn {
+  margin-left: 10px;
+  @extend %small-btn;
+}
+.role-table{
+  padding-top: 20px;
+}
+.role-table-list{
+  width: 98%;
+  margin: 0 auto;
+  border: 1px solid $border-color;
+  display: table;
+    li{
+      height: 25px;
+      display: table-row;
+        span{
+          height: 25px;
+          display: table-cell;
+          line-height: 25px;
+        }
+      &:nth-child(2n){
+        background: $bg-color;}
+
+    }
+}
+.role-table-radio {
+  margin: 8px 0 0 20px;
+}
+.alert-role-add{
+  width: 500px;
+  border: 1px solid #000;
+    h3{
+      @extend %alert-box-tt;}
+}
+.alert-role-add-con{
+  margin-left: 100px;
+  padding-bottom: 30px;
+    label{
+      padding-right: 20px;
+      float: left;
+    }
+    p{
+      padding: 20px 0 0 0;
+    }
+}
+.role-teatarea{
+  width: 160px;
+  @extend %input-textarea;}
+.input-role-name{
+  @extend %input-t;
+}
+.alert-btn2{
+  @extend %small-btn;
+  margin: 20px 0 0 60px;
 }

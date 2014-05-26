@@ -10,12 +10,51 @@ class OrgAction extends CommonAction {
 		$this->display(':org_index');
 	}
 
+	//树形结构测试
+	public function tree_test(){
+		$this->display(':tree_test');
+	}
+
+	//导入区域数据
+	public function export_area(){
+		$Model = new Model();
+		$province = M("province");
+		$city = M("city");
+		$area = M("area");
+		$province_info = $Model->query("select * from bi_province");
+		$city_info = $Model->query("select * from bi_city");
+		foreach($province_info as $p_key=>$p_val){
+			$data['area_name'] = $p_val['prov_name'];
+			$data['pid'] = 0;
+			$is_set = $area->add($data);
+		}
+		foreach($city_info as $key=>$val){
+			$data['area_name'] = $val['city_name'];
+			$data['pid'] = $val['prov_id'];
+			$is_set = $area->add($data);
+		}
+	}
+
 	//展示组织结构
 	public function show_org(){
 		$Model = new Model();
 		$company = M("company");
 		$company_info = $Model->query("select * from bi_company");
 		$this->ajaxReturn($company_info, 'json');
+	}
+
+	//展示区域树形结构
+	public function show_area_tree(){
+		$Model = new Model();
+		$area_info = $Model->query("select * from bi_area");
+		$data = null;
+		foreach($area_info as $key=>$val){
+			$data[$key]['id'] = $val['area_id'];
+			$data[$key]['value'] = $val['area_name'];
+			$data[$key]['parent'] = $val['pid'];
+		}
+		
+		$this->ajaxReturn($data, 'json');
 	}
 
 	//添加组织结构
