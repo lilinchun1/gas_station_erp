@@ -36,11 +36,17 @@ class OrgAction extends CommonAction {
 	}
 
 	//展示组织结构
-	public function show_org(){
+	public function show_org_tree(){
 		$Model = new Model();
-		$company = M("company");
-		$company_info = $Model->query("select * from bi_company");
-		$this->ajaxReturn($company_info, 'json');
+		$company_info = $Model->query("select * from qd_agent");
+		$data = null;
+		foreach($company_info as $key=>$val){
+			$data[$key]['id'] = $val['agent_id'];
+			$data[$key]['value'] = $val['agent_name'];
+			$data[$key]['parent'] = $val['father_agentid'];
+		}
+		
+		$this->ajaxReturn($data, 'json');
 	}
 
 	//展示区域树形结构
@@ -59,15 +65,76 @@ class OrgAction extends CommonAction {
 
 	//添加组织结构
 	public function add_org(){
-		$name = trim(I('add_org_name_txt'));
+		$agent_name = trim(I('add_agent_name_txt'));
+		$companyAddr = trim(I('add_companyAddr_txt'));
+		$agent_type = trim(I('add_agent_type_sel'));
+		$contract_number = trim(I('add_contract_number_txt'));
 		$legal = trim(I('add_legal_txt'));
-		$msg =	C('add_org_success');
-		$Model = new Model();
-		$company = M("company");
+		$tel = trim(I('add_tel_txt'));
+		$legal_tel = trim(I('add_legal_tel_txt'));
+		$agent_level = trim(I('add_agent_level_sel'));
+		$father_agentid = trim(I('add_father_agentid_sel'));
+		$begin_time = strtotime(trim(I('add_begin_time_sel')));
+		$end_time = strtotime(trim(I('add_end_time_sel')));
+		$org_area = trim(I('add_org_area'));
+		$add_forever_check = trim(I('add_forever_check'));
+		$msg =	C('add_agents_success');
 
-		$data['name'] = $name;
+		$Model = new Model();
+	
+		$agent = M("agent","qd_");
+		$agent_area = M("agent_area", "qd_");
+		$data['agent_name'] = $agent_name;
+		$data['agent_type'] = $agent_type;
+		$data['companyAddr'] = $companyAddr;
+		$data['contract_number'] = $contract_number;
 		$data['legal'] = $legal;
-		$is_set = $company->add($data);
+		$data['tel'] = $tel;
+		$data['legal_tel'] = $legal_tel;
+		$data['agent_level'] = $agent_level;
+		if($agent_level == '2')
+		{
+			$data['father_agentid'] = $father_agentid;
+		}
+		$data['sub_agent_num'] = 0;
+		$data['place_num'] = 0;
+		$data['channel_num'] = 0;
+		$data['device_num'] = 0;
+		$data['forever_type'] = $add_forever_check;
+		if(0 != $begin_time)
+		{
+			$data['begin_time'] = $begin_time;
+		}
+		if(0 != $end_time)
+		{
+			$data['end_time'] = $end_time;
+		}
+		$data['isDelete'] = 0;
+		$is_set = $agent->add($data);
+		if($is_set)
+		{
+			$tmp_agent_id = $agent->query('select last_insert_id() as id');
+			$agent_id = $tmp_agent_id[0]['id'];
+			$tmp_org_array = explode(",", $org_area);
+			foreach($tmp_org_array as $key=>$val){
+				$area['agent_id'] = $agent_id;
+				$area['area_id'] = $val;
+				$is_set = $agent_area->add($area);
+			}
+		}
+		else
+		{
+			$msg = C("add_agent_failed");
+		}
+		if(C('add_agents_success') == $msg)
+		{
+			if($agent_level == '2')
+			{
+				changeNum('agent', $father_agentid, $agent_id, 'add');
+			}
+			//addOptionLog('agent', $agent_id, 'add', '');
+		}
+		$this->ajaxReturn($msg,'json');
 	}
 
      //编辑组织结构

@@ -134,3 +134,131 @@ NOTIC: [2] urldecode() expects parameter 1 to be string, array given D:\trunk\ga
 NOTIC: [8] Undefined index: userinfo D:\trunk\gas_station_erp\Lib\Action\configuration\CommonAction.class.php 第 11 行.
 SQL: select * from bi_area [ RunTime:0.003001s ]
 
+[ 2014-05-26T16:42:54+08:00 ] 127.0.0.1 /gas_station_erp/index.php/configuration/Org/show_org_tree
+INFO: [ app_begin ] --START--
+INFO: ReadHtmlCache Behavior ::run [ RunTime:0.000000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000000s ]
+NOTIC: [2] urldecode() expects parameter 1 to be string, array given D:\trunk\gas_station_erp\Lib\Action\configuration\OrgAction.class.php 第 4 行.
+NOTIC: [8] Undefined index: userinfo D:\trunk\gas_station_erp\Lib\Action\configuration\CommonAction.class.php 第 11 行.
+SQL: select * from qd_agent [ RunTime:0.001000s ]
+
+[ 2014-05-26T16:45:10+08:00 ] 127.0.0.1 /gas_station_erp/index.php/configuration/Org/show_org_tree
+INFO: [ app_begin ] --START--
+INFO: ReadHtmlCache Behavior ::run [ RunTime:0.000000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000000s ]
+NOTIC: [2] urldecode() expects parameter 1 to be string, array given D:\trunk\gas_station_erp\Lib\Action\configuration\OrgAction.class.php 第 4 行.
+NOTIC: [8] Undefined index: userinfo D:\trunk\gas_station_erp\Lib\Action\configuration\CommonAction.class.php 第 11 行.
+SQL: select * from qd_agent [ RunTime:0.001000s ]
+
+[ 2014-05-26T16:45:48+08:00 ] 127.0.0.1 /gas_station_erp/index.php/configuration/Org/show_org_tree
+INFO: [ app_begin ] --START--
+INFO: ReadHtmlCache Behavior ::run [ RunTime:0.001000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001000s ]
+NOTIC: [2] urldecode() expects parameter 1 to be string, array given D:\trunk\gas_station_erp\Lib\Action\configuration\OrgAction.class.php 第 4 行.
+NOTIC: [8] Undefined index: userinfo D:\trunk\gas_station_erp\Lib\Action\configuration\CommonAction.class.php 第 11 行.
+SQL: select * from qd_agent [ RunTime:0.001001s ]
+
+[ 2014-05-26T16:46:06+08:00 ] 127.0.0.1 /gas_station_erp/index.php/configuration/Org/show_org_tree
+INFO: [ app_begin ] --START--
+INFO: ReadHtmlCache Behavior ::run [ RunTime:0.001000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001000s ]
+NOTIC: [2] urldecode() expects parameter 1 to be string, array given D:\trunk\gas_station_erp\Lib\Action\configuration\OrgAction.class.php 第 4 行.
+NOTIC: [8] Undefined index: userinfo D:\trunk\gas_station_erp\Lib\Action\configuration\CommonAction.class.php 第 11 行.
+SQL: select * from qd_agent [ RunTime:0.001000s ]
+
+[ 2014-05-26T16:47:23+08:00 ] 127.0.0.1 /gas_station_erp/index.php/configuration/Org/show_org_tree
+INFO: [ app_begin ] --START--
+INFO: ReadHtmlCache Behavior ::run [ RunTime:0.000000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000000s ]
+NOTIC: [2] urldecode() expects parameter 1 to be string, array given D:\trunk\gas_station_erp\Lib\Action\configuration\OrgAction.class.php 第 4 行.
+NOTIC: [8] Undefined index: userinfo D:\trunk\gas_station_erp\Lib\Action\configuration\CommonAction.class.php 第 11 行.
+SQL: select * from qd_agent [ RunTime:0.001000s ]
+
+[ 2014-05-26T16:47:55+08:00 ] 127.0.0.1 /gas_station_erp/index.php/configuration/Org/show_org_tree
+INFO: [ app_begin ] --START--
+INFO: ReadHtmlCache Behavior ::run [ RunTime:0.000000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001000s ]
+NOTIC: [2] urldecode() expects parameter 1 to be string, array given D:\trunk\gas_station_erp\Lib\Action\configuration\OrgAction.class.php 第 4 行.
+NOTIC: [8] Undefined index: userinfo D:\trunk\gas_station_erp\Lib\Action\configuration\CommonAction.class.php 第 11 行.
+SQL: select * from qd_agent [ RunTime:0.001000s ]
+
+[ 2014-05-26T16:49:32+08:00 ] 127.0.0.1 /gas_station_erp/index.php/configuration/Org/show_org_tree
+INFO: [ app_begin ] --START--
+INFO: ReadHtmlCache Behavior ::run [ RunTime:0.000000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000000s ]
+NOTIC: [2] urldecode() expects parameter 1 to be string, array given D:\trunk\gas_station_erp\Lib\Action\configuration\OrgAction.class.php 第 4 行.
+NOTIC: [8] Undefined index: userinfo D:\trunk\gas_station_erp\Lib\Action\configuration\CommonAction.class.php 第 11 行.
+SQL: select * from qd_agent [ RunTime:0.001000s ]
+
+[ 2014-05-26T16:50:26+08:00 ] 127.0.0.1 /gas_station_erp/index.php/configuration/Org/show_org_tree
+INFO: [ app_begin ] --START--
+INFO: ReadHtmlCache Behavior ::run [ RunTime:0.000000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000000s ]
+NOTIC: [2] urldecode() expects parameter 1 to be string, array given D:\trunk\gas_station_erp\Lib\Action\configuration\OrgAction.class.php 第 4 行.
+NOTIC: [8] Undefined index: userinfo D:\trunk\gas_station_erp\Lib\Action\configuration\CommonAction.class.php 第 11 行.
+SQL: select * from qd_agent [ RunTime:0.002000s ]
+
+[ 2014-05-26T16:50:29+08:00 ] 127.0.0.1 /gas_station_erp/index.php/configuration/Org/show_org_tree
+INFO: [ app_begin ] --START--
+INFO: ReadHtmlCache Behavior ::run [ RunTime:0.000000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000000s ]
+NOTIC: [2] urldecode() expects parameter 1 to be string, array given D:\trunk\gas_station_erp\Lib\Action\configuration\OrgAction.class.php 第 4 行.
+NOTIC: [8] Undefined index: userinfo D:\trunk\gas_station_erp\Lib\Action\configuration\CommonAction.class.php 第 11 行.
+SQL: select * from qd_agent [ RunTime:0.001000s ]
+
+[ 2014-05-26T16:50:52+08:00 ] 127.0.0.1 /gas_station_erp/index.php/configuration/Org/show_org_tree
+INFO: [ app_begin ] --START--
+INFO: ReadHtmlCache Behavior ::run [ RunTime:0.000000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000000s ]
+NOTIC: [2] urldecode() expects parameter 1 to be string, array given D:\trunk\gas_station_erp\Lib\Action\configuration\OrgAction.class.php 第 4 行.
+NOTIC: [8] Undefined index: userinfo D:\trunk\gas_station_erp\Lib\Action\configuration\CommonAction.class.php 第 11 行.
+SQL: select * from qd_agent [ RunTime:0.001000s ]
+
+[ 2014-05-26T16:54:10+08:00 ] 127.0.0.1 /gas_station_erp/index.php/configuration/Org/show_org_tree
+INFO: [ app_begin ] --START--
+INFO: ReadHtmlCache Behavior ::run [ RunTime:0.000000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000000s ]
+NOTIC: [2] urldecode() expects parameter 1 to be string, array given D:\trunk\gas_station_erp\Lib\Action\configuration\OrgAction.class.php 第 4 行.
+NOTIC: [8] Undefined index: userinfo D:\trunk\gas_station_erp\Lib\Action\configuration\CommonAction.class.php 第 11 行.
+SQL: select * from qd_agent [ RunTime:0.007000s ]
+
+[ 2014-05-26T16:54:12+08:00 ] 127.0.0.1 /gas_station_erp/index.php/configuration/Org/show_org_tree
+INFO: [ app_begin ] --START--
+INFO: ReadHtmlCache Behavior ::run [ RunTime:0.000000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000000s ]
+NOTIC: [2] urldecode() expects parameter 1 to be string, array given D:\trunk\gas_station_erp\Lib\Action\configuration\OrgAction.class.php 第 4 行.
+NOTIC: [8] Undefined index: userinfo D:\trunk\gas_station_erp\Lib\Action\configuration\CommonAction.class.php 第 11 行.
+SQL: select * from qd_agent [ RunTime:0.001000s ]
+
+[ 2014-05-26T16:54:14+08:00 ] 127.0.0.1 /gas_station_erp/index.php/configuration/Org/show_org_tree
+INFO: [ app_begin ] --START--
+INFO: ReadHtmlCache Behavior ::run [ RunTime:0.001000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001000s ]
+NOTIC: [2] urldecode() expects parameter 1 to be string, array given D:\trunk\gas_station_erp\Lib\Action\configuration\OrgAction.class.php 第 4 行.
+NOTIC: [8] Undefined index: userinfo D:\trunk\gas_station_erp\Lib\Action\configuration\CommonAction.class.php 第 11 行.
+SQL: select * from qd_agent [ RunTime:0.001000s ]
+
+[ 2014-05-26T16:54:14+08:00 ] 127.0.0.1 /gas_station_erp/index.php/configuration/Org/show_org_tree
+INFO: [ app_begin ] --START--
+INFO: ReadHtmlCache Behavior ::run [ RunTime:0.000000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000000s ]
+NOTIC: [2] urldecode() expects parameter 1 to be string, array given D:\trunk\gas_station_erp\Lib\Action\configuration\OrgAction.class.php 第 4 行.
+NOTIC: [8] Undefined index: userinfo D:\trunk\gas_station_erp\Lib\Action\configuration\CommonAction.class.php 第 11 行.
+SQL: select * from qd_agent [ RunTime:0.001000s ]
+
+[ 2014-05-26T16:54:15+08:00 ] 127.0.0.1 /gas_station_erp/index.php/configuration/Org/show_org_tree
+INFO: [ app_begin ] --START--
+INFO: ReadHtmlCache Behavior ::run [ RunTime:0.000000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000000s ]
+NOTIC: [2] urldecode() expects parameter 1 to be string, array given D:\trunk\gas_station_erp\Lib\Action\configuration\OrgAction.class.php 第 4 行.
+NOTIC: [8] Undefined index: userinfo D:\trunk\gas_station_erp\Lib\Action\configuration\CommonAction.class.php 第 11 行.
+SQL: select * from qd_agent [ RunTime:0.001000s ]
+
+[ 2014-05-26T16:54:15+08:00 ] 127.0.0.1 /gas_station_erp/index.php/configuration/Org/show_org_tree
+INFO: [ app_begin ] --START--
+INFO: ReadHtmlCache Behavior ::run [ RunTime:0.000000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000000s ]
+NOTIC: [2] urldecode() expects parameter 1 to be string, array given D:\trunk\gas_station_erp\Lib\Action\configuration\OrgAction.class.php 第 4 行.
+NOTIC: [8] Undefined index: userinfo D:\trunk\gas_station_erp\Lib\Action\configuration\CommonAction.class.php 第 11 行.
+SQL: select * from qd_agent [ RunTime:0.001001s ]
+

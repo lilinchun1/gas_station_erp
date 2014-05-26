@@ -144,7 +144,7 @@ a, .alert-btn, .role-control-btn, .alert-btn2, .org-right-btns .area-btn, .main-
   padding: 2px 10px;
   font-size: 14px; }
 
-.input-org-info, .input-role-name {
+.org-right-info .org-select, .input-org-info, .input-role-name {
   width: 160px;
   height: 24px;
   line-height: 24px;
@@ -339,6 +339,9 @@ a, .alert-btn, .role-control-btn, .alert-btn2, .org-right-btns .area-btn, .main-
   background: #ffffff;
   padding-bottom: 20px;
   border: 1px solid #cccccc; }
+  .org-right-info .org-select {
+    margin-top: 15px;
+    text-indent: 0; }
   .org-right-info .info-left, .org-right-info .info-right {
     margin-top: 20px;
     width: 350px;
@@ -475,5 +478,3 @@ a, .alert-btn, .role-control-btn, .alert-btn2, .org-right-btns .area-btn, .main-
     margin-right: 5px; }
   .user-checkbox-list li {
     margin-bottom: 5px; }
-
-/*# sourceMappingURL=configuration.css.map */

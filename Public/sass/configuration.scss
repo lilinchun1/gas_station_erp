@@ -240,6 +240,11 @@ $bg-color:#F4F8F9;
   background: #ffffff;
   padding-bottom: 20px;
   border: 1px solid $border-color;
+    .org-select {
+      @extend %input-t;
+      margin-top: 15px;
+      text-indent: 0;
+    }
     h3{
       @extend %alert-box-tt;
     }
