@@ -237,6 +237,8 @@ $bg-color:#F4F8F9;
   margin: 25px 0 0 10px;
   float: left;
   width: 700px;
+  background: #ffffff;
+  padding-bottom: 20px;
   border: 1px solid $border-color;
     h3{
       @extend %alert-box-tt;
@@ -275,7 +277,8 @@ $bg-color:#F4F8F9;
           float: left;}
     }
 }
-
+.alert-org-add{
+  background: #ffffff;}
 .input-org-info {
   margin-top: 15px;
   @extend %input-t;
@@ -313,6 +316,7 @@ $bg-color:#F4F8F9;
       height: 25px;
       display: table-row;
         span{
+          padding: 0 5px;
           height: 25px;
           display: table-cell;
           line-height: 25px;
@@ -323,10 +327,11 @@ $bg-color:#F4F8F9;
     }
 }
 .role-table-radio {
-  margin: 8px 0 0 20px;
+  margin: 8px 20px 0 20px;
 }
 .alert-role-add{
   width: 500px;
+  background: #ffffff;
   border: 1px solid #000;
     h3{
       @extend %alert-box-tt;}
@@ -353,6 +358,47 @@ $bg-color:#F4F8F9;
   margin: 20px 0 0 60px;
 }
 .delete-message{
-  margin-top: 40px;
+  margin-top: 20px;
   margin-left: 100px;
+}
+
+/*职员维护页面*/
+.data-log{
+  margin-top: 60px;
+    h3 {
+      margin: 0 auto;
+      width: 98%;
+      height: 30px;
+      text-indent: 10px;
+      color: #ffffff;
+      border: 1px solid $font-h-color;
+      line-height: 30px;
+      background: $font-h-color;
+    }
+}
+.role-table-list2 li span:first-child{
+  text-indent: 14px;}
+.alert-user-add-con{
+  padding: 20px 0 0 70px;
+    label{
+      padding-right: 20px;
+
+      display: inline-block;
+      text-align: right;}
+    p{
+      margin-bottom: 20px;}
+    .sex{
+      width: 10px;}
+    .change-sex{
+      margin-left: 10px;}
+}
+
+.user-checkbox-list{
+  padding-left: 72px;
+  padding-bottom: 10px;
+  input{
+    float: left;
+    margin-right: 5px;}
+  li{
+    margin-bottom: 5px;}
 }

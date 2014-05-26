@@ -18,28 +18,27 @@
 			}
 		}
 	};
-				var handleUrl="http://127.0.0.1/gas_station_erp/index.php/configuration/Org/show_area_tree";
-				var zNodes=new Array();
-				var now=new Date().getTime();//加个时间戳表示每次是新的请求
-				$.ajax({
-					 type: "POST",
-					 url: handleUrl,
-					 async: false,
-					 dataType: "json",
-					 success: function(data){
-						$.each(data,function(key,val){
-							var kid=val['id'];
-							var parent=val['parent'];
-							var value='"'+val['value']+'"';
-							zNodes[key]= {'id':kid, 'pId':parent, 'name':value, 'open':false};
-						});
-						alert(zNodes[1]);
-					 },
-						  
-					 error: function(XMLHttpRequest, textStatus, errorThrown) {
-					   // alert("请求失败!");
-					 }
-				});
+	var handleUrl="http://127.0.0.1/gas_station_erp/index.php/configuration/Org/show_area_tree";
+	var zNodes=new Array();
+	var now=new Date().getTime();//加个时间戳表示每次是新的请求
+	$.ajax({
+		type: "POST",
+		url: handleUrl,
+		async: false,
+		dataType: "json",
+		success: function(data){
+			$.each(data,function(key,val){
+				var kid=val['id'];
+				var parent=val['parent'];
+				var value=val['value'];
+				zNodes[key]= {'id':kid, 'pId':parent, 'name':value, 'open':false};
+			});
+		},
+							  
+		error: function(XMLHttpRequest, textStatus, errorThrown) {
+			 // alert("请求失败!");
+		}
+	});
 
 
 		var code;

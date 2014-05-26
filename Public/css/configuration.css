@@ -336,6 +336,8 @@ a, .alert-btn, .role-control-btn, .alert-btn2, .org-right-btns .area-btn, .main-
   margin: 25px 0 0 10px;
   float: left;
   width: 700px;
+  background: #ffffff;
+  padding-bottom: 20px;
   border: 1px solid #cccccc; }
   .org-right-info .info-left, .org-right-info .info-right {
     margin-top: 20px;
@@ -365,6 +367,9 @@ a, .alert-btn, .role-control-btn, .alert-btn2, .org-right-btns .area-btn, .main-
       height: 50px;
       line-height: 50px;
       float: left; }
+
+.alert-org-add {
+  background: #ffffff; }
 
 .input-org-info {
   margin-top: 15px; }
@@ -399,6 +404,7 @@ a, .alert-btn, .role-control-btn, .alert-btn2, .org-right-btns .area-btn, .main-
     height: 25px;
     display: table-row; }
     .role-table-list li span {
+      padding: 0 5px;
       height: 25px;
       display: table-cell;
       line-height: 25px; }
@@ -406,10 +412,11 @@ a, .alert-btn, .role-control-btn, .alert-btn2, .org-right-btns .area-btn, .main-
       background: #f4f8f9; }
 
 .role-table-radio {
-  margin: 8px 0 0 20px; }
+  margin: 8px 20px 0 20px; }
 
 .alert-role-add {
   width: 500px;
+  background: #ffffff;
   border: 1px solid #000; }
 
 .alert-role-add-con {
@@ -428,7 +435,45 @@ a, .alert-btn, .role-control-btn, .alert-btn2, .org-right-btns .area-btn, .main-
   margin: 20px 0 0 60px; }
 
 .delete-message {
-  margin-top: 40px;
+  margin-top: 20px;
   margin-left: 100px; }
+
+/*职员维护页面*/
+.data-log {
+  margin-top: 60px; }
+  .data-log h3 {
+    margin: 0 auto;
+    width: 98%;
+    height: 30px;
+    text-indent: 10px;
+    color: #ffffff;
+    border: 1px solid #34acd8;
+    line-height: 30px;
+    background: #34acd8; }
+
+.role-table-list2 li span:first-child {
+  text-indent: 14px; }
+
+.alert-user-add-con {
+  padding: 20px 0 0 70px; }
+  .alert-user-add-con label {
+    padding-right: 20px;
+    display: inline-block;
+    text-align: right; }
+  .alert-user-add-con p {
+    margin-bottom: 20px; }
+  .alert-user-add-con .sex {
+    width: 10px; }
+  .alert-user-add-con .change-sex {
+    margin-left: 10px; }
+
+.user-checkbox-list {
+  padding-left: 72px;
+  padding-bottom: 10px; }
+  .user-checkbox-list input {
+    float: left;
+    margin-right: 5px; }
+  .user-checkbox-list li {
+    margin-bottom: 5px; }
 
 /*# sourceMappingURL=configuration.css.map */
