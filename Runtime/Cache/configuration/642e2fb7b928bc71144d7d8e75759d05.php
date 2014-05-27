@@ -10,6 +10,8 @@
 	<link rel="stylesheet" href="__PUBLIC__/css/tree/tree.css" type="text/css">
 	<script type="text/javascript" src="__PUBLIC__/js/tree/jquery.ztree.core-3.5.js"></script>
 	<script type="text/javascript" src="__PUBLIC__/js/tree/jquery.ztree.excheck-3.5.js"></script>
+    <link rel="stylesheet" href="../../Public/css/configuration.css"/>
+
 </head>
 
 <script type="text/javascript">
@@ -214,16 +216,22 @@ $(document).ready(function(){
                     <h3>组织机构信息</h3>
                     <form action="">
                         <div class="info-left cf">
-                            <label for="org">组织机构名称</label><input type="text" name="" id="org" class="input-org-info"/>
-                            <label for="linkman">联系人</label><input type="text" name="" id="linkman" class="input-org-info"/>
-                            <label for="address">办公地址</label><input type="text" name="" id="address" class="input-org-info"/>
-                            <label for="contract-number">合同编号</label><input type="text" name="" id="contract-number" class="input-org-info"/>
                             <label for="add_agent_type_sel">代理商类型</label>
-                            <select style="width:164px" name="add_agent_type_sel" id="add_agent_type_sel" class="add_agent_type_sel">
+                            <select name="add_agent_type_sel" id="add_agent_type_sel" class="org-select">
                                 <option selected value="">请选择</option>
                                 <option class="industry" value="trade">行业型</option>
                                 <option class="area" value="area">区域型</option>
                             </select>
+                            <label class="add_agent_level_sel">代理商级别</label>
+                            <select  name="add_agent_level_sel" id="add_agent_level_sel" class="org-select">
+                                <option selected="selected" value="">请选择</option>
+                                <option class="one" value="1">一级代理商</option>
+                                <option class="two" value="2">二级代理商</option>
+                            </select>
+                            <label for="org">组织机构名称</label><input type="text" name="" id="org" class="input-org-info"/>
+                            <label for="linkman">联系人</label><input type="text" name="" id="linkman" class="input-org-info"/>
+                            <label for="address">办公地址</label><input type="text" name="" id="address" class="input-org-info"/>
+                            <label for="contract-number">合同编号</label><input type="text" name="" id="contract-number" class="input-org-info"/>
                         </div>
                         <div class="info-right cf">
 
@@ -236,12 +244,6 @@ $(document).ready(function(){
                                 <input type="text" name="" id="date" class="input-org-info min-w"/>
                                 <input type="checkbox" name="" id="forver" class="org-input-c"/><label class="lab-ckbox" for="forver">永久</label>
                             </em>
-                            <label class="add_agent_level_sel">代理商级别:&nbsp;</label>
-                            <select style="width:164px" name="add_agent_level_sel" id="add_agent_level_sel" class="add_agent_level_sel">
-                                <option selected="selected" value="">请选择</option>
-                                <option class="one" value="1">一级代理商</option>
-                                <option class="two" value="2">二级代理商</option>
-                            </select>
 
                         </div>
                     </form>
@@ -266,6 +268,18 @@ $(document).ready(function(){
         <h3>组织机构信息</h3>
         <form action="">
             <div class="info-left cf">
+                <label for="add_agent_type_sel">代理商类型</label>
+                <select name="add_agent_type_sel" id="add_agent_type_sel" class="org-select">
+                    <option selected value="">请选择</option>
+                    <option class="industry" value="trade">行业型</option>
+                    <option class="area" value="area">区域型</option>
+                </select>
+                <label class="add_agent_level_sel">代理商级别</label>
+                <select  name="add_agent_level_sel" id="add_agent_level_sel" class="org-select">
+                    <option selected="selected" value="">请选择</option>
+                    <option class="one" value="1">一级代理商</option>
+                    <option class="two" value="2">二级代理商</option>
+                </select>
                 <label for="org">组织机构名称</label><input type="text" name="" id="j_add_org" class="input-org-info"/>
                 <label for="linkman">联系人</label><input type="text" name="" id="j_add_linkman" class="input-org-info"/>
                 <label for="address">办公地址</label><input type="text" name="" id="j_add_address" class="input-org-info"/>
@@ -275,6 +289,7 @@ $(document).ready(function(){
                 <label for="org-s">上级组织机构</label><input type="text" name="" id="j_add_org-s" class="input-org-info"/>
                 <label for="phone">联系电话</label><input type="text" name="" id="j_add_phone" class="input-org-info"/>
                 <label for="yw-are">业务范围</label><input type="text" name="" id="j_add_yw-are" class="input-org-info"/>
+                <label class="wenben">公司电话</label><input type="text" name="add_tel_txt" id="add_tel_txt" class="input-org-info" />
                 <em>
                     <label for="sq-date">授权日期</label><input type="text" name="" id="j_add_sq-date" class="input-org-info min-w"/>
                     <input type="text" name="" id="j_add_date" class="input-org-info min-w"/>

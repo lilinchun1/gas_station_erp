@@ -119,14 +119,14 @@ body, h1, h2, h3, h4, h5, h6, hr, p, blockquote, dl, dt, dd, ul, ol, li, pre, fo
 .bk30 {
   height: 30px; }
 
-a, .alert-btn, .role-control-btn, .alert-btn2, .org-right-btns .area-btn, .main-nav li, .main-nav li:hover a, .aside-nav li {
+a, .alert-btn, .role-control-btn, .alert-btn2, .org-right-btns .area-btn, .index-login-con button, .main-nav li, .main-nav li:hover a, .aside-nav li {
   -webkit-transition: all .3s ease-in-out 0s;
   -moz-transition: all .3s ease-in-out 0s;
   -ms-transition: all .3s ease-in-out 0s;
   -o-transition: all .3s ease-in-out 0s;
   transition: all .3s ease-in-out 0s; }
 
-.alert-btn, .role-control-btn, .alert-btn2, .org-right-btns .area-btn {
+.alert-btn, .role-control-btn, .alert-btn2, .org-right-btns .area-btn, .index-login-con button {
   padding: 6px 28px;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.6);
   border-bottom: 1px solid rgba(0, 0, 0, 0.25);
@@ -137,14 +137,14 @@ a, .alert-btn, .role-control-btn, .alert-btn2, .org-right-btns .area-btn, .main-
   color: #ffffff;
   background: #34acd8;
   cursor: pointer; }
-  .alert-btn:hover, .role-control-btn:hover, .alert-btn2:hover, .org-right-btns .area-btn:hover {
+  .alert-btn:hover, .role-control-btn:hover, .alert-btn2:hover, .org-right-btns .area-btn:hover, .index-login-con button:hover {
     background: #3dcdff; }
 
 .alert-btn, .role-control-btn, .alert-btn2 {
   padding: 2px 10px;
   font-size: 14px; }
 
-.org-right-info .org-select, .input-org-info, .input-role-name {
+.org-right-info .org-select, .input-org-info, .input-role-name, .index-login-con input {
   width: 160px;
   height: 24px;
   line-height: 24px;
@@ -298,7 +298,8 @@ a, .alert-btn, .role-control-btn, .alert-btn2, .org-right-btns .area-btn, .main-
       color: #333333;
       font-family: "Microsoft Yahei"; }
     .aside-nav li:hover {
-      background: #ffffff; }
+      background: #ffffff;
+      cursor: pointer; }
       .aside-nav li:hover input {
         color: #34acd8; }
   .aside-nav .aside-nav-nth1 {
@@ -478,3 +479,45 @@ a, .alert-btn, .role-control-btn, .alert-btn2, .org-right-btns .area-btn, .main-
     margin-right: 5px; }
   .user-checkbox-list li {
     margin-bottom: 5px; }
+
+/*登陆页面*/
+#index-login {
+  position: fixed;
+  top: 50%;
+  left: 0;
+  margin-top: -200px;
+  width: 100%;
+  height: 400px;
+  background: #34acd8; }
+  #index-login h1 {
+    margin-top: 40px;
+    font-size: 30px;
+    color: #ffffff;
+    text-align: center; }
+  #index-login span {
+    float: left;
+    margin: 40px 0 0 10%;
+    width: 300px;
+    height: 200px;
+    display: block; }
+
+.index-login-con {
+  float: right;
+  padding-top: 50px;
+  margin: 40px 10% 0 0;
+  width: 450px;
+  max-width: 980px;
+  height: 200px;
+  background: #ffffff;
+  border-radius: 40px; }
+  .index-login-con p {
+    margin-bottom: 20px;
+    margin-left: 40px; }
+  .index-login-con label {
+    float: left;
+    padding-right: 10px;
+    width: 100px;
+    line-height: 25px;
+    text-align: right; }
+  .index-login-con button {
+    margin-left: 110px; }
