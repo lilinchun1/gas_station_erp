@@ -119,7 +119,7 @@ body, h1, h2, h3, h4, h5, h6, hr, p, blockquote, dl, dt, dd, ul, ol, li, pre, fo
 .bk30 {
   height: 30px; }
 
-a, .alert-btn, .role-control-btn, .alert-btn2, .org-right-btns .area-btn, .index-login-con button, .main-nav li, .main-nav li:hover a, .aside-nav li {
+a, .alert-btn, .role-control-btn, .alert-btn2, .org-right-btns .area-btn, .index-login-con button, .main-nav li, .main-nav li:hover a, .aside-nav li, .channel-tab li {
   -webkit-transition: all .3s ease-in-out 0s;
   -moz-transition: all .3s ease-in-out 0s;
   -ms-transition: all .3s ease-in-out 0s;
@@ -144,7 +144,7 @@ a, .alert-btn, .role-control-btn, .alert-btn2, .org-right-btns .area-btn, .index
   padding: 2px 10px;
   font-size: 14px; }
 
-.org-right-info .org-select, .input-org-info, .input-role-name, .index-login-con input {
+.org-right-info .org-select, .input-org-info, .input-role-name, .index-login-con input, .channel-select-min, .channel-select {
   width: 160px;
   height: 24px;
   line-height: 24px;
@@ -387,13 +387,14 @@ a, .alert-btn, .role-control-btn, .alert-btn2, .org-right-btns .area-btn, .index
 
 /*角色维护页面*/
 .role-control {
+  min-width: 1200px;
   padding: 20px 0;
   margin: 0 auto;
   width: 98%;
   background: #ffffff;
   border-bottom: 1px dashed #cccccc; }
   .role-control label {
-    padding: 0 20px 0 40px; }
+    padding: 0 10px 0 40px; }
 
 .role-control-btn {
   margin-left: 10px; }
@@ -576,3 +577,40 @@ a, .alert-btn, .role-control-btn, .alert-btn2, .org-right-btns .area-btn, .index
     display: block;
     font-size: 16px;
     line-height: 30px; }
+
+/*渠道信息页*/
+.channel-select-min {
+  margin-right: 10px;
+  width: 80px;
+  text-indent: 0; }
+
+.channel-select {
+  margin-right: 10px;
+  text-indent: 0; }
+
+.channel-index-btns {
+  border: 1px solid #cccccc;
+  padding-bottom: 20px; }
+
+.channel-tab {
+  margin: 0 auto;
+  width: 98%;
+  height: 30px;
+  text-indent: 10px;
+  color: #ffffff;
+  border: 1px solid #34acd8;
+  line-height: 30px;
+  background: #34acd8; }
+  .channel-tab li {
+    margin-right: 10px;
+    width: 80px;
+    height: 30px;
+    font-size: 14px;
+    font-weight: bold;
+    color: #ffffff;
+    text-align: center;
+    float: left;
+    cursor: pointer; }
+  .channel-tab .on {
+    background: #fff;
+    color: #000000; }

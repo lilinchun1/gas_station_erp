@@ -304,13 +304,14 @@ $min-width-kuang:1200px;
 
 /*角色维护页面*/
 .role-control{
+  min-width: $min-width-kuang;
   padding: 20px 0;
   margin: 0 auto;
   width: 98%;
   background: #ffffff;
   border-bottom: 1px dashed $border-color;
     label{
-      padding:0 20px 0 40px;}
+      padding:0 10px 0 40px;}
 }
 .role-control-btn {
   margin-left: 10px;
@@ -524,4 +525,46 @@ $min-width-kuang:1200px;
       display: block;
       font-size: 16px;
       line-height: 30px;}
+}
+
+/*渠道信息页*/
+.channel-select-min{
+  @extend %input-t;
+  margin-right: 10px;
+  width: 80px;
+  text-indent: 0;
+}
+.channel-select{
+  @extend %input-t;
+  margin-right: 10px;
+  text-indent: 0;
+}
+.channel-index-btns{
+  border: 1px solid $border-color;
+  padding-bottom: 20px;}
+.channel-tab{
+  margin: 0 auto;
+  width: 98%;
+  height: 30px;
+  text-indent: 10px;
+  color: #ffffff;
+  border: 1px solid $font-h-color;
+  line-height: 30px;
+  background: $font-h-color;
+  li{
+    margin-right: 10px;
+    width: 80px;
+    height: 30px;
+    font-size: 14px;
+    font-weight: bold;
+    color: #ffffff;
+    text-align: center;
+    float: left;
+    cursor: pointer;
+    @extend %trans-all;
+  }
+  .on{
+    background: #fff;
+    color: #000000;
+  }
 }

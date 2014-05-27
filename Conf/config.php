@@ -7,7 +7,7 @@ return array(
 	'URL_HTML_SUFFIX'=>'', // 多个用 | 分割,
 	'SESSION_AUTO_START' =>true,
 	//'LOAD_EXT_CONFIG' => 'message,property',
-	'APP_GROUP_LIST'=>'configuration,channel',
+	'APP_GROUP_LIST'=>'configuration,channel,management',
 	'DEFAULT_GROUP'=>'configuration',
 	'__PUBLIC__' => '__ROOT__/Public/',
 	'page_show_number' => 30,  //每页显示数量

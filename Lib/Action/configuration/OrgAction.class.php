@@ -52,14 +52,44 @@ class OrgAction extends CommonAction {
 	//展示区域树形结构
 	public function show_area_tree(){
 		$Model = new Model();
-		$area_info = $Model->query("select * from bi_area");
+		$province_info = $Model->query("select * from bi_province");
 		$data = null;
-		foreach($area_info as $key=>$val){
+		foreach($province_info as $p_key=>$p_val){
+			if(0 == $p_key){
+				//$data .= "'" . "0" . "'" . ":" . "'" . $p_val['prov_id'] . ":" . $p_val['prov_name'] . ",";
+				$data .= "0" . ":" . $p_val['prov_id'] . ":" . $p_val['prov_name'] . ",";
+			}else{
+				$data .= $p_val['prov_id'] . ":" . $p_val['prov_name'] . ",";
+			}
+		}
+		$data = substr($data, 0 , -1);
+		//$data = $data . "'";
+		foreach($province_info as $p_key=>$p_val){
+			/*
 			$data[$key]['id'] = $val['area_id'];
 			$data[$key]['value'] = $val['area_name'];
 			$data[$key]['parent'] = $val['pid'];
+			*/
+			$city_info = $Model->query("select * from bi_area where pid=" . $p_val['prov_id']);
+			foreach($city_info as $c_key=>$c_val){
+				if(!empty($c_val['area_id'])){
+					if(0 == $c_key){
+						//$data .= "'" . $c_val['pid'] . "'" . ":" . "'" . $c_val['area_id'] . ":" . $c_val['area_name'] . ",";
+						$data .= $c_val['pid'] . ":" . $c_val['area_id'] . ":" . $c_val['area_name'] . ",";
+					}
+					else{
+						$data .= $c_val['area_id'] . ":" . $c_val['area_name'] . ",";
+					}
+				}
+			}
+			if(!empty($city_info[0]['area_id'])){
+				$data = substr($data, 0 , -1);
+				//$data = $data . "'";
+			}
 		}
-		
+		//$data = substr($data, 0 , -1);
+
+		//echo $data;
 		$this->ajaxReturn($data, 'json');
 	}
 
@@ -166,16 +196,123 @@ class OrgAction extends CommonAction {
 
      //编辑组织结构
      public function edit_org(){
-		$id = trim(I('modify_org_id_txt'));
-		$name = trim(I('modify_org_name_txt'));
-		$legal = trim(I('modify_legal_txt'));
-		$msg =	C('modify_org_success');
-		$Model = new Model();
-		$company = M("company");
+		$agent_name = trim(I('change_agent_name_txt'));
+		$agent_id = trim(I('change_agent_id_txt'));
+		$companyAddr = trim(I('change_companyAddr_txt'));
+		$agent_type = trim(I('change_agent_type_sel'));
+		$contract_number = trim(I('change_contract_number_txt'));
+		$legal = trim(I('change_legal_txt'));
+		$tel = trim(I('change_tel_txt'));
+		$legal_tel = trim(I('change_legal_tel_txt'));
+		$agent_level = trim(I('change_agent_level_sel'));
+		$father_agentid = trim(I('change_father_agentid_sel'));
+		$begin_time = strtotime(trim(I('change_begin_time_sel')));
+		$end_time = strtotime(trim(I('change_end_time_sel')));
+		$dst_area = trim(I('change_dst_area'));
+		$change_forever_check = trim(I('change_forever_check'));
+		$msg = C("change_agent_success");
+		$log_description = '';
 
-		$data['name'] = $name;
-		$data['legal'] = $legal;
-		$is_set = $company->where("id=%d", $id)->save($data);
+		$Model = new Model();
+		$agent = M("agent","qd_");
+		$agent_area = M("agent_area","qd_");
+
+		$result = $agent->query("select ifnull(agent_id,0) as agent_id from qd_agent where agent_name='$agent_name'");
+		$src_agent_log_info = $agent->where("agent_id=" . $agent_id)->select();  //查询修改前的信息，用于日志对比
+		$src_father_agent_id = $src_agent_log_info[0]['father_agentid'];
+		$src_agent_log_info[0]['father_agentname'] = getAgentNameFromAgentID($src_agent_log_info[0]['father_agentid']);
+		unset($src_agent_log_info[0]['father_agentid']);
+		if('1' == $src_agent_log_info[0]['forever_type'])
+		{
+			$src_agent_log_info[0]['forever_type'] = "是";
+		}
+		else
+		{
+			$src_agent_log_info[0]['forever_type'] = "否";
+		}
+		$src_agent_log_info[0]['begin_time'] = getDateFromTime($src_agent_log_info[0]['begin_time']);
+		$src_agent_log_info[0]['end_time'] = getDateFromTime($src_agent_log_info[0]['end_time']);
+		if(($result[0]['agent_id'] != $agent_id) && ($result[0]['agent_id'] != 0))
+		{
+			$msg = C("change_agent_name_failed");
+		}
+		else
+		{
+			$data['agent_name'] = $agent_name;
+			$data['companyAddr'] = $companyAddr;
+			$data['agent_type'] = $agent_type;
+			$data['contract_number'] = $contract_number;
+			$data['legal'] = $legal;
+			$data['tel'] = $tel;
+			$data['legal_tel'] = $legal_tel;
+			$data['agent_level'] = $agent_level;
+			if('' == $father_agentid)
+			{
+				$father_agentid = '0';
+			}
+			if($agent_id == $father_agentid)
+			{
+				$msg = C('change_agent_belongself');
+				$this->ajaxReturn($msg,'json');
+				return;
+			}
+			$data['father_agentid'] = $father_agentid;
+			$data['forever_type'] = $change_forever_check;
+			if(0 != $begin_time)
+			{
+				$data['begin_time'] = $begin_time;
+			}
+			else
+			{
+				$data['begin_time'] = null;
+			}
+			if(0 != $end_time)
+			{
+				$data['end_time'] = $end_time;
+			}
+			else
+			{
+				$data['end_time'] = null;
+			}
+			$is_set = $agent->where("agent_id=%d", $agent_id)->save($data);
+		
+			$is_set = $agent_area->where("agent_id=%d", $agent_id)->delete();
+			$dst_area_array = explode(",", $dst_area);
+			foreach($dst_area_array as $key=>$val){
+				$area['agent_id'] = $agent_id;
+				$area['area_id'] = $val;
+				$is_area = $agent_area->add($area);
+			}
+	
+			if((!($is_set)) && (!($is_area))){
+				$msg = C("change_agent_failed");
+			}
+		}
+		if(C('change_agent_success') == $msg)
+		{
+			if($src_father_agent_id != $father_agentid)
+			{
+				changeNum('agent', $src_father_agent_id, $agent_id, 'minus');
+				changeNum('agent', $father_agentid, $agent_id, 'add');
+			}
+			$dst_agent_log_info = $agent->where("agent_id=" . $agent_id)->select();  //查询修改后的信息，用于日志对比
+			$dst_agent_log_info[0]['father_agentname'] = getAgentNameFromAgentID($dst_agent_log_info[0]['father_agentid']);
+			unset($dst_agent_log_info[0]['father_agentid']);
+			if('1' == $dst_agent_log_info[0]['forever_type'])
+			{
+				$dst_agent_log_info[0]['forever_type'] = "是";
+			}
+			else
+			{
+				$dst_agent_log_info[0]['forever_type'] = "否";
+			}
+			$dst_agent_log_info[0]['begin_time'] = getDateFromTime($dst_agent_log_info[0]['begin_time']);
+			$dst_agent_log_info[0]['end_time'] = getDateFromTime($dst_agent_log_info[0]['end_time']);
+			$log_description = getChangeLogDescription($src_agent_log_info[0], $dst_agent_log_info[0]);  //获取修改的详细记录
+
+			//addOptionLog('agent', $agent_id, 'change', $log_description);
+		}
+		$this->ajaxReturn($msg,'json');
 	}
 
     //删除组织结构

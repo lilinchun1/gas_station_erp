@@ -10,7 +10,9 @@
 	<link rel="stylesheet" href="__PUBLIC__/css/tree/tree.css" type="text/css">
 	<script type="text/javascript" src="__PUBLIC__/js/tree/jquery.ztree.core-3.5.js"></script>
 	<script type="text/javascript" src="__PUBLIC__/js/tree/jquery.ztree.excheck-3.5.js"></script>
-    <link rel="stylesheet" href="../../Public/css/configuration.css"/>
+
+	<script type="text/javascript" src="__PUBLIC__/js/jquery-levelSelect-ajax.js"></script>
+    <!--<link rel="stylesheet" href="../../Public/css/configuration.css"/>-->
 
 </head>
 
@@ -26,7 +28,7 @@
 			}
 		}
 	};
-	var handleUrl="http://127.0.0.1/gas_station_erp/index.php/configuration/Org/show_org_tree";
+	var handleUrl="http://192.168.0.126/gas_station_erp/index.php/configuration/Org/show_org_tree";
 	var zNodes=new Array();
 	var now=new Date().getTime();//加个时间戳表示每次是新的请求
 	$.ajax({
@@ -91,6 +93,18 @@ $(document).ready(function(){
 			}); 
 				return false; 
 	});
+
+//=====================================================业务范围事件============================================
+	$("#test").click(function(){
+		$.openLayer({
+			maxItems : 5,
+			pid : "0",
+			returnText : "restxts",
+			returnValue : "resvals",
+			span_width : {d1:120,d2:150,d3:150},
+			index : 1000000
+		});
+	});
 //=====================================================单击新建保存按钮============================================
 	$('#j_add_save').click(function(){
 		var add_agent_name_txt=$('#j_add_org').val();//组织机构名称
@@ -113,7 +127,7 @@ $(document).ready(function(){
 				var add_forever_check = '0';
 			}
 		
-		var add_handleUrl="http://127.0.0.1/gas_station_erp/index.php/configuration/Org/add_org";
+		var add_handleUrl="http://192.168.0.126/gas_station_erp/index.php/configuration/Org/add_org";
 		$.getJSON(add_handleUrl,{"add_agent_name_txt":add_agent_name_txt,"add_legal_txt":add_legal_txt,
 								 "add_companyAddr_txt":add_companyAddr_txt,
 								 "add_contract_number_txt":add_contract_number_txt,"add_father_agentid_sel":add_father_agentid_sel,
@@ -239,6 +253,14 @@ $(document).ready(function(){
                             <label for="org-s">上级组织机构</label><input type="text" name="" id="org-s" class="input-org-info"/>
                             <label for="phone">联系电话</label><input type="text" name="" id="phone" class="input-org-info"/>
                             <label for="yw-are">业务范围</label><input type="text" name="" id="yw-are" class="input-org-info"/>
+													<TH style="width:30%;"><input name="test"  id="test" value="多选例子" type="button"/></TH>
+
+													<TD align=right>结果id：</TD>
+													<TD><input type='text' id='resvals' value='这里存放结果id' size=50></TD>
+												
+													<TD align=right>结果文本：</TD>
+													<TD><input type='text' id='restxts' value='这里存放结果文本' size=50></TD>
+
                             <label class="wenben">公司电话</label><input type="text" name="add_tel_txt" id="add_tel_txt" class="input-org-info" />
                             <em>
                                 <label for="sq-date">授权日期</label><input type="text" name="" id="sq-date" class="input-org-info min-w"/>
@@ -290,6 +312,7 @@ $(document).ready(function(){
                 <label for="org-s">上级组织机构</label><input type="text" name="" id="j_add_org-s" class="input-org-info"/>
                 <label for="phone">联系电话</label><input type="text" name="" id="j_add_phone" class="input-org-info"/>
                 <label for="yw-are">业务范围</label><input type="text" name="" id="j_add_yw-are" class="input-org-info"/>
+
                 <label class="wenben">公司电话</label><input type="text" name="add_tel_txt" id="add_tel_txt" class="input-org-info" />
                 <em>
                     <label for="sq-date">授权日期</label><input type="text" name="" id="j_add_sq-date" class="input-org-info min-w"/>

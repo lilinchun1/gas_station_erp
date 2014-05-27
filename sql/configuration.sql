@@ -57,6 +57,10 @@ CREATE TABLE IF NOT EXISTS `bi_role` (
   `roleid` int(11) NOT NULL AUTO_INCREMENT COMMENT '角色ID',
   `rolename` varchar(30) NOT NULL COMMENT '角色名称',
   `memo` varchar(100) NOT NULL COMMENT '备注',
+  `adduserid` int(11) unsigned NOT NULL COMMENT '创建人UID(0为root)',
+  `adddate` int(11) unsigned NOT NULL COMMENT '创建时间',
+  `modifyuserid` int(11) unsigned NOT NULL COMMENT '修改人UID(0为root)',
+  `modifydate` int(11) unsigned NOT NULL COMMENT '修改时间',
   `del_flag` tinyint(1) unsigned NOT NULL COMMENT '删除标志(0未删除1删除)',
   PRIMARY KEY (`roleid`),
   UNIQUE KEY `rolename` (`rolename`)
