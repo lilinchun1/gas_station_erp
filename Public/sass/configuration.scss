@@ -418,6 +418,7 @@ $bg-color:#F4F8F9;
   left: 0;
   margin-top: -200px;
   width: 100%;
+  min-width: 1120px;
   height: 400px;
   background: $font-h-color;
     h1{
@@ -427,12 +428,13 @@ $bg-color:#F4F8F9;
       text-align: center;
     }
     span {
-      float: left;
-      margin: 40px 0 0 10%;
-      width: 300px;
-      height: 200px;
+      position: absolute;
+      top: -80px;
+      left: 2%;
+      width: 343px;
+      height: 500px;
       display: block;
-
+      background: url(../../Public/image/index-logo.png) 0 0 no-repeat;
     }
 
 }
@@ -453,15 +455,51 @@ $bg-color:#F4F8F9;
       float: left;
       padding-right: 10px;
       width: 100px;
-      line-height: 25px;
+      line-height: 30px;
       text-align: right;
+      font-weight: bold;
     }
     input{
       @extend %input-t;
-
+      width: 200px;
+      height: 30px;
     }
     button{
       @extend %edit-btn;
       margin-left: 110px;
     }
+}
+
+/*登陆默认页*/
+.default-index{
+  min-width: 1140px;}
+.default-index-tt{
+  margin: 40px auto 0 auto;
+  width: 762px;
+  height: 65px;
+  background: url(../../Public/image/defult-tt.gif) 0 0 no-repeat;
+}
+.pic-dp{
+  margin-left: 4%;
+  width: 343px;
+  height: 500px;
+  float: left;
+  background: url(../../Public/image/index-logo.png) 0 0 no-repeat;
+}
+.default-index-wz{
+  float: right;
+  margin-right: 20%;
+  margin-top: 200px;
+  width: 500px;
+
+    h1{
+      width: 434px;
+      height: 50px;
+      background: url(../../Public/image/defult-tt2.gif) 0 0 no-repeat;}
+    em{
+      margin-top: 20px;
+      width: 434px;
+      display: block;
+      font-size: 16px;
+      line-height: 30px;}
 }

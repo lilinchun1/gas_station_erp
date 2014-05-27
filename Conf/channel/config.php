@@ -13,7 +13,6 @@ return array(
 	'URL_MODEL' => 1,
 	'URL_HTML_SUFFIX'=>'', // 多个用 | 分割,
 	'SESSION_AUTO_START' =>true,
-	'LOAD_EXT_CONFIG' => 'message,property',
 	'DOMAIN' => 'http://admin.jienuo-service.net/',
 	'image_url' => 'http://img.jienuo-service.net/',
 	'__PUBLIC__' => '__ROOT__/Public/',

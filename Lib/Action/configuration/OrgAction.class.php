@@ -63,6 +63,33 @@ class OrgAction extends CommonAction {
 		$this->ajaxReturn($data, 'json');
 	}
 
+	//获取所有省
+	public function get_province(){
+		$Model = new Model();
+		$province_info = $Model->query("select * from bi_province");
+		$data = null;
+		foreach($province_info as $key=>$val){
+			$data[$key]['id'] = $val['prov_id'];
+			$data[$key]['value'] = $val['prov_name'];
+		}
+		
+		$this->ajaxReturn($data, 'json');
+	}
+
+	//获取某省下所有市
+	public function get_city(){
+		$Model = new Model();
+		$prov_id = I('prov_id');
+		$city_info = $Model->query("select * from bi_area where pid=" . $prov_id);
+		$data = null;
+		foreach($city_info as $key=>$val){
+			$data[$key]['id'] = $val['area_id'];
+			$data[$key]['value'] = $val['area_name'];
+		}
+		
+		$this->ajaxReturn($data, 'json');
+	}
+
 	//添加组织结构
 	public function add_org(){
 		$agent_name = trim(I('add_agent_name_txt'));
@@ -130,7 +157,7 @@ class OrgAction extends CommonAction {
 		{
 			if($agent_level == '2')
 			{
-				changeNum('agent', $father_agentid, $agent_id, 'add');
+				//changeNum('agent', $father_agentid, $agent_id, 'add');
 			}
 			//addOptionLog('agent', $agent_id, 'add', '');
 		}

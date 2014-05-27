@@ -487,6 +487,7 @@ a, .alert-btn, .role-control-btn, .alert-btn2, .org-right-btns .area-btn, .index
   left: 0;
   margin-top: -200px;
   width: 100%;
+  min-width: 1120px;
   height: 400px;
   background: #34acd8; }
   #index-login h1 {
@@ -495,11 +496,13 @@ a, .alert-btn, .role-control-btn, .alert-btn2, .org-right-btns .area-btn, .index
     color: #ffffff;
     text-align: center; }
   #index-login span {
-    float: left;
-    margin: 40px 0 0 10%;
-    width: 300px;
-    height: 200px;
-    display: block; }
+    position: absolute;
+    top: -80px;
+    left: 2%;
+    width: 343px;
+    height: 500px;
+    display: block;
+    background: url(../../Public/image/index-logo.png) 0 0 no-repeat; }
 
 .index-login-con {
   float: right;
@@ -517,7 +520,44 @@ a, .alert-btn, .role-control-btn, .alert-btn2, .org-right-btns .area-btn, .index
     float: left;
     padding-right: 10px;
     width: 100px;
-    line-height: 25px;
-    text-align: right; }
+    line-height: 30px;
+    text-align: right;
+    font-weight: bold; }
+  .index-login-con input {
+    width: 200px;
+    height: 30px; }
   .index-login-con button {
     margin-left: 110px; }
+
+/*登陆默认页*/
+.default-index {
+  min-width: 1140px; }
+
+.default-index-tt {
+  margin: 40px auto 0 auto;
+  width: 762px;
+  height: 65px;
+  background: url(../../Public/image/defult-tt.gif) 0 0 no-repeat; }
+
+.pic-dp {
+  margin-left: 4%;
+  width: 343px;
+  height: 500px;
+  float: left;
+  background: url(../../Public/image/index-logo.png) 0 0 no-repeat; }
+
+.default-index-wz {
+  float: right;
+  margin-right: 20%;
+  margin-top: 200px;
+  width: 500px; }
+  .default-index-wz h1 {
+    width: 434px;
+    height: 50px;
+    background: url(../../Public/image/defult-tt2.gif) 0 0 no-repeat; }
+  .default-index-wz em {
+    margin-top: 20px;
+    width: 434px;
+    display: block;
+    font-size: 16px;
+    line-height: 30px; }

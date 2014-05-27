@@ -13,6 +13,7 @@ return array(
 	'page_show_number' => 30,  //每页显示数量
 	'DEFAULT_CHARSET' => 'utf-8',
 	'OUTPUT_CHARSET' => 'utf-8',
+	'LOAD_EXT_CONFIG' => 'configuration_message',
 	//'LAYOUT_ON'=>true,
 	//'LAYOUT_NAME'=>'layout',
 	'VAR_FILTERS'=>'htmlspecialchars'
