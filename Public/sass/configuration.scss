@@ -6,6 +6,7 @@ $container-left-width:200px;  //container 左边栏宽度
 $font-n-color:#333; //默认文字颜色
 $font-h-color:#34acd8; //默认hover文字颜色
 $bg-color:#F4F8F9;
+$min-width-kuang:1200px;
 %edit-btn{  //通用按钮样式
   padding: 6px 28px;
   box-shadow: 0 1px 3px rgba(0,0,0,.6);
@@ -51,7 +52,7 @@ $bg-color:#F4F8F9;
 
 /*通用头部*/
 #head{
-  min-width: 930px;
+  min-width: $min-width-kuang;
   height: 120px;
   background: #00bcff;
   border-bottom: 2px solid $border-color;}
@@ -121,12 +122,13 @@ $bg-color:#F4F8F9;
 
 /*通用底部*/
 #footer{
+  min-width: $min-width-kuang;
   height: 200px;
   background: #00bcff;}
 
 /*主导航部分*/
 #nav{
-  min-width: 700px;
+  min-width: $min-width-kuang;
   height: 48px;
   background: $bg-color;
   border-bottom : 2px solid $border-color;}
@@ -161,7 +163,7 @@ $bg-color:#F4F8F9;
 #container {
   margin: 0 auto;
   overflow: hidden;
-  min-width: 860px;
+  min-width: $min-width-kuang;
   background: $bg-color;
   .left {
     position: relative;
@@ -220,7 +222,7 @@ $bg-color:#F4F8F9;
   padding-bottom: 30px;
   margin: 0 auto;
   width: 98%;
-  min-width: 950px;
+  //min-width: 950px;
   border: 1px solid $border-color;
   overflow: hidden;}
 .org-right-btns{
@@ -303,7 +305,9 @@ $bg-color:#F4F8F9;
 /*角色维护页面*/
 .role-control{
   padding: 20px 0;
+  margin: 0 auto;
   width: 98%;
+  background: #ffffff;
   border-bottom: 1px dashed $border-color;
     label{
       padding:0 20px 0 40px;}
@@ -313,10 +317,11 @@ $bg-color:#F4F8F9;
   @extend %small-btn;
 }
 .role-table{
-  padding-top: 20px;
+  margin-top: 20px;
 }
 .role-table-list{
   width: 98%;
+  min-width: 1300px;
   margin: 0 auto;
   border: 1px solid $border-color;
   display: table;
@@ -326,14 +331,31 @@ $bg-color:#F4F8F9;
         span{
           padding: 0 5px;
           height: 25px;
-          display: table-cell;
+          display:inline-block;
           line-height: 25px;
+          overflow: hidden;
         }
       &:nth-child(2n){
         background: $bg-color;}
 
     }
+    .span-1{
+      width: 10%;
+      max-width: 96px;}
+    .span-2{
+      width: 20%;
+      max-width: 192px;
+    }
+    .span-3{
+      width: 30%;
+      max-width: 278px;
+    }
 }
+.over-h-y{
+  height: 377px;
+  overflow-y: auto;
+}
+
 .role-table-radio {
   margin: 8px 20px 0 20px;
 }
@@ -418,7 +440,7 @@ $bg-color:#F4F8F9;
   left: 0;
   margin-top: -200px;
   width: 100%;
-  min-width: 1120px;
+  //min-width: 1120px;
   height: 400px;
   background: $font-h-color;
     h1{
@@ -443,7 +465,7 @@ $bg-color:#F4F8F9;
   padding-top: 50px;
   margin: 40px 10% 0 0;
   width: 450px;
-  max-width: 980px;
+  //min-width: 980px;
   height: 200px;
   background: #ffffff;
   border-radius: 40px;

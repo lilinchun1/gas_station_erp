@@ -167,7 +167,7 @@ a, .alert-btn, .role-control-btn, .alert-btn2, .org-right-btns .area-btn, .index
 
 /*通用头部*/
 #head {
-  min-width: 930px;
+  min-width: 1200px;
   height: 120px;
   background: #00bcff;
   border-bottom: 2px solid #cccccc; }
@@ -231,12 +231,13 @@ a, .alert-btn, .role-control-btn, .alert-btn2, .org-right-btns .area-btn, .index
 
 /*通用底部*/
 #footer {
+  min-width: 1200px;
   height: 200px;
   background: #00bcff; }
 
 /*主导航部分*/
 #nav {
-  min-width: 700px;
+  min-width: 1200px;
   height: 48px;
   background: #f4f8f9;
   border-bottom: 2px solid #cccccc; }
@@ -265,7 +266,7 @@ a, .alert-btn, .role-control-btn, .alert-btn2, .org-right-btns .area-btn, .index
 #container {
   margin: 0 auto;
   overflow: hidden;
-  min-width: 860px;
+  min-width: 1200px;
   background: #f4f8f9; }
   #container .left {
     position: relative;
@@ -317,7 +318,6 @@ a, .alert-btn, .role-control-btn, .alert-btn2, .org-right-btns .area-btn, .index
   padding-bottom: 30px;
   margin: 0 auto;
   width: 98%;
-  min-width: 950px;
   border: 1px solid #cccccc;
   overflow: hidden; }
 
@@ -388,7 +388,9 @@ a, .alert-btn, .role-control-btn, .alert-btn2, .org-right-btns .area-btn, .index
 /*角色维护页面*/
 .role-control {
   padding: 20px 0;
+  margin: 0 auto;
   width: 98%;
+  background: #ffffff;
   border-bottom: 1px dashed #cccccc; }
   .role-control label {
     padding: 0 20px 0 40px; }
@@ -397,10 +399,11 @@ a, .alert-btn, .role-control-btn, .alert-btn2, .org-right-btns .area-btn, .index
   margin-left: 10px; }
 
 .role-table {
-  padding-top: 20px; }
+  margin-top: 20px; }
 
 .role-table-list {
   width: 98%;
+  min-width: 1300px;
   margin: 0 auto;
   border: 1px solid #cccccc;
   display: table; }
@@ -410,10 +413,24 @@ a, .alert-btn, .role-control-btn, .alert-btn2, .org-right-btns .area-btn, .index
     .role-table-list li span {
       padding: 0 5px;
       height: 25px;
-      display: table-cell;
-      line-height: 25px; }
+      display: inline-block;
+      line-height: 25px;
+      overflow: hidden; }
     .role-table-list li:nth-child(2n) {
       background: #f4f8f9; }
+  .role-table-list .span-1 {
+    width: 10%;
+    max-width: 96px; }
+  .role-table-list .span-2 {
+    width: 20%;
+    max-width: 192px; }
+  .role-table-list .span-3 {
+    width: 30%;
+    max-width: 278px; }
+
+.over-h-y {
+  height: 377px;
+  overflow-y: auto; }
 
 .role-table-radio {
   margin: 8px 20px 0 20px; }
@@ -487,7 +504,6 @@ a, .alert-btn, .role-control-btn, .alert-btn2, .org-right-btns .area-btn, .index
   left: 0;
   margin-top: -200px;
   width: 100%;
-  min-width: 1120px;
   height: 400px;
   background: #34acd8; }
   #index-login h1 {
@@ -509,7 +525,6 @@ a, .alert-btn, .role-control-btn, .alert-btn2, .org-right-btns .area-btn, .index
   padding-top: 50px;
   margin: 40px 10% 0 0;
   width: 450px;
-  max-width: 980px;
   height: 200px;
   background: #ffffff;
   border-radius: 40px; }
