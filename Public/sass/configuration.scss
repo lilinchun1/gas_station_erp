@@ -342,7 +342,7 @@ $min-width-kuang:1200px;
     }
     .span-1{
       width: 10%;
-      max-width: 96px;}
+      max-width: 100px;}
     .span-2{
       width: 20%;
       max-width: 192px;
@@ -435,6 +435,9 @@ $min-width-kuang:1200px;
 }
 
 /*登陆页面*/
+#tishi{
+  float: right;
+  margin-right: 40px;}
 #index-login{
   position: fixed;
   top: 50%;
@@ -554,7 +557,7 @@ $min-width-kuang:1200px;
   background: $font-h-color;
   li{
     margin-right: 10px;
-    width: 80px;
+    width: 100px;
     height: 30px;
     font-size: 14px;
     font-weight: bold;
@@ -568,4 +571,10 @@ $min-width-kuang:1200px;
     background: #fff;
     color: #000000;
   }
+}
+
+/*加油站信息页*/
+.input-mac{
+  @extend %input-t;
+  width: 30px;
 }

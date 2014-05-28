@@ -21,13 +21,13 @@ $.openLayer = function(p){
 		splitChar : ",:",				//数据分隔符，第一个字符为各项之间的分隔符，第二个为每项中id和显示字符串的分隔符。
 		returnValue : "",				//以，分隔的选取结果id存放的位置id，默认为一个input。
 		returnText : "",				//以，分隔的选取结果文字存放的位置id，可以为span，div等容器。
-		title : "选择业务范围",				//弹出窗口标题
+		title : "选择业务范围,单击省份可以选择所属市",				//弹出窗口标题
 		width : 650,					//弹出窗口宽度
 		span_width : {d1:70,d3:150},	//可以自定义每一层级数据项显示宽度，用来对其排版。
-		url : "http://192.168.0.60/gas_station_erp/index.php/configuration/Org/show_area_tree",						//ajax请求url
+		url : "http://192.168.0.126/gas_station_erp/index.php/configuration/Org/show_area_tree",						//ajax请求url
 		pid : "0",						//父id
 		shared : true,					//如果页面中有多于1个的弹出选择,是否共享缓存数据
-		index : 1000000,						//如果页面中有多于1个的弹出选择,如果不共享之前的操作界面则必须设置不同的index值，否则不同的弹出选择共享相同的操作界面。
+		index : 10005,						//如果页面中有多于1个的弹出选择,如果不共享之前的操作界面则必须设置不同的index值，否则不同的弹出选择共享相同的操作界面。
 		cacheEnable : false,				//是否允许缓存
 		dragEnable : true,				//是否允许鼠标拖动
 		pText : ""
@@ -77,8 +77,9 @@ $.openLayer = function(p){
 					async : false,						//同步方式，便于拿到返回数据做统一处理
 					beforeSend : function (){ },		//ajax查询请求之前动作，比如提示信息……
 					success : function (d) {			//ajax请求成功后返回数据
-						data = d;
-						if(param.cacheEnable){ _cache = data;}		//cache允许,保存数据到cache
+						data = "{"+d+"}";
+						//alert(data);
+						if(param.cacheEnable){ _cache=eval("(" + data + ")");}		//cache允许,保存数据到cache
 					}
 				});
 			}
@@ -94,8 +95,8 @@ $.openLayer = function(p){
 			span_width = (span_width == undefined ? param.span_width.d1:span_width );//没有设置的话，就使用第一个数据容器的值
 			var inspan_width = ($.browser.msie)?1:3;								//内部文字和checkbox之间的距离
 						
-			var dat = data.split(param.splitChar.charAt(0));						//根据设定分隔符对数据做第一次分隔，获得数据项数组
-alert(dat);
+			var dat=eval("(" + data + ")")[pid].split(param.splitChar.charAt(0));					//根据设定分隔符对数据做第一次分隔，获得数据项数组
+
 			var html = [];															//格式化数据存放容器，为了提高效率，使用了数组
 			var ss = [];
 			//循环获得格式化的显示字符串
@@ -177,7 +178,7 @@ alert(dat);
 					targetid.after(next);
 			
 					spans.css({"background":"","border":"","margin":""});
-					$(this).parent().css({"background":"orange","border":"1px ridge","margin":"-1"});
+					$(this).parent().css({"background":"orange","margin":"-1"});
 					param.pid = $(this).prev().val();
 					fs.add_data(next,param);
 				}else{
@@ -243,7 +244,7 @@ alert(dat);
 
 			var css = [];
 			var aotu = "border:2px groove";
-			css.push("#popupAddr {position:absolute;border:3px ridge;width:"+param.width+"px;height:auto;background-color:#e3e3e3;z-index:99;-moz-box-shadow:5px 5px 5px rgba(0,0,0,0.5);box-shadow:5px 5px 5px rgba(0,0,0,0.5);filter:progid:DXImageTransform.Microsoft.dropshadow(OffX=5,OffY=5,Color=gray);-ms-filter:progid:DXImageTransform.Microsoft.dropshadow(OffX=5,OffY=5,Color='gray');}");
+			css.push("#popupAddr {position:absolute;border:3px ridge;width:"+param.width+"px;height:auto;background-color:#e3e3e3;z-index:10005;-moz-box-shadow:5px 5px 5px rgba(0,0,0,0.5);box-shadow:5px 5px 5px rgba(0,0,0,0.5);filter:progid:DXImageTransform.Microsoft.dropshadow(OffX=5,OffY=5,Color=gray);-ms-filter:progid:DXImageTransform.Microsoft.dropshadow(OffX=5,OffY=5,Color='gray');}");
 			css.push("#bodybg {width:100%;z-index:98;position:absolute;top:0;left:0;background-color:#fff;opacity:0.1;filter:alpha(opacity =10);}");
 			css.push("#heads {width:100%;font-size:12px;margin:0 auto;}");
 			css.push("#headdiv {color:white;background-color:green;font-size:13px;height:25px;margin:1px;" +aotu+"}");
@@ -311,7 +312,7 @@ alert(dat);
 
 })(jQuery)
 
-_cache ={"0":"0100:北京市,0200:上海,0300:广东省,0500:天津市,0600:重庆市,0700:江苏省,0800:浙江省,0900:四川省,1000:海南省,1100:福建省,1200:山东省,1300:江西省,1400:广西,1500:安徽省,1600:河北省,1700:河南省,1800:湖北省,1900:湖南省,2000:陕西省,2100:山西省,2200:黑龙江省,2300:辽宁省,2400:吉林省,2500:云南省,2600:贵州省,2700:甘肃省,2800:内蒙古,2900:宁夏,3000:西藏,3100:新疆,3200:青海省,3300:香港,3400:澳门,3500:台湾,3600:国外"
+_cache ={
 };		
 //缓存
 

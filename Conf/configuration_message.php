@@ -15,5 +15,10 @@
 		'change_agent_failed'	   =>	'修改代理商失败',
 		'delete_agent_success'	   =>	'成功删除代理商信息',
 		'delete_agent_failed'	   =>	'删除代理商信息失败',
+		'verification_code_error'	=>	'验证码错误',
+		'login_success'		=>	'登陆成功',
+		'logout_success'	=>	'退出成功',
+		'login_failed'		=>	'登陆失败(用户名/密码错误)',
+		'no_have_this_username'		=>	'没有该用户，或者该用户已经失效',
 	);
 ?>

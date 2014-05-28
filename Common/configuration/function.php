@@ -1,4 +1,71 @@
 <?php
+/*
+ * POST提交验证
+ */
+function submit_verify($post_name) {
+	if ($_POST[$post_name]) {
+		return true;
+	} else {
+		return false;
+	}
+}
+
+/*
+ * 判断是否登录
+ *		$option = redirect 跳转/ return 返回
+ */
+function check_login($option='redirect') {
+	if ($_SESSION['userinfo']['uid'] && $_SESSION['userinfo']['grade']) {
+		$user_db = D('User');
+		$user = $user_db->getUser($_SESSION['userinfo']['uid']);
+		return $user;
+	} else {
+		if ($option=='return') {
+			return false;
+		} else {
+			header('Content-type: text/html; charset=utf-8');
+			redirect(U('Login/login'), 3, C('no_login'));
+		}
+	}
+}
+
+/*
+ * 返回代理商 参数为空，返回全部
+ */
+function getAgents($agentid=0, $agentname='') {
+	$db = new model();
+	$wheresql = 'isdelete=0';
+	if ($agentid) {
+		is_int($agentid) ? $wheresql .= ' and agent_id='.$agentid : false;
+		is_array($agentid) ? $wheresql .= ' and agent_id in ('. implode(',', $agentid) .')' : false;
+	}
+	$agentname ? $wheresql .= ' and agent_name="'.$agentname.'"' : false;
+
+	$sql = 'SELECT agent_id as agentsid, agent_name as agentsname from jienuo.qd_agent where '.$wheresql.' order by agentsid asc';
+	$list = $db->query($sql);
+	$list2 = array();
+	foreach ($list as $l) {
+		$list2[$l['agentsid']] = $l;
+	}
+	return $list2;
+}
+
+
+// 验证并获取跟用户信息
+function getRoot($username, $password) {
+	$userinfo = array();
+	if ($username == C('ROOT_USER') && $password == C('ROOT_PWSD')) {
+		$userinfo = array(
+			'uid' => 'root',
+			'username' => $username,
+			//'password' => $password,
+			'agentsid' => 0,
+			'grade' => 1,
+		);
+	}
+	return $userinfo;
+}
+
 //根据用户ID返回用户信息
 function getUserInfo($uid='') {
 	$userinfo = null;

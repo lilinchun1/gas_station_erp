@@ -1,4 +1,4 @@
-<!doctype html>
+<?php if (!defined('THINK_PATH')) exit();?><!doctype html>
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
@@ -21,18 +21,18 @@
             </ul>
         </div>
         <div class="right">
-            <a href="{:U('configuration/Login/logout')}">退出系统</a>
+            <a href="<?php echo U('configuration/Login/logout');?>">退出系统</a>
         </div>
     </div>
 </div>
 <div id="nav">
     <ul class="main-nav">
         <li><a href="">加油站监控</a></li>
-        <li><a href="{:U('channel/Channel/index')}">渠道管理</a></li>
+        <li><a href="<?php echo U('channel/Channel/index');?>">渠道管理</a></li>
         <li><a href="">运营管理</a></li>
         <li><a href="">统计分析</a></li>
         <li><a href="">广告管理</a></li>
-        <li><a href="{:U('configuration/Org/index')}">系统设置</a></li>
+        <li><a href="<?php echo U('configuration/Org/index');?>">系统设置</a></li>
     </ul>
 </div>
 <div id="container">

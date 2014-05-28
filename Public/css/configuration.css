@@ -144,7 +144,7 @@ a, .alert-btn, .role-control-btn, .alert-btn2, .org-right-btns .area-btn, .index
   padding: 2px 10px;
   font-size: 14px; }
 
-.org-right-info .org-select, .input-org-info, .input-role-name, .index-login-con input, .channel-select-min, .channel-select {
+.org-right-info .org-select, .input-org-info, .input-role-name, .index-login-con input, .channel-select-min, .channel-select, .input-mac {
   width: 160px;
   height: 24px;
   line-height: 24px;
@@ -421,7 +421,7 @@ a, .alert-btn, .role-control-btn, .alert-btn2, .org-right-btns .area-btn, .index
       background: #f4f8f9; }
   .role-table-list .span-1 {
     width: 10%;
-    max-width: 96px; }
+    max-width: 100px; }
   .role-table-list .span-2 {
     width: 20%;
     max-width: 192px; }
@@ -499,6 +499,10 @@ a, .alert-btn, .role-control-btn, .alert-btn2, .org-right-btns .area-btn, .index
     margin-bottom: 5px; }
 
 /*登陆页面*/
+#tishi {
+  float: right;
+  margin-right: 40px; }
+
 #index-login {
   position: fixed;
   top: 50%;
@@ -605,7 +609,7 @@ a, .alert-btn, .role-control-btn, .alert-btn2, .org-right-btns .area-btn, .index
   background: #34acd8; }
   .channel-tab li {
     margin-right: 10px;
-    width: 80px;
+    width: 100px;
     height: 30px;
     font-size: 14px;
     font-weight: bold;
@@ -616,3 +620,7 @@ a, .alert-btn, .role-control-btn, .alert-btn2, .org-right-btns .area-btn, .index
   .channel-tab .on {
     background: #fff;
     color: #000000; }
+
+/*加油站信息页*/
+.input-mac {
+  width: 30px; }

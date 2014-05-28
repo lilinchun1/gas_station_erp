@@ -7,6 +7,10 @@ class LoginAction extends Action {
 		$this->display(':login_index');
 	}
 
+	 public function default_index(){
+		$this->display(':default_index');
+	}
+
 	// 用户登录
 	public function login() {
 		if (submit_verify('USER_LOGIN')) {
@@ -27,12 +31,12 @@ class LoginAction extends Action {
 			// 查看是否是根用户
 			$userinfo = getRoot($username, $password);
 			if (!$userinfo) {
-				$userm = M('u_user');
+				$userm = M('user');
 				// 检查是否有该用户
-				$uinfo = $userm->where("username='$username' && isdel=0")->find();
+				$uinfo = $userm->where("username='$username' && del_flag=0")->find();
 				if (!empty($uinfo)) {
 					// 检查用户密码是否错误
-					$userinfo = $userm->where("username='$username' && password='$password' && isdel=0")->find();
+					$userinfo = $userm->where("username='$username' && password='$password' && del_flag=0")->find();
 				} else {
 					$msg = C('no_have_this_username');
 				}
@@ -43,20 +47,15 @@ class LoginAction extends Action {
 				session('userinfo',$userinfo);
 				$emsg = 'login_success';
 				$msg = C($emsg);
-				// 设置最后登录时间
-				if ($userinfo['uid'] != 'root') {
-					$data = array('lastlogintime'=>$_SERVER['REQUEST_TIME']);
-					$userm->where("uid={$userinfo['uid']}")->save($data);
-				}
 				if ($_POST['is_ajax']) {
+					// 设置最后登录时间
+					if ($userinfo['uid'] != 'root') {
+						$data['lastlogintime'] = time();
+						$userm->where("uid={$userinfo['uid']}")->save($data);
+					}
 					$this->ajaxReturn(array('login'=>2001, 'emsg'=>'login_success', 'msg'=>$msg));
 				} else {
-					if ($_POST['refer'] && $userinfo['uid']!='root') {
-						$refer = trim($_POST['refer']);
-						redirect($refer);
-					} else {
-						$this->redirect('User/showlist', '',3, $msg);
-					}
+					$this->redirect('Login/login', '',3, $msg);
 				}
 			} else {
 				empty($msg) ? $msg = C('login_failed') : 1;
@@ -76,11 +75,7 @@ class LoginAction extends Action {
 	public function logout() {
 		session_unset();
 		session_destroy();
-		if ($_GET['redirect']) {
-			redirect('/user/index.php?m=login&a=login&redirect='.urldecode($_GET['redirect']));
-		} else {
-			$this->redirect('Login/login', '', 3, C('logout_success'));
-		}
+		$this->index();
 	}
 
 	// 生成验证码

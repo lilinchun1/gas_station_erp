@@ -194,6 +194,21 @@ class OrgAction extends CommonAction {
 		$this->ajaxReturn($msg,'json');
 	}
 
+	//根据代理商ID查询代理商详细信息
+     public function orgDetailSelect(){
+	    $Model = new Model();
+		$agent_id = I('get.agent_id');
+		//p($_GET['agent_id']);
+		$where = "a.agent_id=" . $agent_id;
+		$dataAgent = $Model->table('qd_agent a')->where($where)->select();// 查询满足要求的总记录数
+		$dataAgent[0]['begin_time'] = getDateFromTime($dataAgent[0]['begin_time']);
+		$dataAgent[0]['end_time'] = getDateFromTime($dataAgent[0]['end_time']);
+		//p($dataAgent[0]['date']);
+
+		$data = $dataAgent[0];
+		$this->ajaxReturn($data,'json');
+	}
+
      //编辑组织结构
      public function edit_org(){
 		$agent_name = trim(I('change_agent_name_txt'));
