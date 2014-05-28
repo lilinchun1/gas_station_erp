@@ -35,13 +35,13 @@ CREATE TABLE IF NOT EXISTS `bi_user` (
   `telphone` varchar(30) NOT NULL COMMENT '电话',
   `email` varchar(40) DEFAULT NULL COMMENT '邮箱',
   `realname` varchar(30) DEFAULT NULL COMMENT '真实姓名',
-  `grade` tinyint(3) unsigned NOT NULL COMMENT '用户等级',
   `adduserid` int(11) unsigned NOT NULL COMMENT '创建人UID(0为root)',
   `adddate` int(11) unsigned NOT NULL COMMENT '创建时间',
   `modifyuserid` int(11) unsigned COMMENT '修改人UID(0为root)',
   `modifydate` int(11) unsigned COMMENT '修改时间',
   `orgid` int(11) unsigned DEFAULT NULL COMMENT '组织结构ID',
   `lastlogintime` int(10) unsigned NOT NULL COMMENT '最后一次登录时间戳',
+  `sex` tinyint(1) unsigned NOT NULL COMMENT '性别',
   `memo` varchar(100) NOT NULL COMMENT '备注',
   `del_flag` tinyint(1) unsigned NOT NULL COMMENT '是否激活(0激活1失效)',
   PRIMARY KEY (`uid`),
@@ -114,7 +114,7 @@ CREATE TABLE IF NOT EXISTS `bi_province` (
   `prov_name` varchar(32) NOT NULL COMMENT '省名称',
   PRIMARY KEY (`prov_id`),
   UNIQUE KEY `prov_name` (`prov_name`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COMMENT='省表' AUTO_INCREMENT=7 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COMMENT='省表' AUTO_INCREMENT=1 ;
 
 
 --
@@ -127,7 +127,7 @@ CREATE TABLE IF NOT EXISTS `bi_city` (
   `prov_id` int(11) NOT NULL,
   PRIMARY KEY (`city_id`),
   UNIQUE KEY `city_name` (`city_name`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COMMENT='市表' AUTO_INCREMENT=7 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COMMENT='市表' AUTO_INCREMENT=1 ;
 
 
 --
@@ -141,7 +141,7 @@ CREATE TABLE IF NOT EXISTS `bi_area` (
   `memo` varchar(100) NOT NULL COMMENT '备注',
   PRIMARY KEY (`area_id`),
   UNIQUE KEY `area_name` (`area_name`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COMMENT='区域表' AUTO_INCREMENT=7 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COMMENT='区域表' AUTO_INCREMENT=1 ;
 
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

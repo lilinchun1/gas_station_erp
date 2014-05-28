@@ -8,38 +8,12 @@
 
 </head>
 <body>
-<div id="head">
-    <h1 class="head-logo"><a href="index.html">ERP管理系统</a></h1>
-    <h2 class="head-tt">智能手机加油站ERP管理系统</h2>
-    <div class="login">
-        <div class="left">
-            <ul class="left-nav">
-                <li>赵洋,您好 <span></span>
-                    <ul>
-                        <li><a href="">修改密码</a></li>
-                    </ul>
-                </li>
-            </ul>
-        </div>
-        <div class="right">
-            <a href="{:U('configuration/Login/logout')}">退出系统</a>
-        </div>
-    </div>
-</div>
-<div id="nav">
-    <ul class="main-nav">
-        <li><a href="">加油站监控</a></li>
-        <li><a href="{:U('channel/Channel/index')}">渠道管理</a></li>
-        <li><a href="">运营管理</a></li>
-        <li><a href="">统计分析</a></li>
-        <li><a href="">广告管理</a></li>
-        <li class="active"><a href="{:U('configuration/Org/index')}">系统设置</a></li>
-    </ul>
-</div>
+<include file="./Tpl/include/pb-head.html" />
+
 <div id="container">
     <div class="left">
         <ul class="aside-nav">
-            <li class="aside-nav-nth1"><a href="">系统设置</a></li>
+            <li class="aside-nav-nth1"><a href="{:U('configuration/Org/index')}">系统设置</a></li>
             <li><a href="{:U('Org/index')}"><input  type="button"  value="组织结构" ></a></li>
             <li><a href="{:U('Role/index')}"><input type="button" class="" value="角色维护" ></a></li>
             <li class="active"><a href="{:U('User/index')}"><input type="button" class="" value="职员维护" ></a></li>
@@ -371,9 +345,7 @@
         </div>
     </div>
 </div>
-<div id="footer">
-
-</div>
+<include file="./Tpl/include/pb-foot.html" />
 <div class="alert-role-add">
     <h3>添加职员信息</h3>
     <div class="alert-user-add-con">
@@ -391,6 +363,10 @@
             <p>
                 <label for="login-id" class="role-lab">登陆账号</label>
                 <input type="text" name="addname" id="login-id" class="input-role-name"/>
+            </p>
+            <p>
+                <label for="login-id" class="email">邮箱</label>
+                <input type="text" name="addname" id="email" class="input-role-name"/>
             </p>
             <div>
                 <em>角色</em>
@@ -411,7 +387,7 @@
             <input type="hidden" id="J_TreeResult" value='{"id":"291"}'>
             </p>
             <p>
-                <button type="button" class="alert-btn2">保存</button>
+                <button type="button" class="alert-btn2">删除</button>
                 <button type="button" class="alert-btn2">关闭</button>
             </p>
         </form>

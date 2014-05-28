@@ -9,7 +9,7 @@
 <body>
 <div id="head">
     <h1 class="head-logo"><a href="index.html">ERP管理系统</a></h1>
-    <h2 class="head-tt">智能手机加油站ERP管理系统</h2>
+    <h2 class="head-tt">111智能手机加油站ERP管理系统</h2>
     <div class="login">
         <div class="left">
             <ul class="left-nav">
@@ -26,19 +26,19 @@
     </div>
 </div>
 <div id="nav">
-    <ul class="main-nav">
+    <ul class="main-nav" id="j-nav-active">
         <li><a href="">加油站监控</a></li>
         <li><a href="<?php echo U('channel/Channel/index');?>">渠道管理</a></li>
         <li><a href="">运营管理</a></li>
         <li><a href="">统计分析</a></li>
         <li><a href="">广告管理</a></li>
-        <li class="active"><a href="<?php echo U('configuration/Org/index');?>">系统设置</a></li>
+        <li><a href="<?php echo U('configuration/Org/index');?>">系统设置</a></li>
     </ul>
 </div>
 <div id="container">
     <div class="left">
         <ul class="aside-nav">
-            <li class="aside-nav-nth1"><a href="">系统设置</a></li>
+            <li class="aside-nav-nth1"><a href="<?php echo U('configuration/Org/index');?>">系统设置</a></li>
             <li><a href="<?php echo U('Org/index');?>"><input  type="button"  value="组织结构" ></a></li>
             <li class="active"><a href="<?php echo U('Role/index');?>"><input type="button" class="" value="角色维护" ></a></li>
             <li><a href="<?php echo U('User/index');?>"><input type="button" class="" value="职员维护" ></a></li>
@@ -52,7 +52,7 @@
                         <form action="">
                             <label for="role-name" class="role-lab">角色名称</label>
                             <input type="text" name="" id="role-name" class="input-org-info"/>
-                            <button type="button" class="role-control-btn">添加</button>
+                            <button type="button" class="role-control-btn">查询</button>
                         </form>
                     </div>
                     <div class="org-right-btns">
@@ -247,9 +247,52 @@
         </div>
     </div>
 </div>
-<div id="footer">
 
+<div id="footer">
+1111
 </div>
+<script>
+    window.onload=function(){
+        headAct();
+
+    };
+    function headAct(){
+        var Ourl = window.location.href;
+        if(!document.getElementById('j-nav-active')){return;};
+        var Onav = document.getElementById('j-nav-active');
+        var nbLi = Onav.getElementsByTagName('li');
+        for(var i=0; i<nbLi.length;i++){
+            if(Ourl=="/gas_station_erp/index.php/Org/index"||Ourl.indexOf("/gas_station_erp/index.php/Org/index")>=0||Ourl=="/gas_station_erp/index.php/Role/index"||Ourl.indexOf("/gas_station_erp/index.php/Role/index")>=0||Ourl=="/gas_station_erp/index.php/User/index"||Ourl.indexOf("/gas_station_erp/index.php/User/index")>=0){
+                       nbLi[5].className='active';//系统设置
+                        return;
+            }
+            if(Ourl=="/gas_station_erp/index.php/Org/index"||Ourl.indexOf("/gas_station_erp/index.php/Org/index")>=0){
+                nbLi[4].className='active';//广告管理
+                return;
+            }
+            if(Ourl=="/gas_station_erp/index.php/Org/index"||Ourl.indexOf("/gas_station_erp/index.php/Org/index")>=0){
+                nbLi[3].className='active';//统计分析
+                return;
+            }
+            if(Ourl=="/gas_station_erp/index.php/Org/index"||Ourl.indexOf("/gas_station_erp/index.php/Org/index")>=0){
+                nbLi[2].className='active';//运营管理
+                return;
+            }
+            if(Ourl=="/gas_station_erp/index.php/channel/Channel/index"||Ourl.indexOf("/gas_station_erp/index.php/channel/Channel/index")>=0||Ourl=="/gas_station_erp/index.php/channel/Place/index"||Ourl.indexOf("/gas_station_erp/index.php/channel/Place/index")>=0||Ourl=="/gas_station_erp/index.php/channel/Device/index"||Ourl.indexOf("/gas_station_erp/index.php/channel/Device/index")>=0){
+                nbLi[1].className='active';//渠道管理
+                return;
+            }
+            if(Ourl=="/gas_station_erp/index.php/Org/index"||Ourl.indexOf("/gas_station_erp/index.php/Org/index")>=0){
+                nbLi[0].className='active';//加油站监控
+                return;
+            }
+
+
+        }
+
+    }
+</script>
+
 <div class="alert-role-add">
     <h3>添加角色信息</h3>
     <div class="alert-role-add-con">

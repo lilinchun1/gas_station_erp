@@ -12,8 +12,9 @@ return array(
 	'__PUBLIC__' => '__ROOT__/Public/',
 	'ROOT_USER' => 'admin', // 根用户用户名
 	'ROOT_PWSD' => 'admin', // 根用户密码
+	'DOMAIN' => 'http://admin.jienuo-service.net/',
+	'image_url' => 'http://img.jienuo-service.net/',
 	'ROOT_USER_REALNAME' => '根用户', // 根用户用户名
-	'page_show_number' => 30,  //每页显示数量
 	'DEFAULT_CHARSET' => 'utf-8',
 	'OUTPUT_CHARSET' => 'utf-8',
 	'LOAD_EXT_CONFIG' => 'configuration_message',

@@ -20,5 +20,11 @@
 		'logout_success'	=>	'退出成功',
 		'login_failed'		=>	'登陆失败(用户名/密码错误)',
 		'no_have_this_username'		=>	'没有该用户，或者该用户已经失效',
+		'add_role_success'		=>	'成功添加角色',
+		'add_role_failed'		=>	'添加角色失败',
+		'modify_role_success'		=>	'成功修改角色',
+		'modify_role_failed'		=>	'修改角色失败',
+		'delete_role_success'		=>	'成功删除角色',
+		'delete_role_failed'		=>	'删除角色失败',
 	);
 ?>

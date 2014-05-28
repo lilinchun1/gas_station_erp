@@ -24,7 +24,7 @@ $.openLayer = function(p){
 		title : "选择业务范围,单击省份可以选择所属市",				//弹出窗口标题
 		width : 650,					//弹出窗口宽度
 		span_width : {d1:70,d3:150},	//可以自定义每一层级数据项显示宽度，用来对其排版。
-		url : "http://192.168.0.126/gas_station_erp/index.php/configuration/Org/show_area_tree",						//ajax请求url
+		url : "http://127.0.0.1/gas_station_erp/index.php/configuration/Org/show_area_tree",						//ajax请求url
 		pid : "0",						//父id
 		shared : true,					//如果页面中有多于1个的弹出选择,是否共享缓存数据
 		index : 10005,						//如果页面中有多于1个的弹出选择,如果不共享之前的操作界面则必须设置不同的index值，否则不同的弹出选择共享相同的操作界面。

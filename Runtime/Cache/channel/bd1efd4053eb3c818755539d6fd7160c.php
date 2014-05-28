@@ -1,4 +1,4 @@
-<!doctype html>
+<?php if (!defined('THINK_PATH')) exit();?><!doctype html>
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
@@ -8,14 +8,41 @@
     <script type="text/javascript" src="../../Public/js/jquery.SuperSlide.2.1.1.js"></script>
 </head>
 <body>
-<include file="./Tpl/include/pb-head.html" />
+<div id="head">
+    <h1 class="head-logo"><a href="index.html">ERP管理系统</a></h1>
+    <h2 class="head-tt">111智能手机加油站ERP管理系统</h2>
+    <div class="login">
+        <div class="left">
+            <ul class="left-nav">
+                <li>赵洋,您好 <span></span>
+                    <ul>
+                        <li><a href="">修改密码</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+        <div class="right">
+            <a href="<?php echo U('configuration/Login/logout');?>">退出系统</a>
+        </div>
+    </div>
+</div>
+<div id="nav">
+    <ul class="main-nav" id="j-nav-active">
+        <li><a href="">加油站监控</a></li>
+        <li><a href="<?php echo U('channel/Channel/index');?>">渠道管理</a></li>
+        <li><a href="">运营管理</a></li>
+        <li><a href="">统计分析</a></li>
+        <li><a href="">广告管理</a></li>
+        <li><a href="<?php echo U('configuration/Org/index');?>">系统设置</a></li>
+    </ul>
+</div>
 <div id="container">
 <div class="left">
     <ul class="aside-nav">
         <li class="aside-nav-nth1"><a href="">渠道管理</a></li>
-        <li><a href="{:U('Channel/index')}"><input  type="button"  value="渠道信息" ></a></li>
-        <li><a href="{:U('Place/index')}"><input type="button" class="" value="网点信息" ></a></li>
-        <li class="active"><a href="{:U('Device/index')}"><input type="button" class="" value="加油站信息" ></a></li>
+        <li><a href="<?php echo U('Channel/index');?>"><input  type="button"  value="渠道信息" ></a></li>
+        <li><a href="<?php echo U('Place/index');?>"><input type="button" class="" value="网点信息" ></a></li>
+        <li class="active"><a href="<?php echo U('Device/index');?>"><input type="button" class="" value="加油站信息" ></a></li>
     </ul>
 </div>
 <div class="right">
@@ -297,7 +324,59 @@
 </div>
 </div>
 </div>
-<include file="./Tpl/include/pb-foot.html" />
+<div id="footer">
+1111
+</div>
+<script>
+    window.onload=function(){
+        headAct();
+
+    };
+    function headAct(){
+        var Ourl = window.location.href;
+        if(!document.getElementById('j-nav-active')){return;};
+        var Onav = document.getElementById('j-nav-active');
+        var nbLi = Onav.getElementsByTagName('li');
+       /* for(var i=0; i<nbLi.length;i++){
+            if(Ourl=="/gas_station_erp/index.php/Org/index"||Ourl.indexOf("/gas_station_erp/index.php/Org/index")>=0||Ourl=="/gas_station_erp/index.php/Role/index"||Ourl.indexOf("/gas_station_erp/index.php/Role/index")>=0||Ourl=="/gas_station_erp/index.php/User/index"||Ourl.indexOf("/gas_station_erp/index.php/User/index")>=0){
+                       nbLi[5].className='active';//系统设置
+                        return;
+            }
+            if(Ourl=="/gas_station_erp/index.php/Org/index"||Ourl.indexOf("/gas_station_erp/index.php/Org/index")>=0){
+                nbLi[4].className='active';//广告管理
+                return;
+            }
+            if(Ourl=="/gas_station_erp/index.php/Org/index"||Ourl.indexOf("/gas_station_erp/index.php/Org/index")>=0){
+                nbLi[3].className='active';//统计分析
+                return;
+            }
+            if(Ourl=="/gas_station_erp/index.php/Org/index"||Ourl.indexOf("/gas_station_erp/index.php/Org/index")>=0){
+                nbLi[2].className='active';//运营管理
+                return;
+            }
+            if(Ourl=="/gas_station_erp/index.php/channel/Channel/index"||Ourl.indexOf("/gas_station_erp/index.php/channel/Channel/index")>=0||Ourl=="/gas_station_erp/index.php/channel/Place/index"||Ourl.indexOf("/gas_station_erp/index.php/channel/Place/index")>=0||Ourl=="/gas_station_erp/index.php/channel/Device/index"||Ourl.indexOf("/gas_station_erp/index.php/channel/Device/index")>=0){
+                nbLi[1].className='active';//渠道管理
+                return;
+            }
+            if(Ourl=="/gas_station_erp/index.php/Org/index"||Ourl.indexOf("/gas_station_erp/index.php/Org/index")>=0){
+                nbLi[0].className='active';//加油站监控
+                return;
+            }
+
+
+        }*/
+        for(var i=0; i<nbLi.length;i++) {
+            switch (Ourl){
+                case Ourl == "/gas_station_erp/index.php/Org/index" || Ourl.indexOf("/gas_station_erp/index.php/Org/index") >= 0 || Ourl == "/gas_station_erp/index.php/Role/index" || Ourl.indexOf("/gas_station_erp/index.php/Role/index") >= 0 || Ourl == "/gas_station_erp/index.php/User/index" || Ourl.indexOf("/gas_station_erp/index.php/User/index") >= 0:
+                    nbLi[5].className = 'active';//系统设置
+                    break;
+            }
+
+
+
+        }
+    }
+</script>
 <div class="alert-role-add">
     <h3>添加职员信息</h3>
     <div class="alert-user-add-con">

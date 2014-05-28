@@ -349,15 +349,14 @@ a, .alert-btn, .role-control-btn, .alert-btn2, .org-right-btns .area-btn, .index
     float: left; }
   .org-right-info label {
     float: left;
-    margin: 20px 15px 0 0;
-    width: 100px;
+    margin: 20px 10px 0 0;
+    width: 90px;
     text-align: right; }
   .org-right-info em {
     width: 350px;
     display: block; }
   .org-right-info .lab-ckbox {
     width: 30px;
-    margin-right: 46px;
     float: right; }
   .org-right-info .info-bottom {
     float: left;
@@ -379,7 +378,7 @@ a, .alert-btn, .role-control-btn, .alert-btn2, .org-right-btns .area-btn, .index
   margin-top: 15px; }
 
 .min-w {
-  width: 60px;
+  width: 85px;
   margin-right: 5px; }
 
 .alert-btn {
@@ -443,6 +442,7 @@ a, .alert-btn, .role-control-btn, .alert-btn2, .org-right-btns .area-btn, .index
 
 .alert-role-add-con {
   margin-left: 100px;
+  background: #ffffff;
   padding-bottom: 30px; }
   .alert-role-add-con label {
     padding-right: 20px;

@@ -7,34 +7,7 @@
 	<link rel="stylesheet" href="__PUBLIC__/css/configuration.css"/>
 </head>
 <body>
-<div id="head">
-    <h1 class="head-logo"><a href="index.html">ERP管理系统</a></h1>
-    <h2 class="head-tt">智能手机加油站ERP管理系统</h2>
-    <div class="login">
-        <div class="left">
-            <ul class="left-nav">
-                <li>赵洋,您好 <span></span>
-                    <ul>
-                        <li><a href="">修改密码</a></li>
-                    </ul>
-                </li>
-            </ul>
-        </div>
-        <div class="right">
-            <a href="{:U('configuration/Login/logout')}">退出系统</a>
-        </div>
-    </div>
-</div>
-<div id="nav">
-    <ul class="main-nav">
-        <li><a href="">加油站监控</a></li>
-        <li><a href="{:U('channel/Channel/index')}">渠道管理</a></li>
-        <li><a href="">运营管理</a></li>
-        <li><a href="">统计分析</a></li>
-        <li><a href="">广告管理</a></li>
-        <li><a href="{:U('configuration/Org/index')}">系统设置</a></li>
-    </ul>
-</div>
+<include file="./Tpl/include/pb-head.html" />
 <div id="container">
    <div class="default-index">
        <div class="default-index-tt">
@@ -49,9 +22,7 @@
        </div>
    </div>
 </div>
-<div id="footer">
-
-</div>
+<include file="./Tpl/include/pb-foot.html" />
 
 </body>
 </html>

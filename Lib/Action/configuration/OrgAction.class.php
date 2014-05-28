@@ -203,7 +203,23 @@ class OrgAction extends CommonAction {
 		$dataAgent = $Model->table('qd_agent a')->where($where)->select();// 查询满足要求的总记录数
 		$dataAgent[0]['begin_time'] = getDateFromTime($dataAgent[0]['begin_time']);
 		$dataAgent[0]['end_time'] = getDateFromTime($dataAgent[0]['end_time']);
-		//p($dataAgent[0]['date']);
+		if(0 == $dataAgent[0]['father_agentid']){
+			$dataAgent[0]['father_agent_name'] = '';
+		}else{
+			$tmp_father_agentname = $Model->query("select agent_name from qd_agent where agent_id=" . $dataAgent[0]['father_agentid']);
+			$dataAgent[0]['father_agent_name'] = $tmp_father_agentname[0]['agent_name'];
+		}
+
+		$area_id = $Model->query("select area_id from qd_agent_area where agent_id=" . $agent_id);
+		$area = null;
+		foreach($area_id as $key=>$val){
+			$area_name = $Model->query("select area_name from bi_area where area_id=" . $val['area_id']);
+			$area .= $area_name[0]['area_name'] . ",";
+		}
+		if(!empty($area_id[0]['area_id'])){
+			$area = substr($area, 0, -1);
+		}
+		$dataAgent[0]['area_name'] = $area;
 
 		$data = $dataAgent[0];
 		$this->ajaxReturn($data,'json');

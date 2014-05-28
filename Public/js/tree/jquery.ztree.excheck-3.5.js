@@ -99,6 +99,7 @@
 				nodeEventType = "mouseoutCheck";
 			}
 		} else if (tools.eqs(e.type, "click")) {
+			
 			if (setting.check.enable && tools.eqs(target.tagName, "span") && target.getAttribute("treeNode"+ consts.id.CHECK) !== null) {
 				tId = tools.getNodeMainDom(target).id;
 				nodeEventType = "checkNode";

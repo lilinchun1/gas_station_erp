@@ -263,15 +263,15 @@ $min-width-kuang:1200px;
     }
     label{
       float: left;
-      margin: 20px 15px 0 0;
-      width: 100px;
+      margin: 20px 10px 0 0;
+      width: 90px;
       text-align: right;}
     em{
       width: 350px;
       display: block;}
     .lab-ckbox{
       width: 30px;
-      margin-right: 46px;
+      //margin-right: 46px;
       float: right;}
     .info-bottom{
       float: left;
@@ -294,7 +294,7 @@ $min-width-kuang:1200px;
   @extend %input-t;
 }
 .min-w{
-  width: 60px;
+  width: 85px;
   margin-right: 5px;}
 
 .alert-btn{
@@ -369,6 +369,7 @@ $min-width-kuang:1200px;
 }
 .alert-role-add-con{
   margin-left: 100px;
+  background: #ffffff;
   padding-bottom: 30px;
     label{
       padding-right: 20px;
