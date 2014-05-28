@@ -56,14 +56,14 @@ class OrgAction extends CommonAction {
 		$data = null;
 		foreach($province_info as $p_key=>$p_val){
 			if(0 == $p_key){
-				//$data .= "'" . "0" . "'" . ":" . "'" . $p_val['prov_id'] . ":" . $p_val['prov_name'] . ",";
-				$data .= "0" . ":" . $p_val['prov_id'] . ":" . $p_val['prov_name'] . ",";
+				$data .= '"' . "0" . '"' . ":" . '"' . $p_val['prov_id'] . ":" . $p_val['prov_name'] . ",";
+				//$data .= "0" . ":" . $p_val['prov_id'] . ":" . $p_val['prov_name'] . ",";
 			}else{
 				$data .= $p_val['prov_id'] . ":" . $p_val['prov_name'] . ",";
 			}
 		}
 		$data = substr($data, 0 , -1);
-		//$data = $data . "'";
+		$data = $data . '",';
 		foreach($province_info as $p_key=>$p_val){
 			/*
 			$data[$key]['id'] = $val['area_id'];
@@ -74,8 +74,8 @@ class OrgAction extends CommonAction {
 			foreach($city_info as $c_key=>$c_val){
 				if(!empty($c_val['area_id'])){
 					if(0 == $c_key){
-						//$data .= "'" . $c_val['pid'] . "'" . ":" . "'" . $c_val['area_id'] . ":" . $c_val['area_name'] . ",";
-						$data .= $c_val['pid'] . ":" . $c_val['area_id'] . ":" . $c_val['area_name'] . ",";
+						$data .= '"' . $c_val['pid'] . '"' . ":" . '"' . $c_val['area_id'] . ":" . $c_val['area_name'] . ",";
+						//$data .= $c_val['pid'] . ":" . $c_val['area_id'] . ":" . $c_val['area_name'] . ",";
 					}
 					else{
 						$data .= $c_val['area_id'] . ":" . $c_val['area_name'] . ",";
@@ -84,10 +84,10 @@ class OrgAction extends CommonAction {
 			}
 			if(!empty($city_info[0]['area_id'])){
 				$data = substr($data, 0 , -1);
-				//$data = $data . "'";
+				$data = $data . '",';
 			}
 		}
-		//$data = substr($data, 0 , -1);
+		$data = substr($data, 0 , -1);
 
 		//echo $data;
 		$this->ajaxReturn($data, 'json');
@@ -317,12 +317,37 @@ class OrgAction extends CommonAction {
 
     //删除组织结构
 	public function delete_org(){
-		$id = trim(I('delete_org_id_txt'));
-		$msg =	C('delete_org_success');
-		$Model = new Model();
-		$company = M("company");
+		$agent_id = trim(I('get.agent_id'));
+		$agent_id = 27;
 
-		$is_delete = $company->where("id=%d", $id)->delete();
+	    $Model = new Model();
+		$agent = M("agent","qd_");
+		$agent_area = M("agent_area","qd_");
+		$msg = C("delete_agent_success");
+
+		$is_set = $agent->where("agent_id=" . $agent_id)->setField('isDelete', 1);
+		if($is_set <= 0)
+		{
+			$msg = C("delete_agent_failed");
+		}
+		/*
+		$isDelete = $agent_area->where("agent_id=" . $agent_id)->delete();
+		if($isDelete <= 0){
+			$msg = C("delete_agent_failed");
+		}
+		*/
+		//$this->msg = $msg;
+		//$this->agentSelect();
+		if($msg == C("delete_agent_success"))
+		{
+			$agent_info = $Model->query("select father_agentid, agent_level from qd_agent where agent_id=" . $agent_id);
+			if('2' == $agent_info[0]['agent_level'])
+			{
+				changeNum('agent', $agent_info[0]['father_agentid'], $agent_id, 'minus');
+			}
+			//addOptionLog('agent', $agent_id, 'del', '');
+		}
+		$this->ajaxReturn($msg,'json');
 	}
 
 	//上移组织结构

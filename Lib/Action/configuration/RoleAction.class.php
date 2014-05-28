@@ -60,6 +60,8 @@ class RoleAction extends CommonAction {
 		$rolename = trim(I('add_role_name_txt'));
 		$memo = trim(I('add_memo_txt'));
 		$menu_id = trim(I('add_menu_id_txt'));
+		$adduserid = $_SESSION['user_id'];
+		$adddate= time();
 		$msg =	C('add_role_success');
 		$Model = new Model();
 		$role = M("role");
@@ -67,13 +69,16 @@ class RoleAction extends CommonAction {
 
 		$data['rolename'] = $rolename;
 		$data['memo'] = $memo;
+		$data['adduserid'] = $adduserid;
+		$data['adddate'] = $adddate;
 		$is_set = $role->add($data);
 		$tmp_role_id = $role->query('select last_insert_id() as id');
 
-		$data_menu['roleid'] = $tmp_role_id;
-		$date_menu['menuid'] = $menu_id;
-		$is_set = $role_menu->add($data);
-
+		foreach($menu_id as $key=>$val){
+			$data_menu['roleid'] = $tmp_role_id;
+			$date_menu['menuid'] = $val;
+			$is_set = $role_menu->add($date_menu);
+		}
 	}
 
     //编辑角色信息
@@ -82,6 +87,8 @@ class RoleAction extends CommonAction {
 		$rolename = trim(I('modify_role_name_txt'));
 		$memo = trim(I('modify_memo_txt'));
 		$menu_id = trim(I('modify_menu_id_txt'));
+		$modifyuserid = $_SESSION['user_id'];
+		$modifydate= time();
 		$msg =	C('modify_role_success');
 		$Model = new Model();
 		$role = M("role");
@@ -89,11 +96,16 @@ class RoleAction extends CommonAction {
 
 		$data['rolename'] = $rolename;
 		$data['memo'] = $memo;
-		$is_set = $role->where("id=%d", $role_id)->save($data);
+		$data['modifyuserid'] = $modifyuserid;
+		$data['modifydate'] = $modifydate;
+		$is_set = $role->where("roleid=%d", $role_id)->save($data);
 
-		$data_menu['roleid'] = $role_id;
-		$date_menu['menuid'] = $menu_id;
-		$is_set = $role_menu->where("id=%d", $role_id)->save($data);
+		$is_delete = $role_menu->where("roleid=%d", $role_id)->delete();
+		foreach($menu_id as $key=>$val){
+			$data_menu['roleid'] = $role_id;
+			$date_menu['menuid'] = $val;
+			$is_set = $role_menu->add($date_menu);
+		}
 	}
 
 	//删除角色信息
@@ -104,7 +116,7 @@ class RoleAction extends CommonAction {
 		$role = M("role");
 		$role_menu = M("role_menu");
 
-		$is_delete = $role->where("id=%d", $id)->delete();
+		$is_delete = $role->where("roleid=%d", $id)->delete();
 		$is_delete = $role_menu->where("roleid=%d", $id)->delete();
 	}
 
@@ -112,7 +124,8 @@ class RoleAction extends CommonAction {
 	public function select_purview(){
 		$id = trim(I('purview_role_id_txt'));
 		$Model = new Model();
-		$role_menu_info = $Model->query("select * from bi_role_menu where roleid=" . $id);
+		$role_menu_info = $Model->query("select b.menu_id, b.menuname, b.url, b.pid from 
+			bi_role_menu a, bi_menu b where a.menu_id=b.menu_id and a.roleid=" . $id);
 		$this->ajaxReturn($role_menu_info, 'json');
 	}
 

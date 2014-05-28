@@ -1,4 +1,4 @@
-<!doctype html>
+<?php if (!defined('THINK_PATH')) exit();?><!doctype html>
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
@@ -17,7 +17,7 @@
         <p><label for="pass">密码:</label><input type="text" name="pass" id="pass"/></p>
         <p>
             <label for="auth-code">验证码:</label><input type="text" name="" id="auth-code" class="index-login-input"/>
-            <img src="{:U('configuration/Login/verify')}" id="verifyImg" />
+            <img src="<?php echo U('configuration/Login/verify');?>" id="verifyImg" />
             <a href="#" onclick="fleshVerify()">换一换</a>
         </p>
         <p><button type="button">登陆</button></p>

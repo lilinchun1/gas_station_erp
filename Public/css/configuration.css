@@ -523,15 +523,17 @@ a, .alert-btn, .role-control-btn, .alert-btn2, .org-right-btns .area-btn, .index
 
 .index-login-con {
   float: right;
-  padding-top: 50px;
-  margin: 40px 10% 0 0;
+  padding: 30px 0 20px 0;
+  margin: 30px 10% 0 0;
   width: 450px;
   height: 200px;
   background: #ffffff;
   border-radius: 40px; }
   .index-login-con p {
     margin-bottom: 20px;
-    margin-left: 40px; }
+    margin-left: 10px; }
+    .index-login-con p img {
+      vertical-align: middle; }
   .index-login-con label {
     float: left;
     padding-right: 10px;
