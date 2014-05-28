@@ -11,6 +11,27 @@
 <div id="footer">
 1111
 </div>
+<div class="alert-role-add">
+    <h3>修改密码</h3>
+    <div class="alert-role-add-con">
+        <p>
+            <label for="old-pass" class="role-lab">旧密码&nbsp;&nbsp;&nbsp;</label>
+            <input type="text" name="addname" id="old-pass" class="input-role-name"/>
+        </p>
+        <p>
+            <label for="new-pass" class="role-lab">新密码&nbsp;&nbsp;&nbsp;</label>
+            <input type="password" name="addname" id="new-pass" class="input-role-name"/>
+        </p>
+        <p>
+            <label for="rnew-pass" class="role-lab">确认密码</label>
+            <input type="password" name="addname" id="rnew-pass" class="input-role-name"/>
+        </p>
+        <p>
+            <button type="button" class="alert-btn2">修改密码</button>
+
+        </p>
+    </div>
+</div>
 <script>
     window.onload=function(){
         headAct();
@@ -18,9 +39,9 @@
     };
     function headAct(){
         var Ourl = window.location.href;
-        if(!document.getElementById('j-nav-active')){return;}
+        if(!document.getElementById('j-nav-active')){return;};
         var Onav = document.getElementById('j-nav-active');
-        var nbLi = Onav.getElementsByTagName('li')
+        var nbLi = Onav.getElementsByTagName('li');
         for(var i=0; i<nbLi.length;i++){
             if(Ourl=="/gas_station_erp/index.php/Org/index"||Ourl.indexOf("/gas_station_erp/index.php/Org/index")>=0||Ourl=="/gas_station_erp/index.php/Role/index"||Ourl.indexOf("/gas_station_erp/index.php/Role/index")>=0||Ourl=="/gas_station_erp/index.php/User/index"||Ourl.indexOf("/gas_station_erp/index.php/User/index")>=0){
                        nbLi[5].className='active';//系统设置
@@ -38,7 +59,7 @@
                 nbLi[2].className='active';//运营管理
                 return;
             }
-            if(Ourl=="/gas_station_erp/index.php/channel/Channel/index"||Ourl.indexOf("/gas_station_erp/index.php/channel/Channel/index")>=0){
+            if(Ourl=="/gas_station_erp/index.php/channel/Channel/index"||Ourl.indexOf("/gas_station_erp/index.php/channel/Channel/index")>=0||Ourl=="/gas_station_erp/index.php/channel/Place/index"||Ourl.indexOf("/gas_station_erp/index.php/channel/Place/index")>=0||Ourl=="/gas_station_erp/index.php/channel/Device/index"||Ourl.indexOf("/gas_station_erp/index.php/channel/Device/index")>=0){
                 nbLi[1].className='active';//渠道管理
                 return;
             }
@@ -52,6 +73,7 @@
 
     }
 </script>
+
 <div id="container">
 <div class="left">
     <ul class="aside-nav">
@@ -631,6 +653,27 @@
 <div id="footer">
 1111
 </div>
+<div class="alert-role-add">
+    <h3>修改密码</h3>
+    <div class="alert-role-add-con">
+        <p>
+            <label for="old-pass" class="role-lab">旧密码&nbsp;&nbsp;&nbsp;</label>
+            <input type="text" name="addname" id="old-pass" class="input-role-name"/>
+        </p>
+        <p>
+            <label for="new-pass" class="role-lab">新密码&nbsp;&nbsp;&nbsp;</label>
+            <input type="password" name="addname" id="new-pass" class="input-role-name"/>
+        </p>
+        <p>
+            <label for="rnew-pass" class="role-lab">确认密码</label>
+            <input type="password" name="addname" id="rnew-pass" class="input-role-name"/>
+        </p>
+        <p>
+            <button type="button" class="alert-btn2">修改密码</button>
+
+        </p>
+    </div>
+</div>
 <script>
     window.onload=function(){
         headAct();
@@ -638,9 +681,9 @@
     };
     function headAct(){
         var Ourl = window.location.href;
-        if(!document.getElementById('j-nav-active')){return;}
+        if(!document.getElementById('j-nav-active')){return;};
         var Onav = document.getElementById('j-nav-active');
-        var nbLi = Onav.getElementsByTagName('li')
+        var nbLi = Onav.getElementsByTagName('li');
         for(var i=0; i<nbLi.length;i++){
             if(Ourl=="/gas_station_erp/index.php/Org/index"||Ourl.indexOf("/gas_station_erp/index.php/Org/index")>=0||Ourl=="/gas_station_erp/index.php/Role/index"||Ourl.indexOf("/gas_station_erp/index.php/Role/index")>=0||Ourl=="/gas_station_erp/index.php/User/index"||Ourl.indexOf("/gas_station_erp/index.php/User/index")>=0){
                        nbLi[5].className='active';//系统设置
@@ -658,7 +701,7 @@
                 nbLi[2].className='active';//运营管理
                 return;
             }
-            if(Ourl=="/gas_station_erp/index.php/channel/Channel/index"||Ourl.indexOf("/gas_station_erp/index.php/channel/Channel/index")>=0){
+            if(Ourl=="/gas_station_erp/index.php/channel/Channel/index"||Ourl.indexOf("/gas_station_erp/index.php/channel/Channel/index")>=0||Ourl=="/gas_station_erp/index.php/channel/Place/index"||Ourl.indexOf("/gas_station_erp/index.php/channel/Place/index")>=0||Ourl=="/gas_station_erp/index.php/channel/Device/index"||Ourl.indexOf("/gas_station_erp/index.php/channel/Device/index")>=0){
                 nbLi[1].className='active';//渠道管理
                 return;
             }
@@ -672,6 +715,7 @@
 
     }
 </script>
+
 <div class="alert-role-add">
     <h3>添加职员信息</h3>
     <div class="alert-user-add-con">

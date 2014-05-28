@@ -95,6 +95,22 @@ function getDateFromTime($time) {
 	return $date;
 }
 
+//根据用户id获取用户角色
+function getRoleNameFromUID($uid) {
+	$Model = new Model();
+	$role_id  =  $Model->query("select roleid from bi_user_role where userid=" . $uid);
+	$role_name = null;
+	foreach($role_id as $key=>$val){
+		$tmp_role_name =  $Model->query("select rolename from bi_role where roleid=" . $val['roleid']);
+		$role_name .= $tmp_role_name[0]['rolename'] . ",";
+	}
+	if(!empty($role_id[0]['roleid'])){
+		$role_name = substr($role_name, 0, -1);
+	}
+
+	return $role_name;
+}
+
 //根据网点图片ID得到图片路径
 function getDevicePhotoPathFromID($device_photo_id) {
 	$Model = new Model();

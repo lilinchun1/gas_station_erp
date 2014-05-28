@@ -4,10 +4,14 @@
     <meta charset="UTF-8">
     <title>渠道信息</title>
     <link rel="stylesheet" href="../../Public/css/configuration.css"/>
+	<link rel="stylesheet" href="__PUBLIC__/css/configuration.css"/>
     <script type="text/javascript" src="../../Public/js/jquery-1.6.1.js"></script>
+	<script type="text/javascript" src="__PUBLIC__/js/jquery-1.6.1.js"></script>
     <script type="text/javascript" src="../../Public/js/jquery.SuperSlide.2.1.1.js"></script>
+	<script type="text/javascript" src="__PUBLIC__/js/jquery.SuperSlide.2.1.1.js"></script>
 </head>
 <body>
+<include file="./Tpl/include/pb-head.html" />
 <include file="./Tpl/include/pb-foot.html" />
 <div id="container">
 <div class="left">
@@ -70,10 +74,8 @@
     <div class="org-right-btns">
         <form action="">
             <button type="button" class="area-btn">添加</button>
-            <button type="button" class="area-btn">编辑</button>
-            <button type="button" class="area-btn">删除</button>
-            <button type="button" class="area-btn">重置密码</button>
-            <button type="button" class="area-btn">激活/失效</button>
+            <button type="button" class="area-btn">编辑/查看</button>
+            <button type="button" class="area-btn">终止合同</button>
         </form>
     </div>
 </div>
@@ -587,40 +589,58 @@
 </div>
 <include file="./Tpl/include/pb-foot.html" />
 <div class="alert-role-add">
-    <h3>添加职员信息</h3>
+    <h3>渠道信息</h3>
     <div class="alert-user-add-con">
         <form action="">
+            <p>所属组织机构：<span>分子公司1</span></p>
             <p>
-                <label for="user-addname" class="role-lab">姓&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;名</label>
-                <input type="text" name="addname" id="user-addname" class="input-role-name"/>
-                <input type="radio" name="change-sex" class="change-sex" id="man"/><label for="man" class="sex">男</label>
-                <input type="radio" name="change-sex" class="change-sex" id="woman"/><label for="woman" class="sex">女</label>
+                <label for="channel-addname" class="role-lab">渠道名称</label>
+                <input type="text" name="addname" id="channel-addname" class="input-role-name"/>
+            </p>
+            <p>
+                <label for="channel-address1" class="">渠道地址</label>
+                <select name="add_agent_type_sel" id="channel-address1" class="channel-select-min">
+                    <option selected value="">省</option>
+                    <option class="industry" value="trade">2</option>
+                    <option class="area" value="area">3</option>
+                </select>
+                <select name="add_agent_type_sel" id="channel-address2" class="channel-select-min">
+                    <option selected value="">市</option>
+                    <option class="industry" value="trade">2</option>
+                    <option class="area" value="area">3</option>
+                </select>
+                <input type="text" name="addname" id="channel-addname" class="input-role-name"/>
+            </p>
+            <p>
+                <label for="channel-address1" class="">渠道类型</label>
+                <select name="add_agent_type_sel" id="channel-address1" class="channel-select-min">
+                    <option selected value="">1</option>
+                    <option class="industry" value="trade">2</option>
+                    <option class="area" value="area">3</option>
+                </select>
+                <select name="add_agent_type_sel" id="channel-address2" class="channel-select-min">
+                    <option selected value="">1</option>
+                    <option class="industry" value="trade">2</option>
+                    <option class="area" value="area">3</option>
+                </select>
+                <a href="">修改类别</a>&nbsp;&nbsp;&nbsp;&nbsp;<a href="">修改属性</a>
+            </p>
+            <p>
+                <label for="user-phone" class="role-lab">联系人&nbsp;&nbsp;&nbsp;</label>
+                <input type="text" name="addname" id="user-phone" class="input-role-name"/>
             </p>
             <p>
                 <label for="user-phone" class="role-lab">联系电话</label>
                 <input type="text" name="addname" id="user-phone" class="input-role-name"/>
             </p>
             <p>
-                <label for="login-id" class="role-lab">登陆账号</label>
+                <label for="login-id" class="role-lab">合同编号</label>
                 <input type="text" name="addname" id="login-id" class="input-role-name"/>
             </p>
-            <div>
-                <em>角色</em>
-                <ul class="user-checkbox-list">
-                    <li><input type="checkbox" name="" id="ck1"/><label for="ck1" class="role-lab">角色a</label></li>
-                    <li><input type="checkbox" name="" id="ck2"/><label for="ck2" class="role-lab">角色a</label></li>
-                    <li><input type="checkbox" name="" id="ck3"/><label for="ck3" class="role-lab">角色a</label></li>
-                    <li><input type="checkbox" name="" id="ck4"/><label for="ck4" class="role-lab">角色a</label></li>
-                    <li><input type="checkbox" name="" id="ck5"/><label for="ck5" class="role-lab">角色a</label></li>
-                    <li><input type="checkbox" name="" id="ck6"/><label for="ck6" class="role-lab">角色a</label></li>
-                </ul>
-            </div>
             <p>
-                <label for="">所属组织机构</label>
-                <!-- 容器 -->
-            <div id="J_Tree"></div>
-            <!-- 结果收集、设置回显数据 -->
-            <input type="hidden" id="J_TreeResult" value='{"id":"291"}'>
+                <label for="sq-date">授权日期</label>
+                <input type="date" name="" id="sq-date" class="input-org-info min-w" style="margin-top: 0;"/>
+                <input type="date" name="" id="date" class="input-org-info min-w" style="margin-top: 0;"/>
             </p>
             <p>
                 <button type="button" class="alert-btn2">保存</button>
@@ -631,11 +651,14 @@
 </div>
 
 <div class="alert-role-add">
-    <h3>职员信息</h3>
+    <h3></h3>
     <div class="alert-role-add-con">
-        <p class="delete-message">请确认是否删除？</p>
         <p>
-            <button type="button" class="alert-btn2">保存</button>
+            <label for="del-data" class="role-lab">*撤销日期</label>
+            <input type="text" name="addname" id="del-data" class="input-role-name"/>
+        </p>
+        <p>
+            <button type="button" class="alert-btn2">确定</button>
             <button type="button" class="alert-btn2">关闭</button>
         </p>
     </div>

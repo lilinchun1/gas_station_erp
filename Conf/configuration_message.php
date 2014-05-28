@@ -26,5 +26,8 @@
 		'modify_role_failed'		=>	'修改角色失败',
 		'delete_role_success'		=>	'成功删除角色',
 		'delete_role_failed'		=>	'删除角色失败',
+		'old_password_error'		=>	'旧密码错误',
+		'new_password_not_same'		=>	'新密码不一致',
+		'change_password_success'   =>	'成功修改密码',
 	);
 ?>

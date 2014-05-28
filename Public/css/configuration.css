@@ -624,3 +624,25 @@ a, .alert-btn, .role-control-btn, .alert-btn2, .org-right-btns .area-btn, .index
 /*加油站信息页*/
 .input-mac {
   width: 30px; }
+
+.device-point-pic h4 {
+  margin-bottom: 10px;
+  font-weight: normal; }
+.device-point-pic span {
+  margin-right: 10px;
+  width: 110px;
+  height: 75px;
+  border: 1px solid #cccccc;
+  display: block;
+  float: left;
+  background: #fbfbfb;
+  cursor: pointer; }
+  .device-point-pic span:before {
+    content: '点击添加图片';
+    width: 110px;
+    height: 75px;
+    line-height: 75px;
+    display: block;
+    text-align: center; }
+  .device-point-pic span img {
+    width: 100%; }

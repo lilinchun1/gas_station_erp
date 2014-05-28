@@ -579,3 +579,26 @@ $min-width-kuang:1200px;
   @extend %input-t;
   width: 30px;
 }
+.device-point-pic{
+    h4{
+      margin-bottom: 10px;
+      font-weight: normal;}
+    span{
+      margin-right: 10px;
+      width: 110px;
+      height: 75px;
+      border: 1px solid $border-color;
+      display: block;
+      float: left;
+      background: #fbfbfb;
+      cursor: pointer;
+        &:before{ content: '点击添加图片';
+          width: 110px;
+          height: 75px;
+          line-height: 75px;
+          display: block;
+          text-align: center;}
+        img{
+          width: 100%;}
+    }
+}

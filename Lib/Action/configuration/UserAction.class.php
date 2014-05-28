@@ -13,35 +13,31 @@ class UserAction extends CommonAction {
 	//展示用户
 	public function show_user(){
 		$Model = new Model();
-		$cnname = I('cnname_txt');
-		$org = I('org_txt');
+		$realname = I('realname_txt');
+		$org_name = I('org_name_txt');
 		$username = I('username_txt');
-		$state = I('state_sel');
 		//$page_show_number = 30;       //每页显示的数量
 		C('page_show_number')?$page_show_number=C('page_show_number'):$page_show_number=30;  //每页显示的数量
 		$where = '1=1 ';
-		if(!empty($cnname))
+		if(!empty($realname))
 		{
-			$where .= " and a.cnname='$cnname'";
+			$where .= " and a.realname='$realname'";
 		}
-		if(!empty($org))
+		if(!empty($org_name))
 		{
-			$where .= " and a.orgid='$org'";
+			$orgid = getAgentIDFromAgentName($org_name);
+			$where .= " and a.orgid='$orgid'";
 		}
 		if(!empty($username))
 		{
 			$where .= " and a.username='$username'";
-		}
-		if(!empty($state))
-		{
-			$where .= " and a.state='$state'";
 		}
 
 		$count = $Model->table('bi_user a')->where($where)->count();
 		$Page       = new Page($count, $page_show_number);// 实例化分页类 传入总记录数
 		$show       = $Page->show();// 分页显示输出
 		// 进行分页数据查询
-		$list = $Model->table('bi_user a')->where($where)->order('a.id desc')->limit($Page->firstRow.','. $Page->listRows)->select();
+		$list = $Model->table('bi_user a')->where($where)->order('a.uid desc')->limit($Page->firstRow.','. $Page->listRows)->select();
 		if($list=="")
 		{
 			$listCount = 0;
@@ -61,8 +57,19 @@ class UserAction extends CommonAction {
 		for($i=0; $i< $listCount; $i++)
 		{
 			$list[$i]['number'] = ($page_number-1) * $page_show_number + $i + 1;
-			$list[$i]['begin_time'] = getDateFromTime($list[$i]['begin_time']);
-			$list[$i]['end_time'] = getDateFromTime($list[$i]['end_time']);
+			$list[$i]['orgname'] = getAgentNameFromAgentID($list[$i]['orgid']);
+			$list[$i]['adddate'] = getDateFromTime($list[$i]['adddate']);
+			$list[$i]['rolename'] = getRoleNameFromUID($list[$i]['uid']);
+			if(1 == $list[$i]['sex']){
+				$list[$i]['sex'] = "男";
+			}elseif(0 == $list[$i]['sex']){
+				$list[$i]['sex'] = "女";
+			}
+			if(1 == $list[$i]['del_flag']){
+				$list[$i]['del_flag'] = "失效";
+			}elseif(0 == $list[$i]['del_flag']){
+				$list[$i]['del_flag'] = "激活";
+			}
 		}
 		$this->assign('list',$list);// 赋值数据集
 		$this->assign('page',$show);// 赋值分页输出

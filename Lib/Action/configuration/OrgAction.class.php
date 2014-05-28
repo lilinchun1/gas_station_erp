@@ -38,7 +38,7 @@ class OrgAction extends CommonAction {
 	//展示组织结构
 	public function show_org_tree(){
 		$Model = new Model();
-		$company_info = $Model->query("select * from qd_agent");
+		$company_info = $Model->query("select * from qd_agent where isDelete=0");
 		$data = null;
 		foreach($company_info as $key=>$val){
 			$data[$key]['id'] = $val['agent_id'];
@@ -349,8 +349,6 @@ class OrgAction extends CommonAction {
     //删除组织结构
 	public function delete_org(){
 		$agent_id = trim(I('get.agent_id'));
-		$agent_id = 27;
-
 	    $Model = new Model();
 		$agent = M("agent","qd_");
 		$agent_area = M("agent_area","qd_");
@@ -374,7 +372,7 @@ class OrgAction extends CommonAction {
 			$agent_info = $Model->query("select father_agentid, agent_level from qd_agent where agent_id=" . $agent_id);
 			if('2' == $agent_info[0]['agent_level'])
 			{
-				changeNum('agent', $agent_info[0]['father_agentid'], $agent_id, 'minus');
+				//changeNum('agent', $agent_info[0]['father_agentid'], $agent_id, 'minus');
 			}
 			//addOptionLog('agent', $agent_id, 'del', '');
 		}
