@@ -85,7 +85,7 @@
 			positionType:'centered', // centered, anchored, absolute, fixed
 			width:712, 
 			windowBGColor:'',
-			windowBGImage:index_url+'/Public/image/tanchuang.png', // http path
+			windowBGImage:'', // http path
 			windowHTTPType:'get',
 			windowPadding:10,
 			windowSource:'inline', //inline, ajax, iframe

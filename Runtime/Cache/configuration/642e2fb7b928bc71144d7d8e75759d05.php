@@ -154,7 +154,8 @@ $(document).ready(function(){
 		var agent_id=$(this).attr("title");
 		$.getJSON(mod_handleUrl,{"agent_id":agent_id},
 			function (data){
-				var tmp_change_father_agent_id = data['father_agentid'];
+				$("#agent_id_hid").val(agent_id);
+				//var tmp_change_father_agent_id = data['father_agentid'];
 				//$("#change_agent_id_txt").val(data['agent_id']);
 				$("#change_agent_name_txt").val(data['agent_name']);//组织机构名称
 				var agent_type_txt=data['agent_type'];//类型
@@ -210,6 +211,70 @@ $(document).ready(function(){
 	})
 //=====================================================单击添加按钮弹出模态窗事件============================================
 	$('#j_add_button').click(function(){ 
+		//保存
+		$('#j_add_save').click(function(){
+			var add_agent_name_txt=$('#j_add_org').val();//组织机构名称
+
+			var add_agent_type_sel=$("#add_agent_type_sel").val();//代理商类型
+
+			var add_agent_level_sel=$('#add_agent_level_sel').val();//代理商级别
+
+			var add_legal_txt=$('#j_add_linkman').val();//联系人
+						
+			var add_companyAddr_txt=$('#j_add_address').val();//办公地址
+
+			var add_tel_txt=$('#add_tel_txt').val();//公司电话
+
+			var add_contract_number_txt=$('#j_add_contract-number').val();//合同编号
+
+			var add_father_agentid_sel=$('#j_add_org-s').val();//上级组织机构
+
+			var add_legal_tel_txt=$('#j_add_phone').val();//联系电话
+
+			var add_org_area=$('#resvals').val();//业务范围
+
+			var add_begin_time_sel=$('#j_add_sq-date').val();//授权日期
+
+			var add_end_time_sel=$('#j_add_date').val();//授权日期
+
+			var is_add_forever_checked = $("#j_add_forever_check").attr('checked');
+			var add_forever_check="";
+				if('checked' == is_add_forever_checked)
+				{
+					var add_forever_check = '1';
+				}
+				else
+				{
+					var add_forever_check = '0';
+				}
+			
+			//return false;
+			var add_handleUrl="<?php echo U('configuration/Org/add_org');?>";
+			$.getJSON(add_handleUrl,{"add_agent_name_txt":add_agent_name_txt,"add_legal_txt":add_legal_txt,
+									 "add_agent_level_sel":add_agent_level_sel,
+									 "add_agent_type_sel":add_agent_type_sel,
+									 "add_companyAddr_txt":add_companyAddr_txt,
+									 "add_tel_txt":add_tel_txt,
+									 
+									 "add_contract_number_txt":add_contract_number_txt,"add_father_agentid_sel":add_father_agentid_sel,
+									 "add_legal_tel_txt":add_legal_tel_txt,"add_org_area":add_org_area,"add_contract_number_txt":add_contract_number_txt,
+									 "add_companyAddr_txt":add_companyAddr_txt,"add_begin_time_sel":add_begin_time_sel,"add_end_time_sel":add_end_time_sel,"add_forever_check":add_forever_check},
+					function (data){
+						var tmp_msg = "<?php echo C('add_agents_success');?>";
+						if(tmp_msg == data)
+						{
+							alert(data);
+							window.location.href = window.location.href;
+						}
+						else
+						{
+							alert(data);
+							//$(".cli_tishi").html("<img src='__PUBLIC__/image/th.png'/>"+data+"");
+						}
+					}
+				,'json'
+			);
+		});//结束
 			$.openDOMWindow({ 
 				loader:1, 
 				loaderHeight:16, 
@@ -217,6 +282,160 @@ $(document).ready(function(){
 				windowSourceID:'#j_add_win' 
 			}); 
 				return false; 
+	});
+//=====================================================单击修改按钮事件======================================================
+	$('#j_mod_button').click(function(){ 
+		$("#j_add_win input").val("");//初始化文本框
+		var mod_handleUrl = "<?php echo U('configuration/Org/orgDetailSelect');?>";
+		var agent_id=$("#agent_id_hid").val();
+		$.getJSON(mod_handleUrl,{"agent_id":agent_id},
+			function (data){
+				//alert(agent_id);
+				//$("#agent_id_hid").val(agent_id);
+				//var tmp_change_father_agent_id = data['father_agentid'];
+				//$("#change_agent_id_txt").val(data['agent_id']);
+				$("#j_add_org").val(data['agent_name']);//组织机构名称
+				var agent_type_txt=data['agent_type'];//类型
+				var agent_level=data['agent_level'];//级别
+				$("#j_add_phone").val(data['legal_tel']);//联系人电话
+				$("#j_add_linkman").val(data['legal']);//联系人
+				$("#add_tel_txt").val(data['tel']);//公司电话
+				$("#j_add_address").val(data['companyAddr']);//办公地址
+				$("#j_add_contract-number").val(data['contract_number']);//合同编号
+				$("#j_add_org-s").val(data['father_agent_name']);//上级组织机构
+				$("#restxts").val(data['area_name']);//业务范围NAME
+				var forever_type=data['forever_type'];//是否永久
+				if('1' == forever_type)
+				{
+					$("#j_add_forever_check").attr('checked','checked');
+					$("#j_add_sq-date").val('');
+					$("#j_add_date").val('');
+					$("#j_add_sq-date").attr('disabled','disabled');
+					$("#j_add_date").attr('disabled','disabled');
+				}
+				else
+				{
+					$("#j_add_forever_check").attr('checked',false);
+					$("#j_add_sq-date").removeAttr('disabled','disabled');
+					$("#j_add_date").removeAttr('disabled','disabled');
+					$("#j_add_sq-date").val(data['begin_time']);
+					$("#j_add_date").val(data['end_time']);
+				}
+				
+				//解析类型
+				if(agent_type_txt=="trade"){
+					$("#add_agent_type_sel").val("trade");
+				}else if(agent_type_txt=="area"){
+					$("#add_agent_type_sel").val("area");
+				}
+				//解析级别
+				if(agent_level=="1"){
+					$("#add_agent_level_sel").val("1");
+				}else if(agent_level=="2"){
+					$("#add_agent_level_sel").val("2");
+				}				
+			}
+			,'json'
+		);
+		//保存
+		$('#j_add_save').click(function(){
+			var add_agent_name_txt=$('#j_add_org').val();//组织机构名称
+
+			var add_agent_type_sel=$("#add_agent_type_sel").val();//代理商类型
+
+			var add_agent_level_sel=$('#add_agent_level_sel').val();//代理商级别
+
+			var add_legal_txt=$('#j_add_linkman').val();//联系人
+						
+			var add_companyAddr_txt=$('#j_add_address').val();//办公地址
+
+			var add_tel_txt=$('#add_tel_txt').val();//公司电话
+
+			var add_contract_number_txt=$('#j_add_contract-number').val();//合同编号
+
+			var add_father_agentid_sel=$('#j_add_org-s').val();//上级组织机构
+
+			var add_legal_tel_txt=$('#j_add_phone').val();//联系电话
+
+			var add_org_area=$('#resvals').val();//业务范围
+
+			var add_begin_time_sel=$('#j_add_sq-date').val();//授权日期
+
+			var add_end_time_sel=$('#j_add_date').val();//授权日期
+
+			var is_add_forever_checked = $("#j_add_forever_check").attr('checked');
+			var add_forever_check="";
+				if('checked' == is_add_forever_checked)
+				{
+					var add_forever_check = '1';
+				}
+				else
+				{
+					var add_forever_check = '0';
+				}
+			//return false;
+			var mod_save_handleUrl="<?php echo U('configuration/Org/edit_org');?>";
+			$.getJSON(mod_save_handleUrl,{"change_agent_name_txt":add_agent_name_txt,"change_legal_txt":add_legal_txt,"change_agent_id_txt":agent_id,
+									 "change_agent_level_sel":add_agent_level_sel,
+									 "change_agent_type_sel":add_agent_type_sel,
+									 "change_companyAddr_txt":add_companyAddr_txt,
+									 "change_tel_txt":add_tel_txt,
+									 "change_contract_number_txt":add_contract_number_txt,"change_father_agentid_sel":add_father_agentid_sel,
+									 "change_legal_tel_txt":add_legal_tel_txt,"change_dst_area":add_org_area,"change_contract_number_txt":add_contract_number_txt,
+									 "change_companyAddr_txt":add_companyAddr_txt,"change_begin_time_sel":add_begin_time_sel,"change_end_time_sel":add_end_time_sel,"change_forever_check":add_forever_check},
+					function (data){
+						var tmp_msg = "<?php echo C('add_agents_success');?>";
+						if(tmp_msg == data)
+						{
+							alert(data);
+							window.location.href = window.location.href;
+						}
+						else
+						{
+							alert(data);
+							//$(".cli_tishi").html("<img src='__PUBLIC__/image/th.png'/>"+data+"");
+						}
+					}
+				,'json'
+			);
+		});//结束
+
+
+		$.openDOMWindow({ 
+			loader:1, 
+			loaderHeight:16, 
+			loaderWidth:17, 
+			windowSourceID:'#j_add_win' 
+		}); 
+			return false; 
+	})
+
+//=====================================================单击删除按钮弹出模态窗事件============================================
+	$('#j_del_button').click(function(){ 
+			var ki=$("#agent_id_hid").val();
+			$("#del_id_hidden").val(ki);
+			//单击删除确认按钮
+			$('#j_del_ok').click(function(){
+				var kid=$("#del_id_hidden").val();
+				var del_handleUrl="<?php echo U('configuration/Org/delete_org');?>";
+				$.getJSON(del_handleUrl,{"agent_id":kid},
+					function (data){
+						alert(data);
+						window.location.href = window.location.href;
+					}
+					,'json'
+				);
+			});
+
+			$.openDOMWindow({ 
+				loader:1, 
+				loaderHeight:16, 
+				loaderWidth:17, 
+				windowSourceID:'#j_del_win' 
+			}); 
+				return false; 
+
+
 	});
 
 //=====================================================业务范围事件============================================
@@ -230,72 +449,21 @@ $(document).ready(function(){
 			index : 10005
 		});
 	});
-//=====================================================单击新建保存按钮============================================
-	$('#j_add_save').click(function(){
-		var add_agent_name_txt=$('#j_add_org').val();//组织机构名称
 
-		var add_agent_type_sel=$("#add_agent_type_sel").val();//代理商类型
 
-		var add_agent_level_sel=$('#add_agent_level_sel').val();//代理商级别
 
-		var add_legal_txt=$('#j_add_linkman').val();//联系人
-					
-		var add_companyAddr_txt=$('#j_add_address').val();//办公地址
 
-		var add_tel_txt=$('#add_tel_txt').val();//公司电话
-
-		var add_contract_number_txt=$('#j_add_contract-number').val();//合同编号
-
-		var add_father_agentid_sel=$('#j_add_org-s').val();//上级组织机构
-
-		var add_legal_tel_txt=$('#j_add_phone').val();//联系电话
-
-		var add_org_area=$('#resvals').val();//业务范围
-
-		var add_begin_time_sel=$('#j_add_sq-date').val();//授权日期
-
-		var add_end_time_sel=$('#j_add_date').val();//授权日期
-
-		var is_add_forever_checked = $("#j_add_forever_check").attr('checked');
-		var add_forever_check="";
-			if('checked' == is_add_forever_checked)
-			{
-				var add_forever_check = '1';
-			}
-			else
-			{
-				var add_forever_check = '0';
-			}
-		
-		//return false;
-		var add_handleUrl="<?php echo U('configuration/Org/add_org');?>";
-		$.getJSON(add_handleUrl,{"add_agent_name_txt":add_agent_name_txt,"add_legal_txt":add_legal_txt,
-								 "add_agent_level_sel":add_agent_level_sel,
-								 "add_agent_type_sel":add_agent_type_sel,
-								 "add_companyAddr_txt":add_companyAddr_txt,
-								 "add_tel_txt":add_tel_txt,
-								 
-								 "add_contract_number_txt":add_contract_number_txt,"add_father_agentid_sel":add_father_agentid_sel,
-								 "add_legal_tel_txt":add_legal_tel_txt,"add_org_area":add_org_area,"add_contract_number_txt":add_contract_number_txt,
-								 "add_companyAddr_txt":add_companyAddr_txt,"add_begin_time_sel":add_begin_time_sel,"add_end_time_sel":add_end_time_sel,"add_forever_check":add_forever_check},
-				function (data){
-					var tmp_msg = "<?php echo C('add_agents_success');?>";
-					if(tmp_msg == data)
-					{
-						alert(data);
-						window.location.href = window.location.href;
-					}
-					else
-					{
-						alert(data);
-						//$(".cli_tishi").html("<img src='__PUBLIC__/image/th.png'/>"+data+"");
-					}
-				}
-			,'json'
-		);
-	})
 
 });
+
+
+
+
+
+
+
+
+
 
 
 
@@ -309,7 +477,7 @@ $(document).ready(function(){
             <ul class="left-nav">
                 <li>赵洋,您好 <span></span>
                     <ul>
-                        <li><a href="">修改密码</a></li>
+                        <li><a href="javascript:void(0);" onclick="show_change_password()">修改密码</a></li>
                     </ul>
                 </li>
             </ul>
@@ -329,6 +497,11 @@ $(document).ready(function(){
         <li><a href="<?php echo U('configuration/Org/index');?>">系统设置</a></li>
     </ul>
 </div>
+<script type="text/javascript">
+	function show_change_password(){
+		$('#change_password_id').show();
+	}
+</script>
 <div id="container">
     <div class="left">
         <ul class="aside-nav">
@@ -344,8 +517,8 @@ $(document).ready(function(){
                 <div class="org-right-btns">
                     <form action="">
                         <button type="button" class="area-btn" id="j_add_button">新增</button>
-                        <button type="button" class="area-btn">编辑</button>
-                        <button type="button" class="area-btn">删除</button>
+                        <button type="button" class="area-btn" id="j_mod_button">编辑</button>
+                        <button type="button" class="area-btn" id="j_del_button">删除</button>
                         <!--<button type="button" class="area-btn">上移</button>
                         <button type="button" class="area-btn">下移</button>-->
                     </form>
@@ -363,7 +536,7 @@ $(document).ready(function(){
                 </div>
                 <div class="org-right-info">
                     <h3>组织机构信息</h3>
-                    <form action="">
+						<input type="hidden" id="agent_id_hid" value=""/>
                         <div class="info-left cf">
                             <label for="linkman">类型</label>
                             <input readonly="true" type="text" name="" id="change_agent_type_sel" class="input-org-info"/>
@@ -392,7 +565,7 @@ $(document).ready(function(){
                             </em>
 
                         </div>
-                    </form>
+
                     <div class="info-bottom">
                         <em>
                             所属渠道商总数：<span id="channel_num"></span>
@@ -409,23 +582,24 @@ $(document).ready(function(){
 <div id="footer">
 1111
 </div>
-<div class="alert-role-add">
+<script type="text/javascript" src="__PUBLIC__/js/jquery-1.6.1.js"></script>
+<div id="change_password_id" class="alert-role-add" style="display:none;">
     <h3>修改密码</h3>
     <div class="alert-role-add-con">
         <p>
             <label for="old-pass" class="role-lab">旧密码&nbsp;&nbsp;&nbsp;</label>
-            <input type="text" name="addname" id="old-pass" class="input-role-name"/>
+            <input type="text" name="old_password_txt" id="old_password_txt" class="input-role-name"/>
         </p>
         <p>
             <label for="new-pass" class="role-lab">新密码&nbsp;&nbsp;&nbsp;</label>
-            <input type="password" name="addname" id="new-pass" class="input-role-name"/>
+            <input type="password" name="new_password_txt" id="new_password_txt" class="input-role-name"/>
         </p>
         <p>
             <label for="rnew-pass" class="role-lab">确认密码</label>
-            <input type="password" name="addname" id="rnew-pass" class="input-role-name"/>
+            <input type="password" name="re_new_password_txt" id="re_new_password_txt" class="input-role-name"/>
         </p>
         <p>
-            <button type="button" class="alert-btn2">修改密码</button>
+            <button type="button" class="alert-btn2" onclick="change_password()">修改密码</button>
 
         </p>
     </div>
@@ -435,6 +609,29 @@ $(document).ready(function(){
         headAct();
 
     };
+
+	function change_password(){
+		var handleUrl = "<?php echo U('configuration/Login/change_password');?>";
+		var old_password_txt=$('#old_password_txt').val();//业务范围
+		var new_password_txt=$('#new_password_txt').val();//业务范围
+		var re_new_password_txt=$('#re_new_password_txt').val();//业务范围
+		$.getJSON(handleUrl,{'old_password_txt':old_password_txt,'new_password_txt':new_password_txt,'re_new_password_txt':re_new_password_txt},
+			function (data){
+				var tmp_msg = "<?php echo C('change_password_success');?>";
+					if(tmp_msg == data)
+					{
+						alert(data);
+						$('#change_password_id').hide();
+					}
+					else
+					{
+						alert(data);
+					}
+			}
+			,'json'
+		);
+	}
+
     function headAct(){
         var Ourl = window.location.href;
         if(!document.getElementById('j-nav-active')){return;};
@@ -506,7 +703,8 @@ $(document).ready(function(){
                     <label for="sq-date">授权日期</label>
 					<input type="text" name="" id="j_add_sq-date" class="input-org-info min-w" onClick="WdatePicker()" readonly="readonly"/>
                     <input type="text" name="" id="j_add_date" class="input-org-info min-w" onClick="WdatePicker()" readonly="readonly"/>
-                    <input type="checkbox" name="" id="j_add_forever_check" class="org-input-c"/><label class="lab-ckbox" for="forver">永久</label>
+                    <input type="checkbox" name="" id="j_add_forever_check" class="org-input-c"/>
+					<label class="lab-ckbox" for="forver">永久</label>
                 </em>
             </div>
         </form>
@@ -518,6 +716,21 @@ $(document).ready(function(){
         </div>
     </div>
 </div>
-
+<!--删除确认框-->
+<div class="divout" id="j_del_win" style="display:none;">
+	<div class="alert-role-add" >
+		<h3>组织结构</h3>
+		<div class="alert-role-add-con">
+			<p class="delete-message">请确认是否删除？</p>
+			<input type="hidden" value="" id="del_id_hidden"/>
+			<p>
+				<button type="button" class="alert-btn2" id="j_del_ok">确定</button>
+				<a href="." class="closeDOMWindow">
+					<button type="button" class="alert-btn2">关闭</button>
+				</a>
+			</p>
+		</div>
+	</div>
+</div>	
 </body>
 </html>

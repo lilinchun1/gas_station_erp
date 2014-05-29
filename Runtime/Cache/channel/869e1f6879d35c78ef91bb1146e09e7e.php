@@ -3,11 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <title>渠道信息</title>
+	<!--
     <link rel="stylesheet" href="../../Public/css/configuration.css"/>
-	<link rel="stylesheet" href="__PUBLIC__/css/configuration.css"/>
+	<script type="text/javascript" src="../../Public/js/jquery.SuperSlide.2.1.1.js"></script>
     <script type="text/javascript" src="../../Public/js/jquery-1.6.1.js"></script>
+	-->
+	<link rel="stylesheet" href="__PUBLIC__/css/configuration.css"/>
 	<script type="text/javascript" src="__PUBLIC__/js/jquery-1.6.1.js"></script>
-    <script type="text/javascript" src="../../Public/js/jquery.SuperSlide.2.1.1.js"></script>
 	<script type="text/javascript" src="__PUBLIC__/js/jquery.SuperSlide.2.1.1.js"></script>
 </head>
 <body>
@@ -19,7 +21,7 @@
             <ul class="left-nav">
                 <li>赵洋,您好 <span></span>
                     <ul>
-                        <li><a href="">修改密码</a></li>
+                        <li><a href="javascript:void(0);" onclick="show_change_password()">修改密码</a></li>
                     </ul>
                 </li>
             </ul>
@@ -39,10 +41,15 @@
         <li><a href="<?php echo U('configuration/Org/index');?>">系统设置</a></li>
     </ul>
 </div>
+<script type="text/javascript">
+	function show_change_password(){
+		$('#change_password_id').show();
+	}
+</script>
 <div id="container">
 <div class="left">
     <ul class="aside-nav">
-        <li class="aside-nav-nth1"><a href="">渠道管理</a></li>
+        <li class="aside-nav-nth1"><a href="<?php echo U('channel/Channel/index');?>">渠道管理</a></li>
         <li class="active"><a href="<?php echo U('channel/Channel/index');?>"><input  type="button"  value="渠道信息" ></a></li>
         <li><a href="<?php echo U('channel/Place/index');?>"><input type="button" class="" value="网点信息" ></a></li>
         <li><a href="<?php echo U('channel/Device/index');?>"><input type="button" class="" value="加油站信息" ></a></li>
@@ -616,23 +623,24 @@
 <div id="footer">
 1111
 </div>
-<div class="alert-role-add">
+<script type="text/javascript" src="__PUBLIC__/js/jquery-1.6.1.js"></script>
+<div id="change_password_id" class="alert-role-add" style="display:none;">
     <h3>修改密码</h3>
     <div class="alert-role-add-con">
         <p>
             <label for="old-pass" class="role-lab">旧密码&nbsp;&nbsp;&nbsp;</label>
-            <input type="text" name="addname" id="old-pass" class="input-role-name"/>
+            <input type="text" name="old_password_txt" id="old_password_txt" class="input-role-name"/>
         </p>
         <p>
             <label for="new-pass" class="role-lab">新密码&nbsp;&nbsp;&nbsp;</label>
-            <input type="password" name="addname" id="new-pass" class="input-role-name"/>
+            <input type="password" name="new_password_txt" id="new_password_txt" class="input-role-name"/>
         </p>
         <p>
             <label for="rnew-pass" class="role-lab">确认密码</label>
-            <input type="password" name="addname" id="rnew-pass" class="input-role-name"/>
+            <input type="password" name="re_new_password_txt" id="re_new_password_txt" class="input-role-name"/>
         </p>
         <p>
-            <button type="button" class="alert-btn2">修改密码</button>
+            <button type="button" class="alert-btn2" onclick="change_password()">修改密码</button>
 
         </p>
     </div>
@@ -642,6 +650,29 @@
         headAct();
 
     };
+
+	function change_password(){
+		var handleUrl = "<?php echo U('configuration/Login/change_password');?>";
+		var old_password_txt=$('#old_password_txt').val();//业务范围
+		var new_password_txt=$('#new_password_txt').val();//业务范围
+		var re_new_password_txt=$('#re_new_password_txt').val();//业务范围
+		$.getJSON(handleUrl,{'old_password_txt':old_password_txt,'new_password_txt':new_password_txt,'re_new_password_txt':re_new_password_txt},
+			function (data){
+				var tmp_msg = "<?php echo C('change_password_success');?>";
+					if(tmp_msg == data)
+					{
+						alert(data);
+						$('#change_password_id').hide();
+					}
+					else
+					{
+						alert(data);
+					}
+			}
+			,'json'
+		);
+	}
+
     function headAct(){
         var Ourl = window.location.href;
         if(!document.getElementById('j-nav-active')){return;};

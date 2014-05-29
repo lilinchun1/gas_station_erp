@@ -117,8 +117,7 @@ class RoleAction extends CommonAction {
 
 	//删除角色信息
 	public function delete_role(){
-		$id = 10;
-		//$id = trim(I('delete_role_id_txt'));
+		$id = trim(I('delete_role_id_txt'));
 		$msg =	C('delete_role_success');
 		$Model = new Model();
 		$role = M("role");

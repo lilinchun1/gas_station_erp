@@ -79,66 +79,83 @@ class UserAction extends CommonAction {
 
 	//添加用户
 	public function add_user(){
-		$cnname = trim(I('add_cnname_txt'));
-		$telphone = trim(I('add_telphone_txt'));
 		$username = trim(I('add_user_name_txt'));
+		$password = C('initial_password');
+		$telphone = trim(I('add_telphone_txt'));
+		$email = trim(I('add_email_txt'));
+		$realname = trim(I('add_realname_txt'));
+		$adduserid = $_SEESION['userinfo']['uid'];
+		$adddate = C('initial_password');
+		$sex = trim(I('add_sex_txt'));
 		$orgid = trim(I('add_org_txt'));
-		$memo = trim(I('add_memo_txt'));
+		//$memo = trim(I('add_memo_txt'));
+		$del_flag = 0;
 		$roleid = trim(I('add_role_txt'));
-		$areaid = trim(I('add_area_txt'));
 		$msg =	C('add_user_success');
 		$Model = new Model();
 		$user = M("user");
 		$user_role = M("user_role");
-		$user_area = M("user_area");
 
-		$data['cnname'] = $cnname;
-		$data['telphone'] = $telphone;
 		$data['username'] = $username;
+		$data['password'] = $password;
+		$data['telphone'] = $telphone;
+		$data['email'] = $email;
+		$data['realname'] = $realname;
+		$data['adduserid'] = $adduserid;
+		$data['adddate'] = $adddate;
+		$data['sex'] = $sex;
 		$data['orgid'] = $orgid;
-		$data['memo'] = $memo;
+		$data['del_flag'] = $del_flag;
 		$is_set = $user->add($data);
 		$tmp_user_id = $user->query('select last_insert_id() as id');
 
-		$data_role['userid'] = $tmp_user_id[0]['id'];
-		$date_role['roleid'] = $roleid;
-		$is_set = $user_role->add($data_role);
+		$roleid_array = explode(",", $roleid);
+		foreach($roleid_array as $key=>$val){
+			$data_role['userid'] = $tmp_user_id[0]['id'];
+			$data_role['roleid'] = $val;
+			$is_set = $user_role->add($data_role);
+		}
 
-		$data_area['userid'] = $tmp_user_id[0]['id'];
-		$date_area['areaid'] = $areaid;
-		$is_set = $user_area->add($data_area);
+		$this->ajaxReturn($msg,'json');
 	}
 
      //编辑用户
      public function edit_user(){
 		$userid = trim(I('modify_userid_txt'));
-		$cnname = trim(I('modify_cnname_txt'));
-		$telphone = trim(I('modify_telphone_txt'));
 		$username = trim(I('modify_user_name_txt'));
+		$telphone = trim(I('modify_telphone_txt'));
+		$email = trim(I('modify_email_txt'));
+		$realname = trim(I('modify_realname_txt'));
+		$modifyuserid = trim(I('modify_modifyuserid_txt'));
+		$modifydate = trim(I('modify_modifydate_txt'));
+		$sex = trim(I('modify_sex_txt'));
 		$orgid = trim(I('modify_org_txt'));
-		$memo = trim(I('modify_memo_txt'));
+		//$memo = trim(I('modify_memo_txt'));
 		$roleid = trim(I('modify_role_txt'));
-		$areaid = trim(I('modify_area_txt'));
 		$msg =	C('modify_user_success');
 		$Model = new Model();
 		$user = M("user");
 		$user_role = M("user_role");
-		$user_area = M("user_area");
 
-		$data['cnname'] = $cnname;
-		$data['telphone'] = $telphone;
 		$data['username'] = $username;
+		$data['telphone'] = $telphone;
+		$data['email'] = $email;
+		$data['realname'] = $realname;
+		$data['modifyuserid'] = $modifyuserid;
+		$data['modifydate'] = $modifydate;
+		$data['sex'] = $sex;
 		$data['orgid'] = $orgid;
-		$data['memo'] = $memo;
-		$is_set = $user->where("id=%d", $userid)->save($data);
+		$is_set = $user->where("uid=%d", $userid)->save($data);
 
-		$data_role['userid'] = $userid;
-		$date_role['roleid'] = $roleid;
-		$is_set = $data_role->where("id=%d", $userid)->save($data);
+		$is_delete = $user_role->where("userid=%d", $userid)->delete();
+		$roleid_array = explode(",", $roleid);
+		foreach($roleid_array as $key=>$val){
+			$data_role['userid'] = $userid;
+			$data_role['roleid'] = $val;
+			$is_set = $user_role->add($data_role);
+		}
 
-		$data_area['userid'] = $userid;
-		$date_area['areaid'] = $areaid;
-		$is_set = $data_area->where("id=%d", $userid)->save($data);
+		$this->ajaxReturn($msg,'json');
 	}
 
     //删除用户
@@ -148,23 +165,24 @@ class UserAction extends CommonAction {
 		$Model = new Model();
 		$user = M("user");
 		$user_role = M("user_role");
-		$user_area = M("user_area");
 
-		$is_delete = $user->where("id=%d", $id)->delete();
+		$is_delete = $user->where("uid=%d", $id)->delete();
 		$is_delete = $user_role->where("userid=%d", $id)->delete();
-		$is_delete = $user_area->where("userid=%d", $id)->delete();
+
+		$this->ajaxReturn($msg,'json');
 	}
 
 	//重置密码
 	public function reset_password(){
 		$userid = trim(I('reset_userid_txt'));
-		$password = trim(I('reset_password_txt'));
 		$msg =	C('reset_password_success');
 		$Model = new Model();
 		$user = M("user");
 
-		$data['password'] = $password;
-		$is_set = $user->where("id=%d", $userid)->save($data);
+		$data['password'] = C('initial_password');
+		$is_set = $user->where("uid=%d", $userid)->save($data);
+
+		$this->ajaxReturn($msg,'json');
 	}
 
     //修改用户状态，激活/失效
@@ -174,13 +192,15 @@ class UserAction extends CommonAction {
 		$Model = new Model();
 		$user = M("user");
 
-		$user_info = $Model->query("select * from bi_user where userid=" . $userid);
-		if($user_info[0]['state'] == 1){
-			$data['state'] = 0;
+		$user_info = $Model->query("select * from bi_user where uid=" . $userid);
+		if($user_info[0]['del_flag'] == 1){
+			$data['del_flag'] = 0;
 		}else{
-			$data['state'] = 1;
+			$data['del_flag'] = 1;
 		}
-		$is_set = $user->where("id=%d", $userid)->save($data);
+		$is_set = $user->where("uid=%d", $userid)->save($data);
+
+		$this->ajaxReturn($msg,'json');
 	}
 
 }

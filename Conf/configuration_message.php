@@ -29,5 +29,14 @@
 		'old_password_error'		=>	'旧密码错误',
 		'new_password_not_same'		=>	'新密码不一致',
 		'change_password_success'   =>	'成功修改密码',
+		'initial_password'   =>	'123456',
+		'add_user_success'		=>	'成功添加用户',
+		'add_user_failed'		=>	'添加用户失败',
+		'modify_user_success'		=>	'成功修改用户',
+		'modify_user_failed'		=>	'修改用户失败',
+		'delete_user_success'		=>	'成功删除用户',
+		'delete_user_failed'		=>	'删除用户失败',
+		'reset_password_success'		=>	'成功重置用户密码',
+		'modify_user_state_success'		=>	'成功修改用户状态',
 	);
 ?>

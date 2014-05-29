@@ -16,7 +16,7 @@
             <ul class="left-nav">
                 <li>赵洋,您好 <span></span>
                     <ul>
-                        <li><a href="">修改密码</a></li>
+                        <li><a href="javascript:void(0);" onclick="show_change_password()">修改密码</a></li>
                     </ul>
                 </li>
             </ul>
@@ -36,6 +36,11 @@
         <li><a href="<?php echo U('configuration/Org/index');?>">系统设置</a></li>
     </ul>
 </div>
+<script type="text/javascript">
+	function show_change_password(){
+		$('#change_password_id').show();
+	}
+</script>
 
 <div id="container">
     <div class="left">
@@ -51,14 +56,14 @@
             <div class="org-right-con">
                 <div class="role-control" id="j-fixed-top">
                     <div class="role-inquire">
-                        <form action="">
+                        <form name="userSelect" method="get" action="<?php echo U('configuration/User/show_user');?>">
                             <label for="user-name" class="">姓名</label>
-                            <input type="text" name="" id="user-name" class="input-org-info"/>
+                            <input type="text" name="realname_txt" id="realname_txt" class="input-org-info"/>
                             <label for="at-org" class="">所属组织机构</label>
-                            <input type="text" name="" id="at-org" class="input-org-info"/>
-                            <button type="button" class="role-control-btn">查看</button>
+                            <input type="text" name="org_name_txt" id="org_name_txt" class="input-org-info"/>
                             <label for="use-id" class="use-id">账号</label>
-                            <input type="text" name="" id="use-id" class="input-org-info"/>
+                            <input type="text" name="username_txt" id="username_txt" class="input-org-info"/>
+                            <input type="submit" id="select_button" name="select_button" class="role-control-btn">查询</button>
                         </form>
                     </div>
                     <div class="org-right-btns">
@@ -83,198 +88,18 @@
                             <span class="span-1"><b>角色</b></span>
                             <span class="span-1"><b>状态</b></span>
                         </li>
-                        <li>
-                            <span class="span-1"><input type="radio" name="role-info" id="" class="role-table-radio"/></span>
-                            <span class="span-1" title="#">Lorem ipsum dolor sit.</span>
-                            <span class="span-1" title="#">Dolore eius expedita molestias!</span>
-                            <span class="span-1" title="#">Blanditiis dolorum pariatur vitae?</span>
-                            <span class="span-3" title="#">Perspiciatis quae ratione repudiandae!</span>
-                            <span class="span-2" title="#">Ipsa nulla quidem voluptate?</span>
-                            <span class="span-1" title="#">Consequuntur eveniet itaque velit.</span>
-                            <span class="span-1" title="#">Aspernatur blanditiis ipsum nulla!</span>
-                        </li>
-                        <li>
-                            <span class="span-1"><input type="radio" name="role-info" id="" class="role-table-radio"/></span>
-                            <span class="span-1" title="#">Lorem ipsum dolor sit.</span>
-                            <span class="span-1" title="#">Dolore eius expedita molestias!</span>
-                            <span class="span-1" title="#">Blanditiis dolorum pariatur vitae?</span>
-                            <span class="span-3" title="#">Perspiciatis quae ratione repudiandae!</span>
-                            <span class="span-2" title="#">Ipsa nulla quidem voluptate?</span>
-                            <span class="span-1" title="#">Consequuntur eveniet itaque velit.</span>
-                            <span class="span-1" title="#">Aspernatur blanditiis ipsum nulla!</span>
-                        </li>
-                        <li>
-                            <span class="span-1"><input type="radio" name="role-info" id="" class="role-table-radio"/></span>
-                            <span class="span-1" title="#">Lorem ipsum dolor sit.</span>
-                            <span class="span-1" title="#">Dolore eius expedita molestias!</span>
-                            <span class="span-1" title="#">Blanditiis dolorum pariatur vitae?</span>
-                            <span class="span-3" title="#">Perspiciatis quae ratione repudiandae!</span>
-                            <span class="span-2" title="#">Ipsa nulla quidem voluptate?</span>
-                            <span class="span-1" title="#">Consequuntur eveniet itaque velit.</span>
-                            <span class="span-1" title="#">Aspernatur blanditiis ipsum nulla!</span>
-                        </li>
-                        <li>
-                            <span class="span-1"><input type="radio" name="role-info" id="" class="role-table-radio"/></span>
-                            <span class="span-1" title="#">Lorem ipsum dolor sit.</span>
-                            <span class="span-1" title="#">Dolore eius expedita molestias!</span>
-                            <span class="span-1" title="#">Blanditiis dolorum pariatur vitae?</span>
-                            <span class="span-3" title="#">Perspiciatis quae ratione repudiandae!</span>
-                            <span class="span-2" title="#">Ipsa nulla quidem voluptate?</span>
-                            <span class="span-1" title="#">Consequuntur eveniet itaque velit.</span>
-                            <span class="span-1" title="#">Aspernatur blanditiis ipsum nulla!</span>
-                        </li>
-                        <li>
-                            <span class="span-1"><input type="radio" name="role-info" id="" class="role-table-radio"/></span>
-                            <span class="span-1" title="#">Lorem ipsum dolor sit.</span>
-                            <span class="span-1" title="#">Dolore eius expedita molestias!</span>
-                            <span class="span-1" title="#">Blanditiis dolorum pariatur vitae?</span>
-                            <span class="span-3" title="#">Perspiciatis quae ratione repudiandae!</span>
-                            <span class="span-2" title="#">Ipsa nulla quidem voluptate?</span>
-                            <span class="span-1" title="#">Consequuntur eveniet itaque velit.</span>
-                            <span class="span-1" title="#">Aspernatur blanditiis ipsum nulla!</span>
-                        </li>
-                        <li>
-                            <span class="span-1"><input type="radio" name="role-info" id="" class="role-table-radio"/></span>
-                            <span class="span-1" title="#">Lorem ipsum dolor sit.</span>
-                            <span class="span-1" title="#">Dolore eius expedita molestias!</span>
-                            <span class="span-1" title="#">Blanditiis dolorum pariatur vitae?</span>
-                            <span class="span-3" title="#">Perspiciatis quae ratione repudiandae!</span>
-                            <span class="span-2" title="#">Ipsa nulla quidem voluptate?</span>
-                            <span class="span-1" title="#">Consequuntur eveniet itaque velit.</span>
-                            <span class="span-1" title="#">Aspernatur blanditiis ipsum nulla!</span>
-                        </li>
-                        <li>
-                            <span class="span-1"><input type="radio" name="role-info" id="" class="role-table-radio"/></span>
-                            <span class="span-1" title="#">Lorem ipsum dolor sit.</span>
-                            <span class="span-1" title="#">Dolore eius expedita molestias!</span>
-                            <span class="span-1" title="#">Blanditiis dolorum pariatur vitae?</span>
-                            <span class="span-3" title="#">Perspiciatis quae ratione repudiandae!</span>
-                            <span class="span-2" title="#">Ipsa nulla quidem voluptate?</span>
-                            <span class="span-1" title="#">Consequuntur eveniet itaque velit.</span>
-                            <span class="span-1" title="#">Aspernatur blanditiis ipsum nulla!</span>
-                        </li>
-                        <li>
-                            <span class="span-1"><input type="radio" name="role-info" id="" class="role-table-radio"/></span>
-                            <span class="span-1" title="#">Lorem ipsum dolor sit.</span>
-                            <span class="span-1" title="#">Dolore eius expedita molestias!</span>
-                            <span class="span-1" title="#">Blanditiis dolorum pariatur vitae?</span>
-                            <span class="span-3" title="#">Perspiciatis quae ratione repudiandae!</span>
-                            <span class="span-2" title="#">Ipsa nulla quidem voluptate?</span>
-                            <span class="span-1" title="#">Consequuntur eveniet itaque velit.</span>
-                            <span class="span-1" title="#">Aspernatur blanditiis ipsum nulla!</span>
-                        </li>
-                        <li>
-                            <span class="span-1"><input type="radio" name="role-info" id="" class="role-table-radio"/></span>
-                            <span class="span-1" title="#">Lorem ipsum dolor sit.</span>
-                            <span class="span-1" title="#">Dolore eius expedita molestias!</span>
-                            <span class="span-1" title="#">Blanditiis dolorum pariatur vitae?</span>
-                            <span class="span-3" title="#">Perspiciatis quae ratione repudiandae!</span>
-                            <span class="span-2" title="#">Ipsa nulla quidem voluptate?</span>
-                            <span class="span-1" title="#">Consequuntur eveniet itaque velit.</span>
-                            <span class="span-1" title="#">Aspernatur blanditiis ipsum nulla!</span>
-                        </li>
-                        <li>
-                            <span class="span-1"><input type="radio" name="role-info" id="" class="role-table-radio"/></span>
-                            <span class="span-1" title="#">Lorem ipsum dolor sit.</span>
-                            <span class="span-1" title="#">Dolore eius expedita molestias!</span>
-                            <span class="span-1" title="#">Blanditiis dolorum pariatur vitae?</span>
-                            <span class="span-3" title="#">Perspiciatis quae ratione repudiandae!</span>
-                            <span class="span-2" title="#">Ipsa nulla quidem voluptate?</span>
-                            <span class="span-1" title="#">Consequuntur eveniet itaque velit.</span>
-                            <span class="span-1" title="#">Aspernatur blanditiis ipsum nulla!</span>
-                        </li>
-                        <li>
-                            <span class="span-1"><input type="radio" name="role-info" id="" class="role-table-radio"/></span>
-                            <span class="span-1" title="#">Lorem ipsum dolor sit.</span>
-                            <span class="span-1" title="#">Dolore eius expedita molestias!</span>
-                            <span class="span-1" title="#">Blanditiis dolorum pariatur vitae?</span>
-                            <span class="span-3" title="#">Perspiciatis quae ratione repudiandae!</span>
-                            <span class="span-2" title="#">Ipsa nulla quidem voluptate?</span>
-                            <span class="span-1" title="#">Consequuntur eveniet itaque velit.</span>
-                            <span class="span-1" title="#">Aspernatur blanditiis ipsum nulla!</span>
-                        </li>
-                        <li>
-                            <span class="span-1"><input type="radio" name="role-info" id="" class="role-table-radio"/></span>
-                            <span class="span-1" title="#">Lorem ipsum dolor sit.</span>
-                            <span class="span-1" title="#">Dolore eius expedita molestias!</span>
-                            <span class="span-1" title="#">Blanditiis dolorum pariatur vitae?</span>
-                            <span class="span-3" title="#">Perspiciatis quae ratione repudiandae!</span>
-                            <span class="span-2" title="#">Ipsa nulla quidem voluptate?</span>
-                            <span class="span-1" title="#">Consequuntur eveniet itaque velit.</span>
-                            <span class="span-1" title="#">Aspernatur blanditiis ipsum nulla!</span>
-                        </li>
-                        <li>
-                            <span class="span-1"><input type="radio" name="role-info" id="" class="role-table-radio"/></span>
-                            <span class="span-1" title="#">Lorem ipsum dolor sit.</span>
-                            <span class="span-1" title="#">Dolore eius expedita molestias!</span>
-                            <span class="span-1" title="#">Blanditiis dolorum pariatur vitae?</span>
-                            <span class="span-3" title="#">Perspiciatis quae ratione repudiandae!</span>
-                            <span class="span-2" title="#">Ipsa nulla quidem voluptate?</span>
-                            <span class="span-1" title="#">Consequuntur eveniet itaque velit.</span>
-                            <span class="span-1" title="#">Aspernatur blanditiis ipsum nulla!</span>
-                        </li>
-                        <li>
-                            <span class="span-1"><input type="radio" name="role-info" id="" class="role-table-radio"/></span>
-                            <span class="span-1" title="#">Lorem ipsum dolor sit.</span>
-                            <span class="span-1" title="#">Dolore eius expedita molestias!</span>
-                            <span class="span-1" title="#">Blanditiis dolorum pariatur vitae?</span>
-                            <span class="span-3" title="#">Perspiciatis quae ratione repudiandae!</span>
-                            <span class="span-2" title="#">Ipsa nulla quidem voluptate?</span>
-                            <span class="span-1" title="#">Consequuntur eveniet itaque velit.</span>
-                            <span class="span-1" title="#">Aspernatur blanditiis ipsum nulla!</span>
-                        </li>
-                        <li>
-                            <span class="span-1"><input type="radio" name="role-info" id="" class="role-table-radio"/></span>
-                            <span class="span-1" title="#">Lorem ipsum dolor sit.</span>
-                            <span class="span-1" title="#">Dolore eius expedita molestias!</span>
-                            <span class="span-1" title="#">Blanditiis dolorum pariatur vitae?</span>
-                            <span class="span-3" title="#">Perspiciatis quae ratione repudiandae!</span>
-                            <span class="span-2" title="#">Ipsa nulla quidem voluptate?</span>
-                            <span class="span-1" title="#">Consequuntur eveniet itaque velit.</span>
-                            <span class="span-1" title="#">Aspernatur blanditiis ipsum nulla!</span>
-                        </li>
-                        <li>
-                            <span class="span-1"><input type="radio" name="role-info" id="" class="role-table-radio"/></span>
-                            <span class="span-1" title="#">Lorem ipsum dolor sit.</span>
-                            <span class="span-1" title="#">Dolore eius expedita molestias!</span>
-                            <span class="span-1" title="#">Blanditiis dolorum pariatur vitae?</span>
-                            <span class="span-3" title="#">Perspiciatis quae ratione repudiandae!</span>
-                            <span class="span-2" title="#">Ipsa nulla quidem voluptate?</span>
-                            <span class="span-1" title="#">Consequuntur eveniet itaque velit.</span>
-                            <span class="span-1" title="#">Aspernatur blanditiis ipsum nulla!</span>
-                        </li>
-                        <li>
-                            <span class="span-1"><input type="radio" name="role-info" id="" class="role-table-radio"/></span>
-                            <span class="span-1" title="#">Lorem ipsum dolor sit.</span>
-                            <span class="span-1" title="#">Dolore eius expedita molestias!</span>
-                            <span class="span-1" title="#">Blanditiis dolorum pariatur vitae?</span>
-                            <span class="span-3" title="#">Perspiciatis quae ratione repudiandae!</span>
-                            <span class="span-2" title="#">Ipsa nulla quidem voluptate?</span>
-                            <span class="span-1" title="#">Consequuntur eveniet itaque velit.</span>
-                            <span class="span-1" title="#">Aspernatur blanditiis ipsum nulla!</span>
-                        </li>
-                        <li>
-                            <span class="span-1"><input type="radio" name="role-info" id="" class="role-table-radio"/></span>
-                            <span class="span-1" title="#">Lorem ipsum dolor sit.</span>
-                            <span class="span-1" title="#">Dolore eius expedita molestias!</span>
-                            <span class="span-1" title="#">Blanditiis dolorum pariatur vitae?</span>
-                            <span class="span-3" title="#">Perspiciatis quae ratione repudiandae!</span>
-                            <span class="span-2" title="#">Ipsa nulla quidem voluptate?</span>
-                            <span class="span-1" title="#">Consequuntur eveniet itaque velit.</span>
-                            <span class="span-1" title="#">Aspernatur blanditiis ipsum nulla!</span>
-                        </li>
-                        <li>
-                            <span class="span-1"><input type="radio" name="role-info" id="" class="role-table-radio"/></span>
-                            <span class="span-1" title="#">Lorem ipsum dolor sit.</span>
-                            <span class="span-1" title="#">Dolore eius expedita molestias!</span>
-                            <span class="span-1" title="#">Blanditiis dolorum pariatur vitae?</span>
-                            <span class="span-3" title="#">Perspiciatis quae ratione repudiandae!</span>
-                            <span class="span-2" title="#">Ipsa nulla quidem voluptate?</span>
-                            <span class="span-1" title="#">Consequuntur eveniet itaque velit.</span>
-                            <span class="span-1" title="#">Aspernatur blanditiis ipsum nulla!</span>
-                        </li>
+						<?php if(is_array($list)): $i = 0; $__LIST__ = $list;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$vo): $mod = ($i % 2 );++$i;?><li>
+								<span class="span-1"><input type="radio" name="role-info" id="" class="role-table-radio"/></span>
+								<span class="span-1" title="#"><?php echo ($vo["realname"]); ?></span>
+								<span class="span-1" title="#"><?php echo ($vo["sex"]); ?></span>
+								<span class="span-1" title="#"><?php echo ($vo["telphone"]); ?></span>
+								<span class="span-3" title="#"><?php echo ($vo["orgname"]); ?></span>
+								<span class="span-2" title="#"><?php echo ($vo["username"]); ?></span>
+								<span class="span-1" title="#"><?php echo ($vo["rolename"]); ?></span>
+								<span class="span-1" title="#"><?php echo ($vo["del_flag"]); ?></span>
+							</li><?php endforeach; endif; else: echo "" ;endif; ?>
                     </ul>
-
+					<div class="resultpage"><?php echo ($page); ?></div>
             </div>
                 <div class="role-table over-h-y">
                     <div class="data-log">
@@ -375,11 +200,56 @@
 <div id="footer">
 1111
 </div>
+<script type="text/javascript" src="__PUBLIC__/js/jquery-1.6.1.js"></script>
+<div id="change_password_id" class="alert-role-add" style="display:none;">
+    <h3>修改密码</h3>
+    <div class="alert-role-add-con">
+        <p>
+            <label for="old-pass" class="role-lab">旧密码&nbsp;&nbsp;&nbsp;</label>
+            <input type="text" name="old_password_txt" id="old_password_txt" class="input-role-name"/>
+        </p>
+        <p>
+            <label for="new-pass" class="role-lab">新密码&nbsp;&nbsp;&nbsp;</label>
+            <input type="password" name="new_password_txt" id="new_password_txt" class="input-role-name"/>
+        </p>
+        <p>
+            <label for="rnew-pass" class="role-lab">确认密码</label>
+            <input type="password" name="re_new_password_txt" id="re_new_password_txt" class="input-role-name"/>
+        </p>
+        <p>
+            <button type="button" class="alert-btn2" onclick="change_password()">修改密码</button>
+
+        </p>
+    </div>
+</div>
 <script>
     window.onload=function(){
         headAct();
 
     };
+
+	function change_password(){
+		var handleUrl = "<?php echo U('configuration/Login/change_password');?>";
+		var old_password_txt=$('#old_password_txt').val();//业务范围
+		var new_password_txt=$('#new_password_txt').val();//业务范围
+		var re_new_password_txt=$('#re_new_password_txt').val();//业务范围
+		$.getJSON(handleUrl,{'old_password_txt':old_password_txt,'new_password_txt':new_password_txt,'re_new_password_txt':re_new_password_txt},
+			function (data){
+				var tmp_msg = "<?php echo C('change_password_success');?>";
+					if(tmp_msg == data)
+					{
+						alert(data);
+						$('#change_password_id').hide();
+					}
+					else
+					{
+						alert(data);
+					}
+			}
+			,'json'
+		);
+	}
+
     function headAct(){
         var Ourl = window.location.href;
         if(!document.getElementById('j-nav-active')){return;};
@@ -416,6 +286,7 @@
 
     }
 </script>
+
 <div class="alert-role-add">
     <h3>添加职员信息</h3>
     <div class="alert-user-add-con">
@@ -457,7 +328,7 @@
             <input type="hidden" id="J_TreeResult" value='{"id":"291"}'>
             </p>
             <p>
-                <button type="button" class="alert-btn2">删除</button>
+                <button type="button" class="alert-btn2">保存</button>
                 <button type="button" class="alert-btn2">关闭</button>
             </p>
         </form>
@@ -469,7 +340,7 @@
     <div class="alert-role-add-con">
         <p class="delete-message">请确认是否删除？</p>
         <p>
-            <button type="button" class="alert-btn2">保存</button>
+            <button type="button" class="alert-btn2">删除</button>
             <button type="button" class="alert-btn2">关闭</button>
         </p>
     </div>

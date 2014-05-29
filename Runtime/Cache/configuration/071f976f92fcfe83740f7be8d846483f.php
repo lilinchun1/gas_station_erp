@@ -15,7 +15,7 @@
             <ul class="left-nav">
                 <li>赵洋,您好 <span></span>
                     <ul>
-                        <li><a href="">修改密码</a></li>
+                        <li><a href="javascript:void(0);" onclick="show_change_password()">修改密码</a></li>
                     </ul>
                 </li>
             </ul>
@@ -35,13 +35,18 @@
         <li><a href="<?php echo U('configuration/Org/index');?>">系统设置</a></li>
     </ul>
 </div>
+<script type="text/javascript">
+	function show_change_password(){
+		$('#change_password_id').show();
+	}
+</script>
 <div id="container">
     <div class="left">
         <ul class="aside-nav">
             <li class="aside-nav-nth1"><a href="<?php echo U('configuration/Org/index');?>">系统设置</a></li>
-            <li><a href="<?php echo U('Org/index');?>"><input  type="button"  value="组织结构" ></a></li>
-            <li class="active"><a href="<?php echo U('Role/index');?>"><input type="button" class="" value="角色维护" ></a></li>
-            <li><a href="<?php echo U('User/index');?>"><input type="button" class="" value="职员维护" ></a></li>
+            <li><a href="<?php echo U('configuration/Org/index');?>"><input  type="button"  value="组织结构" ></a></li>
+            <li class="active"><a href="<?php echo U('configuration/Role/index');?>"><input type="button" class="" value="角色维护" ></a></li>
+            <li><a href="<?php echo U('configuration/User/index');?>"><input type="button" class="" value="职员维护" ></a></li>
         </ul>
     </div>
     <div class="right">
@@ -49,10 +54,10 @@
             <div class="org-right-con">
                 <div class="role-control" id="j-fixed-top">
                     <div class="role-inquire">
-                        <form action="">
+                        <form name="roleSelect" method="get" action="<?php echo U('configuration/Role/show_role');?>">
                             <label for="role-name" class="role-lab">角色名称</label>
-                            <input type="text" name="" id="role-name" class="input-org-info"/>
-                            <button type="button" class="role-control-btn">查询</button>
+                            <input type="text" name="role_name_txt" id="role_name_txt" class="input-org-info"/>
+                            <input type="submit" id="select_button" name="select_button" class="role-control-btn"></button>
                         </form>
                     </div>
                     <div class="org-right-btns">
@@ -73,175 +78,15 @@
                             <span class="span-2"><b>创建人</b></span>
                             <span class="span-2"><b>创建日期</b></span>
                         </li>
-                        <li>
-                            <span class="span-1"><input type="radio" name="role-info" id="" class="role-table-radio"/></span>
-                            <span class="span-2" title="#">22222222222</span>
-                            <span class="span-3" title="#">33333333333</span>
-                            <span class="span-2" title="#">44444444444</span>
-                            <span class="span-2" title="#">55555555555</span>
-                        </li>
-                        <li>
-                            <span class="span-1"><input type="radio" name="role-info" id="" class="role-table-radio"/></span>
-                            <span class="span-2" title="#">22222222222</span>
-                            <span class="span-3" title="#">33333333333</span>
-                            <span class="span-2" title="#">44444444444</span>
-                            <span class="span-2" title="#">55555555555</span>
-                        </li>
-                        <li>
-                            <span class="span-1"><input type="radio" name="role-info" id="" class="role-table-radio"/></span>
-                            <span class="span-2" title="#">22222222222</span>
-                            <span class="span-3" title="#">33333333333</span>
-                            <span class="span-2" title="#">44444444444</span>
-                            <span class="span-2" title="#">55555555555</span>
-                        </li>
-                        <li>
-                            <span class="span-1"><input type="radio" name="role-info" id="" class="role-table-radio"/></span>
-                            <span class="span-2" title="#">22222222222</span>
-                            <span class="span-3" title="#">33333333333</span>
-                            <span class="span-2" title="#">44444444444</span>
-                            <span class="span-2" title="#">55555555555</span>
-                        </li>
-                        <li>
-                            <span class="span-1"><input type="radio" name="role-info" id="" class="role-table-radio"/></span>
-                            <span class="span-2" title="#">22222222222</span>
-                            <span class="span-3" title="#">33333333333</span>
-                            <span class="span-2" title="#">44444444444</span>
-                            <span class="span-2" title="#">55555555555</span>
-                        </li>
-                        <li>
-                            <span class="span-1"><input type="radio" name="role-info" id="" class="role-table-radio"/></span>
-                            <span class="span-2" title="#">22222222222</span>
-                            <span class="span-3" title="#">33333333333</span>
-                            <span class="span-2" title="#">44444444444</span>
-                            <span class="span-2" title="#">55555555555</span>
-                        </li>
-                        <li>
-                            <span class="span-1"><input type="radio" name="role-info" id="" class="role-table-radio"/></span>
-                            <span class="span-2" title="#">22222222222</span>
-                            <span class="span-3" title="#">33333333333</span>
-                            <span class="span-2" title="#">44444444444</span>
-                            <span class="span-2" title="#">55555555555</span>
-                        </li>
-                        <li>
-                            <span class="span-1"><input type="radio" name="role-info" id="" class="role-table-radio"/></span>
-                            <span class="span-2" title="#">22222222222</span>
-                            <span class="span-3" title="#">33333333333</span>
-                            <span class="span-2" title="#">44444444444</span>
-                            <span class="span-2" title="#">55555555555</span>
-                        </li>
-                        <li>
-                            <span class="span-1"><input type="radio" name="role-info" id="" class="role-table-radio"/></span>
-                            <span class="span-2" title="#">22222222222</span>
-                            <span class="span-3" title="#">33333333333</span>
-                            <span class="span-2" title="#">44444444444</span>
-                            <span class="span-2" title="#">55555555555</span>
-                        </li>
-                        <li>
-                            <span class="span-1"><input type="radio" name="role-info" id="" class="role-table-radio"/></span>
-                            <span class="span-2" title="#">22222222222</span>
-                            <span class="span-3" title="#">33333333333</span>
-                            <span class="span-2" title="#">44444444444</span>
-                            <span class="span-2" title="#">55555555555</span>
-                        </li>
-                        <li>
-                            <span class="span-1"><input type="radio" name="role-info" id="" class="role-table-radio"/></span>
-                            <span class="span-2" title="#">22222222222</span>
-                            <span class="span-3" title="#">33333333333</span>
-                            <span class="span-2" title="#">44444444444</span>
-                            <span class="span-2" title="#">55555555555</span>
-                        </li>
-                        <li>
-                            <span class="span-1"><input type="radio" name="role-info" id="" class="role-table-radio"/></span>
-                            <span class="span-2" title="#">22222222222</span>
-                            <span class="span-3" title="#">33333333333</span>
-                            <span class="span-2" title="#">44444444444</span>
-                            <span class="span-2" title="#">55555555555</span>
-                        </li>
-                        <li>
-                            <span class="span-1"><input type="radio" name="role-info" id="" class="role-table-radio"/></span>
-                            <span class="span-2" title="#">22222222222</span>
-                            <span class="span-3" title="#">33333333333</span>
-                            <span class="span-2" title="#">44444444444</span>
-                            <span class="span-2" title="#">55555555555</span>
-                        </li>
-                        <li>
-                            <span class="span-1"><input type="radio" name="role-info" id="" class="role-table-radio"/></span>
-                            <span class="span-2" title="#">22222222222</span>
-                            <span class="span-3" title="#">33333333333</span>
-                            <span class="span-2" title="#">44444444444</span>
-                            <span class="span-2" title="#">55555555555</span>
-                        </li>
-                        <li>
-                            <span class="span-1"><input type="radio" name="role-info" id="" class="role-table-radio"/></span>
-                            <span class="span-2" title="#">22222222222</span>
-                            <span class="span-3" title="#">33333333333</span>
-                            <span class="span-2" title="#">44444444444</span>
-                            <span class="span-2" title="#">55555555555</span>
-                        </li>
-                        <li>
-                            <span class="span-1"><input type="radio" name="role-info" id="" class="role-table-radio"/></span>
-                            <span class="span-2" title="#">22222222222</span>
-                            <span class="span-3" title="#">33333333333</span>
-                            <span class="span-2" title="#">44444444444</span>
-                            <span class="span-2" title="#">55555555555</span>
-                        </li>
-                        <li>
-                            <span class="span-1"><input type="radio" name="role-info" id="" class="role-table-radio"/></span>
-                            <span class="span-2" title="#">22222222222</span>
-                            <span class="span-3" title="#">33333333333</span>
-                            <span class="span-2" title="#">44444444444</span>
-                            <span class="span-2" title="#">55555555555</span>
-                        </li>
-                        <li>
-                            <span class="span-1"><input type="radio" name="role-info" id="" class="role-table-radio"/></span>
-                            <span class="span-2" title="#">22222222222</span>
-                            <span class="span-3" title="#">33333333333</span>
-                            <span class="span-2" title="#">44444444444</span>
-                            <span class="span-2" title="#">55555555555</span>
-                        </li>
-                        <li>
-                            <span class="span-1"><input type="radio" name="role-info" id="" class="role-table-radio"/></span>
-                            <span class="span-2" title="#">22222222222</span>
-                            <span class="span-3" title="#">33333333333</span>
-                            <span class="span-2" title="#">44444444444</span>
-                            <span class="span-2" title="#">55555555555</span>
-                        </li>
-                        <li>
-                            <span class="span-1"><input type="radio" name="role-info" id="" class="role-table-radio"/></span>
-                            <span class="span-2" title="#">22222222222</span>
-                            <span class="span-3" title="#">33333333333</span>
-                            <span class="span-2" title="#">44444444444</span>
-                            <span class="span-2" title="#">55555555555</span>
-                        </li>
-                        <li>
-                            <span class="span-1"><input type="radio" name="role-info" id="" class="role-table-radio"/></span>
-                            <span class="span-2" title="#">22222222222</span>
-                            <span class="span-3" title="#">33333333333</span>
-                            <span class="span-2" title="#">44444444444</span>
-                            <span class="span-2" title="#">55555555555</span>
-                        </li>
-                        <li>
-                            <span class="span-1"><input type="radio" name="role-info" id="" class="role-table-radio"/></span>
-                            <span class="span-2" title="#">22222222222</span>
-                            <span class="span-3" title="#">33333333333</span>
-                            <span class="span-2" title="#">44444444444</span>
-                            <span class="span-2" title="#">55555555555</span>
-                        </li>
-                        <li>
-                            <span class="span-1"><input type="radio" name="role-info" id="" class="role-table-radio"/></span>
-                            <span class="span-2" title="#">22222222222</span>
-                            <span class="span-3" title="#">33333333333</span>
-                            <span class="span-2" title="#">44444444444</span>
-                            <span class="span-2" title="#">55555555555</span>
-                        </li>
-                        <li>
-                            <span class="span-1"><input type="radio" name="role-info" id="" class="role-table-radio"/></span>
-                            <span class="span-2" title="#">22222222222</span>
-                            <span class="span-3" title="#">33333333333</span>
-                            <span class="span-2" title="#">44444444444</span>
-                            <span class="span-2" title="#">55555555555</span>
-                        </li>
+						<?php if(is_array($list)): $i = 0; $__LIST__ = $list;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$vo): $mod = ($i % 2 );++$i;?><li>
+								<span class="span-1"><input type="radio" name="role-info" id="" class="role-table-radio"/></span>
+								<span class="span-2" title="#"><?php echo ($vo["rolename"]); ?></span>
+								<span class="span-3" title="#"><?php echo ($vo["memo"]); ?></span>
+								<span class="span-2" title="#"><?php echo ($vo["addusername"]); ?></span>
+								<span class="span-2" title="#"><?php echo ($vo["adddate"]); ?></span>
+							</li><?php endforeach; endif; else: echo "" ;endif; ?>
                     </ul>
+					<div class="resultpage"><?php echo ($page); ?></div>
                 </div>
             </div>
         </div>
@@ -251,11 +96,56 @@
 <div id="footer">
 1111
 </div>
+<script type="text/javascript" src="__PUBLIC__/js/jquery-1.6.1.js"></script>
+<div id="change_password_id" class="alert-role-add" style="display:none;">
+    <h3>修改密码</h3>
+    <div class="alert-role-add-con">
+        <p>
+            <label for="old-pass" class="role-lab">旧密码&nbsp;&nbsp;&nbsp;</label>
+            <input type="text" name="old_password_txt" id="old_password_txt" class="input-role-name"/>
+        </p>
+        <p>
+            <label for="new-pass" class="role-lab">新密码&nbsp;&nbsp;&nbsp;</label>
+            <input type="password" name="new_password_txt" id="new_password_txt" class="input-role-name"/>
+        </p>
+        <p>
+            <label for="rnew-pass" class="role-lab">确认密码</label>
+            <input type="password" name="re_new_password_txt" id="re_new_password_txt" class="input-role-name"/>
+        </p>
+        <p>
+            <button type="button" class="alert-btn2" onclick="change_password()">修改密码</button>
+
+        </p>
+    </div>
+</div>
 <script>
     window.onload=function(){
         headAct();
 
     };
+
+	function change_password(){
+		var handleUrl = "<?php echo U('configuration/Login/change_password');?>";
+		var old_password_txt=$('#old_password_txt').val();//业务范围
+		var new_password_txt=$('#new_password_txt').val();//业务范围
+		var re_new_password_txt=$('#re_new_password_txt').val();//业务范围
+		$.getJSON(handleUrl,{'old_password_txt':old_password_txt,'new_password_txt':new_password_txt,'re_new_password_txt':re_new_password_txt},
+			function (data){
+				var tmp_msg = "<?php echo C('change_password_success');?>";
+					if(tmp_msg == data)
+					{
+						alert(data);
+						$('#change_password_id').hide();
+					}
+					else
+					{
+						alert(data);
+					}
+			}
+			,'json'
+		);
+	}
+
     function headAct(){
         var Ourl = window.location.href;
         if(!document.getElementById('j-nav-active')){return;};
@@ -292,6 +182,7 @@
 
     }
 </script>
+
 
 <div class="alert-role-add">
     <h3>添加角色信息</h3>
@@ -350,7 +241,7 @@
     <div class="alert-role-add-con">
         <p class="delete-message">请确认是否删除？</p>
         <p>
-            <button type="button" class="alert-btn2">保存</button>
+            <button type="button" class="alert-btn2">删除</button>
             <button type="button" class="alert-btn2">关闭</button>
         </p>
     </div>

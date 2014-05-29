@@ -79,6 +79,29 @@ class LoginAction extends Action {
 	}
 
 	// 生成验证码
+	public function change_password() {
+		$old_password = I('old_password_txt');
+		$new_password = I('new_password_txt');
+		$re_new_password = I('re_new_password_txt');
+		$user_id = $_SEESION['userinfo']['uid'];
+		$Model = new Model();
+		$user = M("user");
+		$msg = C("change_password_success");
+		$uinfo = $user->where("uid='$user_id' && password='$old_password'")->find();
+		if(!empty($uinfo)){
+			if($new_password != $re_new_password){
+				$msg = C("new_password_not_same");
+			}else{
+				$data['password'] = $new_password;
+				$is_set = $user->where("uid=%d", $user_id)->save($data);
+			}
+		}else{
+			$msg = C("old_password_error");
+		}
+		$this->ajaxReturn($msg,'json');
+	}
+
+	// 生成验证码
 	public function verify() {
 		import('ORG.Util.Image');
 	    Image::buildImageVerify();

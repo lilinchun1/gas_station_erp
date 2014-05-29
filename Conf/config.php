@@ -9,7 +9,6 @@ return array(
 	//'LOAD_EXT_CONFIG' => 'message,property',
 	'APP_GROUP_LIST'=>'configuration,channel,management',
 	'DEFAULT_GROUP'=>'configuration',
-	'__PUBLIC__' => '__ROOT__/Public/',
 	'ROOT_USER' => 'admin', // 根用户用户名
 	'ROOT_PWSD' => 'admin', // 根用户密码
 	'DOMAIN' => 'http://admin.jienuo-service.net/',
