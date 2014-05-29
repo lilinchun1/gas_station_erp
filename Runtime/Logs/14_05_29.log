@@ -348,3 +348,27 @@ ERR: 无法加载模块:gas_station_erp
 [ 2014-05-29T14:13:39+08:00 ] 127.0.0.1 /gas_station_erp/index.php/channel//gas_station_erp/gas_station_erp/Tpl/channel/Public/css/configuration.css
 ERR: 无法加载模块:gas_station_erp
 
+[ 2014-05-29T16:43:17+08:00 ] 127.0.0.1 /gas_station_erp/index.php/management//gas_station_erp/gas_station_erp/Tpl/management/Public/css/configuration.css
+ERR: 无法加载模块:GasStationErp
+
+[ 2014-05-29T16:43:18+08:00 ] 127.0.0.1 /gas_station_erp/index.php/management//gas_station_erp/gas_station_erp/Tpl/management/Public/js/jquery-1.6.1.js
+ERR: 无法加载模块:GasStationErp
+
+[ 2014-05-29T16:43:18+08:00 ] 127.0.0.1 /gas_station_erp/index.php/management//gas_station_erp/gas_station_erp/Tpl/management/Public/js/jquery.SuperSlide.2.1.1.js
+ERR: 无法加载模块:GasStationErp
+
+[ 2014-05-29T16:43:21+08:00 ] 127.0.0.1 /gas_station_erp/index.php/management//gas_station_erp/gas_station_erp/Tpl/management/Public/js/jquery.SuperSlide.2.1.1.js
+ERR: 无法加载模块:GasStationErp
+
+[ 2014-05-29T16:43:21+08:00 ] 127.0.0.1 /gas_station_erp/index.php/management//gas_station_erp/gas_station_erp/Tpl/management/Public/css/configuration.css
+ERR: 无法加载模块:GasStationErp
+
+[ 2014-05-29T16:43:21+08:00 ] 127.0.0.1 /gas_station_erp/index.php/management//gas_station_erp/gas_station_erp/Tpl/management/Public/js/jquery-1.6.1.js
+ERR: 无法加载模块:GasStationErp
+
+[ 2014-05-29T16:43:22+08:00 ] 127.0.0.1 /gas_station_erp/index.php/configuration/org/index
+ERR: 无法加载模块:org
+
+[ 2014-05-29T16:43:37+08:00 ] 127.0.0.1 /gas_station_erp/index.php/channel/channel/index
+ERR: 无法加载模块:channel
+

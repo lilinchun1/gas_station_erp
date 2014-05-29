@@ -661,10 +661,16 @@ $min-width-kuang:1200px;
 .station-state-list-con{
   padding: 20px 0;
   li{
-    height: 200px;
+    padding: 20px 0;
     background: rgba(0,0,0,0.1);
     border-bottom: 1px dashed $border-color;}
 }
 .station-state-info{
-
+  padding: 0 30px;
+  height: 20px;
+  line-height: 20px;
+  em{
+      margin-right: 50px;
+      font-size: 14px;
+    }
 }
