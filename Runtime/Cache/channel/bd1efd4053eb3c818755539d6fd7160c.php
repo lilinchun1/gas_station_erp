@@ -6,6 +6,9 @@
     <link rel="stylesheet" href="../../Public/css/configuration.css"/>
     <script type="text/javascript" src="../../Public/js/jquery-1.6.1.js"></script>
     <script type="text/javascript" src="../../Public/js/jquery.SuperSlide.2.1.1.js"></script>
+	<link rel="stylesheet" href="__PUBLIC__/css/configuration.css"/>
+    <script type="text/javascript" src="__PUBLIC__/js/jquery-1.6.1.js"></script>
+    <script type="text/javascript" src="__PUBLIC__/js/jquery.SuperSlide.2.1.1.js"></script>
 </head>
 <body>
 <div id="head">
@@ -93,7 +96,7 @@
                 <span class="span-1"><b>MAC</b></span>
                 <span class="span-1"><b>加油站类型</b></span>
                 <span class="span-2"><b>所属网点</b></span>
-                <span class="span-2"><b>所在点位</b></span>
+                <span class="span-1"><b>所在点位</b></span>
                 <span class="span-1"><b>加油站状态</b></span>
                 <span class="span-1"><b>部署时间</b></span>
                 <span class="span-1"><b>启用时间</b></span>
@@ -105,7 +108,7 @@
                 <span class="span-1" title="#">Dolore eius expedita molestias!</span>
                 <span class="span-1" title="#">Blanditiis dolorum pariatur vitae?</span>
                 <span class="span-2" title="#">Perspiciatis quae ratione repudiandae!</span>
-                <span class="span-2" title="#">Ipsa nulla quidem voluptate?</span>
+                <span class="span-1" title="#">Ipsa nulla quidem voluptate?</span>
                 <span class="span-1" title="#">Consequuntur eveniet itaque velit.</span>
                 <span class="span-1" title="#">Aspernatur blanditiis ipsum nulla!</span>
                 <span class="span-1" title="#">Aspernatur blanditiis ipsum nulla!</span>
@@ -117,7 +120,7 @@
                 <span class="span-1"></span>
                 <span class="span-2"><b>加油站编号</b></span>
                 <span class="span-1"><b>MAC</b></span>
-                <span class="span-2"><b>加油站类型</b></span>
+                <span class="span-1"><b>加油站类型</b></span>
                 <span class="span-2"><b>所属网点</b></span>
                 <span class="span-2"><b>所在点位</b></span>
                 <span class="span-2"><b>部署时间</b></span>
@@ -127,7 +130,7 @@
                 <span class="span-1"><input type="radio" name="role-info" id="" class="role-table-radio"/></span>
                 <span class="span-2" title="#">222222222222222222</span>
                 <span class="span-1" title="#">Dolore eius expedita molestias!</span>
-                <span class="span-2" title="#">Blanditiis dolorum pariatur vitae?</span>
+                <span class="span-1" title="#">Blanditiis dolorum pariatur vitae?</span>
                 <span class="span-2" title="#">Perspiciatis quae ratione repudiandae!</span>
                 <span class="span-2" title="#">Ipsa nulla quidem voluptate?</span>
                 <span class="span-2" title="#">Consequuntur eveniet itaque velit.</span>
@@ -318,7 +321,6 @@
             </li>
         </ul>
     </div>
-
 </div>
 </div>
 </div>
@@ -326,6 +328,27 @@
 </div>
 <div id="footer">
 1111
+</div>
+<div class="alert-role-add">
+    <h3>修改密码</h3>
+    <div class="alert-role-add-con">
+        <p>
+            <label for="old-pass" class="role-lab">旧密码&nbsp;&nbsp;&nbsp;</label>
+            <input type="text" name="addname" id="old-pass" class="input-role-name"/>
+        </p>
+        <p>
+            <label for="new-pass" class="role-lab">新密码&nbsp;&nbsp;&nbsp;</label>
+            <input type="password" name="addname" id="new-pass" class="input-role-name"/>
+        </p>
+        <p>
+            <label for="rnew-pass" class="role-lab">确认密码</label>
+            <input type="password" name="addname" id="rnew-pass" class="input-role-name"/>
+        </p>
+        <p>
+            <button type="button" class="alert-btn2">修改密码</button>
+
+        </p>
+    </div>
 </div>
 <script>
     window.onload=function(){
@@ -337,7 +360,7 @@
         if(!document.getElementById('j-nav-active')){return;};
         var Onav = document.getElementById('j-nav-active');
         var nbLi = Onav.getElementsByTagName('li');
-       /* for(var i=0; i<nbLi.length;i++){
+        for(var i=0; i<nbLi.length;i++){
             if(Ourl=="/gas_station_erp/index.php/Org/index"||Ourl.indexOf("/gas_station_erp/index.php/Org/index")>=0||Ourl=="/gas_station_erp/index.php/Role/index"||Ourl.indexOf("/gas_station_erp/index.php/Role/index")>=0||Ourl=="/gas_station_erp/index.php/User/index"||Ourl.indexOf("/gas_station_erp/index.php/User/index")>=0){
                        nbLi[5].className='active';//系统设置
                         return;
@@ -364,55 +387,61 @@
             }
 
 
-        }*/
-        for(var i=0; i<nbLi.length;i++) {
-            switch (Ourl){
-                case Ourl == "/gas_station_erp/index.php/Org/index" || Ourl.indexOf("/gas_station_erp/index.php/Org/index") >= 0 || Ourl == "/gas_station_erp/index.php/Role/index" || Ourl.indexOf("/gas_station_erp/index.php/Role/index") >= 0 || Ourl == "/gas_station_erp/index.php/User/index" || Ourl.indexOf("/gas_station_erp/index.php/User/index") >= 0:
-                    nbLi[5].className = 'active';//系统设置
-                    break;
-            }
-
-
-
         }
+
     }
 </script>
+
 <div class="alert-role-add">
-    <h3>添加职员信息</h3>
+    <h3>渠道信息</h3>
     <div class="alert-user-add-con">
         <form action="">
             <p>
-                <label for="user-addname" class="role-lab">姓&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;名</label>
-                <input type="text" name="addname" id="user-addname" class="input-role-name"/>
-                <input type="radio" name="change-sex" class="change-sex" id="man"/><label for="man" class="sex">男</label>
-                <input type="radio" name="change-sex" class="change-sex" id="woman"/><label for="woman" class="sex">女</label>
+                所属组织机构：<span>机构1</span>
             </p>
             <p>
-                <label for="user-phone" class="role-lab">联系电话</label>
-                <input type="text" name="addname" id="user-phone" class="input-role-name"/>
+                <label for="channel-addname" class="role-lab">设备编号</label>
+                <input type="text" name="addname" id="channel-addname" class="input-role-name"/>
             </p>
             <p>
-                <label for="login-id" class="role-lab">登陆账号</label>
-                <input type="text" name="addname" id="login-id" class="input-role-name"/>
+                <label for="mac1" class="">MAC&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
+                <input type="text" name="" id="mac1" class="input-mac"/>-
+                <input type="text" name="" id="mac2" class="input-mac"/>-
+                <input type="text" name="" id="mac3" class="input-mac"/>-
+                <input type="text" name="" id="mac4" class="input-mac"/>-
+                <input type="text" name="" id="mac5" class="input-mac"/>-
+                <input type="text" name="" id="mac6" class="input-mac"/>
             </p>
-            <div>
-                <em>角色</em>
-                <ul class="user-checkbox-list">
-                    <li><input type="checkbox" name="" id="ck1"/><label for="ck1" class="role-lab">角色a</label></li>
-                    <li><input type="checkbox" name="" id="ck2"/><label for="ck2" class="role-lab">角色a</label></li>
-                    <li><input type="checkbox" name="" id="ck3"/><label for="ck3" class="role-lab">角色a</label></li>
-                    <li><input type="checkbox" name="" id="ck4"/><label for="ck4" class="role-lab">角色a</label></li>
-                    <li><input type="checkbox" name="" id="ck5"/><label for="ck5" class="role-lab">角色a</label></li>
-                    <li><input type="checkbox" name="" id="ck6"/><label for="ck6" class="role-lab">角色a</label></li>
-                </ul>
+            <p>
+                <label for="channel-line-p" class="role-lab">所属网点</label>
+                <input type="text" name="addname" id="channel-line-p" class="input-role-name"/>
+            </p>
+            <p>
+                <label for="channel-point" class="role-lab">所在点位</label>
+                <input type="text" name="addname" id="channel-point" class="input-role-name"/>
+            </p>
+            <p>
+                <label for="bs-date">部署日期</label>
+                <input  type="date" name="" id="bs-date" class="input-org-info" style="margin-top: 0;"/>
+            </p>
+            <p>
+                <label for="sq-date">启用日期</label>
+                <input  type="date" name="" id="sq-date" class="input-org-info" style="margin-top: 0;"/>
+            </p>
+            <p>
+                <label for="sq-date">设置开机时间</label>
+                <input  type="date" name="" id="sq-date" class="input-org-info" style="margin-top: 0;"/>
+            </p>
+            <p>
+                <label for="sq-date">设置关机时间</label>
+                <input type="date" name="" id="sq-date" class="input-org-info" style="margin-top: 0;"/>
+            </p>
+            <div class="device-point-pic">
+                <h4>点位照片</h4>
+                <span><img src="" alt=""/></span>
+                <span><img src="" alt=""/></span>
+                <span><img src="" alt=""/></span>
             </div>
-            <p>
-                <label for="">所属组织机构</label>
-                <!-- 容器 -->
-            <div id="J_Tree"></div>
-            <!-- 结果收集、设置回显数据 -->
-            <input type="hidden" id="J_TreeResult" value='{"id":"291"}'>
-            </p>
             <p>
                 <button type="button" class="alert-btn2">保存</button>
                 <button type="button" class="alert-btn2">关闭</button>
@@ -421,16 +450,6 @@
     </div>
 </div>
 
-<div class="alert-role-add">
-    <h3>职员信息</h3>
-    <div class="alert-role-add-con">
-        <p class="delete-message">请确认是否删除？</p>
-        <p>
-            <button type="button" class="alert-btn2">保存</button>
-            <button type="button" class="alert-btn2">关闭</button>
-        </p>
-    </div>
-</div>
 <script>
     window.onscroll=function(){
         var scrollTop=document.documentElement.scrollTop||document.body.scrollTop;

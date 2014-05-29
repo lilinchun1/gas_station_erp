@@ -6,6 +6,9 @@
     <link rel="stylesheet" href="../../Public/css/configuration.css"/>
     <script type="text/javascript" src="../../Public/js/jquery-1.6.1.js"></script>
     <script type="text/javascript" src="../../Public/js/jquery.SuperSlide.2.1.1.js"></script>
+	<link rel="stylesheet" href="__PUBLIC__/css/configuration.css"/>
+    <script type="text/javascript" src="__PUBLIC__/js/jquery-1.6.1.js"></script>
+    <script type="text/javascript" src="__PUBLIC__/js/jquery.SuperSlide.2.1.1.js"></script>
 </head>
 <body>
 <div id="head">
@@ -483,6 +486,27 @@
 <div id="footer">
 1111
 </div>
+<div class="alert-role-add">
+    <h3>修改密码</h3>
+    <div class="alert-role-add-con">
+        <p>
+            <label for="old-pass" class="role-lab">旧密码&nbsp;&nbsp;&nbsp;</label>
+            <input type="text" name="addname" id="old-pass" class="input-role-name"/>
+        </p>
+        <p>
+            <label for="new-pass" class="role-lab">新密码&nbsp;&nbsp;&nbsp;</label>
+            <input type="password" name="addname" id="new-pass" class="input-role-name"/>
+        </p>
+        <p>
+            <label for="rnew-pass" class="role-lab">确认密码</label>
+            <input type="password" name="addname" id="rnew-pass" class="input-role-name"/>
+        </p>
+        <p>
+            <button type="button" class="alert-btn2">修改密码</button>
+
+        </p>
+    </div>
+</div>
 <script>
     window.onload=function(){
         headAct();
@@ -490,9 +514,9 @@
     };
     function headAct(){
         var Ourl = window.location.href;
-        if(!document.getElementById('j-nav-active')){return;}
+        if(!document.getElementById('j-nav-active')){return;};
         var Onav = document.getElementById('j-nav-active');
-        var nbLi = Onav.getElementsByTagName('li')
+        var nbLi = Onav.getElementsByTagName('li');
         for(var i=0; i<nbLi.length;i++){
             if(Ourl=="/gas_station_erp/index.php/Org/index"||Ourl.indexOf("/gas_station_erp/index.php/Org/index")>=0||Ourl=="/gas_station_erp/index.php/Role/index"||Ourl.indexOf("/gas_station_erp/index.php/Role/index")>=0||Ourl=="/gas_station_erp/index.php/User/index"||Ourl.indexOf("/gas_station_erp/index.php/User/index")>=0){
                        nbLi[5].className='active';//系统设置
@@ -510,7 +534,7 @@
                 nbLi[2].className='active';//运营管理
                 return;
             }
-            if(Ourl=="/gas_station_erp/index.php/channel/Channel/index"||Ourl.indexOf("/gas_station_erp/index.php/channel/Channel/index")>=0||Ourl=="/gas_station_erp/index.php/channel/Channel/index"||Ourl.indexOf("/gas_station_erp/index.php/channel/Channel/index")>=0||Ourl=="/gas_station_erp/index.php/channel/Channel/index"||Ourl.indexOf("/gas_station_erp/index.php/channel/Channel/index")>=0){
+            if(Ourl=="/gas_station_erp/index.php/channel/Channel/index"||Ourl.indexOf("/gas_station_erp/index.php/channel/Channel/index")>=0||Ourl=="/gas_station_erp/index.php/channel/Place/index"||Ourl.indexOf("/gas_station_erp/index.php/channel/Place/index")>=0||Ourl=="/gas_station_erp/index.php/channel/Device/index"||Ourl.indexOf("/gas_station_erp/index.php/channel/Device/index")>=0){
                 nbLi[1].className='active';//渠道管理
                 return;
             }
@@ -524,41 +548,52 @@
 
     }
 </script>
+
 <div class="alert-role-add">
-    <h3>添加职员信息</h3>
+    <h3>渠道信息</h3>
     <div class="alert-user-add-con">
         <form action="">
+
             <p>
-                <label for="user-addname" class="role-lab">姓&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;名</label>
-                <input type="text" name="addname" id="user-addname" class="input-role-name"/>
-                <input type="radio" name="change-sex" class="change-sex" id="man"/><label for="man" class="sex">男</label>
-                <input type="radio" name="change-sex" class="change-sex" id="woman"/><label for="woman" class="sex">女</label>
+                <label for="channel-addname" class="role-lab">网点名册</label>
+                <input type="text" name="addname" id="channel-addname" class="input-role-name"/>
             </p>
             <p>
-                <label for="user-phone" class="role-lab">联系电话</label>
-                <input type="text" name="addname" id="user-phone" class="input-role-name"/>
+                <label for="channel-address1" class="">网店地址</label>
+                <select name="add_agent_type_sel" id="channel-address1" class="channel-select-min">
+                    <option selected value="">省</option>
+                    <option class="industry" value="trade">2</option>
+                    <option class="area" value="area">3</option>
+                </select>
+                <select name="add_agent_type_sel" id="channel-address2" class="channel-select-min">
+                    <option selected value="">市</option>
+                    <option class="industry" value="trade">2</option>
+                    <option class="area" value="area">3</option>
+                </select>
+                <input type="text" name="addname" id="channel-addname" class="input-role-name"/>
             </p>
             <p>
-                <label for="login-id" class="role-lab">登陆账号</label>
-                <input type="text" name="addname" id="login-id" class="input-role-name"/>
+                <label for="channel-qd" class="role-lab">所属渠道</label>
+                <input type="text" name="addname" id="channel-qd" class="input-role-name"/>
             </p>
-            <div>
-                <em>角色</em>
-                <ul class="user-checkbox-list">
-                    <li><input type="checkbox" name="" id="ck1"/><label for="ck1" class="role-lab">角色a</label></li>
-                    <li><input type="checkbox" name="" id="ck2"/><label for="ck2" class="role-lab">角色a</label></li>
-                    <li><input type="checkbox" name="" id="ck3"/><label for="ck3" class="role-lab">角色a</label></li>
-                    <li><input type="checkbox" name="" id="ck4"/><label for="ck4" class="role-lab">角色a</label></li>
-                    <li><input type="checkbox" name="" id="ck5"/><label for="ck5" class="role-lab">角色a</label></li>
-                    <li><input type="checkbox" name="" id="ck6"/><label for="ck6" class="role-lab">角色a</label></li>
-                </ul>
-            </div>
             <p>
-                <label for="">所属组织机构</label>
-                <!-- 容器 -->
-            <div id="J_Tree"></div>
-            <!-- 结果收集、设置回显数据 -->
-            <input type="hidden" id="J_TreeResult" value='{"id":"291"}'>
+                <label for="channel-address1" class="">网点状态</label>
+                <select name="add_agent_type_sel" id="channel-address1" class="channel-select-min">
+                    <option selected value="">1</option>
+                    <option class="industry" value="trade">2</option>
+                    <option class="area" value="area">3</option>
+                </select>
+
+            </p>
+
+            <p>
+                <label for="sq-date">测试日期</label>
+                <input type="date" name="" id="sq-date" class="input-org-info min-w" style="margin-top: 0;"/>
+                <input type="date" name="" id="date" class="input-org-info min-w" style="margin-top: 0;"/>
+            </p>
+            <p>
+                <label for="sq-date">启用日期</label>
+                <input type="date" name="" id="sq-date" class="input-org-info" style="margin-top: 0;"/>
             </p>
             <p>
                 <button type="button" class="alert-btn2">保存</button>
@@ -567,13 +602,15 @@
         </form>
     </div>
 </div>
-
 <div class="alert-role-add">
-    <h3>职员信息</h3>
+    <h3></h3>
     <div class="alert-role-add-con">
-        <p class="delete-message">请确认是否删除？</p>
         <p>
-            <button type="button" class="alert-btn2">保存</button>
+            <label for="del-data" class="role-lab">*撤销日期</label>
+            <input type="text" name="addname" id="del-data" class="input-role-name"/>
+        </p>
+        <p>
+            <button type="button" class="alert-btn2">确定</button>
             <button type="button" class="alert-btn2">关闭</button>
         </p>
     </div>

@@ -4,76 +4,41 @@
     <meta charset="UTF-8">
     <title>渠道信息</title>
     <link rel="stylesheet" href="../../Public/css/configuration.css"/>
+	<link rel="stylesheet" href="__PUBLIC__/css/configuration.css"/>
     <script type="text/javascript" src="../../Public/js/jquery-1.6.1.js"></script>
+	<script type="text/javascript" src="__PUBLIC__/js/jquery-1.6.1.js"></script>
     <script type="text/javascript" src="../../Public/js/jquery.SuperSlide.2.1.1.js"></script>
+	<script type="text/javascript" src="__PUBLIC__/js/jquery.SuperSlide.2.1.1.js"></script>
 </head>
 <body>
-<div id="footer">
-1111
-</div>
-<div class="alert-role-add">
-    <h3>修改密码</h3>
-    <div class="alert-role-add-con">
-        <p>
-            <label for="old-pass" class="role-lab">旧密码&nbsp;&nbsp;&nbsp;</label>
-            <input type="text" name="addname" id="old-pass" class="input-role-name"/>
-        </p>
-        <p>
-            <label for="new-pass" class="role-lab">新密码&nbsp;&nbsp;&nbsp;</label>
-            <input type="password" name="addname" id="new-pass" class="input-role-name"/>
-        </p>
-        <p>
-            <label for="rnew-pass" class="role-lab">确认密码</label>
-            <input type="password" name="addname" id="rnew-pass" class="input-role-name"/>
-        </p>
-        <p>
-            <button type="button" class="alert-btn2">修改密码</button>
-
-        </p>
+<div id="head">
+    <h1 class="head-logo"><a href="index.html">ERP管理系统</a></h1>
+    <h2 class="head-tt">111智能手机加油站ERP管理系统</h2>
+    <div class="login">
+        <div class="left">
+            <ul class="left-nav">
+                <li>赵洋,您好 <span></span>
+                    <ul>
+                        <li><a href="">修改密码</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+        <div class="right">
+            <a href="<?php echo U('configuration/Login/logout');?>">退出系统</a>
+        </div>
     </div>
 </div>
-<script>
-    window.onload=function(){
-        headAct();
-
-    };
-    function headAct(){
-        var Ourl = window.location.href;
-        if(!document.getElementById('j-nav-active')){return;};
-        var Onav = document.getElementById('j-nav-active');
-        var nbLi = Onav.getElementsByTagName('li');
-        for(var i=0; i<nbLi.length;i++){
-            if(Ourl=="/gas_station_erp/index.php/Org/index"||Ourl.indexOf("/gas_station_erp/index.php/Org/index")>=0||Ourl=="/gas_station_erp/index.php/Role/index"||Ourl.indexOf("/gas_station_erp/index.php/Role/index")>=0||Ourl=="/gas_station_erp/index.php/User/index"||Ourl.indexOf("/gas_station_erp/index.php/User/index")>=0){
-                       nbLi[5].className='active';//系统设置
-                        return;
-            }
-            if(Ourl=="/gas_station_erp/index.php/Org/index"||Ourl.indexOf("/gas_station_erp/index.php/Org/index")>=0){
-                nbLi[4].className='active';//广告管理
-                return;
-            }
-            if(Ourl=="/gas_station_erp/index.php/Org/index"||Ourl.indexOf("/gas_station_erp/index.php/Org/index")>=0){
-                nbLi[3].className='active';//统计分析
-                return;
-            }
-            if(Ourl=="/gas_station_erp/index.php/Org/index"||Ourl.indexOf("/gas_station_erp/index.php/Org/index")>=0){
-                nbLi[2].className='active';//运营管理
-                return;
-            }
-            if(Ourl=="/gas_station_erp/index.php/channel/Channel/index"||Ourl.indexOf("/gas_station_erp/index.php/channel/Channel/index")>=0||Ourl=="/gas_station_erp/index.php/channel/Place/index"||Ourl.indexOf("/gas_station_erp/index.php/channel/Place/index")>=0||Ourl=="/gas_station_erp/index.php/channel/Device/index"||Ourl.indexOf("/gas_station_erp/index.php/channel/Device/index")>=0){
-                nbLi[1].className='active';//渠道管理
-                return;
-            }
-            if(Ourl=="/gas_station_erp/index.php/Org/index"||Ourl.indexOf("/gas_station_erp/index.php/Org/index")>=0){
-                nbLi[0].className='active';//加油站监控
-                return;
-            }
-
-
-        }
-
-    }
-</script>
-
+<div id="nav">
+    <ul class="main-nav" id="j-nav-active">
+        <li><a href="">加油站监控</a></li>
+        <li><a href="<?php echo U('channel/Channel/index');?>">渠道管理</a></li>
+        <li><a href="">运营管理</a></li>
+        <li><a href="">统计分析</a></li>
+        <li><a href="">广告管理</a></li>
+        <li><a href="<?php echo U('configuration/Org/index');?>">系统设置</a></li>
+    </ul>
+</div>
 <div id="container">
 <div class="left">
     <ul class="aside-nav">
@@ -135,10 +100,8 @@
     <div class="org-right-btns">
         <form action="">
             <button type="button" class="area-btn">添加</button>
-            <button type="button" class="area-btn">编辑</button>
-            <button type="button" class="area-btn">删除</button>
-            <button type="button" class="area-btn">重置密码</button>
-            <button type="button" class="area-btn">激活/失效</button>
+            <button type="button" class="area-btn">编辑/查看</button>
+            <button type="button" class="area-btn">终止合同</button>
         </form>
     </div>
 </div>
@@ -717,40 +680,58 @@
 </script>
 
 <div class="alert-role-add">
-    <h3>添加职员信息</h3>
+    <h3>渠道信息</h3>
     <div class="alert-user-add-con">
         <form action="">
+            <p>所属组织机构：<span>分子公司1</span></p>
             <p>
-                <label for="user-addname" class="role-lab">姓&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;名</label>
-                <input type="text" name="addname" id="user-addname" class="input-role-name"/>
-                <input type="radio" name="change-sex" class="change-sex" id="man"/><label for="man" class="sex">男</label>
-                <input type="radio" name="change-sex" class="change-sex" id="woman"/><label for="woman" class="sex">女</label>
+                <label for="channel-addname" class="role-lab">渠道名称</label>
+                <input type="text" name="addname" id="channel-addname" class="input-role-name"/>
+            </p>
+            <p>
+                <label for="channel-address1" class="">渠道地址</label>
+                <select name="add_agent_type_sel" id="channel-address1" class="channel-select-min">
+                    <option selected value="">省</option>
+                    <option class="industry" value="trade">2</option>
+                    <option class="area" value="area">3</option>
+                </select>
+                <select name="add_agent_type_sel" id="channel-address2" class="channel-select-min">
+                    <option selected value="">市</option>
+                    <option class="industry" value="trade">2</option>
+                    <option class="area" value="area">3</option>
+                </select>
+                <input type="text" name="addname" id="channel-addname" class="input-role-name"/>
+            </p>
+            <p>
+                <label for="channel-address1" class="">渠道类型</label>
+                <select name="add_agent_type_sel" id="channel-address1" class="channel-select-min">
+                    <option selected value="">1</option>
+                    <option class="industry" value="trade">2</option>
+                    <option class="area" value="area">3</option>
+                </select>
+                <select name="add_agent_type_sel" id="channel-address2" class="channel-select-min">
+                    <option selected value="">1</option>
+                    <option class="industry" value="trade">2</option>
+                    <option class="area" value="area">3</option>
+                </select>
+                <a href="">修改类别</a>&nbsp;&nbsp;&nbsp;&nbsp;<a href="">修改属性</a>
+            </p>
+            <p>
+                <label for="user-phone" class="role-lab">联系人&nbsp;&nbsp;&nbsp;</label>
+                <input type="text" name="addname" id="user-phone" class="input-role-name"/>
             </p>
             <p>
                 <label for="user-phone" class="role-lab">联系电话</label>
                 <input type="text" name="addname" id="user-phone" class="input-role-name"/>
             </p>
             <p>
-                <label for="login-id" class="role-lab">登陆账号</label>
+                <label for="login-id" class="role-lab">合同编号</label>
                 <input type="text" name="addname" id="login-id" class="input-role-name"/>
             </p>
-            <div>
-                <em>角色</em>
-                <ul class="user-checkbox-list">
-                    <li><input type="checkbox" name="" id="ck1"/><label for="ck1" class="role-lab">角色a</label></li>
-                    <li><input type="checkbox" name="" id="ck2"/><label for="ck2" class="role-lab">角色a</label></li>
-                    <li><input type="checkbox" name="" id="ck3"/><label for="ck3" class="role-lab">角色a</label></li>
-                    <li><input type="checkbox" name="" id="ck4"/><label for="ck4" class="role-lab">角色a</label></li>
-                    <li><input type="checkbox" name="" id="ck5"/><label for="ck5" class="role-lab">角色a</label></li>
-                    <li><input type="checkbox" name="" id="ck6"/><label for="ck6" class="role-lab">角色a</label></li>
-                </ul>
-            </div>
             <p>
-                <label for="">所属组织机构</label>
-                <!-- 容器 -->
-            <div id="J_Tree"></div>
-            <!-- 结果收集、设置回显数据 -->
-            <input type="hidden" id="J_TreeResult" value='{"id":"291"}'>
+                <label for="sq-date">授权日期</label>
+                <input type="date" name="" id="sq-date" class="input-org-info min-w" style="margin-top: 0;"/>
+                <input type="date" name="" id="date" class="input-org-info min-w" style="margin-top: 0;"/>
             </p>
             <p>
                 <button type="button" class="alert-btn2">保存</button>
@@ -761,11 +742,14 @@
 </div>
 
 <div class="alert-role-add">
-    <h3>职员信息</h3>
+    <h3></h3>
     <div class="alert-role-add-con">
-        <p class="delete-message">请确认是否删除？</p>
         <p>
-            <button type="button" class="alert-btn2">保存</button>
+            <label for="del-data" class="role-lab">*撤销日期</label>
+            <input type="text" name="addname" id="del-data" class="input-role-name"/>
+        </p>
+        <p>
+            <button type="button" class="alert-btn2">确定</button>
             <button type="button" class="alert-btn2">关闭</button>
         </p>
     </div>

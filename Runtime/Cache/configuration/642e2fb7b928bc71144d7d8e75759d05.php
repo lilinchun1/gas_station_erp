@@ -31,7 +31,7 @@
 				fontCss: getFontCss
 			}
 		};
-	var handleUrl="http://192.168.0.126/gas_station_erp/index.php/configuration/Org/show_org_tree";
+	var handleUrl="<?php echo U('configuration/Org/show_org_tree');?>";
 	var zNodes=new Array();
 	var now=new Date().getTime();//加个时间戳表示每次是新的请求
 	$.ajax({
@@ -149,15 +149,60 @@ $(document).ready(function(){
 
 //===================================================展示信息========================================
 	$("#treeDemo a").click(function(){
+		$(".org-right-info input").val("");//初始化文本框
 		var mod_handleUrl = "<?php echo U('configuration/Org/orgDetailSelect');?>";
 		var agent_id=$(this).attr("title");
 		$.getJSON(mod_handleUrl,{"agent_id":agent_id},
 			function (data){
 				var tmp_change_father_agent_id = data['father_agentid'];
-				$("#change_agent_id_txt").val(data['agent_id']);
-				$("#change_agent_name_txt").val(data['agent_name']);
-				$("#change_agent_type_sel").val(data['agent_type']);
-				$("#change_agent_level_sel").val(data['agent_level']);
+				//$("#change_agent_id_txt").val(data['agent_id']);
+				$("#change_agent_name_txt").val(data['agent_name']);//组织机构名称
+				var agent_type_txt=data['agent_type'];//类型
+				var agent_level=data['agent_level'];//级别
+				$("#change_legal_tel_txt").val(data['legal_tel']);//联系人电话
+				$("#change_legal_txt").val(data['legal']);//联系人
+				$("#change_tel_txt").val(data['tel']);//公司电话
+				$("#change_companyAddr_txt").val(data['companyAddr']);//办公地址
+				$("#change_contract_number_txt").val(data['contract_number']);//合同编号
+				$("#father_agent_name").val(data['father_agent_name']);//上级组织机构
+				$("#area_name").val(data['area_name']);//业务范围NAME
+				var forever_type=data['forever_type'];//是否永久
+				$("#channel_num").text(data['channel_num']);//渠道数量
+				
+				$("#device_num").text(data['device_num']);//加油站数量
+				if('1' == forever_type){
+					$("#sq-date").hide();
+					$("#date").hide();
+				}else{
+					$("#sq-date").show();
+					$("#date").show();
+					$("#forever").hide();
+					
+					$("#sq-date").val(data['begin_time']);		
+					$("#date").val(data['end_time']);	
+				}
+				
+				
+
+				
+				//解析类型
+				if(agent_type_txt=="trade"){
+					$("#change_agent_type_sel").val("行业型");//类型
+				}else if(agent_type_txt=="area"){
+					$("#change_agent_type_sel").val("区域型");//类型
+				}else{
+					$("#change_agent_type_sel").val("出错了");//类型
+				}
+				//解析级别
+				if(agent_level=="1"){
+					$("#change_agent_level_sel").val("一级代理商");//级别
+				}else if(agent_level=="2"){
+					$("#change_agent_level_sel").val("二级代理商");//级别
+				}else{
+					$("#change_agent_level_sel").val("出错了");//类型
+				}
+
+
 				
 			}
 			,'json'
@@ -223,7 +268,7 @@ $(document).ready(function(){
 			}
 		
 		//return false;
-		var add_handleUrl="http://192.168.0.126/gas_station_erp/index.php/configuration/Org/add_org";
+		var add_handleUrl="<?php echo U('configuration/Org/add_org');?>";
 		$.getJSON(add_handleUrl,{"add_agent_name_txt":add_agent_name_txt,"add_legal_txt":add_legal_txt,
 								 "add_agent_level_sel":add_agent_level_sel,
 								 "add_agent_type_sel":add_agent_type_sel,
@@ -321,37 +366,39 @@ $(document).ready(function(){
                     <form action="">
                         <div class="info-left cf">
                             <label for="linkman">类型</label>
-                            <input readonly="true" type="text" name="" id="linkman" class="input-org-info"/>
+                            <input readonly="true" type="text" name="" id="change_agent_type_sel" class="input-org-info"/>
                             <label class="linkman2">级别</label>
-                            <input readonly="true" type="text" name="" id="linkman2" class="input-org-info"/>
+                            <input readonly="true" type="text" name="" id="change_agent_level_sel" class="input-org-info"/>
                             <label for="change_agent_name_txt">组织机构名称</label><input type="text" name="" id="change_agent_name_txt" readonly="true" class="input-org-info"/>
-                            <label for="linkman">联系人</label><input readonly="true" type="text" name="" id="linkman" class="input-org-info"/>
-                            <label for="address">办公地址</label><input readonly="true" type="text" name="" id="address" class="input-org-info"/>
-                            <label for="contract-number">合同编号</label><input readonly="true" type="text" name="" id="contract-number" class="input-org-info"/>
+                            <label for="linkman">联系人</label><input readonly="true" type="text" name="" id="change_legal_txt" class="input-org-info"/>
+                            <label for="address">办公地址</label><input readonly="true" type="text" name="" id="change_companyAddr_txt" class="input-org-info"/>
+                            <label for="contract-number">合同编号</label><input readonly="true" type="text" name="" id="change_contract_number_txt" class="input-org-info"/>
                         </div>
                         <div class="info-right cf">
 
-                            <label for="org-s">上级组织机构</label><input readonly="true" type="text" name="" id="org-s" class="input-org-info"/>
-                            <label for="phone">联系电话</label><input readonly="true" type="text" name="" id="phone" class="input-org-info"/>
-                            <label for="yw-are">业务范围</label><input readonly="true" type="text" name="" id="yw-are" class="input-org-info"/>
+                            <label for="org-s">上级组织机构</label><input readonly="true" type="text" name="" id="father_agent_name" class="input-org-info"/>
+                            <label for="phone">联系电话</label><input readonly="true" type="text" name="" id="change_legal_tel_txt" class="input-org-info"/>
+                            <label for="yw-are">业务范围</label><input readonly="true" type="text" name="" id="area_name" class="input-org-info"/>
 
 
 
-                            <label class="wenben">公司电话</label><input readonly="true" type="text" name="tel_txt" id="tel_txt" class="input-org-info" />
+                            <label class="wenben">公司电话</label><input readonly="true" type="text" name="tel_txt" id="change_tel_txt" class="input-org-info" />
                             <em>
-                                <label for="sq-date">授权日期</label><input readonly="true" type="text" name="" id="sq-date" class="input-org-info min-w"/>
+                                <label for="sq-date">授权日期</label>
+								<input readonly="true" type="text" name="" id="sq-date" class="input-org-info min-w"/>
                                 <input readonly="true" type="text" name="" id="date" class="input-org-info min-w"/>
-                                <!--<input readonly="true" type="checkbox" name="" id="forver" class="org-input-c"/>--><label class="lab-ckbox" for="forver">永久</label>
+                                <!--<input readonly="true" type="checkbox" name="" id="forver" class="org-input-c"/>-->
+								<label class="lab-ckbox" for="forver" id="forever">永久</label>
                             </em>
 
                         </div>
                     </form>
                     <div class="info-bottom">
                         <em>
-                            所属渠道商总数：
+                            所属渠道商总数：<span id="channel_num"></span>
                         </em>
                         <em>
-                            加油站总数：
+                            加油站总数：<span id="device_num"></span>
                         </em>
                     </div>
                 </div>
@@ -370,12 +417,12 @@ $(document).ready(function(){
             <input type="text" name="addname" id="old-pass" class="input-role-name"/>
         </p>
         <p>
-            <label for="role-addname" class="role-lab">新密码&nbsp;&nbsp;&nbsp;</label>
-            <input type="password" name="addname" id="role-addname" class="input-role-name"/>
+            <label for="new-pass" class="role-lab">新密码&nbsp;&nbsp;&nbsp;</label>
+            <input type="password" name="addname" id="new-pass" class="input-role-name"/>
         </p>
         <p>
-            <label for="role-addname" class="role-lab">确认密码</label>
-            <input type="password" name="addname" id="role-addname" class="input-role-name"/>
+            <label for="rnew-pass" class="role-lab">确认密码</label>
+            <input type="password" name="addname" id="rnew-pass" class="input-role-name"/>
         </p>
         <p>
             <button type="button" class="alert-btn2">修改密码</button>

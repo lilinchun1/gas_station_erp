@@ -3,9 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <title>加油站信息</title>
+	<!--
     <link rel="stylesheet" href="../../Public/css/configuration.css"/>
     <script type="text/javascript" src="../../Public/js/jquery-1.6.1.js"></script>
     <script type="text/javascript" src="../../Public/js/jquery.SuperSlide.2.1.1.js"></script>
+	-->
 	<link rel="stylesheet" href="__PUBLIC__/css/configuration.css"/>
     <script type="text/javascript" src="__PUBLIC__/js/jquery-1.6.1.js"></script>
     <script type="text/javascript" src="__PUBLIC__/js/jquery.SuperSlide.2.1.1.js"></script>
@@ -15,10 +17,10 @@
 <div id="container">
 <div class="left">
     <ul class="aside-nav">
-        <li class="aside-nav-nth1"><a href="">渠道管理</a></li>
-        <li><a href="{:U('Channel/index')}"><input  type="button"  value="渠道信息" ></a></li>
-        <li><a href="{:U('Place/index')}"><input type="button" class="" value="网点信息" ></a></li>
-        <li class="active"><a href="{:U('Device/index')}"><input type="button" class="" value="加油站信息" ></a></li>
+        <li class="aside-nav-nth1"><a href="{:U('channel/Channel/index')}">渠道管理</a></li>
+        <li><a href="{:U('channel/Channel/index')}"><input  type="button"  value="渠道信息" ></a></li>
+        <li><a href="{:U('channel/Place/index')}"><input type="button" class="" value="网点信息" ></a></li>
+        <li class="active"><a href="{:U('channel/Device/index')}"><input type="button" class="" value="加油站信息" ></a></li>
     </ul>
 </div>
 <div class="right">
@@ -31,12 +33,7 @@
                 <label for="device-drive-id" class="">设备编号</label>
                 <input type="text" name="" id="device-drive-id" class="input-org-info"/>
                 <label for="mac1" class="">MAC</label>
-                <input type="text" name="" id="mac1" class="input-mac"/>-
-                <input type="text" name="" id="mac2" class="input-mac"/>-
-                <input type="text" name="" id="mac3" class="input-mac"/>-
-                <input type="text" name="" id="mac4" class="input-mac"/>-
-                <input type="text" name="" id="mac5" class="input-mac"/>-
-                <input type="text" name="" id="mac6" class="input-mac"/>
+                <input type="text" name="" id="mac1" class="input-org-info"/>
                 <label for="device-state" class="">加油站状态</label>
                 <select name="add_agent_type_sel" id="device-state" class="channel-select-min">
                     <option selected value="">1</option>
@@ -85,7 +82,7 @@
                 <span class="span-1" title="#">Consequuntur eveniet itaque velit.</span>
                 <span class="span-1" title="#">Aspernatur blanditiis ipsum nulla!</span>
                 <span class="span-1" title="#">Aspernatur blanditiis ipsum nulla!</span>
-                <span class="span-1" title="#"><img src="../../Public/image/img.png" alt=""/></span>
+                <span class="span-1" title="#"><img src="__PUBLIC__/image/img.png" alt=""/></span>
             </li>
         </ul>
         <ul class="role-table-list">
@@ -107,7 +104,7 @@
                 <span class="span-2" title="#">Perspiciatis quae ratione repudiandae!</span>
                 <span class="span-2" title="#">Ipsa nulla quidem voluptate?</span>
                 <span class="span-2" title="#">Consequuntur eveniet itaque velit.</span>
-                <span class="span-1" title="#"><img src="../../Public/image/img.png" alt=""/></span>
+                <span class="span-1" title="#"><img src="__PUBLIC__/image/img.png" alt=""/></span>
             </li>
         </ul>
 
@@ -294,7 +291,6 @@
             </li>
         </ul>
     </div>
-
 </div>
 </div>
 </div>

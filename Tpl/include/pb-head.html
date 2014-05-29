@@ -6,7 +6,7 @@
             <ul class="left-nav">
                 <li>赵洋,您好 <span></span>
                     <ul>
-                        <li><a href="">修改密码</a></li>
+                        <li><a href="javascript:void(0);" onclick="show_change_password()">修改密码</a></li>
                     </ul>
                 </li>
             </ul>
@@ -26,3 +26,8 @@
         <li><a href="{:U('configuration/Org/index')}">系统设置</a></li>
     </ul>
 </div>
+<script type="text/javascript">
+	function show_change_password(){
+		$('#change_password_id').show();
+	}
+</script>

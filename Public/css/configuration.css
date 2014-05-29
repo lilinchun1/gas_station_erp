@@ -646,3 +646,9 @@ a, .alert-btn, .role-control-btn, .alert-btn2, .org-right-btns .area-btn, .index
     text-align: center; }
   .device-point-pic span img {
     width: 100%; }
+
+/*app刊例维护*/
+.maintain-download {
+  padding-left: 5px;
+  color: #34acd8;
+  text-decoration: underline; }
