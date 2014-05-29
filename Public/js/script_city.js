@@ -534,6 +534,7 @@ function showprovince(provinceid, cityid, province, boxid) {
 	var selObj = document.createElement("select");
 	selObj.name = provinceid;
 	selObj.id = provinceid;
+    selObj.className ='channel-select-min';
 	selObj.style.width = '80px'; 
 	selObj.onchange = function() {
 		setcity(provinceid, cityid);
@@ -557,6 +558,7 @@ function showcity(cityid, city, provinceid, boxid) {
 	var selObj = document.createElement("select");
 	selObj.name = cityid;
 	selObj.id = cityid;
+    selObj.className ='channel-select-min';
 	selObj.style.width = '100px'; 
 	document.getElementById(boxid).appendChild(selObj);
 	if(city == "") {

@@ -644,7 +644,7 @@ $min-width-kuang:1200px;
     float: left;
     width: 24%;
     height: 150px;
-    background: rgba(0,0,0,0.1);}
+    background: $bg-color;}
 }
 .station-state-list{
   padding: 20px 0;
@@ -662,7 +662,7 @@ $min-width-kuang:1200px;
   padding: 20px 0;
   li{
     padding: 20px 0;
-    background: rgba(0,0,0,0.1);
+    background: $bg-color;
     border-bottom: 1px dashed $border-color;}
 }
 .station-state-info{
@@ -672,5 +672,25 @@ $min-width-kuang:1200px;
   em{
       margin-right: 50px;
       font-size: 14px;
+    }
+}
+.point-pic{
+  margin: 20px 0 0 30px;
+  width: 130px;
+  height: 120px;
+  background: #ffffff;
+    span{
+      width: 130px;
+      height: 100px;
+      display: block;
+        img{
+          width: 100%;}
+    }
+    em{
+      width: 130px;
+      height: 20px;
+      line-height: 20px;
+      display: block;
+      text-align: center;
     }
 }

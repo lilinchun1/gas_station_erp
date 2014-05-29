@@ -29,7 +29,7 @@
     <ul class="main-nav" id="j-nav-active">
         <li><a href="">加油站监控</a></li>
         <li><a href="<?php echo U('channel/Channel/index');?>">渠道管理</a></li>
-        <li><a href="">运营管理</a></li>
+        <li><a href="<?php echo U('management/Index/importingApp');?>">运营管理</a></li>
         <li><a href="">统计分析</a></li>
         <li><a href="">广告管理</a></li>
         <li><a href="<?php echo U('configuration/Org/index');?>">系统设置</a></li>
@@ -44,9 +44,9 @@
 <div class="left">
     <ul class="aside-nav">
         <li class="aside-nav-nth1"><a href="<?php echo U('channel/Channel/index');?>">渠道管理</a></li>
-        <li><a href="<?php echo U('channel/Channel/index');?>"><input  type="button"  value="渠道信息" ></a></li>
-        <li><a href="<?php echo U('channel/Place/index');?>"><input type="button" class="" value="网点信息" ></a></li>
-        <li class="active"><a href="<?php echo U('channel/Device/index');?>"><input type="button" class="" value="加油站信息" ></a></li>
+        <li><a href="<?php echo U('channel/Channel/index');?>"><input type="button" value="渠道信息"></a></li>
+        <li><a href="<?php echo U('channel/Place/index');?>"><input type="button" class="" value="网点信息"></a></li>
+        <li class="active"><a href="<?php echo U('channel/Device/index');?>"><input type="button" class="" value="加油站信息"></a></li>
     </ul>
 </div>
 <div class="right">
@@ -82,7 +82,10 @@
 </div>
 <div class="role-table">
     <div class="hd">
-        <ul class="channel-tab"><li class="on">启用</li><li>撤销</li></ul>
+        <ul class="channel-tab">
+            <li class="on">启用</li>
+            <li>撤销</li>
+        </ul>
     </div>
     <div class="bd over-h-y">
         <ul class="role-table-list">
@@ -139,7 +142,10 @@
 
 <div class="role-table over-h-y">
     <div class="hd">
-        <ul class="channel-tab"><li class="on">操作日志</li><li>删除日志</li></ul>
+        <ul class="channel-tab">
+            <li class="on">操作日志</li>
+            <li>删除日志</li>
+        </ul>
     </div>
     <div class="bd">
         <ul class="role-table-list role-table-list2">
@@ -393,7 +399,7 @@
                 nbLi[3].className='active';//统计分析
                 return;
             }
-            if(Ourl=="/gas_station_erp/index.php/Org/index"||Ourl.indexOf("/gas_station_erp/index.php/Org/index")>=0){
+            if(Ourl=="/gas_station_erp/index.php/management/Index/importingApp"||Ourl.indexOf("/gas_station_erp/index.php/management/Index/importingApp")>=0||Ourl=="/gas_station_erp/index.php/management/index/addRuleTarget"||Ourl.indexOf("/gas_station_erp/index.php/management/index/addRuleTarget")>=0){
                 nbLi[2].className='active';//运营管理
                 return;
             }
@@ -414,15 +420,18 @@
 
 <div class="alert-role-add">
     <h3>渠道信息</h3>
+
     <div class="alert-user-add-con">
         <form action="">
             <p>
                 所属组织机构：<span>机构1</span>
             </p>
+
             <p>
                 <label for="channel-addname" class="role-lab">设备编号</label>
                 <input type="text" name="addname" id="channel-addname" class="input-role-name"/>
             </p>
+
             <p>
                 <label for="mac1" class="">MAC&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
                 <input type="text" name="" id="mac1" class="input-mac"/>-
@@ -432,30 +441,37 @@
                 <input type="text" name="" id="mac5" class="input-mac"/>-
                 <input type="text" name="" id="mac6" class="input-mac"/>
             </p>
+
             <p>
                 <label for="channel-line-p" class="role-lab">所属网点</label>
                 <input type="text" name="addname" id="channel-line-p" class="input-role-name"/>
             </p>
+
             <p>
                 <label for="channel-point" class="role-lab">所在点位</label>
                 <input type="text" name="addname" id="channel-point" class="input-role-name"/>
             </p>
+
             <p>
                 <label for="bs-date">部署日期</label>
-                <input  type="date" name="" id="bs-date" class="input-org-info" style="margin-top: 0;"/>
+                <input type="date" name="" id="bs-date" class="input-org-info" style="margin-top: 0;"/>
             </p>
+
             <p>
                 <label for="sq-date">启用日期</label>
-                <input  type="date" name="" id="sq-date" class="input-org-info" style="margin-top: 0;"/>
+                <input type="date" name="" id="sq-date" class="input-org-info" style="margin-top: 0;"/>
             </p>
+
             <p>
                 <label for="sq-date">设置开机时间</label>
-                <input  type="date" name="" id="sq-date" class="input-org-info" style="margin-top: 0;"/>
+                <input type="date" name="" id="sq-date" class="input-org-info" style="margin-top: 0;"/>
             </p>
+
             <p>
                 <label for="sq-date">设置关机时间</label>
                 <input type="date" name="" id="sq-date" class="input-org-info" style="margin-top: 0;"/>
             </p>
+
             <div class="device-point-pic">
                 <h4>点位照片</h4>
                 <span><img src="" alt=""/></span>
@@ -475,17 +491,17 @@
 <script type="text/javascript" src="__PUBLIC__/js/jquery-1.6.1.js"></script>
 <script type="text/javascript" src="__PUBLIC__/js/jquery.SuperSlide.2.1.1.js"></script>
 <script>
-    window.onscroll=function(){
-        var scrollTop=document.documentElement.scrollTop||document.body.scrollTop;
-        var fixDiv=document.getElementById('j-fixed-top');
-        if(scrollTop>=300){
-            fixDiv.style.position='fixed';
-            fixDiv.style.top='0px';
-        }else if(scrollTop<=299){
-            fixDiv.style.position='static';
+    window.onscroll = function () {
+        var scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
+        var fixDiv = document.getElementById('j-fixed-top');
+        if (scrollTop >= 300) {
+            fixDiv.style.position = 'fixed';
+            fixDiv.style.top = '0px';
+        } else if (scrollTop <= 299) {
+            fixDiv.style.position = 'static';
         }
     }
 </script>
-<script type="text/javascript">jQuery(".role-table").slide();</script>
+<script type="text/javascript">jQuery(".role-table").slide({trigger: "click"});</script>
 </body>
 </html>

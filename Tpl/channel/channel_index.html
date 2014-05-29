@@ -66,7 +66,8 @@
                 &nbsp;&nbsp;--&nbsp;&nbsp;
                 <input type="text" name="contract_end_time_2" id="contract_end_time_2" class="input-org-info"
                        onClick="WdatePicker()"/>
-                <input type="submit" class="role-control-btn">查询</button>
+			    <input type="text" name="select_del_flag_txt" id="select_del_flag_txt" value="0" style="display:none;"/>
+                <input type="submit" class="role-control-btn">
             </p>
 
 
@@ -82,9 +83,7 @@
 </div>
 <div class="role-table">
     <div class="hd">
-        <ul class="channel-tab">
-            <li class="on">启用</li>
-            <li>撤销</li>
+        <ul class="channel-tab" id="j-tab-ch">
         </ul>
     </div>
     <div class="bd over-h-y">
@@ -125,7 +124,8 @@
                 <span class="span-1" title="#">Aspernatur blanditiis ipsum nulla!</span>
             </li>
         </ul>
-        <ul class="role-table-list">
+		<div class="resultpage">{$page}</div>
+        <!--<ul class="role-table-list">
             <li>
                 <span class="span-1"></span>
                 <span class="span-1"><b>渠道商名称</b></span>
@@ -160,7 +160,7 @@
                 <span class="span-1" title="#">Consequuntur eveniet itaque velit.</span>
                 <span class="span-1" title="#">Aspernatur blanditiis ipsum nulla!</span>
             </li>
-        </ul>
+        </ul>-->
     </div>
 </div>
 
@@ -345,7 +345,7 @@
         </p>
     </div>
 </div>
-<script type="text/javascript" src="__PUBLIC__/js/jquery.SuperSlide.2.1.1.js"></script>
+<!--<script type="text/javascript" src="__PUBLIC__/js/jquery.SuperSlide.2.1.1.js"></script>-->
 <script>
     window.onscroll = function () {
         var scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
@@ -357,11 +357,18 @@
             fixDiv.style.position = 'static';
         }
     }
+
 </script>
-<script type="text/javascript">jQuery(".role-table").slide({trigger: "click"});</script>
+<!--<script type="text/javascript">jQuery(".role-table").slide({trigger: "click"});</script>-->
 <script type="text/javascript" src="__PUBLIC__/js/jquery.bigautocomplete.js"></script>
 <script type="text/javascript">
     $(document).ready(function () {
+		var state = "{$isDeleteResult}";
+		if(1 == state){
+			$(".channel-tab").append("<li onclick='channel_use_select();'>启用</li><li class='on' onclick='channel_remove_select();'>撤销</li>");
+		}else{
+			$(".channel-tab").append("<li class='on' onclick='channel_use_select();'>启用</li><li onclick='channel_remove_select();'>撤销</li>");
+		}
         agent_name_blurry();
         channel_name_blurry();
         var channel_first_type_sel = $("#channel_first_type_sel").val();
@@ -429,6 +436,16 @@
                 , 'json'
         );
     }
+
+	function channel_use_select(){
+		$("#select_del_flag_txt").val(0);
+		channelSelect.submit();
+	}
+
+	function channel_remove_select(){
+		$("#select_del_flag_txt").val(1);
+		channelSelect.submit();
+	}
 </script>
 </body>
 </html>

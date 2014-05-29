@@ -30,7 +30,7 @@
     <ul class="main-nav" id="j-nav-active">
         <li><a href="">加油站监控</a></li>
         <li><a href="<?php echo U('channel/Channel/index');?>">渠道管理</a></li>
-        <li><a href="">运营管理</a></li>
+        <li><a href="<?php echo U('management/Index/importingApp');?>">运营管理</a></li>
         <li><a href="">统计分析</a></li>
         <li><a href="">广告管理</a></li>
         <li><a href="<?php echo U('configuration/Org/index');?>">系统设置</a></li>
@@ -268,7 +268,7 @@
                 nbLi[3].className='active';//统计分析
                 return;
             }
-            if(Ourl=="/gas_station_erp/index.php/Org/index"||Ourl.indexOf("/gas_station_erp/index.php/Org/index")>=0){
+            if(Ourl=="/gas_station_erp/index.php/management/Index/importingApp"||Ourl.indexOf("/gas_station_erp/index.php/management/Index/importingApp")>=0||Ourl=="/management/Index/addRuleTarget"||Ourl.indexOf("/management/Index/addRuleTarget")>=0){
                 nbLi[2].className='active';//运营管理
                 return;
             }
