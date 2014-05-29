@@ -4,20 +4,19 @@
     <meta charset="UTF-8">
     <title>网点信息</title>
     <link rel="stylesheet" href="../../Public/css/configuration.css"/>
-    <script type="text/javascript" src="../../Public/js/jquery-1.6.1.js"></script>
-    <script type="text/javascript" src="../../Public/js/jquery.SuperSlide.2.1.1.js"></script>
-    <link rel="stylesheet" href="__PUBLIC__/css/configuration.css"/>
-    <script type="text/javascript" src="__PUBLIC__/js/jquery-1.6.1.js"></script>
-    <script type="text/javascript" src="__PUBLIC__/js/jquery.SuperSlide.2.1.1.js"></script>
+
 </head>
 <body>
-<include file="./Tpl/include/pb-head.html" />
+<include file="./Tpl/include/pb-head.html"/>
 <div id="container">
     <div class="left">
         <ul class="aside-nav">
             <li class="aside-nav-nth1"><a href="">APP刊例管理</a></li>
-            <li><a href=""><input  type="button"  value="刊例维护" ></a></li>
-            <li class="active"><a href=""><input type="button" class="" value="刊例发布" ></a></li>
+            <li><a href="http://192.168.0.63/gas_station_erp/index.php/management/Index/importingApp"><input
+                    type="button" value="刊例维护"></a></li>
+            <li class="active"><a
+                    href="http://192.168.0.63/gas_station_erp/index.php/management/Index/addRuleTarget"><input
+                    type="button" class="" value="刊例发布"></a></li>
 
         </ul>
     </div>
@@ -26,15 +25,17 @@
             <div class="org-right-con">
                 <div class="role-control" id="j-fixed-top">
                     <div class="role-inquire channel-index-btns">
-                        <form action="">
+                        <form action="" method="post">
                             <p>
                                 <label for="channel-org-name" class="">刊例名称</label>
-                                <input type="text" name="" id="channel-org-name" class="input-org-info"/>
+                                <input type="text" name="rule_no_sel" id="channel-org-name" class="input-org-info"/>
                                 <label for="maintain-create-people" class="">创建人</label>
-                                <input type="text" name="" id="maintain-create-people" class="input-org-info"/>
+                                <input type="text" name="createuserid_sel" id="maintain-create-people"
+                                       class="input-org-info"/>
                                 <label for="maintain-create-date" class="">发布日期</label>
-                                <input type="date" name="" id="maintain-create-date" class="input-org-info"/>
-                                <button type="button" class="role-control-btn">查询</button>
+                                <input type="date" name="release_time_sel" id="maintain-create-date"
+                                       class="input-org-info"/>
+                                <button type="submit" class="role-control-btn">查询</button>
                             </p>
                         </form>
                     </div>
@@ -59,15 +60,24 @@
                                 <span class="span-2"><b>发布状态</b></span>
                                 <span class="span-2"><b>发布日期</b></span>
                             </li>
-                            <li>
-                                <span class="span-1"><input type="radio" name="role-info" id="" class="role-table-radio"/></span>
-                                <span class="span-2" title="#">1111111111111111111111111</span>
-                                <span class="span-2" title="#">Dolore eius expedita molestias!</span>
-                                <span class="span-2" title="#">Blanditiis dolorum pariatur vitae?</span>
-                                <span class="span-2" title="#">Perspiciatis quae ratione repudiandae!</span>
-                                <span class="span-2" title="#">Perspiciatis quae ratione repudiandae!</span>
-                            </li>
-
+                            <foreach name="issueArr" item="issue">
+                                <li>
+                                    <span class="span-1"><input type="radio" name="role-info" id=""
+                                                                class="role-table-radio"/></span>
+                                    <span class="span-2" title="#">{$issue.rule_no}</span>
+                                    <span class="span-2" title="#">{$issue.start_time}</span>
+                                    <span class="span-2" title="#">发布渠道</span>
+	                                <span class="span-2" title="#">
+	                                	<if condition="$issue['rule_status'] eq 1">
+                                            发布
+                                        </if>
+										<if condition="$issue['rule_status'] eq 2">
+                                            作废
+                                        </if>
+	                                </span>
+                                    <span class="span-2" title="#">{$issue.release_time}</span>
+                                </li>
+                            </foreach>
                         </ul>
                     </div>
                 </div>
@@ -75,41 +85,50 @@
         </div>
     </div>
 </div>
-<include file="./Tpl/include/pb-foot.html" />
+<include file="./Tpl/include/pb-foot.html"/>
 
 <div class="alert-role-add">
     <h3>刊例信息</h3>
+
     <div class="alert-role-add-con">
         <p>
             <label for="issue-name" class="role-lab">*刊例名称</label>
             <input type="text" name="addname" id="issue-name" class="input-role-name"/>
         </p>
+
         <p>
             <label for="issue-date" class="role-lab">*投放日期</label>
             <input type="date" name="addname" id="issue-date" class="input-role-name"/>
         </p>
+
         <p>
             <label for="issue-channel" class="role-lab">*发布渠道</label>
             <input type="text" name="addname" id="issue-channel" class="input-role-name"/>
         </p>
+
         <p>
             <button type="button" class="alert-btn2">保存</button>
             <button type="button" class="alert-btn2">关闭</button>
         </p>
     </div>
 </div>
+<script type="text/javascript" src="../../Public/js/jquery-1.6.1.js"></script>
+<script type="text/javascript" src="../../Public/js/jquery.SuperSlide.2.1.1.js"></script>
+<link rel="stylesheet" href="__PUBLIC__/css/configuration.css"/>
+<script type="text/javascript" src="__PUBLIC__/js/jquery-1.6.1.js"></script>
+<script type="text/javascript" src="__PUBLIC__/js/jquery.SuperSlide.2.1.1.js"></script>
 <script>
-    window.onscroll=function(){
-        var scrollTop=document.documentElement.scrollTop||document.body.scrollTop;
-        var fixDiv=document.getElementById('j-fixed-top');
-        if(scrollTop>=300){
-            fixDiv.style.position='fixed';
-            fixDiv.style.top='0px';
-        }else if(scrollTop<=299){
-            fixDiv.style.position='static';
+    window.onscroll = function () {
+        var scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
+        var fixDiv = document.getElementById('j-fixed-top');
+        if (scrollTop >= 300) {
+            fixDiv.style.position = 'fixed';
+            fixDiv.style.top = '0px';
+        } else if (scrollTop <= 299) {
+            fixDiv.style.position = 'static';
         }
     }
 </script>
-<script type="text/javascript">jQuery(".role-table").slide();</script>
+<script type="text/javascript">jQuery(".role-table").slide({trigger: "click"});</script>
 </body>
 </html>

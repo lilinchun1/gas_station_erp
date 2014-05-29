@@ -535,6 +535,7 @@ $min-width-kuang:1200px;
 /*渠道信息页*/
 .channel-select-min{
   @extend %input-t;
+  padding: 2px 0;
   margin-right: 10px;
   width: 80px;
   text-indent: 0;
@@ -634,4 +635,36 @@ $min-width-kuang:1200px;
 .station-control{
   padding: 20px 30px;
   border: 1px solid $border-color;
+  overflow: hidden;
+}
+.station-control-list{
+  width: 100%;
+  li{
+    margin-right:1%;
+    float: left;
+    width: 24%;
+    height: 150px;
+    background: rgba(0,0,0,0.1);}
+}
+.station-state-list{
+  padding: 20px 0;
+  margin: 20px auto 0 auto;
+  width: 98%;
+  border: 1px solid $border-color;
+}
+.station-state-list-cx{
+  padding-left: 30px;
+}
+.station-info{
+  @extend %input-t;
+}
+.station-state-list-con{
+  padding: 20px 0;
+  li{
+    height: 200px;
+    background: rgba(0,0,0,0.1);
+    border-bottom: 1px dashed $border-color;}
+}
+.station-state-info{
+
 }

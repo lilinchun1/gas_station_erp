@@ -57,7 +57,7 @@
                         <form name="roleSelect" method="get" action="<?php echo U('configuration/Role/show_role');?>">
                             <label for="role-name" class="role-lab">角色名称</label>
                             <input type="text" name="role_name_txt" id="role_name_txt" class="input-org-info"/>
-                            <input type="submit" id="select_button" name="select_button" class="role-control-btn"></button>
+                            <input type="submit" id="select_button" name="select_button" class="role-control-btn">
                         </form>
                     </div>
                     <div class="org-right-btns">

@@ -4,59 +4,92 @@
     <meta charset="UTF-8">
     <title>预警设置</title>
     <link rel="stylesheet" href="../../Public/css/configuration.css"/>
-    <script type="text/javascript" src="../../Public/js/jquery-1.6.1.js"></script>
-    <script type="text/javascript" src="../../Public/js/jquery.SuperSlide.2.1.1.js"></script>
-    <link rel="stylesheet" href="__PUBLIC__/css/configuration.css"/>
-    <script type="text/javascript" src="__PUBLIC__/js/jquery-1.6.1.js"></script>
-    <script type="text/javascript" src="__PUBLIC__/js/jquery.SuperSlide.2.1.1.js"></script>
+
 </head>
 <body>
-<include file="./Tpl/include/pb-head.html" />
+<include file="./Tpl/include/pb-head.html"/>
 <div id="container">
-<div class="left">
-    <ul class="aside-nav">
-        <li class="aside-nav-nth1"><a href="">加油站监控</a></li>
-        <li><a href=""><input  type="button"  value="监控平台" ></a></li>
-        <li class="active"><a href=""><input type="button" class="" value="预警设置" ></a></li>
-        <li><a href=""><input type="button" class="" value="异常记录" ></a></li>
-    </ul>
-</div>
-<div class="right">
-    <div class="right-con">
-        <div class="org-right-con">
-            <div class="alert-set-tab">
-                <div class="hd">
-                    <ul class="channel-tab"><li class="on">系统设置</li><li>预警设置</li></ul>
-                </div>
-                <div class="bd">
-                    <div class="set1">
-                        <p>
-                            <input type="checkbox" name="" id=""/><label>APP投放信息</label>
-                            <input type="text" name="" id=""/>
-                        </p>
-                        <p>
-                            <input type="checkbox" name="" id=""/><label>广告投放信息</label>
-                            <input type="text" name="" id=""/>
-                        </p>
-                        <p>
-                            <input type="checkbox" name="" id=""/><label>PC端系统版本</label>
-                            <input type="text" name="" id=""/>
-                        </p>
-                        <p>
-                            <label>版本信息</label>
-                            <input type="text" name="" id=""/>
-                        </p>
+    <div class="left">
+        <ul class="aside-nav">
+            <li class="aside-nav-nth1"><a href="">加油站监控</a></li>
+            <li><a href=""><input type="button" value="监控平台"></a></li>
+            <li class="active"><a href=""><input type="button" class="" value="预警设置"></a></li>
+            <li><a href=""><input type="button" class="" value="异常记录"></a></li>
+        </ul>
+    </div>
+    <div class="right">
+        <div class="right-con">
+            <div class="org-right-con">
+                <div class="alert-set-tab">
+                    <div class="hd">
+                        <ul class="channel-tab">
+                            <li class="on">系统设置</li>
+                            <li>预警设置</li>
+                        </ul>
                     </div>
-                    <div class="set2">
-                        2
+                    <div class="bd">
+                        <div class="set1">
+                            <p>
+                                <input type="checkbox" name="" id="app-tf"/><label for="app-tf">APP投放信息</label>
+                                <input type="text" name="" id="" class="input-org-info"/><em>小时，监控一次。</em>
+                            </p>
+
+                            <p>
+                                <input type="checkbox" name="" id="gg-tf"/><label for="gg-tf">广告投放信息</label>
+                                <input type="text" name="" id="" class="input-org-info"/><em>小时，监控一次。</em>
+                            </p>
+
+                            <p>
+                                <input type="checkbox" name="" id="pc-ver"/><label for="pc-ver">PC端系统版本</label>
+                                <input type="text" name="" id="" class="input-org-info"/><em>小时，监控一次。</em>
+                                <label for="ver">版本信息</label>
+                                <input type="text" name="" id="ver" class="input-org-info"/>
+                            </p>
+
+                        </div>
+                        <div class="set1">
+                            <p>
+                                <input type="checkbox" name="" id="app-tf"/><label for="app-tf">CPU使用率预警值</label>
+                                <input type="text" name="" id="" class="input-org-info"/><em>%</em>
+                            </p>
+
+                            <p>
+                                <input type="checkbox" name="" id="gg-tf"/><label for="gg-tf">内存使用率预警值</label>
+                                <input type="text" name="" id="" class="input-org-info"/><em>%</em>
+                            </p>
+
+                            <p>
+                                <input type="checkbox" name="" id="gg-tf"/><label for="gg-tf">硬盘使用率预警值</label>
+                                <input type="text" name="" id="" class="input-org-info"/><em>%</em>
+                            </p>
+
+                            <p>
+                                <input type="checkbox" name="" id="gg-tf"/><label for="gg-tf">开机时长预警，大于</label>
+                                <input type="text" name="" id="" class="input-org-info"/><em>分钟</em>
+                            </p>
+
+                            <p>
+                                <input type="checkbox" name="" id="gg-tf"/><label for="gg-tf">关机时长预警，大于</label>
+                                <input type="text" name="" id="" class="input-org-info"/><em>分钟</em>
+                            </p>
+
+                            <p>
+                                <input type="checkbox" name="" id="gg-tf"/><label for="gg-tf">加油站网络流量，大于</label>
+                                <input type="text" name="" id="" class="input-org-info"/><em>M/天</em>
+                            </p>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
-</div>
-<include file="./Tpl/include/pb-foot.html" />
-<script type="text/javascript">jQuery(".alert-set-tab").slide();</script>
+<include file="./Tpl/include/pb-foot.html"/>
+<script type="text/javascript" src="../../Public/js/jquery-1.6.1.js"></script>
+<script type="text/javascript" src="../../Public/js/jquery.SuperSlide.2.1.1.js"></script>
+<link rel="stylesheet" href="__PUBLIC__/css/configuration.css"/>
+<script type="text/javascript" src="__PUBLIC__/js/jquery-1.6.1.js"></script>
+<script type="text/javascript" src="__PUBLIC__/js/jquery.SuperSlide.2.1.1.js"></script>
+<script type="text/javascript">jQuery(".alert-set-tab").slide({trigger: "click"});</script>
 </body>
 </html>

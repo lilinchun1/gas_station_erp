@@ -3,14 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <title>网点信息</title>
-	<!--
     <link rel="stylesheet" href="../../Public/css/configuration.css"/>
-    <script type="text/javascript" src="../../Public/js/jquery-1.6.1.js"></script>
-    <script type="text/javascript" src="../../Public/js/jquery.SuperSlide.2.1.1.js"></script>
-	-->
-	<link rel="stylesheet" href="__PUBLIC__/css/configuration.css"/>
-    <script type="text/javascript" src="__PUBLIC__/js/jquery-1.6.1.js"></script>
-    <script type="text/javascript" src="__PUBLIC__/js/jquery.SuperSlide.2.1.1.js"></script>
+
 </head>
 <body>
 <div id="head">
@@ -646,18 +640,23 @@
         </p>
     </div>
 </div>
-<script>
-    window.onscroll=function(){
-        var scrollTop=document.documentElement.scrollTop||document.body.scrollTop;
-        var fixDiv=document.getElementById('j-fixed-top');
-        if(scrollTop>=300){
-            fixDiv.style.position='fixed';
-            fixDiv.style.top='0px';
-        }else if(scrollTop<=299){
-            fixDiv.style.position='static';
-        }
-    }
-</script>
+<script type="text/javascript" src="../../Public/js/jquery-1.6.1.js"></script>
+<script type="text/javascript" src="../../Public/js/jquery.SuperSlide.2.1.1.js"></script>
+<link rel="stylesheet" href="__PUBLIC__/css/configuration.css"/>
+<script type="text/javascript" src="__PUBLIC__/js/jquery-1.6.1.js"></script>
+<script type="text/javascript" src="__PUBLIC__/js/jquery.SuperSlide.2.1.1.js"></script>
 <script type="text/javascript">jQuery(".role-table").slide();</script>
+<script>
+window.onscroll=function(){
+var scrollTop=document.documentElement.scrollTop||document.body.scrollTop;
+var fixDiv=document.getElementById('j-fixed-top');
+if(scrollTop>=300){
+fixDiv.style.position='fixed';
+fixDiv.style.top='0px';
+}else if(scrollTop<=299){
+fixDiv.style.position='static';
+}
+}
+</script>
 </body>
 </html>

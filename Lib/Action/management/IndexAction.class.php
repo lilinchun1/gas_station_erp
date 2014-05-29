@@ -9,22 +9,69 @@ class IndexAction extends Action {
 	
 	
 	
-	
+	//展示刊例维护
 	function importingApp() {
-		if ($_POST ['submit']) {
+		$appRule = new Model ( "AppRule" );
+		if ($_POST ['submit']) { //新增
 			$rule_no = $_POST['rule_no'];
 			//$rule_no = $_POST['issue_sel'];
 			//上传文件名由当前时间戳及扩展名组成
-			$fileName = strtotime(date("Y-m-d H:i:s")).".".end(explode('.', $_FILES["app_file"]["name"]));
+			$fileName = time().".".end(explode('.', $_FILES["app_file"]["name"]));
 			//上传文件
 			move_uploaded_file($_FILES["app_file"]["tmp_name"], "$this->uploaded_url/$fileName");
 			$this->redirect('Index/doImporting', array('fileName' => $fileName,'nowPageNum'=>0,'nowLineNum'=>1,'rule_no'=>$rule_no), 0);
+		}else if($_POST ['update']) { //编辑
+			$old_rule_no = $_POST['old_rule_no'];
+			$rule_no = $_POST['rule_no'];
+			if($_FILES["app_file"]){//如果需要重新提交excel
+				$appRule->query("DELETE FROM app_rule WHERE rule_no = '$old_rule_no'");
+				$fileName = time().".".end(explode('.', $_FILES["app_file"]["name"]));
+				//上传文件
+				move_uploaded_file($_FILES["app_file"]["tmp_name"], "$this->uploaded_url/$fileName");
+				$this->redirect('Index/doImporting', array('fileName' => $fileName,'nowPageNum'=>0,'nowLineNum'=>1,'rule_no'=>$rule_no), 0);
+			}else {
+				$data = null;
+				$data['rule_no'] = $rule_no;
+				$que = $appRule->where("rule_no = '$old_rule_no'")->save($data);
+			}
+		}else if($_POST ['delete']){ //删除
+			$old_rule_no = $_POST['old_rule_no'];
+			$appRule->query("DELETE FROM app_rule WHERE rule_no = '$old_rule_no'");
 		}else{
-			$this->display(':index');
+			$where = " where 1 ";
+			if($_POST['rule_no_sel']){
+				$rule_no_sel = $_POST['rule_no_sel'];
+				$where .= " and rule_no = '$rule_no_sel' ";
+			}
+			if($_POST['createuserid_sel']){
+				$createuserid_sel = $_POST['createuserid_sel'];
+				$where .= " and createuserid = '$createuserid_sel' ";
+			}
+			if($_POST['createtime_sel']){
+				$createtime_sel = strtotime($_POST['createtime_sel']);;
+				$where .= " and createtime = '$createtime_sel' ";
+			}
+			
+			if($where != " where 1 "){//只有点击查询，显示结果
+				$sel = " select * from app_rule $where and rule_status = 0 group by rule_no order by createtime";
+				$que = $appRule->query($sel);
+				foreach ($que as $k=>$v){
+					$que[$k]['createtime'] = date("Y-m-d",$v['createtime']);
+				}
+				$this->assign('issueArr', $que);
+			}
+			$this->display(':maintain_index');
 		}
 	}
+	
 	//执行导入app期刊
 	function doImporting($fileName,$nowPageNum,$nowLineNum,$rule_no){
+		//=================================临时用户id
+		$uid = 123;
+		//信息创建时间
+		$createtime = strtotime(date("Y-m-d"));
+		//刊例状态，起始为0
+		$rule_status = 0;
 		ini_set("max_execution_time", "1800");
 		$this->show ( '正在执行导入...<br/>', 'utf-8' );
 		$rollback = 0; //判断回滚
@@ -75,7 +122,7 @@ class IndexAction extends Action {
 				//导入安卓部分数据(4,5列)
 				$appid_android   = $excel_data->sheets[$pageNum]['cells'][$lineNum][4]; // 第一页，第$lineNum行，第2列
 				$appname_android = $excel_data->sheets[$pageNum]['cells'][$lineNum][5];
-	
+
 				if(trim($appid_ios)){
 					$que = $appRule->add ( array (
 							'rule_no'   => $rule_no,
@@ -83,7 +130,10 @@ class IndexAction extends Action {
 							'app_name'  => $appname_ios,
 							'app_type'  => $app_type,
 							'numa'		=> $page,
-							'numb'	    => $several
+							'numb'	    => $several,
+							'createuserid'=>$uid,
+							'createtime'=>$createtime,
+							'rule_status'=>$rule_status
 					) );echo $appRule->getlastsql(),"<br />\n";
 					if(!$que) {$rollback++;$wrongMessage = "serialAppIssue添加错误appid：$appid_ios";}
 				}
@@ -94,7 +144,10 @@ class IndexAction extends Action {
 							'app_name'  => $appname_android,
 							'app_type'  => $app_type,
 							'numa'		=> $page,
-							'numb'      => $several
+							'numb'      => $several,
+							'createuserid'=>$uid,
+							'createtime'=>$createtime,
+							'rule_status'=>$rule_status
 					) );echo $appRule->getlastsql(),"<br />\n";
 					if(!$que) {$rollback++;$wrongMessage = "serialAppIssue添加错误appid：$appid_android";}
 				}
@@ -108,7 +161,6 @@ class IndexAction extends Action {
 			}
 				
 		}
-
 		//判断回滚
 		if($rollback){
 			$appRule->rollback();
@@ -118,4 +170,67 @@ class IndexAction extends Action {
 			$this->show("<script type='text/javascript'>window.setTimeout('show()',6000);\n alert('导入成功');\n window.location.href='".U('AdJournal/importingAd')."';</script>", 'utf-8' );
 		}
 	}
+	
+	
+	
+	//展示刊例发布
+	function addRuleTarget(){
+		$appRule = new Model ( "AppRule" );
+		if ($_POST ['submit']) { //新增
+			$rule_no    = $_POST['rule_no'];
+			$start_time = strtotime($_POST['start_time']);
+			$target_num = $_POST['target_num'];
+			
+			$data = null;
+			$data['start_time'] = $start_time;
+			$data['target_num'] = $target_num;
+			$que = $appRule->where("rule_no = '$rule_no'")->save($data);
+		}else if($_POST ['delete']){//删除
+			$rule_no    = $_POST['rule_no'];
+			$appRule->query("DELETE FROM app_rule WHERE rule_no = '$rule_no'");
+		}else if($_POST ['release']){//发布
+			$rule_no    = $_POST['rule_no'];
+			$data = null;
+			$data['rule_status'] = 1;
+			$data['release_time'] = strtotime(date("Y-m-d"));
+			$que = $appRule->where("rule_no = '$rule_no'")->save($data);
+		}else if($_POST ['unable']){//作废
+			$rule_no    = $_POST['rule_no'];
+			$data = null;
+			$data['rule_status'] = 2;
+			$que = $appRule->where("rule_no = '$rule_no'")->save($data);
+		}else{
+			$where = " where 1 ";
+			if($_POST['rule_no_sel']){
+				$rule_no_sel = $_POST['rule_no_sel'];
+				$where .= " and rule_no = '$rule_no_sel' ";
+			}
+			if($_POST['createuserid_sel']){
+				$createuserid_sel = $_POST['createuserid_sel'];
+				$where .= " and createuserid = '$createuserid_sel' ";
+			}
+			if($_POST['release_time_sel']){
+				$release_time_sel = strtotime($_POST['release_time_sel']);;
+				$where .= " and release_time = '$release_time_sel' ";
+			}
+			if($where != " where 1 "){//只有点击查询，显示结果
+				$sel = " select * from app_rule $where and rule_status >=1 group by rule_no order by release_time";
+				$que = $appRule->query($sel);
+				foreach ($que as $k=>$v){
+					$que[$k]['createtime'] = date("Y-m-d",$v['createtime']);
+					$que[$k]['release_time'] = date("Y-m-d",$v['release_time']);
+					$que[$k]['start_time'] = date("Y-m-d",$v['start_time']);
+				}
+				$this->assign('issueArr', $que);
+			}
+			$this->display(':issue_index');
+		}
+		
+	}
+	
+	
+	
+	
+	
+	
 }

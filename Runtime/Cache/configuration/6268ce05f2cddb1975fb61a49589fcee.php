@@ -63,7 +63,7 @@
                             <input type="text" name="org_name_txt" id="org_name_txt" class="input-org-info"/>
                             <label for="use-id" class="use-id">账号</label>
                             <input type="text" name="username_txt" id="username_txt" class="input-org-info"/>
-                            <input type="submit" id="select_button" name="select_button" class="role-control-btn">查询</button>
+                            <input type="submit" id="select_button" name="select_button" class="role-control-btn">
                         </form>
                     </div>
                     <div class="org-right-btns">

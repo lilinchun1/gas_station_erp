@@ -38,6 +38,10 @@ class ChannelAction extends CommonAction {
 		$channel_name = trim(I('channel_name_txt'));
 		$province = trim(I('select_province'));
 		$city = trim(I('select_city'));
+		$contract_begin_time_1 = strtotime(trim(I('contract_begin_time_1')));
+		$contract_begin_time_2 = strtotime(trim(I('contract_begin_time_2')));
+		$contract_end_time_1 = strtotime(trim(I('contract_end_time_1')));
+		$contract_end_time_2 = strtotime(trim(I('contract_end_time_2')));
 		$is_channel_select_show = 1;
 		//$page_show_number = 30;       //每页显示的数量
 		C('page_show_number')?$page_show_number=C('page_show_number'):$page_show_number=30;  //每页显示的数量
@@ -50,6 +54,22 @@ class ChannelAction extends CommonAction {
 		if(!empty($channel_name))
 		{
 			$where .= " and a.channel_name='$channel_name'";
+		}
+		if(!empty($contract_begin_time_1))
+		{
+			$where .= " and a.begin_time>='$contract_begin_time_1'";
+		}
+		if(!empty($contract_begin_time_2))
+		{
+			$where .= " and a.begin_time<='$contract_begin_time_2'";
+		}
+		if(!empty($contract_end_time_1))
+		{
+			$where .= " and a.end_time>='$contract_end_time_1'";
+		}
+		if(!empty($contract_end_time_2))
+		{
+			$where .= " and a.end_time<='$contract_end_time_2'";
 		}
 		if(!empty($channel_first_type))
 		{
@@ -73,11 +93,13 @@ class ChannelAction extends CommonAction {
 				$where .= " and b.province='$province'";
 			}
 		}
+		/*
 		if(!empty($userinfo['agentsid']))
 		{
 			$sub_agent_id = getSubAgentStringFromFatherAgent($userinfo['agentsid']);
 			$where .= " and (a.agent_id='{$userinfo['agentsid']}' or a.agent_id in $sub_agent_id)"; //权限限制
 		}
+		*/
 		$count = $Model->table('qd_channel a, qd_channel_area b, qd_channel_type_link c')->join('qd_channel_type d on c.channel_type_id=d.channel_type_id')->where($where)->count();
 		$Page       = new Page($count, $page_show_number);// 实例化分页类 传入总记录数
 		//$Page->url = 'Agent/agentSelect/p/';
