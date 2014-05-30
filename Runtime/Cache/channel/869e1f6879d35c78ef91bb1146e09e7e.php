@@ -150,6 +150,7 @@
                 <span class="span-1" title="#">Aspernatur blanditiis ipsum nulla!</span>
             </li>
         </ul>
+		<div class="resultpage"><?php echo ($page); ?></div>
         <!--<ul class="role-table-list">
             <li>
                 <span class="span-1"></span>

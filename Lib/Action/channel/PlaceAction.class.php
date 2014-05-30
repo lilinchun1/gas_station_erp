@@ -18,7 +18,7 @@ class PlaceAction extends CommonAction {
 
 	//查询网点信息
 	public function placeSelect(){
-		$userinfo = getUserInfo();
+		//$userinfo = getUserInfo();
 	    $Model = new Model();
 		$place_no = trim(I('place_no_txt'));
 		$place_name = trim(I('place_name_txt'));
@@ -26,10 +26,13 @@ class PlaceAction extends CommonAction {
 		$channel_name = trim(I('channel_name_txt'));
 		$province = trim(I('select_province'));
 		$city = trim(I('select_city'));
+		$test_end_time_1 = trim(I('select_test_end_time_1'));
+		$test_end_time_2 = trim(I('select_test_end_time_2'));
+		$del_flag_txt = trim(I('select_del_flag_txt'));
 		$is_place_select_show = 1;
 		//$page_show_number = 30;       //每页显示的数量
 		C('page_show_number')?$page_show_number=C('page_show_number'):$page_show_number=30;  //每页显示的数量
-		$where = '1=1';
+		$where = "a.isDelete='$del_flag_txt'";
 		if(!empty($place_no))
 		{
 			$where .= " and a.place_no='$place_no'";
@@ -41,6 +44,14 @@ class PlaceAction extends CommonAction {
 		if(!empty($place_state))
 		{
 			$where .= " and a.status='$place_state'";
+		}
+		if(!empty($test_end_time_1))
+		{
+			$where .= " and a.test_end_time>='$test_end_time_1'";
+		}
+		if(!empty($test_end_time_2))
+		{
+			$where .= " and a.test_end_time<='$test_end_time_2'";
 		}
 		if(!empty($channel_name))
 		{
@@ -58,11 +69,13 @@ class PlaceAction extends CommonAction {
 				$where .= " and a.province='$province'";
 			}
 		}
+		/*
 		if(!empty($userinfo['agentsid']))
 		{
 			$sub_agent_id = getSubAgentStringFromFatherAgent($userinfo['agentsid']);
 			$where .= " and (a.agent_id='{$userinfo['agentsid']}' or a.agent_id in $sub_agent_id)"; //权限限制
 		}
+		*/
 		$count = $Model->table('qd_place a')->where($where)->count();
 		$Page       = new Page($count, $page_show_number);// 实例化分页类 传入总记录数
 		//$Page->url = 'Agent/agentSelect/p/';
@@ -137,6 +150,7 @@ class PlaceAction extends CommonAction {
 			$list[$i]['placeRecoverID'] = 'placeRecover' . $i; //用于恢复的ID
 		}
 
+		$this->assign('isDeleteResult',$del_flag_txt);
 		$this->assign('list',$list);// 赋值数据集
 		$this->assign('page',$show);// 赋值分页输出
 		$this->assign('is_place_select_show',$is_place_select_show); //是否显示结果集

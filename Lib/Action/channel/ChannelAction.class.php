@@ -46,7 +46,7 @@ class ChannelAction extends CommonAction {
 		$is_channel_select_show = 1;
 		//$page_show_number = 30;       //每页显示的数量
 		C('page_show_number')?$page_show_number=C('page_show_number'):$page_show_number=30;  //每页显示的数量
-		$where = "a.channel_id=b.channel_id and a.channel_id=c.channel_id and a.isDelete='$del_flag_txt' ";
+		$where = "a.channel_id=b.channel_id and a.channel_id=c.channel_id and a.isDelete='$del_flag_txt'";
 		if(!empty($agent_name))
 		{
 			$agent_id = getAgentIDFromAgentName($agent_name);
@@ -141,7 +141,7 @@ class ChannelAction extends CommonAction {
 			$list[$i]['channelRecoverID'] = 'channelRecover' . $i; //用于恢复的ID
 		}
 
-		$this->assign('isDeleteResult',$del_flag_txt);// 赋值数据集
+		$this->assign('isDeleteResult',$del_flag_txt);
 		$this->assign('list',$list);// 赋值数据集
 		$this->assign('page',$show);// 赋值分页输出
 		$this->assign('is_channel_select_show',$is_channel_select_show); //是否显示结果集

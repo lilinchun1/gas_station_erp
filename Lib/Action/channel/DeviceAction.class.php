@@ -28,10 +28,12 @@ class DeviceAction extends CommonAction {
 		$place_second_type_id = trim(I('place_second_type_sel'));
 		$province = trim(I('select_province'));
 		$city = trim(I('select_city'));
+		$status = trim(I('select_device_status'));
+		$del_flag_txt = trim(I('select_del_flag_txt'));
 		$is_device_select_show = 1;
 		//$page_show_number = 30;       //每页显示的数量
 		C('page_show_number')?$page_show_number=C('page_show_number'):$page_show_number=30;  //每页显示的数量
-		$where = '1=1';
+		$where = "a.isDelete='$del_flag_txt'";
 		if(!empty($place_no))
 		{
 			$where .= " and b.place_no='$place_no'";
@@ -47,6 +49,10 @@ class DeviceAction extends CommonAction {
 		if(!empty($MAC))
 		{
 			$where .= " and a.MAC='$MAC'";
+		}
+		if(!empty($status))
+		{
+			$where .= " and a.status='$status'";
 		}
 		if(!empty($place_first_type_id))
 		{
@@ -70,11 +76,13 @@ class DeviceAction extends CommonAction {
 				$where .= " and a.province='$province'";
 			}
 		}
+		/*
 		if(!empty($userinfo['agentsid']))
 		{
 			$sub_agent_id = getSubAgentStringFromFatherAgent($userinfo['agentsid']);
 			$where .= " and (a.agent_id='{$userinfo['agentsid']}' or a.agent_id in $sub_agent_id)"; //权限限制
 		}
+		*/
 		$count = $Model->table('qd_device a')->join('qd_place b on a.place_id=b.place_id')->where($where)->count();
 		//$tmp_count = $Model->query("select count(*) as count from qd_device a left join qd_place b on a.place_no=b.place_no" . $where);
 		//$count = $tmp_count[0]['count'];
@@ -154,6 +162,7 @@ class DeviceAction extends CommonAction {
 			$list[$i]['deviceRecoverID'] = 'deviceRecover' . $i; //用于恢复的ID
 		}
 
+		$this->assign('isDeleteResult',$del_flag_txt);
 		$this->assign('list',$list);// 赋值数据集
 		$this->assign('page',$show);// 赋值分页输出
 		$this->assign('is_device_select_show',$is_device_select_show); //是否显示结果集

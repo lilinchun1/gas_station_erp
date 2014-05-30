@@ -54,21 +54,27 @@
 <div class="org-right-con">
 <div class="role-control" id="j-fixed-top">
     <div class="role-inquire channel-index-btns">
-        <form action="">
+        <form name="deviceSelect" method="get" action="<?php echo U('channel/Device/deviceSelect');?>">
             <p>
                 <label for="device-drive-id" class="">设备编号</label>
-                <input type="text" name="" id="device-drive-id" class="input-org-info"/>
+                <input type="text" name="device_no_txt" id="device_no_txt" class="input-org-info"/>
                 <label for="mac1" class="">MAC</label>
-                <input type="text" name="" id="mac1" class="input-org-info"/>
+                <input type="text" name="mac_txt" id="mac_txt" class="input-org-info"/>
                 <label for="device-state" class="">加油站状态</label>
-                <select name="add_agent_type_sel" id="device-state" class="channel-select-min">
-                    <option selected value="">1</option>
-                    <option class="industry" value="trade">2</option>
-                    <option class="area" value="area">3</option>
+                <select name="select_device_status" id="select_device_status" class="channel-select-min">
+                    <option selected value="">选择状态</option> 
+					<optgroup label="运行">  
+					    <option value="normal">正常</option>  
+						<option value="abnormal">异常</option>  
+					</optgroup>  
+					<optgroup label="未运行">  
+						<option value="not_use">未运行</option> 
+					</optgroup>
                 </select>
                 <label for="channel-ss-channel" class="">所属网点</label>
-                <input type="text" name="" id="channel-ss-channel" class="input-org-info"/>
-                <button type="button" class="role-control-btn">查询</button>
+                <input type="text" name="place_name_txt" id="place_name_txt" class="input-org-info"/>
+				<input type="text" name="select_del_flag_txt" id="select_del_flag_txt" value="0" style="display:none;"/>
+                <input type="submit" class="role-control-btn">查询</button>
             </p>
         </form>
     </div>
@@ -82,9 +88,7 @@
 </div>
 <div class="role-table">
     <div class="hd">
-        <ul class="channel-tab">
-            <li class="on">启用</li>
-            <li>撤销</li>
+        <ul id="device_select_result_ul" class="channel-tab">
         </ul>
     </div>
     <div class="bd over-h-y">
@@ -96,11 +100,23 @@
                 <span class="span-1"><b>加油站类型</b></span>
                 <span class="span-2"><b>所属网点</b></span>
                 <span class="span-1"><b>所在点位</b></span>
-                <span class="span-1"><b>加油站状态</b></span>
+				<?php if($isDeleteResult != 1): ?><span class="span-1"><b>加油站状态</b></span><?php endif; ?>
                 <span class="span-1"><b>部署时间</b></span>
-                <span class="span-1"><b>启用时间</b></span>
+				<span class="span-1"><b>启用时间</b></span>
                 <span class="span-1"><b>图片预览</b></span>
             </li>
+			<?php if(is_array($list)): $i = 0; $__LIST__ = $list;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$vo): $mod = ($i % 2 );++$i;?><li>
+					<span class="span-1"><input type="radio" name="role-info" id="" class="role-table-radio"/></span>
+					<span class="span-1" title="#"><?php echo ($vo["device_no"]); ?></span>
+					<span class="span-1" title="#"><?php echo ($vo["MAC"]); ?></span>
+					<span class="span-1" title="#"><?php echo ($vo["device_type"]); ?></span>
+					<span class="span-2" title="#"><?php echo ($vo["place_name"]); ?></span>
+					<span class="span-1" title="#"><?php echo ($vo["address"]); ?></span>
+					<?php if($isDeleteResult != 1): ?><span class="span-1" title="#"><?php echo ($vo["status"]); ?></span><?php endif; ?>
+					<span class="span-1" title="#"><?php echo ($vo["deploy_time"]); ?></span>
+					<span class="span-1" title="#"><?php echo ($vo["begin_time"]); ?></span>
+					<span class="span-1" title="#"><img src="__PUBLIC__/image/img.png" alt=""/></span>
+				</li><?php endforeach; endif; else: echo "" ;endif; ?>
             <li>
                 <span class="span-1"><input type="radio" name="role-info" id="" class="role-table-radio"/></span>
                 <span class="span-1" title="#">1111111111111111111111111</span>
@@ -114,6 +130,7 @@
                 <span class="span-1" title="#"><img src="__PUBLIC__/image/img.png" alt=""/></span>
             </li>
         </ul>
+		<!--
         <ul class="role-table-list">
             <li>
                 <span class="span-1"></span>
@@ -136,6 +153,7 @@
                 <span class="span-1" title="#"><img src="__PUBLIC__/image/img.png" alt=""/></span>
             </li>
         </ul>
+		-->
 
     </div>
 </div>
@@ -144,7 +162,7 @@
     <div class="hd">
         <ul class="channel-tab">
             <li class="on">操作日志</li>
-            <li>删除日志</li>
+            <!--<li>删除日志</li>-->
         </ul>
     </div>
     <div class="bd">
@@ -235,7 +253,7 @@
                 <span class="span-3" title="#">Atque corporis laudantium perspiciatis qui?</span>
             </li>
         </ul>
-        <ul class="role-table-list role-table-list2">
+        <!--<ul class="role-table-list role-table-list2">
             <li>
                 <span class="span-3"><b>操作人</b></span>
                 <span class="span-3"><b>操作时间</b></span>
@@ -321,7 +339,7 @@
                 <span class="span-3" title="#">Beatae fugiat impedit ipsa porro!</span>
                 <span class="span-3" title="#">Atque corporis laudantium perspiciatis qui?</span>
             </li>
-        </ul>
+        </ul>-->
     </div>
 </div>
 </div>
@@ -387,7 +405,7 @@
         var Onav = document.getElementById('j-nav-active');
         var nbLi = Onav.getElementsByTagName('li');
         for(var i=0; i<nbLi.length;i++){
-            if(Ourl=="/gas_station_erp/index.php/Org/index"||Ourl.indexOf("/gas_station_erp/index.php/Org/index")>=0||Ourl=="/gas_station_erp/index.php/Role/index"||Ourl.indexOf("/gas_station_erp/index.php/Role/index")>=0||Ourl=="/gas_station_erp/index.php/User/index"||Ourl.indexOf("/gas_station_erp/index.php/User/index")>=0){
+            if(Ourl=="/gas_station_erp/index.php/Org/index"||Ourl.indexOf("/gas_station_erp/index.php/Org/index")>=0||Ourl=="/gas_station_erp/index.php/Role/index"||Ourl.indexOf("/gas_station_erp/index.php/Role/index")>=0||Ourl=="/gas_station_erp/index.php/User/index"||Ourl.indexOf("/gas_station_erp/index.php/User/index")>=0||Ourl=="/configuration/Org/index"||Ourl.indexOf("/configuration/Org/index")>=0){
                        nbLi[5].className='active';//系统设置
                         return;
             }
@@ -399,7 +417,7 @@
                 nbLi[3].className='active';//统计分析
                 return;
             }
-            if(Ourl=="/gas_station_erp/index.php/management/Index/importingApp"||Ourl.indexOf("/gas_station_erp/index.php/management/Index/importingApp")>=0||Ourl=="/gas_station_erp/index.php/management/index/addRuleTarget"||Ourl.indexOf("/gas_station_erp/index.php/management/index/addRuleTarget")>=0){
+            if(Ourl=="/gas_station_erp/index.php/management/Index/importingApp"||Ourl.indexOf("/gas_station_erp/index.php/management/Index/importingApp")>=0||Ourl=="/management/Index/addRuleTarget"||Ourl.indexOf("/management/Index/addRuleTarget")>=0){
                 nbLi[2].className='active';//运营管理
                 return;
             }
@@ -501,6 +519,25 @@
             fixDiv.style.position = 'static';
         }
     }
+
+	$(document).ready(function () {
+		var state = "<?php echo ($isDeleteResult); ?>";
+		if(1 == state){
+			$("#device_select_result_ul").append("<li onclick='device_use_select();'>启用</li><li class='on' onclick='device_remove_select();'>撤销</li>");
+		}else{
+			$("#device_select_result_ul").append("<li class='on' onclick='device_use_select();'>启用</li><li onclick='device_remove_select();'>撤销</li>");
+		}
+	});
+
+	function device_use_select(){
+		$("#select_del_flag_txt").val(0);
+		deviceSelect.submit();
+	}
+
+	function device_remove_select(){
+		$("#select_del_flag_txt").val(1);
+		deviceSelect.submit();
+	}
 </script>
 <script type="text/javascript">jQuery(".role-table").slide({trigger: "click"});</script>
 </body>

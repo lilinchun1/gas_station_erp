@@ -4,7 +4,8 @@
     <meta charset="UTF-8">
     <title>网点信息</title>
     <link rel="stylesheet" href="../../Public/css/configuration.css"/>
-
+	<script type="text/javascript" src="__PUBLIC__/js/script_city.js"></script>
+	<script language="javascript" type="text/javascript" src="__PUBLIC__/js/My97DatePicker/WdatePicker.js"></script>
 </head>
 <body>
 <div id="head">
@@ -54,37 +55,35 @@
 <div class="org-right-con">
 <div class="role-control" id="j-fixed-top">
     <div class="role-inquire channel-index-btns">
-        <form action="">
+        <form name="placeSelect" method="get" action="<?php echo U('channel/Place/placeSelect');?>">
             <p>
-                <label for="channel-org-name" class="">网店名称&nbsp;&nbsp;&nbsp;</label>
-                <input type="text" name="" id="channel-org-name" class="input-org-info"/>
+                <label for="channel-org-name" class="">网点名称&nbsp;&nbsp;&nbsp;</label>
+                <input type="text" name="place_name_txt" id="place_name_txt" class="input-org-info"/>
                 <label for="channel-ss-are" class="">所属区域</label>
-                <select name="add_agent_type_sel" id="channel-ss-are" class="channel-select-min">
-                    <option selected value="">省份</option>
-                    <option class="industry" value="trade">2</option>
-                    <option class="area" value="area">3</option>
-                </select>
-                <select name="add_agent_type_sel" id="channel-class2" class="channel-select-min">
-                    <option selected value="">城市</option>
-                    <option class="industry" value="trade">2</option>
-                    <option class="area" value="area">3</option>
-                </select>
+                 <span id="select_showcity"></span>
+                <script type="text/javascript">
+                    showprovince("select_province", "select_city", "<?php echo ($_GET['select_province']); ?>", "select_showcity");
+                    showcity("select_city", "<?php echo ($_GET['select_city']); ?>", "select_province", "select_showcity");
+                </script>
                 <label for="channel-ss-channel" class="">所属渠道</label>
-                <input type="text" name="" id="channel-ss-channel" class="input-org-info"/>
+                <input type="text" name="channel_name_txt" id="channel_name_txt" class="input-org-info"/>
 
             </p>
             <p>
                 <label for="channel-org-name" class="">测试结束期</label>
-                <input type="date" name="" id="" class="input-org-info"/>&nbsp;&nbsp;--&nbsp;&nbsp;<input type="date"
-                                                                                                          name="" id=""
-                                                                                                          class="input-org-info"/>
+                <input type="text" name="select_test_end_time_1" id="select_test_end_time_1" class="input-org-info"
+                       onClick="WdatePicker()"/>
+				&nbsp;&nbsp;--&nbsp;&nbsp;
+				<input type="text" name="select_test_end_time_2" id="select_test_end_time_2" class="input-org-info"
+                       onClick="WdatePicker()"/>
                 <label for="channel-state" class="">网点状态</label>
-                <select name="add_agent_type_sel" id="channel-state" class="channel-select-min">
-                    <option selected value="">启用</option>
-                    <option class="industry" value="trade">测试期</option>
-
+                <select name="place_state_sel" id="place_state_sel" class="channel-select-min">
+                   <option value="" <?php if($_GET['place_state_sel'] == ''): ?>selected="selected"<?php endif; ?>>全部</option>
+					<option value="test" <?php if($_GET['place_state_sel'] == 'test'): ?>selected="selected"<?php endif; ?>>测试期</option>
+					<option value="use" <?php if($_GET['place_state_sel'] == 'use'): ?>selected="selected"<?php endif; ?>>启用</option>
                 </select>
-                <button type="button" class="role-control-btn">查询</button>
+				<input type="text" name="select_del_flag_txt" id="select_del_flag_txt" value="0" style="display:none;"/>
+                <input type="submit" class="role-control-btn">查询</button>
             </p>
 
 
@@ -101,9 +100,7 @@
 </div>
 <div class="role-table">
 <div class="hd">
-    <ul class="channel-tab">
-        <li class="on">启用</li>
-        <li>撤销</li>
+    <ul id="place_select_result_ul" class="channel-tab">
     </ul>
 </div>
 <div class="bd over-h-y">
@@ -114,160 +111,24 @@
             <span class="span-2"><b>所属渠道</b></span>
             <span class="span-3"><b>网点地址</b></span>
             <span class="span-1"><b>网点电话</b></span>
-            <span class="span-1"><b>网点状态</b></span>
+			<?php if($isDeleteResult != 1): ?><span class="span-1"><b>网点状态</b></span><?php endif; ?>
             <span class="span-1"><b>启用日期</b></span>
-            <span class="span-1"><b>投放加油站数量</b></span>
+			<?php if($isDeleteResult != 1): ?><span class="span-1"><b>投放加油站数量</b></span>
+			<?php elseif($isDeleteResult == 1): ?>
+				<span class="span-1"><b>撤销日期</b></span><?php endif; ?>
         </li>
-        <li>
-            <span class="span-1"><input type="radio" name="role-info" id="" class="role-table-radio"/></span>
-            <span class="span-2" title="#">1111111111111111111111111</span>
-            <span class="span-2" title="#">Dolore eius expedita molestias!</span>
-            <span class="span-3" title="#">Blanditiis dolorum pariatur vitae?</span>
-            <span class="span-1" title="#">Perspiciatis quae ratione repudiandae!</span>
-            <span class="span-1" title="#">Ipsa nulla quidem voluptate?</span>
-            <span class="span-1" title="#">Consequuntur eveniet itaque velit.</span>
-            <span class="span-1" title="#">Aspernatur blanditiis ipsum nulla!</span>
-        </li>
-        <li>
-            <span class="span-1"><input type="radio" name="role-info" id="" class="role-table-radio"/></span>
-            <span class="span-2" title="#">1111111111111111111111111</span>
-            <span class="span-2" title="#">Dolore eius expedita molestias!</span>
-            <span class="span-3" title="#">Blanditiis dolorum pariatur vitae?</span>
-            <span class="span-1" title="#">Perspiciatis quae ratione repudiandae!</span>
-            <span class="span-1" title="#">Ipsa nulla quidem voluptate?</span>
-            <span class="span-1" title="#">Consequuntur eveniet itaque velit.</span>
-            <span class="span-1" title="#">Aspernatur blanditiis ipsum nulla!</span>
-        </li>
-        <li>
-            <span class="span-1"><input type="radio" name="role-info" id="" class="role-table-radio"/></span>
-            <span class="span-2" title="#">1111111111111111111111111</span>
-            <span class="span-2" title="#">Dolore eius expedita molestias!</span>
-            <span class="span-3" title="#">Blanditiis dolorum pariatur vitae?</span>
-            <span class="span-1" title="#">Perspiciatis quae ratione repudiandae!</span>
-            <span class="span-1" title="#">Ipsa nulla quidem voluptate?</span>
-            <span class="span-1" title="#">Consequuntur eveniet itaque velit.</span>
-            <span class="span-1" title="#">Aspernatur blanditiis ipsum nulla!</span>
-        </li>
-        <li>
-            <span class="span-1"><input type="radio" name="role-info" id="" class="role-table-radio"/></span>
-            <span class="span-2" title="#">1111111111111111111111111</span>
-            <span class="span-2" title="#">Dolore eius expedita molestias!</span>
-            <span class="span-3" title="#">Blanditiis dolorum pariatur vitae?</span>
-            <span class="span-1" title="#">Perspiciatis quae ratione repudiandae!</span>
-            <span class="span-1" title="#">Ipsa nulla quidem voluptate?</span>
-            <span class="span-1" title="#">Consequuntur eveniet itaque velit.</span>
-            <span class="span-1" title="#">Aspernatur blanditiis ipsum nulla!</span>
-        </li>
-        <li>
-            <span class="span-1"><input type="radio" name="role-info" id="" class="role-table-radio"/></span>
-            <span class="span-2" title="#">1111111111111111111111111</span>
-            <span class="span-2" title="#">Dolore eius expedita molestias!</span>
-            <span class="span-3" title="#">Blanditiis dolorum pariatur vitae?</span>
-            <span class="span-1" title="#">Perspiciatis quae ratione repudiandae!</span>
-            <span class="span-1" title="#">Ipsa nulla quidem voluptate?</span>
-            <span class="span-1" title="#">Consequuntur eveniet itaque velit.</span>
-            <span class="span-1" title="#">Aspernatur blanditiis ipsum nulla!</span>
-        </li>
-        <li>
-            <span class="span-1"><input type="radio" name="role-info" id="" class="role-table-radio"/></span>
-            <span class="span-2" title="#">1111111111111111111111111</span>
-            <span class="span-2" title="#">Dolore eius expedita molestias!</span>
-            <span class="span-3" title="#">Blanditiis dolorum pariatur vitae?</span>
-            <span class="span-1" title="#">Perspiciatis quae ratione repudiandae!</span>
-            <span class="span-1" title="#">Ipsa nulla quidem voluptate?</span>
-            <span class="span-1" title="#">Consequuntur eveniet itaque velit.</span>
-            <span class="span-1" title="#">Aspernatur blanditiis ipsum nulla!</span>
-        </li>
-        <li>
-            <span class="span-1"><input type="radio" name="role-info" id="" class="role-table-radio"/></span>
-            <span class="span-2" title="#">1111111111111111111111111</span>
-            <span class="span-2" title="#">Dolore eius expedita molestias!</span>
-            <span class="span-3" title="#">Blanditiis dolorum pariatur vitae?</span>
-            <span class="span-1" title="#">Perspiciatis quae ratione repudiandae!</span>
-            <span class="span-1" title="#">Ipsa nulla quidem voluptate?</span>
-            <span class="span-1" title="#">Consequuntur eveniet itaque velit.</span>
-            <span class="span-1" title="#">Aspernatur blanditiis ipsum nulla!</span>
-        </li>
-        <li>
-            <span class="span-1"><input type="radio" name="role-info" id="" class="role-table-radio"/></span>
-            <span class="span-2" title="#">1111111111111111111111111</span>
-            <span class="span-2" title="#">Dolore eius expedita molestias!</span>
-            <span class="span-3" title="#">Blanditiis dolorum pariatur vitae?</span>
-            <span class="span-1" title="#">Perspiciatis quae ratione repudiandae!</span>
-            <span class="span-1" title="#">Ipsa nulla quidem voluptate?</span>
-            <span class="span-1" title="#">Consequuntur eveniet itaque velit.</span>
-            <span class="span-1" title="#">Aspernatur blanditiis ipsum nulla!</span>
-        </li>
-        <li>
-            <span class="span-1"><input type="radio" name="role-info" id="" class="role-table-radio"/></span>
-            <span class="span-2" title="#">1111111111111111111111111</span>
-            <span class="span-2" title="#">Dolore eius expedita molestias!</span>
-            <span class="span-3" title="#">Blanditiis dolorum pariatur vitae?</span>
-            <span class="span-1" title="#">Perspiciatis quae ratione repudiandae!</span>
-            <span class="span-1" title="#">Ipsa nulla quidem voluptate?</span>
-            <span class="span-1" title="#">Consequuntur eveniet itaque velit.</span>
-            <span class="span-1" title="#">Aspernatur blanditiis ipsum nulla!</span>
-        </li>
-        <li>
-            <span class="span-1"><input type="radio" name="role-info" id="" class="role-table-radio"/></span>
-            <span class="span-2" title="#">1111111111111111111111111</span>
-            <span class="span-2" title="#">Dolore eius expedita molestias!</span>
-            <span class="span-3" title="#">Blanditiis dolorum pariatur vitae?</span>
-            <span class="span-1" title="#">Perspiciatis quae ratione repudiandae!</span>
-            <span class="span-1" title="#">Ipsa nulla quidem voluptate?</span>
-            <span class="span-1" title="#">Consequuntur eveniet itaque velit.</span>
-            <span class="span-1" title="#">Aspernatur blanditiis ipsum nulla!</span>
-        </li>
-        <li>
-            <span class="span-1"><input type="radio" name="role-info" id="" class="role-table-radio"/></span>
-            <span class="span-2" title="#">1111111111111111111111111</span>
-            <span class="span-2" title="#">Dolore eius expedita molestias!</span>
-            <span class="span-3" title="#">Blanditiis dolorum pariatur vitae?</span>
-            <span class="span-1" title="#">Perspiciatis quae ratione repudiandae!</span>
-            <span class="span-1" title="#">Ipsa nulla quidem voluptate?</span>
-            <span class="span-1" title="#">Consequuntur eveniet itaque velit.</span>
-            <span class="span-1" title="#">Aspernatur blanditiis ipsum nulla!</span>
-        </li>
-        <li>
-            <span class="span-1"><input type="radio" name="role-info" id="" class="role-table-radio"/></span>
-            <span class="span-2" title="#">1111111111111111111111111</span>
-            <span class="span-2" title="#">Dolore eius expedita molestias!</span>
-            <span class="span-3" title="#">Blanditiis dolorum pariatur vitae?</span>
-            <span class="span-1" title="#">Perspiciatis quae ratione repudiandae!</span>
-            <span class="span-1" title="#">Ipsa nulla quidem voluptate?</span>
-            <span class="span-1" title="#">Consequuntur eveniet itaque velit.</span>
-            <span class="span-1" title="#">Aspernatur blanditiis ipsum nulla!</span>
-        </li>
-        <li>
-            <span class="span-1"><input type="radio" name="role-info" id="" class="role-table-radio"/></span>
-            <span class="span-2" title="#">1111111111111111111111111</span>
-            <span class="span-2" title="#">Dolore eius expedita molestias!</span>
-            <span class="span-3" title="#">Blanditiis dolorum pariatur vitae?</span>
-            <span class="span-1" title="#">Perspiciatis quae ratione repudiandae!</span>
-            <span class="span-1" title="#">Ipsa nulla quidem voluptate?</span>
-            <span class="span-1" title="#">Consequuntur eveniet itaque velit.</span>
-            <span class="span-1" title="#">Aspernatur blanditiis ipsum nulla!</span>
-        </li>
-        <li>
-            <span class="span-1"><input type="radio" name="role-info" id="" class="role-table-radio"/></span>
-            <span class="span-2" title="#">1111111111111111111111111</span>
-            <span class="span-2" title="#">Dolore eius expedita molestias!</span>
-            <span class="span-3" title="#">Blanditiis dolorum pariatur vitae?</span>
-            <span class="span-1" title="#">Perspiciatis quae ratione repudiandae!</span>
-            <span class="span-1" title="#">Ipsa nulla quidem voluptate?</span>
-            <span class="span-1" title="#">Consequuntur eveniet itaque velit.</span>
-            <span class="span-1" title="#">Aspernatur blanditiis ipsum nulla!</span>
-        </li>
-        <li>
-            <span class="span-1"><input type="radio" name="role-info" id="" class="role-table-radio"/></span>
-            <span class="span-2" title="#">1111111111111111111111111</span>
-            <span class="span-2" title="#">Dolore eius expedita molestias!</span>
-            <span class="span-3" title="#">Blanditiis dolorum pariatur vitae?</span>
-            <span class="span-1" title="#">Perspiciatis quae ratione repudiandae!</span>
-            <span class="span-1" title="#">Ipsa nulla quidem voluptate?</span>
-            <span class="span-1" title="#">Consequuntur eveniet itaque velit.</span>
-            <span class="span-1" title="#">Aspernatur blanditiis ipsum nulla!</span>
-        </li>
+		 <?php if(is_array($list)): $i = 0; $__LIST__ = $list;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$vo): $mod = ($i % 2 );++$i;?><li>
+				<span class="span-1"><input type="radio" name="role-info" id="" class="role-table-radio"/></span>
+				<span class="span-2" title="#"><?php echo ($vo["place_name"]); ?></span>
+				<span class="span-2" title="#"><?php echo ($vo["channel_name"]); ?></span>
+				<span class="span-3" title="#"><?php echo ($vo["region"]); ?></span>
+				<span class="span-1" title="#"><?php echo ($vo["place_tel"]); ?></span>
+				<?php if($isDeleteResult != 1): ?><span class="span-1" title="#"><?php echo ($vo["status"]); ?></span><?php endif; ?>
+				<span class="span-1" title="#"><?php echo ($vo["begin_time"]); ?></span>
+				<?php if($isDeleteResult != 1): ?><span class="span-1" title="#"><?php echo ($vo["device_num"]); ?></span>
+				<?php elseif($isDeleteResult == 1): ?>
+					<span class="span-1" title="#"><?php echo ($vo["end_time"]); ?></span><?php endif; ?>
+			</li><?php endforeach; endif; else: echo "" ;endif; ?>
         <li>
             <span class="span-1"><input type="radio" name="role-info" id="" class="role-table-radio"/></span>
             <span class="span-2" title="#">1111111111111111111111111</span>
@@ -279,6 +140,8 @@
             <span class="span-1" title="#">Aspernatur blanditiis ipsum nulla!</span>
         </li>
     </ul>
+	<div class="resultpage"><?php echo ($page); ?></div>
+	<!--
     <ul class="role-table-list">
         <li>
             <span class="span-1"></span>
@@ -289,6 +152,15 @@
             <span class="span-1"><b>启用日期</b></span>
             <span class="span-1"><b>撤销日期</b></span>
         </li>
+		<?php if(is_array($list)): $i = 0; $__LIST__ = $list;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$vo): $mod = ($i % 2 );++$i;?><li>
+				<span class="span-1"><input type="radio" name="role-info" id="" class="role-table-radio"/></span>
+				<span class="span-2" title="#"><?php echo ($vo["place_name"]); ?></span>
+				<span class="span-2" title="#"><?php echo ($vo["channel_name"]); ?></span>
+				<span class="span-3" title="#"><?php echo ($vo["region"]); ?></span>
+				<span class="span-1" title="#"><?php echo ($vo["place_tel"]); ?></span>
+				<span class="span-1" title="#"><?php echo ($vo["begin_time"]); ?></span>
+				<span class="span-1" title="#"><?php echo ($vo["end_time"]); ?></span>
+			</li><?php endforeach; endif; else: echo "" ;endif; ?>
         <li>
             <span class="span-1"><input type="radio" name="role-info" id="" class="role-table-radio"/></span>
             <span class="span-2" title="#">222222222222222</span>
@@ -300,6 +172,7 @@
         </li>
 
     </ul>
+	-->
 </div>
 </div>
 
@@ -307,7 +180,7 @@
     <div class="hd">
         <ul class="channel-tab">
             <li class="on">操作日志</li>
-            <li>删除日志</li>
+            <!--<li>删除日志</li>-->
         </ul>
     </div>
     <div class="bd">
@@ -398,7 +271,7 @@
                 <span class="span-3" title="#">Atque corporis laudantium perspiciatis qui?</span>
             </li>
         </ul>
-        <ul class="role-table-list role-table-list2">
+        <!--<ul class="role-table-list role-table-list2">
             <li>
                 <span class="span-3"><b>操作人</b></span>
                 <span class="span-3"><b>操作时间</b></span>
@@ -484,7 +357,7 @@
                 <span class="span-3" title="#">Beatae fugiat impedit ipsa porro!</span>
                 <span class="span-3" title="#">Atque corporis laudantium perspiciatis qui?</span>
             </li>
-        </ul>
+        </ul>-->
     </div>
 
 </div>
@@ -551,7 +424,7 @@
         var Onav = document.getElementById('j-nav-active');
         var nbLi = Onav.getElementsByTagName('li');
         for(var i=0; i<nbLi.length;i++){
-            if(Ourl=="/gas_station_erp/index.php/Org/index"||Ourl.indexOf("/gas_station_erp/index.php/Org/index")>=0||Ourl=="/gas_station_erp/index.php/Role/index"||Ourl.indexOf("/gas_station_erp/index.php/Role/index")>=0||Ourl=="/gas_station_erp/index.php/User/index"||Ourl.indexOf("/gas_station_erp/index.php/User/index")>=0){
+            if(Ourl=="/gas_station_erp/index.php/Org/index"||Ourl.indexOf("/gas_station_erp/index.php/Org/index")>=0||Ourl=="/gas_station_erp/index.php/Role/index"||Ourl.indexOf("/gas_station_erp/index.php/Role/index")>=0||Ourl=="/gas_station_erp/index.php/User/index"||Ourl.indexOf("/gas_station_erp/index.php/User/index")>=0||Ourl=="/configuration/Org/index"||Ourl.indexOf("/configuration/Org/index")>=0){
                        nbLi[5].className='active';//系统设置
                         return;
             }
@@ -563,7 +436,7 @@
                 nbLi[3].className='active';//统计分析
                 return;
             }
-            if(Ourl=="/gas_station_erp/index.php/management/Index/importingApp"||Ourl.indexOf("/gas_station_erp/index.php/management/Index/importingApp")>=0||Ourl=="/gas_station_erp/index.php/management/index/addRuleTarget"||Ourl.indexOf("/gas_station_erp/index.php/management/index/addRuleTarget")>=0){
+            if(Ourl=="/gas_station_erp/index.php/management/Index/importingApp"||Ourl.indexOf("/gas_station_erp/index.php/management/Index/importingApp")>=0||Ourl=="/management/Index/addRuleTarget"||Ourl.indexOf("/management/Index/addRuleTarget")>=0){
                 nbLi[2].className='active';//运营管理
                 return;
             }
@@ -672,6 +545,25 @@
             fixDiv.style.position = 'static';
         }
     }
+
+	 $(document).ready(function () {
+		var state = "<?php echo ($isDeleteResult); ?>";
+		if(1 == state){
+			$("#place_select_result_ul").append("<li onclick='place_use_select();'>启用</li><li class='on' onclick='place_remove_select();'>撤销</li>");
+		}else{
+			$("#place_select_result_ul").append("<li class='on' onclick='place_use_select();'>启用</li><li onclick='place_remove_select();'>撤销</li>");
+		}
+	});
+
+	function place_use_select(){
+		$("#select_del_flag_txt").val(0);
+		placeSelect.submit();
+	}
+
+	function place_remove_select(){
+		$("#select_del_flag_txt").val(1);
+		placeSelect.submit();
+	}
 </script>
 </body>
 </html>

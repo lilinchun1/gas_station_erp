@@ -135,7 +135,28 @@ class RoleAction extends CommonAction {
 		$Model = new Model();
 		$role_menu_info = $Model->query("select b.menu_id, b.menuname, b.url, b.pid from 
 			bi_role_menu a, bi_menu b where a.menu_id=b.menu_id and a.role_id=" . $id);
-		$this->ajaxReturn($role_menu_info, 'json');
+		$data = null;
+		foreach($role_menu_info as $key=>$val){
+			$data[$key]['id'] = $val['menu_id'];
+			$data[$key]['value'] = $val['menuname'];
+			$data[$key]['parent'] = $val['pid'];
+		}
+		
+		$this->ajaxReturn($data, 'json');
+	}
+
+	//查看权限
+	public function select_all_purview(){
+		$Model = new Model();
+		$menu_info = $Model->query("select menu_id, menuname, url, pid from bi_menu");
+		$data = null;
+		foreach($menu_info as $key=>$val){
+			$data[$key]['id'] = $val['menu_id'];
+			$data[$key]['value'] = $val['menuname'];
+			$data[$key]['parent'] = $val['pid'];
+		}
+		
+		$this->ajaxReturn($data, 'json');
 	}
 
 }

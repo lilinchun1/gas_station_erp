@@ -62,7 +62,7 @@
                     </div>
                     <div class="org-right-btns">
                         <form action="">
-                            <button type="button" class="area-btn">添加</button>
+                            <button type="button" class="area-btn" id="j_add_button">添加</button>
                             <button type="button" class="area-btn">编辑</button>
                             <button type="button" class="area-btn">删除</button>
                             <button type="button" class="area-btn">查看权限</button>
@@ -184,31 +184,35 @@
 </script>
 
 
-<div class="alert-role-add">
-    <h3>添加角色信息</h3>
-    <div class="alert-role-add-con">
-        <form action="">
-            <p>
-                <label for="role-addname" class="role-lab">角色名称</label>
-                <input type="text" name="addname" id="role-addname" class="input-role-name"/>
-            </p>
-            <p>
-                <label for="role-textarea" class="role-lab">角色名称</label>
-                <textarea name="" id="role-textarea" cols="30" rows="3" class="role-teatarea"></textarea>
-            </p>
-            <p>
-                <label for="">设置权限</label>
-                <!-- 容器 -->
-                <div id="J_Tree"></div>
-                <!-- 结果收集、设置回显数据 -->
-                <input type="hidden" id="J_TreeResult" value='{"id":"291"}'>
-            </p>
-            <p>
-                <button type="button" class="alert-btn2">保存</button>
-                <button type="button" class="alert-btn2">关闭</button>
-            </p>
-        </form>
-    </div>
+<div id="j_add_win" style="display:none;">
+	<div class="alert-role-add">
+		<h3>添加角色信息</h3>
+		<div class="alert-role-add-con">
+			<form action="">
+				<p>
+					<label for="role-addname" class="role-lab">角色名称</label>
+					<input type="text" name="addname" id="role-addname" class="input-role-name"/>
+				</p>
+				<p>
+					<label for="role-textarea" class="role-lab">角色名称</label>
+					<textarea name="" id="role-textarea" cols="30" rows="3" class="role-teatarea"></textarea>
+				</p>
+				<p>
+					<label for="">设置权限</label>
+					<input type="button" value="权限设置"/>
+					<!--权限树形-->
+					<div class="zTreeDemoBackground left">
+							<ul id="treeDemo" class="ztree"></ul>
+					</div>
+
+				</p>
+				<p>
+					<button type="button" class="alert-btn2">保存</button>
+					<button type="button" class="alert-btn2">关闭</button>
+				</p>
+			</form>
+		</div>
+	</div>
 </div>
 <div class="alert-role-add">
     <h3>编辑角色信息</h3>
@@ -247,6 +251,12 @@
     </div>
 </div>
 </body>
+<script type="text/javascript" src="__PUBLIC__/js/jquery-1.6.1.js"></script>
+<script type="text/javascript" src="__PUBLIC__/js/jquery.DOMwindow.js" type="text/javascript"></script><!--模框JS插件-->
+<!--树形结构类-->
+<link rel="stylesheet" href="__PUBLIC__/css/tree/tree.css" type="text/css">
+<script type="text/javascript" src="__PUBLIC__/js/tree/jquery.ztree.core-3.5.js"></script>
+<script type="text/javascript" src="__PUBLIC__/js/tree/jquery.ztree.excheck-3.5.js"></script>
 <script>
     window.onscroll=function(){
         var scrollTop=document.documentElement.scrollTop||document.body.scrollTop;
@@ -258,5 +268,160 @@
             fixDiv.style.position='static';
         }
     }
+//===================================================树形结构js==========================
+var setting = {
+	check: {
+		enable: true
+	},
+	data: {
+		simpleData: {
+			enable: true
+		}
+	}
+};
+var handleUrl="<?php echo U('configuration/Role/select_all_purview');?>";
+var zNodes=new Array();
+var now=new Date().getTime();//加个时间戳表示每次是新的请求
+$.ajax({
+    type: "POST",
+    url: handleUrl,
+    async: false,
+    dataType: "json",
+    success: function(data){
+        $.each(data,function(key,val){
+            var kid=val['id'];
+            var parent=val['parent'];
+            var value=val['value'];
+            zNodes[key]= {'id':kid, 'pId':parent, 'name':value, 'open':true ,'t':kid};
+        });
+    },
+
+    error: function(XMLHttpRequest, textStatus, errorThrown) {
+        // alert("请求失败!");
+    }
+});
+
+		var code;
+		
+		function setCheck() {
+			var zTree = $.fn.zTree.getZTreeObj("treeDemo"),
+			py = $("#py").attr("checked")? "p":"",
+			sy = $("#sy").attr("checked")? "s":"",
+			pn = $("#pn").attr("checked")? "p":"",
+			sn = $("#sn").attr("checked")? "s":"",
+			type = { "Y":py + sy, "N":pn + sn};
+			zTree.setting.check.chkboxType = type;
+			showCode('setting.check.chkboxType = { "Y" : "' + type.Y + '", "N" : "' + type.N + '" };');
+		}
+		function showCode(str) {
+			if (!code) code = $("#code");
+			code.empty();
+			code.append("<li>"+str+"</li>");
+		}
+		
+
+//===================================================树形结构js结束==========
+
+
+
+
+$(document).ready(function(){
+
+//===================================================树形结构js传递==========
+			$.fn.zTree.init($("#treeDemo"), setting, zNodes);
+			setCheck();
+			$("#py").bind("change", setCheck);
+			$("#sy").bind("change", setCheck);
+			$("#pn").bind("change", setCheck);
+			$("#sn").bind("change", setCheck);
+
+
+
+	$('#j_add_button').click(function(){
+        //保存
+        $('#j_add_save').click(function(){
+            var add_agent_name_txt=$('#j_add_org').val();//组织机构名称
+
+            var add_agent_type_sel=$("#add_agent_type_sel").val();//代理商类型
+
+            var add_agent_level_sel=$('#add_agent_level_sel').val();//代理商级别
+
+            var add_legal_txt=$('#j_add_linkman').val();//联系人
+
+            var add_companyAddr_txt=$('#j_add_address').val();//办公地址
+
+            var add_tel_txt=$('#add_tel_txt').val();//公司电话
+
+            var add_contract_number_txt=$('#j_add_contract-number').val();//合同编号
+
+            var add_father_agentid_sel=$('#j_add_org-s').val();//上级组织机构
+
+            var add_legal_tel_txt=$('#j_add_phone').val();//联系电话
+
+            var add_org_area=$('#resvals').val();//业务范围
+
+            var add_begin_time_sel=$('#j_add_sq-date').val();//授权日期
+
+            var add_end_time_sel=$('#j_add_date').val();//授权日期
+
+            var is_add_forever_checked = $("#j_add_forever_check").attr('checked');
+            var add_forever_check="";
+            if('checked' == is_add_forever_checked)
+            {
+                var add_forever_check = '1';
+            }
+            else
+            {
+                var add_forever_check = '0';
+            }
+
+            //return false;
+            var add_handleUrl="<?php echo U('configuration/Org/add_org');?>";
+            $.getJSON(add_handleUrl,{"add_agent_name_txt":add_agent_name_txt,"add_legal_txt":add_legal_txt,
+                        "add_agent_level_sel":add_agent_level_sel,
+                        "add_agent_type_sel":add_agent_type_sel,
+                        "add_companyAddr_txt":add_companyAddr_txt,
+                        "add_tel_txt":add_tel_txt,
+
+                        "add_contract_number_txt":add_contract_number_txt,"add_father_agentid_sel":add_father_agentid_sel,
+                        "add_legal_tel_txt":add_legal_tel_txt,"add_org_area":add_org_area,"add_contract_number_txt":add_contract_number_txt,
+                        "add_companyAddr_txt":add_companyAddr_txt,"add_begin_time_sel":add_begin_time_sel,"add_end_time_sel":add_end_time_sel,"add_forever_check":add_forever_check},
+                    function (data){
+                        var tmp_msg = "<?php echo C('add_agents_success');?>";
+                        if(tmp_msg == data)
+                        {
+                            alert(data);
+                            window.location.href = window.location.href;
+                        }
+                        else
+                        {
+                            alert(data);
+                            //$(".cli_tishi").html("<img src='__PUBLIC__/image/th.png'/>"+data+"");
+                        }
+                    }
+                    ,'json'
+            );
+        });//结束
+        $.openDOMWindow({
+            loader:1,
+            loaderHeight:16,
+            loaderWidth:17,
+            windowSourceID:'#j_add_win'
+        });
+        return false;
+    });
+
+	//=====================================================业务范围事件============================================
+    $("#j-choose").click(function(){
+        $.openLayer({
+            maxItems : 5,
+            pid : "0",
+            returnText : "restxts",
+            returnValue : "resvals",
+            span_width : {d1:120,d2:150,d3:150},
+            index : 10005
+        });
+    });
+});
 </script>
 </html>
