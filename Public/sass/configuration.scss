@@ -644,7 +644,32 @@ $min-width-kuang:1200px;
     float: left;
     width: 24%;
     height: 150px;
-    background: $bg-color;}
+    background: $bg-color;
+      h4{
+        margin-top: 10px;
+        text-align: center;
+      }
+      span{
+        float: left;
+        margin: 10px 0 0 10%;
+        width: 100px;
+        height: 100px;
+        background: #000;
+        }
+      .station-zhuangtai{
+        margin-top: 10px;
+        float: left;
+        width: 40%;
+        height: 100px;
+        overflow: hidden;
+          dt{
+            height: 40px;
+            line-height: 40px;
+              b,em{
+                padding-left: 10px;}
+          }
+      }
+  }
 }
 .station-state-list{
   padding: 20px 0;
@@ -663,6 +688,7 @@ $min-width-kuang:1200px;
   li{
     padding: 20px 0;
     background: $bg-color;
+    overflow: hidden;
     border-bottom: 1px dashed $border-color;}
 }
 .station-state-info{
@@ -675,6 +701,7 @@ $min-width-kuang:1200px;
     }
 }
 .point-pic{
+  float: left;
   margin: 20px 0 0 30px;
   width: 130px;
   height: 120px;
@@ -692,5 +719,27 @@ $min-width-kuang:1200px;
       line-height: 20px;
       display: block;
       text-align: center;
+    }
+}
+.station-state-dl{
+  padding-top: 10px;
+  margin: 20px 0 0 20px;
+  float: left;
+  width: 81%;
+  border: 1px solid #000;
+    dt{
+      margin-bottom: 10px;
+      width: 25%;
+      height: 30px;
+      line-height: 30px;
+      float: left;
+      background: #cccccc;
+        em{
+          width: 100px;
+          text-align: right;
+          display: inline-block;
+        }
+        span{
+          padding-left: 10px;}
     }
 }
