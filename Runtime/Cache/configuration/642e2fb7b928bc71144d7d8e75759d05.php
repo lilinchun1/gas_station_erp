@@ -38,16 +38,23 @@
 </div>
 <script type="text/javascript">
 	function show_change_password(){
-		$('#change_password_id').show();
+		//$('#change_password_id').show();
+		$.openDOMWindow({
+            loader:1,
+            loaderHeight:16,
+            loaderWidth:17,
+            windowSourceID:'#change_password_id'
+        });
+        return false;
 	}
 </script>
 <div id="container">
     <div class="left">
         <ul class="aside-nav">
             <li class="aside-nav-nth1"><a href="<?php echo U('configuration/Org/index');?>">系统设置</a></li>
-            <li class="active"><a href="<?php echo U('Org/index');?>"><input  type="button"  value="组织结构" ></a></li>
-            <li><a href="<?php echo U('Role/index');?>"><input type="button" class="" value="角色维护" ></a></li>
-            <li><a href="<?php echo U('User/index');?>"><input type="button" class="" value="职员维护" ></a></li>
+            <li class="active"><a href="<?php echo U('configuration/Org/index');?>"><input  type="button"  value="组织结构" ></a></li>
+            <li><a href="<?php echo U('configuration/Role/index');?>"><input type="button" class="" value="角色维护" ></a></li>
+            <li><a href="<?php echo U('configuration/User/index');?>"><input type="button" class="" value="职员维护" ></a></li>
         </ul>
     </div>
     <div class="right">
@@ -122,6 +129,7 @@
 1111
 </div>
 <script type="text/javascript" src="__PUBLIC__/js/jquery-1.6.1.js"></script>
+<script type="text/javascript" src="__PUBLIC__/js/jquery.DOMwindow.js" type="text/javascript"></script><!--模框JS插件-->
 <div id="change_password_id" class="alert-role-add" style="display:none;">
     <h3>修改密码</h3>
     <div class="alert-role-add-con">
@@ -139,7 +147,9 @@
         </p>
         <p>
             <button type="button" class="alert-btn2" onclick="change_password()">修改密码</button>
-
+			<a href="." class="closeDOMWindow">
+				<button type="button" class="alert-btn2">关闭</button>
+			</a>
         </p>
     </div>
 </div>

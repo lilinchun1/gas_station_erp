@@ -37,7 +37,14 @@
 </div>
 <script type="text/javascript">
 	function show_change_password(){
-		$('#change_password_id').show();
+		//$('#change_password_id').show();
+		$.openDOMWindow({
+            loader:1,
+            loaderHeight:16,
+            loaderWidth:17,
+            windowSourceID:'#change_password_id'
+        });
+        return false;
 	}
 </script>
 <div id="container">
@@ -74,7 +81,7 @@
                 <label for="channel-ss-channel" class="">所属网点</label>
                 <input type="text" name="place_name_txt" id="place_name_txt" class="input-org-info"/>
 				<input type="text" name="select_del_flag_txt" id="select_del_flag_txt" value="0" style="display:none;"/>
-                <input type="submit" class="role-control-btn">查询</button>
+                <input type="submit" class="role-control-btn">
             </p>
         </form>
     </div>
@@ -350,6 +357,7 @@
 1111
 </div>
 <script type="text/javascript" src="__PUBLIC__/js/jquery-1.6.1.js"></script>
+<script type="text/javascript" src="__PUBLIC__/js/jquery.DOMwindow.js" type="text/javascript"></script><!--模框JS插件-->
 <div id="change_password_id" class="alert-role-add" style="display:none;">
     <h3>修改密码</h3>
     <div class="alert-role-add-con">
@@ -367,7 +375,9 @@
         </p>
         <p>
             <button type="button" class="alert-btn2" onclick="change_password()">修改密码</button>
-
+			<a href="." class="closeDOMWindow">
+				<button type="button" class="alert-btn2">关闭</button>
+			</a>
         </p>
     </div>
 </div>

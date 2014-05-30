@@ -107,6 +107,9 @@ class UserAction extends CommonAction {
 		$data['orgid'] = $orgid;
 		$data['del_flag'] = $del_flag;
 		$is_set = $user->add($data);
+		if(!$is_set){
+			$msg = C("add_user_failed");
+		}
 		$tmp_user_id = $user->query('select last_insert_id() as id');
 
 		$roleid_array = explode(",", $roleid);
@@ -146,6 +149,9 @@ class UserAction extends CommonAction {
 		$data['sex'] = $sex;
 		$data['orgid'] = $orgid;
 		$is_set = $user->where("uid=%d", $userid)->save($data);
+		if(!$is_set){
+			$msg = C("modify_user_failed");
+		}
 
 		$is_delete = $user_role->where("userid=%d", $userid)->delete();
 		$roleid_array = explode(",", $roleid);
@@ -167,7 +173,13 @@ class UserAction extends CommonAction {
 		$user_role = M("user_role");
 
 		$is_delete = $user->where("uid=%d", $id)->delete();
+		if(!$is_delete){
+			$msg = C("delete_user_failed");
+		}
 		$is_delete = $user_role->where("userid=%d", $id)->delete();
+		if(!$is_delete){
+			$msg = C("delete_user_failed");
+		}
 
 		$this->ajaxReturn($msg,'json');
 	}
@@ -181,6 +193,9 @@ class UserAction extends CommonAction {
 
 		$data['password'] = C('initial_password');
 		$is_set = $user->where("uid=%d", $userid)->save($data);
+		if(!$is_set){
+			$msg = C("reset_password_failed");
+		}
 
 		$this->ajaxReturn($msg,'json');
 	}
@@ -199,6 +214,9 @@ class UserAction extends CommonAction {
 			$data['del_flag'] = 1;
 		}
 		$is_set = $user->where("uid=%d", $userid)->save($data);
+		if(!$is_set){
+			$msg = C("modify_user_state_failed");
+		}
 
 		$this->ajaxReturn($msg,'json');
 	}

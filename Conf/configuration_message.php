@@ -37,6 +37,8 @@
 		'delete_user_success'		=>	'成功删除用户',
 		'delete_user_failed'		=>	'删除用户失败',
 		'reset_password_success'		=>	'成功重置用户密码',
+		'reset_password_failed'		=>	'重置用户密码失败',
 		'modify_user_state_success'		=>	'成功修改用户状态',
+		'modify_user_state_failed'		=>	'修改用户状态失败',
 	);
 ?>

@@ -773,3 +773,14 @@ $min-width-kuang:1200px;
       }
     }
 }
+.mode-change{
+  float: right;
+  height: 25px;
+  line-height: 25px;
+    a {
+      padding-right: 10px;
+    }
+    .active{
+      color: $font-h-color;
+      font-weight: bold;}
+}

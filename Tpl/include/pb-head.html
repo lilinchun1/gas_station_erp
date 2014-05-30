@@ -28,6 +28,13 @@
 </div>
 <script type="text/javascript">
 	function show_change_password(){
-		$('#change_password_id').show();
+		//$('#change_password_id').show();
+		$.openDOMWindow({
+            loader:1,
+            loaderHeight:16,
+            loaderWidth:17,
+            windowSourceID:'#change_password_id'
+        });
+        return false;
 	}
 </script>

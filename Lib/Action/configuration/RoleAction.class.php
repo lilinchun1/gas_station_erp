@@ -74,12 +74,15 @@ class RoleAction extends CommonAction {
 		$data['adddate'] = $adddate;
 		$data['del_flag'] = 0;
 		$is_set = $role->add($data);
+		if(!$is_set){
+			$msg = C("add_role_failed");
+		}
 		$tmp_role_id = $role->query('select last_insert_id() as id');
 		$menu_id_array = explode(",", $menu_id);
 		foreach($menu_id_array as $key=>$val){
 			$data_menu['role_id'] = $tmp_role_id[0]['id'];
 			$data_menu['menu_id'] = $val;
-			$is_set = $role_menu->add($data_menu);
+			$is_menu = $role_menu->add($data_menu);
 		}
 
 		$this->ajaxReturn($msg,'json');
@@ -103,13 +106,16 @@ class RoleAction extends CommonAction {
 		$data['modifyuserid'] = $modifyuserid;
 		$data['modifydate'] = $modifydate;
 		$is_set = $role->where("roleid=%d", $role_id)->save($data);
+		if(!$is_set){
+			$msg = C("modify_role_failed");
+		}
 
 		$is_delete = $role_menu->where("role_id=%d", $role_id)->delete();
 		$menu_id_array = explode(",", $menu_id);
 		foreach($menu_id_array as $key=>$val){
 			$data_menu['role_id'] = $role_id;
 			$data_menu['menu_id'] = $val;
-			$is_set = $role_menu->add($data_menu);
+			$is_menu = $role_menu->add($data_menu);
 		}
 
 		$this->ajaxReturn($msg,'json');
@@ -124,7 +130,13 @@ class RoleAction extends CommonAction {
 		$role_menu = M("role_menu");
 
 		$is_delete = $role->where("roleid=%d", $id)->delete();
+		if(!$is_delete){
+			$msg = C("delete_role_failed");
+		}
 		$is_delete = $role_menu->where("role_id=%d", $id)->delete();
+		if(!$is_delete){
+			$msg = C("delete_role_failed");
+		}
 
 		$this->ajaxReturn($msg,'json');
 	}
@@ -136,10 +148,18 @@ class RoleAction extends CommonAction {
 		$role_menu_info = $Model->query("select b.menu_id, b.menuname, b.url, b.pid from 
 			bi_role_menu a, bi_menu b where a.menu_id=b.menu_id and a.role_id=" . $id);
 		$data = null;
+		/*
 		foreach($role_menu_info as $key=>$val){
 			$data[$key]['id'] = $val['menu_id'];
 			$data[$key]['value'] = $val['menuname'];
 			$data[$key]['parent'] = $val['pid'];
+		}
+		*/
+		foreach($role_menu_info as $key=>$val){
+			$data .= $val['menuname'] . ",";
+		}
+		if(!empty($role_menu_info[0]['menuname'])){
+			$data = substr($data, 0, -1);
 		}
 		
 		$this->ajaxReturn($data, 'json');
