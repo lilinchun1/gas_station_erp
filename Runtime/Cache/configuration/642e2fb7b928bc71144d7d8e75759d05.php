@@ -130,19 +130,20 @@
 </div>
 <script type="text/javascript" src="__PUBLIC__/js/jquery-1.6.1.js"></script>
 <script type="text/javascript" src="__PUBLIC__/js/jquery.DOMwindow.js" type="text/javascript"></script><!--模框JS插件-->
-<div id="change_password_id" class="alert-role-add" style="display:none;">
+<div id="change_password_id" style="display:none;">
+    <div class="alert-role-add" >
     <h3>修改密码</h3>
     <div class="alert-role-add-con">
         <p>
-            <label for="old-pass" class="role-lab">旧密码&nbsp;&nbsp;&nbsp;</label>
+            <label for="old_password_txt" class="role-lab">旧密码&nbsp;&nbsp;&nbsp;</label>
             <input type="text" name="old_password_txt" id="old_password_txt" class="input-role-name"/>
         </p>
         <p>
-            <label for="new-pass" class="role-lab">新密码&nbsp;&nbsp;&nbsp;</label>
+            <label for="new_password_txt" class="role-lab">新密码&nbsp;&nbsp;&nbsp;</label>
             <input type="password" name="new_password_txt" id="new_password_txt" class="input-role-name"/>
         </p>
         <p>
-            <label for="rnew-pass" class="role-lab">确认密码</label>
+            <label for="re_new_password_txt" class="role-lab">确认密码</label>
             <input type="password" name="re_new_password_txt" id="re_new_password_txt" class="input-role-name"/>
         </p>
         <p>
@@ -152,6 +153,7 @@
 			</a>
         </p>
     </div>
+</div>
 </div>
 <script>
     window.onload=function(){
@@ -273,7 +275,7 @@
 			<p class="delete-message">请确认是否删除？</p>
 			<input type="hidden" value="" id="del_id_hidden"/>
 			<p>
-				<button type="button" class="alert-btn2" id="j_del_ok">确定</button>
+				<button type="button" class="alert-btn2" id="j_del_ok">删除</button>
 				<a href="." class="closeDOMWindow">
 					<button type="button" class="alert-btn2">关闭</button>
 				</a>

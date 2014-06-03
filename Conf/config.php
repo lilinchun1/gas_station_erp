@@ -16,7 +16,7 @@ return array(
 	'ROOT_USER_REALNAME' => '根用户', // 根用户用户名
 	'DEFAULT_CHARSET' => 'utf-8',
 	'OUTPUT_CHARSET' => 'utf-8',
-	'LOAD_EXT_CONFIG' => 'configuration_message',
+	'LOAD_EXT_CONFIG' => 'configuration_message,channel_message',
 	//'LAYOUT_ON'=>true,
 	//'LAYOUT_NAME'=>'layout',
 	'VAR_FILTERS'=>'htmlspecialchars'

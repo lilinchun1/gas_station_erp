@@ -30,8 +30,8 @@
                     </div>
                     <div class="org-right-btns">
                             <button type="button" class="area-btn" id="j_add_button">添加</button>
-                            <button type="button" class="area-btn">编辑</button>
-                            <button type="button" class="area-btn">删除</button>
+                            <button type="button" class="area-btn" id="j_mod_button">编辑</button>
+                            <button type="button" class="area-btn" id="j_del_button">删除</button>
                             <button type="button" class="area-btn" id="j_selrole_button">查看权限</button>
 							<input type="hidden" id="selrole_hidden_id" value="" />
                     </div>
@@ -101,49 +101,72 @@
 				</p>
 				<p>
 					<button type="button" class="alert-btn2" id="j_add_save">保存</button>
-					<button type="button" class="alert-btn2">关闭</button>
+					<a href="." class="closeDOMWindow">
+						<button type="button" class="alert-btn2">关闭</button>
+					</a>
 				</p>
 			</form>
 		</div>
 	</div>
 
 </div>
-
-<div class="alert-role-add">
-    <h3>编辑角色信息</h3>
-    <div class="alert-role-add-con">
-        <form action="">
-            <p>
-                <label for="role-addname" class="role-lab">角色名称</label>
-                <input type="text" name="addname" id="role-addname" class="input-role-name"/>
-            </p>
-            <p>
-                <label for="role-textarea" class="role-lab">角色名称</label>
-                <textarea name="" id="role-textarea" cols="30" rows="3" class="role-teatarea"></textarea>
-            </p>
-            <p>
-                <label for="">设置权限</label>
-                <!-- 容器 -->
-            <div id="J_Tree"></div>
-            <!-- 结果收集、设置回显数据 -->
-            <input type="hidden" id="J_TreeResult" value='{"id":"291"}'>
-            </p>
-            <p>
-                <button type="button" class="alert-btn2">保存</button>
-                <button type="button" class="alert-btn2">关闭</button>
-            </p>
-        </form>
-    </div>
+<div id="j_mod_win" style="display:none">
+	<div class="alert-role-add">
+		<h3>编辑角色信息</h3>
+		<div class="alert-role-add-con">
+		<input type="text" id="mod_id_hide" value=""/>
+			<form action="">
+				<p>
+					<label for="role-addname" class="role-lab">角色名称</label>
+					<input type="text" name="addname" id="mod_rolename" class="input-role-name"/>
+				</p>
+				<p>
+					<label for="role-textarea" class="role-lab">角色描述</label>
+					<textarea name="" id="mod_memo" cols="30" rows="3" class="role-teatarea"></textarea>
+				</p>
+				<p>
+					<label for="">设置权限</label>
+					<!--权限树形-->
+					<div class="zTreeDemoBackground left">
+						<ul class="list">
+							<li class="title">
+								<input id="mod_citySel" class="input-role-name" type="text" readonly value="" style="width:250px;" onclick="mod_showMenu();" />
+								<input id="mod_cityid" type="text" readonly value="" style="width:250px;" onclick="mod_showMenu();" />
+								<a id="mod_menuBtn" href="#" onclick="mod_showMenu(); return false;">select</a>
+							</li>
+						</ul>
+					</div>
+					<div id="mod_menuContent" class="menuContent" style="display:none; ">
+						<ul id="mod_treeDemo" class="ztree" style="margin-top:0; width:50px; height: 50px;"></ul>
+					</div>
+				</p>
+				<p>
+					<button type="button" class="alert-btn2" id="j_mod_save">保存</button>
+					<a href="." class="closeDOMWindow">
+						<button type="button" class="alert-btn2">关闭</button>
+					</a>
+				</p>
+			</form>
+		</div>
+	</div>
 </div>
-<div class="alert-role-add">
-    <h3>角色信息</h3>
-    <div class="alert-role-add-con">
-        <p class="delete-message">请确认是否删除？</p>
-        <p>
-            <button type="button" class="alert-btn2">删除</button>
-            <button type="button" class="alert-btn2">关闭</button>
-        </p>
-    </div>
+
+<!--删除确认框-->
+<div class="divout" id="j_del_win" style="display:none;">
+	<div class="alert-role-add" >
+		<h3>用户角色</h3>
+		<div class="alert-role-add-con">
+			<p class="delete-message">请确认是否删除？</p>
+			<input type="hidden" value="" id="del_id_hidden"/>
+			<p>
+				<button type="button" class="alert-btn2" id="j_del_ok">删除</button>
+				<a href="." class="closeDOMWindow">
+					<button type="button" class="alert-btn2">关闭</button>
+				</a>
+			</p>
+		</div>
+	</div>
+>>>>>>> .r2674
 </div>
 </body>
 <script type="text/javascript" src="__PUBLIC__/js/jquery-1.6.1.js"></script>
@@ -250,10 +273,83 @@ $.ajax({
 
 
 
+
+
+
+
+
+//===================================================修改树形结构js==========================
+		var mod_setting = {
+			check: {
+				enable: true,
+				chkboxType: {"Y":"", "N":""}
+			},
+			view: {
+				dblClickExpand: false
+			},
+			data: {
+				simpleData: {
+					enable: true
+				}
+			},
+			callback: {
+				beforeClick: mod_beforeClick,
+				onCheck: mod_onCheck
+			}
+		};
+
+
+		function mod_beforeClick(treeId, treeNode) {
+			var zTree = $.fn.zTree.getZTreeObj("mod_treeDemo");
+			zTree.checkNode(treeNode, !treeNode.checked, null, true);
+			return false;
+		}
+		
+		function mod_onCheck(e, treeId, treeNode) {
+			var zTree = $.fn.zTree.getZTreeObj("mod_treeDemo"),
+			nodes = zTree.getCheckedNodes(true),
+			v = "";
+			d = "";
+			for (var i=0, l=nodes.length; i<l; i++) {
+				v += nodes[i].name + ",";
+				d += nodes[i].id + ",";
+			}
+			if (v.length > 0 ) v = v.substring(0, v.length-1);
+			if (d.length > 0 ) d = d.substring(0, d.length-1);
+			var mod_cityObj = $("#mod_citySel");
+			mod_cityObj.attr("value", v);
+			var mod_cityid = $("#mod_cityid");
+			mod_cityid.attr("value", d);
+			//cityObj.attr("value", treeId);
+		}
+
+		function mod_showMenu() {
+			var mod_cityObj = $("#mod_citySel");
+			var mod_cityOffset = $("#mod_citySel").offset();
+			$("#mod_menuContent").css({left:mod_cityOffset.left + "px", top:mod_cityOffset.top + mod_cityObj.outerHeight() + "px"}).slideDown("fast");
+
+			$("body").bind("mod_mousedown", mod_onBodyDown);
+		}
+		function mod_hideMenu() {
+			$("#mod_menuContent").fadeOut("fast");
+			$("body").unbind("mod_mousedown", mod_onBodyDown);
+		}
+		function mod_onBodyDown(event) {
+			if (!(event.target.id == "mod_menuBtn" || event.target.id == "mod_citySel" || event.target.id == "mod_menuContent" || $(event.target).parents("#mod_menuContent").length>0)) {
+				mod_hideMenu();
+			}
+		}		
+
+//===================================================树形结构js结束==========
+
+
+
+
 $(document).ready(function(){
 
 //===================================================树形结构js传递==========
 			$.fn.zTree.init($("#treeDemo"), setting, zNodes);
+			$.fn.zTree.init($("#mod_treeDemo"), mod_setting, zNodes);
 
 
 //===============================================保存添加事件=======================================
@@ -295,12 +391,77 @@ $(document).ready(function(){
                     ,'json'
             );
 	});
+//=====================================================单击删除按钮弹出模态窗事件============================================
+    $('#j_del_button').click(function(){
+        var delete_role_id_txt=$("#selrole_hidden_id").val();
+        //单击删除确认按钮
+        $('#j_del_ok').click(function(){
+            var del_handleUrl="{:U('configuration/Role/delete_role')}";
+            $.getJSON(del_handleUrl,{"delete_role_id_txt":delete_role_id_txt},
+                    function (data){
+                        alert(data);
+                        window.location.href = window.location.href;
+                    }
+                    ,'json'
+            );
+        });
+
+        $.openDOMWindow({
+            loader:1,
+            loaderHeight:16,
+            loaderWidth:17,
+            windowSourceID:'#j_del_win'
+        });
+        return false;
+
+
+    });
+//===============================================单击编辑事件=======================================
+	$("#j_mod_button").click(function(){
+			var mod_handleUrl="{:U('configuration/Role/roleDetailSelect')}";
+			var role_id=$("#selrole_hidden_id").val();
+            $.getJSON(mod_handleUrl,{"role_id":role_id},
+                    function (data){
+						$("#mod_rolename").val(data['rolename']);//名称
+						$("#mod_memo").val(data['memo']);//描述
+						$("#mod_citySel").val(data['menuname']);//权限名称
+						$("#mod_id_hide").val(data['roleid']);//id
+                    }
+                    ,'json'
+            );
+		//保存
+        $('#j_mod_save').click(function(){
+			var modify_role_id_txt=$("#mod_id_hide").val();//id
+			var modify_role_name_txt=$("#mod_rolename").val();//名称
+			var modify_memo_txt=$("#mod_memo").val();//描述
+			var modify_menu_id_txt=$("#mod_cityid").val();//权限id
+            var mod_save_handleUrl="{:U('configuration/Role/edit_role')}";
+            $.getJSON(mod_save_handleUrl,{"modify_role_id_txt":modify_role_id_txt,"modify_role_name_txt":modify_role_name_txt,"modify_memo_txt":modify_memo_txt,
+                        "modify_menu_id_txt":modify_menu_id_txt},
+                    function (data){
+                        alert(data);
+						window.location.href = window.location.href;
+                    }
+                    ,'json'
+            );
+        });//结束
+
+		//展示
+		 $.openDOMWindow({
+            loader:1,
+            loaderHeight:16,
+            loaderWidth:17,
+            windowSourceID:'#j_mod_win'
+        });
+        return false;
+	});
+
 //===============================================单击单选框事件=======================================
 	$(".span-1 input[type='radio']").click(function(){
         var id= $(this).parent().nextAll(".roleid_hidden").text();
 		$("#selrole_hidden_id").val(id);
-        
     });
+
 });
 </script>
 </html>

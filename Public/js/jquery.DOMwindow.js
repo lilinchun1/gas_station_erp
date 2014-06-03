@@ -71,7 +71,7 @@
 			fixedWindowY:100,
 			functionCallOnOpen:null,
 			functionCallOnClose:null,
-			height:476,
+			height:2000,
 			loader:0,
 			loaderHeight:0,
 			loaderImagePath:'',

@@ -36,11 +36,11 @@
                     </div>
                     <div class="org-right-btns">
                         <form action="">
-                            <button type="button" class="area-btn">添加</button>
-                            <button type="button" class="area-btn">编辑</button>
-                            <button type="button" class="area-btn">删除</button>
-                            <button type="button" class="area-btn">重置密码</button>
-                            <button type="button" class="area-btn">激活/失效</button>
+                            <button type="button" class="area-btn" id="j_add_button">添加</button>
+                            <button type="button" class="area-btn" id="j_mod_button">编辑</button>
+                            <button type="button" id="j_del_button" class="area-btn">删除</button>
+                            <button type="button" id="j_reset_password" class="area-btn">重置密码</button>
+                            <button type="button" id="j_modify_user_state" class="area-btn">激活/失效</button>
                         </form>
                     </div>
                 </div>
@@ -58,7 +58,10 @@
                         </li>
 						<volist name="list" id="vo">
 							<li>
-								<span class="span-1"><input type="radio" name="role-info" id="" class="role-table-radio"/></span>
+								<span class="span-1">
+									<input type="radio" name="radio1" id="{$vo['userRadioID']}" value="{$vo['uid']}"
+										onclick="selectUserRadio('{$vo['uid']}');" class="role-table-radio"/>
+								</span>
 								<span class="span-1" title="#">{$vo.realname}</span>
 								<span class="span-1" title="#">{$vo.sex}</span>
 								<span class="span-1" title="#">{$vo.telphone}</span>
@@ -66,6 +69,7 @@
 								<span class="span-2" title="#">{$vo.username}</span>
 								<span class="span-1" title="#">{$vo.rolename}</span>
 								<span class="span-1" title="#">{$vo.del_flag}</span>
+
 							</li>
 						</volist>
                     </ul>
@@ -168,65 +172,137 @@
     </div>
 </div>
 <include file="./Tpl/include/pb-foot.html" />
-<div class="alert-role-add">
-    <h3>添加职员信息</h3>
-    <div class="alert-user-add-con">
-        <form action="">
-            <p>
-                <label for="user-addname" class="role-lab">姓&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;名</label>
-                <input type="text" name="addname" id="user-addname" class="input-role-name"/>
-                <input type="radio" name="change-sex" class="change-sex" id="man"/><label for="man" class="sex">男</label>
-                <input type="radio" name="change-sex" class="change-sex" id="woman"/><label for="woman" class="sex">女</label>
-            </p>
-            <p>
-                <label for="user-phone" class="role-lab">联系电话</label>
-                <input type="text" name="addname" id="user-phone" class="input-role-name"/>
-            </p>
-            <p>
-                <label for="login-id" class="role-lab">登陆账号</label>
-                <input type="text" name="addname" id="login-id" class="input-role-name"/>
-            </p>
-            <p>
-                <label for="login-id" class="email">邮箱</label>
-                <input type="text" name="addname" id="email" class="input-role-name"/>
-            </p>
-            <div>
-                <em>角色</em>
-                <ul class="user-checkbox-list">
-                    <li><input type="checkbox" name="" id="ck1"/><label for="ck1" class="role-lab">角色a</label></li>
-                    <li><input type="checkbox" name="" id="ck2"/><label for="ck2" class="role-lab">角色a</label></li>
-                    <li><input type="checkbox" name="" id="ck3"/><label for="ck3" class="role-lab">角色a</label></li>
-                    <li><input type="checkbox" name="" id="ck4"/><label for="ck4" class="role-lab">角色a</label></li>
-                    <li><input type="checkbox" name="" id="ck5"/><label for="ck5" class="role-lab">角色a</label></li>
-                    <li><input type="checkbox" name="" id="ck6"/><label for="ck6" class="role-lab">角色a</label></li>
-                </ul>
-            </div>
-            <p>
-                <label for="">所属组织机构</label>
-                <!-- 容器 -->
-            <div id="J_Tree"></div>
-            <!-- 结果收集、设置回显数据 -->
-            <input type="hidden" id="J_TreeResult" value='{"id":"291"}'>
-            </p>
-            <p>
-                <button type="button" class="alert-btn2">保存</button>
-                <button type="button" class="alert-btn2">关闭</button>
-            </p>
-        </form>
+<div id="j_mod_win" style="display:none;">
+    <div class="alert-role-add">
+        <h3>编辑职员信息</h3>
+        <div class="alert-user-add-con">
+            <form action="">
+                <p>
+                    <label for="user-addname" class="role-lab">姓&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;名</label>
+                    <input type="text" name="addname" id="mod-name" class="input-role-name"/>
+                    <input type="radio" name="change-sex" class="change-sex" id="mod-man" value="1"/><label for="man" class="sex">男</label>
+                    <input type="radio" name="change-sex" class="change-sex" id="mod-woman" value="0"/><label for="woman" class="sex">女</label>
+                </p>
+                <p>
+                    <label for="user-phone" class="role-lab">联系电话</label>
+                    <input type="text" name="addname" id="mod-user-phone" class="input-role-name"/>
+                </p>
+                <p>
+                    <label for="login-id" class="role-lab">登陆账号</label>
+                    <input type="text" name="addname" id="mod-login-id" class="input-role-name"/>
+                </p>
+                <p>
+                    <label for="login-id" class="email">邮&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;箱</label>
+                    <input type="text" name="addname" id="mod-email" class="input-role-name"/>
+                </p>
+                <div>
+                    <em>角色</em>
+                    <ul class="user-checkbox-list" id="j_mod_ul_checkbox">
+
+                    </ul>
+                </div>
+                <p>
+                    <label for="">所属组织机构:</label>
+                <div class="content_wrap">
+                    <div class="zTreeDemoBackground left">
+                        <ul id="treeDemo1" class="ztree"></ul>
+                    </div>
+                </div>
+                    <div id="menuContent1" class="menuContent" style="display:none; ">
+                        <ul id="treeDemo1" class="ztree" style="margin-top:0; width:50px; height: auto;"></ul>
+                    </div>
+                <input type="hidden" value="" id="mod_id_hidden"/>
+                </p>
+                <p>
+                    <button type="button" class="alert-btn2" id="j_mod_save">保存</button>
+                    <a href="." class="closeDOMWindow">
+                        <button type="button" class="alert-btn2">关闭</button>
+                    </a>
+                </p>
+            </form>
+        </div>
     </div>
 </div>
 
-<div class="alert-role-add">
-    <h3>职员信息</h3>
-    <div class="alert-role-add-con">
-        <p class="delete-message">请确认是否删除？</p>
-        <p>
-            <button type="button" class="alert-btn2">删除</button>
-            <button type="button" class="alert-btn2">关闭</button>
-        </p>
+<div id="j_add_win" style="display:none;">
+    <div class="alert-role-add">
+        <h3>添加职员信息</h3>
+        <div class="alert-user-add-con">
+            <form action="">
+                <p>
+                    <label for="user-addname" class="role-lab">姓&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;名</label>
+                    <input type="text" name="addname" id="user-addname" class="input-role-name"/>
+                    <input type="radio" name="change-sex" class="change-sex" id="man" value="1"/><label for="man" class="sex">男</label>
+                    <input type="radio" name="change-sex" class="change-sex" id="woman" value="0"/><label for="woman" class="sex">女</label>
+                </p>
+                <p>
+                    <label for="user-phone" class="role-lab">联系电话</label>
+                    <input type="text" name="addname" id="user-phone" class="input-role-name"/>
+                </p>
+                <p>
+                    <label for="login-id" class="role-lab">登陆账号</label>
+                    <input type="text" name="addname" id="login-id" class="input-role-name"/>
+                </p>
+                <p>
+                    <label for="login-id" class="email">邮&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;箱</label>
+                    <input type="text" name="addname" id="email" class="input-role-name"/>
+                </p>
+                <div>
+                    <em>角色</em>
+                    <ul class="user-checkbox-list" id="j_ul_checkbox">
+
+                    </ul>
+                </div>
+                <p>
+                    <label for="">所属组织机构:</label>
+                <div class="content_wrap">
+                    <div class="zTreeDemoBackground left">
+                        <ul id="treeDemo" class="ztree"></ul>
+                    </div>
+                </div>
+                <div id="menuContent" class="menuContent" style="display:none; ">
+                    <ul id="treeDemo" class="ztree" style="margin-top:0; width:50px; height: auto;"></ul>
+                </div>
+                <input type="hidden" value="" id="id_hidden"/>
+                </p>
+                <p>
+                    <button type="button" class="alert-btn2" id="j_add_save">保存</button>
+                    <a href="." class="closeDOMWindow">
+                        <button type="button" class="alert-btn2">关闭</button>
+                    </a>
+                </p>
+            </form>
+        </div>
     </div>
 </div>
+<!--删除确认框-->
+<div class="divout" id="j_del_win" style="display:none;">
+	<div class="alert-role-add" >
+		<h3>职员信息</h3>
+		<div class="alert-role-add-con">
+			<p class="delete-message">请确认是否删除？</p>
+			<input type="hidden" value="" id="del_id_hidden"/>
+			<p>
+				<button type="button" class="alert-btn2" id="j_del_ok">确定</button>
+				<a href="." class="closeDOMWindow">
+					<button type="button" class="alert-btn2">关闭</button>
+				</a>
+			</p>
+		</div>
+	</div>
+</div>
+<script type="text/javascript" src="__PUBLIC__/js/jquery-1.6.1.js"></script>
+<script type="text/javascript" src="__PUBLIC__/js/jquery.SuperSlide.2.1.1.js"></script>
+<script type="text/javascript" src="__PUBLIC__/js/jquery.DOMwindow.js" type="text/javascript"></script><!--模框JS插件-->
+<link rel="stylesheet" href="__PUBLIC__/css/tree/tree.css" type="text/css">
+<script type="text/javascript" src="__PUBLIC__/js/tree/jquery.ztree.core-3.5.js"></script>
+<script type="text/javascript" src="__PUBLIC__/js/tree/jquery.ztree.excheck-3.5.js"></script>
 <script>
+	var user_val='';
+	function selectUserRadio(user_id){
+		user_val = user_id;
+	}
+
     window.onscroll=function(){
         var scrollTop=document.documentElement.scrollTop||document.body.scrollTop;
         var fixDiv=document.getElementById('j-fixed-top');
@@ -236,7 +312,350 @@
         }else if(scrollTop<=299){
             fixDiv.style.position='static';
         }
+    };
+
+    //===================================================树形结构js==========================
+    var setting = {
+        data: {
+            key: {
+                title: "t"
+            },
+            simpleData: {
+                enable: true
+            }
+        },
+        view: {
+            fontCss: getFontCss
+        }
+    };
+    var handleUrl="{:U('configuration/Org/show_org_tree')}";
+    var zNodes=new Array();
+    var now=new Date().getTime();//加个时间戳表示每次是新的请求
+    $.ajax({
+        type: "POST",
+        url: handleUrl,
+        async: false,
+        dataType: "json",
+        success: function(data){
+            $.each(data,function(key,val){
+                var kid=val['id'];
+                var parent=val['parent'];
+                var value=val['value'];
+                zNodes[key]= {'id':kid, 'pId':parent, 'name':value, 'open':true ,'t':kid};
+            });
+        },
+
+        error: function(XMLHttpRequest, textStatus, errorThrown) {
+            // alert("请求失败!");
+        }
+    });
+
+    function focusKey(e) {
+        if (key.hasClass("empty")) {
+            key.removeClass("empty");
+        }
     }
+    function blurKey(e) {
+        if (key.get(0).value === "") {
+            key.addClass("empty");
+        }
+    }
+    var lastValue = "", nodeList = [], fontCss = {};
+    function clickRadio(e) {
+        lastValue = "";
+        searchNode(e);
+    }
+    function searchNode(e) {
+        var zTree = $.fn.zTree.getZTreeObj("treeDemo");
+        if (!$("#getNodesByFilter").attr("checked")) {
+            var value = $.trim(key.get(0).value);
+            var keyType = "";
+            if ($("#name").attr("checked")) {
+                keyType = "name";
+            } else if ($("#level").attr("checked")) {
+                keyType = "level";
+                value = parseInt(value);
+            } else if ($("#id").attr("checked")) {
+                keyType = "id";
+                value = parseInt(value);
+            }
+            if (key.hasClass("empty")) {
+                value = "";
+            }
+            if (lastValue === value) return;
+            lastValue = value;
+            if (value === "") return;
+            updateNodes(false);
+
+            if ($("#getNodeByParam").attr("checked")) {
+                var node = zTree.getNodeByParam(keyType, value);
+                if (node === null) {
+                    nodeList = [];
+                } else {
+                    nodeList = [node];
+                }
+            } else if ($("#getNodesByParam").attr("checked")) {
+                nodeList = zTree.getNodesByParam(keyType, value);
+            } else if ($("#getNodesByParamFuzzy").attr("checked")) {
+                nodeList = zTree.getNodesByParamFuzzy(keyType, value);
+            }
+        } else {
+            updateNodes(false);
+            nodeList = zTree.getNodesByFilter(filter);
+        }
+        updateNodes(true);
+
+    }
+    function updateNodes(highlight) {
+        var zTree = $.fn.zTree.getZTreeObj("treeDemo");
+        for( var i=0, l=nodeList.length; i<l; i++) {
+            nodeList[i].highlight = highlight;
+            zTree.updateNode(nodeList[i]);
+        }
+    }
+    function getFontCss(treeId, treeNode) {
+        return (!!treeNode.highlight) ? {color:"#A60000", "font-weight":"bold"} : {color:"#333", "font-weight":"normal"};
+    }
+    function filter(node) {
+        return !node.isParent && node.isFirstNode;
+    }
+
+    var key;
+
+    //============
+
+    $(document).ready(function () {
+        //===================================================树形结构js传递==========
+        $.fn.zTree.init($("#treeDemo"), setting, zNodes);
+        key = $("#key");
+        key.bind("focus", focusKey)
+                .bind("blur", blurKey)
+                .bind("propertychange", searchNode)
+                .bind("input", searchNode);
+        $("#name").bind("change", clickRadio);
+        $("#level").bind("change", clickRadio);
+        $("#id").bind("change", clickRadio);
+        $("#getNodeByParam").bind("change", clickRadio);
+        $("#getNodesByParam").bind("change", clickRadio);
+        $("#getNodesByParamFuzzy").bind("change", clickRadio);
+        $("#getNodesByFilter").bind("change", clickRadio);
+        $("#treeDemo a").click(function(){
+          // alert($(this).attr("title"));
+            $("#id_hidden").val($(this).attr("title"));
+        });
+
+        //单击编辑
+        $('#j_mod_win').click(function(){
+            //单击保存按钮
+            $('#j_add_save').click(function(){
+                var add_login_id= $('#mod-login-id').val(); //登陆账号
+                var add_user_addname = $('#mod-name').val();      //姓名
+                var add_telphone_txt = $('#mod-user-phone').val();      //联系电话
+                var add_user_email = $('#mod-email').val();      //邮箱*/
+                var add_user_sex = $(':radio[name="change-sex"]:checked').val(); //性别
+                var add_org_id = $('#id_hidden').val();  //所属组织机构
+                var add_user_ckbox="";
+                $(":checkbox[name=role]").each(function() {
+                    if ($(this).attr("checked")) {
+                        add_user_ckbox += $(this).attr('id')+",";
+                    }
+                });
+
+                var add_save_handleUrl="{:U('configuration/User/add_user')}";
+                $.getJSON(add_save_handleUrl,{
+                            "add_user_name_txt":add_user_addname,
+                            "add_telphone_txt":add_telphone_txt,
+                            "add_email_txt":add_user_email,
+                            "add_realname_txt":add_login_id,
+                            "add_sex_txt":add_user_sex,
+                            "add_org_txt":add_org_id,
+                            "add_role_txt":add_user_ckbox},
+                        function (data){
+                            alert(data);
+                            window.location.href = window.location.href;
+                        }
+                        ,'json'
+                )
+            });
+            $('#j_mod_ul_checkbox').html("");//清空
+            //列出角色
+            var handleUrl="{:U('configuration/Role/show_all_role')}";
+            $.ajax({
+                type: "POST",
+                url: handleUrl,
+                async: false,
+                dataType: "json",
+                success: function(data){
+                    $.each(data,function(key,val){
+                        var id=val['id'];
+                        var value=val['value'];
+                        $('#j_mod_ul_checkbox').append("<li><input type='checkbox' name='role' class='j_checkbox' value='"+value+"'  id='"+id+"'/><label for='ck1' class='role-lab'>"+value+"</label></li>");
+                    });
+                },
+
+                error: function(XMLHttpRequest, textStatus, errorThrown) {
+                    // alert("请求失败!");
+                }
+            });
+
+
+            // alert(user_val);
+            var mod_handleUrl="{:U('configuration/User/userDetailSelect')}";
+            var arr=new Array();
+            var str=new String();
+
+            $.getJSON(mod_handleUrl,{ "user_id":user_val},
+                    function (data){
+                       //alert(data['username']);
+                        $("#mod-name").val(data['realname']);
+                        $("#mod-user-phone").val(data['telphone']);
+                        $("#mod-login-id").val(data['username']);
+                        $("#mod-email").val(data['email']);
+                        str=data['rolename'];
+                        arr=str.split(',');
+                        for(var i=0;i<arr.length;i++)
+                        {
+                            var val=value=arr[i];
+                            $("[value="+val+"]").attr("checked",true);
+                            //$(".j_checkbox").val(arr[i]).attr("checked",true);
+                            //alert();
+                        }
+
+
+                        var sex = data['sex'];
+                        if(sex == '0'){
+                            $('#mod-woman').eq(0).attr("checked",true);
+                        }else{
+                            $('#mod-man').eq(0).attr("checked",true);
+                        }
+                    }
+                    ,'json'
+            );
+
+            //弹出窗口
+            $.openDOMWindow({
+                loader:1,
+                loaderHeight:16,
+                loaderWidth:17,
+                windowSourceID:'#j_mod_win'
+            });
+            return false;
+        });
+        //单击添加按钮
+        $('#j_add_button').click(function(){
+            //列出角色
+            var handleUrl="{:U('configuration/Role/show_all_role')}";
+            $.ajax({
+                type: "POST",
+                url: handleUrl,
+                async: false,
+                dataType: "json",
+                success: function(data){
+                    $.each(data,function(key,val){
+                        var id=val['id'];
+                        var value=val['value'];
+                       // $("#j_ul").append("<li><input type='checkbox' id='"+id+"'/>"+value+"</li><br>");
+                        $('#j_ul_checkbox').append("<li><input type='checkbox' name='role' value='"+value+"'  id='"+id+"'/><label for='ck1' class='role-lab'>"+value+"</label></li>");
+                    });
+                },
+
+                error: function(XMLHttpRequest, textStatus, errorThrown) {
+                    // alert("请求失败!");
+                }
+            });
+
+            //单击保存按钮
+            $('#j_add_save').click(function(){
+                var add_login_id= $('#user-addname').val(); //登陆账号
+                var add_user_addname = $('#login-id').val();      //姓名
+                var add_telphone_txt = $('#user-phone').val();      //联系电话
+                var add_user_email = $('#email').val();      //邮箱*/
+                var add_user_sex = $(':radio[name="change-sex"]:checked').val(); //性别
+                var add_org_id = $('#id_hidden').val();  //所属组织机构
+                var add_user_ckbox="";
+                $(":checkbox[name=role]").each(function() {
+                    if ($(this).attr("checked")) {
+                        add_user_ckbox += $(this).attr('id')+",";
+                    }
+                });
+
+                var add_save_handleUrl="{:U('configuration/User/add_user')}";
+                $.getJSON(add_save_handleUrl,{
+                            "add_user_name_txt":add_user_addname,
+                            "add_telphone_txt":add_telphone_txt,
+                            "add_email_txt":add_user_email,
+                            "add_realname_txt":add_login_id,
+                            "add_sex_txt":add_user_sex,
+                            "add_org_txt":add_org_id,
+                            "add_role_txt":add_user_ckbox},
+                            function (data){
+                                alert(data);
+                                window.location.href = window.location.href;
+                            }
+                            ,'json'
+                    )
+            });
+
+            //弹出窗口
+            $.openDOMWindow({
+                loader:1,
+                loaderHeight:16,
+                loaderWidth:17,
+                windowSourceID:'#j_add_win'
+            });
+            return false;
+        });
+
+            $('#j_del_button').click(function(){
+			 $.openDOMWindow({
+			    loader:1,
+				loaderHeight:16,
+				loaderWidth:17,
+				windowSourceID:'#j_del_win'
+		     });
+             return false;
+        });
+
+		//单击删除确认按钮
+        $('#j_del_ok').click(function(){
+            var delete_user_id_txt= user_val;
+            var del_handleUrl="{:U('configuration/User/delete_user')}";
+            $.getJSON(del_handleUrl,{"delete_user_id_txt":delete_user_id_txt},
+                    function (data){
+                        alert(data);
+                        window.location.href = window.location.href;
+                    }
+                    ,'json'
+            );
+        });
+
+		//重置密码
+        $('#j_reset_password').click(function(){
+            var reset_userid_txt= user_val;
+            var del_handleUrl="{:U('configuration/User/reset_password')}";
+            $.getJSON(del_handleUrl,{"reset_userid_txt":reset_userid_txt},
+                    function (data){
+                        alert(data);
+                        window.location.href = window.location.href;
+                    }
+                    ,'json'
+            );
+        });
+
+		//激活失效
+        $('#j_modify_user_state').click(function(){
+            var modify_userid_txt= user_val;
+            var del_handleUrl="{:U('configuration/User/modify_user_state')}";
+            $.getJSON(del_handleUrl,{"modify_userid_txt":modify_userid_txt},
+                    function (data){
+                        alert(data);
+                        window.location.href = window.location.href;
+                    }
+                    ,'json'
+            );
+        });
+
+	});
 </script>
 </body>
 </html>

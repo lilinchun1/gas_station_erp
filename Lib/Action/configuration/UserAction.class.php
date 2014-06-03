@@ -70,6 +70,7 @@ class UserAction extends CommonAction {
 			}elseif(0 == $list[$i]['del_flag']){
 				$list[$i]['del_flag'] = "激活";
 			}
+			$list[$i]['userRadioID'] = 'userRadio' . $i; //用于详情点击的ID
 		}
 		$this->assign('list',$list);// 赋值数据集
 		$this->assign('page',$show);// 赋值分页输出
@@ -85,7 +86,7 @@ class UserAction extends CommonAction {
 		$email = trim(I('add_email_txt'));
 		$realname = trim(I('add_realname_txt'));
 		$adduserid = $_SEESION['userinfo']['uid'];
-		$adddate = C('initial_password');
+		$adddate = strtotime(date('Y-m-d'));
 		$sex = trim(I('add_sex_txt'));
 		$orgid = trim(I('add_org_txt'));
 		//$memo = trim(I('add_memo_txt'));
@@ -122,6 +123,32 @@ class UserAction extends CommonAction {
 		$this->ajaxReturn($msg,'json');
 	}
 
+	//根据角色ID查询角色详细信息
+    public function userDetailSelect(){
+	    $Model = new Model();
+		$user_id = I('get.user_id');
+		//p($_GET['agent_id']);
+		$where = "a.uid=" . $user_id;
+		$dataUser = $Model->table('bi_user a')->where($where)->select();// 查询满足要求的总记录数
+		$dataUser[0]['adddate'] = getDateFromTime($dataUser[0]['adddate']);
+		$dataUser[0]['modifydate'] = getDateFromTime($dataUser[0]['modifydate']);
+		$dataUser[0]['orgname'] = getAgentNameFromAgentID($dataUser[0]['orgid']);
+
+		$role_id = $Model->query("select roleid from bi_user_role where userid=" . $user_id);
+		$role = null;
+		foreach($role_id as $key=>$val){
+			$role_name = $Model->query("select rolename from bi_role where roleid=" . $val['roleid']);
+			$role .= $role_name[0]['rolename'] . ",";
+		}
+		if(!empty($role_id[0]['roleid'])){
+			$role = substr($role, 0, -1);
+		}
+		$dataUser[0]['rolename'] = $role;
+
+		$data = $dataUser[0];
+		$this->ajaxReturn($data,'json');
+	}
+
      //编辑用户
      public function edit_user(){
 		$userid = trim(I('modify_userid_txt'));
@@ -129,8 +156,8 @@ class UserAction extends CommonAction {
 		$telphone = trim(I('modify_telphone_txt'));
 		$email = trim(I('modify_email_txt'));
 		$realname = trim(I('modify_realname_txt'));
-		$modifyuserid = trim(I('modify_modifyuserid_txt'));
-		$modifydate = trim(I('modify_modifydate_txt'));
+		$modifyuserid = $_SEESION['userinfo']['uid'];
+		$modifydate = strtotime(date('Y-m-d'));
 		$sex = trim(I('modify_sex_txt'));
 		$orgid = trim(I('modify_org_txt'));
 		//$memo = trim(I('modify_memo_txt'));

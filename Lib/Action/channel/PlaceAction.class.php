@@ -612,9 +612,31 @@ class PlaceAction extends CommonAction {
 		}
 		if(C('delete_place_success') == $msg)
 		{
-			$channel_id = getChannelIDFromPlaceID($place_id);
-			changeNum('place', $channel_id, $place_id, 'minus');
-			addOptionLog('place', $place_id, 'del', '');
+			//$channel_id = getChannelIDFromPlaceID($place_id);
+			//changeNum('place', $channel_id, $place_id, 'minus');
+			//addOptionLog('place', $place_id, 'del', '');
+		}
+		$this->ajaxReturn($msg,'json');
+		//$this->placeSelect();
+	}
+
+	 //撤销网点
+	public function placeRepeal(){
+		$place_id = trim(I('place_id'));
+
+	    $Model = new Model();
+		$place = M("place");
+		$msg = C('delete_place_success');
+		$is_set = $place->where("place_id='$place_id'")->setField('isDelete', 1);
+		if($is_set <= 0)
+		{
+			$this->msg = C('delete_place_failed');
+		}
+		if(C('delete_place_success') == $msg)
+		{
+			//$channel_id = getChannelIDFromPlaceID($place_id);
+			//changeNum('place', $channel_id, $place_id, 'minus');
+			//addOptionLog('place', $place_id, 'del', '');
 		}
 		$this->ajaxReturn($msg,'json');
 		//$this->placeSelect();

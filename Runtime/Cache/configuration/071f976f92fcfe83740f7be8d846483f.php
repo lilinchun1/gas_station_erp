@@ -111,15 +111,15 @@
     <h3>修改密码</h3>
     <div class="alert-role-add-con">
         <p>
-            <label for="old-pass" class="role-lab">旧密码&nbsp;&nbsp;&nbsp;</label>
+            <label for="old_password_txt" class="role-lab">旧密码&nbsp;&nbsp;&nbsp;</label>
             <input type="text" name="old_password_txt" id="old_password_txt" class="input-role-name"/>
         </p>
         <p>
-            <label for="new-pass" class="role-lab">新密码&nbsp;&nbsp;&nbsp;</label>
+            <label for="new_password_txt" class="role-lab">新密码&nbsp;&nbsp;&nbsp;</label>
             <input type="password" name="new_password_txt" id="new_password_txt" class="input-role-name"/>
         </p>
         <p>
-            <label for="rnew-pass" class="role-lab">确认密码</label>
+            <label for="re_new_password_txt" class="role-lab">确认密码</label>
             <input type="password" name="re_new_password_txt" id="re_new_password_txt" class="input-role-name"/>
         </p>
         <p>

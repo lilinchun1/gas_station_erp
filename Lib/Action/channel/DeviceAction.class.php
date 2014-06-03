@@ -507,7 +507,7 @@ class DeviceAction extends CommonAction {
 		$device_id = trim(I('device_id'));
 
 	    $Model = new Model();
-		$device = M("device");
+		$device = M("device","qd_");
 		$msg = C('delete_device_success');
 		$is_set = $device->where("device_id='$device_id'")->setField('isDelete', 1);
 		if($is_set <= 0)
@@ -517,9 +517,9 @@ class DeviceAction extends CommonAction {
 
 		if($msg == C('delete_device_success'))
 		{
-			$place_id = getPlaceIDFromDeviceID($device_id);
-			changeNum('device', $place_id, $device_id, 'minus');
-			addOptionLog('device', $device_id, 'del', '');
+			//$place_id = getPlaceIDFromDeviceID($device_id);
+			//changeNum('device', $place_id, $device_id, 'minus');
+			//addOptionLog('device', $device_id, 'del', '');
 		}
 		$this->ajaxReturn($msg,'json');
 		//$this->deviceSelect();

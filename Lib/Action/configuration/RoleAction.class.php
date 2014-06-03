@@ -10,6 +10,19 @@ class RoleAction extends CommonAction {
 		$this->display(':role_index');
 	}
 
+	//展示组织结构
+	public function show_all_role(){
+		$Model = new Model();
+		$role_info = $Model->query("select * from bi_role where del_flag=0");
+		$data = null;
+		foreach($role_info as $key=>$val){
+			$data[$key]['id'] = $val['roleid'];
+			$data[$key]['value'] = $val['rolename'];
+		}
+		
+		$this->ajaxReturn($data, 'json');
+	}
+
 	//查询角色信息
 	public function show_role(){
 	    $Model = new Model();
@@ -49,6 +62,7 @@ class RoleAction extends CommonAction {
 			$list[$i]['adddate'] = getDateFromTime($list[$i]['adddate']);
 			$tmp_user_name = $Model->query("select username from bi_user where uid=" . $list[$i]['adduserid']);
 			$list[$i]['addusername'] = $tmp_user_name[0]['username'];
+			$list[$i]['roleRadioID'] = 'roleRadio' . $i; //用于详情点击的ID
 		}
 		$this->assign('list',$list);// 赋值数据集
 		$this->assign('page',$show);// 赋值分页输出
@@ -86,6 +100,31 @@ class RoleAction extends CommonAction {
 		}
 
 		$this->ajaxReturn($msg,'json');
+	}
+
+	//根据角色ID查询角色详细信息
+    public function roleDetailSelect(){
+	    $Model = new Model();
+		$role_id = I('get.role_id');
+		//p($_GET['agent_id']);
+		$where = "a.roleid=" . $role_id;
+		$dataRole = $Model->table('bi_role a')->where($where)->select();// 查询满足要求的总记录数
+		$dataRole[0]['adddate'] = getDateFromTime($dataRole[0]['adddate']);
+		$dataRole[0]['modifydate'] = getDateFromTime($dataRole[0]['modifydate']);
+
+		$menu_id = $Model->query("select menu_id from bi_role_menu where role_id=" . $role_id);
+		$menu = null;
+		foreach($menu_id as $key=>$val){
+			$menu_name = $Model->query("select menuname from bi_menu where menu_id=" . $val['menu_id']);
+			$menu .= $menu_name[0]['menuname'] . ",";
+		}
+		if(!empty($menu_id[0]['menu_id'])){
+			$menu = substr($menu, 0, -1);
+		}
+		$dataRole[0]['menuname'] = $menu;
+
+		$data = $dataRole[0];
+		$this->ajaxReturn($data,'json');
 	}
 
     //编辑角色信息

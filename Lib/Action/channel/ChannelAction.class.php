@@ -520,6 +520,33 @@ class ChannelAction extends CommonAction {
 		$this->ajaxReturn($msg,'json');
 	}
 
+	//终止合同
+	public function channelContractDelete(){
+		$channel_id = trim(I('get.channel_id'));
+
+	    $Model = new Model();
+		$channel = M("channel");
+		$msg = C('delete_channel_success');
+
+		$is_set = $channel->where("channel_id=" . $channel_id)->setField('isDelete', 1);
+		if($is_set <= 0)
+		{
+			$msg = C('delete_channel_failed');
+			$this->ajaxReturn($msg,'json');
+			return;
+		}
+	
+
+		if($msg == C('delete_channel_success'))
+		{
+			//$agent_id = getAgentIDFromChannelID($channel_id);
+			//changeNum('channel', $agent_id, $channel_id, 'minus');
+			//addOptionLog('channel', $channel_id, 'del', '');
+		}
+
+		$this->ajaxReturn($msg,'json');
+	}
+
 	//恢复已经删除的渠道商信息
 	public function channelRecover()
 	{
