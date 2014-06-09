@@ -28,6 +28,21 @@
     </div>
 </div>
 </div>
+
+<div class="divout" id="j_logout_win" style="display:none;">
+	<div class="alert-role-add" >
+		<h3>退出</h3>
+		<div class="alert-role-add-con">
+			<p class="delete-message">确认退出？</p>
+			<p>
+				<button type="button" class="alert-btn2" id="j_logout_ok" onclick="user_logout()">确定</button>
+				<a href="." class="closeDOMWindow">
+					<button type="button" class="alert-btn2">关闭</button>
+				</a>
+			</p>
+		</div>
+	</div>
+</div>
 <script>
     window.onload=function(){
         headAct();
@@ -54,6 +69,11 @@
 			}
 			,'json'
 		);
+	}
+
+	function user_logout(){
+		var handleUrl = "{:U('configuration/Login/logout')}";
+		window.location.href = handleUrl;
 	}
 
     function headAct(){

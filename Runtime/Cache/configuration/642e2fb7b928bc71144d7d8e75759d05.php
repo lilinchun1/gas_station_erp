@@ -22,7 +22,7 @@
             </ul>
         </div>
         <div class="right">
-            <a href="<?php echo U('configuration/Login/logout');?>">退出系统</a>
+            <a href="javascript:void(0);" onclick="show_user_logout()">退出系统</a>
         </div>
     </div>
 </div>
@@ -44,6 +44,17 @@
             loaderHeight:16,
             loaderWidth:17,
             windowSourceID:'#change_password_id'
+        });
+        return false;
+	}
+
+	function show_user_logout(){
+		//$('#change_password_id').show();
+		$.openDOMWindow({
+            loader:1,
+            loaderHeight:16,
+            loaderWidth:17,
+            windowSourceID:'#j_logout_win'
         });
         return false;
 	}
@@ -155,6 +166,21 @@
     </div>
 </div>
 </div>
+
+<div class="divout" id="j_logout_win" style="display:none;">
+	<div class="alert-role-add" >
+		<h3>退出</h3>
+		<div class="alert-role-add-con">
+			<p class="delete-message">确认退出？</p>
+			<p>
+				<button type="button" class="alert-btn2" id="j_logout_ok" onclick="user_logout()">确定</button>
+				<a href="." class="closeDOMWindow">
+					<button type="button" class="alert-btn2">关闭</button>
+				</a>
+			</p>
+		</div>
+	</div>
+</div>
 <script>
     window.onload=function(){
         headAct();
@@ -181,6 +207,11 @@
 			}
 			,'json'
 		);
+	}
+
+	function user_logout(){
+		var handleUrl = "<?php echo U('configuration/Login/logout');?>";
+		window.location.href = handleUrl;
 	}
 
     function headAct(){

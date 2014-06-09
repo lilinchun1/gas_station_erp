@@ -22,7 +22,7 @@
             </ul>
         </div>
         <div class="right">
-            <a href="<?php echo U('configuration/Login/logout');?>">退出系统</a>
+            <a href="javascript:void(0);" onclick="show_user_logout()">退出系统</a>
         </div>
     </div>
 </div>
@@ -47,15 +47,26 @@
         });
         return false;
 	}
+
+	function show_user_logout(){
+		//$('#change_password_id').show();
+		$.openDOMWindow({
+            loader:1,
+            loaderHeight:16,
+            loaderWidth:17,
+            windowSourceID:'#j_logout_win'
+        });
+        return false;
+	}
 </script>
 
 <div id="container">
     <div class="left">
         <ul class="aside-nav">
             <li class="aside-nav-nth1"><a href="<?php echo U('configuration/Org/index');?>">系统设置</a></li>
-            <li><a href="<?php echo U('Org/index');?>"><input  type="button"  value="组织结构" ></a></li>
-            <li><a href="<?php echo U('Role/index');?>"><input type="button" class="" value="角色维护" ></a></li>
-            <li class="active"><a href="<?php echo U('User/index');?>"><input type="button" class="" value="职员维护" ></a></li>
+            <li><a href="<?php echo U('configuration/Org/index');?>"><input  type="button"  value="组织结构" ></a></li>
+            <li><a href="<?php echo U('configuration/Role/index');?>"><input type="button" class="" value="角色维护" ></a></li>
+            <li class="active"><a href="<?php echo U('configuration/User/index');?>"><input type="button" class="" value="职员维护" ></a></li>
         </ul>
     </div>
     <div class="right">
@@ -238,6 +249,21 @@
     </div>
 </div>
 </div>
+
+<div class="divout" id="j_logout_win" style="display:none;">
+	<div class="alert-role-add" >
+		<h3>退出</h3>
+		<div class="alert-role-add-con">
+			<p class="delete-message">确认退出？</p>
+			<p>
+				<button type="button" class="alert-btn2" id="j_logout_ok" onclick="user_logout()">确定</button>
+				<a href="." class="closeDOMWindow">
+					<button type="button" class="alert-btn2">关闭</button>
+				</a>
+			</p>
+		</div>
+	</div>
+</div>
 <script>
     window.onload=function(){
         headAct();
@@ -264,6 +290,11 @@
 			}
 			,'json'
 		);
+	}
+
+	function user_logout(){
+		var handleUrl = "<?php echo U('configuration/Login/logout');?>";
+		window.location.href = handleUrl;
 	}
 
     function headAct(){
@@ -303,7 +334,7 @@
     }
 </script>
 
-<div id="j_mod_win" style="display:none;">
+<div id="j_mod_edit" style="display:none;">
     <div class="alert-role-add">
         <h3>编辑职员信息</h3>
         <div class="alert-user-add-con">
@@ -577,6 +608,38 @@
 
         //单击编辑
         $('#j_mod_button').click(function(){
+
+            //单击保存按钮
+            $('#j_add_save').click(function(){
+                var add_login_id= $('#mod-login-id').val(); //登陆账号
+                var add_user_addname = $('#mod-name').val();      //姓名
+                var add_telphone_txt = $('#mod-user-phone').val();      //联系电话
+                var add_user_email = $('#mod-email').val();      //邮箱*/
+                var add_user_sex = $(':radio[name="change-sex"]:checked').val(); //性别
+                var add_org_id = $('#id_hidden').val();  //所属组织机构
+                var add_user_ckbox="";
+                $(":checkbox[name=role]").each(function() {
+                    if ($(this).attr("checked")) {
+                        add_user_ckbox += $(this).attr('id')+",";
+                    }
+                });
+
+                var add_save_handleUrl="<?php echo U('configuration/User/edit_user');?>";
+                $.getJSON(add_save_handleUrl,{
+                            "modify_realname_txt":add_user_addname,
+                            "modify_telphone_txt":add_telphone_txt,
+                            "modify_email_txt":add_user_email,
+                            "modify_user_name_txt":add_login_id,
+                            "modify_sex_txt":add_user_sex,
+                            "modify_org_txt":add_org_id,
+                            "modify_role_txt":add_user_ckbox},
+                        function (data){
+                            alert(data);
+                            window.location.href = window.location.href;
+                        }
+                        ,'json'
+                )
+            });
             $('#j_mod_ul_checkbox').html("");//清空
             //列出角色
             var handleUrl="<?php echo U('configuration/Role/show_all_role');?>";
@@ -637,7 +700,7 @@
                 loader:1,
                 loaderHeight:16,
                 loaderWidth:17,
-                windowSourceID:'#j_mod_win'
+                windowSourceID:'#j_mod_edit'
             });
             return false;
         });

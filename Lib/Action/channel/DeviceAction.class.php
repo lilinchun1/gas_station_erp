@@ -243,6 +243,8 @@ class DeviceAction extends CommonAction {
 		$repair_user = trim(I('add_repair_user_txt'));
 		$repair_user_tel = trim(I('add_repair_user_tel_txt'));
 		$description = trim(I('add_description_txt'));
+		$power_on_time = trim(I('add_power_on_time_sel'));
+		$power_off_time = trim(I('add_power_off_time_sel'));
 		$image_path_0 = trim(I('add_image_path_0'));
 		$image_path_1 = trim(I('add_image_path_1'));
 		$image_path_2 = trim(I('add_image_path_2'));
@@ -357,6 +359,8 @@ class DeviceAction extends CommonAction {
 		$image_id_0 = trim(I('change_image_id_0'));
 		$image_id_1 = trim(I('change_image_id_1'));
 		$image_id_2 = trim(I('change_image_id_2'));
+		$power_on_time = trim(I('change_power_on_time_sel'));
+		$power_off_time = trim(I('change_power_off_time_sel'));
 		$image_path_0 = trim(I('change_image_path_0'));
 		$image_path_1 = trim(I('change_image_path_1'));
 		$image_path_2 = trim(I('change_image_path_2'));

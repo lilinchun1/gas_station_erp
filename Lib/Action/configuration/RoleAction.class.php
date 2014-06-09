@@ -127,6 +127,20 @@ class RoleAction extends CommonAction {
 		$this->ajaxReturn($data,'json');
 	}
 
+	//角色名字模糊查询
+	public function rolenameBlurrySelect(){
+	    //$Model = new Model();
+		$role_name = trim(I('role_name'));
+		$role = M('role');
+		$map['rolename'] =array('like', '%' . $role_name . '%');
+		$roleInfo = $role->where($map)->distinct(true)->field('rolename')->select();
+		for($i=0; $i< count($roleInfo); $i++)
+		{
+			$role_name_arr[$i]['title'] = $roleInfo[$i]['rolename'];
+		}
+		$this->ajaxReturn($role_name_arr,'json');
+	}
+
     //编辑角色信息
 	public function edit_role(){
 		$role_id = trim(I('modify_role_id_txt'));

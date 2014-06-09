@@ -14,9 +14,9 @@
     <div class="left">
         <ul class="aside-nav">
             <li class="aside-nav-nth1"><a href="{:U('configuration/Org/index')}">系统设置</a></li>
-            <li><a href="{:U('Org/index')}"><input  type="button"  value="组织结构" ></a></li>
-            <li><a href="{:U('Role/index')}"><input type="button" class="" value="角色维护" ></a></li>
-            <li class="active"><a href="{:U('User/index')}"><input type="button" class="" value="职员维护" ></a></li>
+            <li><a href="{:U('configuration/Org/index')}"><input  type="button"  value="组织结构" ></a></li>
+            <li><a href="{:U('configuration/Role/index')}"><input type="button" class="" value="角色维护" ></a></li>
+            <li class="active"><a href="{:U('configuration/User/index')}"><input type="button" class="" value="职员维护" ></a></li>
         </ul>
     </div>
     <div class="right">
@@ -172,7 +172,7 @@
     </div>
 </div>
 <include file="./Tpl/include/pb-foot.html" />
-<div id="j_mod_win" style="display:none;">
+<div id="j_mod_edit" style="display:none;">
     <div class="alert-role-add">
         <h3>编辑职员信息</h3>
         <div class="alert-user-add-con">
@@ -445,7 +445,8 @@
         });
 
         //单击编辑
-        $('#j_mod_win').click(function(){
+        $('#j_mod_button').click(function(){
+
             //单击保存按钮
             $('#j_add_save').click(function(){
                 var add_login_id= $('#mod-login-id').val(); //登陆账号
@@ -461,15 +462,15 @@
                     }
                 });
 
-                var add_save_handleUrl="{:U('configuration/User/add_user')}";
+                var add_save_handleUrl="{:U('configuration/User/edit_user')}";
                 $.getJSON(add_save_handleUrl,{
-                            "add_user_name_txt":add_user_addname,
-                            "add_telphone_txt":add_telphone_txt,
-                            "add_email_txt":add_user_email,
-                            "add_realname_txt":add_login_id,
-                            "add_sex_txt":add_user_sex,
-                            "add_org_txt":add_org_id,
-                            "add_role_txt":add_user_ckbox},
+                            "modify_realname_txt":add_user_addname,
+                            "modify_telphone_txt":add_telphone_txt,
+                            "modify_email_txt":add_user_email,
+                            "modify_user_name_txt":add_login_id,
+                            "modify_sex_txt":add_user_sex,
+                            "modify_org_txt":add_org_id,
+                            "modify_role_txt":add_user_ckbox},
                         function (data){
                             alert(data);
                             window.location.href = window.location.href;
@@ -537,7 +538,7 @@
                 loader:1,
                 loaderHeight:16,
                 loaderWidth:17,
-                windowSourceID:'#j_mod_win'
+                windowSourceID:'#j_mod_edit'
             });
             return false;
         });

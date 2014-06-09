@@ -11,10 +11,11 @@ class ChannelAction extends CommonAction {
 		$this->agentsid = $userinfo['agentsid']; //agentsid为空则为总公司
 		$this->username = $userinfo['username']; //登录的用户名
 		$this->is_have_user_purview = in_array($userinfo['grade'], array(1,2,3));
+		*/
 		$first_channel_type = getAllChannelType();
 		$all_agent = getAllAgent();
 		$this->assign('first_channel_type', $first_channel_type);
-		$this->assign('all_agent', $all_agent);*/
+		//$this->assign('all_agent', $all_agent);
 		$this->display(':channel_index');
 	}
 

@@ -24,7 +24,7 @@
             </ul>
         </div>
         <div class="right">
-            <a href="<?php echo U('configuration/Login/logout');?>">退出系统</a>
+            <a href="javascript:void(0);" onclick="show_user_logout()">退出系统</a>
         </div>
     </div>
 </div>
@@ -49,6 +49,17 @@
         });
         return false;
 	}
+
+	function show_user_logout(){
+		//$('#change_password_id').show();
+		$.openDOMWindow({
+            loader:1,
+            loaderHeight:16,
+            loaderWidth:17,
+            windowSourceID:'#j_logout_win'
+        });
+        return false;
+	}
 </script>
 <div id="container">
 <div class="left">
@@ -67,7 +78,8 @@
         <form name="channelSelect" method="get" action="<?php echo U('channel/Channel/channelSelect');?>">
             <p>
                 <label for="channel-org-name" class="">渠道商名称&nbsp;&nbsp;&nbsp;</label>
-                <input type="text" name="channel_name_txt" id="channel_name_txt" class="input-org-info"/>
+                <input type="text" name="channel_name_txt" id="channel_name_txt" autocomplete="off" class="input-org-info"
+					value="<?php echo ($_GET['channel_name_txt']); ?>"/>
                 <label for="channel-class1" class="">渠道类型</label>
                 <select name="channel_first_type_sel" id="channel_first_type_sel" class="channel-select-min">
                     <option value="">全部</option>
@@ -91,16 +103,16 @@
             <p>
                 <label for="channel-org-name" class="">合同开始日期</label>
                 <input type="text" name="contract_begin_time_1" id="contract_begin_time_1" class="input-org-info"
-                       onClick="WdatePicker()"/>
+                       value="<?php echo ($_GET['contract_begin_time_1']); ?>" onClick="WdatePicker()"/>
                 &nbsp;&nbsp;--&nbsp;&nbsp;
                 <input type="text" name="contract_begin_time_2" id="contract_begin_time_2" class="input-org-info"
-                       onClick="WdatePicker()"/>
+                       value="<?php echo ($_GET['contract_begin_time_2']); ?>" onClick="WdatePicker()"/>
                 <label for="channel-org-name" class="">合同截至日期</label>
                 <input type="text" name="contract_end_time_1" id="contract_end_time_1" class="input-org-info"
-                       onClick="WdatePicker()"/>
+                       value="<?php echo ($_GET['contract_end_time_1']); ?>" onClick="WdatePicker()"/>
                 &nbsp;&nbsp;--&nbsp;&nbsp;
                 <input type="text" name="contract_end_time_2" id="contract_end_time_2" class="input-org-info"
-                       onClick="WdatePicker()"/>
+                       value="<?php echo ($_GET['contract_end_time_2']); ?>" onClick="WdatePicker()"/>
 			    <input type="text" name="select_del_flag_txt" id="select_del_flag_txt" value="0" style="display:none;"/>
                 <input type="submit" class="role-control-btn">
             </p>
@@ -110,9 +122,9 @@
     </div>
     <div class="org-right-btns">
         <form action="">
-            <button type="button" class="area-btn">添加</button>
+            <button type="button" class="area-btn" id="b_add_channel">添加</button>
             <button type="button" class="area-btn">编辑/查看</button>
-            <button type="button" class="area-btn">终止合同</button>
+            <button type="button" id="delete_contract" class="area-btn">终止合同</button>
         </form>
     </div>
 </div>
@@ -135,7 +147,10 @@
                 <span class="span-1"><b>投放加油站数量</b></span>
             </li>
             <?php if(is_array($list)): $i = 0; $__LIST__ = $list;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$vo): $mod = ($i % 2 );++$i;?><li>
-                    <span class="span-1"><input type="radio" name="role-info" id="" class="role-table-radio"/></span>
+                    <span class="span-1">
+						<input type="radio" name="<?php echo ($vo['channelDetailID']); ?>" id="<?php echo ($vo['channelDetailID']); ?>" value="<?php echo ($vo['channel_id']); ?>" 
+							onclick="selectChannelRadio('<?php echo ($vo['channel_id']); ?>');" class="role-table-radio"/>
+					</span>
                     <span class="span-1" title="#"><?php echo ($vo["channel_name"]); ?></span>
                     <span class="span-1" title="#"><?php echo ($vo["channel_type_name"]); ?></span>
                     <span class="span-1" title="#"><?php echo ($vo["agent_name"]); ?></span>
@@ -321,6 +336,21 @@
     </div>
 </div>
 </div>
+
+<div class="divout" id="j_logout_win" style="display:none;">
+	<div class="alert-role-add" >
+		<h3>退出</h3>
+		<div class="alert-role-add-con">
+			<p class="delete-message">确认退出？</p>
+			<p>
+				<button type="button" class="alert-btn2" id="j_logout_ok" onclick="user_logout()">确定</button>
+				<a href="." class="closeDOMWindow">
+					<button type="button" class="alert-btn2">关闭</button>
+				</a>
+			</p>
+		</div>
+	</div>
+</div>
 <script>
     window.onload=function(){
         headAct();
@@ -347,6 +377,11 @@
 			}
 			,'json'
 		);
+	}
+
+	function user_logout(){
+		var handleUrl = "<?php echo U('configuration/Login/logout');?>";
+		window.location.href = handleUrl;
 	}
 
     function headAct(){
@@ -386,75 +421,74 @@
     }
 </script>
 
+<div id="j_add_channel" style="display:none;">
 <div class="alert-role-add">
     <h3>渠道信息</h3>
 
     <div class="alert-user-add-con">
         <form action="">
-            <p>所属组织机构：<span>分子公司1</span></p>
+            <p>
+				<label for="channel-address1" class="">所属组织机构：</label>
+                <select name="add_agent_id_sel" id="add_agent_id_sel" class="channel-select-min">
+                   <option selected value="">请选择所属组织</option>
+				   <?php if(is_array($all_agent)): foreach($all_agent as $key=>$agent): ?><option value="<?php echo ($agent["agent_id"]); ?>"><?php echo ($agent["agent_name"]); ?></option><?php endforeach; endif; ?>
+                </select>
+			</p>
 
             <p>
                 <label for="channel-addname" class="role-lab">渠道名称</label>
-                <input type="text" name="addname" id="channel-addname" class="input-role-name"/>
+                <input type="text" name="add_channel_name_txt" id="add_channel_name_txt" class="input-role-name"/>
             </p>
 
             <p>
                 <label for="channel-address1" class="">渠道地址</label>
-                <select name="add_agent_type_sel" id="channel-address1" class="channel-select-min">
-                    <option selected value="">省</option>
-                    <option class="industry" value="trade">2</option>
-                    <option class="area" value="area">3</option>
-                </select>
-                <select name="add_agent_type_sel" id="channel-address2" class="channel-select-min">
-                    <option selected value="">市</option>
-                    <option class="industry" value="trade">2</option>
-                    <option class="area" value="area">3</option>
-                </select>
-                <input type="text" name="addname" id="channel-addname" class="input-role-name"/>
+                <span id="add_select_showcity"></span><!--省市联动-->
             </p>
             <p>
                 <label for="channel-address1" class="">渠道类型</label>
-                <select name="add_agent_type_sel" id="channel-address1" class="channel-select-min">
-                    <option selected value="">1</option>
-                    <option class="industry" value="trade">2</option>
-                    <option class="area" value="area">3</option>
-                </select>
-                <select name="add_agent_type_sel" id="channel-address2" class="channel-select-min">
-                    <option selected value="">1</option>
-                    <option class="industry" value="trade">2</option>
-                    <option class="area" value="area">3</option>
-                </select>
-                <a href="">修改类别</a>&nbsp;&nbsp;&nbsp;&nbsp;<a href="">修改属性</a>
+				<select style="width:164px" name="add_channel_first_type_sel" id="add_channel_first_type_sel" class="channel-select-min">
+					<option value="">请选择类型</option>
+					<?php if(is_array($first_channel_type)): foreach($first_channel_type as $key=>$type): ?><option value="<?php echo ($type["channel_type_id"]); ?>"><?php echo ($type["channel_type_name"]); ?></option><?php endforeach; endif; ?>
+				</select>
+                <select name="add_channel_second_type_sel" id="add_channel_second_type_sel" class="channel-select-min">
+					<option value="">全部</option>
+				</select>
+                <a class="channel-wz-a" href="">修改类别</a><a class="channel-wz-a" href="">修改属性</a>
             </p>
             <p>
                 <label for="user-phone" class="role-lab">联系人&nbsp;&nbsp;&nbsp;</label>
-                <input type="text" name="addname" id="user-phone" class="input-role-name"/>
+                <input type="text" name="add_contacts_txt" id="add_contacts_txt" class="input-role-name"/>
             </p>
 
             <p>
                 <label for="user-phone" class="role-lab">联系电话</label>
-                <input type="text" name="addname" id="user-phone" class="input-role-name"/>
+                <input type="text" name="add_contacts_tel_txt" id="add_contacts_tel_txt" class="input-role-name"/>
             </p>
 
             <p>
                 <label for="login-id" class="role-lab">合同编号</label>
-                <input type="text" name="addname" id="login-id" class="input-role-name"/>
+                <input type="text" name="add_contract_number_txt" id="add_contract_number_txt" class="input-role-name"/>
             </p>
 
             <p>
                 <label for="sq-date">授权日期</label>
-                <input type="date" name="" id="sq-date" class="input-org-info min-w" style="margin-top: 0;"/>
-                <input type="date" name="" id="date" class="input-org-info min-w" style="margin-top: 0;"/>
+                <input type="text" name="add_begin_time_sel" id="add_begin_time_sel" class="input-org-info min-w" 
+					onClick="WdatePicker()" readonly="readonly" style="margin-top: 0;"/>
+                <input type="text" name="add_end_time_sel" id="add_end_time_sel" class="input-org-info min-w" 
+					onClick="WdatePicker()" readonly="readonly" style="margin-top: 0;"/>
             </p>
 
             <p>
-                <button type="button" class="alert-btn2">保存</button>
-                <button type="button" class="alert-btn2">关闭</button>
+                <button type="button" class="alert-btn2" id="submit_add_channel">保存</button>
+				<a href="." class="closeDOMWindow">
+					<button type="button" class="alert-btn2">关闭</button>
+				</a>
             </p>
         </form>
     </div>
 </div>
-
+</div>
+<!--
 <div class="alert-role-add">
     <h3></h3>
 
@@ -470,8 +504,14 @@
         </p>
     </div>
 </div>
+-->
 <!--<script type="text/javascript" src="__PUBLIC__/js/jquery.SuperSlide.2.1.1.js"></script>-->
 <script>
+	var channel_val='';
+	function selectChannelRadio(channel_id){
+		channel_val = channel_id;
+	}
+
     window.onscroll = function () {
         var scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
         var fixDiv = document.getElementById('j-fixed-top');
@@ -485,6 +525,7 @@
 
 </script>
 <!--<script type="text/javascript">jQuery(".role-table").slide({trigger: "click"});</script>-->
+<link rel="stylesheet" href="__PUBLIC__/css/jquery.bigautocomplete.css" type="text/css" />
 <script type="text/javascript" src="__PUBLIC__/js/jquery.bigautocomplete.js"></script>
 <script type="text/javascript">
     $(document).ready(function () {
@@ -530,6 +571,33 @@
                     , 'json'
             );
         });
+
+		$("#delete_contract").click(function () {
+            var channel_id= channel_val;
+            var del_handleUrl="<?php echo U('channel/Channel/channelContractDelete');?>";
+            $.getJSON(del_handleUrl,{"channel_id":channel_id},
+                    function (data){
+                        alert(data);
+                        window.location.href = window.location.href;
+                    }
+                    ,'json'
+            );
+        });
+
+		$("#b_add_channel").click(function () {
+             $.openDOMWindow({
+			     loader:1,
+				 loaderHeight:16,
+				 loaderWidth:17,
+				 windowSourceID:'#j_add_channel'
+			 });
+			 return false;
+        });
+
+		$('#submit_add_channel').click(function(){
+
+        });
+
     });
 
     function agent_name_blurry() {
@@ -549,8 +617,7 @@
 
     function channel_name_blurry() {
         var handleUrl = "<?php echo U('channel/Channel/channelnameBlurrySelect');?>";
-        var channel_name = '';
-        $.getJSON(handleUrl, {"channel_name": channel_name},
+        $.getJSON(handleUrl, {},
                 function (data) {
                     var str = data;
                     //alert(data);
@@ -571,6 +638,10 @@
 		$("#select_del_flag_txt").val(1);
 		channelSelect.submit();
 	}
+</script>
+<script type="text/javascript">
+			showprovince("add_select_province", "add_select_city", "省份", "add_select_showcity");
+			showcity("add_select_city", "城市", "add_select_province", "add_select_showcity"); 
 </script>
 </body>
 </html>
