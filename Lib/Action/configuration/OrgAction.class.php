@@ -93,6 +93,60 @@ class OrgAction extends CommonAction {
 		$this->ajaxReturn($data, 'json');
 	}
 
+	//展示区域树形结构
+	public function show_org_area_tree(){
+		$Model = new Model();
+		$org_id = I('org_id');
+		$agent_area_info = $Model->query("select * from qd_agent_area where agent_id=" . $org_id);
+		$area_id_array = null;
+		foreach($agent_area_info as $key=>$val){
+			$area_id_array .= $val['area_id'] . ",";
+		}
+		if(!empty($area_id_array)){
+			$area_id_array = substr($area_id_array, 0 , -1);
+		}
+
+		$province_info = $Model->query("select * from bi_province where prov_id in ( " . $area_id_array . " )");
+		$data = null;
+		foreach($province_info as $p_key=>$p_val){
+			if(0 == $p_key){
+				$data .= '"' . "0" . '"' . ":" . '"' . $p_val['prov_id'] . ":" . $p_val['prov_name'] . ",";
+				//$data .= "0" . ":" . $p_val['prov_id'] . ":" . $p_val['prov_name'] . ",";
+			}else{
+				$data .= $p_val['prov_id'] . ":" . $p_val['prov_name'] . ",";
+			}
+		}
+		$data = substr($data, 0 , -1);
+		$data = $data . '",';
+		foreach($province_info as $p_key=>$p_val){
+			/*
+			$data[$key]['id'] = $val['area_id'];
+			$data[$key]['value'] = $val['area_name'];
+			$data[$key]['parent'] = $val['pid'];
+			*/
+			$city_info = $Model->query("select * from bi_area where pid=" . $p_val['prov_id']);
+			foreach($city_info as $c_key=>$c_val){
+				if(!empty($c_val['area_id'])){
+					if(0 == $c_key){
+						$data .= '"' . $c_val['pid'] . '"' . ":" . '"' . $c_val['area_id'] . ":" . $c_val['area_name'] . ",";
+						//$data .= $c_val['pid'] . ":" . $c_val['area_id'] . ":" . $c_val['area_name'] . ",";
+					}
+					else{
+						$data .= $c_val['area_id'] . ":" . $c_val['area_name'] . ",";
+					}
+				}
+			}
+			if(!empty($city_info[0]['area_id'])){
+				$data = substr($data, 0 , -1);
+				$data = $data . '",';
+			}
+		}
+		$data = substr($data, 0 , -1);
+
+		//echo $data;
+		$this->ajaxReturn($data, 'json');
+	}
+
 	//获取所有省
 	public function get_province(){
 		$Model = new Model();
@@ -124,12 +178,12 @@ class OrgAction extends CommonAction {
 	public function add_org(){
 		$agent_name = trim(I('add_agent_name_txt'));
 		$companyAddr = trim(I('add_companyAddr_txt'));
-		$agent_type = trim(I('add_agent_type_sel'));
+		//$agent_type = trim(I('add_agent_type_sel'));
 		$contract_number = trim(I('add_contract_number_txt'));
 		$legal = trim(I('add_legal_txt'));
 		$tel = trim(I('add_tel_txt'));
 		$legal_tel = trim(I('add_legal_tel_txt'));
-		$agent_level = trim(I('add_agent_level_sel'));
+		//$agent_level = trim(I('add_agent_level_sel'));
 		$father_agentid = trim(I('add_father_agentid_sel'));
 		$begin_time = strtotime(trim(I('add_begin_time_sel')));
 		$end_time = strtotime(trim(I('add_end_time_sel')));
@@ -142,17 +196,14 @@ class OrgAction extends CommonAction {
 		$agent = M("agent","qd_");
 		$agent_area = M("agent_area", "qd_");
 		$data['agent_name'] = $agent_name;
-		$data['agent_type'] = $agent_type;
+		//$data['agent_type'] = $agent_type;
 		$data['companyAddr'] = $companyAddr;
 		$data['contract_number'] = $contract_number;
 		$data['legal'] = $legal;
 		$data['tel'] = $tel;
 		$data['legal_tel'] = $legal_tel;
-		$data['agent_level'] = $agent_level;
-		if($agent_level == '2')
-		{
-			$data['father_agentid'] = $father_agentid;
-		}
+		//$data['agent_level'] = $agent_level;
+		$data['father_agentid'] = $father_agentid;
 		$data['sub_agent_num'] = 0;
 		$data['place_num'] = 0;
 		$data['channel_num'] = 0;
@@ -230,13 +281,13 @@ class OrgAction extends CommonAction {
 		$agent_name = trim(I('change_agent_name_txt'));
 		$agent_id = trim(I('change_agent_id_txt'));
 		$companyAddr = trim(I('change_companyAddr_txt'));
-		$agent_type = trim(I('change_agent_type_sel'));
+		//$agent_type = trim(I('change_agent_type_sel'));
 		$contract_number = trim(I('change_contract_number_txt'));
 		$legal = trim(I('change_legal_txt'));
 		$tel = trim(I('change_tel_txt'));
 		$legal_tel = trim(I('change_legal_tel_txt'));
-		$agent_level = trim(I('change_agent_level_sel'));
-		$father_agentid = trim(I('change_father_agentid_sel'));
+		//$agent_level = trim(I('change_agent_level_sel'));
+		//$father_agentid = trim(I('change_father_agentid_sel'));
 		$begin_time = strtotime(trim(I('change_begin_time_sel')));
 		$end_time = strtotime(trim(I('change_end_time_sel')));
 		$dst_area = trim(I('change_dst_area'));
@@ -250,8 +301,6 @@ class OrgAction extends CommonAction {
 
 		$result = $agent->query("select ifnull(agent_id,0) as agent_id from qd_agent where agent_name='$agent_name'");
 		$src_agent_log_info = $agent->where("agent_id=" . $agent_id)->select();  //查询修改前的信息，用于日志对比
-		$src_father_agent_id = $src_agent_log_info[0]['father_agentid'];
-		$src_agent_log_info[0]['father_agentname'] = getAgentNameFromAgentID($src_agent_log_info[0]['father_agentid']);
 		unset($src_agent_log_info[0]['father_agentid']);
 		if('1' == $src_agent_log_info[0]['forever_type'])
 		{
@@ -271,23 +320,13 @@ class OrgAction extends CommonAction {
 		{
 			$data['agent_name'] = $agent_name;
 			$data['companyAddr'] = $companyAddr;
-			$data['agent_type'] = $agent_type;
+			//$data['agent_type'] = $agent_type;
 			$data['contract_number'] = $contract_number;
 			$data['legal'] = $legal;
 			$data['tel'] = $tel;
 			$data['legal_tel'] = $legal_tel;
-			$data['agent_level'] = $agent_level;
-			if('' == $father_agentid)
-			{
-				$father_agentid = '0';
-			}
-			if($agent_id == $father_agentid)
-			{
-				$msg = C('change_agent_belongself');
-				$this->ajaxReturn($msg,'json');
-				return;
-			}
-			$data['father_agentid'] = $father_agentid;
+			//$data['agent_level'] = $agent_level;
+			//$data['father_agentid'] = $father_agentid;
 			$data['forever_type'] = $change_forever_check;
 			if(0 != $begin_time)
 			{
@@ -327,8 +366,6 @@ class OrgAction extends CommonAction {
 				changeNum('agent', $father_agentid, $agent_id, 'add');
 			}
 			$dst_agent_log_info = $agent->where("agent_id=" . $agent_id)->select();  //查询修改后的信息，用于日志对比
-			$dst_agent_log_info[0]['father_agentname'] = getAgentNameFromAgentID($dst_agent_log_info[0]['father_agentid']);
-			unset($dst_agent_log_info[0]['father_agentid']);
 			if('1' == $dst_agent_log_info[0]['forever_type'])
 			{
 				$dst_agent_log_info[0]['forever_type'] = "是";

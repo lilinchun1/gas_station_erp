@@ -41,14 +41,10 @@
 				</div>
 
                 </div>
-                <div class="org-right-info">
+                <div class="org-right-info" id="j_org">
                     <h3>组织机构信息</h3>
 						<input type="hidden" id="agent_id_hid" value=""/>
                         <div class="info-left cf">
-                            <label for="linkman">类型</label>
-                            <input readonly="true" type="text" name="" id="change_agent_type_sel" class="input-org-info"/>
-                            <label class="linkman2">级别</label>
-                            <input readonly="true" type="text" name="" id="change_agent_level_sel" class="input-org-info"/>
                             <label for="change_agent_name_txt">组织机构名称</label><input type="text" name="" id="change_agent_name_txt" readonly="true" class="input-org-info"/>
                             <label for="linkman">联系人</label><input readonly="true" type="text" name="" id="change_legal_txt" class="input-org-info"/>
                             <label for="address">办公地址</label><input readonly="true" type="text" name="" id="change_companyAddr_txt" class="input-org-info"/>
@@ -92,25 +88,13 @@
         <h3>组织机构信息</h3>
         <form action="">
             <div class="info-left cf">
-                <label for="add_agent_type_sel">代理商类型</label>
-                <select name="add_agent_type_sel" id="add_agent_type_sel" class="org-select">
-                    <option selected value="">请选择</option>
-                    <option class="industry" value="trade">行业型</option>
-                    <option class="area" value="area">区域型</option>
-                </select>
-                <label class="add_agent_level_sel">代理商级别</label>
-                <select  name="add_agent_level_sel" id="add_agent_level_sel" class="org-select">
-                    <option selected="selected" value="">请选择</option>
-                    <option class="one" value="1">一级代理商</option>
-                    <option class="two" value="2">二级代理商</option>
-                </select>
                 <label for="org">组织机构名称</label><input type="text" name="" id="j_add_org" class="input-org-info"/>
                 <label for="linkman">联系人</label><input type="text" name="" id="j_add_linkman" class="input-org-info"/>
                 <label for="address">办公地址</label><input type="text" name="" id="j_add_address" class="input-org-info"/>
                 <label for="contract-number">合同编号</label><input type="text" name="" id="j_add_contract-number" class="input-org-info"/>
             </div>
             <div class="info-right cf">
-                <label for="org-s">上级组织机构</label><input type="text" name="" id="j_add_org-s" class="input-org-info"/>
+                <label for="org-s">上级组织机构</label><input type="text" name="" id="j_add_org-s" class="input-org-info" readonly="readonly" />
                 <label for="phone">联系电话</label><input type="text" name="" id="j_add_phone" class="input-org-info"/>
                 <label for="yw-are">业务范围</label><input type="text" name="" id="restxts" class="input-org-info"/>
 				<input name="test"  id="j-choose" value="选择" type="button"/>
@@ -128,9 +112,9 @@
         </form>
         <div class="info-bottom">
             <button type="button" class="alert-btn" id="j_add_save">保存</button>
-			<a href="." class="closeDOMWindow">
-				 <button type="button" class="alert-btn">关闭</button>
-			</a>
+
+			<button type="button" class="alert-btn" id="j_close">关闭</button>
+
         </div>
     </div>
 </div>
@@ -143,7 +127,7 @@
 			<input type="hidden" value="" id="del_id_hidden"/>
 			<p>
 				<button type="button" class="alert-btn2" id="j_del_ok">删除</button>
-				<a href="." class="closeDOMWindow">
+				<a href="#" class="closeDOMWindow">
 					<button type="button" class="alert-btn2">关闭</button>
 				</a>
 			</p>
@@ -293,7 +277,7 @@ $(document).ready(function(){
 
 //===================================================展示信息========================================
     $("#treeDemo a").click(function(){
-        $(".org-right-info input").val("");//初始化文本框
+        $("#j_org input").val("");//初始化文本框
         var mod_handleUrl = "{:U('configuration/Org/orgDetailSelect')}";
         var agent_id=$(this).attr("title");
         $.getJSON(mod_handleUrl,{"agent_id":agent_id},
@@ -302,8 +286,7 @@ $(document).ready(function(){
                     //var tmp_change_father_agent_id = data['father_agentid'];
                     //$("#change_agent_id_txt").val(data['agent_id']);
                     $("#change_agent_name_txt").val(data['agent_name']);//组织机构名称
-                    var agent_type_txt=data['agent_type'];//类型
-                    var agent_level=data['agent_level'];//级别
+
                     $("#change_legal_tel_txt").val(data['legal_tel']);//联系人电话
                     $("#change_legal_txt").val(data['legal']);//联系人
                     $("#change_tel_txt").val(data['tel']);//公司电话
@@ -326,56 +309,76 @@ $(document).ready(function(){
                         $("#sq-date").val(data['begin_time']);
                         $("#date").val(data['end_time']);
                     }
-
-
-
-
-                    //解析类型
-                    if(agent_type_txt=="trade"){
-                        $("#change_agent_type_sel").val("行业型");//类型
-                    }else if(agent_type_txt=="area"){
-                        $("#change_agent_type_sel").val("区域型");//类型
-                    }else{
-                        $("#change_agent_type_sel").val("出错了");//类型
-                    }
-                    //解析级别
-                    if(agent_level=="1"){
-                        $("#change_agent_level_sel").val("一级代理商");//级别
-                    }else if(agent_level=="2"){
-                        $("#change_agent_level_sel").val("二级代理商");//级别
-                    }else{
-                        $("#change_agent_level_sel").val("出错了");//类型
-                    }
-
-
-
                 }
                 ,'json'
         );
     })
 //=====================================================单击添加按钮弹出模态窗事件============================================
     $('#j_add_button').click(function(){
+		if ($('#agent_id_hid').val()=="")
+		{	
+			alert("请选择一条组织结构再进行增加");
+			return false;
+		}
+		
         //保存
         $('#j_add_save').click(function(){
             var add_agent_name_txt=$('#j_add_org').val();//组织机构名称
+			if (add_agent_name_txt=="")
+			{	
+				alert("请输入组织机构名称");
+				return false;
+			}
+		
 
-            var add_agent_type_sel=$("#add_agent_type_sel").val();//代理商类型
+            //var add_agent_type_sel=$("#add_agent_type_sel").val();//代理商类型
 
-            var add_agent_level_sel=$('#add_agent_level_sel').val();//代理商级别
+           // var add_agent_level_sel=$('#add_agent_level_sel').val();//代理商级别
 
             var add_legal_txt=$('#j_add_linkman').val();//联系人
+			if (add_legal_txt=="")
+			{	
+				alert("请输入联系人");
+				return false;
+			}
 
             var add_companyAddr_txt=$('#j_add_address').val();//办公地址
+			if (add_companyAddr_txt=="")
+			{	
+				alert("请输入办公地址");
+				return false;
+			}
 
             var add_tel_txt=$('#add_tel_txt').val();//公司电话
+			if (add_tel_txt=="")
+			{	
+				alert("请输入公司电话");
+				return false;
+			}
 
             var add_contract_number_txt=$('#j_add_contract-number').val();//合同编号
+			if (add_contract_number_txt=="")
+			{	
+				alert("请输入合同编号");
+				return false;
+			}
 
-            var add_father_agentid_sel=$('#j_add_org-s').val();//上级组织机构
+            var add_father_agentid_sel=$('#agent_id_hid').val();//上级组织机构id
+			//alert(add_father_agentid_sel);
 
             var add_legal_tel_txt=$('#j_add_phone').val();//联系电话
+			if (add_legal_tel_txt=="")
+			{	
+				alert("请输入联系人电话");
+				return false;
+			}
 
             var add_org_area=$('#resvals').val();//业务范围
+			if (add_org_area=="")
+			{	
+				alert("请选择业务范围");
+				return false;
+			}
 
             var add_begin_time_sel=$('#j_add_sq-date').val();//授权日期
 
@@ -395,8 +398,6 @@ $(document).ready(function(){
             //return false;
             var add_handleUrl="{:U('configuration/Org/add_org')}";
             $.getJSON(add_handleUrl,{"add_agent_name_txt":add_agent_name_txt,"add_legal_txt":add_legal_txt,
-                        "add_agent_level_sel":add_agent_level_sel,
-                        "add_agent_type_sel":add_agent_type_sel,
                         "add_companyAddr_txt":add_companyAddr_txt,
                         "add_tel_txt":add_tel_txt,
 
@@ -419,6 +420,12 @@ $(document).ready(function(){
                     ,'json'
             );
         });//结束
+		//关闭按钮
+		$("#j_close").click(function(){
+			window.location.href = window.location.href;
+		});
+		var add_father_value_sel=$("#change_agent_name_txt").val();
+		$('#j_add_org-s').val(add_father_value_sel);
         $.openDOMWindow({
             loader:1,
             loaderHeight:16,
@@ -429,18 +436,16 @@ $(document).ready(function(){
     });
 //=====================================================单击修改按钮事件======================================================
     $('#j_mod_button').click(function(){
-        $("#j_add_win input").val("");//初始化文本框
+		if ($('#agent_id_hid').val()=="")
+		{	
+			alert("请选择一条组织结构再进行编辑");
+			return false;
+		}
         var mod_handleUrl = "{:U('configuration/Org/orgDetailSelect')}";
         var agent_id=$("#agent_id_hid").val();
         $.getJSON(mod_handleUrl,{"agent_id":agent_id},
                 function (data){
-                    //alert(agent_id);
-                    //$("#agent_id_hid").val(agent_id);
-                    //var tmp_change_father_agent_id = data['father_agentid'];
-                    //$("#change_agent_id_txt").val(data['agent_id']);
                     $("#j_add_org").val(data['agent_name']);//组织机构名称
-                    var agent_type_txt=data['agent_type'];//类型
-                    var agent_level=data['agent_level'];//级别
                     $("#j_add_phone").val(data['legal_tel']);//联系人电话
                     $("#j_add_linkman").val(data['legal']);//联系人
                     $("#add_tel_txt").val(data['tel']);//公司电话
@@ -466,28 +471,13 @@ $(document).ready(function(){
                         $("#j_add_date").val(data['end_time']);
                     }
 
-                    //解析类型
-                    if(agent_type_txt=="trade"){
-                        $("#add_agent_type_sel").val("trade");
-                    }else if(agent_type_txt=="area"){
-                        $("#add_agent_type_sel").val("area");
-                    }
-                    //解析级别
-                    if(agent_level=="1"){
-                        $("#add_agent_level_sel").val("1");
-                    }else if(agent_level=="2"){
-                        $("#add_agent_level_sel").val("2");
-                    }
+
                 }
                 ,'json'
         );
         //保存
         $('#j_add_save').click(function(){
             var add_agent_name_txt=$('#j_add_org').val();//组织机构名称
-
-            var add_agent_type_sel=$("#add_agent_type_sel").val();//代理商类型
-
-            var add_agent_level_sel=$('#add_agent_level_sel').val();//代理商级别
 
             var add_legal_txt=$('#j_add_linkman').val();//联系人
 
@@ -497,7 +487,8 @@ $(document).ready(function(){
 
             var add_contract_number_txt=$('#j_add_contract-number').val();//合同编号
 
-            var add_father_agentid_sel=$('#j_add_org-s').val();//上级组织机构
+            var add_father_agentid_sel=$('#agent_id_hid').val();//上级组织机构
+			alert(add_father_agentid_sel);
 
             var add_legal_tel_txt=$('#j_add_phone').val();//联系电话
 
@@ -520,8 +511,6 @@ $(document).ready(function(){
             //return false;
             var mod_save_handleUrl="{:U('configuration/Org/edit_org')}";
             $.getJSON(mod_save_handleUrl,{"change_agent_name_txt":add_agent_name_txt,"change_legal_txt":add_legal_txt,"change_agent_id_txt":agent_id,
-                        "change_agent_level_sel":add_agent_level_sel,
-                        "change_agent_type_sel":add_agent_type_sel,
                         "change_companyAddr_txt":add_companyAddr_txt,
                         "change_tel_txt":add_tel_txt,
                         "change_contract_number_txt":add_contract_number_txt,"change_father_agentid_sel":add_father_agentid_sel,
@@ -543,7 +532,10 @@ $(document).ready(function(){
                     ,'json'
             );
         });//结束
-
+		//关闭按钮
+		$("#j_close").click(function(){
+			window.location.href = window.location.href;
+		});
 
         $.openDOMWindow({
             loader:1,
@@ -556,6 +548,11 @@ $(document).ready(function(){
 
 //=====================================================单击删除按钮弹出模态窗事件============================================
     $('#j_del_button').click(function(){
+		if ($('#agent_id_hid').val()=="")
+		{	
+			alert("请选择一条组织结构再进行删除");
+			return false;
+		}
         var ki=$("#agent_id_hid").val();
         $("#del_id_hidden").val(ki);
         //单击删除确认按钮
