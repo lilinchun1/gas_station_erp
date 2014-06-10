@@ -6,7 +6,7 @@ css_dir = "Public/css"
 sass_dir = "Public/sass"
 images_dir = "Public/image"
 javascripts_dir = "Public/js"
-fonts_dir = "Public/font"
+fonts_dir = "Public/fonts"
 
 # You can select your preferred output style here (can be overridden via the command line):
 # output_style = :expanded or :nested or :compact or :compressed

@@ -18,39 +18,39 @@
     </div>
     <div class="right">
         <div class="right-con">
-            <div class="station-con">
+            <div class="station-con" id="j-tataion-tool">
                 <div class="station-control">
                     <ul class="station-control-list">
                         <li>
                             <h4>系统监控</h4>
                             <span><img src="" alt=""/></span>
                             <dl class="station-zhuangtai">
-                                <dt><b>x</b><em>10000</em></dt>
-                                <dt><b>x</b><em>20</em></dt>
+                                <dt><b class="icon-checkmark-circle green-color"></b><em>10000</em></dt>
+                                <dt><b class="icon-cancel-circle red-color"></b><em>20</em></dt>
                             </dl>
                         </li>
                         <li>
                             <h4>APP应用</h4>
                             <span><img src="" alt=""/></span>
                             <dl class="station-zhuangtai">
-                                <dt><b>x</b><em>10000</em></dt>
-                                <dt><b>x</b><em>20</em></dt>
+                                <dt><b class="icon-checkmark-circle green-color"></b><em>10000</em></dt>
+                                <dt><b class="icon-cancel-circle red-color"></b><em>20</em></dt>
                             </dl>
                         </li>
                         <li>
                             <h4>媒体广告</h4>
                             <span><img src="" alt=""/></span>
                             <dl class="station-zhuangtai">
-                                <dt><b>x</b><em>10000</em></dt>
-                                <dt><b>x</b><em>20</em></dt>
+                                <dt><b class="icon-checkmark-circle green-color"></b><em>10000</em></dt>
+                                <dt><b class="icon-cancel-circle red-color"></b><em>20</em></dt>
                             </dl>
                         </li>
                         <li>
                             <h4>远程操作</h4>
                             <span><img src="" alt=""/></span>
                             <dl class="station-zhuangtai">
-                                <dt><b>x</b><em>10000</em></dt>
-                                <dt><b>x</b><em>20</em></dt>
+                                <dt><b class="icon-checkmark-circle green-color"></b><em>10000</em></dt>
+                                <dt><b class="icon-cancel-circle red-color"></b><em>20</em></dt>
                             </dl>
                         </li>
                     </ul>
@@ -66,21 +66,24 @@
                             <option class="industry" value="trade">2</option>
                             <option class="area" value="area">3</option>
                         </select>
-                        <select name="add_agent_type_sel" id="channel-class3" class="channel-select-min">
+                       <!-- <select name="add_agent_type_sel" id="channel-class3" class="channel-select-min">
                             <option selected value="">区域</option>
                             <option class="industry" value="trade">2</option>
                             <option class="area" value="area">3</option>
-                        </select>
+                        </select>-->
                         <input placeholder="请输入渠道名称" type="text" name="" id="channel-ss-channel" class="station-info"/>
                         <button type="button" class="role-control-btn">查询</button>
                         <button type="button" class="role-control-btn">导出</button>
                         <div class="mode-change">
-                            <a class="active" href="">监控台模式</a> <a href="">列表模式</a>
+                            <a href="" class="active">监控台模式</a> <a href="">列表模式</a>
                         </div>
                     </div>
                 </div>
             </div>
             <div class="station-state-list"  id="j-station-sh1">
+                <div class="station-state-tree1">
+
+                </div>
                 <ul class="station-state-list-con">
                     <li>
                         <div class="station-state-info">
@@ -95,67 +98,67 @@
                         <dl class="station-state-dl">
                             <dt>
                                 <em>正常开机</em>
-                                <span>x</span>
+                                <span class="icon-checkmark green-color"></span>
                             </dt>
                             <dt>
                                 <em>正常关机机</em>
-                                <span>x</span>
+                                <span class="icon-checkmark green-color"></span>
                             </dt>
                             <dt>
                                 <em>上屏状态</em>
-                                <span>x</span>
+                                <span class="icon-checkmark green-color"></span>
                             </dt>
                             <dt>
                                 <em>下屏状态</em>
-                                <span>x</span>
+                                <span class="icon-close red-color"></span>
                             </dt>
                             <dt>
                                 <em>网络状态</em>
-                                <span>x</span>
+                                <span class="icon-checkmark green-color"></span>
                             </dt>
                             <dt>
                                 <em>连接线状态</em>
-                                <span>x</span>
+                                <span class="icon-checkmark green-color"></span>
                             </dt>
                             <dt>
                                 <em>连接口状态</em>
-                                <span>x</span>
+                                <span class="icon-close red-color"></span>
                             </dt>
                             <dt>
                                 <em>客户端程序状态</em>
-                                <span>x</span>
+                                <span class="icon-close red-color"></span>
                             </dt>
                             <dt>
                                 <em>系统版本</em>
-                                <span>x</span>
+                                <span class="icon-spam yellow-color"></span>
                             </dt>
                             <dt>
                                 <em>APP应用</em>
-                                <span>x</span>
+                                <span class="icon-spam yellow-color"></span>
                             </dt>
                             <dt>
                                 <em>媒体广告</em>
-                                <span>x</span>
+                                <span class="icon-spam yellow-color"></span>
                             </dt>
                             <dt>
                                 <em>CPU预警</em>
-                                <span>x</span>
+                                <span class="icon-bulb red-color"></span>
                             </dt>
                             <dt>
                                 <em>内存预警</em>
-                                <span>x</span>
+                                <span class="icon-bulb red-color"></span>
                             </dt>
                             <dt>
                                 <em>硬盘预警</em>
-                                <span>x</span>
+                                <span class="icon-bulb green-color"></span>
                             </dt>
                             <dt>
                                 <em>网络流量预警</em>
-                                <span>x</span>
+                                <span class="icon-bulb green-color"></span>
                             </dt>
                             <dt>
                                 <em>开关机时间预警</em>
-                                <span>x</span>
+                                <span class="icon-bulb green-color"></span>
                             </dt>
 
                         </dl>
@@ -518,6 +521,35 @@
 <script type="text/javascript" src="__PUBLIC__/js/jquery-1.6.1.js"></script>
 <script type="text/javascript" src="__PUBLIC__/js/jquery.SuperSlide.2.1.1.js"></script>
 <script type="text/javascript">jQuery(".alert-set-tab").slide({trigger:"click"});</script>
+<script>
+    $(function () {
+        $('.mode-change a:eq(0)').click(function () {
+            $('#j-station-sh1').show();
+            $('#j-station-sh2').hide();
+            $(this).addClass('active');
+            $('.mode-change a:eq(1)').removeClass();
+            return false;
+        });
+        $('.mode-change a:eq(1)').click(function () {
+            $('#j-station-sh1').hide();
+            $('#j-station-sh2').show();
+            $(this).addClass('active');
+            $('.mode-change a:eq(0)').removeClass();
+            return false;
+        })
+    })
 
+    window.onscroll = function () {
+        var scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
+        var fixDiv = document.getElementById('j-tataion-tool');
+        if (scrollTop >= 300) {
+            fixDiv.style.position = 'fixed';
+            fixDiv.style.top = '0px';
+            fixDiv.style.left = '20px';
+        } else if (scrollTop <= 299) {
+            fixDiv.style.position = 'static';
+        }
+    }
+</script>
 </body>
 </html>

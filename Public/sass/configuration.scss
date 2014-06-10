@@ -1,5 +1,6 @@
 @charset "UTF-8";
 @import "reset";
+@import "font";
 
 $border-color:#ccc; //通用边框颜色
 $container-left-width:200px;  //container 左边栏宽度
@@ -637,6 +638,7 @@ $min-width-kuang:1200px;
 .station-con{
   margin: 0 auto;
   width: 98%;
+  background: #ffffff;
 
 }
 .station-control{
@@ -670,28 +672,50 @@ $min-width-kuang:1200px;
         width: 40%;
         height: 100px;
         overflow: hidden;
+        [class^="icon-"], [class*=" icon-"]{
+          font-size: 20px;
+        }
           dt{
             height: 40px;
-            line-height: 40px;
+            line-height: 60px;
               b,em{
                 padding-left: 10px;}
           }
       }
   }
 }
+.green-color{
+  color: #5acc27;
+}
+.red-color{
+  color: #cc0b12;
+}
+.yellow-color{
+  color: #ffc66d;
+}
 .station-state-list{
   padding: 0 0;
   margin: 20px auto 0 auto;
   width: 98%;
   border: 1px solid $border-color;
+  overflow: hidden;
 }
 .station-state-list-cx{
   margin-top: 15px;
   padding-left: 30px;
+  height: 30px;
   overflow: hidden;
 }
 .station-info{
   @extend %input-t;
+}
+#j-station-sh2{
+  display: none;}
+.station-state-tree1{
+  width: 200px;
+  min-height: 253px;
+  background: #e0e0e0;
+  float: left;
 }
 .station-state-list-con{
 
@@ -737,6 +761,9 @@ $min-width-kuang:1200px;
   float: left;
   width: 81%;
   border: 1px solid #000;
+  [class^="icon-"], [class*=" icon-"]{
+    font-size: 18px;
+  }
     dt{
       margin-bottom: 10px;
       width: 25%;
