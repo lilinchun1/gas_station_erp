@@ -366,6 +366,7 @@ $min-width-kuang:1200px;
 }
 .alert-role-add{
   width: 500px;
+  overflow: hidden;
   background: #ffffff;
   border: 1px solid #000;
     h3{
@@ -374,7 +375,6 @@ $min-width-kuang:1200px;
 .w1k{
   width: 1000px;
   position: relative;
-  overflow: hidden;
 }
 .tree{
   float: right;
