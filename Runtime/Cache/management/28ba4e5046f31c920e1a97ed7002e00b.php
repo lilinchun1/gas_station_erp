@@ -11,7 +11,8 @@
 	
 	<script type="text/javascript">
 	$(function(){
-		//======================固定标题
+		//================================================================默认动作
+		//固定标题
 		window.onscroll = function () {
 			var scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
 			var fixDiv = document.getElementById('j-fixed-top');
@@ -22,11 +23,17 @@
 				fixDiv.style.position = 'static';
 			}
 		}
-		//======================弹出框
+		//================================================================触发操作
+		//创建，编辑弹出框
 		$('.status_add,.status_udp').click(function(){
 			if($(this).hasClass("status_udp")){
-				var rule_no = $("input[name='role-info']:checked").parent().parent().find(".rule_no").text();
-				var start_time = $("input[name='role-info']:checked").parent().parent().find(".start_time").text();
+				var rule_status = $("input[name='role-info']:checked").parent().parent().find(".rule_status_list").val();
+				if(rule_status >= 2){
+					alert("不能编辑");
+					return;
+				}
+				var rule_no = $("input[name='role-info']:checked").parent().parent().find(".rule_no_list").text();
+				var start_time = $("input[name='role-info']:checked").parent().parent().find(".start_time_list").text();
 				if(rule_no == ""){
 					alert("请选择编辑条目");
 					return;
@@ -44,14 +51,13 @@
 		});
 		
 		
-		//======================删除弹出框
+		//删除，发布，作废弹出框
 		$(".status_del,.status_2,.status_3").click(function(){
-			
-			
-			
-			var rule_status = $("input[name='role-info']:checked").parent().parent().find(".rule_status").val();
+			//获取状态值
+			var rule_status = $("input[name='role-info']:checked").parent().parent().find(".rule_status_list").val();
 			if($(this).hasClass("status_del")){
-				var alertMessage = "请选择删除条目";
+				var noSelMes = "请选择删除条目";
+				//改变确认框内容
 				$(".delete-message").text("确认删除？");
 				$(".del_fb_zf").text("删除");
 				$(".del_fb_zf").val("1");
@@ -60,7 +66,7 @@
 					return;
 				}
 			}else if($(this).hasClass("status_2")){
-				var alertMessage = "请选择要发布条目";
+				var noSelMes = "请选择要发布条目";
 				$(".delete-message").text("确认发布？");
 				$(".del_fb_zf").text("发布");
 				$(".del_fb_zf").val("2");
@@ -69,7 +75,7 @@
 					return;
 				}
 			}else if($(this).hasClass("status_3")){
-				var alertMessage = "请选择要作废条目";
+				var noSelMes = "请选择要作废条目";
 				$(".delete-message").text("确认作废？");
 				$(".del_fb_zf").text("作废");
 				$(".del_fb_zf").val("3");
@@ -79,12 +85,12 @@
 				}
 			}
 			
-			var rule_no = $("input[name='role-info']:checked").parent().parent().find(".rule_no").text();
+			var rule_no = $("input[name='role-info']:checked").parent().parent().find(".rule_no_list").text();
 			if(rule_no == ""){
-				alert(alertMessage);
+				alert(noSelMes);
 				return;
 			}
-			$("#del_rule_no").val(rule_no);
+			$("#rule_no_hid").val(rule_no);
 			
 			//弹出页面
 			$.openDOMWindow({
@@ -95,13 +101,10 @@
 	        });
 	        return false;
 		});
-		
-		
-		
-		
-		
-		
-		
+		//点一行则选中
+		$(".rule_info_list").click(function(){
+			$(this).find(".role-table-radio").attr("checked",true);
+		});
 		
 	});
 	//根据选择范围圈定应用名称下拉内容
@@ -189,12 +192,11 @@
 								<label for="channel-org-name" class="">刊例名称</label>
 								<input type="text" name="rule_no_sel" id="channel-org-name" class="input-org-info"/>
 								<label for="maintain-create-people" class="">创建人</label>
-								<input type="text" name="createuserid_sel" id="maintain-create-people"
+								<input type="text" name="createuser_sel" id="maintain-create-people"
 									   class="input-org-info"/>
 								<label for="maintain-create-date" class="">发布日期</label>
-								<input type="date" name="release_time_sel" id="maintain-create-date"
-									   class="input-org-info"/>
-								<button type="submit" class="role-control-btn">查询</button>
+								<input type="text" name="release_time_sel" id="maintain-create-date" class="input-org-info" readonly="true" onClick="WdatePicker()"/>
+								<button type="submit" name="select" class="role-control-btn">查询</button>
 							</p>
 						</form>
 					</div>
@@ -219,16 +221,16 @@
 								<span class="span-2"><b>发布状态</b></span>
 								<span class="span-2"><b>发布日期</b></span>
 							</li>
-							<?php if(is_array($issueArr)): foreach($issueArr as $key=>$issue): ?><li>
+							<?php if(is_array($issueArr)): foreach($issueArr as $key=>$issue): ?><li class="rule_info_list">
 									<span class="span-1"><input type="radio" name="role-info" id="" class="role-table-radio"/></span>
-									<span class="span-2 rule_no" title="#"><?php echo ($issue["rule_no"]); ?></span>
-									<span class="span-2 start_time" title="#"><?php echo ($issue["start_time"]); ?></span>
+									<span class="span-2 rule_no_list" title="#"><?php echo ($issue["rule_no"]); ?></span>
+									<span class="span-2 start_time_list" title="#"><?php echo ($issue["start_time"]); ?></span>
 									<span class="span-2" title="#">发布渠道</span>
 									<span class="span-2" title="#">
 										<?php if($issue['rule_status'] == 1): ?>待发布<?php endif; ?>
 										<?php if($issue['rule_status'] == 2): ?>已发布<?php endif; ?>
 										<?php if($issue['rule_status'] == 3): ?>作废<?php endif; ?>
-										<input type="hidden" class="rule_status" value="<?php echo ($issue['rule_status']); ?>"/>
+										<input type="hidden" class="rule_status_list" value="<?php echo ($issue['rule_status']); ?>"/>
 									</span>
 									<span class="span-2" title="#"><?php echo ($issue["release_time"]); ?></span>
 								</li><?php endforeach; endif; ?>
@@ -393,7 +395,7 @@
 			<div class="alert-role-add-con">
 				<p class="delete-message">确认删除？</p>
 				<p>
-					<input type="hidden" name="del_rule_no" id="del_rule_no" value=""/>
+					<input type="hidden" name="rule_no_hid" id="rule_no_hid" value=""/>
 					<button type="submit" name="del_fb_zf" class="alert-btn2 del_fb_zf" id="j_del_ok" value="1">删除</button>
 					<a href="." class="closeDOMWindow">
 						<button type="button" class="alert-btn2">关闭</button>
@@ -408,55 +410,6 @@
 <script type="text/javascript">
 getAppRule();
 </script>
-
-<div class="kl-list">
-    <ul class="role-table-list">
-        <li>
-            <span class="span-2"><b>ios游戏id</b></span>
-            <span class="span-2"><b>ios游戏名称</b></span>
-            <span class="span-2"><b>安卓游戏id</b></span>
-            <span class="span-2"><b>安卓游戏名称</b></span>
-        </li>
-
-            <li>
-                <span class="span-2">Lorem ipsum dolor sit amet, consectetur.</span>
-                <span class="span-2">Lorem ipsum dolor sit amet, consectetur.</span>
-                <span class="span-2">Lorem ipsum dolor sit amet, consectetur.</span>
-                <span class="span-2">Lorem ipsum dolor sit amet, consectetur.</span>
-            </li>
-        <li>
-            <span class="span-2">Lorem ipsum dolor sit amet, consectetur.</span>
-            <span class="span-2">Lorem ipsum dolor sit amet, consectetur.</span>
-            <span class="span-2">Lorem ipsum dolor sit amet, consectetur.</span>
-            <span class="span-2">Lorem ipsum dolor sit amet, consectetur.</span>
-        </li>
-        <li>
-            <span class="span-2">Lorem ipsum dolor sit amet, consectetur.</span>
-            <span class="span-2">Lorem ipsum dolor sit amet, consectetur.</span>
-            <span class="span-2">Lorem ipsum dolor sit amet, consectetur.</span>
-            <span class="span-2">Lorem ipsum dolor sit amet, consectetur.</span>
-        </li>
-        <li>
-            <span class="span-2">Lorem ipsum dolor sit amet, consectetur.</span>
-            <span class="span-2">Lorem ipsum dolor sit amet, consectetur.</span>
-            <span class="span-2">Lorem ipsum dolor sit amet, consectetur.</span>
-            <span class="span-2">Lorem ipsum dolor sit amet, consectetur.</span>
-        </li>
-        <li>
-            <span class="span-2">Lorem ipsum dolor sit amet, consectetur.</span>
-            <span class="span-2">Lorem ipsum dolor sit amet, consectetur.</span>
-            <span class="span-2">Lorem ipsum dolor sit amet, consectetur.</span>
-            <span class="span-2">Lorem ipsum dolor sit amet, consectetur.</span>
-        </li>
-        <li>
-            <span class="span-2">Lorem ipsum dolor sit amet, consectetur.</span>
-            <span class="span-2">Lorem ipsum dolor sit amet, consectetur.</span>
-            <span class="span-2">Lorem ipsum dolor sit amet, consectetur.</span>
-            <span class="span-2">Lorem ipsum dolor sit amet, consectetur.</span>
-        </li>
-
-
-    </ul>
 </div>
 </body>
 </html>

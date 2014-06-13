@@ -45,6 +45,7 @@
                     </div>
                 </div>
                 <div class="role-table over-h-y">
+					<input type="text" id="selrole_hidden_id" value="" /><!--ID缓存框-->
                     <ul class="role-table-list">
                         <li>
                             <span class="span-1"></span>
@@ -57,7 +58,7 @@
                             <span class="span-1"><b>状态</b></span>
                         </li>
 						<volist name="list" id="vo">
-							<li>
+							<li class="list_sel">
 								<span class="span-1">
 									<input type="radio" name="radio1" id="{$vo['userRadioID']}" value="{$vo['uid']}"
 										onclick="selectUserRadio('{$vo['uid']}');" class="role-table-radio"/>
@@ -69,6 +70,7 @@
 								<span class="span-2" title="#">{$vo.username}</span>
 								<span class="span-1" title="#">{$vo.rolename}</span>
 								<span class="span-1" title="#">{$vo.del_flag}</span>
+								<span class="roleid_hidden" title="#">{$vo.uid}</span>
 
 							</li>
 						</volist>
@@ -202,22 +204,32 @@
                     </ul>
                 </div>
                 <p>
-                    <label for="">所属组织机构:</label>
+                    <label for="mod_citySel">所属组织机构:</label>
+					<input type="text" />
                 <div class="content_wrap">
                     <div class="zTreeDemoBackground left">
                         <ul id="treeDemo1" class="ztree"></ul>
                     </div>
                 </div>
-                    <div id="menuContent1" class="menuContent" style="display:none; ">
-                        <ul id="treeDemo1" class="ztree" style="margin-top:0; width:50px; height: auto;"></ul>
-                    </div>
-                <input type="hidden" value="" id="mod_id_hidden"/>
+                <div class="content_wrap">
+                   <div class="zTreeDemoBackground left">
+						<ul class="list">
+							<li class="title">
+								<input id="mod_citySel" type="text" readonly value="" class="input-role-name"/>
+								<a id="mod_menuBtn" href="#" onclick="mod_showMenu(); return false;">选择</a>
+							</li>
+						</ul>
+					</div>
+					<div id="mod_menuContent" class="menuContent" style="display:none; ">
+						<ul id="mod_treeDemo" class="ztree" style="margin-top:0; width:160px;"></ul>
+					</div>
+					<input type="text" value="" id="mod_id_hidden"/>
+                </div>
                 </p>
                 <p>
                     <button type="button" class="alert-btn2" id="j_mod_save">保存</button>
-                    <a href="." class="closeDOMWindow">
-                        <button type="button" class="alert-btn2">关闭</button>
-                    </a>
+                    <button type="button" class="alert-btn2" id="j_mod_close">关闭</button>
+					<input type="text" id="user_id" value="" />
                 </p>
             </form>
         </div>
@@ -254,22 +266,27 @@
                     </ul>
                 </div>
                 <p>
-                    <label for="">所属组织机构:</label>
+                    <label for="citySel">所属组织机构:</label>
                 <div class="content_wrap">
-                    <div class="zTreeDemoBackground left">
-                        <ul id="treeDemo" class="ztree"></ul>
-                    </div>
+                   <div class="zTreeDemoBackground left">
+						<ul class="list">
+							<li class="title">
+								<input id="citySel" type="text" readonly value="" class="input-role-name"/>
+								<a id="menuBtn" href="#" onclick="showMenu(); return false;">选择</a>
+							</li>
+						</ul>
+					</div>
+					<div id="menuContent" class="menuContent" style="display:none; ">
+						<ul id="treeDemo" class="ztree" style="margin-top:0; width:160px;"></ul>
+					</div>
+					<input type="text" value="" id="id_hidden"/>
                 </div>
-                <div id="menuContent" class="menuContent" style="display:none; ">
-                    <ul id="treeDemo" class="ztree" style="margin-top:0; width:50px; height: auto;"></ul>
-                </div>
-                <input type="hidden" value="" id="id_hidden"/>
+               
                 </p>
                 <p>
                     <button type="button" class="alert-btn2" id="j_add_save">保存</button>
-                    <a href="." class="closeDOMWindow">
-                        <button type="button" class="alert-btn2">关闭</button>
-                    </a>
+                    <button type="button" class="alert-btn2" id="j_add_close">关闭</button>
+
                 </p>
             </form>
         </div>
@@ -315,19 +332,20 @@
     };
 
     //===================================================树形结构js==========================
-    var setting = {
-        data: {
-            key: {
-                title: "t"
-            },
-            simpleData: {
-                enable: true
-            }
-        },
-        view: {
-            fontCss: getFontCss
-        }
-    };
+ 		var setting = {
+			view: {
+				dblClickExpand: false
+			},
+			data: {
+				simpleData: {
+					enable: true
+				}
+			},
+			callback: {
+				beforeClick: beforeClick,
+				onClick: onClick
+			}
+		};
     var handleUrl="{:U('configuration/Org/show_org_tree')}";
     var zNodes=new Array();
     var now=new Date().getTime();//加个时间戳表示每次是新的请求
@@ -350,112 +368,121 @@
         }
     });
 
-    function focusKey(e) {
-        if (key.hasClass("empty")) {
-            key.removeClass("empty");
-        }
-    }
-    function blurKey(e) {
-        if (key.get(0).value === "") {
-            key.addClass("empty");
-        }
-    }
-    var lastValue = "", nodeList = [], fontCss = {};
-    function clickRadio(e) {
-        lastValue = "";
-        searchNode(e);
-    }
-    function searchNode(e) {
-        var zTree = $.fn.zTree.getZTreeObj("treeDemo");
-        if (!$("#getNodesByFilter").attr("checked")) {
-            var value = $.trim(key.get(0).value);
-            var keyType = "";
-            if ($("#name").attr("checked")) {
-                keyType = "name";
-            } else if ($("#level").attr("checked")) {
-                keyType = "level";
-                value = parseInt(value);
-            } else if ($("#id").attr("checked")) {
-                keyType = "id";
-                value = parseInt(value);
-            }
-            if (key.hasClass("empty")) {
-                value = "";
-            }
-            if (lastValue === value) return;
-            lastValue = value;
-            if (value === "") return;
-            updateNodes(false);
+		function beforeClick(treeId, treeNode) {
 
-            if ($("#getNodeByParam").attr("checked")) {
-                var node = zTree.getNodeByParam(keyType, value);
-                if (node === null) {
-                    nodeList = [];
-                } else {
-                    nodeList = [node];
-                }
-            } else if ($("#getNodesByParam").attr("checked")) {
-                nodeList = zTree.getNodesByParam(keyType, value);
-            } else if ($("#getNodesByParamFuzzy").attr("checked")) {
-                nodeList = zTree.getNodesByParamFuzzy(keyType, value);
-            }
-        } else {
-            updateNodes(false);
-            nodeList = zTree.getNodesByFilter(filter);
-        }
-        updateNodes(true);
+		}
+		
+		function onClick(e, treeId, treeNode) {
+			var zTree = $.fn.zTree.getZTreeObj("treeDemo"),
+			nodes = zTree.getSelectedNodes(),
+			v = "";
+			d = "";
+			nodes.sort(function compare(a,b){return a.id-b.id;});
+			for (var i=0, l=nodes.length; i<l; i++) {
+				v += nodes[i].name + ",";
+				d += nodes[i].id + ",";
+			}
+			if (v.length > 0 ) v = v.substring(0, v.length-1);
+			var cityObj = $("#citySel");
+			var id_cityObj = $("#id_hidden");
+			cityObj.attr("value", v);
+			id_cityObj.attr("value", d);
+		}
 
-    }
-    function updateNodes(highlight) {
-        var zTree = $.fn.zTree.getZTreeObj("treeDemo");
-        for( var i=0, l=nodeList.length; i<l; i++) {
-            nodeList[i].highlight = highlight;
-            zTree.updateNode(nodeList[i]);
-        }
-    }
-    function getFontCss(treeId, treeNode) {
-        return (!!treeNode.highlight) ? {color:"#A60000", "font-weight":"bold"} : {color:"#333", "font-weight":"normal"};
-    }
-    function filter(node) {
-        return !node.isParent && node.isFirstNode;
-    }
+		function showMenu() {
+			var cityObj = $("#citySel");
+			var cityOffset = $("#citySel").offset();
+			$("#menuContent").css({left:cityOffset.left + "px", top:cityOffset.top + cityObj.outerHeight() + "px"}).slideDown("fast");
 
-    var key;
+			$("body").bind("mousedown", onBodyDown);
+		}
+		function hideMenu() {
+			$("#menuContent").fadeOut("fast");
+			$("body").unbind("mousedown", onBodyDown);
+		}
+		function onBodyDown(event) {
+			if (!(event.target.id == "menuBtn" || event.target.id == "menuContent" || $(event.target).parents("#menuContent").length>0)) {
+				hideMenu();
+			}
+		}
 
-    //============
+
+    //============修改树形结构==========
+ 		var mod_setting = {
+			view: {
+				dblClickExpand: false
+			},
+			data: {
+				simpleData: {
+					enable: true
+				}
+			},
+			callback: {
+				beforeClick: mod_beforeClick,
+				onClick: mod_onClick
+			}
+		};
+		function mod_beforeClick(treeId, treeNode) {
+
+		}
+		
+		function mod_onClick(e, treeId, treeNode) {
+			var zTree = $.fn.zTree.getZTreeObj("mod_treeDemo"),
+			nodes = zTree.getSelectedNodes(),
+			v = "";
+			d = "";
+			nodes.sort(function compare(a,b){return a.id-b.id;});
+			for (var i=0, l=nodes.length; i<l; i++) {
+				v += nodes[i].name + ",";
+				d += nodes[i].id + ",";
+			}
+			if (v.length > 0 ) v = v.substring(0, v.length-1);
+			var cityObj = $("#mod_citySel");
+			var id_cityObj = $("#mod_id_hidden");
+			cityObj.attr("value", v);
+			id_cityObj.attr("value", d);
+		}
+
+		function mod_showMenu() {
+			var cityObj = $("#mod_citySel");
+			var cityOffset = $("#mod_citySel").offset();
+			$("#mod_menuContent").css({left:cityOffset.left + "px", top:cityOffset.top + cityObj.outerHeight() + "px"}).slideDown("fast");
+
+			$("body").bind("mousedown", mod_onBodyDown);
+		}
+		function mod_hideMenu() {
+			$("#mod_menuContent").fadeOut("fast");
+			$("body").unbind("mousedown", mod_onBodyDown);
+		}
+		function mod_onBodyDown(event) {
+			if (!(event.target.id == "mod_menuBtn" || event.target.id == "mod_menuContent" || $(event.target).parents("#mod_menuContent").length>0)) {
+				mod_hideMenu();
+			}
+		}
 
     $(document).ready(function () {
-        //===================================================树形结构js传递==========
-        $.fn.zTree.init($("#treeDemo"), setting, zNodes);
-        key = $("#key");
-        key.bind("focus", focusKey)
-                .bind("blur", blurKey)
-                .bind("propertychange", searchNode)
-                .bind("input", searchNode);
-        $("#name").bind("change", clickRadio);
-        $("#level").bind("change", clickRadio);
-        $("#id").bind("change", clickRadio);
-        $("#getNodeByParam").bind("change", clickRadio);
-        $("#getNodesByParam").bind("change", clickRadio);
-        $("#getNodesByParamFuzzy").bind("change", clickRadio);
-        $("#getNodesByFilter").bind("change", clickRadio);
-        $("#treeDemo a").click(function(){
-          // alert($(this).attr("title"));
-            $("#id_hidden").val($(this).attr("title"));
-        });
+       //===================================================树形结构js传递==========
+	   $.fn.zTree.init($("#treeDemo"), setting, zNodes);
+	   $.fn.zTree.init($("#mod_treeDemo"), mod_setting, zNodes);
 
         //单击编辑
         $('#j_mod_button').click(function(){
 
             //单击保存按钮
-            $('#j_add_save').click(function(){
+            $('#j_mod_save').click(function(){
+				var add_uid=$('#user_id').val();
                 var add_login_id= $('#mod-login-id').val(); //登陆账号
                 var add_user_addname = $('#mod-name').val();      //姓名
                 var add_telphone_txt = $('#mod-user-phone').val();      //联系电话
                 var add_user_email = $('#mod-email').val();      //邮箱*/
                 var add_user_sex = $(':radio[name="change-sex"]:checked').val(); //性别
-                var add_org_id = $('#id_hidden').val();  //所属组织机构
+                var add_org_id = $('#mod_id_hidden').val();  //所属组织机构
                 var add_user_ckbox="";
+				var emailRegExp = new RegExp(         "[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?");
+				if (!emailRegExp.test(add_user_email)||add_user_email.indexOf('.')==-1){
+					alert("请检查邮箱格式");
+					return false;
+				}
                 $(":checkbox[name=role]").each(function() {
                     if ($(this).attr("checked")) {
                         add_user_ckbox += $(this).attr('id')+",";
@@ -464,6 +491,7 @@
 
                 var add_save_handleUrl="{:U('configuration/User/edit_user')}";
                 $.getJSON(add_save_handleUrl,{
+							"modify_userid_txt":add_uid,
                             "modify_realname_txt":add_user_addname,
                             "modify_telphone_txt":add_telphone_txt,
                             "modify_email_txt":add_user_email,
@@ -498,20 +526,23 @@
                     // alert("请求失败!");
                 }
             });
-
-
-            // alert(user_val);
+			//显示
             var mod_handleUrl="{:U('configuration/User/userDetailSelect')}";
             var arr=new Array();
             var str=new String();
-
+			var user_val=$("#selrole_hidden_id").val();
             $.getJSON(mod_handleUrl,{ "user_id":user_val},
                     function (data){
                        //alert(data['username']);
+						$("#user_id").val(data['uid']);//uid
                         $("#mod-name").val(data['realname']);
                         $("#mod-user-phone").val(data['telphone']);
                         $("#mod-login-id").val(data['username']);
                         $("#mod-email").val(data['email']);
+						$("#mod_citySel").val(data['orgname']);
+						$("#mod_id_hidden").val(data['orgid']);
+						
+
                         str=data['rolename'];
                         arr=str.split(',');
                         for(var i=0;i<arr.length;i++)
@@ -532,6 +563,9 @@
                     }
                     ,'json'
             );
+			$("#j_mod_close").click(function(){
+				window.location.href = window.location.href;
+			});
 
             //弹出窗口
             $.openDOMWindow({
@@ -580,6 +614,11 @@
                     }
                 });
 
+				var emailRegExp = new RegExp(         "[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?");
+				if (!emailRegExp.test(add_user_email)||add_user_email.indexOf('.')==-1){
+					alert("请检查邮箱格式");
+					return false;
+				}
                 var add_save_handleUrl="{:U('configuration/User/add_user')}";
                 $.getJSON(add_save_handleUrl,{
                             "add_user_name_txt":add_user_addname,
@@ -596,7 +635,9 @@
                             ,'json'
                     )
             });
-
+			$("#j_mod_close").click(function(){
+				window.location.href = window.location.href;
+			});
             //弹出窗口
             $.openDOMWindow({
                 loader:1,
@@ -619,7 +660,7 @@
 
 		//单击删除确认按钮
         $('#j_del_ok').click(function(){
-            var delete_user_id_txt= user_val;
+            var delete_user_id_txt= $("#selrole_hidden_id").val();;
             var del_handleUrl="{:U('configuration/User/delete_user')}";
             $.getJSON(del_handleUrl,{"delete_user_id_txt":delete_user_id_txt},
                     function (data){
@@ -632,7 +673,7 @@
 
 		//重置密码
         $('#j_reset_password').click(function(){
-            var reset_userid_txt= user_val;
+            var reset_userid_txt= $("#selrole_hidden_id").val();
             var del_handleUrl="{:U('configuration/User/reset_password')}";
             $.getJSON(del_handleUrl,{"reset_userid_txt":reset_userid_txt},
                     function (data){
@@ -645,7 +686,7 @@
 
 		//激活失效
         $('#j_modify_user_state').click(function(){
-            var modify_userid_txt= user_val;
+            var modify_userid_txt= $("#selrole_hidden_id").val();
             var del_handleUrl="{:U('configuration/User/modify_user_state')}";
             $.getJSON(del_handleUrl,{"modify_userid_txt":modify_userid_txt},
                     function (data){
@@ -656,7 +697,14 @@
             );
         });
 
-	});
+
+//===============================================单击查询框里某一条数据=======================================
+	$(".list_sel").click(function(){
+		$(this).find(".role-table-radio").attr("checked",'checked'); 
+		var id= $(this).find(".roleid_hidden").text();
+		$("#selrole_hidden_id").val(id);
+    });
+});
 </script>
 </body>
 </html>

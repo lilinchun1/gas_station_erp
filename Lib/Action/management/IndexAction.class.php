@@ -23,14 +23,15 @@ class IndexAction extends Action {
 		}else if($_POST ['add_udp'] == "2") { //编辑
 			$old_rule_no = $_POST['old_rule_no'];
 			$rule_no = $_POST['rule_no'];
-			if($_FILES["app_file"]["name"]){//如果需要重新提交excel
+			//如果需要重新提交excel
+			if($_FILES["app_file"]["name"]){
 				//echo 2345235;exit;
 				$appRule->query("DELETE FROM app_rule WHERE rule_no = '$old_rule_no'");
 				$fileName = time().".".end(explode('.', $_FILES["app_file"]["name"]));
 				//上传文件
 				move_uploaded_file($_FILES["app_file"]["tmp_name"], "$this->uploaded_url/$fileName");
 				$this->redirect('Index/doImporting', array('fileName' => $fileName,'nowPageNum'=>0,'nowLineNum'=>1,'rule_no'=>$rule_no), 0);
-			}else {
+			}else {//如果没有重新提交文件
 				$data = null;
 				$data['rule_no'] = $rule_no;
 				$que = $appRule->where("rule_no = '$old_rule_no'")->save($data);
@@ -42,26 +43,31 @@ class IndexAction extends Action {
 		$where = " where 1 ";
 		if($_POST['rule_no_sel']){
 			$rule_no_sel = $_POST['rule_no_sel'];
-			$where .= " and rule_no = '$rule_no_sel' ";
+			$where .= " and a.rule_no = '$rule_no_sel' ";
 		}
-		if($_POST['createuserid_sel']){
-			$createuserid_sel = $_POST['createuserid_sel'];
-			$where .= " and createuserid = '$createuserid_sel' ";
+		if($_POST['createuser_sel']){
+			$createuser_sel = $_POST['createuser_sel'];
+			$str = "select uid from bi_user where realname like '%$createuser_sel%'";
+			$que = $appRule->query($str);
+			$createuserid = $que[0]['uid'];
+			$where .= " and a.createuserid = '$createuserid' ";
 		}
 		if($_POST['createtime_sel']){
 			$createtime_sel = strtotime($_POST['createtime_sel']);;
-			$where .= " and createtime = '$createtime_sel' ";
+			$where .= " and a.createtime = '$createtime_sel' ";
 		}
 		
 		//if($where != " where 1 "){//只有点击查询，显示结果
-			$sel = " select * from app_rule $where and rule_status = 0 group by rule_no order by createtime";
+			$sel = " select a.*,b.realname from app_rule a
+			left join bi_user b on a.createuserid = b.uid
+			$where and a.rule_status = 0 group by a.rule_no order by a.createtime";
 			$que = $appRule->query($sel);
 			foreach ($que as $k=>$v){
 				$que[$k]['createtime'] = date("Y-m-d",$v['createtime']);
 			}
 			$this->assign('issueArr', $que);
 		//}
-		$this->display(':maintain_index');
+		$this->display(':index');
 		
 	}
 	
@@ -129,6 +135,7 @@ class IndexAction extends Action {
 							'rule_no'   => $rule_no,
 							'app_id'    => $appid_ios.'-ios',
 							'app_name'  => $appname_ios,
+							'system'    => 'ios',
 							'app_type'  => $app_type,
 							'numa'		=> $page,
 							'numb'	    => $several,
@@ -143,6 +150,7 @@ class IndexAction extends Action {
 							'rule_no'   => $rule_no,
 							'app_id'    => $appid_android.'-android',
 							'app_name'  => $appname_android,
+							'system'    => 'android',
 							'app_type'  => $app_type,
 							'numa'		=> $page,
 							'numb'      => $several,
@@ -181,23 +189,23 @@ class IndexAction extends Action {
 			$rule_no    = $_POST['rule_no'];
 			$start_time = strtotime($_POST['start_time']);
 			$target_num = $_POST['target_num'];
-			
+
 			$data = null;
 			$data['rule_status']= 1;
 			$data['start_time'] = $start_time;
 			$data['target_num'] = $target_num;
 			$que = $appRule->where("rule_no = '$rule_no'")->save($data);
 		}else if($_POST ['del_fb_zf'] == "1"){//删除
-			$del_rule_no    = $_POST['del_rule_no'];
+			$del_rule_no    = $_POST['rule_no_hid'];
 			$appRule->query("DELETE FROM app_rule WHERE rule_no = '$del_rule_no'");
 		}else if($_POST ['del_fb_zf'] == "2"){//发布
-			$rule_no    = $_POST['del_rule_no'];
+			$rule_no    = $_POST['rule_no_hid'];
 			$data = null;
 			$data['rule_status'] = 2;
 			$data['release_time'] = strtotime(date("Y-m-d"));
 			$que = $appRule->where("rule_no = '$rule_no'")->save($data);
 		}else if($_POST ['del_fb_zf'] == "3"){//作废
-			$rule_no    = $_POST['del_rule_no'];
+			$rule_no    = $_POST['rule_no_hid'];
 			$data = null;
 			$data['rule_status'] = 3;
 			$que = $appRule->where("rule_no = '$rule_no'")->save($data);
@@ -207,27 +215,31 @@ class IndexAction extends Action {
 				$rule_no_sel = $_POST['rule_no_sel'];
 				$where .= " and rule_no = '$rule_no_sel' ";
 			}
-			if($_POST['createuserid_sel']){
-				$createuserid_sel = $_POST['createuserid_sel'];
-				$where .= " and createuserid = '$createuserid_sel' ";
+			
+			if($_POST['createuser_sel']){
+				$createuser_sel = $_POST['createuser_sel'];
+				$str = "select uid from bi_user where realname like '%$createuser_sel%'";
+				$que = $appRule->query($str);
+				$createuserid = $que[0]['uid'];
+				$where .= " and createuserid = '$createuserid' ";
 			}
+			
+			
 			if($_POST['release_time_sel']){
 				$release_time_sel = strtotime($_POST['release_time_sel']);;
 				$where .= " and release_time = '$release_time_sel' ";
 			}
 			//if($where != " where 1 "){//只有点击查询，显示结果
-				$sel = " select * from app_rule $where and rule_status >=1 group by rule_no order by release_time";
+				$sel = " select * from app_rule a $where and rule_status >=1 group by rule_no order by release_time";
 				$que = $appRule->query($sel);
 				foreach ($que as $k=>$v){
 					$que[$k]['createtime'] = date("Y-m-d",$v['createtime']);
-					$que[$k]['release_time'] = date("Y-m-d",$v['release_time']);
+					$que[$k]['release_time'] = $v['release_time']?date("Y-m-d",$v['release_time']):"";
 					$que[$k]['start_time'] = date("Y-m-d",$v['start_time']);
 				}
 				$this->assign('issueArr', $que);
 			//}
-			$this->display(':issue_index');
-		
-		
+			$this->display(':rule_send');
 	}
 	//自动补全对应函数	
 	function getAppRule(){
@@ -249,5 +261,24 @@ class IndexAction extends Action {
 			$arr[] = array('title'=>$appName);
 		}
 		echo json_encode($arr);
+	}
+	
+	function app_info($rule_no){
+		$model = new Model();
+		$sel = "SELECT * FROM app_rule WHERE rule_no = '$rule_no' ORDER BY system";
+		$que = $model->query($sel);
+		$iosArr = array();
+		$androidArr = array();
+		foreach($que as $k=>$v){
+			if($v['system'] == "ios"){
+				$iosArr[] = $v;
+			}
+			if($v['system'] == "android"){
+				$androidArr[] = $v;
+			}
+		}
+		$this->assign('iosArr', $iosArr);
+		$this->assign('androidArr', $androidArr);
+		$this->display(':app_info');
 	}
 }

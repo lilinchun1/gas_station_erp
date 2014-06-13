@@ -45,6 +45,8 @@
 		'change_place_failed'	     =>	'修改网点信息失败',
 		'delete_place_success'	 =>	'成功删除网点信息',
 		'delete_place_failed'	     =>	'删除网点信息失败',
+		'repeal_place_success'	 =>	'成功撤销网点信息',
+		'repeal_place_failed'	     =>	'撤销网点信息失败',
 		'place_not_exist'	     =>	'网点名称或所在地区不正确',
 		'add_device_success'	     =>	'成功添加设备信息',
 		'device_no_exist'              => '已经有此设备编号信息',
@@ -56,5 +58,7 @@
 		'change_device_failed'	     =>	'修改设备信息失败',
 		'delete_device_success'	 =>	'成功删除设备信息',
 		'delete_device_failed'	     =>	'删除设备信息失败',
+		'repeal_device_success'	 =>	'成功撤销设备信息',
+		'repeal_device_failed'	     =>	'撤销设备信息失败',
 	);
 ?>

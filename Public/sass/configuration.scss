@@ -454,7 +454,10 @@ $min-width-kuang:1200px;
     float: left;
     margin-right: 5px;}
   li{
-    margin-bottom: 5px;}
+    margin-bottom: 5px;
+    width: 150px;
+    display: inline-block;
+  }
 }
 
 /*登陆页面*/

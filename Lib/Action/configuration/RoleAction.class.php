@@ -114,14 +114,20 @@ class RoleAction extends CommonAction {
 
 		$menu_id = $Model->query("select menu_id from bi_role_menu where role_id=" . $role_id);
 		$menu = null;
+		$reverse_menu_id = array_reverse($menu_id);
 		foreach($menu_id as $key=>$val){
 			$menu_name = $Model->query("select menuname from bi_menu where menu_id=" . $val['menu_id']);
 			$menu .= $menu_name[0]['menuname'] . ",";
 		}
+		foreach($reverse_menu_id as $key=>$val){
+			$menu_id_string .= $val['menu_id'] . ",";
+		}
 		if(!empty($menu_id[0]['menu_id'])){
 			$menu = substr($menu, 0, -1);
+			$menu_id_string = substr($menu_id_string, 0, -1);
 		}
 		$dataRole[0]['menuname'] = $menu;
+		$dataRole[0]['menuid'] = $menu_id_string;
 
 		$data = $dataRole[0];
 		$this->ajaxReturn($data,'json');
@@ -160,7 +166,7 @@ class RoleAction extends CommonAction {
 		$data['modifydate'] = $modifydate;
 		$is_set = $role->where("roleid=%d", $role_id)->save($data);
 		if(!$is_set){
-			$msg = C("modify_role_failed");
+			//$msg = C("modify_role_failed");
 		}
 
 		$is_delete = $role_menu->where("role_id=%d", $role_id)->delete();

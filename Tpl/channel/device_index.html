@@ -78,7 +78,7 @@
 			<volist name="list" id="vo">
 				<li>
 					<span class="span-1">
-						<input type="radio" name="{$vo['deviceRadioID']}" id="{$vo['deviceRadioID']}" value="{$vo['device_id']}"
+						<input type="radio" name="deviceRadioID" id="{$vo['deviceRadioID']}" value="{$vo['device_id']}"
 							 onclick="selectDeviceRadio('{$vo['device_id']}');" class="role-table-radio"/></span>
 					<span class="span-1" title="#">{$vo.device_no}</span>
 					<span class="span-1" title="#">{$vo.MAC}</span>
@@ -222,21 +222,6 @@
                 <span class="span-3"><b>操作人</b></span>
                 <span class="span-3"><b>操作时间</b></span>
                 <span class="span-3"><b>操作内容</b></span>
-            </li>
-            <li>
-                <span class="span-3" title="#">Lorem ipsum dolor sit amet.</span>
-                <span class="span-3" title="#">Beatae fugiat impedit ipsa porro!</span>
-                <span class="span-3" title="#">Atque corporis laudantium perspiciatis qui?</span>
-            </li>
-            <li>
-                <span class="span-3" title="#">Lorem ipsum dolor sit amet.</span>
-                <span class="span-3" title="#">Beatae fugiat impedit ipsa porro!</span>
-                <span class="span-3" title="#">Atque corporis laudantium perspiciatis qui?</span>
-            </li>
-            <li>
-                <span class="span-3" title="#">Lorem ipsum dolor sit amet.</span>
-                <span class="span-3" title="#">Beatae fugiat impedit ipsa porro!</span>
-                <span class="span-3" title="#">Atque corporis laudantium perspiciatis qui?</span>
             </li>
             <li>
                 <span class="span-3" title="#">Lorem ipsum dolor sit amet.</span>
@@ -619,18 +604,19 @@
 			var change_status_sel=$("#change_status_sel").val();//终端状态
 			var change_device_type_txt=$("#change_device_type_txt").val();//终端型号
 			var change_address_txt=$("#change_address_txt").val();//终端地址
-			var change_description_txt=$("#change_description_txt").val();//备注
+			/*
 			var change_image_id_0=$("#change_image_id_0").val();
 			var change_image_id_1=$("#change_image_id_1").val();
 			var change_image_id_2=$("#change_image_id_2").val();
+			var change_image_path_0=222;
+			var change_image_path_1=222;
+			var change_image_path_2=222;*/
 
 			$.getJSON(handleUrl,{"change_device_id_txt":change_device_id_txt,"change_device_no_txt":change_device_no_txt,
 								 "change_mac_txt":change_mac_txt,"change_place_name_txt":change_place_name_txt,
 								 "change_deploy_time_sel":change_deploy_time_sel,"change_begin_time_sel":change_begin_time_sel,
 								 "change_status_sel":change_status_sel,"change_device_type_txt":change_device_type_txt,
-								 "change_address_txt":change_address_txt,"change_description_txt":change_description_txt,
-								 "change_image_id_0":change_image_id_0,"change_image_id_1":change_image_id_1,"change_image_id_2":change_image_id_2,
-								 "change_image_path_0":change_image_path_0,"change_image_path_1":change_image_path_1,"change_image_path_2":change_image_path_2
+								 "change_address_txt":change_address_txt
 								 },
 				function (data){
 					var tmp_msg = "{:C('change_device_success')}";

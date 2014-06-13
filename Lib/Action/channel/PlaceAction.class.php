@@ -626,13 +626,13 @@ class PlaceAction extends CommonAction {
 
 	    $Model = new Model();
 		$place = M("place");
-		$msg = C('delete_place_success');
+		$msg = C('repeal_place_success');
 		$is_set = $place->where("place_id='$place_id'")->setField('isDelete', 1);
 		if($is_set <= 0)
 		{
-			$this->msg = C('delete_place_failed');
+			$this->msg = C('repeal_place_failed');
 		}
-		if(C('delete_place_success') == $msg)
+		if(C('repeal_place_success') == $msg)
 		{
 			//$channel_id = getChannelIDFromPlaceID($place_id);
 			//changeNum('place', $channel_id, $place_id, 'minus');

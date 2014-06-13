@@ -74,6 +74,8 @@ CREATE TABLE IF NOT EXISTS `qd_channel` (
   `channel_id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `channel_name` varchar(200) NOT NULL COMMENT '渠道商名称',
   `agent_id` int(10) unsigned NOT NULL COMMENT '隶属于哪个代理商',
+  `province` varchar(20) NOT NULL COMMENT '渠道商所在省',
+  `city` varchar(30) NOT NULL COMMENT '渠道商所在市',
   `contacts` varchar(20) NOT NULL COMMENT '联系人姓名',
   `contacts_tel` varchar(20) DEFAULT NULL COMMENT '联系人电话',
   `channel_tel` varchar(20) DEFAULT NULL COMMENT '渠道商电话',

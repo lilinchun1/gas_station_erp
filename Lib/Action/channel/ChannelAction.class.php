@@ -15,7 +15,7 @@ class ChannelAction extends CommonAction {
 		$first_channel_type = getAllChannelType();
 		$all_agent = getAllAgent();
 		$this->assign('first_channel_type', $first_channel_type);
-		//$this->assign('all_agent', $all_agent);
+		$this->assign('all_agent', $all_agent);
 		$this->display(':channel_index');
 	}
 
@@ -47,7 +47,7 @@ class ChannelAction extends CommonAction {
 		$is_channel_select_show = 1;
 		//$page_show_number = 30;       //每页显示的数量
 		C('page_show_number')?$page_show_number=C('page_show_number'):$page_show_number=30;  //每页显示的数量
-		$where = "a.channel_id=b.channel_id and a.channel_id=c.channel_id and a.isDelete='$del_flag_txt'";
+		$where = "a.channel_id=b.channel_id and a.isDelete='$del_flag_txt'";
 		if(!empty($agent_name))
 		{
 			$agent_id = getAgentIDFromAgentName($agent_name);
@@ -77,22 +77,22 @@ class ChannelAction extends CommonAction {
 		{
 			if(!empty($channel_second_type))
 			{
-				$where .= " and d.channel_type_id='$channel_second_type'";
+				$where .= " and c.channel_type_id='$channel_second_type'";
 			}
 			else
 			{
-				$where .= " and (d.channel_type_id='$channel_first_type' or d.channel_type_father_id='$channel_first_type')";
+				$where .= " and (c.channel_type_id='$channel_first_type' or c.channel_type_father_id='$channel_first_type')";
 			}
 		}
 		if(!empty($province) && ('省份' != $province))
 		{
 			if(!empty($city) && ('地级市' != $city))
 			{
-				$where .= " and b.province='$province' and b.city='$city'";
+				$where .= " and a.province='$province' and a.city='$city'";
 			}
 			else
 			{
-				$where .= " and b.province='$province'";
+				$where .= " and a.province='$province'";
 			}
 		}
 		/*
@@ -102,16 +102,16 @@ class ChannelAction extends CommonAction {
 			$where .= " and (a.agent_id='{$userinfo['agentsid']}' or a.agent_id in $sub_agent_id)"; //权限限制
 		}
 		*/
-		$count = $Model->table('qd_channel a, qd_channel_area b, qd_channel_type_link c')->join('qd_channel_type d on c.channel_type_id=d.channel_type_id')->where($where)->count();
+		$count = $Model->table('qd_channel a, qd_channel_type_link b')->join('qd_channel_type c on b.channel_type_id=c.channel_type_id')->where($where)->count();
 		$Page       = new Page($count, $page_show_number);// 实例化分页类 传入总记录数
 		//$Page->url = 'Agent/agentSelect/p/';
 		$show       = $Page->show();// 分页显示输出
 		// 进行分页数据查询
-		$list = $Model->table('qd_channel a, qd_channel_area b, qd_channel_type_link c')->join('qd_channel_type d on c.channel_type_id=d.channel_type_id')
+		$list = $Model->table('qd_channel a, qd_channel_type_link b')->join('qd_channel_type c on b.channel_type_id=c.channel_type_id')
 		->where($where)->order('a.channel_id desc')->limit($Page->firstRow.','. $Page->listRows)
 		->field('a.channel_id, a.channel_name, a.agent_id, a.contacts, a.contacts_tel, a.channel_tel, a.channel_address, a.contract_number,
-		a.place_num, a.device_num, a.begin_time, a.end_time, a.forever_type, a.isDelete, b.province, b.city, c.channel_type_id,
-		d.channel_type_father_id, d.channel_type_name')->select();
+		a.place_num, a.device_num, a.begin_time, a.end_time, a.forever_type, a.isDelete, a.province, a.city, b.channel_type_id,
+		c.channel_type_father_id, c.channel_type_name')->select();
 		if($list=="")
 		{
 			$listCount = 0;
@@ -158,6 +158,9 @@ class ChannelAction extends CommonAction {
 		$dataChannel = $Model->table('qd_channel a')->where($where)->select();// 查询满足要求的总记录数
 		$dataChannel[0]['begin_time'] = getDateFromTime($dataChannel[0]['begin_time']);
 		$dataChannel[0]['end_time'] = getDateFromTime($dataChannel[0]['end_time']);
+		//$tmp_channel_area  = $Model->query("select province,city from qd_channel_area where channel_id='$channel_id'");
+		//$dataChannel[0]['province'] = $tmp_channel_area[0]['province'];
+		//$dataChannel[0]['city'] = $tmp_channel_area[0]['city'];
 		//p($dataChannel[0]['date']);
 
 		$data = $dataChannel[0];
@@ -247,6 +250,8 @@ class ChannelAction extends CommonAction {
 			$data['channel_tel'] = $channel_tel;
 			$data['channel_address'] = $channel_address;
 			$data['contract_number'] = $contract_number;
+			$data['province'] = $province;
+			$data['city'] = $city;
 			$data['forever_type'] = $add_forever_check;
 			if(0 != $begin_time)
 			{
@@ -289,37 +294,9 @@ class ChannelAction extends CommonAction {
 			}
 			else
 			{
-				$tmp_channel_id = $channel->query("select channel_id from qd_channel where channel_name='$channel_name'");
-				$channel_id = $tmp_channel_id[0]['channel_id'];
-				$area['channel_id'] = $channel_id;
-				$area['province'] = $province;
-				$area['city'] = $city;
-				$is_set = $channel_area->add($area);
-				if($is_set)
-				{
-					if('' != $channel_second_type)
-					{
-						$type_link['channel_type_id'] = $channel_second_type;
-						$is_link_ok = $channel_type_link->query("select count(*) as count from qd_channel_type_link where channel_id=" . $channel_id . " and 
-							channel_type_id=" . $channel_second_type);
-					}
-					else
-					{
-						$type_link['channel_type_id'] = $channel_first_type;
-						$is_link_ok = $channel_type_link->query("select count(*) as count from qd_channel_type_link where channel_id=" . $channel_id . " and 
-							channel_type_id=" . $channel_first_type);
-					}
-					if(0 == $is_link_ok[0]['count'])
-					{
-						$channel_type_link->add($type_link);
-					}
-				}
-				else
-				{
-					$msg = C('add_channel_failed');
-					$this->ajaxReturn($msg,'json');
-					return;
-				}
+				$msg = C('add_channel_failed');
+				$this->ajaxReturn($msg,'json');
+				return;
 			}
 
 			if($msg == C('add_channel_success'))
@@ -394,8 +371,8 @@ class ChannelAction extends CommonAction {
 		}
 		$src_channel_log_info[0]['begin_time'] = getDateFromTime($src_channel_log_info[0]['begin_time']);
 		$src_channel_log_info[0]['end_time'] = getDateFromTime($src_channel_log_info[0]['end_time']);
-		$src_channel_log_info[0]['province'] = $src_province;
-		$src_channel_log_info[0]['city'] = $src_city;
+		//$src_channel_log_info[0]['province'] = $src_province;
+		//$src_channel_log_info[0]['city'] = $src_city;
 		if(($result[0]['channel_id'] != $channel_id) && ($result[0]['channel_id'] != 0))
 		{
 			$msg = C('change_channel_name_failed');
@@ -411,6 +388,8 @@ class ChannelAction extends CommonAction {
 			$data['channel_tel'] = $channel_tel;
 			$data['channel_address'] = $channel_address;
 			$data['contract_number'] = $contract_number;
+			$data['province'] = $dst_province;
+			$data['city'] = $dst_city;
 			$data['forever_type'] = $change_forever_check;
 			if(0 != $begin_time)
 			{
@@ -430,10 +409,10 @@ class ChannelAction extends CommonAction {
 			}
 			$is_set = $channel->where("channel_id=%d", $channel_id)->save($data);
 
-			$area['channel_id'] = $channel_id;
-			$area['province'] = $dst_province;
-			$area['city'] = $dst_city;
-			$is_area = $channel_area->where("channel_id=" . $channel_id . " and province='$src_province' and city='$src_city'")->save($area);
+			//$area['channel_id'] = $channel_id;
+			//$area['province'] = $dst_province;
+			//$area['city'] = $dst_city;
+			//$is_area = $channel_area->where("channel_id=" . $channel_id . " and province='$src_province' and city='$src_city'")->save($area);
 
 			$channel_type_link = M('channel_type_link');
 			if(empty($dst_channel_second_type))
@@ -446,7 +425,7 @@ class ChannelAction extends CommonAction {
 			}
 			$is_type_link = $channel_type_link->where("channel_id='$channel_id' and channel_type_id='$src_channel_second_type'")->save($change_type_link);	
 
-			if(($is_set) || ($is_area) || ($is_type_link)){
+			if(($is_set) || ($is_type_link)){
 				$msg = C('change_channel_success');
 			}else{
 				$msg = C('change_channel_failed');
@@ -464,18 +443,10 @@ class ChannelAction extends CommonAction {
 			$dst_channel_log_info[0]['channel_agent_name'] = getAgentNameFromAgentID($dst_channel_log_info[0]['agent_id']);
 			$dst_channel_log_info[0]['channel_type_name'] = getChannelTypeFromID($dst_channel_log_info[0]['channel_id']);
 			unset($dst_channel_log_info[0]['agent_id']);
-			if('1' == $dst_channel_log_info[0]['forever_type'])
-			{
-				$dst_channel_log_info[0]['forever_type'] = "是";
-			}
-			else
-			{
-				$dst_channel_log_info[0]['forever_type'] = "否";
-			}
 			$dst_channel_log_info[0]['begin_time'] = getDateFromTime($dst_channel_log_info[0]['begin_time']);
 			$dst_channel_log_info[0]['end_time'] = getDateFromTime($dst_channel_log_info[0]['end_time']);
-			$dst_channel_log_info[0]['province'] = $dst_province;
-			$dst_channel_log_info[0]['city'] = $dst_city;
+			//$dst_channel_log_info[0]['province'] = $dst_province;
+			//$dst_channel_log_info[0]['city'] = $dst_city;
 			$log_description = getChangeLogDescription($src_channel_log_info[0], $dst_channel_log_info[0]);  //获取修改的详细记录
 			addOptionLog('channel', $channel_id, 'change', $log_description);
 		}

@@ -1,60 +1,193 @@
 <!doctype html>
 <html lang="zh-CN">
 <head>
-    <meta charset="UTF-8">
-    <title>网点信息</title>
-    <link rel="stylesheet" href="__PUBLIC__/css/configuration.css"/>
-    <link rel="stylesheet" href="../../Public/css/configuration.css"/>
+	<meta charset="UTF-8">
+	<title>网点信息</title>
+	<link rel="stylesheet" href="__PUBLIC__/css/configuration.css"/>
+	<script type="text/javascript" src="__PUBLIC__/js/jquery-1.10.2.min.js"></script>
+	<script type="text/javascript" src="__PUBLIC__/js/jquery.SuperSlide.2.1.1.js"></script>
+	<script type="text/javascript" src="__PUBLIC__/js/My97DatePicker/WdatePicker.js"></script>
+	<script type="text/javascript">
+	$(function(){
+		//================================================================默认动作
+		//固定标题
+		window.onscroll = function () {
+			var scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
+			var fixDiv = document.getElementById('j-fixed-top');
+			if (scrollTop >= 300) {
+				fixDiv.style.position = 'fixed';
+				fixDiv.style.top = '0px';
+			} else if (scrollTop <= 299) {
+				fixDiv.style.position = 'static';
+			}
+		}
+		//================================================================触发
+		//添加，编辑弹出框
+		$('#rule_no_add,#rule_no_udp').click(function(){
+			//编辑
+			if($(this).hasClass("rule_no_udp")){
+				//获取选中行期刊号
+				var rule_no = $("input[name='role-info']:checked").parent().parent().find(".rule_no_list").text();
+				if(rule_no == ""){
+					alert("请选择编辑条目");
+					return;
+				}
+				//赋值到编辑窗口中
+				$("#rule_no_hid").val(rule_no);
+				//隐藏域期刊号
+				$("#old_rule_no").val(rule_no);
+				$("button[name='add_udp']").val("2");
+			}else{
+				$("button[name='add_udp']").val("1");
+			}
+			//弹出页面
+			$.openDOMWindow({
+				loader:1,
+				loaderHeight:16,
+				loaderWidth:17,
+				windowSourceID:'#j_add_win'
+			});
+			return false;
+		});
+		//删除弹出框
+		$(".rule_no_del").click(function(){
+			var rule_no = $("input[name='role-info']:checked").parent().parent().find(".rule_no_list").text();
+			if(rule_no == ""){
+				alert("请选择删除条目");
+				return;
+			}
+			$("#del_rule_no").val(rule_no);
+			
+			//弹出页面
+			$.openDOMWindow({
+				loader:1,
+				loaderHeight:16,
+				loaderWidth:17,
+				windowSourceID:'#j_del_win'
+			});
+			return false;
+		});
+		//点一行则选中
+		$(".rule_info_list").click(function(){
+			$(this).find(".role-table-radio").attr("checked",true);
+		});
+		//app查看
+		$(".app_info_list").click(function(){
+			var rule_no = $(this).parent().parent().find(".rule_no_list").text();
+			var val = window.showModalDialog("{:U('management/Index/app_info')}/rule_no/"+rule_no,self,"dialogwidth=850px;dialogheight=700px;dialogtop=200px;dialogleft=700px;center=no;help=no;resizable=no;status=no;scroll=yes");
+		});
+	});
+	</script>
 </head>
 <body>
-<div class="kl-list">
-    <ul class="role-table-list">
-        <li>
-            <span class="span-2"><b>ios游戏id</b></span>
-            <span class="span-2"><b>ios游戏名称</b></span>
-            <span class="span-2"><b>安卓游戏id</b></span>
-            <span class="span-2"><b>安卓游戏名称</b></span>
-        </li>
+<include file="./Tpl/include/pb-head.html"/>
+<div id="container">
+	<div class="left">
+		<ul class="aside-nav">
+			<li class="aside-nav-nth1"><a href="">APP刊例管理</a></li>
+			<li class="active"><a href="{:U('management/Index/importingApp')}"><input type="button" value="刊例维护"></a></li>
+			<li><a href="{:U('management/Index/addRuleTarget')}"><input type="button" class="" value="刊例发布"></a></li>
+		</ul>
+	</div>
+	<div class="right">
+		<div class="right-con">
+			<div class="org-right-con">
+				<div class="role-control" id="j-fixed-top">
+					<div class="role-inquire channel-index-btns">
+						<form action="" method="post">
+							<p>
+								<label for="channel-org-name" class="">刊例号</label>
+								<input type="text" name="rule_no_sel" id="channel-org-name" class="input-org-info"/>
+								<label for="maintain-create-people" class="">创建人</label>
+								<input type="text" name="createuser_sel" id="maintain-create-people"
+									   class="input-org-info"/>
+								<label for="maintain-create-date" class="">创建日期</label>
+								<input type="text" name="createtime_sel" id="maintain-create-date" class="input-org-info" onClick="WdatePicker()" readonly/>
+								<button type="submit" name="select" class="role-control-btn">查询</button>
+							</p>
+						</form>
+					</div>
+					<div class="org-right-btns">
+						<form action="">
+							<button type="button" id="rule_no_add" class="area-btn rule_no_add">添加</button>
+							<button type="button" id="rule_no_udp" class="area-btn rule_no_udp">编辑</button>
+							<button type="button" id="rule_no_del" class="area-btn rule_no_del">删除</button>
 
-        <li>
-            <span class="span-2">Lorem ipsum dolor sit amet, consectetur.</span>
-            <span class="span-2">Lorem ipsum dolor sit amet, consectetur.</span>
-            <span class="span-2">Lorem ipsum dolor sit amet, consectetur.</span>
-            <span class="span-2">Lorem ipsum dolor sit amet, consectetur.</span>
-        </li>
-        <li>
-            <span class="span-2">Lorem ipsum dolor sit amet, consectetur.</span>
-            <span class="span-2">Lorem ipsum dolor sit amet, consectetur.</span>
-            <span class="span-2">Lorem ipsum dolor sit amet, consectetur.</span>
-            <span class="span-2">Lorem ipsum dolor sit amet, consectetur.</span>
-        </li>
-        <li>
-            <span class="span-2">Lorem ipsum dolor sit amet, consectetur.</span>
-            <span class="span-2">Lorem ipsum dolor sit amet, consectetur.</span>
-            <span class="span-2">Lorem ipsum dolor sit amet, consectetur.</span>
-            <span class="span-2">Lorem ipsum dolor sit amet, consectetur.</span>
-        </li>
-        <li>
-            <span class="span-2">Lorem ipsum dolor sit amet, consectetur.</span>
-            <span class="span-2">Lorem ipsum dolor sit amet, consectetur.</span>
-            <span class="span-2">Lorem ipsum dolor sit amet, consectetur.</span>
-            <span class="span-2">Lorem ipsum dolor sit amet, consectetur.</span>
-        </li>
-        <li>
-            <span class="span-2">Lorem ipsum dolor sit amet, consectetur.</span>
-            <span class="span-2">Lorem ipsum dolor sit amet, consectetur.</span>
-            <span class="span-2">Lorem ipsum dolor sit amet, consectetur.</span>
-            <span class="span-2">Lorem ipsum dolor sit amet, consectetur.</span>
-        </li>
-        <li>
-            <span class="span-2">Lorem ipsum dolor sit amet, consectetur.</span>
-            <span class="span-2">Lorem ipsum dolor sit amet, consectetur.</span>
-            <span class="span-2">Lorem ipsum dolor sit amet, consectetur.</span>
-            <span class="span-2">Lorem ipsum dolor sit amet, consectetur.</span>
-        </li>
+						</form>
+					</div>
+				</div>
+				<div class="role-table">
+					<div class="bd over-h-y">
+						<ul class="role-table-list">
+							<li>
+								<span class="span-1"></span>
+								<span class="span-2"><b>刊例号</b></span>
+								<span class="span-2"><b>创建人</b></span>
+								<span class="span-2"><b>创建日期</b></span>
+								<span class="span-3"><b>刊例详情</b></span>
 
-
-    </ul>
+							</li>
+							<foreach name="issueArr" item="issue">
+								<li class="rule_info_list">
+									<span class="span-1"><input type="radio" name="role-info" id="" class="role-table-radio"/></span>
+									<span class="span-2 rule_no_list" title="#">{$issue.rule_no}</span>
+									<span class="span-2" title="#">{$issue.realname}</span>
+									<span class="span-2" title="#">{$issue.createtime}</span>
+									<span class="span-3" title="#"><a href="#" class="app_info_list">查看</a></span>
+								</li>
+							</foreach>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<include file="./Tpl/include/pb-foot.html"/>
+<!-- 创建，编辑刊例 -->
+<div class="alert-org-add" id="j_add_win" style=" display:none;">
+	<div class="alert-role-add">
+		<form action="" method="post" enctype="multipart/form-data">
+			<h3>刊例信息</h3>
+			<div class="alert-user-add-con">
+				<p>
+					<label for="rule_no_hid" class="role-lab">刊例名称</label>
+					<input type="text" name="rule_no" id="rule_no_hid" class="input-role-name"/>
+					<input type="hidden" name="old_rule_no" id="old_rule_no" value=""/>
+				</p>
+	
+				<p>
+					<label for="maintain-xx" class="role-lab">刊例明细</label>
+					<input type="file" name="app_file" id="maintain-xx" class="input-role-name"/>
+				</p>
+	
+				<p>
+					<button type="submit" name="add_udp" class="alert-btn2" value="1">保存</button>
+					<a href="." class="closeDOMWindow">
+						<button type="button" class="alert-btn">关闭</button>
+					</a>
+				</p>
+			</div>
+		</form>
+	</div>
+</div>
+<!--删除确认框-->
+<div class="divout" id="j_del_win" style="display:none;">
+	<div class="alert-role-add" >
+		<form action="" method="post">
+			<h3>期刊</h3>
+			<div class="alert-role-add-con">
+				<p class="delete-message">确认删除？</p>
+				<p>
+					<input type="hidden" name="del_rule_no" id="del_rule_no" value=""/>
+					<button type="submit" name="delete" class="alert-btn2" id="j_del_ok" value="1">删除</button>
+					<a href="." class="closeDOMWindow">
+						<button type="button" class="alert-btn2">关闭</button>
+					</a>
+				</p>
+			</div>
+		</form>
+	</div>
 </div>
 </body>
 </html>

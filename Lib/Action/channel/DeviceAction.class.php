@@ -186,6 +186,13 @@ class DeviceAction extends CommonAction {
 		$dataDevice[0]['begin_time'] = getDateFromTime($dataDevice[0]['begin_time']);
 		$dataDevice[0]['deploy_time'] = getDateFromTime($dataDevice[0]['deploy_time']);
 		$dataDevice[0]['place_name'] = getPlaceNameFromPlaceID($dataDevice[0]['place_id']);
+		$device_mac_array = explode("-", $dataDevice[0]['MAC']);
+		$dataDevice[0]['MAC1'] = $device_mac_array[0];
+		$dataDevice[0]['MAC2'] = $device_mac_array[1];
+		$dataDevice[0]['MAC3'] = $device_mac_array[2];
+		$dataDevice[0]['MAC4'] = $device_mac_array[3];
+		$dataDevice[0]['MAC5'] = $device_mac_array[4];
+		$dataDevice[0]['MAC6'] = $device_mac_array[5];
 
 		$data = $dataDevice[0];
 		$this->ajaxReturn($data,'json');
@@ -258,7 +265,7 @@ class DeviceAction extends CommonAction {
 		$agent_id = getAgentIDFromChannelID($channel_id);
 		$device_no_count = $Model->query("select count(*) as count from qd_device where device_no='$device_no'");
 		$mac_count = $Model->query("select count(*) as count from qd_device where MAC='$mac'");
-		$place_count = $Model->query("select count(*) as count from qd_place where place_id='$place_id' and province='$province' and city='$city'");
+		$place_area = $Model->query("select province, city from qd_place where place_id='$place_id'");
 		$is_purview = judgeAgentPurview($userinfo['agentsid'], $agent_id);
 		if(!$is_purview)
 		{
@@ -278,7 +285,7 @@ class DeviceAction extends CommonAction {
 			$this->ajaxReturn($msg,'json');
 			return;
 		}
-		else if($place_count[0]['count'] != 1)
+		else if(empty($place_area[0]['province']))
 		{
 			$msg = C('place_not_exist');
 			$this->ajaxReturn($msg,'json');
@@ -289,8 +296,8 @@ class DeviceAction extends CommonAction {
 			$data['device_no'] = $device_no;
 			$data['MAC'] = $mac;
 			$data['place_id'] = $place_id;
-			$data['province'] = $province;
-			$data['city'] = $city;
+			$data['province'] = $place_area[0]['province'];
+			$data['city'] = $place_area[0]['city'];
 			if(0 != $begin_time)
 			{
 				$data['begin_time'] = $begin_time;
@@ -374,7 +381,7 @@ class DeviceAction extends CommonAction {
 		$device = M("device");
 		$device_no_count = $Model->query("select count(*) as count from qd_device where device_no='$device_no'");
 		$mac_count = $Model->query("select count(*) as count from qd_device where MAC='$mac'");
-		$place_count = $Model->query("select count(*) as count from qd_place where place_id='$place_id' and province='$province' and city='$city'");
+		$place_area = $Model->query("select province, city from qd_place where place_id='$place_id'");
 		$src_device_info = $Model->table('qd_device')->where("device_id='%d'", $device_id)->select(); //记录原来的设备信息
 		$is_purview = judgeAgentPurview($userinfo['agentsid'], $agent_id);
 		if(!$is_purview)
@@ -395,7 +402,7 @@ class DeviceAction extends CommonAction {
 			$this->ajaxReturn($msg,'json');
 			return;
 		}
-		else if($place_count[0]['count'] != 1)
+		else if(empty($place_area[0]['province']))
 		{
 			$msg = C('place_not_exist');
 			$this->ajaxReturn($msg,'json');
@@ -435,8 +442,8 @@ class DeviceAction extends CommonAction {
 			$data['place_id'] = $place_id;
 			$data['channel_id'] = $channel_id;
 			$data['agent_id'] = $agent_id;
-			$data['province'] = $province;
-			$data['city'] = $city;
+			$data['province'] = $place_area[0]['province'];
+			$data['city'] = $place_area[0]['city'];
 			if(0 != $begin_time)
 			{
 				$data['begin_time'] = $begin_time;
@@ -535,14 +542,14 @@ class DeviceAction extends CommonAction {
 
 	    $Model = new Model();
 		$device = M("device","qd_");
-		$msg = C('delete_device_success');
+		$msg = C('repeal_device_success');
 		$is_set = $device->where("device_id='$device_id'")->setField('isDelete', 1);
 		if($is_set <= 0)
 		{
-			$this->msg = C('delete_device_failed');
+			$this->msg = C('repeal_device_failed');
 		}
 
-		if($msg == C('delete_device_success'))
+		if($msg == C('repeal_device_success'))
 		{
 			//$place_id = getPlaceIDFromDeviceID($device_id);
 			//changeNum('device', $place_id, $device_id, 'minus');
