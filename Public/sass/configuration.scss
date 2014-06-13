@@ -374,14 +374,15 @@ $min-width-kuang:1200px;
 .w1k{
   width: 1000px;
   position: relative;
+  overflow: hidden;
 }
 .tree{
-  position: absolute;
-  top: 35px;
-  left: 400px;
+  float: right;
+  margin: 3px 200px 0 0;
   width: 400px;
   float: right;}
 .alert-role-add-con{
+  float: left;
   margin-left: 100px;
   background: #ffffff;
   padding-bottom: 30px;

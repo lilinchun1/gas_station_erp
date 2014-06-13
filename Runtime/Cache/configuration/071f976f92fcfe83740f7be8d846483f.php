@@ -278,9 +278,8 @@
 	<div class="alert-role-add w1k">
 		<h3>编辑角色信息</h3>
 		<div class="alert-role-add-con">
-		<input type="text" id="mod_id_hide" value=""/>
 			<form action="">
-				<p>
+                <p>
 					<label for="role-addname" class="role-lab">角色名称</label>
 					<input type="text" name="addname" id="mod_rolename" class="input-role-name"/>
 				</p>
@@ -295,6 +294,7 @@
 						<button type="button" class="alert-btn2">关闭</button>
 					</a>
 				</p>
+                <input type="text" id="mod_id_hide" value=""/>
 			</form>
 		</div>
         <div class="tree">
