@@ -1,10 +1,10 @@
 (function($){
 	var bigAutocomplete = new function(){
-		this.currentInputText = null;//Ä¿Ç°»ñµÃ¹â±êµÄÊäÈë¿ò£¨½â¾öÒ»¸öÒ³Ãæ¶à¸öÊäÈë¿ò°ó¶¨×Ô¶¯²¹È«¹¦ÄÜ£©
-		this.functionalKeyArray = [9,20,13,16,17,18,91,92,93,45,36,33,34,35,37,39,112,113,114,115,116,117,118,119,120,121,122,123,144,19,145,40,38,27];//¼üÅÌÉÏ¹¦ÄÜ¼ü¼üÖµÊý×é
-		this.holdText = null;//ÊäÈë¿òÖÐÔ­Ê¼ÊäÈëµÄÄÚÈÝ
+		this.currentInputText = null;//Ä¿Ç°ï¿½ï¿½Ã¹ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ò£¨½ï¿½ï¿½Ò»ï¿½ï¿½Ò³ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ô¶ï¿½ï¿½ï¿½È«ï¿½ï¿½ï¿½Ü£ï¿½
+		this.functionalKeyArray = [9,20,13,16,17,18,91,92,93,45,36,33,34,35,37,39,112,113,114,115,116,117,118,119,120,121,122,123,144,19,145,40,38,27];//ï¿½ï¿½ï¿½ï¿½ï¿½Ï¹ï¿½ï¿½Ü¼ï¿½ï¿½Öµï¿½ï¿½ï¿½ï¿½
+		this.holdText = null;//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ô­Ê¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		
-		//³õÊ¼»¯²åÈë×Ô¶¯²¹È«div£¬²¢ÔÚdocument×¢²ámousedown£¬µã»÷·ÇdivÇøÓòÒþ²Ødiv
+		//ï¿½ï¿½Ê¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ô¶ï¿½ï¿½ï¿½È«divï¿½ï¿½ï¿½ï¿½ï¿½ï¿½document×¢ï¿½ï¿½mousedownï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½divï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½div
 		this.init = function(){
 			$("body").append("<div id='bigAutocompleteContent' class='bigautocomplete-layout'></div>");
 			$(document).bind('mousedown',function(event){
@@ -14,7 +14,7 @@
 				}
 			})
 			
-			//Êó±êÐüÍ£Ê±Ñ¡ÖÐµ±Ç°ÐÐ
+			//ï¿½ï¿½ï¿½ï¿½ï¿½Í£Ê±Ñ¡ï¿½Ðµï¿½Ç°ï¿½ï¿½
 			$("#bigAutocompleteContent").delegate("tr", "mouseover", function() {
 				$("#bigAutocompleteContent tr").removeClass("ct");
 				$(this).addClass("ct");
@@ -23,7 +23,7 @@
 			});		
 			
 			
-			//µ¥»÷Ñ¡ÖÐÐÐºó£¬Ñ¡ÖÐÐÐÄÚÈÝÉèÖÃµ½ÊäÈë¿òÖÐ£¬²¢Ö´ÐÐcallbackº¯Êý
+			//ï¿½ï¿½ï¿½ï¿½Ñ¡ï¿½ï¿½ï¿½Ðºï¿½Ñ¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ãµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð£ï¿½ï¿½ï¿½Ö´ï¿½ï¿½callbackï¿½ï¿½ï¿½ï¿½
 			$("#bigAutocompleteContent").delegate("tr", "click", function() {
 				bigAutocomplete.currentInputText.val( $(this).find("div:last").html());
 				var callback_ = bigAutocomplete.currentInputText.data("config").callback;
@@ -38,96 +38,96 @@
 		
 		this.autocomplete = function(param){
 			if($("body").length > 0 && $("#bigAutocompleteContent").length <= 0){
-				bigAutocomplete.init();//³õÊ¼»¯ÐÅÏ¢
+				bigAutocomplete.init();//ï¿½ï¿½Ê¼ï¿½ï¿½ï¿½ï¿½Ï¢
 			}			
 			
-			var $this = $(this);//Îª°ó¶¨×Ô¶¯²¹È«¹¦ÄÜµÄÊäÈë¿òjquery¶ÔÏó
+			var $this = $(this);//Îªï¿½ï¿½ï¿½Ô¶ï¿½ï¿½ï¿½È«ï¿½ï¿½ï¿½Üµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½jqueryï¿½ï¿½ï¿½ï¿½
 			
 			var $bigAutocompleteContent = $("#bigAutocompleteContent");
 			
 			this.config = {
-			               //width:ÏÂÀ­¿òµÄ¿í¶È£¬Ä¬ÈÏÊ¹ÓÃÊäÈë¿ò¿í¶È
+			               //width:ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä¿ï¿½È£ï¿½Ä¬ï¿½ï¿½Ê¹ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 			               width:$this.outerWidth() - 2,
-			               //url£º¸ñÊ½url:""ÓÃÀ´ajaxºóÌ¨»ñÈ¡Êý¾Ý£¬·µ»ØµÄÊý¾Ý¸ñÊ½Îªdata²ÎÊýÒ»Ñù
+			               //urlï¿½ï¿½ï¿½ï¿½Ê½url:""ï¿½ï¿½ï¿½ï¿½ajaxï¿½ï¿½Ì¨ï¿½ï¿½È¡ï¿½ï¿½Ý£ï¿½ï¿½ï¿½ï¿½Øµï¿½ï¿½ï¿½Ý¸ï¿½Ê½Îªdataï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½
 			               url:null,
-			               /*data£º¸ñÊ½{data:[{title:null,result:{}},{title:null,result:{}}]}
-			               urlºÍdata²ÎÊýÖ»ÓÐÒ»¸öÉúÐ§£¬dataÓÅÏÈ*/
+			               /*dataï¿½ï¿½ï¿½ï¿½Ê½{data:[{title:null,result:{}},{title:null,result:{}}]}
+			               urlï¿½ï¿½dataï¿½ï¿½ï¿½ï¿½Ö»ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½Ð§ï¿½ï¿½dataï¿½ï¿½ï¿½ï¿½*/
 			               data:null,
-			               //callback£ºÑ¡ÖÐÐÐºó°´»Ø³µ»òµ¥»÷Ê±»Øµ÷µÄº¯Êý
+			               //callbackï¿½ï¿½Ñ¡ï¿½ï¿½ï¿½Ðºó°´»Ø³ï¿½ï¿½òµ¥»ï¿½Ê±ï¿½Øµï¿½ï¿½Äºï¿½ï¿½ï¿½
 			               callback:null};
 			$.extend(this.config,param);
 			
 			$this.data("config",this.config);
 			
-			//ÊäÈë¿òkeydownÊÂ¼þ
+			//ï¿½ï¿½ï¿½ï¿½ï¿½keydownï¿½Â¼ï¿½
 			$this.keydown(function(event) {
 				switch (event.keyCode) {
-				case 40://ÏòÏÂ¼ü
+				case 40://ï¿½ï¿½ï¿½Â¼ï¿½
 					
 					if($bigAutocompleteContent.css("display") == "none")return;
 					
 					var $nextSiblingTr = $bigAutocompleteContent.find(".ct");
-					if($nextSiblingTr.length <= 0){//Ã»ÓÐÑ¡ÖÐÐÐÊ±£¬Ñ¡ÖÐµÚÒ»ÐÐ
+					if($nextSiblingTr.length <= 0){//Ã»ï¿½ï¿½Ñ¡ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½Ñ¡ï¿½Ðµï¿½Ò»ï¿½ï¿½
 						$nextSiblingTr = $bigAutocompleteContent.find("tr:first");
 					}else{
 						$nextSiblingTr = $nextSiblingTr.next();
 					}
 					$bigAutocompleteContent.find("tr").removeClass("ct");
 					
-					if($nextSiblingTr.length > 0){//ÓÐÏÂÒ»ÐÐÊ±£¨²»ÊÇ×îºóÒ»ÐÐ£©
-						$nextSiblingTr.addClass("ct");//Ñ¡ÖÐµÄÐÐ¼Ó±³¾°
-						$this.val($nextSiblingTr.find("div:last").html());//Ñ¡ÖÐÐÐÄÚÈÝÉèÖÃµ½ÊäÈë¿òÖÐ
+					if($nextSiblingTr.length > 0){//ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½Ê±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ò»ï¿½Ð£ï¿½
+						$nextSiblingTr.addClass("ct");//Ñ¡ï¿½Ðµï¿½ï¿½Ð¼Ó±ï¿½ï¿½ï¿½
+						$this.val($nextSiblingTr.find("div:last").html());//Ñ¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ãµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 						
-						//div¹ö¶¯µ½Ñ¡ÖÐµÄÐÐ,jquery-1.6.1 $nextSiblingTr.offset().top ÓÐbug£¬ÊýÖµÓÐÎÊÌâ
+						//divï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ñ¡ï¿½Ðµï¿½ï¿½ï¿½,jquery-1.6.1 $nextSiblingTr.offset().top ï¿½ï¿½bugï¿½ï¿½ï¿½ï¿½Öµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 						$bigAutocompleteContent.scrollTop($nextSiblingTr[0].offsetTop - $bigAutocompleteContent.height() + $nextSiblingTr.height() );
 						
 					}else{
-						$this.val(bigAutocomplete.holdText);//ÊäÈë¿òÏÔÊ¾ÓÃ»§Ô­Ê¼ÊäÈëµÄÖµ
+						$this.val(bigAutocomplete.holdText);//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê¾ï¿½Ã»ï¿½Ô­Ê¼ï¿½ï¿½ï¿½ï¿½ï¿½Öµ
 					}
 					
 					
 					break;
-				case 38://ÏòÉÏ¼ü
+				case 38://ï¿½ï¿½ï¿½Ï¼ï¿½
 					if($bigAutocompleteContent.css("display") == "none")return;
 					
 					var $previousSiblingTr = $bigAutocompleteContent.find(".ct");
-					if($previousSiblingTr.length <= 0){//Ã»ÓÐÑ¡ÖÐÐÐÊ±£¬Ñ¡ÖÐ×îºóÒ»ÐÐÐÐ
+					if($previousSiblingTr.length <= 0){//Ã»ï¿½ï¿½Ñ¡ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½Ñ¡ï¿½ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½
 						$previousSiblingTr = $bigAutocompleteContent.find("tr:last");
 					}else{
 						$previousSiblingTr = $previousSiblingTr.prev();
 					}
 					$bigAutocompleteContent.find("tr").removeClass("ct");
 					
-					if($previousSiblingTr.length > 0){//ÓÐÉÏÒ»ÐÐÊ±£¨²»ÊÇµÚÒ»ÐÐ£©
-						$previousSiblingTr.addClass("ct");//Ñ¡ÖÐµÄÐÐ¼Ó±³¾°
-						$this.val($previousSiblingTr.find("div:last").html());//Ñ¡ÖÐÐÐÄÚÈÝÉèÖÃµ½ÊäÈë¿òÖÐ
+					if($previousSiblingTr.length > 0){//ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½Ê±ï¿½ï¿½ï¿½ï¿½ï¿½Çµï¿½Ò»ï¿½Ð£ï¿½
+						$previousSiblingTr.addClass("ct");//Ñ¡ï¿½Ðµï¿½ï¿½Ð¼Ó±ï¿½ï¿½ï¿½
+						$this.val($previousSiblingTr.find("div:last").html());//Ñ¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ãµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 						
-						//div¹ö¶¯µ½Ñ¡ÖÐµÄÐÐ,jquery-1.6.1 $$previousSiblingTr.offset().top ÓÐbug£¬ÊýÖµÓÐÎÊÌâ
+						//divï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ñ¡ï¿½Ðµï¿½ï¿½ï¿½,jquery-1.6.1 $$previousSiblingTr.offset().top ï¿½ï¿½bugï¿½ï¿½ï¿½ï¿½Öµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 						$bigAutocompleteContent.scrollTop($previousSiblingTr[0].offsetTop - $bigAutocompleteContent.height() + $previousSiblingTr.height());
 					}else{
-						$this.val(bigAutocomplete.holdText);//ÊäÈë¿òÏÔÊ¾ÓÃ»§Ô­Ê¼ÊäÈëµÄÖµ
+						$this.val(bigAutocomplete.holdText);//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê¾ï¿½Ã»ï¿½Ô­Ê¼ï¿½ï¿½ï¿½ï¿½ï¿½Öµ
 					}
 					
 					break;
-				case 27://ESC¼üÒþ²ØÏÂÀ­¿ò
+				case 27://ESCï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 					
 					bigAutocomplete.hideAutocomplete();
 					break;
 				}
 			});		
 			
-			//ÊäÈë¿òkeyupÊÂ¼þ
+			//ï¿½ï¿½ï¿½ï¿½ï¿½keyupï¿½Â¼ï¿½
 			$this.keyup(function(event) {
 				var k = event.keyCode;
 				var ctrl = event.ctrlKey;
-				var isFunctionalKey = false;//°´ÏÂµÄ¼üÊÇ·ñÊÇ¹¦ÄÜ¼ü
+				var isFunctionalKey = false;//ï¿½ï¿½ï¿½ÂµÄ¼ï¿½ï¿½Ç·ï¿½ï¿½Ç¹ï¿½ï¿½Ü¼ï¿½
 				for(var i=0;i<bigAutocomplete.functionalKeyArray.length;i++){
 					if(k == bigAutocomplete.functionalKeyArray[i]){
 						isFunctionalKey = true;
 						break;
 					}
 				}
-				//k¼üÖµ²»ÊÇ¹¦ÄÜ¼ü»òÊÇctrl+c¡¢ctrl+xÊ±²Å´¥·¢×Ô¶¯²¹È«¹¦ÄÜ
+				//kï¿½ï¿½Öµï¿½ï¿½ï¿½Ç¹ï¿½ï¿½Ü¼ï¿½ï¿½ï¿½ï¿½ctrl+cï¿½ï¿½ctrl+xÊ±ï¿½Å´ï¿½ï¿½ï¿½ï¿½Ô¶ï¿½ï¿½ï¿½È«ï¿½ï¿½ï¿½ï¿½
 				if(!isFunctionalKey && (!ctrl || (ctrl && k == 67) || (ctrl && k == 88)) ){
 					var config = $this.data("config");
 					
@@ -152,7 +152,7 @@
 						}
 						
 						makeContAndShow(data_);
-					}else if(url != null && url != ""){//ajaxÇëÇóÊý¾Ý
+					}else if(url != null && url != ""){//ajaxï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 						$.post(url,{keyword:keyword_},function(result){
 							makeContAndShow(result.data)
 						},"json")
@@ -161,7 +161,7 @@
 					
 					bigAutocomplete.holdText = $this.val();
 				}
-				//»Ø³µ¼ü
+				//ï¿½Ø³ï¿½ï¿½ï¿½
 				if(k == 13){
 					var callback_ = $this.data("config").callback;
 					if($bigAutocompleteContent.css("display") != "none"){
@@ -175,7 +175,7 @@
 			});	
 			
 					
-			//×é×°ÏÂÀ­¿òhtmlÄÚÈÝ²¢ÏÔÊ¾
+			//ï¿½ï¿½×°ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½htmlï¿½ï¿½ï¿½Ý²ï¿½ï¿½ï¿½Ê¾
 			function makeContAndShow(data_){
 				if(data_ == null || data_.length <=0 ){
 					return;
@@ -189,20 +189,20 @@
 				$bigAutocompleteContent.html(cont);
 				$bigAutocompleteContent.show();
 				
-				//Ã¿ÐÐtr°ó¶¨Êý¾Ý£¬·µ»Ø¸ø»Øµ÷º¯Êý
+				//Ã¿ï¿½ï¿½trï¿½ï¿½ï¿½ï¿½Ý£ï¿½ï¿½ï¿½ï¿½Ø¸ï¿½Øµï¿½ï¿½ï¿½ï¿½ï¿½
 				$bigAutocompleteContent.find("tr").each(function(index){
 					$(this).data("jsonData",data_[index]);
 				})
 			}			
 					
 			
-			//ÊäÈë¿òfocusÊÂ¼þ
+			//ï¿½ï¿½ï¿½ï¿½ï¿½focusï¿½Â¼ï¿½
 			$this.focus(function(){
 				bigAutocomplete.currentInputText = $this;
 			});
 			
 		}
-		//Òþ²ØÏÂÀ­¿ò
+		//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		this.hideAutocomplete = function(){
 			var $bigAutocompleteContent = $("#bigAutocompleteContent");
 			if($bigAutocompleteContent.css("display") != "none"){

@@ -12,7 +12,7 @@ class IndexAction extends Action {
 	//展示刊例维护
 	function importingApp() {
 		$appRule = new Model ( "AppRule" );
-		if ($_POST ['submit']) { //新增
+		if ($_POST ['add_udp'] == "1") { //新增
 			$rule_no = $_POST['rule_no'];
 			//$rule_no = $_POST['issue_sel'];
 			//上传文件名由当前时间戳及扩展名组成
@@ -20,10 +20,11 @@ class IndexAction extends Action {
 			//上传文件
 			move_uploaded_file($_FILES["app_file"]["tmp_name"], "$this->uploaded_url/$fileName");
 			$this->redirect('Index/doImporting', array('fileName' => $fileName,'nowPageNum'=>0,'nowLineNum'=>1,'rule_no'=>$rule_no), 0);
-		}else if($_POST ['update']) { //编辑
+		}else if($_POST ['add_udp'] == "2") { //编辑
 			$old_rule_no = $_POST['old_rule_no'];
 			$rule_no = $_POST['rule_no'];
-			if($_FILES["app_file"]){//如果需要重新提交excel
+			if($_FILES["app_file"]["name"]){//如果需要重新提交excel
+				//echo 2345235;exit;
 				$appRule->query("DELETE FROM app_rule WHERE rule_no = '$old_rule_no'");
 				$fileName = time().".".end(explode('.', $_FILES["app_file"]["name"]));
 				//上传文件
@@ -34,34 +35,34 @@ class IndexAction extends Action {
 				$data['rule_no'] = $rule_no;
 				$que = $appRule->where("rule_no = '$old_rule_no'")->save($data);
 			}
-		}else if($_POST ['delete']){ //删除
-			$old_rule_no = $_POST['old_rule_no'];
-			$appRule->query("DELETE FROM app_rule WHERE rule_no = '$old_rule_no'");
-		}else{
-			$where = " where 1 ";
-			if($_POST['rule_no_sel']){
-				$rule_no_sel = $_POST['rule_no_sel'];
-				$where .= " and rule_no = '$rule_no_sel' ";
-			}
-			if($_POST['createuserid_sel']){
-				$createuserid_sel = $_POST['createuserid_sel'];
-				$where .= " and createuserid = '$createuserid_sel' ";
-			}
-			if($_POST['createtime_sel']){
-				$createtime_sel = strtotime($_POST['createtime_sel']);;
-				$where .= " and createtime = '$createtime_sel' ";
-			}
-			
-			if($where != " where 1 "){//只有点击查询，显示结果
-				$sel = " select * from app_rule $where and rule_status = 0 group by rule_no order by createtime";
-				$que = $appRule->query($sel);
-				foreach ($que as $k=>$v){
-					$que[$k]['createtime'] = date("Y-m-d",$v['createtime']);
-				}
-				$this->assign('issueArr', $que);
-			}
-			$this->display(':maintain_index');
+		}else if($_POST ['delete'] == "1"){ //删除
+			$del_rule_no = $_POST['del_rule_no'];
+			$appRule->query("DELETE FROM app_rule WHERE rule_no = '$del_rule_no'");
 		}
+		$where = " where 1 ";
+		if($_POST['rule_no_sel']){
+			$rule_no_sel = $_POST['rule_no_sel'];
+			$where .= " and rule_no = '$rule_no_sel' ";
+		}
+		if($_POST['createuserid_sel']){
+			$createuserid_sel = $_POST['createuserid_sel'];
+			$where .= " and createuserid = '$createuserid_sel' ";
+		}
+		if($_POST['createtime_sel']){
+			$createtime_sel = strtotime($_POST['createtime_sel']);;
+			$where .= " and createtime = '$createtime_sel' ";
+		}
+		
+		//if($where != " where 1 "){//只有点击查询，显示结果
+			$sel = " select * from app_rule $where and rule_status = 0 group by rule_no order by createtime";
+			$que = $appRule->query($sel);
+			foreach ($que as $k=>$v){
+				$que[$k]['createtime'] = date("Y-m-d",$v['createtime']);
+			}
+			$this->assign('issueArr', $que);
+		//}
+		$this->display(':maintain_index');
+		
 	}
 	
 	//执行导入app期刊
@@ -164,10 +165,10 @@ class IndexAction extends Action {
 		//判断回滚
 		if($rollback){
 			$appRule->rollback();
-			$this->show("<script type='text/javascript'>window.setTimeout('show()',6000);\n alert('导入失败，请检查导入文件，$wrongMessage');\n window.location.href='".U('AdJournal/importingAd')."';</script>", 'utf-8' );
+			$this->show("<script type='text/javascript'>window.setTimeout('show()',6000);\n alert('导入失败，请检查导入文件，$wrongMessage');\n window.location.href='".U('Index/importingApp')."';</script>", 'utf-8' );
 		}else{
 			$appRule->commit();
-			$this->show("<script type='text/javascript'>window.setTimeout('show()',6000);\n alert('导入成功');\n window.location.href='".U('AdJournal/importingAd')."';</script>", 'utf-8' );
+			$this->show("<script type='text/javascript'>window.setTimeout('show()',6000);\n alert('导入成功');\n window.location.href='".U('Index/importingApp')."';</script>", 'utf-8' );
 		}
 	}
 	
@@ -176,30 +177,31 @@ class IndexAction extends Action {
 	//展示刊例发布
 	function addRuleTarget(){
 		$appRule = new Model ( "AppRule" );
-		if ($_POST ['submit']) { //新增
+		if ($_POST ['add_udp']) { //新增
 			$rule_no    = $_POST['rule_no'];
 			$start_time = strtotime($_POST['start_time']);
 			$target_num = $_POST['target_num'];
 			
 			$data = null;
+			$data['rule_status']= 1;
 			$data['start_time'] = $start_time;
 			$data['target_num'] = $target_num;
 			$que = $appRule->where("rule_no = '$rule_no'")->save($data);
-		}else if($_POST ['delete']){//删除
-			$rule_no    = $_POST['rule_no'];
-			$appRule->query("DELETE FROM app_rule WHERE rule_no = '$rule_no'");
-		}else if($_POST ['release']){//发布
-			$rule_no    = $_POST['rule_no'];
-			$data = null;
-			$data['rule_status'] = 1;
-			$data['release_time'] = strtotime(date("Y-m-d"));
-			$que = $appRule->where("rule_no = '$rule_no'")->save($data);
-		}else if($_POST ['unable']){//作废
-			$rule_no    = $_POST['rule_no'];
+		}else if($_POST ['del_fb_zf'] == "1"){//删除
+			$del_rule_no    = $_POST['del_rule_no'];
+			$appRule->query("DELETE FROM app_rule WHERE rule_no = '$del_rule_no'");
+		}else if($_POST ['del_fb_zf'] == "2"){//发布
+			$rule_no    = $_POST['del_rule_no'];
 			$data = null;
 			$data['rule_status'] = 2;
+			$data['release_time'] = strtotime(date("Y-m-d"));
 			$que = $appRule->where("rule_no = '$rule_no'")->save($data);
-		}else{
+		}else if($_POST ['del_fb_zf'] == "3"){//作废
+			$rule_no    = $_POST['del_rule_no'];
+			$data = null;
+			$data['rule_status'] = 3;
+			$que = $appRule->where("rule_no = '$rule_no'")->save($data);
+		}
 			$where = " where 1 ";
 			if($_POST['rule_no_sel']){
 				$rule_no_sel = $_POST['rule_no_sel'];
@@ -213,7 +215,7 @@ class IndexAction extends Action {
 				$release_time_sel = strtotime($_POST['release_time_sel']);;
 				$where .= " and release_time = '$release_time_sel' ";
 			}
-			if($where != " where 1 "){//只有点击查询，显示结果
+			//if($where != " where 1 "){//只有点击查询，显示结果
 				$sel = " select * from app_rule $where and rule_status >=1 group by rule_no order by release_time";
 				$que = $appRule->query($sel);
 				foreach ($que as $k=>$v){
@@ -222,15 +224,30 @@ class IndexAction extends Action {
 					$que[$k]['start_time'] = date("Y-m-d",$v['start_time']);
 				}
 				$this->assign('issueArr', $que);
-			}
+			//}
 			$this->display(':issue_index');
-		}
+		
 		
 	}
-	
-	
-	
-	
-	
-	
+	//自动补全对应函数	
+	function getAppRule(){
+		$model = new Model();
+		$appNameList = array();
+		//return 2354;
+		//现在未过滤期刊号，所有期刊都算了
+		$selStr = "
+				SELECT rule_no FROM app_rule WHERE rule_status = 0 GROUP BY rule_no
+		";
+		//echo json_encode($selStr);exit;
+		$list = $model->query($selStr);
+		foreach($list as $val){
+			$appNameList[] = $val['rule_no'];
+		}
+		
+		$arr = array();
+		foreach($appNameList as $appName){
+			$arr[] = array('title'=>$appName);
+		}
+		echo json_encode($arr);
+	}
 }

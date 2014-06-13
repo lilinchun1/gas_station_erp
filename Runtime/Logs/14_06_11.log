@@ -1,0 +1,128 @@
+[ 2014-06-11T11:53:37+08:00 ] 127.0.0.1 /gas_station_erp/index.php/configuration/Org/show_org_tree
+INFO: [ app_begin ] --START--
+INFO: ReadHtmlCache Behavior ::run [ RunTime:0.000000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000000s ]
+NOTIC: [2] urldecode() expects parameter 1 to be string, array given D:\trunk\gas_station_erp\Lib\Action\configuration\OrgAction.class.php 第 4 行.
+NOTIC: [8] Undefined index: userinfo D:\trunk\gas_station_erp\Lib\Action\configuration\CommonAction.class.php 第 11 行.
+SQL: select * from qd_agent where isDelete=0 [ RunTime:0.001000s ]
+
+[ 2014-06-11T11:53:42+08:00 ] 127.0.0.1 /gas_station_erp/index.php/configuration/Role/select_all_purview
+INFO: [ app_begin ] --START--
+INFO: ReadHtmlCache Behavior ::run [ RunTime:0.000000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000000s ]
+NOTIC: [2] urldecode() expects parameter 1 to be string, array given D:\trunk\gas_station_erp\Lib\Action\configuration\RoleAction.class.php 第 4 行.
+NOTIC: [8] Undefined index: userinfo D:\trunk\gas_station_erp\Lib\Action\configuration\CommonAction.class.php 第 11 行.
+SQL: select menu_id, menuname, url, pid from bi_menu [ RunTime:0.001000s ]
+
+[ 2014-06-11T11:53:42+08:00 ] 127.0.0.1 /gas_station_erp/index.php/configuration/Role/rolenameBlurrySelect?role_name=
+NOTIC: [2] htmlspecialchars() expects parameter 2 to be long, string given D:\trunk\frame\Lib\Core\App.class.php 第 57 行.
+INFO: [ app_begin ] --START--
+INFO: ReadHtmlCache Behavior ::run [ RunTime:0.001000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001000s ]
+NOTIC: [2] urldecode() expects parameter 1 to be string, array given D:\trunk\gas_station_erp\Lib\Action\configuration\RoleAction.class.php 第 4 行.
+NOTIC: [8] Undefined index: userinfo D:\trunk\gas_station_erp\Lib\Action\configuration\CommonAction.class.php 第 11 行.
+NOTIC: [2] htmlspecialchars() expects parameter 2 to be long, string given D:\trunk\frame\Common\common.php 第 110 行.
+NOTIC: [2] htmlspecialchars() expects parameter 2 to be long, string given D:\trunk\frame\Common\common.php 第 110 行.
+SQL: SHOW COLUMNS FROM `bi_role` [ RunTime:0.033002s ]
+SQL: SELECT DISTINCT  `rolename` FROM `bi_role` WHERE ( `rolename` LIKE '%%' )  [ RunTime:0.000000s ]
+
+[ 2014-06-11T11:53:45+08:00 ] 127.0.0.1 /gas_station_erp/index.php/configuration/Role/select_all_purview
+INFO: [ app_begin ] --START--
+INFO: ReadHtmlCache Behavior ::run [ RunTime:0.000000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001000s ]
+NOTIC: [2] urldecode() expects parameter 1 to be string, array given D:\trunk\gas_station_erp\Lib\Action\configuration\RoleAction.class.php 第 4 行.
+NOTIC: [8] Undefined index: userinfo D:\trunk\gas_station_erp\Lib\Action\configuration\CommonAction.class.php 第 11 行.
+SQL: select menu_id, menuname, url, pid from bi_menu [ RunTime:0.001000s ]
+
+[ 2014-06-11T11:53:45+08:00 ] 127.0.0.1 /gas_station_erp/index.php/configuration/Role/rolenameBlurrySelect?role_name=
+NOTIC: [2] htmlspecialchars() expects parameter 2 to be long, string given D:\trunk\frame\Lib\Core\App.class.php 第 57 行.
+INFO: [ app_begin ] --START--
+INFO: ReadHtmlCache Behavior ::run [ RunTime:0.000000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000000s ]
+NOTIC: [2] urldecode() expects parameter 1 to be string, array given D:\trunk\gas_station_erp\Lib\Action\configuration\RoleAction.class.php 第 4 行.
+NOTIC: [8] Undefined index: userinfo D:\trunk\gas_station_erp\Lib\Action\configuration\CommonAction.class.php 第 11 行.
+NOTIC: [2] htmlspecialchars() expects parameter 2 to be long, string given D:\trunk\frame\Common\common.php 第 110 行.
+NOTIC: [2] htmlspecialchars() expects parameter 2 to be long, string given D:\trunk\frame\Common\common.php 第 110 行.
+SQL: SHOW COLUMNS FROM `bi_role` [ RunTime:0.011000s ]
+SQL: SELECT DISTINCT  `rolename` FROM `bi_role` WHERE ( `rolename` LIKE '%%' )  [ RunTime:0.001000s ]
+
+[ 2014-06-11T11:55:00+08:00 ] 127.0.0.1 /gas_station_erp/index.php/configuration/Role/select_all_purview
+INFO: [ app_begin ] --START--
+INFO: ReadHtmlCache Behavior ::run [ RunTime:0.000000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000000s ]
+NOTIC: [2] urldecode() expects parameter 1 to be string, array given D:\trunk\gas_station_erp\Lib\Action\configuration\RoleAction.class.php 第 4 行.
+NOTIC: [8] Undefined index: userinfo D:\trunk\gas_station_erp\Lib\Action\configuration\CommonAction.class.php 第 11 行.
+SQL: select menu_id, menuname, url, pid from bi_menu [ RunTime:0.001000s ]
+
+[ 2014-06-11T11:55:00+08:00 ] 127.0.0.1 /gas_station_erp/index.php/configuration/Role/rolenameBlurrySelect?role_name=
+NOTIC: [2] htmlspecialchars() expects parameter 2 to be long, string given D:\trunk\frame\Lib\Core\App.class.php 第 57 行.
+INFO: [ app_begin ] --START--
+INFO: ReadHtmlCache Behavior ::run [ RunTime:0.001000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001000s ]
+NOTIC: [2] urldecode() expects parameter 1 to be string, array given D:\trunk\gas_station_erp\Lib\Action\configuration\RoleAction.class.php 第 4 行.
+NOTIC: [8] Undefined index: userinfo D:\trunk\gas_station_erp\Lib\Action\configuration\CommonAction.class.php 第 11 行.
+NOTIC: [2] htmlspecialchars() expects parameter 2 to be long, string given D:\trunk\frame\Common\common.php 第 110 行.
+NOTIC: [2] htmlspecialchars() expects parameter 2 to be long, string given D:\trunk\frame\Common\common.php 第 110 行.
+SQL: SHOW COLUMNS FROM `bi_role` [ RunTime:0.011001s ]
+SQL: SELECT DISTINCT  `rolename` FROM `bi_role` WHERE ( `rolename` LIKE '%%' )  [ RunTime:0.000000s ]
+
+[ 2014-06-11T11:55:01+08:00 ] 127.0.0.1 /gas_station_erp/index.php/configuration/Role/select_all_purview
+INFO: [ app_begin ] --START--
+INFO: ReadHtmlCache Behavior ::run [ RunTime:0.001000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001000s ]
+NOTIC: [2] urldecode() expects parameter 1 to be string, array given D:\trunk\gas_station_erp\Lib\Action\configuration\RoleAction.class.php 第 4 行.
+NOTIC: [8] Undefined index: userinfo D:\trunk\gas_station_erp\Lib\Action\configuration\CommonAction.class.php 第 11 行.
+SQL: select menu_id, menuname, url, pid from bi_menu [ RunTime:0.001000s ]
+
+[ 2014-06-11T11:55:01+08:00 ] 127.0.0.1 /gas_station_erp/index.php/configuration/Role/rolenameBlurrySelect?role_name=
+NOTIC: [2] htmlspecialchars() expects parameter 2 to be long, string given D:\trunk\frame\Lib\Core\App.class.php 第 57 行.
+INFO: [ app_begin ] --START--
+INFO: ReadHtmlCache Behavior ::run [ RunTime:0.000000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000000s ]
+NOTIC: [2] urldecode() expects parameter 1 to be string, array given D:\trunk\gas_station_erp\Lib\Action\configuration\RoleAction.class.php 第 4 行.
+NOTIC: [8] Undefined index: userinfo D:\trunk\gas_station_erp\Lib\Action\configuration\CommonAction.class.php 第 11 行.
+NOTIC: [2] htmlspecialchars() expects parameter 2 to be long, string given D:\trunk\frame\Common\common.php 第 110 行.
+NOTIC: [2] htmlspecialchars() expects parameter 2 to be long, string given D:\trunk\frame\Common\common.php 第 110 行.
+SQL: SHOW COLUMNS FROM `bi_role` [ RunTime:0.012001s ]
+SQL: SELECT DISTINCT  `rolename` FROM `bi_role` WHERE ( `rolename` LIKE '%%' )  [ RunTime:0.001000s ]
+
+[ 2014-06-11T11:57:01+08:00 ] 127.0.0.1 /gas_station_erp/index.php/configuration/Role/select_all_purview
+INFO: [ app_begin ] --START--
+INFO: ReadHtmlCache Behavior ::run [ RunTime:0.001000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001000s ]
+NOTIC: [2] urldecode() expects parameter 1 to be string, array given D:\trunk\gas_station_erp\Lib\Action\configuration\RoleAction.class.php 第 4 行.
+NOTIC: [8] Undefined index: userinfo D:\trunk\gas_station_erp\Lib\Action\configuration\CommonAction.class.php 第 11 行.
+SQL: select menu_id, menuname, url, pid from bi_menu [ RunTime:0.001000s ]
+
+[ 2014-06-11T11:57:01+08:00 ] 127.0.0.1 /gas_station_erp/index.php/configuration/Role/rolenameBlurrySelect?role_name=
+NOTIC: [2] htmlspecialchars() expects parameter 2 to be long, string given D:\trunk\frame\Lib\Core\App.class.php 第 57 行.
+INFO: [ app_begin ] --START--
+INFO: ReadHtmlCache Behavior ::run [ RunTime:0.001000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001000s ]
+NOTIC: [2] urldecode() expects parameter 1 to be string, array given D:\trunk\gas_station_erp\Lib\Action\configuration\RoleAction.class.php 第 4 行.
+NOTIC: [8] Undefined index: userinfo D:\trunk\gas_station_erp\Lib\Action\configuration\CommonAction.class.php 第 11 行.
+NOTIC: [2] htmlspecialchars() expects parameter 2 to be long, string given D:\trunk\frame\Common\common.php 第 110 行.
+NOTIC: [2] htmlspecialchars() expects parameter 2 to be long, string given D:\trunk\frame\Common\common.php 第 110 行.
+SQL: SHOW COLUMNS FROM `bi_role` [ RunTime:0.011001s ]
+SQL: SELECT DISTINCT  `rolename` FROM `bi_role` WHERE ( `rolename` LIKE '%%' )  [ RunTime:0.002000s ]
+
+[ 2014-06-11T12:03:22+08:00 ] 127.0.0.1 /gas_station_erp/index.php/configuration/Role/select_all_purview
+INFO: [ app_begin ] --START--
+INFO: ReadHtmlCache Behavior ::run [ RunTime:0.000000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000000s ]
+NOTIC: [2] urldecode() expects parameter 1 to be string, array given D:\trunk\gas_station_erp\Lib\Action\configuration\RoleAction.class.php 第 4 行.
+NOTIC: [8] Undefined index: userinfo D:\trunk\gas_station_erp\Lib\Action\configuration\CommonAction.class.php 第 11 行.
+SQL: select menu_id, menuname, url, pid from bi_menu [ RunTime:0.001000s ]
+
+[ 2014-06-11T12:03:22+08:00 ] 127.0.0.1 /gas_station_erp/index.php/configuration/Role/rolenameBlurrySelect?role_name=
+NOTIC: [2] htmlspecialchars() expects parameter 2 to be long, string given D:\trunk\frame\Lib\Core\App.class.php 第 57 行.
+INFO: [ app_begin ] --START--
+INFO: ReadHtmlCache Behavior ::run [ RunTime:0.001000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001000s ]
+NOTIC: [2] urldecode() expects parameter 1 to be string, array given D:\trunk\gas_station_erp\Lib\Action\configuration\RoleAction.class.php 第 4 行.
+NOTIC: [8] Undefined index: userinfo D:\trunk\gas_station_erp\Lib\Action\configuration\CommonAction.class.php 第 11 行.
+NOTIC: [2] htmlspecialchars() expects parameter 2 to be long, string given D:\trunk\frame\Common\common.php 第 110 行.
+NOTIC: [2] htmlspecialchars() expects parameter 2 to be long, string given D:\trunk\frame\Common\common.php 第 110 行.
+SQL: SHOW COLUMNS FROM `bi_role` [ RunTime:0.011001s ]
+SQL: SELECT DISTINCT  `rolename` FROM `bi_role` WHERE ( `rolename` LIKE '%%' )  [ RunTime:0.001000s ]
+

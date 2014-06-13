@@ -605,7 +605,7 @@ class PlaceAction extends CommonAction {
 	    $Model = new Model();
 		$place = M("place");
 		$msg = C('delete_place_success');
-		$is_set = $place->where("place_id='$place_id'")->setField('isDelete', 1);
+		$is_set = $place->where("place_id='$place_id'")->delete();
 		if($is_set <= 0)
 		{
 			$this->msg = C('delete_place_failed');

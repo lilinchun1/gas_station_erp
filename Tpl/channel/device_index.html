@@ -93,18 +93,6 @@
 					<span class="span-1" title="#"><img src="__PUBLIC__/image/img.png" alt=""/></span>
 				</li>
 			</volist>
-            <li>
-                <span class="span-1"><input type="radio" name="role-info" id="" class="role-table-radio"/></span>
-                <span class="span-1" title="#">1111111111111111111111111</span>
-                <span class="span-1" title="#">Dolore eius expedita molestias!</span>
-                <span class="span-1" title="#">Blanditiis dolorum pariatur vitae?</span>
-                <span class="span-2" title="#">Perspiciatis quae ratione repudiandae!</span>
-                <span class="span-1" title="#">Ipsa nulla quidem voluptate?</span>
-                <span class="span-1" title="#">Consequuntur eveniet itaque velit.</span>
-                <span class="span-1" title="#">Aspernatur blanditiis ipsum nulla!</span>
-                <span class="span-1" title="#">Aspernatur blanditiis ipsum nulla!</span>
-                <span class="span-1" title="#"><img src="__PUBLIC__/image/img.png" alt=""/></span>
-            </li>
         </ul>
 		<!--
         <ul class="role-table-list">
@@ -376,12 +364,14 @@
 
             <p>
                 <label for="bs-date">部署日期</label>
-                <input type="date" name="add_deploy_time_sel" id="add_deploy_time_sel" class="input-org-info" style="margin-top: 0;"/>
+                <input type="date" name="add_deploy_time_sel" id="add_deploy_time_sel" class="input-org-info" 
+				 style="margin-top: 0;" onClick="WdatePicker()" readonly="readonly"/>
             </p>
 
             <p>
                 <label for="sq-date">启用日期</label>
-                <input type="date" name="add_begin_time_sel" id="add_begin_time_sel" class="input-org-info" style="margin-top: 0;"/>
+                <input type="date" name="add_begin_time_sel" id="add_begin_time_sel" class="input-org-info" 
+				 style="margin-top: 0;" onClick="WdatePicker()" readonly="readonly"/>
             </p>
 
             <p>
@@ -524,6 +514,7 @@
 <script type="text/javascript" src="__PUBLIC__/js/jquery.SuperSlide.2.1.1.js"></script>
 <script type="text/javascript" src="__PUBLIC__/js/jquery.DOMwindow.js" type="text/javascript"></script><!--模框JS插件-->
 <script type="text/javascript" src="__PUBLIC__/js/jquery.bigautocomplete.js"></script>
+<script language="javascript" type="text/javascript" src="__PUBLIC__/js/My97DatePicker/WdatePicker.js"></script>
 <script>
 	var device_val='';
 	function selectDeviceRadio(device_id){
@@ -552,6 +543,8 @@
 		place_name_blurry();
 		device_mac_blurry();
 		device_no_blurry();
+		add_place_name_blurry();
+		change_place_name_blurry();
 
 		 $('#j_del_button').click(function(){
 			 $.openDOMWindow({
@@ -610,8 +603,8 @@
 			$.getJSON(handleUrl,{"add_device_no_txt":add_device_no_txt,"add_mac_txt":add_mac_txt,"add_place_name_txt":add_place_name_txt,
 								 "add_deploy_time_sel":add_deploy_time_sel,"add_begin_time_sel":add_begin_time_sel,
 								 "add_status_sel":add_status_sel,"add_device_type_txt":add_device_type_txt,
-								 "add_address_txt":add_address_txt,"add_description_txt":add_description_txt,
-								 "add_image_path_0":add_image_path_0,"add_image_path_1":add_image_path_1,"add_image_path_2":add_image_path_2
+								 "add_address_txt":add_address_txt
+								// "add_image_path_0":add_image_path_0,"add_image_path_1":add_image_path_1,"add_image_path_2":add_image_path_2
 								 },
 				function (data){
 					var tmp_msg = "{:C('add_device_success')}";
@@ -713,6 +706,36 @@
 				//alert(data);
 				//alert(str[1]['title']);
 				$("#device_no_txt").bigAutocomplete({width:150,data:data,callback:function(data){}});
+			}
+			,'json'
+		);
+	}
+
+	function add_place_name_blurry()
+	{
+		var handleUrl = "{:U('channel/Place/placenameBlurrySelect')}";
+		var place_name = '';
+		$.getJSON(handleUrl,{},
+			function (data){
+				var str = data;
+				//alert(data);
+				//alert(str[1]['title']);
+				$("#add_place_name_txt").bigAutocomplete({width:250,data:data,callback:function(data){}});
+			}
+			,'json'
+		);
+	}
+
+	function change_place_name_blurry()
+	{
+		var handleUrl = "{:U('channel/Place/placenameBlurrySelect')}";
+		var place_name = '';
+		$.getJSON(handleUrl,{"place_name":place_name},
+			function (data){
+				var str = data;
+				//alert(data);
+				//alert(str[1]['title']);
+				$("#change_place_name_txt").bigAutocomplete({width:250,data:data,callback:function(data){}});
 			}
 			,'json'
 		);

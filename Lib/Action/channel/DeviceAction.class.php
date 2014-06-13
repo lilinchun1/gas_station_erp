@@ -513,6 +513,29 @@ class DeviceAction extends CommonAction {
 	    $Model = new Model();
 		$device = M("device","qd_");
 		$msg = C('delete_device_success');
+		$is_set = $device->where("device_id='$device_id'")->delete();
+		if($is_set <= 0)
+		{
+			$this->msg = C('delete_device_failed');
+		}
+
+		if($msg == C('delete_device_success'))
+		{
+			//$place_id = getPlaceIDFromDeviceID($device_id);
+			//changeNum('device', $place_id, $device_id, 'minus');
+			//addOptionLog('device', $device_id, 'del', '');
+		}
+		$this->ajaxReturn($msg,'json');
+		//$this->deviceSelect();
+	}
+
+	//撤销设备
+	public function deviceRepeal(){
+		$device_id = trim(I('device_id'));
+
+	    $Model = new Model();
+		$device = M("device","qd_");
+		$msg = C('delete_device_success');
 		$is_set = $device->where("device_id='$device_id'")->setField('isDelete', 1);
 		if($is_set <= 0)
 		{

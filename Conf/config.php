@@ -7,7 +7,7 @@ return array(
 	'URL_HTML_SUFFIX'=>'', // 多个用 | 分割,
 	'SESSION_AUTO_START' =>true,
 	//'LOAD_EXT_CONFIG' => 'message,property',
-	'APP_GROUP_LIST'=>'configuration,channel,management',
+	'APP_GROUP_LIST'=>'configuration,channel,management,socket',
 	'DEFAULT_GROUP'=>'configuration',
 	'ROOT_USER' => 'admin', // 根用户用户名
 	'ROOT_PWSD' => 'admin', // 根用户密码

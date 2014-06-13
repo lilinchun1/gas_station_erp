@@ -83,7 +83,7 @@ class LoginAction extends Action {
 		$old_password = I('old_password_txt');
 		$new_password = I('new_password_txt');
 		$re_new_password = I('re_new_password_txt');
-		$user_id = $_SEESION['userinfo']['uid'];
+		$user_id = $_SESSION['userinfo']['uid'];
 		$Model = new Model();
 		$user = M("user");
 		$msg = C("change_password_success");

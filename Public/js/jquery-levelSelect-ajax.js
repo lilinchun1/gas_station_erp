@@ -24,13 +24,14 @@ $.openLayer = function(p){
 		title : "选择业务范围,单击省份可以选择所属市",				//弹出窗口标题
 		width : 650,					//弹出窗口宽度
 		span_width : {d1:70,d3:150},	//可以自定义每一层级数据项显示宽度，用来对其排版。
-		url : "http://127.0.0.1/gas_station_erp/index.php/configuration/Org/show_org_area_tree",						//ajax请求url
+		url : "http://192.168.0.10/gas_station_erp/index.php/configuration/Org/show_org_area_tree",//"{:U('configuration/Org/show_org_area_tree')}"						//ajax请求url
 		pid : "0",						//父id
 		shared : true,					//如果页面中有多于1个的弹出选择,是否共享缓存数据
 		index : 10005,						//如果页面中有多于1个的弹出选择,如果不共享之前的操作界面则必须设置不同的index值，否则不同的弹出选择共享相同的操作界面。
 		cacheEnable : false,				//是否允许缓存
 		dragEnable : true,				//是否允许鼠标拖动
-		pText : ""
+		pText : "",
+		id:""//id值
 	},p||{});
 
 	var fs = {
@@ -63,6 +64,7 @@ $.openLayer = function(p){
 			targetid.nextAll().remove();				//删除目标容器之后的所有同级别容器
 
 			var pid = param.pid;						//查询数据的参数，父id
+			var id = param.id;
 			var url = param.url;						//ajax查询url
 			var data = "";								//返回数据变量
 
@@ -70,16 +72,16 @@ $.openLayer = function(p){
 			
 			//如果cache中没有数据并且url和pid都设置了,发起ajax请求
 			if ((data == null || data == "") &&  url != ""){
-				var org_id=$('#agent_id_hid').val();
+				//var org_id=$('#agent_pid_hid').val();
+				//alert(id);
 				$.ajax({
 					type : "post",						//post方式
 					url : url,							//ajax查询url
-					data : {org_id:org_id},					//参数
+					data : {"org_id":id},					//参数
 					async : false,						//同步方式，便于拿到返回数据做统一处理
 					beforeSend : function (){ },		//ajax查询请求之前动作，比如提示信息……
 					success : function (d) {			//ajax请求成功后返回数据
 						data = "{"+d+"}";
-						//alert(data);
 						if(param.cacheEnable){ _cache=eval("(" + data + ")");}		//cache允许,保存数据到cache
 					}
 				});

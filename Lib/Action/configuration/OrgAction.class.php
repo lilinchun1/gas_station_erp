@@ -35,6 +35,19 @@ class OrgAction extends CommonAction {
 		}
 	}
 
+	//导入总公司区域数据
+	public function export_total_agent_area(){
+		$Model = new Model();
+		$agent_area = M("agent_area","qd_");
+		$province_info = $Model->query("select * from bi_province");
+
+		foreach($province_info as $p_key=>$p_val){
+			$data['agent_id'] = 1;
+			$data['area_id'] = $p_val['prov_id'];
+			$is_set = $agent_area->add($data);
+		}
+	}
+
 	//展示组织结构
 	public function show_org_tree(){
 		$Model = new Model();
@@ -106,14 +119,14 @@ class OrgAction extends CommonAction {
 			$area_id_array = substr($area_id_array, 0 , -1);
 		}
 
-		$province_info = $Model->query("select * from bi_province where prov_id in ( " . $area_id_array . " )");
+		$province_info = $Model->query("select * from bi_area where area_id in ( " . $area_id_array . " )");
 		$data = null;
 		foreach($province_info as $p_key=>$p_val){
 			if(0 == $p_key){
-				$data .= '"' . "0" . '"' . ":" . '"' . $p_val['prov_id'] . ":" . $p_val['prov_name'] . ",";
+				$data .= '"' . "0" . '"' . ":" . '"' . $p_val['area_id'] . ":" . $p_val['area_name'] . ",";
 				//$data .= "0" . ":" . $p_val['prov_id'] . ":" . $p_val['prov_name'] . ",";
 			}else{
-				$data .= $p_val['prov_id'] . ":" . $p_val['prov_name'] . ",";
+				$data .= $p_val['area_id'] . ":" . $p_val['area_name'] . ",";
 			}
 		}
 		$data = substr($data, 0 , -1);
@@ -124,7 +137,7 @@ class OrgAction extends CommonAction {
 			$data[$key]['value'] = $val['area_name'];
 			$data[$key]['parent'] = $val['pid'];
 			*/
-			$city_info = $Model->query("select * from bi_area where pid=" . $p_val['prov_id']);
+			$city_info = $Model->query("select * from bi_area where pid=" . $p_val['area_id']);
 			foreach($city_info as $c_key=>$c_val){
 				if(!empty($c_val['area_id'])){
 					if(0 == $c_key){
@@ -391,11 +404,19 @@ class OrgAction extends CommonAction {
 		$agent_area = M("agent_area","qd_");
 		$msg = C("delete_agent_success");
 
-		$is_set = $agent->where("agent_id=" . $agent_id)->setField('isDelete', 1);
-		if($is_set <= 0)
-		{
-			$msg = C("delete_agent_failed");
+		$child_agent_info = $Model->query("select agent_id from qd_agent where isDelete=0 and father_agentid=" . $agent_id);
+		if(!empty($child_agent_info[0]['agent_id'])){
+			$msg = C("delete_agent_have_child");
+
 		}
+		else{
+			$is_set = $agent->where("agent_id=" . $agent_id)->setField('isDelete', 1);
+			if($is_set <= 0)
+			{
+				$msg = C("delete_agent_failed");
+			}
+		}
+
 		/*
 		$isDelete = $agent_area->where("agent_id=" . $agent_id)->delete();
 		if($isDelete <= 0){

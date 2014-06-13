@@ -9,7 +9,7 @@
 <body>
 <div id="head">
     <h1 class="head-logo"><a href="index.html">ERP管理系统</a></h1>
-    <h2 class="head-tt">111智能手机加油站ERP管理系统</h2>
+    <h2 class="head-tt">智能手机加油站ERP管理系统</h2>
     <div class="login">
         <div class="left">
             <ul class="left-nav">
@@ -21,7 +21,7 @@
             </ul>
         </div>
         <div class="right">
-            <a href="<?php echo U('configuration/Login/logout');?>">退出系统</a>
+            <a href="javascript:void(0);" onclick="show_user_logout()">退出系统</a>
         </div>
     </div>
 </div>
@@ -46,13 +46,24 @@
         });
         return false;
 	}
+
+	function show_user_logout(){
+		//$('#change_password_id').show();
+		$.openDOMWindow({
+            loader:1,
+            loaderHeight:16,
+            loaderWidth:17,
+            windowSourceID:'#j_logout_win'
+        });
+        return false;
+	}
 </script>
 <div id="container">
     <div class="left">
         <ul class="aside-nav">
             <li class="aside-nav-nth1"><a href="<?php echo U('configuration/Org/index');?>">系统设置</a></li>
             <li><a href="<?php echo U('configuration/Org/index');?>"><input  type="button"  value="组织结构" ></a></li>
-            <li class="active"><a href="<?php echo U('configuration/Role/index');?>"><input type="button" class="" value="角色维护" ></a></li>
+            <li class="active"><a href="<?php echo U('configuration/Role/show_role');?>"><input type="button" class="" value="角色维护" ></a></li>
             <li><a href="<?php echo U('configuration/User/index');?>"><input type="button" class="" value="职员维护" ></a></li>
         </ul>
     </div>
@@ -63,7 +74,8 @@
                     <div class="role-inquire">
                         <form name="roleSelect" method="get" action="<?php echo U('configuration/Role/show_role');?>">
                             <label for="role-name" class="role-lab">角色名称</label>
-                            <input type="text" name="role_name_txt" id="role_name_txt" class="input-org-info"/>
+                            <input type="text" name="role_name_txt" id="role_name_txt" value="<?php echo ($_GET['role_name_txt']); ?>" 
+								autocomplete="off" class="input-org-info"/>
                             <input type="submit" id="select_button" name="select_button" class="role-control-btn">
                         </form>
                     </div>
@@ -84,14 +96,14 @@
                             <span class="span-2"><b>创建人</b></span>
                             <span class="span-2"><b>创建日期</b></span>
                         </li>
-						<?php if(is_array($list)): $i = 0; $__LIST__ = $list;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$vo): $mod = ($i % 2 );++$i;?><li>
-								<span class="span-1"><input type="radio" name="role-info" id="" class="role-table-radio"/></span>
-								<span class="span-2" title="#"><?php echo ($vo["rolename"]); ?></span>
-								<span class="span-3" title="#"><?php echo ($vo["memo"]); ?></span>
-								<span class="span-2" title="#"><?php echo ($vo["addusername"]); ?></span>
-								<span class="span-2" title="#"><?php echo ($vo["adddate"]); ?></span>
-								<!--角色ID-->
-								<span class="roleid_hidden" title="#" style="display:none"><?php echo ($vo["roleid"]); ?></span>
+						<?php if(is_array($list)): $i = 0; $__LIST__ = $list;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$vo): $mod = ($i % 2 );++$i;?><li class="list_sel">
+									<span class="span-1"><input type="radio" name="role-info_rad" id="" class="role-table-radio"/></span>
+									<span class="span-2" title="#"><?php echo ($vo["rolename"]); ?></span>
+									<span class="span-3" title="#"><?php echo ($vo["memo"]); ?></span>
+									<span class="span-2" title="#"><?php echo ($vo["addusername"]); ?></span>
+									<span class="span-2" title="#"><?php echo ($vo["adddate"]); ?></span>
+									<!--角色ID-->
+									<span class="roleid_hidden" title="#" style=""><?php echo ($vo["roleid"]); ?></span>
 							</li><?php endforeach; endif; else: echo "" ;endif; ?>
                     </ul>
 					<div class="resultpage"><?php echo ($page); ?></div>
@@ -102,7 +114,7 @@
 </div>
 
 <div id="footer">
-1111
+
 </div>
 <script type="text/javascript" src="__PUBLIC__/js/jquery-1.6.1.js"></script>
 <script type="text/javascript" src="__PUBLIC__/js/jquery.DOMwindow.js" type="text/javascript"></script><!--模框JS插件-->
@@ -112,7 +124,7 @@
     <div class="alert-role-add-con">
         <p>
             <label for="old_password_txt" class="role-lab">旧密码&nbsp;&nbsp;&nbsp;</label>
-            <input type="text" name="old_password_txt" id="old_password_txt" class="input-role-name"/>
+            <input type="password" name="old_password_txt" id="old_password_txt" class="input-role-name"/>
         </p>
         <p>
             <label for="new_password_txt" class="role-lab">新密码&nbsp;&nbsp;&nbsp;</label>
@@ -131,6 +143,21 @@
     </div>
 </div>
 </div>
+
+<div class="divout" id="j_logout_win" style="display:none;">
+	<div class="alert-role-add" >
+		<h3>退出</h3>
+		<div class="alert-role-add-con">
+			<p class="delete-message">确认退出？</p>
+			<p>
+				<button type="button" class="alert-btn2" id="j_logout_ok" onclick="user_logout()">确定</button>
+				<a href="." class="closeDOMWindow">
+					<button type="button" class="alert-btn2">关闭</button>
+				</a>
+			</p>
+		</div>
+	</div>
+</div>
 <script>
     window.onload=function(){
         headAct();
@@ -148,7 +175,7 @@
 					if(tmp_msg == data)
 					{
 						alert(data);
-						$('#change_password_id').hide();
+						window.location.href = window.location.href;
 					}
 					else
 					{
@@ -157,6 +184,11 @@
 			}
 			,'json'
 		);
+	}
+
+	function user_logout(){
+		var handleUrl = "<?php echo U('configuration/Login/logout');?>";
+		window.location.href = handleUrl;
 	}
 
     function headAct(){
@@ -198,7 +230,7 @@
 
 
 <div id="j_add_win" style="display:none;">
-	<div class="alert-role-add">
+	<div class="alert-role-add w1k">
 		<h3>添加角色信息</h3>
 		<div class="alert-role-add-con">
 			<form action="">
@@ -210,26 +242,7 @@
 					<label for="add_memo_txt" class="role-lab">角色描述</label>
 					<textarea name=""  cols="30" rows="3" class="role-teatarea" id="add_memo_txt"></textarea>
 				</p>
-				<p>
-					<label for="cityid">设置权限</label>
 
-					<!--权限树形-->
-					<div class="zTreeDemoBackground left">
-						<ul class="list">
-							<li class="title">
-								<input  id="citySel" class="input-role-name" type="text" readonly value="" style="width:250px;" onclick="showMenu();" />
-								<input id="cityid" type="text" readonly value="" style="width:250px;" onclick="showMenu();" />
-								
-								<a id="menuBtn" href="#" onclick="showMenu(); return false;">select</a>
-							</li>
-						</ul>
-					</div>
-					<div id="menuContent" class="menuContent" style="display:none; ">
-						<ul id="treeDemo" class="ztree" style="margin-top:0; width:50px; height: 50px;"></ul>
-					</div>
-
-
-				</p>
 				<p>
 					<button type="button" class="alert-btn2" id="j_add_save">保存</button>
 					<a href="." class="closeDOMWindow">
@@ -238,11 +251,31 @@
 				</p>
 			</form>
 		</div>
+        <div class="tree">
+            <p>
+                <label for="cityid">设置权限</label>
+
+                <!--权限树形-->
+            <div class="zTreeDemoBackground left">
+                <ul class="list">
+                    <li class="title">
+                        <input  id="citySel" class="input-role-name" type="text" readonly value="" style="width:250px;" onclick="showMenu();" />
+                        <input id="cityid" type="text" readonly value="" style="width:250px;" onclick="showMenu();" />
+
+                        <a id="menuBtn" href="#" onclick="showMenu(); return false;">select</a>
+                    </li>
+                </ul>
+            </div>
+            <div id="menuContent" class="menuContent" style="display:none; ">
+                <ul id="treeDemo" class="ztree" style="margin-top:0; width:50px; height: 50px;"></ul>
+            </div>
+            </p>
+        </div>
 	</div>
 
 </div>
 <div id="j_mod_win" style="display:none">
-	<div class="alert-role-add">
+	<div class="alert-role-add w1k">
 		<h3>编辑角色信息</h3>
 		<div class="alert-role-add-con">
 		<input type="text" id="mod_id_hide" value=""/>
@@ -255,22 +288,7 @@
 					<label for="role-textarea" class="role-lab">角色描述</label>
 					<textarea name="" id="mod_memo" cols="30" rows="3" class="role-teatarea"></textarea>
 				</p>
-				<p>
-					<label for="">设置权限</label>
-					<!--权限树形-->
-					<div class="zTreeDemoBackground left">
-						<ul class="list">
-							<li class="title">
-								<input id="mod_citySel" class="input-role-name" type="text" readonly value="" style="width:250px;" onclick="mod_showMenu();" />
-								<input id="mod_cityid" type="text" readonly value="" style="width:250px;" onclick="mod_showMenu();" />
-								<a id="mod_menuBtn" href="#" onclick="mod_showMenu(); return false;">select</a>
-							</li>
-						</ul>
-					</div>
-					<div id="mod_menuContent" class="menuContent" style="display:none; ">
-						<ul id="mod_treeDemo" class="ztree" style="margin-top:0; width:50px; height: 50px;"></ul>
-					</div>
-				</p>
+
 				<p>
 					<button type="button" class="alert-btn2" id="j_mod_save">保存</button>
 					<a href="." class="closeDOMWindow">
@@ -279,6 +297,24 @@
 				</p>
 			</form>
 		</div>
+        <div class="tree">
+            <p>
+                <label for="">设置权限</label>
+                <!--权限树形-->
+            <div class="zTreeDemoBackground left">
+                <ul class="list">
+                    <li class="title">
+                        <input id="mod_citySel" class="input-role-name" type="text" readonly value="" style="width:250px;" onclick="mod_showMenu();" />
+                        <input id="mod_cityid" type="text" readonly value="" style="width:250px;" onclick="mod_showMenu();" />
+                        <a id="mod_menuBtn" href="#" onclick="mod_showMenu(); return false;">select</a>
+                    </li>
+                </ul>
+            </div>
+            <div id="mod_menuContent" class="menuContent" style="display:none; ">
+                <ul id="mod_treeDemo" class="ztree" style="margin-top:0; width:50px; height: 50px;"></ul>
+            </div>
+            </p>
+        </div>
 	</div>
 </div>
 
@@ -297,45 +333,46 @@
 			</p>
 		</div>
 	</div>
->>>>>>> .r2674
 </div>
 </body>
 <script type="text/javascript" src="__PUBLIC__/js/jquery-1.6.1.js"></script>
 <script type="text/javascript" src="__PUBLIC__/js/jquery.DOMwindow.js" type="text/javascript"></script><!--模框JS插件-->
 <!--树形结构类-->
 <link rel="stylesheet" href="__PUBLIC__/css/tree/tree.css" type="text/css">
+<link rel="stylesheet" href="__PUBLIC__/css/jquery.bigautocomplete.css" type="text/css" />
 <script type="text/javascript" src="__PUBLIC__/js/tree/jquery.ztree.core-3.5.js"></script>
 <script type="text/javascript" src="__PUBLIC__/js/tree/jquery.ztree.excheck-3.5.js"></script>
+<script type="text/javascript" src="__PUBLIC__/js/jquery.bigautocomplete.js"></script>
 <script>
-    window.onscroll=function(){
-        var scrollTop=document.documentElement.scrollTop||document.body.scrollTop;
-        var fixDiv=document.getElementById('j-fixed-top');
-        if(scrollTop>=300){
-            fixDiv.style.position='fixed';
-            fixDiv.style.top='0px';
-        }else if(scrollTop<=299){
-            fixDiv.style.position='static';
-        }
+window.onscroll=function(){
+    var scrollTop=document.documentElement.scrollTop||document.body.scrollTop;
+    var fixDiv=document.getElementById('j-fixed-top');
+    if(scrollTop>=300){
+        fixDiv.style.position='fixed';
+        fixDiv.style.top='0px';
+    }else if(scrollTop<=299){
+        fixDiv.style.position='static';
     }
+}
 //===================================================树形结构js==========================
-		var setting = {
-			check: {
-				enable: true,
-				chkboxType: {"Y":"", "N":""}
-			},
-			view: {
-				dblClickExpand: false
-			},
-			data: {
-				simpleData: {
-					enable: true
-				}
-			},
-			callback: {
-				beforeClick: beforeClick,
-				onCheck: onCheck
-			}
-		};
+var setting = {
+	check: {
+		enable: true,
+		chkboxType: {"Y":"", "N":""}
+	},
+	view: {
+		dblClickExpand: false
+	},
+	data: {
+		simpleData: {
+			enable: true
+		}
+	},
+	callback: {
+		beforeClick: beforeClick,
+		onCheck: onCheck
+	}
+};
 var handleUrl="<?php echo U('configuration/Role/select_all_purview');?>";
 var zNodes=new Array();
 var now=new Date().getTime();//加个时间戳表示每次是新的请求
@@ -530,7 +567,7 @@ $(document).ready(function(){
             var del_handleUrl="<?php echo U('configuration/Role/delete_role');?>";
             $.getJSON(del_handleUrl,{"delete_role_id_txt":delete_role_id_txt},
                     function (data){
-                        alert(data);
+                       // alert(data);
                         window.location.href = window.location.href;
                     }
                     ,'json'
@@ -587,12 +624,37 @@ $(document).ready(function(){
         return false;
 	});
 
-//===============================================单击单选框事件=======================================
-	$(".span-1 input[type='radio']").click(function(){
-        var id= $(this).parent().nextAll(".roleid_hidden").text();
+
+
+//===============================================单击查询框里某一条数据=======================================
+	$(".list_sel").click(function(){
+		$(this).find(".role-table-radio").attr("checked",'checked'); 
+		var id= $(this).find(".roleid_hidden").text();
+		//alert(id);
 		$("#selrole_hidden_id").val(id);
     });
 
+
+
+
+
+	role_name_blurry();
+
 });
+
+	function role_name_blurry()
+	{
+		var handleUrl = "<?php echo U('configuration/Role/rolenameBlurrySelect');?>";
+		var role_name = '';
+		$.getJSON(handleUrl,{"role_name":role_name},
+			function (data){
+				var str = data;
+				//alert(data);
+				//alert(str[1]['title']);
+				$("#role_name_txt").bigAutocomplete({width:150,data:data,callback:function(data){}});
+			}
+			,'json'
+		);
+	}
 </script>
 </html>

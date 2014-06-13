@@ -110,16 +110,6 @@
 				</if>
 			</li>
 		</volist>
-        <li>
-            <span class="span-1"><input type="radio" name="role-info" id="" class="role-table-radio"/></span>
-            <span class="span-2" title="#">1111111111111111111111111</span>
-            <span class="span-2" title="#">Dolore eius expedita molestias!</span>
-            <span class="span-3" title="#">Blanditiis dolorum pariatur vitae?</span>
-            <span class="span-1" title="#">Perspiciatis quae ratione repudiandae!</span>
-            <span class="span-1" title="#">Ipsa nulla quidem voluptate?</span>
-            <span class="span-1" title="#">Consequuntur eveniet itaque velit.</span>
-            <span class="span-1" title="#">Aspernatur blanditiis ipsum nulla!</span>
-        </li>
     </ul>
 	<div class="resultpage">{$page}</div>
 	<!--
@@ -546,9 +536,8 @@
 <link rel="stylesheet" href="__PUBLIC__/css/jquery.bigautocomplete.css" type="text/css" />
 <script type="text/javascript" src="__PUBLIC__/js/jquery-1.6.1.js"></script>
 <script type="text/javascript" src="__PUBLIC__/js/jquery.SuperSlide.2.1.1.js"></script>
-<script type="text/javascript" src="__PUBLIC__/js/jquery.DOMwindow.js" type="text/javascript"></script><!--模框JS插件-->
 <script type="text/javascript" src="__PUBLIC__/js/jquery.bigautocomplete.js"></script>
-<script type="text/javascript">jQuery(".role-table").slide({trigger: "click"});</script>
+<script type="text/javascript" src="__PUBLIC__/js/jquery.DOMwindow.js" type="text/javascript"></script><!--模框JS插件-->
 <script>
 	var place_val='';
 	function selectPlaceRadio(place_id){
@@ -576,6 +565,8 @@
 
 		channel_name_blurry();
 		place_name_blurry();
+		add_channel_name_blurry();
+		change_channel_name_blurry();
 
 		$('#j_del_button').click(function(){
 			 $.openDOMWindow({
@@ -723,7 +714,8 @@
 						}
 					else
 						{
-							$(".cli_tishi").html("<img src='__PUBLIC__/image/th.png'/>"+data+"");
+							//$(".cli_tishi").html("<img src='__PUBLIC__/image/th.png'/>"+data+"");
+							alert(data);
 						}
 				}
 			,'json'
@@ -761,6 +753,35 @@
 		);
 	}
 
+	function add_channel_name_blurry()
+	{
+		var handleUrl = "{:U('channel/Channel/channelnameBlurrySelect')}";
+		$.getJSON(handleUrl,{},
+			function (data){
+				var str = data;
+				//alert(data);
+				//alert(str[1]['title']);
+				$("#add_channel_name_txt").bigAutocomplete({width:100,data:data,callback:function(data){}});
+			}
+			,'json'
+		);
+	}
+
+	function change_channel_name_blurry()
+	{
+		var handleUrl = "{:U('channel/Channel/channelnameBlurrySelect')}";
+		var channel_name = '';
+		$.getJSON(handleUrl,{},
+			function (data){
+				var str = data;
+				//alert(data);
+				//alert(str[1]['title']);
+				$("#change_channel_name_txt").bigAutocomplete({width:100,data:data,callback:function(data){}});
+			}
+			,'json'
+		);
+	}
+
 	function place_use_select(){
 		$("#select_del_flag_txt").val(0);
 		placeSelect.submit();
@@ -779,5 +800,6 @@
 			showprovince("change_select_province", "change_select_city", "省份", "change_select_showcity");
 			showcity("change_select_city", "城市", "change_select_province", "change_select_showcity"); 
 </script>
+<script type="text/javascript">jQuery(".role-table").slide({trigger: "click"});</script>
 </body>
 </html>

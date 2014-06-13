@@ -13,6 +13,7 @@
 		'change_agent_name_failed' =>	'无法修改代理商名称,已经有这个代理商了',
 		'change_agent_belongself'	=>  '所属代理商错误，请重新选择所属代理商',
 		'change_agent_failed'	   =>	'修改代理商失败',
+		'delete_agent_have_child'	   =>	'请先删除下属代理商',
 		'delete_agent_success'	   =>	'成功删除代理商信息',
 		'delete_agent_failed'	   =>	'删除代理商信息失败',
 		'verification_code_error'	=>	'验证码错误',

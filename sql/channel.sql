@@ -281,6 +281,8 @@ CREATE TABLE IF NOT EXISTS `qd_place_type` (
   UNIQUE KEY `place_type_name` (`place_type_name`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='渠道类型表' AUTO_INCREMENT=1 ;
 
+INSERT INTO jnbizs.qd_agent(agent_id, father_agentid, agent_type, agent_name, companyAddr, contract_number, legal, tel, legal_tel, agent_level, sub_agent_num, channel_num, place_num, device_num, begin_time, end_time, forever_type, isDelete) VALUES
+(1, 1, 'area', '大连捷诺科技有限公司', '大连市沙河口区长兴街137-139号富鸿国际大厦A-610室', '', '王树峰', '86 00411-86887659', '86 00411-86887659', 0, 0, 0, 0, 0, 1362067200, NULL, '0', 0);
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

@@ -14,9 +14,9 @@ return array (
 		'SESSION_AUTO_START' =>true,
 		'DOMAIN' => 'http://admin.jienuo-service.net/',
 		'image_url' => 'http://img.jienuo-service.net/',
-		'__PUBLIC__' => '__ROOT__/Public/',
+		'__PUBLIC__'     => '__APP__/Public/',
 		'is_open_purview' => '1', // 是否开启权限 1开启
-		'page_show_number' => 30,  //每页显示数量
+		'page_show_number' => 30  //每页显示数量
 );
 //"mysql://root:@192.168.0.63:3306/jn"
 ?>

@@ -77,7 +77,7 @@
     <div class="org-right-btns">
         <form action="">
             <button type="button" class="area-btn" id="b_add_channel">添加</button>
-            <button type="button" class="area-btn">编辑/查看</button>
+            <button type="button" class="area-btn" id="b_change_channel">编辑/查看</button>
             <button type="button" id="delete_contract" class="area-btn">终止合同</button>
         </form>
     </div>
@@ -116,17 +116,6 @@
                     <span class="span-1" title="#">{$vo.device_num}</span>
                 </li>
             </volist>
-            <li>
-                <span class="span-1"><input type="radio" name="role-info" id="" class="role-table-radio"/></span>
-                <span class="span-1" title="#">Lorem ipsum dolor sit.</span>
-                <span class="span-1" title="#">Dolore eius expedita molestias!</span>
-                <span class="span-1" title="#">Blanditiis dolorum pariatur vitae?</span>
-                <span class="span-3" title="#">Perspiciatis quae ratione repudiandae!</span>
-                <span class="span-2" title="#">Ipsa nulla quidem voluptate?</span>
-                <span class="span-1" title="#">Consequuntur eveniet itaque velit.</span>
-                <span class="span-1" title="#">Aspernatur blanditiis ipsum nulla!</span>
-                <span class="span-1" title="#">Aspernatur blanditiis ipsum nulla!</span>
-            </li>
         </ul>
 		<div class="resultpage">{$page}</div>
         <!--<ul class="role-table-list">
@@ -265,6 +254,7 @@
 </div>
 </div>
 <include file="./Tpl/include/pb-foot.html"/>
+<!--添加框-->
 <div id="j_add_channel" style="display:none;">
 <div class="alert-role-add">
     <h3>渠道信息</h3>
@@ -328,6 +318,79 @@
 
             <p>
                 <button type="button" class="alert-btn2" id="submit_add_channel">保存</button>
+				<a href="." class="closeDOMWindow">
+					<button type="button" class="alert-btn2">关闭</button>
+				</a>
+            </p>
+        </form>
+    </div>
+</div>
+</div>
+
+<!--修改框-->
+<div id="j_change_channel" style="display:none;">
+<div class="alert-role-add">
+    <h3>渠道信息</h3>
+
+    <div class="alert-user-add-con">
+        <form action="">
+            <p>
+				<label for="channel-address1" class="">所属组织机构：</label>
+                <select name="change_belong_agent_id_sel" id="change_belong_agent_id_sel" class="channel-select-min">
+                   <option selected value="">请选择所属组织</option>
+				   <foreach name="all_agent" item="agent">
+						<option value="{$agent.agent_id}">{$agent.agent_name}</option>
+				   </foreach>
+                </select>
+			</p>
+
+            <p>
+                <label for="channel-addname" class="role-lab">渠道名称</label>
+                <input type="text" name="change_channel_name_txt" id="change_channel_name_txt" class="input-role-name"/>
+            </p>
+
+            <p>
+                <label for="channel-address1" class="">渠道地址</label>
+                <span id="change_select_showcity"></span><!--省市联动-->
+            </p>
+            <p>
+                <label for="channel-address1" class="">渠道类型</label>
+				<select style="width:164px" name="change_channel_first_type_sel" id="change_channel_first_type_sel" class="channel-select-min">
+					<option value="">请选择类型</option>
+					<foreach name="first_channel_type" item="type">
+						<option value="{$type.channel_type_id}">{$type.channel_type_name}</option>
+					</foreach>
+				</select>
+                <select name="change_channel_second_type_sel" id="change_channel_second_type_sel" class="channel-select-min">
+					<option value="">全部</option>
+				</select>
+                <a class="channel-wz-a" href="">修改类别</a><a class="channel-wz-a" href="">修改属性</a>
+            </p>
+            <p>
+                <label for="user-phone" class="role-lab">联系人&nbsp;&nbsp;&nbsp;</label>
+                <input type="text" name="change_contacts_txt" id="change_contacts_txt" class="input-role-name"/>
+            </p>
+
+            <p>
+                <label for="user-phone" class="role-lab">联系电话</label>
+                <input type="text" name="change_contacts_tel_txt" id="change_contacts_tel_txt" class="input-role-name"/>
+            </p>
+
+            <p>
+                <label for="login-id" class="role-lab">合同编号</label>
+                <input type="text" name="change_contract_number_txt" id="change_contract_number_txt" class="input-role-name"/>
+            </p>
+
+            <p>
+                <label for="sq-date">授权日期</label>
+                <input type="text" name="change_begin_time_sel" id="change_begin_time_sel" class="input-org-info min-w" 
+					onClick="WdatePicker()" readonly="readonly" style="margin-top: 0;"/>
+                <input type="text" name="change_end_time_sel" id="change_end_time_sel" class="input-org-info min-w" 
+					onClick="WdatePicker()" readonly="readonly" style="margin-top: 0;"/>
+            </p>
+
+            <p>
+                <button type="button" class="alert-btn2" id="submit_change_channel">保存</button>
 				<a href="." class="closeDOMWindow">
 					<button type="button" class="alert-btn2">关闭</button>
 				</a>
@@ -443,8 +506,96 @@
         });
 
 		$('#submit_add_channel').click(function(){
-
+			var handleUrl = "{:U('channel/Channel/channelAdd')}";
+			var add_channel_name_txt=$("#add_channel_name_txt").val();//渠道商名称
+			var add_agent_id_sel=$("#add_agent_id_sel").val();//所属代理商
+			var add_select_province=$("#add_select_province").val();//省份
+			var add_select_city=$("#add_select_city").val();//城市
+			var add_channel_first_type_sel=$("#add_channel_first_type_sel").val();//类型
+			var add_channel_second_type_sel=$("#add_channel_second_type_sel").val();//属性
+			var add_contacts_txt=$("#add_contacts_txt").val();//联系人名称
+			var add_contacts_tel_txt=$("#add_contacts_tel_txt").val();//联系人电话
+			//var add_channel_address_txt=$("#add_channel_address_txt").val();//渠道商地址
+			var add_contract_number_txt=$("#add_contract_number_txt").val();
+			var add_begin_time_sel=$("#add_begin_time_sel").val();
+			var add_end_time_sel=$("#add_end_time_sel").val();
+			$.getJSON(handleUrl,{"add_channel_name_txt":add_channel_name_txt,"add_agent_id_sel":add_agent_id_sel,
+								 "add_contacts_tel_txt":add_contacts_tel_txt,
+								 "add_select_province":add_select_province,"add_select_city":add_select_city,
+								 "add_channel_first_type_sel":add_channel_first_type_sel,"add_channel_second_type_sel":add_channel_second_type_sel,
+								 "add_contacts_txt":add_contacts_txt,"add_contract_number_txt":add_contract_number_txt,
+								 "add_begin_time_sel":add_begin_time_sel,"add_end_time_sel":add_end_time_sel
+								 },
+				function (data){
+					var tmp_msg = "{:C('add_channel_success')}";
+					if(tmp_msg == data)
+					{
+						alert(data);
+						window.location.href = window.location.href;
+					}
+					else
+					{
+						alert(data);
+					}
+				}
+			,'json'
+			);	
         });
+
+		$("#b_change_channel").click(function () {
+             $.openDOMWindow({
+			     loader:1,
+				 loaderHeight:16,
+				 loaderWidth:17,
+				 windowSourceID:'#j_change_channel'
+			 });
+			 return false;
+        });
+
+		$('#submit_change_channel').click(function(){
+			var handleUrl = "{:U('channel/Channel/channelSave')}";
+			var change_channel_name_txt=$("#change_channel_name_txt").val();//渠道商名称
+			var change_channel_id_txt= channel_val;
+			var change_agent_id_sel=$("#change_belong_agent_id_sel").val();
+			var change_src_province= channel_province;
+			var change_src_city= channel_city;
+			var change_dst_province=$("#change_select_province").val();//省份
+			var change_dst_city=$("#change_select_city").val();//城市
+			var src_channel_first_type=channel_first_type;//类型
+			var src_channel_second_type=channel_second_type;//属性
+			var dst_channel_first_type_sel=$("#change_channel_first_type_sel").val();//类型
+			var dst_channel_second_type_sel=$("#change_channel_second_type_sel").val();//属性
+			var change_contacts_txt=$("#change_contacts_txt").val();//联系人名称
+			var change_contacts_tel_txt=$("#change_contacts_tel_txt").val();//联系人电话
+			//var change_channel_address_txt=$("#change_channel_address_txt").val();//渠道商地址
+			var change_contract_number_txt=$("#change_contract_number_txt").val();
+			var change_begin_time_sel=$("#change_begin_time_sel").val();
+			var change_end_time_sel=$("#change_end_time_sel").val();
+			$.getJSON(handleUrl,{"change_channel_name_txt":change_channel_name_txt,"change_channel_id_txt":change_channel_id_txt,
+								"change_agent_id_sel":change_agent_id_sel,"change_src_province":change_src_province,
+								"change_src_city":change_src_city,"change_dst_province":change_dst_province,"change_dst_city":change_dst_city,
+								 "src_channel_first_type":src_channel_first_type,"src_channel_second_type":src_channel_second_type,
+								 "dst_channel_first_type_sel":dst_channel_first_type_sel,"dst_channel_second_type_sel":dst_channel_second_type_sel,
+								 "change_contacts_txt":change_contacts_txt,"change_contacts_tel_txt":change_contacts_tel_txt,
+								 //"change_channel_tel_txt":change_channel_tel_txt,"change_channel_address_txt":change_channel_address_txt,
+								 "change_contract_number_txt":change_contract_number_txt,"change_begin_time_sel":change_begin_time_sel,
+								 "change_end_time_sel":change_end_time_sel
+								 },
+				function (data){
+					var tmp_msg = "{:C('change_channel_success')}";
+					if(tmp_msg == data)
+					{
+						alert(data);
+						window.location.href = window.location.href;
+					}
+					else
+					{
+						alert(data);
+					}
+				}
+			,'json'
+			);
+		});
 
     });
 
@@ -490,6 +641,10 @@
 <script type="text/javascript">
 			showprovince("add_select_province", "add_select_city", "省份", "add_select_showcity");
 			showcity("add_select_city", "城市", "add_select_province", "add_select_showcity"); 
+</script>
+<script type="text/javascript">
+			showprovince("change_select_province", "change_select_city", channel_province, "change_select_showcity");
+			showcity("change_select_city", channel_city, "change_select_province", "change_select_showcity"); 
 </script>
 </body>
 </html>
