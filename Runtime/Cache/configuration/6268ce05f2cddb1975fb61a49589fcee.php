@@ -10,7 +10,7 @@
 <body>
 <div id="head">
     <h1 class="head-logo"><a href="index.html">ERP管理系统</a></h1>
-    <h2 class="head-tt">111智能手机加油站ERP管理系统</h2>
+    <h2 class="head-tt">智能手机加油站ERP管理系统</h2>
     <div class="login">
         <div class="left">
             <ul class="left-nav">
@@ -65,7 +65,7 @@
         <ul class="aside-nav">
             <li class="aside-nav-nth1"><a href="<?php echo U('configuration/Org/index');?>">系统设置</a></li>
             <li><a href="<?php echo U('configuration/Org/index');?>"><input  type="button"  value="组织结构" ></a></li>
-            <li><a href="<?php echo U('configuration/Role/index');?>"><input type="button" class="" value="角色维护" ></a></li>
+            <li><a href="<?php echo U('configuration/Role/show_role');?>"><input type="button" class="" value="角色维护" ></a></li>
             <li class="active"><a href="<?php echo U('configuration/User/index');?>"><input type="button" class="" value="职员维护" ></a></li>
         </ul>
     </div>
@@ -220,7 +220,7 @@
     </div>
 </div>
 <div id="footer">
-1111
+
 </div>
 <script type="text/javascript" src="__PUBLIC__/js/jquery-1.6.1.js"></script>
 <script type="text/javascript" src="__PUBLIC__/js/jquery.DOMwindow.js" type="text/javascript"></script><!--模框JS插件-->
@@ -230,7 +230,7 @@
     <div class="alert-role-add-con">
         <p>
             <label for="old_password_txt" class="role-lab">旧密码&nbsp;&nbsp;&nbsp;</label>
-            <input type="text" name="old_password_txt" id="old_password_txt" class="input-role-name"/>
+            <input type="password" name="old_password_txt" id="old_password_txt" class="input-role-name"/>
         </p>
         <p>
             <label for="new_password_txt" class="role-lab">新密码&nbsp;&nbsp;&nbsp;</label>
@@ -281,7 +281,7 @@
 					if(tmp_msg == data)
 					{
 						alert(data);
-						$('#change_password_id').hide();
+						window.location.href = window.location.href;
 					}
 					else
 					{

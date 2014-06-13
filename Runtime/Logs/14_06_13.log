@@ -1511,3 +1511,120 @@ ERR: 1064:You have an error in your SQL syntax; check the manual that correspond
  [ SQL语句 ] : select menu_id from bi_role_menu where role_id=
 NOTIC: [2] Invalid argument supplied for foreach() D:\trunk\gas_station_erp\Lib\Action\configuration\RoleAction.class.php 第 117 行.
 
+[ 2014-06-13T10:47:02+08:00 ] 127.0.0.1 /gas_station_erp/index.php/configuration/Role/select_all_purview
+INFO: [ app_begin ] --START--
+INFO: ReadHtmlCache Behavior ::run [ RunTime:0.001000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001000s ]
+NOTIC: [2] urldecode() expects parameter 1 to be string, array given D:\trunk\gas_station_erp\Lib\Action\configuration\RoleAction.class.php 第 4 行.
+NOTIC: [8] Undefined index: userinfo D:\trunk\gas_station_erp\Lib\Action\configuration\CommonAction.class.php 第 11 行.
+SQL: select menu_id, menuname, url, pid from bi_menu [ RunTime:0.001000s ]
+
+[ 2014-06-13T10:47:02+08:00 ] 127.0.0.1 /gas_station_erp/index.php/configuration/Role/rolenameBlurrySelect?role_name=
+NOTIC: [2] htmlspecialchars() expects parameter 2 to be long, string given D:\trunk\frame\Lib\Core\App.class.php 第 57 行.
+INFO: [ app_begin ] --START--
+INFO: ReadHtmlCache Behavior ::run [ RunTime:0.001000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001000s ]
+NOTIC: [2] urldecode() expects parameter 1 to be string, array given D:\trunk\gas_station_erp\Lib\Action\configuration\RoleAction.class.php 第 4 行.
+NOTIC: [8] Undefined index: userinfo D:\trunk\gas_station_erp\Lib\Action\configuration\CommonAction.class.php 第 11 行.
+NOTIC: [2] htmlspecialchars() expects parameter 2 to be long, string given D:\trunk\frame\Common\common.php 第 110 行.
+NOTIC: [2] htmlspecialchars() expects parameter 2 to be long, string given D:\trunk\frame\Common\common.php 第 110 行.
+SQL: SHOW COLUMNS FROM `bi_role` [ RunTime:0.011001s ]
+SQL: SELECT DISTINCT  `rolename` FROM `bi_role` WHERE ( `rolename` LIKE '%%' )  [ RunTime:0.001000s ]
+
+[ 2014-06-13T11:14:43+08:00 ] 127.0.0.1 /gas_station_erp/index.php/configuration/Role/select_all_purview
+INFO: [ app_begin ] --START--
+INFO: ReadHtmlCache Behavior ::run [ RunTime:0.000000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000000s ]
+NOTIC: [2] urldecode() expects parameter 1 to be string, array given D:\trunk\gas_station_erp\Lib\Action\configuration\RoleAction.class.php 第 4 行.
+NOTIC: [8] Undefined index: userinfo D:\trunk\gas_station_erp\Lib\Action\configuration\CommonAction.class.php 第 11 行.
+SQL: select menu_id, menuname, url, pid from bi_menu [ RunTime:0.001000s ]
+
+[ 2014-06-13T11:14:43+08:00 ] 127.0.0.1 /gas_station_erp/index.php/configuration/Role/rolenameBlurrySelect?role_name=
+NOTIC: [2] htmlspecialchars() expects parameter 2 to be long, string given D:\trunk\frame\Lib\Core\App.class.php 第 57 行.
+INFO: [ app_begin ] --START--
+INFO: ReadHtmlCache Behavior ::run [ RunTime:0.001000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001000s ]
+NOTIC: [2] urldecode() expects parameter 1 to be string, array given D:\trunk\gas_station_erp\Lib\Action\configuration\RoleAction.class.php 第 4 行.
+NOTIC: [8] Undefined index: userinfo D:\trunk\gas_station_erp\Lib\Action\configuration\CommonAction.class.php 第 11 行.
+NOTIC: [2] htmlspecialchars() expects parameter 2 to be long, string given D:\trunk\frame\Common\common.php 第 110 行.
+NOTIC: [2] htmlspecialchars() expects parameter 2 to be long, string given D:\trunk\frame\Common\common.php 第 110 行.
+SQL: SHOW COLUMNS FROM `bi_role` [ RunTime:0.011001s ]
+SQL: SELECT DISTINCT  `rolename` FROM `bi_role` WHERE ( `rolename` LIKE '%%' )  [ RunTime:0.000000s ]
+
+[ 2014-06-13T11:14:49+08:00 ] 127.0.0.1 /gas_station_erp/index.php/configuration/Org/show_org_tree
+INFO: [ app_begin ] --START--
+INFO: ReadHtmlCache Behavior ::run [ RunTime:0.000000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000000s ]
+NOTIC: [2] urldecode() expects parameter 1 to be string, array given D:\trunk\gas_station_erp\Lib\Action\configuration\OrgAction.class.php 第 4 行.
+NOTIC: [8] Undefined index: userinfo D:\trunk\gas_station_erp\Lib\Action\configuration\CommonAction.class.php 第 11 行.
+SQL: select * from qd_agent where isDelete=0 [ RunTime:0.001000s ]
+
+[ 2014-06-13T11:14:53+08:00 ] 127.0.0.1 /gas_station_erp/index.php/configuration/Org/show_org_tree
+INFO: [ app_begin ] --START--
+INFO: ReadHtmlCache Behavior ::run [ RunTime:0.001000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001000s ]
+NOTIC: [2] urldecode() expects parameter 1 to be string, array given D:\trunk\gas_station_erp\Lib\Action\configuration\OrgAction.class.php 第 4 行.
+NOTIC: [8] Undefined index: userinfo D:\trunk\gas_station_erp\Lib\Action\configuration\CommonAction.class.php 第 11 行.
+SQL: select * from qd_agent where isDelete=0 [ RunTime:0.001000s ]
+
+[ 2014-06-13T11:14:54+08:00 ] 127.0.0.1 /gas_station_erp/index.php/configuration/Org/show_org_tree
+INFO: [ app_begin ] --START--
+INFO: ReadHtmlCache Behavior ::run [ RunTime:0.001000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001000s ]
+NOTIC: [2] urldecode() expects parameter 1 to be string, array given D:\trunk\gas_station_erp\Lib\Action\configuration\OrgAction.class.php 第 4 行.
+NOTIC: [8] Undefined index: userinfo D:\trunk\gas_station_erp\Lib\Action\configuration\CommonAction.class.php 第 11 行.
+SQL: select * from qd_agent where isDelete=0 [ RunTime:0.002000s ]
+
+[ 2014-06-13T11:14:55+08:00 ] 127.0.0.1 /gas_station_erp/index.php/configuration/Org/show_org_tree
+INFO: [ app_begin ] --START--
+INFO: ReadHtmlCache Behavior ::run [ RunTime:0.000000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001000s ]
+NOTIC: [2] urldecode() expects parameter 1 to be string, array given D:\trunk\gas_station_erp\Lib\Action\configuration\OrgAction.class.php 第 4 行.
+NOTIC: [8] Undefined index: userinfo D:\trunk\gas_station_erp\Lib\Action\configuration\CommonAction.class.php 第 11 行.
+SQL: select * from qd_agent where isDelete=0 [ RunTime:0.001000s ]
+
+[ 2014-06-13T11:17:36+08:00 ] 127.0.0.1 /gas_station_erp/index.php/management/Index/getAppRule
+NOTIC: [2] htmlspecialchars() expects parameter 2 to be long, string given D:\trunk\frame\Lib\Core\App.class.php 第 56 行.
+INFO: [ app_begin ] --START--
+INFO: ReadHtmlCache Behavior ::run [ RunTime:0.000000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000000s ]
+SQL: 
+				SELECT rule_no FROM app_rule WHERE rule_status = 0 GROUP BY rule_no
+		 [ RunTime:0.002000s ]
+
+[ 2014-06-13T11:18:59+08:00 ] 127.0.0.1 /gas_station_erp/index.php/management/Index/getAppRule
+NOTIC: [2] htmlspecialchars() expects parameter 2 to be long, string given D:\trunk\frame\Lib\Core\App.class.php 第 56 行.
+INFO: [ app_begin ] --START--
+INFO: ReadHtmlCache Behavior ::run [ RunTime:0.001000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001000s ]
+SQL: 
+				SELECT rule_no FROM app_rule WHERE rule_status = 0 GROUP BY rule_no
+		 [ RunTime:0.002001s ]
+
+[ 2014-06-13T11:19:31+08:00 ] 127.0.0.1 /gas_station_erp/index.php/management/Index/getAppRule
+NOTIC: [2] htmlspecialchars() expects parameter 2 to be long, string given D:\trunk\frame\Lib\Core\App.class.php 第 56 行.
+INFO: [ app_begin ] --START--
+INFO: ReadHtmlCache Behavior ::run [ RunTime:0.000000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000000s ]
+SQL: 
+				SELECT rule_no FROM app_rule WHERE rule_status = 0 GROUP BY rule_no
+		 [ RunTime:0.002000s ]
+
+[ 2014-06-13T11:19:53+08:00 ] 127.0.0.1 /gas_station_erp/index.php/management/Index/getAppRule
+NOTIC: [2] htmlspecialchars() expects parameter 2 to be long, string given D:\trunk\frame\Lib\Core\App.class.php 第 56 行.
+INFO: [ app_begin ] --START--
+INFO: ReadHtmlCache Behavior ::run [ RunTime:0.000000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000000s ]
+SQL: 
+				SELECT rule_no FROM app_rule WHERE rule_status = 0 GROUP BY rule_no
+		 [ RunTime:0.002000s ]
+
+[ 2014-06-13T11:20:20+08:00 ] 127.0.0.1 /gas_station_erp/index.php/management/Index/getAppRule
+NOTIC: [2] htmlspecialchars() expects parameter 2 to be long, string given D:\trunk\frame\Lib\Core\App.class.php 第 56 行.
+INFO: [ app_begin ] --START--
+INFO: ReadHtmlCache Behavior ::run [ RunTime:0.002000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.002000s ]
+SQL: 
+				SELECT rule_no FROM app_rule WHERE rule_status = 0 GROUP BY rule_no
+		 [ RunTime:0.001000s ]
+

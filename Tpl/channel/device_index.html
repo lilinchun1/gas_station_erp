@@ -263,46 +263,6 @@
                 <span class="span-3" title="#">Beatae fugiat impedit ipsa porro!</span>
                 <span class="span-3" title="#">Atque corporis laudantium perspiciatis qui?</span>
             </li>
-            <li>
-                <span class="span-3" title="#">Lorem ipsum dolor sit amet.</span>
-                <span class="span-3" title="#">Beatae fugiat impedit ipsa porro!</span>
-                <span class="span-3" title="#">Atque corporis laudantium perspiciatis qui?</span>
-            </li>
-            <li>
-                <span class="span-3" title="#">Lorem ipsum dolor sit amet.</span>
-                <span class="span-3" title="#">Beatae fugiat impedit ipsa porro!</span>
-                <span class="span-3" title="#">Atque corporis laudantium perspiciatis qui?</span>
-            </li>
-            <li>
-                <span class="span-3" title="#">Lorem ipsum dolor sit amet.</span>
-                <span class="span-3" title="#">Beatae fugiat impedit ipsa porro!</span>
-                <span class="span-3" title="#">Atque corporis laudantium perspiciatis qui?</span>
-            </li>
-            <li>
-                <span class="span-3" title="#">Lorem ipsum dolor sit amet.</span>
-                <span class="span-3" title="#">Beatae fugiat impedit ipsa porro!</span>
-                <span class="span-3" title="#">Atque corporis laudantium perspiciatis qui?</span>
-            </li>
-            <li>
-                <span class="span-3" title="#">Lorem ipsum dolor sit amet.</span>
-                <span class="span-3" title="#">Beatae fugiat impedit ipsa porro!</span>
-                <span class="span-3" title="#">Atque corporis laudantium perspiciatis qui?</span>
-            </li>
-            <li>
-                <span class="span-3" title="#">Lorem ipsum dolor sit amet.</span>
-                <span class="span-3" title="#">Beatae fugiat impedit ipsa porro!</span>
-                <span class="span-3" title="#">Atque corporis laudantium perspiciatis qui?</span>
-            </li>
-            <li>
-                <span class="span-3" title="#">Lorem ipsum dolor sit amet.</span>
-                <span class="span-3" title="#">Beatae fugiat impedit ipsa porro!</span>
-                <span class="span-3" title="#">Atque corporis laudantium perspiciatis qui?</span>
-            </li>
-            <li>
-                <span class="span-3" title="#">Lorem ipsum dolor sit amet.</span>
-                <span class="span-3" title="#">Beatae fugiat impedit ipsa porro!</span>
-                <span class="span-3" title="#">Atque corporis laudantium perspiciatis qui?</span>
-            </li>
         </ul>-->
     </div>
 </div>
@@ -324,12 +284,12 @@
 
             <p>
                 <label for="mac1" class="">MAC&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
-                <input type="text" name="" id="mac1" class="input-mac"/>-
-                <input type="text" name="" id="mac2" class="input-mac"/>-
-                <input type="text" name="" id="mac3" class="input-mac"/>-
-                <input type="text" name="" id="mac4" class="input-mac"/>-
-                <input type="text" name="" id="mac5" class="input-mac"/>-
-                <input type="text" name="" id="mac6" class="input-mac"/>
+                <input type="text" name="" id="add_mac1" class="input-mac"/>-
+                <input type="text" name="" id="add_mac2" class="input-mac"/>-
+                <input type="text" name="" id="add_mac3" class="input-mac"/>-
+                <input type="text" name="" id="add_mac4" class="input-mac"/>-
+                <input type="text" name="" id="add_mac5" class="input-mac"/>-
+                <input type="text" name="" id="add_mac6" class="input-mac"/>
 				<input type="text" name="add_mac_txt" id="add_mac_txt" class="input-mac" style="display:none;"/>
             </p>
 
@@ -581,6 +541,28 @@
         });
 
 		$('#b_change_device').click(function(){
+			var handleUrl = "{:U('channel/Device/deviceDetailSelect')}";
+			var device_id=device_val;
+			$.getJSON(handleUrl,{"device_id":device_val},
+				function (data){
+					$("#change_device_id_txt").val(data['device_id']);
+					$("#change_device_no_txt").val(data['device_no']);
+					//$("#change_mac_txt").val(data['MAC']);
+					$("#change_mac1").val(data['MAC1']);
+					$("#change_mac2").val(data['MAC2']);
+					$("#change_mac3").val(data['MAC3']);
+					$("#change_mac4").val(data['MAC4']);
+					$("#change_mac5").val(data['MAC5']);
+					$("#change_mac6").val(data['MAC6']);
+					$("#change_place_name_txt").val(data['place_name']);
+					$("#change_deploy_time_sel").val(data['deploy_time']);
+					$("#change_begin_time_sel").val(data['begin_time']);
+					$("#change_status_sel").val(data['status']);
+					$("#change_device_type_txt").val(data['device_type']);
+					$("#change_address_txt").val(data['address']);
+				}
+			,'json'
+			);
             $.openDOMWindow({
 			     loader:1,
 				 loaderHeight:16,
@@ -593,7 +575,8 @@
 		$('#submit_add_device').click(function(){
 			var handleUrl = "{:U('channel/Device/deviceAdd')}";
 			var add_device_no_txt=$("#add_device_no_txt").val();//终端编号
-			var add_mac_txt=$("#add_mac_txt").val();//mac地址
+			var add_mac_txt=$("#add_mac1").val() + "-" + $("#add_mac2").val() + "-" + $("#add_mac3").val() + "-" +
+				$("#add_mac4").val() + "-" + $("#add_mac5").val() + "-" + $("#add_mac6").val();//mac地址
 			var add_place_name_txt=$("#add_place_name_txt").val();//所属网点
 			var add_deploy_time_sel=$("#add_deploy_time_sel").val();//部署时间
 			var add_begin_time_sel=$("#add_begin_time_sel").val();//启动时间
@@ -628,7 +611,8 @@
 			var handleUrl = "{:U('channel/Device/deviceSave')}";
 			var change_device_id_txt= device_val;
 			var change_device_no_txt=$("#change_device_no_txt").val();//终端编号
-			var change_mac_txt=$("#change_mac_txt").val();//mac地址
+			var change_mac_txt=$("#change_mac1").val() + "-" + $("#change_mac2").val() + "-" + $("#change_mac3").val() + "-" +
+				$("#change_mac4").val() + "-" + $("#change_mac5").val() + "-" + $("#change_mac6").val();//mac地址
 			var change_place_name_txt=$("#change_place_name_txt").val();//所属网点
 			var change_deploy_time_sel=$("#change_deploy_time_sel").val();//部署时间
 			var change_begin_time_sel=$("#change_begin_time_sel").val();//启动时间

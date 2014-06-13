@@ -64,7 +64,7 @@
         <ul class="aside-nav">
             <li class="aside-nav-nth1"><a href="<?php echo U('configuration/Org/index');?>">系统设置</a></li>
             <li class="active"><a href="<?php echo U('configuration/Org/index');?>"><input  type="button"  value="组织结构" ></a></li>
-            <li><a href="<?php echo U('configuration/Role/index');?>"><input type="button" class="" value="角色维护" ></a></li>
+            <li><a href="<?php echo U('configuration/Role/show_role');?>"><input type="button" class="" value="角色维护" ></a></li>
             <li><a href="<?php echo U('configuration/User/index');?>"><input type="button" class="" value="职员维护" ></a></li>
         </ul>
     </div>
@@ -93,7 +93,8 @@
                 </div>
                 <div class="org-right-info" id="j_org">
                     <h3>组织机构信息</h3>
-						<input type="hidden" id="agent_id_hid" value=""/>
+						<input type="text" id="agent_id_hid" value=""/>
+						<input type="text" id="agent_pid_hid" value=""/>
                         <div class="info-left cf">
                             <label for="change_agent_name_txt">组织机构名称</label><input type="text" name="" id="change_agent_name_txt" readonly="true" class="input-org-info"/>
                             <label for="linkman">联系人</label><input readonly="true" type="text" name="" id="change_legal_txt" class="input-org-info"/>
@@ -143,7 +144,7 @@
     <div class="alert-role-add-con">
         <p>
             <label for="old_password_txt" class="role-lab">旧密码&nbsp;&nbsp;&nbsp;</label>
-            <input type="text" name="old_password_txt" id="old_password_txt" class="input-role-name"/>
+            <input type="password" name="old_password_txt" id="old_password_txt" class="input-role-name"/>
         </p>
         <p>
             <label for="new_password_txt" class="role-lab">新密码&nbsp;&nbsp;&nbsp;</label>
@@ -194,7 +195,7 @@
 					if(tmp_msg == data)
 					{
 						alert(data);
-						$('#change_password_id').hide();
+						window.location.href = window.location.href;
 					}
 					else
 					{
@@ -248,7 +249,7 @@
 </script>
 
 <div class="alert-org-add" id="j_add_win" style=" display:none;">
-    <div class="org-right-info">
+    <div class="org-right-info" id="add">
         <h3>组织机构信息</h3>
         <form action="">
             <div class="info-left cf">
@@ -260,7 +261,7 @@
             <div class="info-right cf">
                 <label for="org-s">上级组织机构</label><input type="text" name="" id="j_add_org-s" class="input-org-info" readonly="readonly" />
                 <label for="phone">联系电话</label><input type="text" name="" id="j_add_phone" class="input-org-info"/>
-                <label for="yw-are">业务范围</label><input type="text" name="" id="restxts" class="input-org-info"/>
+                <label for="yw-are">业务范围</label><input type="text" name="" id="restxts" class="input-org-info" readonly="readonly"/>
 				<input name="test"  id="j-choose" value="选择" type="button"/>
 				<input type='hidden' id='resvals' value=''>											
 
@@ -419,6 +420,7 @@ var key;
 
 //===================================================树形结构js结束==========
 
+//=====================================================监听是否永久复选框====================================
 
 
 
@@ -447,6 +449,7 @@ $(document).ready(function(){
         $.getJSON(mod_handleUrl,{"agent_id":agent_id},
                 function (data){
                     $("#agent_id_hid").val(agent_id);
+					$("#agent_pid_hid").val(data['father_agentid']);//上级组织机构id
                     //var tmp_change_father_agent_id = data['father_agentid'];
                     //$("#change_agent_id_txt").val(data['agent_id']);
                     $("#change_agent_name_txt").val(data['agent_name']);//组织机构名称
@@ -465,11 +468,11 @@ $(document).ready(function(){
                     if('1' == forever_type){
                         $("#sq-date").hide();
                         $("#date").hide();
+						$("#forever").show();
                     }else{
                         $("#sq-date").show();
                         $("#date").show();
                         $("#forever").hide();
-
                         $("#sq-date").val(data['begin_time']);
                         $("#date").val(data['end_time']);
                     }
@@ -479,12 +482,27 @@ $(document).ready(function(){
     })
 //=====================================================单击添加按钮弹出模态窗事件============================================
     $('#j_add_button').click(function(){
+		$("#add .input-org-info").val("");//初始化文本
 		if ($('#agent_id_hid').val()=="")
 		{	
 			alert("请选择一条组织结构再进行增加");
 			return false;
 		}
-		
+		var add_father_value_sel=$("#change_agent_name_txt").val();
+		$('#j_add_org-s').val(add_father_value_sel);
+		//=====================================================业务范围事件============================================
+    $("#j-choose").click(function(){
+		var id=$('#agent_id_hid').val();
+        $.openLayer({
+            maxItems : 5,
+            pid : "0",
+			id:id,
+            returnText : "restxts",
+            returnValue : "resvals",
+            span_width : {d1:120,d2:150,d3:150},
+            index : 10005
+        });
+    });
         //保存
         $('#j_add_save').click(function(){
             var add_agent_name_txt=$('#j_add_org').val();//组织机构名称
@@ -584,12 +602,24 @@ $(document).ready(function(){
                     ,'json'
             );
         });//结束
+		$("#j_add_forever_check").click(function(){
+			 var is_add_forever_checked = $("#j_add_forever_check").attr('checked');
+			if('checked' == is_add_forever_checked)
+				{
+					$('#j_add_sq-date').css("visibility","hidden");
+					$('#j_add_date').css("visibility","hidden");
+				}
+			else
+				{
+					$('#j_add_sq-date').css("visibility","visible");
+					$('#j_add_date').css("visibility","visible");
+				}
+		});
 		//关闭按钮
 		$("#j_close").click(function(){
 			window.location.href = window.location.href;
 		});
-		var add_father_value_sel=$("#change_agent_name_txt").val();
-		$('#j_add_org-s').val(add_father_value_sel);
+
         $.openDOMWindow({
             loader:1,
             loaderHeight:16,
@@ -605,6 +635,19 @@ $(document).ready(function(){
 			alert("请选择一条组织结构再进行编辑");
 			return false;
 		}
+		$("#add .input-org-info").val("");//初始化文本
+		$("#j-choose").click(function(){
+			var pid=$('#agent_pid_hid').val();
+			$.openLayer({
+				maxItems : 5,
+				pid : "0",
+				id:pid,
+				returnText : "restxts",
+				returnValue : "resvals",
+				span_width : {d1:120,d2:150,d3:150},
+				index : 10005
+			});
+		});
         var mod_handleUrl = "<?php echo U('configuration/Org/orgDetailSelect');?>";
         var agent_id=$("#agent_id_hid").val();
         $.getJSON(mod_handleUrl,{"agent_id":agent_id},
@@ -621,16 +664,14 @@ $(document).ready(function(){
                     if('1' == forever_type)
                     {
                         $("#j_add_forever_check").attr('checked','checked');
-                        $("#j_add_sq-date").val('');
-                        $("#j_add_date").val('');
-                        $("#j_add_sq-date").attr('disabled','disabled');
-                        $("#j_add_date").attr('disabled','disabled');
+						$('#j_add_sq-date').css("visibility","hidden");
+						$('#j_add_date').css("visibility","hidden");
                     }
                     else
                     {
                         $("#j_add_forever_check").attr('checked',false);
-                        $("#j_add_sq-date").removeAttr('disabled','disabled');
-                        $("#j_add_date").removeAttr('disabled','disabled');
+						$('#j_add_sq-date').css("visibility","visible");
+						$('#j_add_date').css("visibility","visible");
                         $("#j_add_sq-date").val(data['begin_time']);
                         $("#j_add_date").val(data['end_time']);
                     }
@@ -642,21 +683,55 @@ $(document).ready(function(){
         //保存
         $('#j_add_save').click(function(){
             var add_agent_name_txt=$('#j_add_org').val();//组织机构名称
+			if (add_agent_name_txt=="")
+			{	
+				alert("请输入组织机构名称");
+				return false;
+			}
 
             var add_legal_txt=$('#j_add_linkman').val();//联系人
+			if (add_legal_txt=="")
+			{	
+				alert("请输入联系人名称");
+				return false;
+			}
 
             var add_companyAddr_txt=$('#j_add_address').val();//办公地址
+			if (add_companyAddr_txt=="")
+			{	
+				alert("请输入办公地址");
+				return false;
+			}
 
             var add_tel_txt=$('#add_tel_txt').val();//公司电话
+			if (add_tel_txt=="")
+			{	
+				alert("请输入公司电话");
+				return false;
+			}
 
             var add_contract_number_txt=$('#j_add_contract-number').val();//合同编号
+			if (add_contract_number_txt=="")
+			{	
+				alert("请输入合同编号");
+				return false;
+			}
 
-            var add_father_agentid_sel=$('#agent_id_hid').val();//上级组织机构
-			alert(add_father_agentid_sel);
+            //var add_father_agentid_sel=$('#agent_id_hid').val();//上级组织机构
+			//alert(add_father_agentid_sel);
 
             var add_legal_tel_txt=$('#j_add_phone').val();//联系电话
-
+			if (add_legal_tel_txt=="")
+			{	
+				alert("请输入联系人电话");
+				return false;
+			}
             var add_org_area=$('#resvals').val();//业务范围
+			if (add_org_area=="")
+			{	
+				alert("请选择业务范围");
+				return false;
+			}
 
             var add_begin_time_sel=$('#j_add_sq-date').val();//授权日期
 
@@ -677,11 +752,11 @@ $(document).ready(function(){
             $.getJSON(mod_save_handleUrl,{"change_agent_name_txt":add_agent_name_txt,"change_legal_txt":add_legal_txt,"change_agent_id_txt":agent_id,
                         "change_companyAddr_txt":add_companyAddr_txt,
                         "change_tel_txt":add_tel_txt,
-                        "change_contract_number_txt":add_contract_number_txt,"change_father_agentid_sel":add_father_agentid_sel,
+                        "change_contract_number_txt":add_contract_number_txt,
                         "change_legal_tel_txt":add_legal_tel_txt,"change_dst_area":add_org_area,"change_contract_number_txt":add_contract_number_txt,
                         "change_companyAddr_txt":add_companyAddr_txt,"change_begin_time_sel":add_begin_time_sel,"change_end_time_sel":add_end_time_sel,"change_forever_check":add_forever_check},
                     function (data){
-                        var tmp_msg = "<?php echo C('add_agents_success');?>";
+                        var tmp_msg = "<?php echo C('change_agent_success');?>";
                         if(tmp_msg == data)
                         {
                             alert(data);
@@ -696,6 +771,19 @@ $(document).ready(function(){
                     ,'json'
             );
         });//结束
+		$("#j_add_forever_check").click(function(){
+			var is_add_forever_checked = $("#j_add_forever_check").attr('checked');
+			if('checked' == is_add_forever_checked)
+				{
+					$('#j_add_sq-date').css("visibility","hidden");
+					$('#j_add_date').css("visibility","hidden");
+				}
+			else
+				{
+					$('#j_add_sq-date').css("visibility","visible");
+					$('#j_add_date').css("visibility","visible");
+				}
+		});
 		//关闭按钮
 		$("#j_close").click(function(){
 			window.location.href = window.location.href;
@@ -725,7 +813,7 @@ $(document).ready(function(){
             var del_handleUrl="<?php echo U('configuration/Org/delete_org');?>";
             $.getJSON(del_handleUrl,{"agent_id":kid},
                     function (data){
-                        alert(data);
+                       // alert(data);
                         window.location.href = window.location.href;
                     }
                     ,'json'
@@ -743,17 +831,7 @@ $(document).ready(function(){
 
     });
 
-//=====================================================业务范围事件============================================
-    $("#j-choose").click(function(){
-        $.openLayer({
-            maxItems : 5,
-            pid : "0",
-            returnText : "restxts",
-            returnValue : "resvals",
-            span_width : {d1:120,d2:150,d3:150},
-            index : 10005
-        });
-    });
+
 
 
 

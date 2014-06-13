@@ -104,7 +104,8 @@
                 <li>
                     <span class="span-1">
 						<input type="radio" name="{$vo['channelDetailID']}" id="{$vo['channelDetailID']}" value="{$vo['channel_id']}" 
-							onclick="selectChannelRadio('{$vo['channel_id']}');" class="role-table-radio"/>
+							onclick="selectChannelRadio('{$vo['channel_id']}','{$vo['channel_type_father_id']}',
+							'{$vo['channel_type_id']}');" class="role-table-radio"/>
 					</span>
                     <span class="span-1" title="#">{$vo.channel_name}</span>
                     <span class="span-1" title="#">{$vo.channel_type_name}</span>
@@ -260,7 +261,6 @@
     <h3>渠道信息</h3>
 
     <div class="alert-user-add-con">
-        <form action="">
             <p>
 				<label for="channel-address1" class="">所属组织机构：</label>
                 <select name="add_agent_id_sel" id="add_agent_id_sel" class="channel-select-min">
@@ -322,7 +322,6 @@
 					<button type="button" class="alert-btn2">关闭</button>
 				</a>
             </p>
-        </form>
     </div>
 </div>
 </div>
@@ -419,8 +418,12 @@
 <!--<script type="text/javascript" src="__PUBLIC__/js/jquery.SuperSlide.2.1.1.js"></script>-->
 <script>
 	var channel_val='';
-	function selectChannelRadio(channel_id){
+	var channel_first_type='';
+	var channel_second_type='';
+	function selectChannelRadio(channel_id, first_type, second_type){
 		channel_val = channel_id;
+		channel_first_type = first_type;
+		channel_second_type = second_type;
 	}
 
     window.onscroll = function () {
@@ -543,13 +546,163 @@
         });
 
 		$("#b_change_channel").click(function () {
-             $.openDOMWindow({
-			     loader:1,
-				 loaderHeight:16,
-				 loaderWidth:17,
-				 windowSourceID:'#j_change_channel'
-			 });
-			 return false;
+			var handleUrl = "{:U('channel/Channel/channelDetailSelect')}";
+			var channel_id=channel_val;
+			$.getJSON(handleUrl,{"channel_id":channel_val},
+				function (data){
+					$("#change_channel_name_txt").val(data['channel_name']);
+					//$("#change_agent_id_sel").val(data['agent_id']);
+
+					var handleUrl = "{:U('channel/Channel/getAllAgent')}";
+					var agentTab = "";
+					var tmp_agentid;
+					var belong_agent_id = data['agent_id'];
+					$.getJSON(handleUrl,{},
+						function (data){
+							//agentTab += "<option value=\"\">请选择所属代理商</option>";
+							$.each(data, function(i,item){
+								tmp_agentid = item.agent_id;
+								if(tmp_agentid == belong_agent_id)
+								{
+									agentTab += "<option value =" + "'" + item.agent_id + "' selected='selected'>" + item.agent_name + "</option>";
+								}
+								else
+								{
+									agentTab += "<option value =" + "'" + item.agent_id + "'>" + item.agent_name + "</option>";
+								}
+						});
+						$("#change_belong_agent_id_sel").html(agentTab);
+					}
+					,'json'
+					);
+
+					if('' == channel_first_type)
+					{
+						handleUrl = "{:U('channel/Channel/getAllChannelType')}";
+						var typeTab = "";
+						$.getJSON(handleUrl,{},
+							function (data){
+								typeTab += "<option value=\"\">全部</option>";
+								$.each(data, function(i,item){
+									typeTab += "<option value =" + "'" + item.channel_type_id + "'>" + item.channel_type_name + "</option>";
+							});
+							$("#change_channel_first_type_sel").html(typeTab);
+						}
+						,'json'
+						);
+					}
+					else if('0' == channel_first_type)
+					{
+						handleUrl = "{:U('channel/Channel/getAllChannelType')}";
+						var typeTab = "";
+						var tmp_typeid;
+						$.getJSON(handleUrl,{},
+							function (data){
+								typeTab += "<option value=\"\">全部</option>";
+								$.each(data, function(i,item){
+									tmp_typeid = item.channel_type_id;
+									if(tmp_typeid == channel_second_type)
+									{
+										typeTab += "<option value =" + "'" + item.channel_type_id + "' selected='selected'>" + item.channel_type_name + "</option>";
+									}
+									else
+									{
+										typeTab += "<option value =" + "'" + item.channel_type_id + "'>" + item.channel_type_name + "</option>";
+									}
+							});
+							$("#change_channel_first_type_sel").html(typeTab);
+						}
+						,'json'
+						);
+
+						handleUrl = "{:U('channel/Channel/channelSecondTypeSelect')}";
+						var secondTypeTab = "";
+						var tmp_secondTypeid;
+						$.getJSON(handleUrl,{'channel_first_type_sel':channel_second_type},
+							function (data){
+								secondTypeTab += "<option value=\"\">全部</option>";
+								$.each(data, function(i,item){
+									secondTypeTab += "<option value =" + "'" + item.channel_type_id + "'>" + item.channel_type_name + "</option>";
+							});
+							$("#change_channel_second_type_sel").html(secondTypeTab);
+						}
+						,'json'
+						);
+					}
+					else
+					{
+						handleUrl = "{:U('channel/Channel/getAllChannelType')}";
+						var typeTab = "";
+						var tmp_typeid;
+						$.getJSON(handleUrl,{},
+							function (data){
+								typeTab += "<option value=\"\">全部</option>";
+								$.each(data, function(i,item){
+									tmp_typeid = item.channel_type_id;
+									if(tmp_typeid == channel_first_type)
+									{
+										typeTab += "<option value =" + "'" + item.channel_type_id + "' selected='selected'>" + item.channel_type_name + "</option>";
+									}
+									else
+									{
+										typeTab += "<option value =" + "'" + item.channel_type_id + "'>" + item.channel_type_name + "</option>";
+									}
+							});
+							$("#change_channel_first_type_sel").html(typeTab);
+						}
+						,'json'
+						);
+
+						handleUrl = "{:U('channel/Channel/channelSecondTypeSelect')}";
+						var secondTypeTab = "";
+						var tmp_secondTypeid;
+						$.getJSON(handleUrl,{'channel_first_type_sel':channel_first_type},
+							function (data){
+								secondTypeTab += "<option value=\"\">全部</option>";
+								$.each(data, function(i,item){
+									tmp_secondTypeid = item.channel_type_id;
+									if(tmp_secondTypeid == channel_second_type)
+									{
+										secondTypeTab += "<option value =" + "'" + item.channel_type_id + "' selected='selected'>" + item.channel_type_name + "</option>";
+									}
+									else
+									{
+										secondTypeTab += "<option value =" + "'" + item.channel_type_id + "'>" + item.channel_type_name + "</option>";
+									}
+							});
+							$("#change_channel_second_type_sel").html(secondTypeTab);
+						}
+						,'json'
+						);
+					}
+
+					$("#change_select_showcity").empty();
+					showprovince("change_select_province", "change_select_city", data['province'], "change_select_showcity");
+					showcity("change_select_city", data['city'], "change_select_province", "change_select_showcity");
+					if('0' == channel_first_type)
+					{
+						$("#change_channel_first_type_sel").val(channel_second_type);
+						$("#change_channel_second_type_sel").val('');
+					}
+					else
+					{
+						$("#change_channel_first_type_sel").val(channel_first_type);
+						$("#change_channel_second_type_sel").val(channel_second_type);
+					}
+					$("#change_contacts_txt").val(data['contacts']);
+					$("#change_contacts_tel_txt").val(data['contacts_tel']);
+					//$("#change_channel_address_txt").val(data['channel_address']);
+					$("#change_contract_number_txt").val(data['contract_number']);
+				}
+			,'json'
+			);
+            $.openDOMWindow({
+			    loader:1,
+				loaderHeight:16,
+				loaderWidth:17,
+				windowSourceID:'#j_change_channel'
+			});
+			return false;
         });
 
 		$('#submit_change_channel').click(function(){
@@ -557,8 +710,8 @@
 			var change_channel_name_txt=$("#change_channel_name_txt").val();//渠道商名称
 			var change_channel_id_txt= channel_val;
 			var change_agent_id_sel=$("#change_belong_agent_id_sel").val();
-			var change_src_province= channel_province;
-			var change_src_city= channel_city;
+			//var change_src_province= channel_province;
+			//var change_src_city= channel_city;
 			var change_dst_province=$("#change_select_province").val();//省份
 			var change_dst_city=$("#change_select_city").val();//城市
 			var src_channel_first_type=channel_first_type;//类型
@@ -572,8 +725,7 @@
 			var change_begin_time_sel=$("#change_begin_time_sel").val();
 			var change_end_time_sel=$("#change_end_time_sel").val();
 			$.getJSON(handleUrl,{"change_channel_name_txt":change_channel_name_txt,"change_channel_id_txt":change_channel_id_txt,
-								"change_agent_id_sel":change_agent_id_sel,"change_src_province":change_src_province,
-								"change_src_city":change_src_city,"change_dst_province":change_dst_province,"change_dst_city":change_dst_city,
+								"change_agent_id_sel":change_agent_id_sel,"change_dst_province":change_dst_province,"change_dst_city":change_dst_city,
 								 "src_channel_first_type":src_channel_first_type,"src_channel_second_type":src_channel_second_type,
 								 "dst_channel_first_type_sel":dst_channel_first_type_sel,"dst_channel_second_type_sel":dst_channel_second_type_sel,
 								 "change_contacts_txt":change_contacts_txt,"change_contacts_tel_txt":change_contacts_tel_txt,
@@ -641,10 +793,6 @@
 <script type="text/javascript">
 			showprovince("add_select_province", "add_select_city", "省份", "add_select_showcity");
 			showcity("add_select_city", "城市", "add_select_province", "add_select_showcity"); 
-</script>
-<script type="text/javascript">
-			showprovince("change_select_province", "change_select_city", channel_province, "change_select_showcity");
-			showcity("change_select_city", channel_city, "change_select_province", "change_select_showcity"); 
 </script>
 </body>
 </html>

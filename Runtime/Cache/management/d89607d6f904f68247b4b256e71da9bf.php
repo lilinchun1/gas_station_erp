@@ -3,13 +3,73 @@
 <head>
     <meta charset="UTF-8">
     <title>网点信息</title>
-    <link rel="stylesheet" href="../../Public/css/configuration.css"/>
-
+    <link rel="stylesheet" href="__PUBLIC__/css/configuration.css"/>
+	<script type="text/javascript" src="__PUBLIC__/js/jquery-1.10.2.min.js"></script>
+	<script type="text/javascript" src="__PUBLIC__/js/jquery.SuperSlide.2.1.1.js"></script>
+	<script type="text/javascript" src="__PUBLIC__/js/My97DatePicker/WdatePicker.js"></script>
+	<script type="text/javascript">
+	$(function(){
+		//======================固定标题
+		window.onscroll = function () {
+	        var scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
+	        var fixDiv = document.getElementById('j-fixed-top');
+	        if (scrollTop >= 300) {
+	            fixDiv.style.position = 'fixed';
+	            fixDiv.style.top = '0px';
+	        } else if (scrollTop <= 299) {
+	            fixDiv.style.position = 'static';
+	        }
+	    }
+		//======================添加，编辑弹出框
+		$('#issue_add,#issue_udp').click(function(){
+			//点击编辑按钮
+			if($(this).hasClass("issue_udp")){
+				var rule_no = $("input[name='role-info']:checked").parent().parent().find(".rule_no").text();
+				if(rule_no == ""){
+					alert("请选择编辑条目");
+					return;
+				}
+				$("#maintain-addname").val(rule_no);
+				//隐藏域期刊号
+				$("#old_rule_no").val(rule_no);
+				$("button[name='add_udp']").val("2");
+			}else{
+				$("button[name='add_udp']").val("1");
+			}
+			//弹出页面
+			$.openDOMWindow({
+	            loader:1,
+	            loaderHeight:16,
+	            loaderWidth:17,
+	            windowSourceID:'#j_add_win'
+	        });
+	        return false;
+		});
+		//======================删除弹出框
+		$(".issue_del").click(function(){
+			var rule_no = $("input[name='role-info']:checked").parent().parent().find(".rule_no").text();
+			if(rule_no == ""){
+				alert("请选择删除条目");
+				return;
+			}
+			$("#del_rule_no").val(rule_no);
+			
+			//弹出页面
+			$.openDOMWindow({
+	            loader:1,
+	            loaderHeight:16,
+	            loaderWidth:17,
+	            windowSourceID:'#j_del_win'
+	        });
+	        return false;
+		});
+	});
+	</script>
 </head>
 <body>
 <div id="head">
     <h1 class="head-logo"><a href="index.html">ERP管理系统</a></h1>
-    <h2 class="head-tt">111智能手机加油站ERP管理系统</h2>
+    <h2 class="head-tt">智能手机加油站ERP管理系统</h2>
     <div class="login">
         <div class="left">
             <ul class="left-nav">
@@ -21,7 +81,7 @@
             </ul>
         </div>
         <div class="right">
-            <a href="<?php echo U('configuration/Login/logout');?>">退出系统</a>
+            <a href="javascript:void(0);" onclick="show_user_logout()">退出系统</a>
         </div>
     </div>
 </div>
@@ -46,6 +106,17 @@
         });
         return false;
 	}
+
+	function show_user_logout(){
+		//$('#change_password_id').show();
+		$.openDOMWindow({
+            loader:1,
+            loaderHeight:16,
+            loaderWidth:17,
+            windowSourceID:'#j_logout_win'
+        });
+        return false;
+	}
 </script>
 <div id="container">
     <div class="left">
@@ -63,23 +134,22 @@
                     <div class="role-inquire channel-index-btns">
                         <form action="" method="post">
                             <p>
-                                <label for="channel-org-name" class="">刊例名称</label>
+                                <label for="channel-org-name" class="">刊例号</label>
                                 <input type="text" name="rule_no_sel" id="channel-org-name" class="input-org-info"/>
                                 <label for="maintain-create-people" class="">创建人</label>
                                 <input type="text" name="createuserid_sel" id="maintain-create-people"
                                        class="input-org-info"/>
                                 <label for="maintain-create-date" class="">创建日期</label>
-                                <input type="date" name="createtime_sel" id="maintain-create-date"
-                                       class="input-org-info"/>
+                                <input type="text" name="createtime_sel" id="maintain-create-date" class="input-org-info" onClick="WdatePicker()" readonly/>
                                 <button type="submit" class="role-control-btn">查询</button>
                             </p>
                         </form>
                     </div>
                     <div class="org-right-btns">
                         <form action="">
-                            <button type="button" class="area-btn">添加</button>
-                            <button type="button" class="area-btn">编辑</button>
-                            <button type="button" class="area-btn">删除</button>
+                            <button type="button" id="issue_add" class="area-btn issue_add">添加</button>
+                            <button type="button" id="issue_udp" class="area-btn issue_udp">编辑</button>
+                            <button type="button" id="issue_del" class="area-btn issue_del">删除</button>
 
                         </form>
                     </div>
@@ -89,19 +159,18 @@
                         <ul class="role-table-list">
                             <li>
                                 <span class="span-1"></span>
-                                <span class="span-2"><b>刊例名称</b></span>
+                                <span class="span-2"><b>刊例号</b></span>
                                 <span class="span-2"><b>创建人</b></span>
                                 <span class="span-2"><b>创建日期</b></span>
                                 <span class="span-3"><b>刊例详情</b></span>
 
                             </li>
                             <?php if(is_array($issueArr)): foreach($issueArr as $key=>$issue): ?><li>
-                                    <span class="span-1"><input type="radio" name="role-info" id=""
-                                                                class="role-table-radio"/></span>
-                                    <span class="span-2" title="#"><?php echo ($issue["rule_no"]); ?></span>
-                                    <span class="span-2" title="#"><?php echo ($issue["createuserid"]); ?></span>
-                                    <span class="span-2" title="#"><?php echo ($issue["createtime"]); ?></span>
-                                    <span class="span-3" title="#"><?php echo ($issue["memo"]); ?></span>
+                                    <span class="span-1"><input type="radio" name="role-info" id="" class="role-table-radio"/></span>
+                                    <span class="span-2 rule_no" title="#"><?php echo ($issue["rule_no"]); ?></span>
+                                    <span class="span-2 createuserid" title="#"><?php echo ($issue["createuserid"]); ?></span>
+                                    <span class="span-2 createtime" title="#"><?php echo ($issue["createtime"]); ?></span>
+                                    <span class="span-3 memo" title="#"><?php echo ($issue["memo"]); ?></span>
                                 </li><?php endforeach; endif; ?>
                         </ul>
                     </div>
@@ -111,7 +180,7 @@
     </div>
 </div>
 <div id="footer">
-1111
+
 </div>
 <script type="text/javascript" src="__PUBLIC__/js/jquery-1.6.1.js"></script>
 <script type="text/javascript" src="__PUBLIC__/js/jquery.DOMwindow.js" type="text/javascript"></script><!--模框JS插件-->
@@ -121,7 +190,7 @@
     <div class="alert-role-add-con">
         <p>
             <label for="old_password_txt" class="role-lab">旧密码&nbsp;&nbsp;&nbsp;</label>
-            <input type="text" name="old_password_txt" id="old_password_txt" class="input-role-name"/>
+            <input type="password" name="old_password_txt" id="old_password_txt" class="input-role-name"/>
         </p>
         <p>
             <label for="new_password_txt" class="role-lab">新密码&nbsp;&nbsp;&nbsp;</label>
@@ -140,6 +209,21 @@
     </div>
 </div>
 </div>
+
+<div class="divout" id="j_logout_win" style="display:none;">
+	<div class="alert-role-add" >
+		<h3>退出</h3>
+		<div class="alert-role-add-con">
+			<p class="delete-message">确认退出？</p>
+			<p>
+				<button type="button" class="alert-btn2" id="j_logout_ok" onclick="user_logout()">确定</button>
+				<a href="." class="closeDOMWindow">
+					<button type="button" class="alert-btn2">关闭</button>
+				</a>
+			</p>
+		</div>
+	</div>
+</div>
 <script>
     window.onload=function(){
         headAct();
@@ -157,7 +241,7 @@
 					if(tmp_msg == data)
 					{
 						alert(data);
-						$('#change_password_id').hide();
+						window.location.href = window.location.href;
 					}
 					else
 					{
@@ -166,6 +250,11 @@
 			}
 			,'json'
 		);
+	}
+
+	function user_logout(){
+		var handleUrl = "<?php echo U('configuration/Login/logout');?>";
+		window.location.href = handleUrl;
 	}
 
     function headAct(){
@@ -205,48 +294,50 @@
     }
 </script>
 
-<div class="alert-role-add">
-    <h3>刊例信息</h3>
-
-    <div class="alert-user-add-con">
-        <form action="">
-
-            <p>
-                <label for="maintain-addname" class="role-lab">刊例名称</label>
-                <input type="text" name="addname" id="maintain-addname" class="input-role-name"/>
-            </p>
-
-            <p>
-                <label for="maintain-xx" class="role-lab">刊例明细</label>
-                <input type="text" name="addname" id="maintain-xx" class="input-role-name"/>
-                <button type="button" class="alert-btn2">预览</button>
-                <a class="maintain-download" href="">下载模板</a>
-            </p>
-
-            <p>
-                <button type="button" class="alert-btn2">保存</button>
-                <button type="button" class="alert-btn2">关闭</button>
-            </p>
-        </form>
-    </div>
+<!-- 创建，编辑刊例 -->
+<div class="alert-org-add" id="j_add_win" style=" display:none;">
+	<div class="alert-role-add">
+		<form action="" method="post" enctype="multipart/form-data">
+	    	<h3>刊例信息</h3>
+		    <div class="alert-user-add-con">
+		            <p>
+		                <label for="maintain-addname" class="role-lab">刊例名称</label>
+		                <input type="text" name="rule_no" id="maintain-addname" class="input-role-name"/>
+		                <input type="hidden" name="old_rule_no" id="old_rule_no" value=""/>
+		            </p>
+		
+		            <p>
+		                <label for="maintain-xx" class="role-lab">刊例明细</label>
+		                <input type="file" name="app_file" id="maintain-xx" class="input-role-name"/>
+		            </p>
+		
+		            <p>
+		                <button type="submit" name="add_udp" class="alert-btn2" value="1">保存</button>
+		                <a href="." class="closeDOMWindow">
+							<button type="button" class="alert-btn">关闭</button>
+						</a>
+		            </p>
+		    </div>
+	    </form>
+	</div>
 </div>
-<script type="text/javascript" src="../../Public/js/jquery-1.6.1.js"></script>
-<script type="text/javascript" src="../../Public/js/jquery.SuperSlide.2.1.1.js"></script>
-<link rel="stylesheet" href="__PUBLIC__/css/configuration.css"/>
-<script type="text/javascript" src="__PUBLIC__/js/jquery-1.6.1.js"></script>
-<script type="text/javascript" src="__PUBLIC__/js/jquery.SuperSlide.2.1.1.js"></script>
-<script>
-    window.onscroll = function () {
-        var scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
-        var fixDiv = document.getElementById('j-fixed-top');
-        if (scrollTop >= 300) {
-            fixDiv.style.position = 'fixed';
-            fixDiv.style.top = '0px';
-        } else if (scrollTop <= 299) {
-            fixDiv.style.position = 'static';
-        }
-    }
-</script>
-<script type="text/javascript">jQuery(".role-table").slide({trigger: "click"});</script>
+<!--删除确认框-->
+<div class="divout" id="j_del_win" style="display:none;">
+	<div class="alert-role-add" >
+		<form action="" method="post">
+			<h3>期刊</h3>
+			<div class="alert-role-add-con">
+				<p class="delete-message">确认删除？</p>
+				<p>
+					<input type="hidden" name="del_rule_no" id="del_rule_no" value=""/>
+					<button type="submit" name="delete" class="alert-btn2" id="j_del_ok" value="1">删除</button>
+					<a href="." class="closeDOMWindow">
+						<button type="button" class="alert-btn2">关闭</button>
+					</a>
+				</p>
+			</div>
+		</form>
+	</div>
+</div>
 </body>
 </html>

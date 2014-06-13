@@ -602,13 +602,100 @@
         });
 
 		$("#b_change_place").click(function () {
-             $.openDOMWindow({
-			     loader:1,
-				 loaderHeight:16,
-				 loaderWidth:17,
-				 windowSourceID:'#j_change_place'
-			 });
-			 return false;
+		    var handleUrl = "{:U('channel/Place/placeDetailSelect')}";
+			var place_id=place_val;
+			$.getJSON(handleUrl,{"place_id":place_val},
+				function (data){
+					$("#change_place_id_txt").val(data['place_id']);
+					$("#change_place_name_txt").val(data['place_name']);
+					$("#change_place_no_txt").val(data['place_no']);
+					$("#change_place_tel_txt").val(data['place_tel']);
+					$("#change_select_showcity").empty();
+					showprovince("change_select_province", "change_select_city", data['province'], "change_select_showcity");
+					showcity("change_select_city", data['city'], "change_select_province", "change_select_showcity");
+					$("#change_channel_name_txt").val(data['channel_name']);
+					$("#change_contacts_txt").val(data['contacts']);
+					$("#change_contacts_tel_txt").val(data['contacts_tel']);
+					$("#change_status_sel").val(data['status']);
+					$("#change_test_begin_time_sel").val(data['test_begin_time']);
+					$("#change_test_end_time_sel").val(data['test_end_time']);
+					$("#change_region_txt").val(data['region']);
+					$("#change_contract_number_txt").val(data['contract_number']);
+					$("#change_begin_time_sel").val(data['begin_time']);
+	
+					tmp_first_place_type_id = data['first_place_type_id'];
+					tmp_place_type_id = data['place_type_id'];
+					if('' == tmp_first_place_type_id)
+					{
+						handleUrl = "{:U('channel/Channel/getAllChannelType')}";
+						var typeTab = "";
+						$.getJSON(handleUrl,{},
+							function (data){
+								typeTab += "<option value=\"\">全部</option>";
+								$.each(data, function(i,item){
+									typeTab += "<option value =" + "'" + item.channel_type_id + "'>" + item.channel_type_name + "</option>";
+							});
+							$("#change_place_first_type_sel").html(typeTab);
+						}
+						,'json'
+						);
+					}
+					else
+					{
+						handleUrl = "{:U('channel/Channel/getAllChannelType')}";
+						var typeTab = "";
+						var tmp_typeid;
+						$.getJSON(handleUrl,{},
+							function (data){
+								typeTab += "<option value=\"\">全部</option>";
+								$.each(data, function(i,item){
+									tmp_typeid = item.channel_type_id;
+									if(tmp_typeid == tmp_first_place_type_id)
+									{
+										typeTab += "<option value =" + "'" + item.channel_type_id + "' selected='selected'>" + item.channel_type_name + "</option>";
+									}
+									else
+									{
+										typeTab += "<option value =" + "'" + item.channel_type_id + "'>" + item.channel_type_name + "</option>";
+									}
+							});
+							$("#change_place_first_type_sel").html(typeTab);
+						}
+						,'json'
+						);
+
+						handleUrl = "{:U('channel/Channel/channelSecondTypeSelect')}";
+						var secondTypeTab = "";
+						var tmp_secondTypeid;
+						$.getJSON(handleUrl,{'channel_first_type_sel':tmp_first_place_type_id},
+							function (data){
+								secondTypeTab += "<option value=\"\">全部</option>";
+								$.each(data, function(i,item){
+									tmp_secondTypeid = item.channel_type_id;
+									if(tmp_secondTypeid == tmp_place_type_id)
+									{
+										secondTypeTab += "<option value =" + "'" + item.channel_type_id + "' selected='selected'>" + item.channel_type_name + "</option>";
+									}
+									else
+									{
+										secondTypeTab += "<option value =" + "'" + item.channel_type_id + "'>" + item.channel_type_name + "</option>";
+									}
+							});
+							$("#change_place_second_type_sel").html(secondTypeTab);
+						}
+						,'json'
+						);
+					}
+				}
+			,'json'
+			);
+            $.openDOMWindow({
+			    loader:1,
+				loaderHeight:16,
+				loaderWidth:17,
+				windowSourceID:'#j_change_place'
+			});
+			return false;
         });
 
 		//撤销网点
@@ -795,10 +882,6 @@
 <script type="text/javascript">
 			showprovince("add_select_province", "add_select_city", "省份", "add_select_showcity");
 			showcity("add_select_city", "城市", "add_select_province", "add_select_showcity"); 
-</script>
-<script type="text/javascript">
-			showprovince("change_select_province", "change_select_city", "省份", "change_select_showcity");
-			showcity("change_select_city", "城市", "change_select_province", "change_select_showcity"); 
 </script>
 <script type="text/javascript">jQuery(".role-table").slide({trigger: "click"});</script>
 </body>
