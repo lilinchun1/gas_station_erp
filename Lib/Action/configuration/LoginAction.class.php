@@ -8,6 +8,8 @@ class LoginAction extends Action {
 	}
 
 	 public function default_index(){
+		$userinfo = getUserInfo();
+		$this->username = $userinfo['realname']; //登录的用户名
 		$this->display(':default_index');
 	}
 

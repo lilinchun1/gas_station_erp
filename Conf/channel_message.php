@@ -4,6 +4,8 @@
 		'what_are_you_doing'	   =>	'当你看见这个的时候，我认为你是在浪费时间',
 		'any_data_empty'		   =>	'必填数据不能为空',
 		'no_purview'			   =>	'没有操作权限',
+		'no_select_data'			   =>	'请先选择一条数据',
+		'repeal_no_edit'			   =>	'撤销数据不能够编辑',
 		'add_agents_success'	   =>	'成功添加代理商信息',
 		'agent_exist'              =>  '已经有此代理商信息',
 		'agent_area_exist'         =>  '已经有这个区域的代理商了',

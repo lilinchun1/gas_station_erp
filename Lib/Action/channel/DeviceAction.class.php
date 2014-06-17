@@ -6,10 +6,10 @@ foreach ($_GET as $k=>$v) {
 //设备类
 class DeviceAction extends CommonAction {
 	public function index(){
-		/*$userinfo = getUserInfo();
-		$this->is_channel_user = in_array("渠道部", $userinfo['group']); //等于1为渠道部用户
+		$userinfo = getUserInfo();
+		$this->username = $userinfo['realname']; //登录的用户名
+		/*$this->is_channel_user = in_array("渠道部", $userinfo['group']); //等于1为渠道部用户
 		$this->agentsid = $userinfo['agentsid']; //agentsid为空则为总公司
-		$this->username = $userinfo['username']; //登录的用户名
 		$this->is_have_user_purview = in_array($userinfo['grade'], array(1,2,3));
 		$first_place_type = getAllChannelType();
 		$this->assign('first_place_type', $first_place_type);*/
@@ -76,13 +76,13 @@ class DeviceAction extends CommonAction {
 				$where .= " and a.province='$province'";
 			}
 		}
-		/*
-		if(!empty($userinfo['agentsid']))
+
+		if((!empty($userinfo['orgid'])) && (1 != $userinfo['orgid']))
 		{
-			$sub_agent_id = getSubAgentStringFromFatherAgent($userinfo['agentsid']);
-			$where .= " and (a.agent_id='{$userinfo['agentsid']}' or a.agent_id in $sub_agent_id)"; //权限限制
+			$sub_agent_id = getSubAgentStringFromFatherAgent($userinfo['orgid']);
+			$where .= " and (a.agent_id='{$userinfo['orgid']}' or a.agent_id in $sub_agent_id)"; //权限限制
 		}
-		*/
+
 		$count = $Model->table('qd_device a')->join('qd_place b on a.place_id=b.place_id')->where($where)->count();
 		//$tmp_count = $Model->query("select count(*) as count from qd_device a left join qd_place b on a.place_no=b.place_no" . $where);
 		//$count = $tmp_count[0]['count'];
@@ -193,6 +193,8 @@ class DeviceAction extends CommonAction {
 		$dataDevice[0]['MAC4'] = $device_mac_array[3];
 		$dataDevice[0]['MAC5'] = $device_mac_array[4];
 		$dataDevice[0]['MAC6'] = $device_mac_array[5];
+		$dataDevice[0]['power_on_time'] = date("H:i:s", $dataDevice[0]['power_on_time']);
+		$dataDevice[0]['power_off_time'] = date("H:i:s", $dataDevice[0]['power_off_time']);
 
 		$data = $dataDevice[0];
 		$this->ajaxReturn($data,'json');
@@ -250,8 +252,8 @@ class DeviceAction extends CommonAction {
 		$repair_user = trim(I('add_repair_user_txt'));
 		$repair_user_tel = trim(I('add_repair_user_tel_txt'));
 		$description = trim(I('add_description_txt'));
-		$power_on_time = trim(I('add_power_on_time_sel'));
-		$power_off_time = trim(I('add_power_off_time_sel'));
+		$power_on_time = strtotime(trim(I('add_power_on_time_sel')));
+		$power_off_time = strtotime(trim(I('add_power_off_time_sel')));
 		$image_path_0 = trim(I('add_image_path_0'));
 		$image_path_1 = trim(I('add_image_path_1'));
 		$image_path_2 = trim(I('add_image_path_2'));
@@ -310,6 +312,8 @@ class DeviceAction extends CommonAction {
 			$data['device_type'] = $device_type;
 			$data['address'] = $address;
 			$data['repair_user'] = $repair_user;
+			$data['power_on_time'] = $power_on_time;
+			$data['power_off_time'] = $power_off_time;
 			$data['repair_user_tel'] = $repair_user_tel;
 			$data['description'] = $description;
 			$data['channel_id'] = $channel_id;
@@ -366,8 +370,8 @@ class DeviceAction extends CommonAction {
 		$image_id_0 = trim(I('change_image_id_0'));
 		$image_id_1 = trim(I('change_image_id_1'));
 		$image_id_2 = trim(I('change_image_id_2'));
-		$power_on_time = trim(I('change_power_on_time_sel'));
-		$power_off_time = trim(I('change_power_off_time_sel'));
+		$power_on_time = strtotime(trim(I('change_power_on_time_sel')));
+		$power_off_time = strtotime(trim(I('change_power_off_time_sel')));
 		$image_path_0 = trim(I('change_image_path_0'));
 		$image_path_1 = trim(I('change_image_path_1'));
 		$image_path_2 = trim(I('change_image_path_2'));
@@ -444,6 +448,8 @@ class DeviceAction extends CommonAction {
 			$data['agent_id'] = $agent_id;
 			$data['province'] = $place_area[0]['province'];
 			$data['city'] = $place_area[0]['city'];
+			$data['power_on_time'] = $power_on_time;
+			$data['power_off_time'] = $power_off_time;
 			if(0 != $begin_time)
 			{
 				$data['begin_time'] = $begin_time;
@@ -528,9 +534,9 @@ class DeviceAction extends CommonAction {
 
 		if($msg == C('delete_device_success'))
 		{
-			//$place_id = getPlaceIDFromDeviceID($device_id);
-			//changeNum('device', $place_id, $device_id, 'minus');
-			//addOptionLog('device', $device_id, 'del', '');
+			$place_id = getPlaceIDFromDeviceID($device_id);
+			changeNum('device', $place_id, $device_id, 'minus');
+			addOptionLog('device', $device_id, 'del', '');
 		}
 		$this->ajaxReturn($msg,'json');
 		//$this->deviceSelect();
@@ -551,11 +557,32 @@ class DeviceAction extends CommonAction {
 
 		if($msg == C('repeal_device_success'))
 		{
-			//$place_id = getPlaceIDFromDeviceID($device_id);
-			//changeNum('device', $place_id, $device_id, 'minus');
-			//addOptionLog('device', $device_id, 'del', '');
+			$place_id = getPlaceIDFromDeviceID($device_id);
+			changeNum('device', $place_id, $device_id, 'minus');
+			addOptionLog('device', $device_id, 'del', '');
 		}
 		$this->ajaxReturn($msg,'json');
+		//$this->deviceSelect();
+	}
+
+	//撤销设备
+	public function placeDeviceRepeal($device_id){
+	    $Model = new Model();
+		$device = M("device","qd_");
+		$msg = C('repeal_device_success');
+		$is_set = $device->where("device_id='$device_id'")->setField('isDelete', 1);
+		if($is_set <= 0)
+		{
+			$this->msg = C('repeal_device_failed');
+		}
+
+		if($msg == C('repeal_device_success'))
+		{
+			$place_id = getPlaceIDFromDeviceID($device_id);
+			changeNum('device', $place_id, $device_id, 'minus');
+			addOptionLog('device', $device_id, 'del', '');
+		}
+		//$this->ajaxReturn($msg,'json');
 		//$this->deviceSelect();
 	}
 

@@ -12,7 +12,7 @@
 <body>
 <div id="head">
     <h1 class="head-logo"><a href="index.html">ERP管理系统</a></h1>
-    <h2 class="head-tt">111智能手机加油站ERP管理系统</h2>
+    <h2 class="head-tt">智能手机加油站ERP管理系统</h2>
     <div class="login">
         <div class="left">
             <ul class="left-nav">
@@ -123,7 +123,7 @@
     <div class="org-right-btns">
         <form action="">
             <button type="button" class="area-btn" id="b_add_channel">添加</button>
-            <button type="button" class="area-btn">编辑/查看</button>
+            <button type="button" class="area-btn" id="b_change_channel">编辑/查看</button>
             <button type="button" id="delete_contract" class="area-btn">终止合同</button>
         </form>
     </div>
@@ -148,8 +148,9 @@
             </li>
             <?php if(is_array($list)): $i = 0; $__LIST__ = $list;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$vo): $mod = ($i % 2 );++$i;?><li>
                     <span class="span-1">
-						<input type="radio" name="<?php echo ($vo['channelDetailID']); ?>" id="<?php echo ($vo['channelDetailID']); ?>" value="<?php echo ($vo['channel_id']); ?>" 
-							onclick="selectChannelRadio('<?php echo ($vo['channel_id']); ?>');" class="role-table-radio"/>
+						<input type="radio" name="channelDetailID" id="<?php echo ($vo['channelDetailID']); ?>" value="<?php echo ($vo['channel_id']); ?>" 
+							onclick="selectChannelRadio('<?php echo ($vo['channel_id']); ?>','<?php echo ($vo['channel_type_father_id']); ?>',
+							'<?php echo ($vo['channel_type_id']); ?>');" class="role-table-radio"/>
 					</span>
                     <span class="span-1" title="#"><?php echo ($vo["channel_name"]); ?></span>
                     <span class="span-1" title="#"><?php echo ($vo["channel_type_name"]); ?></span>
@@ -160,17 +161,6 @@
                     <span class="span-1" title="#"><?php echo ($vo["place_num"]); ?></span>
                     <span class="span-1" title="#"><?php echo ($vo["device_num"]); ?></span>
                 </li><?php endforeach; endif; else: echo "" ;endif; ?>
-            <li>
-                <span class="span-1"><input type="radio" name="role-info" id="" class="role-table-radio"/></span>
-                <span class="span-1" title="#">Lorem ipsum dolor sit.</span>
-                <span class="span-1" title="#">Dolore eius expedita molestias!</span>
-                <span class="span-1" title="#">Blanditiis dolorum pariatur vitae?</span>
-                <span class="span-3" title="#">Perspiciatis quae ratione repudiandae!</span>
-                <span class="span-2" title="#">Ipsa nulla quidem voluptate?</span>
-                <span class="span-1" title="#">Consequuntur eveniet itaque velit.</span>
-                <span class="span-1" title="#">Aspernatur blanditiis ipsum nulla!</span>
-                <span class="span-1" title="#">Aspernatur blanditiis ipsum nulla!</span>
-            </li>
         </ul>
 		<div class="resultpage"><?php echo ($page); ?></div>
         <!--<ul class="role-table-list">
@@ -307,7 +297,7 @@
 </div>
 </div>
 <div id="footer">
-1111
+
 </div>
 <script type="text/javascript" src="__PUBLIC__/js/jquery-1.6.1.js"></script>
 <script type="text/javascript" src="__PUBLIC__/js/jquery.DOMwindow.js" type="text/javascript"></script><!--模框JS插件-->
@@ -317,7 +307,7 @@
     <div class="alert-role-add-con">
         <p>
             <label for="old_password_txt" class="role-lab">旧密码&nbsp;&nbsp;&nbsp;</label>
-            <input type="text" name="old_password_txt" id="old_password_txt" class="input-role-name"/>
+            <input type="password" name="old_password_txt" id="old_password_txt" class="input-role-name"/>
         </p>
         <p>
             <label for="new_password_txt" class="role-lab">新密码&nbsp;&nbsp;&nbsp;</label>
@@ -368,7 +358,7 @@
 					if(tmp_msg == data)
 					{
 						alert(data);
-						$('#change_password_id').hide();
+						window.location.href = window.location.href;
 					}
 					else
 					{
@@ -421,12 +411,12 @@
     }
 </script>
 
+<!--添加框-->
 <div id="j_add_channel" style="display:none;">
 <div class="alert-role-add">
     <h3>渠道信息</h3>
 
     <div class="alert-user-add-con">
-        <form action="">
             <p>
 				<label for="channel-address1" class="">所属组织机构：</label>
                 <select name="add_agent_id_sel" id="add_agent_id_sel" class="channel-select-min">
@@ -484,6 +474,74 @@
 					<button type="button" class="alert-btn2">关闭</button>
 				</a>
             </p>
+    </div>
+</div>
+</div>
+
+<!--修改框-->
+<div id="j_change_channel" style="display:none;">
+<div class="alert-role-add">
+    <h3>渠道信息</h3>
+
+    <div class="alert-user-add-con">
+        <form action="">
+            <p>
+				<label for="channel-address1" class="">所属组织机构：</label>
+                <select name="change_belong_agent_id_sel" id="change_belong_agent_id_sel" class="channel-select-min">
+                   <option selected value="">请选择所属组织</option>
+				   <?php if(is_array($all_agent)): foreach($all_agent as $key=>$agent): ?><option value="<?php echo ($agent["agent_id"]); ?>"><?php echo ($agent["agent_name"]); ?></option><?php endforeach; endif; ?>
+                </select>
+			</p>
+
+            <p>
+                <label for="channel-addname" class="role-lab">渠道名称</label>
+                <input type="text" name="change_channel_name_txt" id="change_channel_name_txt" class="input-role-name"/>
+            </p>
+
+            <p>
+                <label for="channel-address1" class="">渠道地址</label>
+                <span id="change_select_showcity"></span><!--省市联动-->
+            </p>
+            <p>
+                <label for="channel-address1" class="">渠道类型</label>
+				<select style="width:164px" name="change_channel_first_type_sel" id="change_channel_first_type_sel" class="channel-select-min">
+					<option value="">请选择类型</option>
+					<?php if(is_array($first_channel_type)): foreach($first_channel_type as $key=>$type): ?><option value="<?php echo ($type["channel_type_id"]); ?>"><?php echo ($type["channel_type_name"]); ?></option><?php endforeach; endif; ?>
+				</select>
+                <select name="change_channel_second_type_sel" id="change_channel_second_type_sel" class="channel-select-min">
+					<option value="">全部</option>
+				</select>
+                <a class="channel-wz-a" href="">修改类别</a><a class="channel-wz-a" href="">修改属性</a>
+            </p>
+            <p>
+                <label for="user-phone" class="role-lab">联系人&nbsp;&nbsp;&nbsp;</label>
+                <input type="text" name="change_contacts_txt" id="change_contacts_txt" class="input-role-name"/>
+            </p>
+
+            <p>
+                <label for="user-phone" class="role-lab">联系电话</label>
+                <input type="text" name="change_contacts_tel_txt" id="change_contacts_tel_txt" class="input-role-name"/>
+            </p>
+
+            <p>
+                <label for="login-id" class="role-lab">合同编号</label>
+                <input type="text" name="change_contract_number_txt" id="change_contract_number_txt" class="input-role-name"/>
+            </p>
+
+            <p>
+                <label for="sq-date">授权日期</label>
+                <input type="text" name="change_begin_time_sel" id="change_begin_time_sel" class="input-org-info min-w" 
+					onClick="WdatePicker()" readonly="readonly" style="margin-top: 0;"/>
+                <input type="text" name="change_end_time_sel" id="change_end_time_sel" class="input-org-info min-w" 
+					onClick="WdatePicker()" readonly="readonly" style="margin-top: 0;"/>
+            </p>
+
+            <p>
+                <button type="button" class="alert-btn2" id="submit_change_channel">保存</button>
+				<a href="." class="closeDOMWindow">
+					<button type="button" class="alert-btn2">关闭</button>
+				</a>
+            </p>
         </form>
     </div>
 </div>
@@ -508,8 +566,12 @@
 <!--<script type="text/javascript" src="__PUBLIC__/js/jquery.SuperSlide.2.1.1.js"></script>-->
 <script>
 	var channel_val='';
-	function selectChannelRadio(channel_id){
+	var channel_first_type='';
+	var channel_second_type='';
+	function selectChannelRadio(channel_id, first_type, second_type){
 		channel_val = channel_id;
+		channel_first_type = first_type;
+		channel_second_type = second_type;
 	}
 
     window.onscroll = function () {
@@ -595,8 +657,245 @@
         });
 
 		$('#submit_add_channel').click(function(){
-
+			var handleUrl = "<?php echo U('channel/Channel/channelAdd');?>";
+			var add_channel_name_txt=$("#add_channel_name_txt").val();//渠道商名称
+			var add_agent_id_sel=$("#add_agent_id_sel").val();//所属代理商
+			var add_select_province=$("#add_select_province").val();//省份
+			var add_select_city=$("#add_select_city").val();//城市
+			var add_channel_first_type_sel=$("#add_channel_first_type_sel").val();//类型
+			var add_channel_second_type_sel=$("#add_channel_second_type_sel").val();//属性
+			var add_contacts_txt=$("#add_contacts_txt").val();//联系人名称
+			var add_contacts_tel_txt=$("#add_contacts_tel_txt").val();//联系人电话
+			//var add_channel_address_txt=$("#add_channel_address_txt").val();//渠道商地址
+			var add_contract_number_txt=$("#add_contract_number_txt").val();
+			var add_begin_time_sel=$("#add_begin_time_sel").val();
+			var add_end_time_sel=$("#add_end_time_sel").val();
+			$.getJSON(handleUrl,{"add_channel_name_txt":add_channel_name_txt,"add_agent_id_sel":add_agent_id_sel,
+								 "add_contacts_tel_txt":add_contacts_tel_txt,
+								 "add_select_province":add_select_province,"add_select_city":add_select_city,
+								 "add_channel_first_type_sel":add_channel_first_type_sel,"add_channel_second_type_sel":add_channel_second_type_sel,
+								 "add_contacts_txt":add_contacts_txt,"add_contract_number_txt":add_contract_number_txt,
+								 "add_begin_time_sel":add_begin_time_sel,"add_end_time_sel":add_end_time_sel
+								 },
+				function (data){
+					var tmp_msg = "<?php echo C('add_channel_success');?>";
+					if(tmp_msg == data)
+					{
+						alert(data);
+						window.location.href = window.location.href;
+					}
+					else
+					{
+						alert(data);
+					}
+				}
+			,'json'
+			);	
         });
+
+		$("#b_change_channel").click(function () {
+			var handleUrl = "<?php echo U('channel/Channel/channelDetailSelect');?>";
+			var channel_id=channel_val;
+			$.getJSON(handleUrl,{"channel_id":channel_val},
+				function (data){
+					$("#change_channel_name_txt").val(data['channel_name']);
+					//$("#change_agent_id_sel").val(data['agent_id']);
+
+					var handleUrl = "<?php echo U('channel/Channel/getAllAgent');?>";
+					var agentTab = "";
+					var tmp_agentid;
+					var belong_agent_id = data['agent_id'];
+					$.getJSON(handleUrl,{},
+						function (data){
+							//agentTab += "<option value=\"\">请选择所属代理商</option>";
+							$.each(data, function(i,item){
+								tmp_agentid = item.agent_id;
+								if(tmp_agentid == belong_agent_id)
+								{
+									agentTab += "<option value =" + "'" + item.agent_id + "' selected='selected'>" + item.agent_name + "</option>";
+								}
+								else
+								{
+									agentTab += "<option value =" + "'" + item.agent_id + "'>" + item.agent_name + "</option>";
+								}
+						});
+						$("#change_belong_agent_id_sel").html(agentTab);
+					}
+					,'json'
+					);
+
+					if('' == channel_first_type)
+					{
+						handleUrl = "<?php echo U('channel/Channel/getAllChannelType');?>";
+						var typeTab = "";
+						$.getJSON(handleUrl,{},
+							function (data){
+								typeTab += "<option value=\"\">全部</option>";
+								$.each(data, function(i,item){
+									typeTab += "<option value =" + "'" + item.channel_type_id + "'>" + item.channel_type_name + "</option>";
+							});
+							$("#change_channel_first_type_sel").html(typeTab);
+						}
+						,'json'
+						);
+					}
+					else if('0' == channel_first_type)
+					{
+						handleUrl = "<?php echo U('channel/Channel/getAllChannelType');?>";
+						var typeTab = "";
+						var tmp_typeid;
+						$.getJSON(handleUrl,{},
+							function (data){
+								typeTab += "<option value=\"\">全部</option>";
+								$.each(data, function(i,item){
+									tmp_typeid = item.channel_type_id;
+									if(tmp_typeid == channel_second_type)
+									{
+										typeTab += "<option value =" + "'" + item.channel_type_id + "' selected='selected'>" + item.channel_type_name + "</option>";
+									}
+									else
+									{
+										typeTab += "<option value =" + "'" + item.channel_type_id + "'>" + item.channel_type_name + "</option>";
+									}
+							});
+							$("#change_channel_first_type_sel").html(typeTab);
+						}
+						,'json'
+						);
+
+						handleUrl = "<?php echo U('channel/Channel/channelSecondTypeSelect');?>";
+						var secondTypeTab = "";
+						var tmp_secondTypeid;
+						$.getJSON(handleUrl,{'channel_first_type_sel':channel_second_type},
+							function (data){
+								secondTypeTab += "<option value=\"\">全部</option>";
+								$.each(data, function(i,item){
+									secondTypeTab += "<option value =" + "'" + item.channel_type_id + "'>" + item.channel_type_name + "</option>";
+							});
+							$("#change_channel_second_type_sel").html(secondTypeTab);
+						}
+						,'json'
+						);
+					}
+					else
+					{
+						handleUrl = "<?php echo U('channel/Channel/getAllChannelType');?>";
+						var typeTab = "";
+						var tmp_typeid;
+						$.getJSON(handleUrl,{},
+							function (data){
+								typeTab += "<option value=\"\">全部</option>";
+								$.each(data, function(i,item){
+									tmp_typeid = item.channel_type_id;
+									if(tmp_typeid == channel_first_type)
+									{
+										typeTab += "<option value =" + "'" + item.channel_type_id + "' selected='selected'>" + item.channel_type_name + "</option>";
+									}
+									else
+									{
+										typeTab += "<option value =" + "'" + item.channel_type_id + "'>" + item.channel_type_name + "</option>";
+									}
+							});
+							$("#change_channel_first_type_sel").html(typeTab);
+						}
+						,'json'
+						);
+
+						handleUrl = "<?php echo U('channel/Channel/channelSecondTypeSelect');?>";
+						var secondTypeTab = "";
+						var tmp_secondTypeid;
+						$.getJSON(handleUrl,{'channel_first_type_sel':channel_first_type},
+							function (data){
+								secondTypeTab += "<option value=\"\">全部</option>";
+								$.each(data, function(i,item){
+									tmp_secondTypeid = item.channel_type_id;
+									if(tmp_secondTypeid == channel_second_type)
+									{
+										secondTypeTab += "<option value =" + "'" + item.channel_type_id + "' selected='selected'>" + item.channel_type_name + "</option>";
+									}
+									else
+									{
+										secondTypeTab += "<option value =" + "'" + item.channel_type_id + "'>" + item.channel_type_name + "</option>";
+									}
+							});
+							$("#change_channel_second_type_sel").html(secondTypeTab);
+						}
+						,'json'
+						);
+					}
+
+					$("#change_select_showcity").empty();
+					showprovince("change_select_province", "change_select_city", data['province'], "change_select_showcity");
+					showcity("change_select_city", data['city'], "change_select_province", "change_select_showcity");
+					if('0' == channel_first_type)
+					{
+						$("#change_channel_first_type_sel").val(channel_second_type);
+						$("#change_channel_second_type_sel").val('');
+					}
+					else
+					{
+						$("#change_channel_first_type_sel").val(channel_first_type);
+						$("#change_channel_second_type_sel").val(channel_second_type);
+					}
+					$("#change_contacts_txt").val(data['contacts']);
+					$("#change_contacts_tel_txt").val(data['contacts_tel']);
+					//$("#change_channel_address_txt").val(data['channel_address']);
+					$("#change_contract_number_txt").val(data['contract_number']);
+				}
+			,'json'
+			);
+            $.openDOMWindow({
+			    loader:1,
+				loaderHeight:16,
+				loaderWidth:17,
+				windowSourceID:'#j_change_channel'
+			});
+			return false;
+        });
+
+		$('#submit_change_channel').click(function(){
+			var handleUrl = "<?php echo U('channel/Channel/channelSave');?>";
+			var change_channel_name_txt=$("#change_channel_name_txt").val();//渠道商名称
+			var change_channel_id_txt= channel_val;
+			var change_agent_id_sel=$("#change_belong_agent_id_sel").val();
+			//var change_src_province= channel_province;
+			//var change_src_city= channel_city;
+			var change_dst_province=$("#change_select_province").val();//省份
+			var change_dst_city=$("#change_select_city").val();//城市
+			var src_channel_first_type=channel_first_type;//类型
+			var src_channel_second_type=channel_second_type;//属性
+			var dst_channel_first_type_sel=$("#change_channel_first_type_sel").val();//类型
+			var dst_channel_second_type_sel=$("#change_channel_second_type_sel").val();//属性
+			var change_contacts_txt=$("#change_contacts_txt").val();//联系人名称
+			var change_contacts_tel_txt=$("#change_contacts_tel_txt").val();//联系人电话
+			//var change_channel_address_txt=$("#change_channel_address_txt").val();//渠道商地址
+			var change_contract_number_txt=$("#change_contract_number_txt").val();
+			var change_begin_time_sel=$("#change_begin_time_sel").val();
+			var change_end_time_sel=$("#change_end_time_sel").val();
+			$.getJSON(handleUrl,{"change_channel_name_txt":change_channel_name_txt,"change_channel_id_txt":change_channel_id_txt,
+								"change_agent_id_sel":change_agent_id_sel,"change_dst_province":change_dst_province,"change_dst_city":change_dst_city,
+								 "src_channel_first_type":src_channel_first_type,"src_channel_second_type":src_channel_second_type,
+								 "dst_channel_first_type_sel":dst_channel_first_type_sel,"dst_channel_second_type_sel":dst_channel_second_type_sel,
+								 "change_contacts_txt":change_contacts_txt,"change_contacts_tel_txt":change_contacts_tel_txt,
+								 //"change_channel_tel_txt":change_channel_tel_txt,"change_channel_address_txt":change_channel_address_txt,
+								 "change_contract_number_txt":change_contract_number_txt,"change_begin_time_sel":change_begin_time_sel,
+								 "change_end_time_sel":change_end_time_sel
+								 },
+				function (data){
+					var tmp_msg = "<?php echo C('change_channel_success');?>";
+					if(tmp_msg == data)
+					{
+						alert(data);
+						window.location.href = window.location.href;
+					}
+					else
+					{
+						alert(data);
+					}
+				}
+			,'json'
+			);
+		});
 
     });
 

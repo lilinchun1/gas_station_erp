@@ -8,8 +8,10 @@
 	<script language="javascript" type="text/javascript" src="__PUBLIC__/js/My97DatePicker/WdatePicker.js"></script>
 	<script>
 		var place_val='';
-		function selectPlaceRadio(place_id){
+		var place_flag='';
+		function selectPlaceRadio(place_id,place_delete){
 			place_val = place_id;
+			place_flag = place_delete;
 		}
 	</script>
 </head>
@@ -100,7 +102,7 @@
 			<li>
 				<span class="span-1">
 					<input type="radio" name="placeRadioID" id="{$vo['placeRadioID']}" value="{$vo['place_id']}" 
-						onclick="selectPlaceRadio('{$vo['place_id']}');" class="role-table-radio"/></span>
+						onclick="selectPlaceRadio('{$vo['place_id']}','{$vo['isDelete']}');" class="role-table-radio"/></span>
 				<span class="span-2" title="#">{$vo.place_name}</span>
 				<span class="span-2" title="#">{$vo.channel_name}</span>
 				<span class="span-3" title="#">{$vo.region}</span>
@@ -117,43 +119,9 @@
 			</li>
 		</volist>
     </ul>
-	<div class="resultpage">{$page}</div>
-	<!--
-    <ul class="role-table-list">
-        <li>
-            <span class="span-1"></span>
-            <span class="span-2"><b>网点名称</b></span>
-            <span class="span-2"><b>所属渠道</b></span>
-            <span class="span-3"><b>网点地址</b></span>
-            <span class="span-1"><b>网点电话</b></span>
-            <span class="span-1"><b>启用日期</b></span>
-            <span class="span-1"><b>撤销日期</b></span>
-        </li>
-		<volist name="list" id="vo">
-			<li>
-				<span class="span-1"><input type="radio" name="role-info" id="" class="role-table-radio"/></span>
-				<span class="span-2" title="#">{$vo.place_name}</span>
-				<span class="span-2" title="#">{$vo.channel_name}</span>
-				<span class="span-3" title="#">{$vo.region}</span>
-				<span class="span-1" title="#">{$vo.place_tel}</span>
-				<span class="span-1" title="#">{$vo.begin_time}</span>
-				<span class="span-1" title="#">{$vo.end_time}</span>
-			</li>
-		</volist>
-        <li>
-            <span class="span-1"><input type="radio" name="role-info" id="" class="role-table-radio"/></span>
-            <span class="span-2" title="#">222222222222222</span>
-            <span class="span-2" title="#">Dolore eius expedita molestias!</span>
-            <span class="span-3" title="#">Blanditiis dolorum pariatur vitae?</span>
-            <span class="span-1" title="#">Perspiciatis quae ratione repudiandae!</span>
-            <span class="span-1" title="#">Consequuntur eveniet itaque velit.</span>
-            <span class="span-1" title="#">Aspernatur blanditiis ipsum nulla!</span>
-        </li>
-
-    </ul>
-	-->
 </div>
 </div>
+<div class="resultpage">{$page}</div>
 
 <div class="role-table over-h-y">
     <div class="hd">
@@ -570,6 +538,16 @@
 		change_channel_name_blurry();
 
 		$('#j_del_button').click(function(){
+		    if(place_val == '')
+			{
+				alert("{:C('no_select_data')}");
+				return;
+			}
+			if(place_flag == 1)
+			{
+				alert("{:C('repeal_no_edit')}");
+				return;
+			}
 			 $.openDOMWindow({
 			    loader:1,
 				loaderHeight:16,
@@ -603,6 +581,16 @@
         });
 
 		$("#b_change_place").click(function () {
+			if(place_val == '')
+			{
+				alert("{:C('no_select_data')}");
+				return;
+			}
+			if(place_flag == 1)
+			{
+				alert("{:C('repeal_no_edit')}");
+				return;
+			}
 		    var handleUrl = "{:U('channel/Place/placeDetailSelect')}";
 			var place_id=place_val;
 			$.getJSON(handleUrl,{"place_id":place_id},
@@ -701,6 +689,16 @@
 
 		//撤销网点
         $('#j_repeal_button').click(function(){
+			if(place_val == '')
+			{
+				alert("{:C('no_select_data')}");
+				return;
+			}
+			if(place_flag == 1)
+			{
+				alert("{:C('repeal_no_edit')}");
+				return;
+			}
             var place_id=place_val;
             var del_handleUrl="{:U('channel/Place/placeRepeal')}";
             $.getJSON(del_handleUrl,{"place_id":place_id},

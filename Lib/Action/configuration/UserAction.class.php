@@ -7,11 +7,14 @@ foreach ($_GET as $k=>$v) {
 //职员用户类
 class UserAction extends CommonAction {
 	public function index(){
+		$userinfo = getUserInfo();
+		$this->username = $userinfo['realname']; //登录的用户名
 		$this->display(':user_index');
 	}
 
 	//展示用户
 	public function show_user(){
+		$userinfo = getUserInfo();
 		$Model = new Model();
 		$realname = I('realname_txt');
 		$org_name = I('org_name_txt');
@@ -31,6 +34,11 @@ class UserAction extends CommonAction {
 		if(!empty($username))
 		{
 			$where .= " and a.username='$username'";
+		}
+		if((!empty($userinfo['orgid'])) && (1 != $userinfo['orgid']))
+		{
+			$sub_agent_id = getSubAgentStringFromFatherAgent($userinfo['orgid']);
+			$where .= " and (a.orgid='{$userinfo['orgid']}' or a.orgid in $sub_agent_id)"; //权限限制
 		}
 
 		$count = $Model->table('bi_user a')->where($where)->count();

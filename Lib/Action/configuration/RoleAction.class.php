@@ -7,6 +7,8 @@ foreach ($_GET as $k=>$v) {
 //角色类
 class RoleAction extends CommonAction {
 	public function index(){
+		$userinfo = getUserInfo();
+		$this->username = $userinfo['realname']; //登录的用户名
 		$this->display(':role_index');
 	}
 

@@ -7,12 +7,20 @@ foreach ($_GET as $k=>$v) {
 //组织结构类
 class OrgAction extends CommonAction {
 	public function index(){
+		$userinfo = getUserInfo();
+		$this->username = $userinfo['realname']; //登录的用户名
 		$this->display(':org_index');
 	}
 
 	//树形结构测试
 	public function tree_test(){
 		$this->display(':tree_test');
+	}
+
+	//导入所需数据
+	public function export_data(){
+		$this->export_area();
+		$this->export_total_agent_area();
 	}
 
 	//导入区域数据
@@ -51,7 +59,14 @@ class OrgAction extends CommonAction {
 	//展示组织结构
 	public function show_org_tree(){
 		$Model = new Model();
-		$company_info = $Model->query("select * from qd_agent where isDelete=0");
+		$sql = "select * from qd_agent a where a.isDelete=0";
+		$userinfo = getUserInfo();
+		if((!empty($userinfo['orgid'])) && (1 != $userinfo['orgid']))
+		{
+			$sub_agent_id = getSubAgentStringFromFatherAgent($userinfo['orgid']);
+			$sql .= " and (a.agent_id='{$userinfo['orgid']}' or a.agent_id in $sub_agent_id)"; //权限限制
+		}
+		$company_info = $Model->query($sql);
 		$data = null;
 		foreach($company_info as $key=>$val){
 			$data[$key]['id'] = $val['agent_id'];

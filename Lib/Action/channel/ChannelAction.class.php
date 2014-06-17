@@ -6,10 +6,11 @@ foreach ($_GET as $k=>$v) {
 //渠道商类
 class ChannelAction extends CommonAction {
 	public function index(){
-		/*$userinfo = getUserInfo();
+		$userinfo = getUserInfo();
+		$this->username = $userinfo['realname']; //登录的用户名
+		/*
 		$this->is_channel_user = in_array("渠道部", $userinfo['group']); //等于1为渠道部用户
 		$this->agentsid = $userinfo['agentsid']; //agentsid为空则为总公司
-		$this->username = $userinfo['username']; //登录的用户名
 		$this->is_have_user_purview = in_array($userinfo['grade'], array(1,2,3));
 		*/
 		$first_channel_type = getAllChannelType();
@@ -95,13 +96,13 @@ class ChannelAction extends CommonAction {
 				$where .= " and a.province='$province'";
 			}
 		}
-		/*
-		if(!empty($userinfo['agentsid']))
+		
+		if((!empty($userinfo['orgid'])) && (1 != $userinfo['orgid']))
 		{
-			$sub_agent_id = getSubAgentStringFromFatherAgent($userinfo['agentsid']);
-			$where .= " and (a.agent_id='{$userinfo['agentsid']}' or a.agent_id in $sub_agent_id)"; //权限限制
+			$sub_agent_id = getSubAgentStringFromFatherAgent($userinfo['orgid']);
+			$where .= " and (a.agent_id='{$userinfo['orgid']}' or a.agent_id in $sub_agent_id)"; //权限限制
 		}
-		*/
+
 		$count = $Model->table('qd_channel a, qd_channel_type_link b')->join('qd_channel_type c on b.channel_type_id=c.channel_type_id')->where($where)->count();
 		$Page       = new Page($count, $page_show_number);// 实例化分页类 传入总记录数
 		//$Page->url = 'Agent/agentSelect/p/';

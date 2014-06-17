@@ -1,10 +1,3 @@
-/*
-通用数据水平层级选择控件
-作者：绿豆糕
-版本：v0.70
-修改时间：2010年11月22日
-要求数据格式：纯文本，数据项之间以","分隔，数据项数值和描述文本之间以":"分隔，可以在参数中自定义分隔符。
-*/
 ;(function($){
 
 
@@ -24,7 +17,7 @@ $.openLayer = function(p){
 		title : "选择业务范围,单击省份可以选择所属市",				//弹出窗口标题
 		width : 650,					//弹出窗口宽度
 		span_width : {d1:70,d3:150},	//可以自定义每一层级数据项显示宽度，用来对其排版。
-		url : "http://192.168.0.10/gas_station_erp/index.php/configuration/Org/show_org_area_tree",//"{:U('configuration/Org/show_org_area_tree')}"						//ajax请求url
+		url : "",//"{:U('configuration/Org/show_org_area_tree')}"						//ajax请求url
 		pid : "0",						//父id
 		shared : true,					//如果页面中有多于1个的弹出选择,是否共享缓存数据
 		index : 10005,						//如果页面中有多于1个的弹出选择,如果不共享之前的操作界面则必须设置不同的index值，否则不同的弹出选择共享相同的操作界面。
@@ -74,6 +67,7 @@ $.openLayer = function(p){
 			if ((data == null || data == "") &&  url != ""){
 				//var org_id=$('#agent_pid_hid').val();
 				//alert(id);
+				//alert(url);
 				$.ajax({
 					type : "post",						//post方式
 					url : url,							//ajax查询url

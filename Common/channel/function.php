@@ -1,22 +1,4 @@
 <?php
-//根据用户ID返回用户信息
-function getUserInfo($uid='') {
-	$userinfo = null;
-	$is_open_purview = C('is_open_purview');  //是否开启权限 1开启
-	if('1' == $is_open_purview)
-	{
-		empty($uid)?$user_id=$_SESSION['userinfo']['uid']:$user_id=$uid;
-		$user_db = D('user://User');
-		$userinfo = $user_db->getUser($user_id);
-	}
-	else
-	{
-		$userinfo['group'][1] = "渠道部";
-		$userinfo['username'] =  $_SESSION['userinfo']['username'];
-	}
-	return $userinfo;
-}
-
 //根据整型日期获得字符串日期
 function getDateFromTime($time) {
 	$date = null;
@@ -42,27 +24,6 @@ function getPlacePhotoPathFromID($place_photo_id) {
 	$place_photo_path  =  $Model->query("select image_path from qd_place_image where image_id=" . $place_photo_id);
 
 	return $place_photo_path[0]['image_path'];
-}
-
-//根据1级代理商得到2级代理商数组
-function getSubAgentArrayFromFatherAgent($father_agent_id) {
-	$Model = new Model();
-	$sub_agent_id  =  $Model->query("select agent_id from qd_agent where father_agentid=" . $father_agent_id);
-	return $sub_agent_id;
-}
-
-//根据1级代理商得到2级代理商字符串
-function getSubAgentStringFromFatherAgent($father_agent_id) {
-	$Model = new Model();
-	$sub_agent_id  =  $Model->query("select agent_id from qd_agent where father_agentid=" . $father_agent_id);
-	//$second_type_id_array = array();
-	foreach($sub_agent_id as $key=>$val)
-	{
-		$sub_agent_id_array[] = $val['agent_id'];
-	}
-	$sub_agent_id_array_string = " ('" . implode("','", $sub_agent_id_array) . "')";
-
-	return $sub_agent_id_array_string;
 }
 
 //根据类型得到所有属性

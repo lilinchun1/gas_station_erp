@@ -21,6 +21,8 @@
 				fixDiv.style.position = 'static';
 			}
 		}
+		//禁止浏览器自动填充
+		$("form").attr( "autocomplete","off");
 		//================================================================触发
 		//添加，编辑弹出框
 		$('#rule_no_add,#rule_no_udp').click(function(){

@@ -6,10 +6,10 @@ foreach ($_GET as $k=>$v) {
 //网点类
 class PlaceAction extends CommonAction {
 	public function index(){
-		/*$userinfo = getUserInfo();
-		$this->is_channel_user = in_array("渠道部", $userinfo['group']); //等于1为渠道部用户
+		$userinfo = getUserInfo();
+		$this->username = $userinfo['realname']; //登录的用户名
+		/*$this->is_channel_user = in_array("渠道部", $userinfo['group']); //等于1为渠道部用户
 		$this->agentsid = $userinfo['agentsid']; //agentsid为空则为总公司
-		$this->username = $userinfo['username']; //登录的用户名
 		$this->is_have_user_purview = in_array($userinfo['grade'], array(1,2,3));
 		$first_place_type = getAllChannelType();
 		$this->assign('first_place_type', $first_place_type);*/
@@ -18,7 +18,7 @@ class PlaceAction extends CommonAction {
 
 	//查询网点信息
 	public function placeSelect(){
-		//$userinfo = getUserInfo();
+		$userinfo = getUserInfo();
 	    $Model = new Model();
 		$place_no = trim(I('place_no_txt'));
 		$place_name = trim(I('place_name_txt'));
@@ -69,13 +69,13 @@ class PlaceAction extends CommonAction {
 				$where .= " and a.province='$province'";
 			}
 		}
-		/*
-		if(!empty($userinfo['agentsid']))
+
+		if((!empty($userinfo['orgid'])) && (1 != $userinfo['orgid']))
 		{
-			$sub_agent_id = getSubAgentStringFromFatherAgent($userinfo['agentsid']);
-			$where .= " and (a.agent_id='{$userinfo['agentsid']}' or a.agent_id in $sub_agent_id)"; //权限限制
+			$sub_agent_id = getSubAgentStringFromFatherAgent($userinfo['orgid']);
+			$where .= " and (a.agent_id='{$userinfo['orgid']}' or a.agent_id in $sub_agent_id)"; //权限限制
 		}
-		*/
+
 		$count = $Model->table('qd_place a')->where($where)->count();
 		$Page       = new Page($count, $page_show_number);// 实例化分页类 传入总记录数
 		//$Page->url = 'Agent/agentSelect/p/';
@@ -612,9 +612,9 @@ class PlaceAction extends CommonAction {
 		}
 		if(C('delete_place_success') == $msg)
 		{
-			//$channel_id = getChannelIDFromPlaceID($place_id);
-			//changeNum('place', $channel_id, $place_id, 'minus');
-			//addOptionLog('place', $place_id, 'del', '');
+			$channel_id = getChannelIDFromPlaceID($place_id);
+			changeNum('place', $channel_id, $place_id, 'minus');
+			addOptionLog('place', $place_id, 'del', '');
 		}
 		$this->ajaxReturn($msg,'json');
 		//$this->placeSelect();
@@ -634,9 +634,15 @@ class PlaceAction extends CommonAction {
 		}
 		if(C('repeal_place_success') == $msg)
 		{
-			//$channel_id = getChannelIDFromPlaceID($place_id);
-			//changeNum('place', $channel_id, $place_id, 'minus');
-			//addOptionLog('place', $place_id, 'del', '');
+			$channel_id = getChannelIDFromPlaceID($place_id);
+			$device_info = $Model->query("select device_id from qd_device where place_id=" . $place_id);
+			$DeviceAction = new DeviceAction();
+			foreach($device_info as $key=>$val){
+				$DeviceAction->placeDeviceRepeal($val['device_id']);
+			}
+
+			changeNum('place', $channel_id, $place_id, 'minus');
+			addOptionLog('place', $place_id, 'del', '');
 		}
 		$this->ajaxReturn($msg,'json');
 		//$this->placeSelect();
