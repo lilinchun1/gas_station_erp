@@ -2,11 +2,11 @@
 @import "reset";
 @import "font";
 
-$border-color:#ccc; //通用边框颜色
+$border-color:#DDDDDD; //通用边框颜色
 $container-left-width:200px;  //container 左边栏宽度
 $font-n-color:#333; //默认文字颜色
 $font-h-color:#34acd8; //默认hover文字颜色
-$bg-color:#F4F8F9;
+$bg-color:#f6f6f6;
 $min-width-kuang:1200px;
 %bdrs{//通用圆角边框
   border-radius: 5px;
@@ -53,7 +53,8 @@ $min-width-kuang:1200px;
   line-height: 30px;
   border-bottom: 1px solid $border-color;
   background: $bg-color;}
-
+.fthover{
+  color: $font-h-color;}
 /*通用头部*/
 #head{
   min-width: $min-width-kuang;
@@ -408,6 +409,14 @@ $min-width-kuang:1200px;
 .alert-btn2{
   @extend %small-btn;
   margin: 20px 0 0 60px;
+}
+.alert-btn3{
+  @extend %small-btn;
+  margin: 0 0 0 20px;
+}
+.alert-btn4{
+  @extend %small-btn;
+  margin: 0 0 0 200px;
 }
 .delete-message{
   margin-top: 20px;
@@ -849,3 +858,75 @@ $min-width-kuang:1200px;
   width: 820px;
   overflow: hidden;
   background: #ffffff;}
+
+/*版本升级*/
+.verup-alert-add{
+  width: 712px;
+  background: #ffffff;
+    h3{
+      @extend %alert-box-tt;
+    }
+}
+.verup-alert-con{
+  padding-bottom: 30px;
+  width: 712px;
+  overflow: hidden;}
+.verup-alert-con-left{
+  padding: 20px 0 0 20px;
+  float: left;
+    p{
+      margin-bottom: 20px;}
+}
+.verup-alert-con-right{
+  margin-top: 10px;
+  padding-left: 80px;
+  float: left;}
+.alt-btn-sc{
+  padding-left: 20%;
+  float: left;
+  width: 100%;}
+.verup-tree-tab{
+  height: 26px;
+  line-height: 26px;
+  a{
+    margin-left: 60px;
+    float: left;}
+  .active{
+    color: $font-h-color;
+    font-weight: bold;}
+}
+.verup-alert-query{
+  margin-bottom: 25px;}
+.verup-alert-list{
+  padding-top: 30px;
+
+}
+.verup-list-con{
+  display: table;
+  border: 1px solid $border-color;
+
+    li{
+      height: 25px;
+
+      display: table-row;
+        span{
+          padding: 0 5px;
+          width: 125px;
+          height: 25px;
+          line-height: 25px;
+          display: inline-block;
+          overflow: hidden;
+
+        }
+      &:nth-child(2n){
+        background: $bg-color;}
+    }
+
+}
+.verup-alert-close{
+  float: right;
+  width: 30px;
+  height: 30px;
+  text-align: center;
+  cursor: pointer;
+}

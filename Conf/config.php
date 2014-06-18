@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 return array(
 	//'配置项'=>'配置值'
 	// 添加数据库配置信息
@@ -14,13 +14,8 @@ return array(
 	'ROOT_USER_REALNAME' => '根用户', // 根用户用户名
 	'DEFAULT_CHARSET' => 'utf-8',
 	'OUTPUT_CHARSET' => 'utf-8',
-<<<<<<< .mine
-	'DOMAIN' => 'http://127.0.0.1/',
-	'LOAD_EXT_CONFIG' => 'configuration_message,channel_message',
-=======
-	'DOMAIN' => 'http://192.168.0.10/',
+	'DOMAIN' => 'http://192.168.0.65/',
 	'LOAD_EXT_CONFIG' => 'configuration_message,channel_message,channel_property',
->>>>>>> .r2869
 	//'LAYOUT_ON'=>true,
 	//'LAYOUT_NAME'=>'layout',
 	'VAR_FILTERS'=>'htmlspecialchars'

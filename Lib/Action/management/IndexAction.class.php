@@ -241,6 +241,20 @@ class IndexAction extends Action {
 			//}
 			$this->display(':rule_send');
 	}
+	
+	
+	function verup(){
+		//echo 4353246;
+		$this->display(':verup');
+	}
+	
+	
+	
+	
+	
+	
+	
+	
 	//自动补全对应函数	
 	function getAppRule(){
 		$model = new Model();
@@ -280,5 +294,24 @@ class IndexAction extends Action {
 		$this->assign('iosArr', $iosArr);
 		$this->assign('androidArr', $androidArr);
 		$this->display(':app_info');
+	}
+	
+	function getChannelArr(){
+		$arr[0]['value'] = "辽宁省";
+		$arr[0]['id'] = 1;
+		$arr[0]['pid'] = 0;
+		
+		$arr[1]['value'] = 1;
+		$arr[1]['id'] = 1;
+		$arr[1]['pid'] = 1;
+		
+		$arr[2]['value'] = 1;
+		$arr[2]['id'] = 1;
+		$arr[2]['pid'] = 1;
+		
+		$arr[3]['value'] = 1;
+		$arr[3]['id'] = 1;
+		$arr[3]['pid'] = 1;
+		echo json_encode($arr);
 	}
 }

@@ -786,7 +786,7 @@
 				function (data){
 					$.each(data, function(i,item){
 						    $("#channel_log_info").append("<li><span class='span-3'>" + item.user + "</span><span class='span-3'>" +
-								item.time + "</span><span class='span-3'>" + item.info + "</span></li>");
+								item.time + "</span><span class='span-3' title='" + item.info + "'>" + item.info + "</span></li>");
 					});
 			}
 			,'json'

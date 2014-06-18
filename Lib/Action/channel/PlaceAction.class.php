@@ -479,12 +479,14 @@ class PlaceAction extends CommonAction {
 		$src_place_log_info[0]['place_type_name'] = getTypeNameFromID($src_place_log_info[0]['place_type_id']);
 		unset($src_place_log_info[0]['place_type_id']);
 		unset($src_place_log_info[0]['agent_id']);
+		/*
 		$src_place_log_info[0]['power_on_time'] = intval($src_place_log_info[0]['power_on_time']/100) . '时' .
 			$src_place_log_info[0]['power_on_time']%100 . "分";
 		$src_place_log_info[0]['power_off_time'] = intval($src_place_log_info[0]['power_off_time']/100) . '时' .
 			$src_place_log_info[0]['power_off_time']%100 . "分";
 		$src_place_log_info[0]['power_on_duration'] = intval($src_place_log_info[0]['power_on_duration']/100) . '时' .
 			$src_place_log_info[0]['power_on_duration']%100 . "分";
+			*/
 		$is_purview = judgeAgentPurview($userinfo['agentsid'], $agent_id);
 		if(!$is_purview)
 		{
@@ -610,12 +612,14 @@ class PlaceAction extends CommonAction {
 			unset($dst_place_log_info[0]['channel_id']);
 			$dst_place_log_info[0]['place_type_name'] = getTypeNameFromID($dst_place_log_info[0]['place_type_id']);
 			unset($dst_place_log_info[0]['place_type_id']);
+			/*
 			$dst_place_log_info[0]['power_on_time'] = intval($dst_place_log_info[0]['power_on_time']/100) . '时' .
 				$dst_place_log_info[0]['power_on_time']%100 . "分";
 			$dst_place_log_info[0]['power_off_time'] = intval($dst_place_log_info[0]['power_off_time']/100) . '时' .
 				$dst_place_log_info[0]['power_off_time']%100 . "分";
 			$dst_place_log_info[0]['power_on_duration'] = intval($dst_place_log_info[0]['power_on_duration']/100) . '时' .
 				$dst_place_log_info[0]['power_on_duration']%100 . "分";
+				*/
 			$log_description = getChangeLogDescription($src_place_log_info[0], $dst_place_log_info[0]);  //获取修改的详细记录
 			if(0 != $log_photo_change_num)
 			{
@@ -658,7 +662,8 @@ class PlaceAction extends CommonAction {
 		$place_id = trim(I('place_id'));
 
 	    $Model = new Model();
-		$place = M("place");
+		$place = M("place","qd_");
+		$device = M("device","qd_");
 		$msg = C('repeal_place_success');
 		$is_set = $place->where("place_id='$place_id'")->setField('isDelete', 1);
 		if($is_set <= 0)
@@ -669,9 +674,8 @@ class PlaceAction extends CommonAction {
 		{
 			$channel_id = getChannelIDFromPlaceID($place_id);
 			$device_info = $Model->query("select device_id from qd_device where place_id=" . $place_id);
-			$DeviceAction = new DeviceAction();
 			foreach($device_info as $key=>$val){
-				$DeviceAction->placeDeviceRepeal($val['device_id']);
+				$is_set = $device->where("device_id=" . $val['device_id'])->setField('isDelete', 1);
 			}
 
 			changeNum('place', $channel_id, $place_id, 'minus');

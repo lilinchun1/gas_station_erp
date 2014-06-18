@@ -516,7 +516,9 @@ class ChannelAction extends CommonAction {
 		$channel_id = trim(I('get.channel_id'));
 
 	    $Model = new Model();
-		$channel = M("channel");
+		$channel = M("channel","qd_");
+		$place = M("place","qd_");
+		$device = M("device","qd_");
 		$msg = C('delete_channel_success');
 
 		$is_set = $channel->where("channel_id=" . $channel_id)->setField('isDelete', 1);
@@ -530,9 +532,17 @@ class ChannelAction extends CommonAction {
 
 		if($msg == C('delete_channel_success'))
 		{
-			//$agent_id = getAgentIDFromChannelID($channel_id);
-			//changeNum('channel', $agent_id, $channel_id, 'minus');
-			//addOptionLog('channel', $channel_id, 'del', '');
+			$place_info = $Model->query("select place_id from qd_place where channel_id=" . $channel_id);
+			foreach($place_info as $key=>$val){
+				$is_set = $place->where("place_id=" . $val['place_id'])->setField('isDelete', 1);
+				$device_info = $Model->query("select device_id from qd_device where place_id=" . $val['place_id']);
+				foreach($device_info as $d_key=>$d_val){
+					$is_set = $device->where("device_id=" . $d_val['device_id'])->setField('isDelete', 1);
+				}
+			}
+			$agent_id = getAgentIDFromChannelID($channel_id);
+			changeNum('channel', $agent_id, $channel_id, 'minus');
+			addOptionLog('channel', $channel_id, 'del', '');
 		}
 
 		$this->ajaxReturn($msg,'json');

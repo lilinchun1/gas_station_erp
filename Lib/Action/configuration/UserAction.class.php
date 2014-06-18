@@ -88,12 +88,13 @@ class UserAction extends CommonAction {
 
 	//添加用户
 	public function add_user(){
+		$userinfo = getUserInfo();
 		$username = trim(I('add_user_name_txt'));
 		$password = C('initial_password');
 		$telphone = trim(I('add_telphone_txt'));
 		$email = trim(I('add_email_txt'));
 		$realname = trim(I('add_realname_txt'));
-		$adduserid = $_SEESION['userinfo']['uid'];
+		$adduserid = $userinfo['uid'];
 		$adddate = strtotime(date('Y-m-d'));
 		$sex = intval(trim(I('add_sex_txt')));
 		$orgid = trim(I('add_org_txt'));
@@ -159,14 +160,15 @@ class UserAction extends CommonAction {
 
      //编辑用户
      public function edit_user(){
+		$userinfo = getUserInfo();
 		$userid = trim(I('modify_userid_txt'));
 		$username = trim(I('modify_user_name_txt'));
 		$telphone = trim(I('modify_telphone_txt'));
 		$email = trim(I('modify_email_txt'));
 		$realname = trim(I('modify_realname_txt'));
-		$modifyuserid = $_SEESION['userinfo']['uid'];
+		$modifyuserid = $userinfo['uid'];
 		$modifydate = strtotime(date('Y-m-d'));
-		$sex = trim(I('modify_sex_txt'));
+		$sex = intval(trim(I('modify_sex_txt')));
 		$orgid = trim(I('modify_org_txt'));
 		//$memo = trim(I('modify_memo_txt'));
 		$roleid = trim(I('modify_role_txt'));
