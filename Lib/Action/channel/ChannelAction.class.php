@@ -151,6 +151,35 @@ class ChannelAction extends CommonAction {
 		$this->index();
 	}
 
+	//查询渠道商日志信息
+	public function channelLogSelect(){
+		$Model = new Model();
+		$channel_id = trim(I('channel_id'));;
+		$channel_log = $Model->query("select a.logs_id, a.userid, a.timestamp, a.option_type from qd_logs_option a where a.option_id='$channel_id' and 
+			a.option_name='channel'");
+		$data = null;
+		foreach($channel_log as $key=>$val){
+			if(0 == $val['userid']){
+				$data[$key]['user'] = "根用户";
+			}else{
+				$tmp_username = $Model->query("select a.username from bi_user a where a.uid=" . $val['userid']);
+				$data[$key]['user'] = $tmp_username[0]['username'];
+			}
+			$data[$key]['time'] = date('Y-m-d', $val['timestamp']);
+			if('add' == $val['option_type']){
+				$data[$key]['info'] = "添加";
+			}
+			elseif('del' == $val['option_type']){
+				$data[$key]['info'] = "撤销";
+			}
+			elseif('change' == $val['option_type']){
+				$tmp_descrption = $Model->query("select a.option_descrption from qd_logs_option_description a where a.option_log_id=" . $val['logs_id']);
+				$data[$key]['info'] = $tmp_descrption[0]['option_descrption'];
+			}
+		}
+		$this->ajaxReturn($data,'json');
+	}
+
      //根据渠道ID查询渠道商详细信息
      public function channelDetailSelect(){
 	    $Model = new Model();
@@ -345,17 +374,6 @@ class ChannelAction extends CommonAction {
 		$Model = new Model();
 		$channel = M("channel");
 		$channel_area = M("channel_area");
-		if($src_city != $dst_city)
-		{
-			$channel_count = $Model->query("select count(*) as count from qd_channel a, qd_channel_area b where a.channel_name='%s' 
-				and a.channel_id=b.channel_id and b.province='%s' and b.city='%s'", $channel_name, $dst_province, $dst_city);
-		}
-		if($channel_count[0]['count'] > 0)
-		{
-			$msg = C('channel_exist');
-			$this->ajaxReturn($msg,'json');
-			return;
-		}
 		$result = $channel->query("select ifnull(channel_id,0) as channel_id from qd_channel where channel_name='$channel_name'");
 		$src_agent_id = getAgentIDFromChannelID($channel_id);
 		$src_channel_log_info = $Model->table('qd_channel')->where("channel_id=" . $channel_id)->select();  //查询修改前的信息，用于日志对比

@@ -16,7 +16,7 @@
     <div class="login">
         <div class="left">
             <ul class="left-nav">
-                <li>赵洋,您好 <span></span>
+                <li><?php echo ($username); ?>,您好 <span></span>
                     <ul>
                         <li><a href="javascript:void(0);" onclick="show_change_password()">修改密码</a></li>
                     </ul>
@@ -150,7 +150,7 @@
                     <span class="span-1">
 						<input type="radio" name="channelDetailID" id="<?php echo ($vo['channelDetailID']); ?>" value="<?php echo ($vo['channel_id']); ?>" 
 							onclick="selectChannelRadio('<?php echo ($vo['channel_id']); ?>','<?php echo ($vo['channel_type_father_id']); ?>',
-							'<?php echo ($vo['channel_type_id']); ?>');" class="role-table-radio"/>
+							'<?php echo ($vo['channel_type_id']); ?>','<?php echo ($vo['isDelete']); ?>');" class="role-table-radio"/>
 					</span>
                     <span class="span-1" title="#"><?php echo ($vo["channel_name"]); ?></span>
                     <span class="span-1" title="#"><?php echo ($vo["channel_type_name"]); ?></span>
@@ -566,12 +566,14 @@
 <!--<script type="text/javascript" src="__PUBLIC__/js/jquery.SuperSlide.2.1.1.js"></script>-->
 <script>
 	var channel_val='';
+	var channel_flag='';
 	var channel_first_type='';
 	var channel_second_type='';
-	function selectChannelRadio(channel_id, first_type, second_type){
+	function selectChannelRadio(channel_id, first_type, second_type, channel_delete){
 		channel_val = channel_id;
 		channel_first_type = first_type;
 		channel_second_type = second_type;
+		channel_flag = channel_delete;
 	}
 
     window.onscroll = function () {
@@ -635,6 +637,16 @@
         });
 
 		$("#delete_contract").click(function () {
+			if(channel_val == '')
+			{
+				alert("<?php echo C('no_select_data');?>");
+				return;
+			}
+			if(channel_flag == 1)
+			{
+				alert("<?php echo C('repeal_no_edit');?>");
+				return;
+			}
             var channel_id= channel_val;
             var del_handleUrl="<?php echo U('channel/Channel/channelContractDelete');?>";
             $.getJSON(del_handleUrl,{"channel_id":channel_id},
@@ -694,6 +706,16 @@
         });
 
 		$("#b_change_channel").click(function () {
+			if(channel_val == '')
+			{
+				alert("<?php echo C('no_select_data');?>");
+				return;
+			}
+			if(channel_flag == 1)
+			{
+				alert("<?php echo C('repeal_no_edit');?>");
+				return;
+			}
 			var handleUrl = "<?php echo U('channel/Channel/channelDetailSelect');?>";
 			var channel_id=channel_val;
 			$.getJSON(handleUrl,{"channel_id":channel_val},

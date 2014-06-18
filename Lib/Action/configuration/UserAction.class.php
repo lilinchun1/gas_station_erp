@@ -95,7 +95,7 @@ class UserAction extends CommonAction {
 		$realname = trim(I('add_realname_txt'));
 		$adduserid = $_SEESION['userinfo']['uid'];
 		$adddate = strtotime(date('Y-m-d'));
-		$sex = trim(I('add_sex_txt'));
+		$sex = intval(trim(I('add_sex_txt')));
 		$orgid = trim(I('add_org_txt'));
 		//$memo = trim(I('add_memo_txt'));
 		$del_flag = 0;

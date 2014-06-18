@@ -158,6 +158,35 @@ class PlaceAction extends CommonAction {
 		$this->index();
 	}
 
+	//查询网点日志信息
+	public function placeLogSelect(){
+		$Model = new Model();
+		$place_id = trim(I('place_id'));;
+		$place_log = $Model->query("select a.logs_id, a.userid, a.timestamp, a.option_type from qd_logs_option a where a.option_id='$place_id' and 
+			a.option_name='place'");
+		$data = null;
+		foreach($place_log as $key=>$val){
+			if(0 == $val['userid']){
+				$data[$key]['user'] = "根用户";
+			}else{
+				$tmp_username = $Model->query("select a.username from bi_user a where a.uid=" . $val['userid']);
+				$data[$key]['user'] = $tmp_username[0]['username'];
+			}
+			$data[$key]['time'] = date('Y-m-d', $val['timestamp']);
+			if('add' == $val['option_type']){
+				$data[$key]['info'] = "添加";
+			}
+			elseif('del' == $val['option_type']){
+				$data[$key]['info'] = "撤销";
+			}
+			elseif('change' == $val['option_type']){
+				$tmp_descrption = $Model->query("select a.option_descrption from qd_logs_option_description a where a.option_log_id=" . $val['logs_id']);
+				$data[$key]['info'] = $tmp_descrption[0]['option_descrption'];
+			}
+		}
+		$this->ajaxReturn($data,'json');
+	}
+
      //根据网点ID查询网点详细信息
      public function placeDetailSelect(){
 	    $Model = new Model();
@@ -601,20 +630,24 @@ class PlaceAction extends CommonAction {
     //删除网点
 	public function placeDelete(){
 		$place_id = trim(I('place_id'));
-
 	    $Model = new Model();
 		$place = M("place");
 		$msg = C('delete_place_success');
-		$is_set = $place->where("place_id='$place_id'")->delete();
-		if($is_set <= 0)
-		{
-			$this->msg = C('delete_place_failed');
-		}
-		if(C('delete_place_success') == $msg)
-		{
-			$channel_id = getChannelIDFromPlaceID($place_id);
-			changeNum('place', $channel_id, $place_id, 'minus');
-			addOptionLog('place', $place_id, 'del', '');
+		$device_info = $Model->query("select device_id from qd_device where place_id=" . $place_id);
+		if(!empty($device_info[0]['device_id'])){
+			$msg = C('place_have_device');
+		}else{
+			$is_set = $place->where("place_id='$place_id'")->delete();
+			if($is_set <= 0)
+			{
+				$msg = C('delete_place_failed');
+			}
+			if(C('delete_place_success') == $msg)
+			{
+				$channel_id = getChannelIDFromPlaceID($place_id);
+				changeNum('place', $channel_id, $place_id, 'minus');
+				addOptionLog('place', $place_id, 'del', '');
+			}
 		}
 		$this->ajaxReturn($msg,'json');
 		//$this->placeSelect();
@@ -630,7 +663,7 @@ class PlaceAction extends CommonAction {
 		$is_set = $place->where("place_id='$place_id'")->setField('isDelete', 1);
 		if($is_set <= 0)
 		{
-			$this->msg = C('repeal_place_failed');
+			$msg = C('repeal_place_failed');
 		}
 		if(C('repeal_place_success') == $msg)
 		{

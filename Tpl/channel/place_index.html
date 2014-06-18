@@ -99,10 +99,10 @@
 			</if>
         </li>
 		 <volist name="list" id="vo">
-			<li>
+			<li class="list_sel" onclick="selectPlaceRadio('{$vo['place_id']}','{$vo['isDelete']}');">
 				<span class="span-1">
 					<input type="radio" name="placeRadioID" id="{$vo['placeRadioID']}" value="{$vo['place_id']}" 
-						onclick="selectPlaceRadio('{$vo['place_id']}','{$vo['isDelete']}');" class="role-table-radio"/></span>
+						 class="role-table-radio"/></span>
 				<span class="span-2" title="#">{$vo.place_name}</span>
 				<span class="span-2" title="#">{$vo.channel_name}</span>
 				<span class="span-3" title="#">{$vo.region}</span>
@@ -131,92 +131,7 @@
         </ul>
     </div>
     <div class="bd">
-        <ul class="role-table-list role-table-list2">
-            <li>
-                <span class="span-3"><b>操作人</b></span>
-                <span class="span-3"><b>操作时间</b></span>
-                <span class="span-3"><b>操作内容</b></span>
-            </li>
-            <li>
-                <span class="span-3" title="#">Lorem ipsum dolor sit amet.</span>
-                <span class="span-3" title="#">Beatae fugiat impedit ipsa porro!</span>
-                <span class="span-3" title="#">Atque corporis laudantium perspiciatis qui?</span>
-            </li>
-            <li>
-                <span class="span-3" title="#">Lorem ipsum dolor sit amet.</span>
-                <span class="span-3" title="#">Beatae fugiat impedit ipsa porro!</span>
-                <span class="span-3" title="#">Atque corporis laudantium perspiciatis qui?</span>
-            </li>
-            <li>
-                <span class="span-3" title="#">Lorem ipsum dolor sit amet.</span>
-                <span class="span-3" title="#">Beatae fugiat impedit ipsa porro!</span>
-                <span class="span-3" title="#">Atque corporis laudantium perspiciatis qui?</span>
-            </li>
-            <li>
-                <span class="span-3" title="#">Lorem ipsum dolor sit amet.</span>
-                <span class="span-3" title="#">Beatae fugiat impedit ipsa porro!</span>
-                <span class="span-3" title="#">Atque corporis laudantium perspiciatis qui?</span>
-            </li>
-            <li>
-                <span class="span-3" title="#">Lorem ipsum dolor sit amet.</span>
-                <span class="span-3" title="#">Beatae fugiat impedit ipsa porro!</span>
-                <span class="span-3" title="#">Atque corporis laudantium perspiciatis qui?</span>
-            </li>
-            <li>
-                <span class="span-3" title="#">Lorem ipsum dolor sit amet.</span>
-                <span class="span-3" title="#">Beatae fugiat impedit ipsa porro!</span>
-                <span class="span-3" title="#">Atque corporis laudantium perspiciatis qui?</span>
-            </li>
-            <li>
-                <span class="span-3" title="#">Lorem ipsum dolor sit amet.</span>
-                <span class="span-3" title="#">Beatae fugiat impedit ipsa porro!</span>
-                <span class="span-3" title="#">Atque corporis laudantium perspiciatis qui?</span>
-            </li>
-            <li>
-                <span class="span-3" title="#">Lorem ipsum dolor sit amet.</span>
-                <span class="span-3" title="#">Beatae fugiat impedit ipsa porro!</span>
-                <span class="span-3" title="#">Atque corporis laudantium perspiciatis qui?</span>
-            </li>
-            <li>
-                <span class="span-3" title="#">Lorem ipsum dolor sit amet.</span>
-                <span class="span-3" title="#">Beatae fugiat impedit ipsa porro!</span>
-                <span class="span-3" title="#">Atque corporis laudantium perspiciatis qui?</span>
-            </li>
-            <li>
-                <span class="span-3" title="#">Lorem ipsum dolor sit amet.</span>
-                <span class="span-3" title="#">Beatae fugiat impedit ipsa porro!</span>
-                <span class="span-3" title="#">Atque corporis laudantium perspiciatis qui?</span>
-            </li>
-            <li>
-                <span class="span-3" title="#">Lorem ipsum dolor sit amet.</span>
-                <span class="span-3" title="#">Beatae fugiat impedit ipsa porro!</span>
-                <span class="span-3" title="#">Atque corporis laudantium perspiciatis qui?</span>
-            </li>
-            <li>
-                <span class="span-3" title="#">Lorem ipsum dolor sit amet.</span>
-                <span class="span-3" title="#">Beatae fugiat impedit ipsa porro!</span>
-                <span class="span-3" title="#">Atque corporis laudantium perspiciatis qui?</span>
-            </li>
-            <li>
-                <span class="span-3" title="#">Lorem ipsum dolor sit amet.</span>
-                <span class="span-3" title="#">Beatae fugiat impedit ipsa porro!</span>
-                <span class="span-3" title="#">Atque corporis laudantium perspiciatis qui?</span>
-            </li>
-            <li>
-                <span class="span-3" title="#">Lorem ipsum dolor sit amet.</span>
-                <span class="span-3" title="#">Beatae fugiat impedit ipsa porro!</span>
-                <span class="span-3" title="#">Atque corporis laudantium perspiciatis qui?</span>
-            </li>
-            <li>
-                <span class="span-3" title="#">Lorem ipsum dolor sit amet.</span>
-                <span class="span-3" title="#">Beatae fugiat impedit ipsa porro!</span>
-                <span class="span-3" title="#">Atque corporis laudantium perspiciatis qui?</span>
-            </li>
-            <li>
-                <span class="span-3" title="#">Lorem ipsum dolor sit amet.</span>
-                <span class="span-3" title="#">Beatae fugiat impedit ipsa porro!</span>
-                <span class="span-3" title="#">Atque corporis laudantium perspiciatis qui?</span>
-            </li>
+        <ul id="place_log_info" class="role-table-list role-table-list2">
         </ul>
         <!--<ul class="role-table-list role-table-list2">
             <li>
@@ -527,8 +442,10 @@
 	 $(document).ready(function () {
 		var state = "{$isDeleteResult}";
 		if(1 == state){
+			$("#place_select_result_ul").empty();
 			$("#place_select_result_ul").append("<li onclick='place_use_select();'>启用</li><li class='on' onclick='place_remove_select();'>撤销</li>");
 		}else{
+			$("#place_select_result_ul").empty();
 			$("#place_select_result_ul").append("<li class='on' onclick='place_use_select();'>启用</li><li onclick='place_remove_select();'>撤销</li>");
 		}
 
@@ -571,6 +488,9 @@
         });
 
 		$("#b_add_place").click(function () {
+			$("#add_select_showcity").empty();
+		    showprovince("add_select_province", "add_select_city", "省份", "add_select_showcity");
+			showcity("add_select_city", "城市", "add_select_province", "add_select_showcity");
              $.openDOMWindow({
 			     loader:1,
 				 loaderHeight:16,
@@ -758,6 +678,23 @@
 			);
         });
 
+		$(".list_sel").click(function(){
+			$(this).find(".role-table-radio").attr("checked",'checked');
+			$("#place_log_info").empty();
+			$("#place_log_info").append("<li><span class='span-3'><b>操作人</b></span><span class='span-3'><b>操作时间</b></span><span class='span-3'><b>操作日志</b></span></li>");
+			var handleUrl = "{:U('channel/Place/placeLogSelect')}";
+			var place_id=place_val;
+			$.getJSON(handleUrl,{"place_id":place_id},
+				function (data){
+					$.each(data, function(i,item){
+						    $("#place_log_info").append("<li><span class='span-3'>" + item.user + "</span><span class='span-3'>" +
+								item.time + "</span><span class='span-3'>" + item.info + "</span></li>");
+					});
+			}
+			,'json'
+			);
+		});
+
 	});
 
 	$('#submit_change_place').click(function(){
@@ -874,10 +811,6 @@
 		$("#select_del_flag_txt").val(1);
 		placeSelect.submit();
 	}
-</script>
-<script type="text/javascript">
-			showprovince("add_select_province", "add_select_city", "省份", "add_select_showcity");
-			showcity("add_select_city", "城市", "add_select_province", "add_select_showcity"); 
 </script>
 <script type="text/javascript">jQuery(".role-table").slide({trigger: "click"});</script>
 </body>

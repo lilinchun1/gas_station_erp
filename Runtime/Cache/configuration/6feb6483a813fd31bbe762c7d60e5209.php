@@ -13,10 +13,10 @@
         智能手机加油站业务支撑系统
     </h1>
     <div class="index-login-con">
-        <p><label for="user-name">用户名:</label><input type="text" name="username" id="username" AUTOCOMPLETE="off" class="index-login-input"/></p>
-        <p><label for="pass">密码:</label><input type="text" name="password" id="password" AUTOCOMPLETE="off" /></p>
+        <p><label for="username">用户名:</label><input type="text" name="username" id="username" AUTOCOMPLETE="off" class="index-login-input"/></p>
+        <p><label for="password">密码:</label><input type="text" name="password" id="password" AUTOCOMPLETE="off" /></p>
         <p>
-            <label for="auth-code">验证码:</label><input type="text" name="verify" id="verify" AUTOCOMPLETE="off" class="index-login-input"/>
+            <label for="verify">验证码:</label><input type="text" name="verify" id="verify" AUTOCOMPLETE="off" class="index-login-input"/>
             <img src="<?php echo U('configuration/Login/verify');?>" id="verifyImg" />
             <a href="#" onclick="fleshVerify()">换一换</a>
         </p>

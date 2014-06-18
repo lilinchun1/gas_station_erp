@@ -23,7 +23,7 @@ class UserModel extends Model {
 			}
 			//array('agentsid'=>$userinfo[0]['agentsid'], 'grade'=>$userinfo[0]['grade'], 'username'=>$userinfo[0]['username'], 'realname'=>$userinfo[0]['realname'], 'agentsname'=>$userinfo[0]['agentsname']);
 		} else {
-			$user = array('uid'=>0, 'orgid'=>'', 'role'=>0, 'grade'=>1, 'username'=>'admin', 'realname'=>'root_user');
+			$user = array('uid'=>0, 'orgid'=>'', 'role'=>0, 'grade'=>1, 'username'=>'admin', 'realname'=>'根用户');
 		}
 		return $user;
 	}

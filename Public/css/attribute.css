@@ -1,0 +1,99 @@
+@charset "utf-8";
+.attribute{
+	text-decoration:underline;
+	cursor: pointer;
+	color:#9b9b9b;
+	font-size:12px;
+	margin-left:10px;
+}
+.mod_sort{
+	background: url(../image/attr_bg.png) no-repeat;
+	width:498px;
+	height:259px;
+	margin-left:140px;
+	position:absolute;
+	margin-top:-15px;
+}
+.mod_txt{
+	margin-top:40px;
+	margin-left:30px;
+	font-size:12px;
+}
+#mod_kl{
+	height:148px;
+}
+#mod_kl input[type="text"]{
+	background-color:#ffffff;
+	width:110px;
+	height:21px;
+	text-align:center;
+	border:0;
+}
+.add_sort{
+	margin-left:25px;
+	margin-top:10px;
+	width:128px;
+	height:21px;
+	text-align:center;
+	border:0;
+
+}
+.mod_but{
+	background: url(../image/complete.png) no-repeat;
+	width:81px;
+	height:31px;
+	border:0;
+	cursor: pointer;
+	margin-left:204px;
+}
+.delect_sort{
+	background: url(../image/delect_s.png) no-repeat;
+	width:9px;
+	height:9px;
+	vertical-align:middle;
+	border:0;
+	cursor: pointer;
+	background-color:#ffffff;
+}
+#mod_kl div{
+	margin-left:25px;
+	margin-top:10px;
+	border:#cccccc solid 1px;
+	height: 21px;
+	float:left;
+	line-height:21px;
+	background-color:#ffffff;
+}
+
+#mod_arrt{
+	background: url(../image/arrt.png) no-repeat;
+	width:498px;
+	height:259px;
+	margin-left:120px;
+	position:absolute;
+	margin-top:-15px;
+}
+#select_sort{
+	margin-top:36px;
+	margin-left:20px;
+	width:130px;
+}
+#mod_arrt_bl div{
+	margin-left:25px;
+	margin-top:10px;
+	border:#cccccc solid 1px;
+	height: 21px;
+	float:left;
+	line-height:21px;
+	background-color:#ffffff;
+}
+#mod_arrt_bl input[type="text"]{
+	background-color:#ffffff;
+	width:110px;
+	height:21px;
+	text-align:center;
+	border:0;
+}
+#mod_arrt_bl{
+	height:148px;
+}

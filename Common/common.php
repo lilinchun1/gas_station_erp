@@ -55,4 +55,40 @@ function GetInt4d($data, $pos) {
 	}
 	return $value;
 }
+
+function getChangeLogDescription($src_log_info, $dst_log_info){
+	$log_description = '';
+	$property = "属性";
+	foreach($src_log_info as $key=>$val)
+	{
+		if($val != $dst_log_info[$key])
+		{
+			if(C($key))
+			{
+				$property = C($key);
+			}
+			if(!empty($val))
+			{
+				$src_property_info = C($val);
+				$src_property_info = empty($src_property_info)?$val:$src_property_info;
+			}
+			else
+			{
+				$src_property_info = '空';
+			}
+			if(!empty($dst_log_info[$key]))
+			{
+				$dst_property_info = C($dst_log_info[$key]);
+				$dst_property_info = empty($dst_property_info)?$dst_log_info[$key]:$dst_property_info;
+			}
+			else
+			{
+				$dst_property_info = '空';
+			}
+
+			$log_description .= "修改内容: " . $property . "由" . $src_property_info . "变更为:" . $dst_property_info . ";<br>";
+		}
+	}
+	return $log_description;
+}
 ?>

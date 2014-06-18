@@ -13,28 +13,51 @@
     <div class="login">
         <div class="left">
             <ul class="left-nav">
-                <li>赵洋,您好 <span></span>
+                <li><?php echo ($username); ?>,您好 <span></span>
                     <ul>
-                        <li><a href="">修改密码</a></li>
+                        <li><a href="javascript:void(0);" onclick="show_change_password()">修改密码</a></li>
                     </ul>
                 </li>
             </ul>
         </div>
         <div class="right">
-            <a href="<?php echo U('configuration/Login/logout');?>">退出系统</a>
+            <a href="javascript:void(0);" onclick="show_user_logout()">退出系统</a>
         </div>
     </div>
 </div>
 <div id="nav">
-    <ul class="main-nav">
+    <ul class="main-nav" id="j-nav-active">
         <li><a href="">加油站监控</a></li>
         <li><a href="<?php echo U('channel/Channel/index');?>">渠道管理</a></li>
-        <li><a href="">运营管理</a></li>
+        <li><a href="<?php echo U('management/Index/importingApp');?>">运营管理</a></li>
         <li><a href="">统计分析</a></li>
         <li><a href="">广告管理</a></li>
         <li><a href="<?php echo U('configuration/Org/index');?>">系统设置</a></li>
     </ul>
 </div>
+<script type="text/javascript">
+	function show_change_password(){
+		//$('#change_password_id').show();
+		$.openDOMWindow({
+            loader:1,
+            loaderHeight:16,
+            loaderWidth:17,
+            windowSourceID:'#change_password_id'
+        });
+        return false;
+	}
+
+	function show_user_logout(){
+		//$('#change_password_id').show();
+		$.openDOMWindow({
+            loader:1,
+            loaderHeight:16,
+            loaderWidth:17,
+            windowSourceID:'#j_logout_win'
+        });
+        return false;
+	}
+</script>
 <div id="container">
    <div class="default-index">
        <div class="default-index-tt">
@@ -52,6 +75,118 @@
 <div id="footer">
 
 </div>
+<script type="text/javascript" src="__PUBLIC__/js/jquery-1.6.1.js"></script>
+<script type="text/javascript" src="__PUBLIC__/js/jquery.DOMwindow.js" type="text/javascript"></script><!--模框JS插件-->
+<div id="change_password_id" style="display:none;">
+    <div class="alert-role-add" >
+    <h3>修改密码</h3>
+    <div class="alert-role-add-con">
+        <p>
+            <label for="old_password_txt" class="role-lab">旧密码&nbsp;&nbsp;&nbsp;</label>
+            <input type="password" name="old_password_txt" id="old_password_txt" class="input-role-name"/>
+        </p>
+        <p>
+            <label for="new_password_txt" class="role-lab">新密码&nbsp;&nbsp;&nbsp;</label>
+            <input type="password" name="new_password_txt" id="new_password_txt" class="input-role-name"/>
+        </p>
+        <p>
+            <label for="re_new_password_txt" class="role-lab">确认密码</label>
+            <input type="password" name="re_new_password_txt" id="re_new_password_txt" class="input-role-name"/>
+        </p>
+        <p>
+            <button type="button" class="alert-btn2" onclick="change_password()">修改密码</button>
+			<a href="." class="closeDOMWindow">
+				<button type="button" class="alert-btn2">关闭</button>
+			</a>
+        </p>
+    </div>
+</div>
+</div>
+
+<div class="divout" id="j_logout_win" style="display:none;">
+	<div class="alert-role-add" >
+		<h3>退出</h3>
+		<div class="alert-role-add-con">
+			<p class="delete-message">确认退出？</p>
+			<p>
+				<button type="button" class="alert-btn2" id="j_logout_ok" onclick="user_logout()">确定</button>
+				<a href="." class="closeDOMWindow">
+					<button type="button" class="alert-btn2">关闭</button>
+				</a>
+			</p>
+		</div>
+	</div>
+</div>
+<script>
+    window.onload=function(){
+        headAct();
+
+    };
+
+	function change_password(){
+		var handleUrl = "<?php echo U('configuration/Login/change_password');?>";
+		var old_password_txt=$('#old_password_txt').val();//业务范围
+		var new_password_txt=$('#new_password_txt').val();//业务范围
+		var re_new_password_txt=$('#re_new_password_txt').val();//业务范围
+		$.getJSON(handleUrl,{'old_password_txt':old_password_txt,'new_password_txt':new_password_txt,'re_new_password_txt':re_new_password_txt},
+			function (data){
+				var tmp_msg = "<?php echo C('change_password_success');?>";
+					if(tmp_msg == data)
+					{
+						alert(data);
+						window.location.href = window.location.href;
+					}
+					else
+					{
+						alert(data);
+					}
+			}
+			,'json'
+		);
+	}
+
+	function user_logout(){
+		var handleUrl = "<?php echo U('configuration/Login/logout');?>";
+		window.location.href = handleUrl;
+	}
+
+    function headAct(){
+        var Ourl = window.location.href;
+        if(!document.getElementById('j-nav-active')){return;};
+        var Onav = document.getElementById('j-nav-active');
+        var nbLi = Onav.getElementsByTagName('li');
+        for(var i=0; i<nbLi.length;i++){
+            if(Ourl=="/gas_station_erp/index.php/Org/index"||Ourl.indexOf("/gas_station_erp/index.php/Org/index")>=0||Ourl=="/gas_station_erp/index.php/Role/index"||Ourl.indexOf("/gas_station_erp/index.php/Role/index")>=0||Ourl=="/gas_station_erp/index.php/User/index"||Ourl.indexOf("/gas_station_erp/index.php/User/index")>=0||Ourl=="/configuration/Org/index"||Ourl.indexOf("/configuration/Org/index")>=0){
+                       nbLi[5].className='active';//系统设置
+                        return;
+            }
+            if(Ourl=="/gas_station_erp/index.php/Org/index"||Ourl.indexOf("/gas_station_erp/index.php/Org/index")>=0){
+                nbLi[4].className='active';//广告管理
+                return;
+            }
+            if(Ourl=="/gas_station_erp/index.php/Org/index"||Ourl.indexOf("/gas_station_erp/index.php/Org/index")>=0){
+                nbLi[3].className='active';//统计分析
+                return;
+            }
+            if(Ourl=="/gas_station_erp/index.php/management/Index/importingApp"||Ourl.indexOf("/gas_station_erp/index.php/management/Index/importingApp")>=0||Ourl=="/management/Index/addRuleTarget"||Ourl.indexOf("/management/Index/addRuleTarget")>=0){
+                nbLi[2].className='active';//运营管理
+                return;
+            }
+            if(Ourl=="/gas_station_erp/index.php/channel/Channel/index"||Ourl.indexOf("/gas_station_erp/index.php/channel/Channel/index")>=0||Ourl=="/gas_station_erp/index.php/channel/Place/index"||Ourl.indexOf("/gas_station_erp/index.php/channel/Place/index")>=0||Ourl=="/gas_station_erp/index.php/channel/Device/index"||Ourl.indexOf("/gas_station_erp/index.php/channel/Device/index")>=0){
+                nbLi[1].className='active';//渠道管理
+                return;
+            }
+            if(Ourl=="/gas_station_erp/index.php/Org/index"||Ourl.indexOf("/gas_station_erp/index.php/Org/index")>=0){
+                nbLi[0].className='active';//加油站监控
+                return;
+            }
+
+
+        }
+
+    }
+</script>
+
 
 </body>
 </html>

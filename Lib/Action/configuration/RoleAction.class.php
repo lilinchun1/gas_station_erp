@@ -62,8 +62,12 @@ class RoleAction extends CommonAction {
 		{
 			$list[$i]['number'] = ($page_number-1) * $page_show_number + $i + 1;
 			$list[$i]['adddate'] = getDateFromTime($list[$i]['adddate']);
-			$tmp_user_name = $Model->query("select username from bi_user where uid=" . $list[$i]['adduserid']);
-			$list[$i]['addusername'] = $tmp_user_name[0]['username'];
+			if(0 == $list[$i]['adduserid']){
+				$list[$i]['addusername'] = "根用户";
+			}else{
+				$tmp_user_name = $Model->query("select username from bi_user where uid=" . $list[$i]['adduserid']);
+				$list[$i]['addusername'] = $tmp_user_name[0]['username'];
+			}
 			$list[$i]['roleRadioID'] = 'roleRadio' . $i; //用于详情点击的ID
 		}
 		$this->assign('list',$list);// 赋值数据集

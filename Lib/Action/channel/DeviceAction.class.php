@@ -170,6 +170,35 @@ class DeviceAction extends CommonAction {
 		$this->index();
 	}
 
+	//查询设备日志信息
+	public function deviceLogSelect(){
+		$Model = new Model();
+		$device_id = trim(I('device_id'));;
+		$device_log = $Model->query("select a.logs_id, a.userid, a.timestamp, a.option_type from qd_logs_option a where a.option_id='$device_id' and 
+			a.option_name='device'");
+		$data = null;
+		foreach($device_log as $key=>$val){
+			if(0 == $val['userid']){
+				$data[$key]['user'] = "根用户";
+			}else{
+				$tmp_username = $Model->query("select a.username from bi_user a where a.uid=" . $val['userid']);
+				$data[$key]['user'] = $tmp_username[0]['username'];
+			}
+			$data[$key]['time'] = date('Y-m-d', $val['timestamp']);
+			if('add' == $val['option_type']){
+				$data[$key]['info'] = "添加";
+			}
+			elseif('del' == $val['option_type']){
+				$data[$key]['info'] = "撤销";
+			}
+			elseif('change' == $val['option_type']){
+				$tmp_descrption = $Model->query("select a.option_descrption from qd_logs_option_description a where a.option_log_id=" . $val['logs_id']);
+				$data[$key]['info'] = $tmp_descrption[0]['option_descrption'];
+			}
+		}
+		$this->ajaxReturn($data,'json');
+	}
+
      //根据设备ID查询设备详细信息
      public function deviceDetailSelect(){
 	    $Model = new Model();
@@ -440,6 +469,8 @@ class DeviceAction extends CommonAction {
 			$src_device_log_info[0]['device_begin_time'] = getDateFromTime($src_device_log_info[0]['begin_time']);
 			unset($src_device_log_info[0]['begin_time']);
 			$src_device_log_info[0]['deploy_time'] = getDateFromTime($src_device_log_info[0]['deploy_time']);
+			$src_device_log_info[0]['power_on_time'] = date('H:i:s', $src_device_log_info[0]['power_on_time']);
+			$src_device_log_info[0]['power_off_time'] = date('H:i:s', $src_device_log_info[0]['power_off_time']);
 
 			$data['device_no'] = $device_no;
 			$data['MAC'] = $mac;
@@ -508,6 +539,8 @@ class DeviceAction extends CommonAction {
 			$dst_device_log_info[0]['device_begin_time'] = getDateFromTime($dst_device_log_info[0]['begin_time']);
 			unset($dst_device_log_info[0]['begin_time']);
 			$dst_device_log_info[0]['deploy_time'] = getDateFromTime($dst_device_log_info[0]['deploy_time']);
+			$dst_device_log_info[0]['power_on_time'] = date('H:i:s', $dst_device_log_info[0]['power_on_time']);
+			$dst_device_log_info[0]['power_off_time'] = date('H:i:s', $dst_device_log_info[0]['power_off_time']);
 
 			$log_description = getChangeLogDescription($src_device_log_info[0], $dst_device_log_info[0]);  //获取修改的详细记录
 			if(0 != $log_photo_change_num)
@@ -529,7 +562,7 @@ class DeviceAction extends CommonAction {
 		$is_set = $device->where("device_id='$device_id'")->delete();
 		if($is_set <= 0)
 		{
-			$this->msg = C('delete_device_failed');
+			$msg = C('delete_device_failed');
 		}
 
 		if($msg == C('delete_device_success'))
@@ -552,7 +585,7 @@ class DeviceAction extends CommonAction {
 		$is_set = $device->where("device_id='$device_id'")->setField('isDelete', 1);
 		if($is_set <= 0)
 		{
-			$this->msg = C('repeal_device_failed');
+			$msg = C('repeal_device_failed');
 		}
 
 		if($msg == C('repeal_device_success'))
@@ -573,7 +606,7 @@ class DeviceAction extends CommonAction {
 		$is_set = $device->where("device_id='$device_id'")->setField('isDelete', 1);
 		if($is_set <= 0)
 		{
-			$this->msg = C('repeal_device_failed');
+			$msg = C('repeal_device_failed');
 		}
 
 		if($msg == C('repeal_device_success'))

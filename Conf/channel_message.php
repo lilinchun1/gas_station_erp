@@ -46,6 +46,7 @@
 		'change_place_no_failed' =>	'无法修改网点编号,已经有这个编号的网点了',
 		'change_place_failed'	     =>	'修改网点信息失败',
 		'delete_place_success'	 =>	'成功删除网点信息',
+		'place_have_device'	 =>	'请先删除网点下设备信息',
 		'delete_place_failed'	     =>	'删除网点信息失败',
 		'repeal_place_success'	 =>	'成功撤销网点信息',
 		'repeal_place_failed'	     =>	'撤销网点信息失败',

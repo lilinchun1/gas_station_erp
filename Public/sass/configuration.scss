@@ -333,6 +333,11 @@ $min-width-kuang:1200px;
     li{
       height: 25px;
       display: table-row;
+        img{
+          width: 40px;
+          height: 25px;
+          overflow: hidden;
+          cursor: pointer}
         span{
           padding: 0 5px;
           height: 25px;

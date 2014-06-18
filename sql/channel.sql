@@ -204,6 +204,7 @@ CREATE TABLE IF NOT EXISTS `qd_logs_option` (
   `option_name` varchar(200) DEFAULT NULL COMMENT '操作对象(如代理商agent，渠道商channel，网点place，终端device等)',
   `option_id` varchar(50) DEFAULT NULL COMMENT '操作对象ID',
   `option_type` enum('add','del','change') DEFAULT NULL COMMENT '操作方法',
+  `userid` int(11) DEFAULT NULL COMMENT '操作人',
   `timestamp` int(10) unsigned NOT NULL COMMENT '操作时间戳',
   PRIMARY KEY (`logs_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='操作日志' AUTO_INCREMENT=1 ;

@@ -14,7 +14,7 @@
     <div class="login">
         <div class="left">
             <ul class="left-nav">
-                <li>赵洋,您好 <span></span>
+                <li><?php echo ($username); ?>,您好 <span></span>
                     <ul>
                         <li><a href="javascript:void(0);" onclick="show_change_password()">修改密码</a></li>
                     </ul>
@@ -493,9 +493,11 @@ $(document).ready(function(){
 		//=====================================================业务范围事件============================================
     $("#j-choose").click(function(){
 		var id=$('#agent_id_hid').val();
+		var url="<?php echo U('configuration/Org/show_org_area_tree');?>";
         $.openLayer({
             maxItems : 5,
             pid : "0",
+			url:url,
 			id:id,
             returnText : "restxts",
             returnValue : "resvals",
@@ -638,8 +640,10 @@ $(document).ready(function(){
 		$("#add .input-org-info").val("");//初始化文本
 		$("#j-choose").click(function(){
 			var pid=$('#agent_pid_hid').val();
+			var url="<?php echo U('configuration/Org/show_org_area_tree');?>";
 			$.openLayer({
 				maxItems : 5,
+				url:url,
 				pid : "0",
 				id:pid,
 				returnText : "restxts",
