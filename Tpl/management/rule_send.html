@@ -7,10 +7,11 @@
 	<script type="text/javascript" src="__PUBLIC__/js/jquery-1.10.2.min.js"></script>
 	<script type="text/javascript" src="__PUBLIC__/js/jquery.SuperSlide.2.1.1.js"></script>
 	<script type="text/javascript" src="__PUBLIC__/js/My97DatePicker/WdatePicker.js"></script>
+
 	
 	
 	<script type="text/javascript">
-	$(function(){
+	$(document).ready(function(){
 		//================================================================默认动作
 		//固定标题
 		window.onscroll = function () {
@@ -43,6 +44,37 @@
 				$("#rule_no").val(rule_no);
 				$("#start_time").val(start_time);
 			}
+
+
+			var handleUrl="{:U('management/Index/getChannelArr')}";
+			var zNodes=new Array();
+			var now=new Date().getTime();//加个时间戳表示每次是新的请求
+			$.ajax({
+				type: "POST",
+				url: handleUrl,
+				async: false,
+				dataType: "json",
+				success: function(data){
+					$.each(data,function(key,val){
+						var kid=val['id'];
+						var parent=val['pid'];
+						var value=val['value'];
+						zNodes[key]= {'id':kid, 'pId':parent, 'name':value, 'open':true ,'t':kid};
+					});
+				},
+
+				error: function(XMLHttpRequest, textStatus, errorThrown) {
+					 alert("请求失败!");
+				}
+			});
+			//===================================================树形结构js传递==========
+				//alert($("#treeDemo").html());
+				$.fn.zTree.init($("#treeDemo"), setting, zNodes);
+				setCheck();
+				$("#py").bind("change", setCheck);
+				$("#sy").bind("change", setCheck);
+				$("#pn").bind("change", setCheck);
+				$("#sn").bind("change", setCheck);
 			$.openDOMWindow({
 	            loader:1,
 	            loaderHeight:16,
@@ -221,9 +253,21 @@
 		
 				<p>
 					<label for="issue-channel" class="role-lab">*发布渠道</label>
-					<input type="text" name="target_num" id="issue-channel" class="input-role-name" value="1-21,2-3,2-4"/>
+					<br/>
+					<!--<input type="text" name="target_num" id="issue-channel" class="input-role-name" value="1-21,2-3,2-4"/>-->
+					<!--权限树形-->
+					<div class="zTreeDemoBackground left">
+						<ul id="treeDemo" class="ztree"></ul>
+						<input type="text" value="" id="add_quanxian_id"/>
+					</div>
+					<div style="display:none">
+						<input type="checkbox" id="py" class="checkbox first"  />
+						<input type="checkbox" id="sy" class="checkbox first" checked />
+						<input type="checkbox" id="pn" class="checkbox first" />
+						<input type="checkbox" id="sn" class="checkbox first" checked />
+					</div>
 				</p>
-		
+
 				<p>
 					<button type="submit" name="add_udp" class="alert-btn2" value="1">保存</button>
 					<a href="." class="closeDOMWindow">
@@ -254,8 +298,88 @@
 </div>
 <link rel="stylesheet" type="text/css" href="__PUBLIC__/css/jquery.bigautocomplete.css"/>
 <script type="text/javascript" src="__PUBLIC__/js/jquery.bigautocomplete.js"></script>
+
+
+	<!--树形结构类-->
+	<link rel="stylesheet" href="__PUBLIC__/css/tree/tree.css" type="text/css">
+	<link rel="stylesheet" href="__PUBLIC__/css/jquery.bigautocomplete.css" type="text/css" />
+	<script type="text/javascript" src="__PUBLIC__/js/tree/jquery.ztree.core-3.5.js"></script>
+	<script type="text/javascript" src="__PUBLIC__/js/tree/jquery.ztree.excheck-3.5.js"></script>
 <script type="text/javascript">
 getAppRule();
+	//===================================================树形结构js==========================
+		var setting = {
+			check: {
+				enable: true
+			},
+			data: {
+				simpleData: {
+					enable: true
+				}
+			},
+			view: {
+				dblClickExpand: false
+			},
+			callback: {
+				beforeClick: beforeClick,
+				onCheck: onCheck
+			}
+		};
+
+		var code;
+		
+		function setCheck() {
+			var zTree = $.fn.zTree.getZTreeObj("treeDemo"),
+			py = $("#py").attr("checked")? "p":"",
+			sy = $("#sy").attr("checked")? "s":"",
+			pn = $("#pn").attr("checked")? "p":"",
+			sn = $("#sn").attr("checked")? "s":"",
+			type = { "Y":py + sy, "N":pn + sn};
+			zTree.setting.check.chkboxType = type;
+			showCode('setting.check.chkboxType = { "Y" : "' + type.Y + '", "N" : "' + type.N + '" };');
+		}
+		function showCode(str) {
+			if (!code) code = $("#code");
+			code.empty();
+			code.append("<li>"+str+"</li>");
+		}
+		function beforeClick(treeId, treeNode) {
+			var zTree = $.fn.zTree.getZTreeObj("treeDemo");
+			zTree.checkNode(treeNode, !treeNode.checked, null, true);
+			return false;
+		}
+		
+		function onCheck(e, treeId, treeNode) {
+			var zTree = $.fn.zTree.getZTreeObj("treeDemo"),
+			nodes = zTree.getCheckedNodes(true),
+			v = "";
+			for (var i=0, l=nodes.length; i<l; i++) {
+				v += nodes[i].id + ",";
+			}
+			if (v.length > 0 ) v = v.substring(0, v.length-1);
+			var cityObj = $("#add_quanxian_id");
+			cityObj.attr("value", v);
+		}
+
+		function showMenu() {
+			var cityObj = $("#add_quanxian_id");
+			var cityOffset = $("#add_quanxian_id").offset();
+			$("#menuContent").css({left:cityOffset.left + "px", top:cityOffset.top + cityObj.outerHeight() + "px"}).slideDown("fast");
+
+			$("body").bind("mousedown", onBodyDown);
+		}
+		function hideMenu() {
+			$("#menuContent").fadeOut("fast");
+			$("body").unbind("mousedown", onBodyDown);
+		}
+		function onBodyDown(event) {
+			if (!(event.target.id == "menuBtn" || event.target.id == "add_quanxian_id" || event.target.id == "menuContent" || $(event.target).parents("#menuContent").length>0)) {
+				hideMenu();
+			}
+		}
+		
+
+//===================================================树形结构js结束==========
 </script>
 </div>
 </body>

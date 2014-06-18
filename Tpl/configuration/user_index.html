@@ -602,17 +602,37 @@
             //单击保存按钮
             $('#j_add_save').click(function(){
                 var add_login_id= $('#user-addname').val(); //登陆账号
+				if (add_login_id=="")
+				{	
+					alert("请输入真实姓名");
+					return false;
+				}
                 var add_user_addname = $('#login-id').val();      //姓名
+				if (add_user_addname=="")
+				{	
+					alert("请输入登入账号");
+					return false;
+				}
                 var add_telphone_txt = $('#user-phone').val();      //联系电话
                 var add_user_email = $('#email').val();      //邮箱*/
                 var add_user_sex = $(':radio[name="change-sex"]:checked').val(); //性别
                 var add_org_id = $('#id_hidden').val();  //所属组织机构
+				if (add_org_id=="")
+				{	
+					alert("请选择组织结构");
+					return false;
+				}
                 var add_user_ckbox="";
                 $(":checkbox[name=role]").each(function() {
                     if ($(this).attr("checked")) {
                         add_user_ckbox += $(this).attr('id')+",";
                     }
                 });
+				if (add_user_ckbox=="")
+				{	
+					alert("请选择角色");
+					return false;
+				}
 
 				var emailRegExp = new RegExp(         "[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?");
 				if (!emailRegExp.test(add_user_email)||add_user_email.indexOf('.')==-1){
@@ -629,8 +649,16 @@
                             "add_org_txt":add_org_id,
                             "add_role_txt":add_user_ckbox},
                             function (data){
-                                alert(data);
-                                window.location.href = window.location.href;
+								var tmp_msg = "{:C('add_user_success')}";
+								if(tmp_msg == data)
+								{
+									alert(data);
+									window.location.href = window.location.href;
+								}
+								else
+								{
+									alert(data);
+								}
                             }
                             ,'json'
                     )

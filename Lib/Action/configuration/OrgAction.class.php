@@ -291,14 +291,18 @@ class OrgAction extends CommonAction {
 
 		$area_id = $Model->query("select area_id from qd_agent_area where agent_id=" . $agent_id);
 		$area = null;
+		$area_id_string = null;
 		foreach($area_id as $key=>$val){
 			$area_name = $Model->query("select area_name from bi_area where area_id=" . $val['area_id']);
 			$area .= $area_name[0]['area_name'] . ",";
+			$area_id_string .= $val['area_id'] . ",";
 		}
 		if(!empty($area_id[0]['area_id'])){
 			$area = substr($area, 0, -1);
+			$area_id_string = substr($area_id_string, 0, -1);
 		}
 		$dataAgent[0]['area_name'] = $area;
+		$dataAgent[0]['area_id'] = $area_id_string;
 
 		$data = $dataAgent[0];
 		$this->ajaxReturn($data,'json');

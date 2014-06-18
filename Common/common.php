@@ -47,6 +47,28 @@ function getSubAgentStringFromFatherAgent($father_agent_id) {
 	return $sub_agent_id_array_string;
 }
 
+//根据代理商得到上级代理商字符串
+function getFatherAgentStringFromAgent($agent_id) {
+	$Model = new Model();
+	$father_agent_id  =  $Model->query("select father_agentid from qd_agent where father_agentid != agent_id and agent_id=" . $agent_id);
+	//$second_type_id_array = array();
+	foreach($father_agent_id as $key=>$val)
+	{
+		$father_agent_id_array[] = $val['father_agentid'];
+		$father_father_agent_id  =  $Model->query("select father_agentid from qd_agent where agent_id=" . $val['father_agentid']);
+		foreach($father_father_agent_id as $father_key=>$father_val){
+			$father_agent_id_array[] = $father_val['father_agentid'];
+			$f_father_father_agent_id  =  $Model->query("select father_agentid from qd_agent where agent_id=" . $father_val['father_agentid']);
+			foreach($f_father_father_agent_id as $f_father_key=>$f_father_val){
+				$father_agent_id_array[] = $f_father_val['father_agentid'];
+			}
+		}
+	}
+	$father_agent_id_array_string = " ('" . implode("','", $father_agent_id_array) . "')";
+
+	return $father_agent_id_array_string;
+}
+
 //导入EXCEL用
 function GetInt4d($data, $pos) {
 	$value = ord ( $data [$pos] ) | (ord ( $data [$pos + 1] ) << 8) | (ord ( $data [$pos + 2] ) << 16) | (ord ( $data [$pos + 3] ) << 24);

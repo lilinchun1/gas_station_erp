@@ -32,6 +32,7 @@
 		'change_password_success'   =>	'成功修改密码',
 		'initial_password'   =>	'123456',
 		'add_user_success'		=>	'成功添加用户',
+		'user_name_same'		=>	'登录账号重复',
 		'add_user_failed'		=>	'添加用户失败',
 		'modify_user_success'		=>	'成功修改用户',
 		'modify_user_failed'		=>	'修改用户失败',

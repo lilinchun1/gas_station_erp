@@ -70,6 +70,7 @@ function changeNum($option_name='', $up_option_id='', $option_id='', $option='')
 	if('agent' == $option_name)
 	{
 		$father_agent_id = $up_option_id;
+		$father_agent_id_string = getFatherAgentStringFromAgent($option_id);
 		$agent_id = $option_id;
 		$tmp_channel_num = $Model->query("select channel_num from qd_agent where agent_id=" . $agent_id);
 		$channel_num = $tmp_channel_num[0]['channel_num'];
@@ -79,24 +80,25 @@ function changeNum($option_name='', $up_option_id='', $option_id='', $option='')
 		$device_num = $tmp_device_num[0]['device_num'];
 		if($option == 'add')
 		{
-			$Model->execute("update qd_agent set sub_agent_num=sub_agent_num+1 where agent_id=" . $father_agent_id);
-			$Model->execute("update qd_agent set channel_num=channel_num+" . $channel_num . " where agent_id=" . $father_agent_id);
-			$Model->execute("update qd_agent set place_num=place_num+" . $place_num . " where agent_id=" . $father_agent_id);
-			$Model->execute("update qd_agent set device_num=device_num+" . $device_num . " where agent_id=" . $father_agent_id);
+			$Model->execute("update qd_agent set sub_agent_num=sub_agent_num+1 where agent_id in" . $father_agent_id_string);
+			$Model->execute("update qd_agent set channel_num=channel_num+" . $channel_num . " where agent_id in " . $father_agent_id_string);
+			$Model->execute("update qd_agent set place_num=place_num+" . $place_num . " where agent_id in " . $father_agent_id_string);
+			$Model->execute("update qd_agent set device_num=device_num+" . $device_num . " where agent_id in " . $father_agent_id_string);
 		}
 		if($option == 'minus')
 		{
-			$Model->execute("update qd_agent set sub_agent_num=sub_agent_num-1 where agent_id=" . $father_agent_id);
-			$Model->execute("update qd_agent set channel_num=channel_num-" . $channel_num . " where agent_id=" . $father_agent_id);
-			$Model->execute("update qd_agent set place_num=place_num-" . $place_num . " where agent_id=" . $father_agent_id);
-			$Model->execute("update qd_agent set device_num=device_num-" . $device_num . " where agent_id=" . $father_agent_id);
+			$Model->execute("update qd_agent set sub_agent_num=sub_agent_num-1 where agent_id in " . $father_agent_id_string);
+			$Model->execute("update qd_agent set channel_num=channel_num-" . $channel_num . " where agent_id in " . $father_agent_id_string);
+			$Model->execute("update qd_agent set place_num=place_num-" . $place_num . " where agent_id in " . $father_agent_id_string);
+			$Model->execute("update qd_agent set device_num=device_num-" . $device_num . " where agent_id in " . $father_agent_id_string);
 		}
 	}
 	else if('channel' == $option_name)
 	{
 		$agent_id = $up_option_id;
 		$channel_id = $option_id;
-		$agent_info = $Model->query("select father_agentid, agent_level from qd_agent where agent_id=" . $agent_id);
+		//$agent_info = $Model->query("select father_agentid, agent_level from qd_agent where agent_id=" . $agent_id);
+		$father_agent_id_string = getFatherAgentStringFromAgent($agent_id);
 		$tmp_place_num = $Model->query("select place_num from qd_channel where channel_id=" . $channel_id);
 		$place_num = $tmp_place_num[0]['place_num'];
 		$tmp_device_num = $Model->query("select device_num from qd_channel where channel_id=" . $channel_id);
@@ -106,24 +108,18 @@ function changeNum($option_name='', $up_option_id='', $option_id='', $option='')
 			$Model->execute("update qd_agent set channel_num=channel_num+1 where agent_id=" . $agent_id);
 			$Model->execute("update qd_agent set place_num=place_num+" . $place_num . " where agent_id=" . $agent_id);
 			$Model->execute("update qd_agent set device_num=device_num+" . $device_num . " where agent_id=" . $agent_id);
-			if('2' == $agent_info[0]['agent_level'])
-			{
-				$Model->execute("update qd_agent set channel_num=channel_num+1 where agent_id=" . $agent_info[0]['father_agentid']);
-				$Model->execute("update qd_agent set place_num=place_num+" . $place_num . " where agent_id=" . $agent_info[0]['father_agentid']);
-				$Model->execute("update qd_agent set device_num=device_num+" . $device_num . " where agent_id=" . $agent_info[0]['father_agentid']);
-			}
+			$Model->execute("update qd_agent set channel_num=channel_num+1 where agent_id in " . $father_agent_id_string);
+			$Model->execute("update qd_agent set place_num=place_num+" . $place_num . " where agent_id in " . $father_agent_id_string);
+			$Model->execute("update qd_agent set device_num=device_num+" . $device_num . " where agent_id in " . $father_agent_id_string);
 		}
 		if($option == 'minus')
 		{
 			$Model->execute("update qd_agent set channel_num=channel_num-1 where agent_id=" . $agent_id);
 			$Model->execute("update qd_agent set place_num=place_num-" . $place_num . " where agent_id=" . $agent_id);
 			$Model->execute("update qd_agent set device_num=device_num-" . $device_num . " where agent_id=" . $agent_id);
-			if('2' == $agent_info[0]['agent_level'])
-			{
-				$Model->execute("update qd_agent set channel_num=channel_num-1 where agent_id=" . $agent_info[0]['father_agentid']);
-				$Model->execute("update qd_agent set place_num=place_num-" . $place_num . " where agent_id=" . $agent_info[0]['father_agentid']);
-				$Model->execute("update qd_agent set device_num=device_num-" . $device_num . " where agent_id=" . $agent_info[0]['father_agentid']);
-			}
+			$Model->execute("update qd_agent set channel_num=channel_num-1 where agent_id in " . $father_agent_id_string);
+			$Model->execute("update qd_agent set place_num=place_num-" . $place_num . " where agent_id in " . $father_agent_id_string);
+			$Model->execute("update qd_agent set device_num=device_num-" . $device_num . " where agent_id in " . $father_agent_id_string);
 		}
 	}
 	else if('place' == $option_name)
@@ -131,32 +127,27 @@ function changeNum($option_name='', $up_option_id='', $option_id='', $option='')
 		$channel_id = $up_option_id;
 		$place_id = $option_id;
 		$agent_id = getAgentIDFromChannelID($channel_id);
-		$agent_info = $Model->query("select father_agentid, agent_level from qd_agent where agent_id=" . $agent_id);
+		$father_agent_id_string = getFatherAgentStringFromAgent($agent_id);
+		//$agent_info = $Model->query("select father_agentid, agent_level from qd_agent where agent_id=" . $agent_id);
 		$tmp_device_num = $Model->query("select device_num from qd_place where place_id=" . $place_id);
 		$device_num = $tmp_device_num[0]['device_num'];
 		if($option == 'add')
 		{
 			$Model->execute("update qd_channel set place_num=place_num+1 where channel_id=" . $channel_id);
 			$Model->execute("update qd_agent set place_num=place_num+1 where agent_id=" . $agent_id);
+			$Model->execute("update qd_agent set place_num=place_num+1 where agent_id in " . $father_agent_id_string);
 			$Model->execute("update qd_channel set device_num=device_num+" . $device_num . " where channel_id=" . $channel_id);
 			$Model->execute("update qd_agent set device_num=device_num+" . $device_num . " where agent_id=" . $agent_id);
-			if('2' == $agent_info[0]['agent_level'])
-			{
-				$Model->execute("update qd_agent set place_num=place_num+1 where agent_id=" . $agent_info[0]['father_agentid']);
-				$Model->execute("update qd_agent set device_num=device_num+" . $device_num . " where agent_id=" . $agent_info[0]['father_agentid']);
-			}
+			$Model->execute("update qd_agent set device_num=device_num+" . $device_num . " where agent_id in " . $father_agent_id_string);
 		}
 		if($option == 'minus')
 		{
 			$Model->execute("update qd_channel set place_num=place_num-1 where channel_id=" . $channel_id);
 			$Model->execute("update qd_agent set place_num=place_num-1 where agent_id=" . $agent_id);
+			$Model->execute("update qd_agent set place_num=place_num-1 where agent_id in " . $father_agent_id_string);
 			$Model->execute("update qd_channel set device_num=device_num-" . $device_num . " where channel_id=" . $channel_id);
 			$Model->execute("update qd_agent set device_num=device_num-" . $device_num . " where agent_id=" . $agent_id);
-			if('2' == $agent_info[0]['agent_level'])
-			{
-				$Model->execute("update qd_agent set place_num=place_num-1 where agent_id=" . $agent_info[0]['father_agentid']);
-				$Model->execute("update qd_agent set device_num=device_num-" . $device_num . " where agent_id=" . $agent_info[0]['father_agentid']);
-			}
+			$Model->execute("update qd_agent set device_num=device_num-" . $device_num . " where agent_id in " . $father_agent_id_string);
 		}
 	}
 	else if('device' == $option_name)
@@ -164,26 +155,21 @@ function changeNum($option_name='', $up_option_id='', $option_id='', $option='')
 		$place_id = $up_option_id;
 		$channel_id = getChannelIDFromPlaceID($place_id);
 		$agent_id = getAgentIDFromChannelID($channel_id);
-		$agent_info = $Model->query("select father_agentid, agent_level from qd_agent where agent_id=" . $agent_id);
+		$father_agent_id_string = getFatherAgentStringFromAgent($agent_id);
+		//$agent_info = $Model->query("select father_agentid, agent_level from qd_agent where agent_id=" . $agent_id);
 		if($option == 'add')
 		{
 			$Model->execute("update qd_place set device_num=device_num+1 where place_id='$place_id'");
 			$Model->execute("update qd_channel set device_num=device_num+1 where channel_id=" . $channel_id);
 			$Model->execute("update qd_agent set device_num=device_num+1 where agent_id=" . $agent_id);
-			if('2' == $agent_info[0]['agent_level'])
-			{
-				$Model->execute("update qd_agent set device_num=device_num+1 where agent_id=" . $agent_info[0]['father_agentid']);
-			}
+			$Model->execute("update qd_agent set device_num=device_num+1 where agent_id in " . $father_agent_id_string);
 		}
 		if($option == 'minus')
 		{
 			$Model->execute("update qd_place set device_num=device_num-1 where place_id='$place_id'");
 			$Model->execute("update qd_channel set device_num=device_num-1 where channel_id=" . $channel_id);
 			$Model->execute("update qd_agent set device_num=device_num-1 where agent_id=" . $agent_id);
-			if('2' == $agent_info[0]['agent_level'])
-			{
-				$Model->execute("update qd_agent set device_num=device_num-1 where agent_id=" . $agent_info[0]['father_agentid']);
-			}
+			$Model->execute("update qd_agent set device_num=device_num-1 where agent_id in " . $father_agent_id_string);
 		}
 	}
 }

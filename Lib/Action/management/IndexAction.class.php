@@ -298,20 +298,17 @@ class IndexAction extends Action {
 	
 	function getChannelArr(){
 		$arr[0]['value'] = "辽宁省";
-		$arr[0]['id'] = 1;
-		$arr[0]['pid'] = 0;
+		$arr[0]['id'] = "1-1";
+		$arr[0]['pid'] = "0";
 		
-		$arr[1]['value'] = 1;
-		$arr[1]['id'] = 1;
-		$arr[1]['pid'] = 1;
+		$arr[1]['value'] = "大连市";
+		$arr[1]['id'] = "2-2";
+		$arr[1]['pid'] = "1-1";
 		
-		$arr[2]['value'] = 1;
-		$arr[2]['id'] = 1;
-		$arr[2]['pid'] = 1;
+		$arr[2]['value'] = "轻轨站";
+		$arr[2]['id'] = "3-2";
+		$arr[2]['pid'] = "2-2";
 		
-		$arr[3]['value'] = 1;
-		$arr[3]['id'] = 1;
-		$arr[3]['pid'] = 1;
 		echo json_encode($arr);
 	}
 }

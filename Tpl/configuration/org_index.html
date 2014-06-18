@@ -358,29 +358,29 @@ $(document).ready(function(){
             var add_legal_txt=$('#j_add_linkman').val();//联系人
 			if (add_legal_txt=="")
 			{	
-				alert("请输入联系人");
-				return false;
+				//alert("请输入联系人");
+				//return false;
 			}
 
             var add_companyAddr_txt=$('#j_add_address').val();//办公地址
 			if (add_companyAddr_txt=="")
 			{	
-				alert("请输入办公地址");
-				return false;
+				//alert("请输入办公地址");
+				//return false;
 			}
 
             var add_tel_txt=$('#add_tel_txt').val();//公司电话
 			if (add_tel_txt=="")
 			{	
-				alert("请输入公司电话");
-				return false;
+				//alert("请输入公司电话");
+				//return false;
 			}
 
             var add_contract_number_txt=$('#j_add_contract-number').val();//合同编号
 			if (add_contract_number_txt=="")
 			{	
-				alert("请输入合同编号");
-				return false;
+				//alert("请输入合同编号");
+				//return false;
 			}
 
             var add_father_agentid_sel=$('#agent_id_hid').val();//上级组织机构id
@@ -389,8 +389,8 @@ $(document).ready(function(){
             var add_legal_tel_txt=$('#j_add_phone').val();//联系电话
 			if (add_legal_tel_txt=="")
 			{	
-				alert("请输入联系人电话");
-				return false;
+				//alert("请输入联系人电话");
+				//return false;
 			}
 
             var add_org_area=$('#resvals').val();//业务范围
@@ -500,6 +500,7 @@ $(document).ready(function(){
                     $("#j_add_contract-number").val(data['contract_number']);//合同编号
                     $("#j_add_org-s").val(data['father_agent_name']);//上级组织机构
                     $("#restxts").val(data['area_name']);//业务范围NAME
+					$("#resvals").val(data['area_id']);//业务范围NAME
                     var forever_type=data['forever_type'];//是否永久
                     if('1' == forever_type)
                     {
@@ -532,29 +533,29 @@ $(document).ready(function(){
             var add_legal_txt=$('#j_add_linkman').val();//联系人
 			if (add_legal_txt=="")
 			{	
-				alert("请输入联系人名称");
-				return false;
+				//alert("请输入联系人名称");
+				//return false;
 			}
 
             var add_companyAddr_txt=$('#j_add_address').val();//办公地址
 			if (add_companyAddr_txt=="")
 			{	
-				alert("请输入办公地址");
-				return false;
+				//alert("请输入办公地址");
+				//return false;
 			}
 
             var add_tel_txt=$('#add_tel_txt').val();//公司电话
 			if (add_tel_txt=="")
 			{	
-				alert("请输入公司电话");
-				return false;
+				//alert("请输入公司电话");
+				//return false;
 			}
 
             var add_contract_number_txt=$('#j_add_contract-number').val();//合同编号
 			if (add_contract_number_txt=="")
 			{	
-				alert("请输入合同编号");
-				return false;
+				//alert("请输入合同编号");
+				//return false;
 			}
 
             //var add_father_agentid_sel=$('#agent_id_hid').val();//上级组织机构
@@ -563,8 +564,8 @@ $(document).ready(function(){
             var add_legal_tel_txt=$('#j_add_phone').val();//联系电话
 			if (add_legal_tel_txt=="")
 			{	
-				alert("请输入联系人电话");
-				return false;
+				//alert("请输入联系人电话");
+				//return false;
 			}
             var add_org_area=$('#resvals').val();//业务范围
 			if (add_org_area=="")
@@ -653,7 +654,7 @@ $(document).ready(function(){
             var del_handleUrl="{:U('configuration/Org/delete_org')}";
             $.getJSON(del_handleUrl,{"agent_id":kid},
                     function (data){
-                       // alert(data);
+                        alert(data);
                         window.location.href = window.location.href;
                     }
                     ,'json'

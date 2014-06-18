@@ -638,6 +638,7 @@ class PlaceAction extends CommonAction {
 		$place = M("place");
 		$msg = C('delete_place_success');
 		$device_info = $Model->query("select device_id from qd_device where place_id=" . $place_id);
+		$channel_id = getChannelIDFromPlaceID($place_id);
 		if(!empty($device_info[0]['device_id'])){
 			$msg = C('place_have_device');
 		}else{
@@ -648,7 +649,6 @@ class PlaceAction extends CommonAction {
 			}
 			if(C('delete_place_success') == $msg)
 			{
-				$channel_id = getChannelIDFromPlaceID($place_id);
 				changeNum('place', $channel_id, $place_id, 'minus');
 				addOptionLog('place', $place_id, 'del', '');
 			}
@@ -676,6 +676,7 @@ class PlaceAction extends CommonAction {
 			$device_info = $Model->query("select device_id from qd_device where place_id=" . $place_id);
 			foreach($device_info as $key=>$val){
 				$is_set = $device->where("device_id=" . $val['device_id'])->setField('isDelete', 1);
+				addOptionLog('device', $val['device_id'], 'del', '');
 			}
 
 			changeNum('place', $channel_id, $place_id, 'minus');

@@ -106,6 +106,13 @@ class UserAction extends CommonAction {
 		$user = M("user");
 		$user_role = M("user_role");
 
+		$user_id = $Model->query("select uid from bi_user where username='$username'");
+		if(!empty($user_id[0]['uid'])){
+			$msg = C('user_name_same');
+			$this->ajaxReturn($msg,'json');
+			return;
+		}
+
 		$data['username'] = $username;
 		$data['password'] = $password;
 		$data['telphone'] = $telphone;

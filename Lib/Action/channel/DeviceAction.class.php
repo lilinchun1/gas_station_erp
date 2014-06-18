@@ -559,6 +559,7 @@ class DeviceAction extends CommonAction {
 	    $Model = new Model();
 		$device = M("device","qd_");
 		$msg = C('delete_device_success');
+		$place_id = getPlaceIDFromDeviceID($device_id);
 		$is_set = $device->where("device_id='$device_id'")->delete();
 		if($is_set <= 0)
 		{
@@ -567,7 +568,6 @@ class DeviceAction extends CommonAction {
 
 		if($msg == C('delete_device_success'))
 		{
-			$place_id = getPlaceIDFromDeviceID($device_id);
 			changeNum('device', $place_id, $device_id, 'minus');
 			addOptionLog('device', $device_id, 'del', '');
 		}
