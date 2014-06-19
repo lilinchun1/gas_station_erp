@@ -14,7 +14,7 @@
     <div class="login">
         <div class="left">
             <ul class="left-nav">
-                <li>赵洋,您好 <span></span>
+                <li><?php echo ($username); ?>,您好 <span></span>
                     <ul>
                         <li><a href="javascript:void(0);" onclick="show_change_password()">修改密码</a></li>
                     </ul>
@@ -63,11 +63,17 @@
 <div id="container">
     <div class="left">
         <ul class="aside-nav">
-            <li class="aside-nav-nth1"><a href="<?php echo U('configuration/Org/index');?>">系统设置</a></li>
-            <li><a href="<?php echo U('configuration/Org/index');?>"><input  type="button"  value="组织结构" ></a></li>
-            <li><a href="<?php echo U('configuration/Role/show_role');?>"><input type="button" class="" value="角色维护" ></a></li>
-            <li class="active"><a href="<?php echo U('configuration/User/index');?>"><input type="button" class="" value="职员维护" ></a></li>
-        </ul>
+    <li class="aside-nav-nth1"><a href="<?php echo U('configuration/Org/index');?>">系统设置</a></li>
+    <li><a href="<?php echo U('configuration/Org/index');?>"><input  type="button"  value="组织结构" ></a></li>
+    <li><a href="<?php echo U('configuration/Role/show_role');?>"><input type="button" class="" value="角色维护" ></a></li>
+    <li><a href="<?php echo U('configuration/User/index');?>"><input type="button" class="" value="职员维护" ></a></li>
+</ul>
+        <!-- <ul class="aside-nav">
+             <li class="aside-nav-nth1"><a href="<?php echo U('configuration/Org/index');?>">系统设置</a></li>
+             <li><a href="<?php echo U('configuration/Org/index');?>"><input  type="button"  value="组织结构" ></a></li>
+             <li><a href="<?php echo U('configuration/Role/show_role');?>"><input type="button" class="" value="角色维护" ></a></li>
+             <li class="active"><a href="<?php echo U('configuration/User/index');?>"><input type="button" class="" value="职员维护" ></a></li>
+         </ul>-->
     </div>
     <div class="right">
         <div class="right-con">
@@ -764,17 +770,37 @@
             //单击保存按钮
             $('#j_add_save').click(function(){
                 var add_login_id= $('#user-addname').val(); //登陆账号
+				if (add_login_id=="")
+				{	
+					alert("请输入真实姓名");
+					return false;
+				}
                 var add_user_addname = $('#login-id').val();      //姓名
+				if (add_user_addname=="")
+				{	
+					alert("请输入登入账号");
+					return false;
+				}
                 var add_telphone_txt = $('#user-phone').val();      //联系电话
                 var add_user_email = $('#email').val();      //邮箱*/
                 var add_user_sex = $(':radio[name="change-sex"]:checked').val(); //性别
                 var add_org_id = $('#id_hidden').val();  //所属组织机构
+				if (add_org_id=="")
+				{	
+					alert("请选择组织结构");
+					return false;
+				}
                 var add_user_ckbox="";
                 $(":checkbox[name=role]").each(function() {
                     if ($(this).attr("checked")) {
                         add_user_ckbox += $(this).attr('id')+",";
                     }
                 });
+				if (add_user_ckbox=="")
+				{	
+					alert("请选择角色");
+					return false;
+				}
 
 				var emailRegExp = new RegExp(         "[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?");
 				if (!emailRegExp.test(add_user_email)||add_user_email.indexOf('.')==-1){
@@ -791,13 +817,21 @@
                             "add_org_txt":add_org_id,
                             "add_role_txt":add_user_ckbox},
                             function (data){
-                                alert(data);
-                                window.location.href = window.location.href;
+								var tmp_msg = "<?php echo C('add_user_success');?>";
+								if(tmp_msg == data)
+								{
+									alert(data);
+									window.location.href = window.location.href;
+								}
+								else
+								{
+									alert(data);
+								}
                             }
                             ,'json'
                     )
             });
-			$("#j_mod_close").click(function(){
+			$("#j_add_close").click(function(){
 				window.location.href = window.location.href;
 			});
             //弹出窗口

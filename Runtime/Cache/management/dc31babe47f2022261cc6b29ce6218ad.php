@@ -2,7 +2,7 @@
 <html lang="zh-CN">
 <head>
 	<meta charset="UTF-8">
-	<title>网点信息</title>
+	<title>刊例维护</title>
 	<link rel="stylesheet" href="__PUBLIC__/css/configuration.css"/>
 	<script type="text/javascript" src="__PUBLIC__/js/jquery-1.10.2.min.js"></script>
 	<script type="text/javascript" src="__PUBLIC__/js/jquery.SuperSlide.2.1.1.js"></script>
@@ -135,12 +135,18 @@
 </script>
 <div id="container">
 	<div class="left">
-		<ul class="aside-nav">
+        <ul class="aside-nav">
+    <li class="aside-nav-nth1"><a href="">APP刊例管理</a></li>
+    <li><a href="<?php echo U('management/Index/importingApp');?>"><input type="button" value="刊例维护"></a></li>
+    <li><a href="<?php echo U('management/Index/addRuleTarget');?>"><input type="button" class="" value="刊例发布"></a></li>
+    <li><a href="<?php echo U('management/Index/verup');?>"><input type="button" class="" value="版本升级"></a></li>
+</ul>
+		<!--<ul class="aside-nav">
 			<li class="aside-nav-nth1"><a href="">APP刊例管理</a></li>
 			<li class="active"><a href="<?php echo U('management/Index/importingApp');?>"><input type="button" value="刊例维护"></a></li>
 			<li><a href="<?php echo U('management/Index/addRuleTarget');?>"><input type="button" class="" value="刊例发布"></a></li>
             <li><a href="<?php echo U('management/Index/verup');?>"><input type="button" class="" value="版本升级"></a></li>
-		</ul>
+		</ul>-->
 	</div>
 	<div class="right">
 		<div class="right-con">

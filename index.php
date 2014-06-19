@@ -1,5 +1,5 @@
 <?php
-define('APP_NAME', './gas_station_erp');//Ç°Ãæ¼Ó./ÊÇÎªÁËÊ¹__PUBLIC__Ö¸ÏòÏîÄ¿ÏÂµÄPublic Òª²»È»»áÖ¸ÏòwebÏÂµÄPublic
+define('APP_NAME', './gas_station_erp');//Ç°ï¿½ï¿½ï¿½./ï¿½ï¿½Îªï¿½ï¿½Ê¹__PUBLIC__Ö¸ï¿½ï¿½ï¿½ï¿½Ä¿ï¿½Âµï¿½Public Òªï¿½ï¿½È»ï¿½ï¿½Ö¸ï¿½ï¿½webï¿½Âµï¿½Public
 define('APP_PATH', './');
 define('APP_DEBUG', true);
 require '../frame/ThinkPHP.php';

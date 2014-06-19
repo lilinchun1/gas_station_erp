@@ -13,7 +13,7 @@
     <div class="login">
         <div class="left">
             <ul class="left-nav">
-                <li>赵洋,您好 <span></span>
+                <li><?php echo ($username); ?>,您好 <span></span>
                     <ul>
                         <li><a href="javascript:void(0);" onclick="show_change_password()">修改密码</a></li>
                     </ul>
@@ -61,11 +61,17 @@
 <div id="container">
     <div class="left">
         <ul class="aside-nav">
+    <li class="aside-nav-nth1"><a href="<?php echo U('configuration/Org/index');?>">系统设置</a></li>
+    <li><a href="<?php echo U('configuration/Org/index');?>"><input  type="button"  value="组织结构" ></a></li>
+    <li><a href="<?php echo U('configuration/Role/show_role');?>"><input type="button" class="" value="角色维护" ></a></li>
+    <li><a href="<?php echo U('configuration/User/index');?>"><input type="button" class="" value="职员维护" ></a></li>
+</ul>
+        <!--<ul class="aside-nav">
             <li class="aside-nav-nth1"><a href="<?php echo U('configuration/Org/index');?>">系统设置</a></li>
             <li><a href="<?php echo U('configuration/Org/index');?>"><input  type="button"  value="组织结构" ></a></li>
             <li class="active"><a href="<?php echo U('configuration/Role/show_role');?>"><input type="button" class="" value="角色维护" ></a></li>
             <li><a href="<?php echo U('configuration/User/index');?>"><input type="button" class="" value="职员维护" ></a></li>
-        </ul>
+        </ul>-->
     </div>
     <div class="right">
         <div class="right-con">
@@ -105,7 +111,7 @@
 									<span class="span-2" title="#"><?php echo ($vo["addusername"]); ?></span>
 									<span class="span-2" title="#"><?php echo ($vo["adddate"]); ?></span>
 									<!--角色ID-->
-									<span class="roleid_hidden" title="#" style=""><?php echo ($vo["roleid"]); ?></span>
+									<span class="roleid_hidden" title="#" style="display:none;"><?php echo ($vo["roleid"]); ?></span>
 							</li><?php endforeach; endif; else: echo "" ;endif; ?>
                     </ul>
 					<div class="resultpage"><?php echo ($page); ?></div>
@@ -301,6 +307,22 @@
             </div>
             </p>
         </div>
+	</div>
+</div>
+
+<div id="j_show_purview" style="display:none">
+	<div class="alert-role-add">
+        <h3>查看权限</h3>
+
+                <div class="zTreeDemoBackground left">
+					<ul id="show_treeDemo" class="ztree"></ul>
+					<input type="text" value="" id="show_quanxian_id"/>
+				</div>
+
+		<a href="." class="closeDOMWindow">
+		    <button type="button" class="alert-btn2">关闭</button>
+		</a>
+        <div class="bk10"></div>
 	</div>
 </div>
 
@@ -558,6 +580,12 @@ $(document).ready(function(){
     });
 //===============================================单击查看权限事件=======================================
 	$("#j_selrole_button").click(function(){
+			var role_id=$("#selrole_hidden_id").val();
+			if(role_id==""){
+				alert("请选择一条角色信息再进行查看");
+				return false;
+			}
+			/*
 			var role_handleUrl="<?php echo U('configuration/Role/select_purview');?>";
 			var purview_role_id_txt=$("#selrole_hidden_id").val();
             $.getJSON(role_handleUrl,{"purview_role_id_txt":purview_role_id_txt},
@@ -566,9 +594,61 @@ $(document).ready(function(){
                     }
                     ,'json'
             );
+			*/
+			//========权限
+			var handleUrl="<?php echo U('configuration/Role/select_all_purview');?>";
+			var zNodes=new Array();
+			var now=new Date().getTime();//加个时间戳表示每次是新的请求
+			var str=new String();
+			var arr=new Array();
+			str=$("#quanxian_id").val();
+			arr=str.split(',');//注split可以用字符或字符串分割
+			var idkey="";
+			
+		$.ajax({
+			type: "POST",
+			url: handleUrl,
+			async: false,
+			dataType: "json",
+			success: function(data){
+				$.each(data,function(key,val){
+					var kid=val['id'];
+					var parent=val['parent'];
+					var value=val['value'];
+					for(var i=0;i<arr.length;i++)
+					{
+						if(arr[i]==kid){
+							zNodes[key]= {'id':kid, 'pId':parent, 'name':value, 'open':true ,checked:true,'t':kid};
+							break;
+						}else{
+							zNodes[key]= {'id':kid, 'pId':parent, 'name':value, 'open':true ,'t':kid};
+						}
+					}
+
+				});
+			},
+
+			error: function(XMLHttpRequest, textStatus, errorThrown) {
+				// alert("请求失败!");
+			}
+		});
+			$.fn.zTree.init($("#show_treeDemo"), mod_setting, zNodes);
+
+			$.openDOMWindow({
+				loader:1,
+				loaderHeight:16,
+				loaderWidth:17,
+				windowSourceID:'#j_show_purview'
+        });
+        return false;
 	});
 //=====================================================单击删除按钮弹出模态窗事件============================================
     $('#j_del_button').click(function(){
+		var role_id=$("#selrole_hidden_id").val();
+		if(role_id==""){
+			alert("请选择一条角色信息再进行编辑");
+			return false;
+		}
         var delete_role_id_txt=$("#selrole_hidden_id").val();
         //单击删除确认按钮
         $('#j_del_ok').click(function(){

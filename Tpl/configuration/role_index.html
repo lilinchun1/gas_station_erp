@@ -10,12 +10,13 @@
 <include file="./Tpl/include/pb-head.html" />
 <div id="container">
     <div class="left">
-        <ul class="aside-nav">
+        <include file="./Tpl/include/pb-configuration-aside.html" />
+        <!--<ul class="aside-nav">
             <li class="aside-nav-nth1"><a href="{:U('configuration/Org/index')}">系统设置</a></li>
             <li><a href="{:U('configuration/Org/index')}"><input  type="button"  value="组织结构" ></a></li>
             <li class="active"><a href="{:U('configuration/Role/show_role')}"><input type="button" class="" value="角色维护" ></a></li>
             <li><a href="{:U('configuration/User/index')}"><input type="button" class="" value="职员维护" ></a></li>
-        </ul>
+        </ul>-->
     </div>
     <div class="right">
         <div class="right-con">
@@ -56,7 +57,7 @@
 									<span class="span-2" title="#">{$vo.addusername}</span>
 									<span class="span-2" title="#">{$vo.adddate}</span>
 									<!--角色ID-->
-									<span class="roleid_hidden" title="#" style="">{$vo.roleid}</span>
+									<span class="roleid_hidden" title="#" style="display:none;">{$vo.roleid}</span>
 							</li>
 						</volist>
                     </ul>
@@ -139,6 +140,22 @@
             </div>
             </p>
         </div>
+	</div>
+</div>
+
+<div id="j_show_purview" style="display:none">
+	<div class="alert-role-add">
+        <h3>查看权限</h3>
+
+                <div class="zTreeDemoBackground left">
+					<ul id="show_treeDemo" class="ztree"></ul>
+					<input type="text" value="" id="show_quanxian_id"/>
+				</div>
+
+		<a href="." class="closeDOMWindow">
+		    <button type="button" class="alert-btn2">关闭</button>
+		</a>
+        <div class="bk10"></div>
 	</div>
 </div>
 
@@ -269,6 +286,20 @@ window.onscroll=function(){
 				onCheck: mod_onCheck
 			}
 		};
+
+		var show_setting = {
+			check: {
+				enable: true
+			},
+			data: {
+				simpleData: {
+					enable: true
+				}
+			},
+			view: {
+				dblClickExpand: false
+			}
+		};
 		
 		function mod_setCheck() {
 			var zTree = $.fn.zTree.getZTreeObj("mod_treeDemo"),
@@ -396,6 +427,12 @@ $(document).ready(function(){
     });
 //===============================================单击查看权限事件=======================================
 	$("#j_selrole_button").click(function(){
+			var role_id=$("#selrole_hidden_id").val();
+			if(role_id==""){
+				alert("请选择一条角色信息再进行查看");
+				return false;
+			}
+			/*
 			var role_handleUrl="{:U('configuration/Role/select_purview')}";
 			var purview_role_id_txt=$("#selrole_hidden_id").val();
             $.getJSON(role_handleUrl,{"purview_role_id_txt":purview_role_id_txt},
@@ -404,9 +441,61 @@ $(document).ready(function(){
                     }
                     ,'json'
             );
+			*/
+			//========权限
+			var handleUrl="{:U('configuration/Role/select_all_purview')}";
+			var zNodes=new Array();
+			var now=new Date().getTime();//加个时间戳表示每次是新的请求
+			var str=new String();
+			var arr=new Array();
+			str=$("#quanxian_id").val();
+			arr=str.split(',');//注split可以用字符或字符串分割
+			var idkey="";
+			
+		$.ajax({
+			type: "POST",
+			url: handleUrl,
+			async: false,
+			dataType: "json",
+			success: function(data){
+				$.each(data,function(key,val){
+					var kid=val['id'];
+					var parent=val['parent'];
+					var value=val['value'];
+					for(var i=0;i<arr.length;i++)
+					{
+						if(arr[i]==kid){
+							zNodes[key]= {'id':kid, 'pId':parent, 'name':value, 'open':true ,checked:true,'t':kid};
+							break;
+						}else{
+							zNodes[key]= {'id':kid, 'pId':parent, 'name':value, 'open':true ,'t':kid};
+						}
+					}
+
+				});
+			},
+
+			error: function(XMLHttpRequest, textStatus, errorThrown) {
+				// alert("请求失败!");
+			}
+		});
+			$.fn.zTree.init($("#show_treeDemo"), show_setting, zNodes);
+
+			$.openDOMWindow({
+				loader:1,
+				loaderHeight:16,
+				loaderWidth:17,
+				windowSourceID:'#j_show_purview'
+        });
+        return false;
 	});
 //=====================================================单击删除按钮弹出模态窗事件============================================
     $('#j_del_button').click(function(){
+		var role_id=$("#selrole_hidden_id").val();
+		if(role_id==""){
+			alert("请选择一条角色信息再进行编辑");
+			return false;
+		}
         var delete_role_id_txt=$("#selrole_hidden_id").val();
         //单击删除确认按钮
         $('#j_del_ok').click(function(){

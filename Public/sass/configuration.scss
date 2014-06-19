@@ -1,7 +1,7 @@
 @charset "UTF-8";
 @import "reset";
 @import "font";
-
+$nav-height:60px;
 $aside-bg:#34acd8;//侧边栏背景色
 $border-color:#DDDDDD; //通用边框颜色
 $container-left-width:180px;  //container 左边栏宽度
@@ -75,10 +75,10 @@ $min-width-kuang:1200px;
 }
 .head-tt {
   padding-left: 20%;
-  margin-top: 40px;
+  margin-top: 30px;
   float: left;
   text-align: center;
-  font-size: 24px;
+  font-size: 34px;
   color: #ffffff;
   font-weight: normal; }
 
@@ -96,7 +96,7 @@ $min-width-kuang:1200px;
       float: left;
       border-left: 2px solid $border-color;
       a{
-        padding-left: 5px;
+        padding-left: 10px;
         font-size: 16px;
         line-height: 24px;}
     }
@@ -137,21 +137,21 @@ $min-width-kuang:1200px;
 /*主导航部分*/
 #nav{
   min-width: $min-width-kuang;
-  height: 40px;
-  background:#fff;
+  height: $nav-height;
+  background: $bg-color;
   border-bottom : 1px solid $border-color;
   box-shadow: 0px 1px 5px rgba(180,180,180,0.3);
 }
 .main-nav{
-  line-height: 40px;
+  line-height: $nav-height;
     li{
-      opacity: .8;
       @extend  %trans-all;
       padding: 0 30px;
-      height: 40px;
+      height: $nav-height;
       float: left;
-
-        &:nth-child(5n+1){
+      border-right: 1px solid $border-color;
+      background: $bg-color;
+       /* &:nth-child(1){
           background: #EF9549;
         }
       &:nth-child(3){
@@ -168,18 +168,21 @@ $min-width-kuang:1200px;
       }
       &:nth-child(6){
         background: #E87352;
+      }*/
+      &:nth-child(n){
+
       }
       &:hover{
-        opacity: 1;
 
+        background: #34ACD8;
         a{
           color: #ffffff;
           @extend  %trans-all;
         }
       }
         a{
-          font-size: 16px;
-          color: #ffffff;
+          font-size: 20px;
+
           }
     }
   .active{ background: #34ACD8;
@@ -541,7 +544,7 @@ $min-width-kuang:1200px;
   //min-width: 980px;
   height: 200px;
   background: #ffffff;
-  border-radius: 40px;
+  border-radius: 20px;
     p{
       margin-bottom: 20px;
       margin-left: 10px;

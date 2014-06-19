@@ -12,8 +12,8 @@ return array (
 		'URL_MODEL' => 1,
 		'URL_HTML_SUFFIX'=>'', // 多个用 | 分割,
 		'SESSION_AUTO_START' =>true,
-		'DOMAIN' => 'http://admin.jienuo-service.net/',
-		'image_url' => 'http://img.jienuo-service.net/',
+		'DOMAIN' => 'http://192.168.0.65/',
+		'image_url' => 'http://192.168.0.65/',
 		'__PUBLIC__'     => '__APP__/Public/',
 		'is_open_purview' => '1', // 是否开启权限 1开启
 		'page_show_number' => 30  //每页显示数量

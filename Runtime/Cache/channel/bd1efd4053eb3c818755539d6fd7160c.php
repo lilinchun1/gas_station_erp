@@ -84,11 +84,17 @@
 <div id="container">
 <div class="left">
     <ul class="aside-nav">
+    <li class="aside-nav-nth1"><a href="<?php echo U('channel/Channel/index');?>">渠道管理</a></li>
+    <li class="active"><a href="<?php echo U('channel/Channel/index');?>"><input type="button" value="渠道信息"></a></li>
+    <li><a href="<?php echo U('channel/Place/index');?>"><input type="button" class="" value="网点信息"></a></li>
+    <li><a href="<?php echo U('channel/Device/index');?>"><input type="button" class="" value="加油站信息"></a></li>
+</ul>
+    <!--<ul class="aside-nav">
         <li class="aside-nav-nth1"><a href="<?php echo U('channel/Channel/index');?>">渠道管理</a></li>
         <li><a href="<?php echo U('channel/Channel/index');?>"><input type="button" value="渠道信息"></a></li>
         <li><a href="<?php echo U('channel/Place/index');?>"><input type="button" class="" value="网点信息"></a></li>
         <li class="active"><a href="<?php echo U('channel/Device/index');?>"><input type="button" class="" value="加油站信息"></a></li>
-    </ul>
+    </ul>-->
 </div>
 <div class="right">
 <div class="right-con">
@@ -124,6 +130,7 @@
             <button type="button" class="area-btn" id="b_add_device">添加</button>
             <button type="button" class="area-btn" id="b_change_device">编辑/查看</button>
             <button type="button" id="j_del_button" class="area-btn">删除</button>
+            <button type="button" id="j_repeal_button" class="area-btn">撤销</button>
         </form>
     </div>
 </div>
@@ -146,10 +153,10 @@
 				<span class="span-1"><b>启用时间</b></span>
                 <span class="span-1"><b>图片预览</b></span>
             </li>
-			<?php if(is_array($list)): $i = 0; $__LIST__ = $list;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$vo): $mod = ($i % 2 );++$i;?><li>
+			<?php if(is_array($list)): $i = 0; $__LIST__ = $list;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$vo): $mod = ($i % 2 );++$i;?><li class="list_sel" onclick="selectDeviceRadio('<?php echo ($vo['device_id']); ?>','<?php echo ($vo['isDelete']); ?>');">
 					<span class="span-1">
 						<input type="radio" name="deviceRadioID" id="<?php echo ($vo['deviceRadioID']); ?>" value="<?php echo ($vo['device_id']); ?>"
-							 onclick="selectDeviceRadio('<?php echo ($vo['device_id']); ?>','<?php echo ($vo['isDelete']); ?>');" class="role-table-radio"/></span>
+							  class="role-table-radio"/></span>
 					<span class="span-1" title="#"><?php echo ($vo["device_no"]); ?></span>
 					<span class="span-1" title="#"><?php echo ($vo["MAC"]); ?></span>
 					<span class="span-1" title="#"><?php echo ($vo["device_type"]); ?></span>
@@ -200,92 +207,7 @@
         </ul>
     </div>
     <div class="bd">
-        <ul class="role-table-list role-table-list2">
-            <li>
-                <span class="span-3"><b>操作人</b></span>
-                <span class="span-3"><b>操作时间</b></span>
-                <span class="span-3"><b>操作内容</b></span>
-            </li>
-            <li>
-                <span class="span-3" title="#">Lorem ipsum dolor sit amet.</span>
-                <span class="span-3" title="#">Beatae fugiat impedit ipsa porro!</span>
-                <span class="span-3" title="#">Atque corporis laudantium perspiciatis qui?</span>
-            </li>
-            <li>
-                <span class="span-3" title="#">Lorem ipsum dolor sit amet.</span>
-                <span class="span-3" title="#">Beatae fugiat impedit ipsa porro!</span>
-                <span class="span-3" title="#">Atque corporis laudantium perspiciatis qui?</span>
-            </li>
-            <li>
-                <span class="span-3" title="#">Lorem ipsum dolor sit amet.</span>
-                <span class="span-3" title="#">Beatae fugiat impedit ipsa porro!</span>
-                <span class="span-3" title="#">Atque corporis laudantium perspiciatis qui?</span>
-            </li>
-            <li>
-                <span class="span-3" title="#">Lorem ipsum dolor sit amet.</span>
-                <span class="span-3" title="#">Beatae fugiat impedit ipsa porro!</span>
-                <span class="span-3" title="#">Atque corporis laudantium perspiciatis qui?</span>
-            </li>
-            <li>
-                <span class="span-3" title="#">Lorem ipsum dolor sit amet.</span>
-                <span class="span-3" title="#">Beatae fugiat impedit ipsa porro!</span>
-                <span class="span-3" title="#">Atque corporis laudantium perspiciatis qui?</span>
-            </li>
-            <li>
-                <span class="span-3" title="#">Lorem ipsum dolor sit amet.</span>
-                <span class="span-3" title="#">Beatae fugiat impedit ipsa porro!</span>
-                <span class="span-3" title="#">Atque corporis laudantium perspiciatis qui?</span>
-            </li>
-            <li>
-                <span class="span-3" title="#">Lorem ipsum dolor sit amet.</span>
-                <span class="span-3" title="#">Beatae fugiat impedit ipsa porro!</span>
-                <span class="span-3" title="#">Atque corporis laudantium perspiciatis qui?</span>
-            </li>
-            <li>
-                <span class="span-3" title="#">Lorem ipsum dolor sit amet.</span>
-                <span class="span-3" title="#">Beatae fugiat impedit ipsa porro!</span>
-                <span class="span-3" title="#">Atque corporis laudantium perspiciatis qui?</span>
-            </li>
-            <li>
-                <span class="span-3" title="#">Lorem ipsum dolor sit amet.</span>
-                <span class="span-3" title="#">Beatae fugiat impedit ipsa porro!</span>
-                <span class="span-3" title="#">Atque corporis laudantium perspiciatis qui?</span>
-            </li>
-            <li>
-                <span class="span-3" title="#">Lorem ipsum dolor sit amet.</span>
-                <span class="span-3" title="#">Beatae fugiat impedit ipsa porro!</span>
-                <span class="span-3" title="#">Atque corporis laudantium perspiciatis qui?</span>
-            </li>
-            <li>
-                <span class="span-3" title="#">Lorem ipsum dolor sit amet.</span>
-                <span class="span-3" title="#">Beatae fugiat impedit ipsa porro!</span>
-                <span class="span-3" title="#">Atque corporis laudantium perspiciatis qui?</span>
-            </li>
-            <li>
-                <span class="span-3" title="#">Lorem ipsum dolor sit amet.</span>
-                <span class="span-3" title="#">Beatae fugiat impedit ipsa porro!</span>
-                <span class="span-3" title="#">Atque corporis laudantium perspiciatis qui?</span>
-            </li>
-            <li>
-                <span class="span-3" title="#">Lorem ipsum dolor sit amet.</span>
-                <span class="span-3" title="#">Beatae fugiat impedit ipsa porro!</span>
-                <span class="span-3" title="#">Atque corporis laudantium perspiciatis qui?</span>
-            </li>
-            <li>
-                <span class="span-3" title="#">Lorem ipsum dolor sit amet.</span>
-                <span class="span-3" title="#">Beatae fugiat impedit ipsa porro!</span>
-                <span class="span-3" title="#">Atque corporis laudantium perspiciatis qui?</span>
-            </li>
-            <li>
-                <span class="span-3" title="#">Lorem ipsum dolor sit amet.</span>
-                <span class="span-3" title="#">Beatae fugiat impedit ipsa porro!</span>
-                <span class="span-3" title="#">Atque corporis laudantium perspiciatis qui?</span>
-            </li>
-            <li>
-                <span class="span-3" title="#">Lorem ipsum dolor sit amet.</span>
-                <span class="span-3" title="#">Beatae fugiat impedit ipsa porro!</span>
-                <span class="span-3" title="#">Atque corporis laudantium perspiciatis qui?</span>
-            </li>
+        <ul id="device_log_info" class="role-table-list role-table-list2">
         </ul>
         <!--<ul class="role-table-list role-table-list2">
             <li>
@@ -675,6 +597,9 @@
 	var tmp_change_image_path_0 = '';
 	var tmp_change_image_path_1 = '';
 	var tmp_change_image_path_2 = '';
+	var tmp_image_path_0 = '';
+	var tmp_image_path_1 = '';
+	var tmp_image_path_2 = '';
 	function selectDeviceRadio(device_id, device_delete){
 		device_val = device_id;
 		device_flag = device_delete;
@@ -694,8 +619,10 @@
 	$(document).ready(function () {
 		var state = "<?php echo ($isDeleteResult); ?>";
 		if(1 == state){
+			$("#device_select_result_ul").empty();
 			$("#device_select_result_ul").append("<li onclick='device_use_select();'>启用</li><li class='on' onclick='device_remove_select();'>撤销</li>");
 		}else{
+			$("#device_select_result_ul").empty();
 			$("#device_select_result_ul").append("<li class='on' onclick='device_use_select();'>启用</li><li onclick='device_remove_select();'>撤销</li>");
 		}
 
@@ -723,6 +650,29 @@
 				windowSourceID:'#j_del_win'
 		     });
              return false;
+        });
+
+		//撤销网点
+        $('#j_repeal_button').click(function(){
+			if(device_val == '')
+			{
+				alert("<?php echo C('no_select_data');?>");
+				return;
+			}
+			if(device_val == 1)
+			{
+				alert("<?php echo C('repeal_no_edit');?>");
+				return;
+			}
+            var device_id=device_val;
+            var del_handleUrl="<?php echo U('channel/Device/deviceRepeal');?>";
+            $.getJSON(del_handleUrl,{"device_id":device_id},
+                    function (data){
+                        alert(data);
+                        window.location.href = window.location.href;
+                    }
+                    ,'json'
+            );
         });
 
 		//单击删除确认按钮
@@ -896,6 +846,23 @@
 			,'json'
 			);
 
+		});
+
+		$(".list_sel").click(function(){
+			$(this).find(".role-table-radio").attr("checked",'checked');
+			$("#device_log_info").empty();
+			$("#device_log_info").append("<li><span class='span-3'><b>操作人</b></span><span class='span-3'><b>操作时间</b></span><span class='span-3'><b>操作日志</b></span></li>");
+			var handleUrl = "<?php echo U('channel/Device/deviceLogSelect');?>";
+			var device_id=device_val;
+			$.getJSON(handleUrl,{"device_id":device_id},
+				function (data){
+					$.each(data, function(i,item){
+						    $("#device_log_info").append("<li><span class='span-3'>" + item.user + "</span><span class='span-3'>" +
+								item.time + "</span><span class='span-3' title='" + item.info + "'>" + item.info + "</span></li>");
+					});
+			}
+			,'json'
+			);
 		});
 	});
 

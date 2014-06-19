@@ -5,6 +5,8 @@
     <title>渠道信息</title>
     <link rel="stylesheet" href="../../Public/css/configuration.css"/>
 	<link rel="stylesheet" href="__PUBLIC__/css/configuration.css"/>
+	<link rel="stylesheet" href="__PUBLIC__/css/attribute.css"/>
+
 	<script type="text/javascript" src="__PUBLIC__/js/jquery-1.6.1.js"></script>
 	<script type="text/javascript" src="__PUBLIC__/js/script_city.js"></script>
 	<script language="javascript" type="text/javascript" src="__PUBLIC__/js/My97DatePicker/WdatePicker.js"></script>
@@ -64,11 +66,17 @@
 <div id="container">
 <div class="left">
     <ul class="aside-nav">
+    <li class="aside-nav-nth1"><a href="<?php echo U('channel/Channel/index');?>">渠道管理</a></li>
+    <li><a href="<?php echo U('channel/Channel/index');?>"><input type="button" value="渠道信息"></a></li>
+    <li><a href="<?php echo U('channel/Place/index');?>"><input type="button" class="" value="网点信息"></a></li>
+    <li><a href="<?php echo U('channel/Device/index');?>"><input type="button" class="" value="加油站信息"></a></li>
+</ul>
+    <!--<ul class="aside-nav">
         <li class="aside-nav-nth1"><a href="<?php echo U('channel/Channel/index');?>">渠道管理</a></li>
         <li class="active"><a href="<?php echo U('channel/Channel/index');?>"><input type="button" value="渠道信息"></a></li>
         <li><a href="<?php echo U('channel/Place/index');?>"><input type="button" class="" value="网点信息"></a></li>
         <li><a href="<?php echo U('channel/Device/index');?>"><input type="button" class="" value="加油站信息"></a></li>
-    </ul>
+    </ul>-->
 </div>
 <div class="right">
 <div class="right-con">
@@ -146,11 +154,11 @@
                 <span class="span-1"><b>启用网点数量</b></span>
                 <span class="span-1"><b>投放加油站数量</b></span>
             </li>
-            <?php if(is_array($list)): $i = 0; $__LIST__ = $list;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$vo): $mod = ($i % 2 );++$i;?><li>
+            <?php if(is_array($list)): $i = 0; $__LIST__ = $list;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$vo): $mod = ($i % 2 );++$i;?><li class="list_sel" onclick="selectChannelRadio('<?php echo ($vo['channel_id']); ?>','<?php echo ($vo['channel_type_father_id']); ?>',
+							'<?php echo ($vo['channel_type_id']); ?>','<?php echo ($vo['isDelete']); ?>');">
                     <span class="span-1">
 						<input type="radio" name="channelDetailID" id="<?php echo ($vo['channelDetailID']); ?>" value="<?php echo ($vo['channel_id']); ?>" 
-							onclick="selectChannelRadio('<?php echo ($vo['channel_id']); ?>','<?php echo ($vo['channel_type_father_id']); ?>',
-							'<?php echo ($vo['channel_type_id']); ?>','<?php echo ($vo['isDelete']); ?>');" class="role-table-radio"/>
+							 class="role-table-radio"/>
 					</span>
                     <span class="span-1" title="#"><?php echo ($vo["channel_name"]); ?></span>
                     <span class="span-1" title="#"><?php echo ($vo["channel_type_name"]); ?></span>
@@ -204,92 +212,7 @@
     <div class="data-log">
         <h3>操作日志</h3>
     </div>
-    <ul class="role-table-list role-table-list2">
-        <li>
-            <span class="span-3"><b>操作人</b></span>
-            <span class="span-3"><b>操作时间</b></span>
-            <span class="span-3"><b>操作日志</b></span>
-        </li>
-        <li>
-            <span class="span-3" title="#">Lorem ipsum dolor sit amet.</span>
-            <span class="span-3" title="#">Beatae fugiat impedit ipsa porro!</span>
-            <span class="span-3" title="#">Atque corporis laudantium perspiciatis qui?</span>
-        </li>
-        <li>
-            <span class="span-3" title="#">Lorem ipsum dolor sit amet.</span>
-            <span class="span-3" title="#">Beatae fugiat impedit ipsa porro!</span>
-            <span class="span-3" title="#">Atque corporis laudantium perspiciatis qui?</span>
-        </li>
-        <li>
-            <span class="span-3" title="#">Lorem ipsum dolor sit amet.</span>
-            <span class="span-3" title="#">Beatae fugiat impedit ipsa porro!</span>
-            <span class="span-3" title="#">Atque corporis laudantium perspiciatis qui?</span>
-        </li>
-        <li>
-            <span class="span-3" title="#">Lorem ipsum dolor sit amet.</span>
-            <span class="span-3" title="#">Beatae fugiat impedit ipsa porro!</span>
-            <span class="span-3" title="#">Atque corporis laudantium perspiciatis qui?</span>
-        </li>
-        <li>
-            <span class="span-3" title="#">Lorem ipsum dolor sit amet.</span>
-            <span class="span-3" title="#">Beatae fugiat impedit ipsa porro!</span>
-            <span class="span-3" title="#">Atque corporis laudantium perspiciatis qui?</span>
-        </li>
-        <li>
-            <span class="span-3" title="#">Lorem ipsum dolor sit amet.</span>
-            <span class="span-3" title="#">Beatae fugiat impedit ipsa porro!</span>
-            <span class="span-3" title="#">Atque corporis laudantium perspiciatis qui?</span>
-        </li>
-        <li>
-            <span class="span-3" title="#">Lorem ipsum dolor sit amet.</span>
-            <span class="span-3" title="#">Beatae fugiat impedit ipsa porro!</span>
-            <span class="span-3" title="#">Atque corporis laudantium perspiciatis qui?</span>
-        </li>
-        <li>
-            <span class="span-3" title="#">Lorem ipsum dolor sit amet.</span>
-            <span class="span-3" title="#">Beatae fugiat impedit ipsa porro!</span>
-            <span class="span-3" title="#">Atque corporis laudantium perspiciatis qui?</span>
-        </li>
-        <li>
-            <span class="span-3" title="#">Lorem ipsum dolor sit amet.</span>
-            <span class="span-3" title="#">Beatae fugiat impedit ipsa porro!</span>
-            <span class="span-3" title="#">Atque corporis laudantium perspiciatis qui?</span>
-        </li>
-        <li>
-            <span class="span-3" title="#">Lorem ipsum dolor sit amet.</span>
-            <span class="span-3" title="#">Beatae fugiat impedit ipsa porro!</span>
-            <span class="span-3" title="#">Atque corporis laudantium perspiciatis qui?</span>
-        </li>
-        <li>
-            <span class="span-3" title="#">Lorem ipsum dolor sit amet.</span>
-            <span class="span-3" title="#">Beatae fugiat impedit ipsa porro!</span>
-            <span class="span-3" title="#">Atque corporis laudantium perspiciatis qui?</span>
-        </li>
-        <li>
-            <span class="span-3" title="#">Lorem ipsum dolor sit amet.</span>
-            <span class="span-3" title="#">Beatae fugiat impedit ipsa porro!</span>
-            <span class="span-3" title="#">Atque corporis laudantium perspiciatis qui?</span>
-        </li>
-        <li>
-            <span class="span-3" title="#">Lorem ipsum dolor sit amet.</span>
-            <span class="span-3" title="#">Beatae fugiat impedit ipsa porro!</span>
-            <span class="span-3" title="#">Atque corporis laudantium perspiciatis qui?</span>
-        </li>
-        <li>
-            <span class="span-3" title="#">Lorem ipsum dolor sit amet.</span>
-            <span class="span-3" title="#">Beatae fugiat impedit ipsa porro!</span>
-            <span class="span-3" title="#">Atque corporis laudantium perspiciatis qui?</span>
-        </li>
-        <li>
-            <span class="span-3" title="#">Lorem ipsum dolor sit amet.</span>
-            <span class="span-3" title="#">Beatae fugiat impedit ipsa porro!</span>
-            <span class="span-3" title="#">Atque corporis laudantium perspiciatis qui?</span>
-        </li>
-        <li>
-            <span class="span-3" title="#">Lorem ipsum dolor sit amet.</span>
-            <span class="span-3" title="#">Beatae fugiat impedit ipsa porro!</span>
-            <span class="span-3" title="#">Atque corporis laudantium perspiciatis qui?</span>
-        </li>
+    <ul id="channel_log_info" class="role-table-list role-table-list2">
     </ul>
 </div>
 </div>
@@ -443,7 +366,36 @@
                 <select name="add_channel_second_type_sel" id="add_channel_second_type_sel" class="channel-select-min">
 					<option value="">全部</option>
 				</select>
-                <a class="channel-wz-a" href="">修改类别</a><a class="channel-wz-a" href="">修改属性</a>
+                <a class="channel-wz-a"  id="sort_button">修改类别</a><a class="channel-wz-a" id="attr_button">修改属性</a>
+				<html>
+
+<div class="mod_sort" style="display:none;" id="mod_sort">
+	<div class="mod_txt">所属类别</div>
+	<div id="mod_kl"><!--类别放的地方begin-->
+		
+	</div><!--类别放的地方end-->
+
+	<div><!--确定框-->
+		<input id="add_class_ok_button" type="button" value="" class="mod_but"/>
+	</div>
+
+
+</div>
+</html>
+				<html>
+<div class="mod_arrt" style="display:none;" id="mod_arrt">
+<div class="mod_txt" style="float:left;">所属类别</div>
+		<div id="mod_rt" ><!--类别放的地方begin-->
+
+		</div><!--类别放的地方end-->
+		<div id="mod_arrt_bl" style="margin-top:10px;"><!--属性放的地方-->
+			
+		</div>
+		<div><!--确定框-->
+			<input id="" type="button" value="" class="mod_but"/>
+		</div>
+</div>
+</html>
             </p>
             <p>
                 <label for="user-phone" class="role-lab">联系人&nbsp;&nbsp;&nbsp;</label>
@@ -511,7 +463,7 @@
                 <select name="change_channel_second_type_sel" id="change_channel_second_type_sel" class="channel-select-min">
 					<option value="">全部</option>
 				</select>
-                <a class="channel-wz-a" href="">修改类别</a><a class="channel-wz-a" href="">修改属性</a>
+                <!--<a class="channel-wz-a" href="">修改类别</a><a class="channel-wz-a" href="">修改属性</a>-->
             </p>
             <p>
                 <label for="user-phone" class="role-lab">联系人&nbsp;&nbsp;&nbsp;</label>
@@ -635,6 +587,36 @@
                     , 'json'
             );
         });
+
+		$("#add_channel_first_type_sel").change(function(){
+			var channel_first_type_sel = $("#add_channel_first_type_sel").val();
+			$("#add_channel_second_type_sel option").remove();
+			var handleUrl = "<?php echo U('Channel/channelSecondTypeSelect');?>";
+			$.getJSON(handleUrl,{'channel_first_type_sel':channel_first_type_sel},
+				function (data){
+					$("#add_channel_second_type_sel").append("<option value=''>全部</option>");
+					$.each(data,function(key,val){
+						$("#add_channel_second_type_sel").append("<option value='" + val['channel_type_id']+ "'>"+ val['channel_type_name'] +"</option>");
+					});
+				}
+				,'json'
+			);
+		});
+
+		$("#change_channel_first_type_sel").change(function(){
+			var channel_first_type_sel = $("#change_channel_first_type_sel").val();
+			$("#change_channel_second_type_sel option").remove();
+			var handleUrl = "<?php echo U('Channel/channelSecondTypeSelect');?>";
+			$.getJSON(handleUrl,{'channel_first_type_sel':channel_first_type_sel},
+				function (data){
+					$("#change_channel_second_type_sel").append("<option value=''>全部</option>");
+					$.each(data,function(key,val){
+						$("#change_channel_second_type_sel").append("<option value='" + val['channel_type_id']+ "'>"+ val['channel_type_name'] +"</option>");
+					});
+				}
+				,'json'
+			);
+		});
 
 		$("#delete_contract").click(function () {
 			if(channel_val == '')
@@ -863,6 +845,8 @@
 					$("#change_contacts_tel_txt").val(data['contacts_tel']);
 					//$("#change_channel_address_txt").val(data['channel_address']);
 					$("#change_contract_number_txt").val(data['contract_number']);
+					$("#change_begin_time_sel").val(data['begin_time']);
+					$("#change_end_time_sel").val(data['end_time']);
 				}
 			,'json'
 			);
@@ -919,6 +903,77 @@
 			);
 		});
 
+		
+		//点击修改类别事件  显示弹窗
+		$("#sort_button").click(function(){
+			//显示弹窗
+			$("#mod_sort").slideDown(500);
+			zong_bind();
+			chushihua();
+			$("#mod_kl").html("");
+			
+		});//点击修改类别结束
+
+		//点击完成事件隐藏窗口
+
+		$("#add_class_ok_button").click(function(){
+			//隐藏弹窗
+			$("#mod_sort").slideUp(500);
+			handleUrl = "<?php echo U('Channel/getAllChannelType');?>";
+			var typeTab = "";
+			$.getJSON(handleUrl,{},
+				function (data){
+					typeTab += "<option value=\"\">请选择类型</option>";
+					$.each(data, function(i,item){
+						typeTab += "<option value =" + "'" + item.channel_type_id + "'>" + item.channel_type_name + "</option>";
+					});
+				$("#add_channel_first_type_sel").html(typeTab);
+				}
+			,'json'
+			);
+		});
+
+
+		//点击修改属性事件  显示弹窗
+		$("#attr_button").click(function(){
+			//显示弹窗
+			$("#mod_arrt").slideDown(500);
+			$("#mod_arrt_bl").html("");//初始化遍历属性窗
+			sort_kk();
+			chushihua();
+			$("#select_sort").remove();//初始化遍历类型列表
+			//绑定遍历
+		});//点击修改类别结束
+
+		//点击完成事件隐藏窗口
+
+		$(".mod_but").click(function(){
+			//隐藏弹窗
+			$("#mod_arrt").slideUp(500);
+			$("#select_sort").remove();//初始化遍历类型列表
+			$("#mod_arrt_bl").html("");//初始化遍历属性窗
+		});
+
+
+
+//===============================================单击查询框里某一条数据=======================================
+		$(".list_sel").click(function(){
+			$(this).find(".role-table-radio").attr("checked",'checked');
+			$("#channel_log_info").empty();
+			$("#channel_log_info").append("<li><span class='span-3'><b>操作人</b></span><span class='span-3'><b>操作时间</b></span><span class='span-3'><b>操作日志</b></span></li>");
+			var handleUrl = "<?php echo U('channel/Channel/channelLogSelect');?>";
+			var channel_id=channel_val;
+			$.getJSON(handleUrl,{"channel_id":channel_id},
+				function (data){
+					$.each(data, function(i,item){
+						    $("#channel_log_info").append("<li><span class='span-3'>" + item.user + "</span><span class='span-3'>" +
+								item.time + "</span><span class='span-3' title='" + item.info + "'>" + item.info + "</span></li>");
+					});
+			}
+			,'json'
+			);
+		});
+
     });
 
     function agent_name_blurry() {
@@ -958,6 +1013,256 @@
 	function channel_remove_select(){
 		$("#select_del_flag_txt").val(1);
 		channelSelect.submit();
+	}
+
+
+
+
+
+	//属性_遍历json查询类型
+	function sort_kk(){
+			$("#mod_arrt_bl").html("");//初始化遍历属性窗
+			//访问json
+			var str = "";
+			$.get("<?php echo U('Channel/getAllChannelType');?>",{'str':str},function(data1){
+				$("#mod_rt").append("<select id='select_sort' value=''><option>请选择所属类型</option></select>");
+				$.each(data1,function(key,val){
+						$("#select_sort").append("<option value='"+val['channel_type_id']+"'>"+val['channel_type_name']+"</option>");
+				});	
+				$("#select_sort").bind("change", sel_arrt);
+			},"json")
+			
+		}
+
+	//属性_查询按照类别查询属性
+	function sel_arrt(){
+		$("#mod_arrt_bl").html("");//初始化遍历属性窗
+		var thisval= $('#select_sort option:selected').val();//此文本的val
+		if(thisval!="请选择所属类型"){
+			//这个地方要疯了。。记得一定要在channel前面加/
+			var posturl="<?php echo U('channel/Channel/channelSecondTypeSelect');?>"+'/channel_first_type_sel/'+thisval;
+			var str = "";
+			$.get(posturl,{'str':str},function(data2){
+				$.each(data2,function(key,val){
+					$("#mod_arrt_bl").append("<div><input type='text' value='"+val['channel_type_name']+"' id='"+val['channel_type_id']+"' class='sel_sort'/><input type='button' class='delect_sort'/></div>");
+					
+				})
+			chushihua();//初始化样式
+			$(".sel_sort").bind("dblclick", mod_arrt);//绑定文本框修改事件
+			$("#mod_arrt_bl").append("<input type='button' value='添加属性' class='add_sort'/> ")//添加属性按钮
+			$(".delect_sort").bind("click", del_arrt_bind);//绑定删除单击事件
+			$(".add_sort").bind("click", add_arrt_bind);//绑定添加单击事件
+			lang=0;
+			},"json")
+		}else{
+			chushihua();//初始化样式
+			$("#mod_arrt_bl").html("");//初始化遍历属性窗
+		}
+	}
+	//属性_添加
+	function add_arrt_bind(){
+		var lang=$(".sel_sort").length;
+		var lastval=$(".sel_sort:last").val();
+		if(lang<=11&&lastval!=""){
+			$(this).before("<div><input type='text' value='' id='' class='sel_sort'/><input type='button' class='delect_sort'/></div>");
+			$(".sel_sort").bind("dblclick", mod_arrt);//绑定文本框双击事件
+			$(".delect_sort").bind("click", del_arrt_bind);//绑定删除单击事件
+			$(".sel_sort").attr("readonly", "readonly");  //给文本框设置只读样式
+			$(".sel_sort").css("cursor","pointer");//文本框手势
+		}
+	}
+	//属性_修改
+	function mod_arrt(){
+		 oldval=$(this).val()//记录原来的值
+		 $(this).attr("readonly", false);  //取消文本框只读
+		 $(this).css("cursor","auto");//取消文本框手势
+		 $(".sel_sort").unbind("dblclick", mod_arrt);//解除绑定
+		 $(this).blur(function(){
+			 if(oldval!==""){
+				newval=$(this).val();//记录现在的值
+				if(newval==oldval){
+					chushihua();
+				}else{
+					//向服务器请求更改
+						var thisid= $(this).attr("id");//此文本的ID
+						var faval= $('#select_sort option:selected').val();//此文本父级菜单的值
+						$.getJSON("<?php echo U('channel/Channel/channelTypeSave');?>",{"first_channel_type_id":faval,"second_channel_type_id":thisid,"dst_channel_type_name":newval},
+						function (lp){
+							var tmp_msg = "<?php echo C('change_channel_success');?>";
+							if(tmp_msg != lp)
+							{
+								alert(lp);
+							}
+						}
+						,'json'
+						);
+						$("#mod_arrt_bl").html("");
+						sel_arrt();
+						chushihua();
+				}
+			 }else{
+				//进行新增
+				newval=$(this).val();//现在的值
+				if(newval!=""){
+					var faval= $('#select_sort option:selected').val();//此文本父级菜单的值
+					$.getJSON("<?php echo U('channel/Channel/channelTypeAdd');?>",{"channel_type_father_id":faval,"channel_type_name":newval},
+							function (lp){
+								var tmp_msg = "<?php echo C('add_type_success');?>";
+								if(tmp_msg != lp)
+								{
+									alert(lp);
+								}
+								$("#mod_arrt_bl").html("");
+								sel_arrt();
+								chushihua();
+							}
+							,'json'
+							);
+				}else{
+					$("#mod_arrt_bl").html("");
+					sel_arrt();
+					chushihua();
+				}
+			 }
+		});
+	}
+
+	//属性_单击删除方法
+	function del_arrt_bind(){
+		var del_thisid=$(this).parent().find(".sel_sort").attr("id");
+		$.getJSON("<?php echo U('channel/Channel/channelTypeDelete');?>",{"channel_type_id":del_thisid},
+			function (lp){
+				var tmp_msg = "<?php echo C('delete_type_success');?>";
+				if(tmp_msg != lp)
+				{
+					alert(lp);
+				}
+				$("#mod_arrt_bl").html("");
+				sel_arrt();
+				chushihua();
+			}
+			,'json'
+		);
+
+	}
+	//类别_遍历json查询类型
+	function zong_bind(){
+			$("#mod_kl").html("");
+			//访问json
+			var str = "";
+			//控制换行的变量
+			var kongzhi=1;
+			$.get("<?php echo U('channel/Channel/getAllChannelType');?>",{'str':str},function(data1){
+				$.each(data1,function(key,val){
+					if(kongzhi==3){
+						$("#mod_kl").append("<div><input type='text' value='"+val['channel_type_name']+"' id='"+val['channel_type_id']+"' class='sel_leibie'/><input type='button' class='delect_sort'/></div><br/>");
+					}else{
+						$("#mod_kl").append("<div><input type='text' value='"+val['channel_type_name']+"' id='"+val['channel_type_id']+"' class='sel_leibie'/><input type='button' class='delect_sort'/></div>");
+					}
+				});
+				var oldval="";
+				var newval="";
+				$(".sel_leibie").one("dblclick", sel_sort_bind);//绑定文本框双击事件
+				$(".delect_sort").bind("click", del_sort_bind);//绑定删除单击事件
+				$(".sel_leibie").attr("readonly", "readonly");  //给文本框设置只读样式
+				$(".sel_leibie").css("cursor","pointer");//文本框手势
+				$("#mod_kl").append("<input type='button' value='添加类别' class='add_sort'/> ")//添加类型按钮
+				$(".add_sort").one("click", add_sort_bind);//绑定添加单击事件
+				
+			},"json")
+		}
+	//类别_双击文本框修改方法
+	function sel_sort_bind(){
+		 oldval=$(this).val()//把原来的值付给
+		 $(this).attr("readonly", false);  //取消文本框只读
+		 $(this).css("cursor","auto");//取消文本框手势
+		 $(".sel_leibie").unbind("dblclick", sel_sort_bind);//解除绑定
+		 $(this).blur(function(){
+			 if(oldval!=""){
+				newval=$(this).val();//现在的值
+				if(newval==oldval){
+					chushihua();
+				}else{
+					//向服务器请求更改
+						var thisid= $(this).attr("id");//此文本的ID
+						$.getJSON("<?php echo U('channel/Channel/channelTypeSave');?>",{"first_channel_type_id":thisid,"dst_channel_type_name":newval},
+						function (lp){
+							var tmp_msg = "<?php echo C('change_type_success');?>";
+							if(tmp_msg != lp)
+							{
+								alert(lp);
+							}
+						}
+						,'json'
+						);
+						$("#mod_kl").html("");
+						zong_bind();
+						chushihua();
+				}
+			 }else{
+				//进行新增
+				newval=$(this).val();//现在的值
+				if(newval!=""){
+					$.getJSON("<?php echo U('channel/Channel/channelTypeAdd');?>",{"channel_type_name":newval},
+							function (lp){
+								var tmp_msg = "<?php echo C('add_type_success');?>";
+								if(tmp_msg != lp)
+								{
+									alert(lp);
+								}
+								$("#mod_kl").html("");
+								zong_bind();
+								chushihua();
+							}
+							,'json'
+							);
+				}else{
+					$("#mod_kl").html("");
+					zong_bind();
+					chushihua();
+				}
+			 }
+		});
+	};
+	//类别_单击删除方法
+	function del_sort_bind(){
+		var del_thisid=$(this).parent().find(".sel_leibie").attr("id");
+		$.getJSON("<?php echo U('channel/Channel/channelTypeDelete');?>",{"channel_type_id":del_thisid},
+			function (lp){
+				var tmp_msg = "<?php echo C('delete_type_success');?>";
+				if(tmp_msg != lp)
+				{
+					alert(lp);
+				}
+				$("#mod_kl").html("");
+				zong_bind();
+				chushihua();
+			}
+			,'json'
+		);
+
+	}
+
+	//类别_添加方法
+	function add_sort_bind(){
+		var lang=$(".sel_leibie").length;
+		var lastval=$(".sel_sort:last").val();
+		if(lang<=11&&lastval!=""){
+			$(this).before("<div><input type='text' value='' id='' class='sel_leibie'/><input type='button' class='delect_sort'/></div>");
+
+			$(".sel_leibie").bind("dblclick", sel_sort_bind);//绑定文本框双击事件
+			$(".delect_sort").bind("click", del_sort_bind);//绑定删除单击事件
+			$(".sel_leibie").attr("readonly", "readonly");  //给文本框设置只读样式
+			$(".sel_leibie").css("cursor","pointer");//文本框手势
+		}
+	}
+
+
+	//类别_初始化所有类型
+	function chushihua(){
+	
+		$(".sel_sort").attr("readonly", "readonly"); 
+		$(".sel_sort").css("cursor","pointer");//文本框手势
 	}
 </script>
 <script type="text/javascript">
