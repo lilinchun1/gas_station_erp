@@ -23,7 +23,7 @@ class OrgAction extends CommonAction {
 		$this->export_total_agent_area();
 	}
 
-	//导入区域数据
+	//导入区域数据bi_area
 	public function export_area(){
 		$Model = new Model();
 		$province = M("province");
@@ -121,7 +121,7 @@ class OrgAction extends CommonAction {
 		$this->ajaxReturn($data, 'json');
 	}
 
-	//展示区域树形结构
+	//展示组织结构区域树形结构
 	public function show_org_area_tree(){
 		$Model = new Model();
 		$org_id = I('org_id');

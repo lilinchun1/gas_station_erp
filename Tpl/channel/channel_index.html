@@ -181,7 +181,7 @@
     <div class="alert-user-add-con">
             <p>
 				<label for="channel-address1" class="">所属组织机构：</label>
-                <select name="add_agent_id_sel" id="add_agent_id_sel" class="channel-select-min">
+                <select name="add_agent_id_sel" id="add_agent_id_sel" class="channel-select-min" style="width:150px">
                    <option selected value="">请选择所属组织</option>
 				   <foreach name="all_agent" item="agent">
 						<option value="{$agent.agent_id}">{$agent.agent_name}</option>
@@ -255,7 +255,7 @@
         <form action="">
             <p>
 				<label for="channel-address1" class="">所属组织机构：</label>
-                <select name="change_belong_agent_id_sel" id="change_belong_agent_id_sel" class="channel-select-min">
+                <select name="change_belong_agent_id_sel" id="change_belong_agent_id_sel" class="channel-select-min" style="width:150px">
                    <option selected value="">请选择所属组织</option>
 				   <foreach name="all_agent" item="agent">
 						<option value="{$agent.agent_id}">{$agent.agent_name}</option>

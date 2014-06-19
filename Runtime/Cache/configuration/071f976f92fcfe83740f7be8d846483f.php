@@ -27,12 +27,12 @@
 </div>
 <div id="nav">
     <ul class="main-nav" id="j-nav-active">
-        <li><a href="">加油站监控</a></li>
-        <li><a href="<?php echo U('channel/Channel/index');?>">渠道管理</a></li>
-        <li><a href="<?php echo U('management/Index/importingApp');?>">运营管理</a></li>
-        <li><a href="">统计分析</a></li>
-        <li><a href="">广告管理</a></li>
-        <li><a href="<?php echo U('configuration/Org/index');?>">系统设置</a></li>
+        <li class="url_link" url=""><a href="">加油站监控</a></li>
+        <li class="url_link" url="<?php echo U('channel/Channel/index');?>"><a href="<?php echo U('channel/Channel/index');?>">渠道管理</a></li>
+        <li class="url_link" url="<?php echo U('management/Index/importingApp');?>"><a href="<?php echo U('management/Index/importingApp');?>">运营管理</a></li>
+        <li class="url_link" url="<?php echo U('channel/Channel/index');?>"><a href="">统计分析</a></li>
+        <li class="url_link" url="<?php echo U('channel/Channel/index');?>"><a href="">广告管理</a></li>
+        <li class="url_link" url="<?php echo U('configuration/Org/index');?>"><a href="<?php echo U('configuration/Org/index');?>">系统设置</a></li>
     </ul>
 </div>
 <script type="text/javascript">
@@ -61,10 +61,10 @@
 <div id="container">
     <div class="left">
         <ul class="aside-nav">
-    <li class="aside-nav-nth1"><a href="<?php echo U('configuration/Org/index');?>">系统设置</a></li>
-    <li><a href="<?php echo U('configuration/Org/index');?>"><input  type="button"  value="组织结构" ></a></li>
-    <li><a href="<?php echo U('configuration/Role/show_role');?>"><input type="button" class="" value="角色维护" ></a></li>
-    <li><a href="<?php echo U('configuration/User/index');?>"><input type="button" class="" value="职员维护" ></a></li>
+    <li class="aside-nav-nth1 url_link" url="<?php echo U('configuration/Org/index');?>"><a href="<?php echo U('configuration/Org/index');?>">系统设置</a></li>
+    <li class="url_link" url="<?php echo U('configuration/Org/index');?>"><a href="<?php echo U('configuration/Org/index');?>"><input  type="button"  value="组织结构" ></a></li>
+    <li class="url_link" url="<?php echo U('configuration/Role/show_role');?>"><a href="<?php echo U('configuration/Role/show_role');?>"><input type="button" class="" value="角色维护" ></a></li>
+    <li class="url_link" url="<?php echo U('configuration/User/index');?>"><a href="<?php echo U('configuration/User/index');?>"><input type="button" class="" value="职员维护" ></a></li>
 </ul>
         <!--<ul class="aside-nav">
             <li class="aside-nav-nth1"><a href="<?php echo U('configuration/Org/index');?>">系统设置</a></li>
@@ -90,8 +90,8 @@
                             <button type="button" class="area-btn" id="j_mod_button">编辑</button>
                             <button type="button" class="area-btn" id="j_del_button">删除</button>
                             <button type="button" class="area-btn" id="j_selrole_button">查看权限</button>
-							<input type="text" id="selrole_hidden_id" value="" />
-							<input type="text" id="quanxian_id" value="" />
+							<input type="text" id="selrole_hidden_id" style="display:none;" value="" />
+							<input type="text" id="quanxian_id" style="display:none;" value="" />
 							
                     </div>
                 </div>
@@ -124,6 +124,11 @@
 <div id="footer">
 
 </div>
+<!-- 控制菜单显示 -->
+<input type="hidden" class="urlStr" value="<?php echo ($urlStr); ?>">
+<!-- 控制当期页面菜单样式 -->
+<input type="hidden" class="nowUrl" value="<?php echo ($nowUrl); ?>">
+<script type="text/javascript" src="__PUBLIC__/js/default_load.js"></script>
 <script type="text/javascript" src="__PUBLIC__/js/jquery-1.6.1.js"></script>
 <script type="text/javascript" src="__PUBLIC__/js/jquery.DOMwindow.js" type="text/javascript"></script><!--模框JS插件-->
 <div id="change_password_id" style="display:none;">
@@ -166,6 +171,7 @@
 		</div>
 	</div>
 </div>
+
 <script>
     window.onload=function(){
         headAct();
@@ -453,7 +459,29 @@ window.onscroll=function(){
 				onCheck: mod_onCheck
 			}
 		};
-		
+
+		var show_setting = {
+			check: {
+				enable: true
+			},
+			data: {
+				simpleData: {
+					enable: true
+				}
+			},
+			view: {
+				dblClickExpand: false
+			},
+			callback: {
+				beforeCheck: show_beforeCheck,
+				onCheck: onCheck
+			}
+		};
+		function show_beforeCheck(treeId, treeNode) {
+			className = (className === "dark" ? "":"dark");
+			showLog("[ "+getTime()+" beforeCheck ]&nbsp;&nbsp;&nbsp;&nbsp;" + treeNode.name );
+			return (treeNode.doCheck !== false);
+		}
 		function mod_setCheck() {
 			var zTree = $.fn.zTree.getZTreeObj("mod_treeDemo"),
 			py = $("#py").attr("checked")? "p":"",
@@ -618,10 +646,10 @@ $(document).ready(function(){
 					for(var i=0;i<arr.length;i++)
 					{
 						if(arr[i]==kid){
-							zNodes[key]= {'id':kid, 'pId':parent, 'name':value, 'open':true ,checked:true,'t':kid};
+							zNodes[key]= {'id':kid, 'pId':parent, 'name':value, 'open':true ,checked:true,'t':kid, doCheck:false};
 							break;
 						}else{
-							zNodes[key]= {'id':kid, 'pId':parent, 'name':value, 'open':true ,'t':kid};
+							zNodes[key]= {'id':kid, 'pId':parent, 'name':value, 'open':true ,'t':kid, doCheck:false};
 						}
 					}
 
@@ -632,7 +660,7 @@ $(document).ready(function(){
 				// alert("请求失败!");
 			}
 		});
-			$.fn.zTree.init($("#show_treeDemo"), mod_setting, zNodes);
+			$.fn.zTree.init($("#show_treeDemo"), show_setting, zNodes);
 
 			$.openDOMWindow({
 				loader:1,

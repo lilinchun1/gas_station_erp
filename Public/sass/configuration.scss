@@ -1,14 +1,15 @@
 @charset "UTF-8";
 @import "reset";
 @import "font";
-$nav-height:60px;
+$nav-height:60px; //主导航高度
 $aside-bg:#34acd8;//侧边栏背景色
 $border-color:#DDDDDD; //通用边框颜色
 $container-left-width:180px;  //container 左边栏宽度
 $font-n-color:#767676; //默认文字颜色
 $font-h-color:#34acd8; //默认hover文字颜色
 $bg-color:#f6f6f6;
-$min-width-kuang:1200px;
+$min-width-kuang:965px;
+$min-width-kuang2:750px;
 %bdrs{//通用圆角边框
   border-radius: 5px;
 }
@@ -74,7 +75,7 @@ $min-width-kuang:1200px;
       text-indent: -9999em;}
 }
 .head-tt {
-  padding-left: 20%;
+  padding-left: 5%;
   margin-top: 30px;
   float: left;
   text-align: center;
@@ -112,7 +113,6 @@ $min-width-kuang:1200px;
       line-height: 24px;
       span{
         margin-top: 8px;
-        margin-right: 5px;
         float: right;
         width: 0;
         height: 0;
@@ -341,7 +341,7 @@ $min-width-kuang:1200px;
 
 /*角色维护页面*/
 .role-control{
-  min-width: $min-width-kuang;
+  min-width: $min-width-kuang2;
   padding: 20px 0;
   margin: 0 auto;
   width: 98%;
@@ -961,4 +961,14 @@ $min-width-kuang:1200px;
   height: 30px;
   text-align: center;
   cursor: pointer;
+}
+.role-inquire{
+  min-width: $min-width-kuang2;
+}
+input.input-org-info,input.channel-select{
+  margin-bottom: 15px;}
+
+@media screen and (max-width: 1300px){
+  input.input-org-info,input.channel-select{width: 90px;
+    margin-bottom: 15px;}
 }

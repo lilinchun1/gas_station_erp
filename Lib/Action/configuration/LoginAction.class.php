@@ -3,10 +3,12 @@
  * 渠道管理类
  */
 class LoginAction extends Action {
+	//登录页
     public function index(){
 		$this->display(':login_index');
 	}
 
+	//登录之后的默认页
 	 public function default_index(){
 		$userinfo = getUserInfo();
 		$this->username = $userinfo['realname']; //登录的用户名
@@ -80,7 +82,7 @@ class LoginAction extends Action {
 		$this->index();
 	}
 
-	// 生成验证码
+	// 修改密码
 	public function change_password() {
 		$old_password = I('old_password_txt');
 		$new_password = I('new_password_txt');

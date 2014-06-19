@@ -12,7 +12,7 @@ class RoleAction extends CommonAction {
 		$this->display(':role_index');
 	}
 
-	//展示组织结构
+	//展示所有角色
 	public function show_all_role(){
 		$Model = new Model();
 		$role_info = $Model->query("select * from bi_role where del_flag=0");
@@ -206,7 +206,7 @@ class RoleAction extends CommonAction {
 		$this->ajaxReturn($msg,'json');
 	}
 
-    //查看权限
+    //根据角色查看权限
 	public function select_purview(){
 		$id = trim(I('purview_role_id_txt'));
 		$Model = new Model();
@@ -230,7 +230,7 @@ class RoleAction extends CommonAction {
 		$this->ajaxReturn($data, 'json');
 	}
 
-	//查看权限
+	//查看所有权限
 	public function select_all_purview(){
 		$Model = new Model();
 		$menu_info = $Model->query("select menu_id, menuname, url, pid from bi_menu");

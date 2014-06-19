@@ -35,8 +35,8 @@
                             <button type="button" class="area-btn" id="j_mod_button">编辑</button>
                             <button type="button" class="area-btn" id="j_del_button">删除</button>
                             <button type="button" class="area-btn" id="j_selrole_button">查看权限</button>
-							<input type="text" id="selrole_hidden_id" value="" />
-							<input type="text" id="quanxian_id" value="" />
+							<input type="text" id="selrole_hidden_id" style="display:none;" value="" />
+							<input type="text" id="quanxian_id" style="display:none;" value="" />
 							
                     </div>
                 </div>
@@ -298,9 +298,17 @@ window.onscroll=function(){
 			},
 			view: {
 				dblClickExpand: false
+			},
+			callback: {
+				beforeCheck: show_beforeCheck,
+				onCheck: onCheck
 			}
 		};
-		
+		function show_beforeCheck(treeId, treeNode) {
+			className = (className === "dark" ? "":"dark");
+			showLog("[ "+getTime()+" beforeCheck ]&nbsp;&nbsp;&nbsp;&nbsp;" + treeNode.name );
+			return (treeNode.doCheck !== false);
+		}
 		function mod_setCheck() {
 			var zTree = $.fn.zTree.getZTreeObj("mod_treeDemo"),
 			py = $("#py").attr("checked")? "p":"",
@@ -465,10 +473,10 @@ $(document).ready(function(){
 					for(var i=0;i<arr.length;i++)
 					{
 						if(arr[i]==kid){
-							zNodes[key]= {'id':kid, 'pId':parent, 'name':value, 'open':true ,checked:true,'t':kid};
+							zNodes[key]= {'id':kid, 'pId':parent, 'name':value, 'open':true ,checked:true,'t':kid, doCheck:false};
 							break;
 						}else{
-							zNodes[key]= {'id':kid, 'pId':parent, 'name':value, 'open':true ,'t':kid};
+							zNodes[key]= {'id':kid, 'pId':parent, 'name':value, 'open':true ,'t':kid, doCheck:false};
 						}
 					}
 

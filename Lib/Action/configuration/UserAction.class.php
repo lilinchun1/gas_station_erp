@@ -139,7 +139,7 @@ class UserAction extends CommonAction {
 		$this->ajaxReturn($msg,'json');
 	}
 
-	//根据角色ID查询角色详细信息
+	//根据用户ID查询用户详细信息
     public function userDetailSelect(){
 	    $Model = new Model();
 		$user_id = I('get.user_id');

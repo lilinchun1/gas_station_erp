@@ -145,12 +145,12 @@
 </div>
 <div id="nav">
     <ul class="main-nav" id="j-nav-active">
-        <li><a href="">加油站监控</a></li>
-        <li><a href="<?php echo U('channel/Channel/index');?>">渠道管理</a></li>
-        <li><a href="<?php echo U('management/Index/importingApp');?>">运营管理</a></li>
-        <li><a href="">统计分析</a></li>
-        <li><a href="">广告管理</a></li>
-        <li><a href="<?php echo U('configuration/Org/index');?>">系统设置</a></li>
+        <li class="url_link" url=""><a href="">加油站监控</a></li>
+        <li class="url_link" url="<?php echo U('channel/Channel/index');?>"><a href="<?php echo U('channel/Channel/index');?>">渠道管理</a></li>
+        <li class="url_link" url="<?php echo U('management/Index/importingApp');?>"><a href="<?php echo U('management/Index/importingApp');?>">运营管理</a></li>
+        <li class="url_link" url="<?php echo U('channel/Channel/index');?>"><a href="">统计分析</a></li>
+        <li class="url_link" url="<?php echo U('channel/Channel/index');?>"><a href="">广告管理</a></li>
+        <li class="url_link" url="<?php echo U('configuration/Org/index');?>"><a href="<?php echo U('configuration/Org/index');?>">系统设置</a></li>
     </ul>
 </div>
 <script type="text/javascript">
@@ -179,10 +179,10 @@
 <div id="container">
     <div class="left">
         <ul class="aside-nav">
-    <li class="aside-nav-nth1"><a href="">APP刊例管理</a></li>
-    <li><a href="<?php echo U('management/Index/importingApp');?>"><input type="button" value="刊例维护"></a></li>
-    <li><a href="<?php echo U('management/Index/addRuleTarget');?>"><input type="button" class="" value="刊例发布"></a></li>
-    <li><a href="<?php echo U('management/Index/verup');?>"><input type="button" class="" value="版本升级"></a></li>
+    <li class="aside-nav-nth1" class="url_link" url="<?php echo U('configuration/Org/index');?>"><a href="">APP刊例管理</a></li>
+    <li class="url_link" url="<?php echo U('management/Index/importingApp');?>"><a href="<?php echo U('management/Index/importingApp');?>"><input type="button" value="刊例维护"></a></li>
+    <li class="url_link" url="<?php echo U('management/Index/addRuleTarget');?>"><a href="<?php echo U('management/Index/addRuleTarget');?>"><input type="button" class="" value="刊例发布"></a></li>
+    <li class="url_link" url="<?php echo U('management/Index/verup');?>"><a href="<?php echo U('management/Index/verup');?>"><input type="button" class="" value="版本升级"></a></li>
 </ul>
         <!--<ul class="aside-nav">
             <li class="aside-nav-nth1"><a href="">APP刊例管理</a></li>
@@ -251,6 +251,11 @@
 <div id="footer">
 
 </div>
+<!-- 控制菜单显示 -->
+<input type="hidden" class="urlStr" value="<?php echo ($urlStr); ?>">
+<!-- 控制当期页面菜单样式 -->
+<input type="hidden" class="nowUrl" value="<?php echo ($nowUrl); ?>">
+<script type="text/javascript" src="__PUBLIC__/js/default_load.js"></script>
 <script type="text/javascript" src="__PUBLIC__/js/jquery-1.6.1.js"></script>
 <script type="text/javascript" src="__PUBLIC__/js/jquery.DOMwindow.js" type="text/javascript"></script><!--模框JS插件-->
 <div id="change_password_id" style="display:none;">
@@ -293,6 +298,7 @@
 		</div>
 	</div>
 </div>
+
 <script>
     window.onload=function(){
         headAct();

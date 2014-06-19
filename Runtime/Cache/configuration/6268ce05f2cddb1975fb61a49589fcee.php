@@ -28,12 +28,12 @@
 </div>
 <div id="nav">
     <ul class="main-nav" id="j-nav-active">
-        <li><a href="">加油站监控</a></li>
-        <li><a href="<?php echo U('channel/Channel/index');?>">渠道管理</a></li>
-        <li><a href="<?php echo U('management/Index/importingApp');?>">运营管理</a></li>
-        <li><a href="">统计分析</a></li>
-        <li><a href="">广告管理</a></li>
-        <li><a href="<?php echo U('configuration/Org/index');?>">系统设置</a></li>
+        <li class="url_link" url=""><a href="">加油站监控</a></li>
+        <li class="url_link" url="<?php echo U('channel/Channel/index');?>"><a href="<?php echo U('channel/Channel/index');?>">渠道管理</a></li>
+        <li class="url_link" url="<?php echo U('management/Index/importingApp');?>"><a href="<?php echo U('management/Index/importingApp');?>">运营管理</a></li>
+        <li class="url_link" url="<?php echo U('channel/Channel/index');?>"><a href="">统计分析</a></li>
+        <li class="url_link" url="<?php echo U('channel/Channel/index');?>"><a href="">广告管理</a></li>
+        <li class="url_link" url="<?php echo U('configuration/Org/index');?>"><a href="<?php echo U('configuration/Org/index');?>">系统设置</a></li>
     </ul>
 </div>
 <script type="text/javascript">
@@ -63,10 +63,10 @@
 <div id="container">
     <div class="left">
         <ul class="aside-nav">
-    <li class="aside-nav-nth1"><a href="<?php echo U('configuration/Org/index');?>">系统设置</a></li>
-    <li><a href="<?php echo U('configuration/Org/index');?>"><input  type="button"  value="组织结构" ></a></li>
-    <li><a href="<?php echo U('configuration/Role/show_role');?>"><input type="button" class="" value="角色维护" ></a></li>
-    <li><a href="<?php echo U('configuration/User/index');?>"><input type="button" class="" value="职员维护" ></a></li>
+    <li class="aside-nav-nth1 url_link" url="<?php echo U('configuration/Org/index');?>"><a href="<?php echo U('configuration/Org/index');?>">系统设置</a></li>
+    <li class="url_link" url="<?php echo U('configuration/Org/index');?>"><a href="<?php echo U('configuration/Org/index');?>"><input  type="button"  value="组织结构" ></a></li>
+    <li class="url_link" url="<?php echo U('configuration/Role/show_role');?>"><a href="<?php echo U('configuration/Role/show_role');?>"><input type="button" class="" value="角色维护" ></a></li>
+    <li class="url_link" url="<?php echo U('configuration/User/index');?>"><a href="<?php echo U('configuration/User/index');?>"><input type="button" class="" value="职员维护" ></a></li>
 </ul>
         <!-- <ul class="aside-nav">
              <li class="aside-nav-nth1"><a href="<?php echo U('configuration/Org/index');?>">系统设置</a></li>
@@ -101,7 +101,7 @@
                     </div>
                 </div>
                 <div class="role-table over-h-y">
-					<input type="text" id="selrole_hidden_id" value="" /><!--ID缓存框-->
+					<input type="text" id="selrole_hidden_id" style="display:none;" value="" /><!--ID缓存框-->
                     <ul class="role-table-list">
                         <li>
                             <span class="span-1"></span>
@@ -113,10 +113,10 @@
                             <span class="span-1"><b>角色</b></span>
                             <span class="span-1"><b>状态</b></span>
                         </li>
-						<?php if(is_array($list)): $i = 0; $__LIST__ = $list;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$vo): $mod = ($i % 2 );++$i;?><li class="list_sel">
+						<?php if(is_array($list)): $i = 0; $__LIST__ = $list;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$vo): $mod = ($i % 2 );++$i;?><li class="list_sel" onclick="selectUserRadio('<?php echo ($vo['uid']); ?>');">
 								<span class="span-1">
 									<input type="radio" name="radio1" id="<?php echo ($vo['userRadioID']); ?>" value="<?php echo ($vo['uid']); ?>"
-										onclick="selectUserRadio('<?php echo ($vo['uid']); ?>');" class="role-table-radio"/>
+										 class="role-table-radio"/>
 								</span>
 								<span class="span-1" title="#"><?php echo ($vo["realname"]); ?></span>
 								<span class="span-1" title="#"><?php echo ($vo["sex"]); ?></span>
@@ -125,7 +125,7 @@
 								<span class="span-2" title="#"><?php echo ($vo["username"]); ?></span>
 								<span class="span-1" title="#"><?php echo ($vo["rolename"]); ?></span>
 								<span class="span-1" title="#"><?php echo ($vo["del_flag"]); ?></span>
-								<span class="roleid_hidden" title="#"><?php echo ($vo["uid"]); ?></span>
+								<span class="roleid_hidden" style="display:none;" title="#"><?php echo ($vo["uid"]); ?></span>
 
 							</li><?php endforeach; endif; else: echo "" ;endif; ?>
                     </ul>
@@ -230,6 +230,11 @@
 <div id="footer">
 
 </div>
+<!-- 控制菜单显示 -->
+<input type="hidden" class="urlStr" value="<?php echo ($urlStr); ?>">
+<!-- 控制当期页面菜单样式 -->
+<input type="hidden" class="nowUrl" value="<?php echo ($nowUrl); ?>">
+<script type="text/javascript" src="__PUBLIC__/js/default_load.js"></script>
 <script type="text/javascript" src="__PUBLIC__/js/jquery-1.6.1.js"></script>
 <script type="text/javascript" src="__PUBLIC__/js/jquery.DOMwindow.js" type="text/javascript"></script><!--模框JS插件-->
 <div id="change_password_id" style="display:none;">
@@ -272,6 +277,7 @@
 		</div>
 	</div>
 </div>
+
 <script>
     window.onload=function(){
         headAct();
@@ -695,11 +701,15 @@
                 }
             });
 			//显示
+			if( user_val == ''){
+				alert("请选择一条职员信息再进行编辑");
+				return;
+			}
             var mod_handleUrl="<?php echo U('configuration/User/userDetailSelect');?>";
             var arr=new Array();
             var str=new String();
-			var user_val=$("#selrole_hidden_id").val();
-            $.getJSON(mod_handleUrl,{ "user_id":user_val},
+			var user_id_val=$("#selrole_hidden_id").val();
+            $.getJSON(mod_handleUrl,{ "user_id":user_id_val},
                     function (data){
                        //alert(data['username']);
 						$("#user_id").val(data['uid']);//uid
@@ -845,6 +855,10 @@
         });
 
             $('#j_del_button').click(function(){
+			 if( user_val == ''){
+				alert("请选择一条职员信息再进行编辑");
+				return;
+			 }
 			 $.openDOMWindow({
 			    loader:1,
 				loaderHeight:16,
@@ -869,6 +883,10 @@
 
 		//重置密码
         $('#j_reset_password').click(function(){
+			if( user_val == ''){
+				alert("请选择一条职员信息再进行编辑");
+				return;
+			}
             var reset_userid_txt= $("#selrole_hidden_id").val();
             var del_handleUrl="<?php echo U('configuration/User/reset_password');?>";
             $.getJSON(del_handleUrl,{"reset_userid_txt":reset_userid_txt},
@@ -882,6 +900,10 @@
 
 		//激活失效
         $('#j_modify_user_state').click(function(){
+			if( user_val == ''){
+				alert("请选择一条职员信息再进行编辑");
+				return;
+			}
             var modify_userid_txt= $("#selrole_hidden_id").val();
             var del_handleUrl="<?php echo U('configuration/User/modify_user_state');?>";
             $.getJSON(del_handleUrl,{"modify_userid_txt":modify_userid_txt},

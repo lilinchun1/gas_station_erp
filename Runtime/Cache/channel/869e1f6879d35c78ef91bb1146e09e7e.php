@@ -32,12 +32,12 @@
 </div>
 <div id="nav">
     <ul class="main-nav" id="j-nav-active">
-        <li><a href="">加油站监控</a></li>
-        <li><a href="<?php echo U('channel/Channel/index');?>">渠道管理</a></li>
-        <li><a href="<?php echo U('management/Index/importingApp');?>">运营管理</a></li>
-        <li><a href="">统计分析</a></li>
-        <li><a href="">广告管理</a></li>
-        <li><a href="<?php echo U('configuration/Org/index');?>">系统设置</a></li>
+        <li class="url_link" url=""><a href="">加油站监控</a></li>
+        <li class="url_link" url="<?php echo U('channel/Channel/index');?>"><a href="<?php echo U('channel/Channel/index');?>">渠道管理</a></li>
+        <li class="url_link" url="<?php echo U('management/Index/importingApp');?>"><a href="<?php echo U('management/Index/importingApp');?>">运营管理</a></li>
+        <li class="url_link" url="<?php echo U('channel/Channel/index');?>"><a href="">统计分析</a></li>
+        <li class="url_link" url="<?php echo U('channel/Channel/index');?>"><a href="">广告管理</a></li>
+        <li class="url_link" url="<?php echo U('configuration/Org/index');?>"><a href="<?php echo U('configuration/Org/index');?>">系统设置</a></li>
     </ul>
 </div>
 <script type="text/javascript">
@@ -66,11 +66,13 @@
 <div id="container">
 <div class="left">
     <ul class="aside-nav">
-    <li class="aside-nav-nth1"><a href="<?php echo U('channel/Channel/index');?>">渠道管理</a></li>
-    <li><a href="<?php echo U('channel/Channel/index');?>"><input type="button" value="渠道信息"></a></li>
-    <li><a href="<?php echo U('channel/Place/index');?>"><input type="button" class="" value="网点信息"></a></li>
-    <li><a href="<?php echo U('channel/Device/index');?>"><input type="button" class="" value="加油站信息"></a></li>
+    <li class="aside-nav-nth1 url_link"  url="<?php echo U('channel/Channel/index');?>"><a href="<?php echo U('channel/Channel/index');?>">渠道管理</a></li>
+    <li class="url_link" url="<?php echo U('channel/Channel/index');?>"><a href="<?php echo U('channel/Channel/index');?>"><input type="button" value="渠道信息"></a></li>
+    <li class="url_link" url="<?php echo U('channel/Channel/index');?>"><a href="<?php echo U('channel/Place/index');?>"><input type="button" class="" value="网点信息"></a></li>
+    <li class="url_link" url="<?php echo U('channel/Channel/index');?>"><a href="<?php echo U('channel/Device/index');?>"><input type="button" class="" value="加油站信息"></a></li>
 </ul>
+
+
     <!--<ul class="aside-nav">
         <li class="aside-nav-nth1"><a href="<?php echo U('channel/Channel/index');?>">渠道管理</a></li>
         <li class="active"><a href="<?php echo U('channel/Channel/index');?>"><input type="button" value="渠道信息"></a></li>
@@ -222,6 +224,11 @@
 <div id="footer">
 
 </div>
+<!-- 控制菜单显示 -->
+<input type="hidden" class="urlStr" value="<?php echo ($urlStr); ?>">
+<!-- 控制当期页面菜单样式 -->
+<input type="hidden" class="nowUrl" value="<?php echo ($nowUrl); ?>">
+<script type="text/javascript" src="__PUBLIC__/js/default_load.js"></script>
 <script type="text/javascript" src="__PUBLIC__/js/jquery-1.6.1.js"></script>
 <script type="text/javascript" src="__PUBLIC__/js/jquery.DOMwindow.js" type="text/javascript"></script><!--模框JS插件-->
 <div id="change_password_id" style="display:none;">
@@ -264,6 +271,7 @@
 		</div>
 	</div>
 </div>
+
 <script>
     window.onload=function(){
         headAct();
@@ -342,7 +350,7 @@
     <div class="alert-user-add-con">
             <p>
 				<label for="channel-address1" class="">所属组织机构：</label>
-                <select name="add_agent_id_sel" id="add_agent_id_sel" class="channel-select-min">
+                <select name="add_agent_id_sel" id="add_agent_id_sel" class="channel-select-min" style="width:150px">
                    <option selected value="">请选择所属组织</option>
 				   <?php if(is_array($all_agent)): foreach($all_agent as $key=>$agent): ?><option value="<?php echo ($agent["agent_id"]); ?>"><?php echo ($agent["agent_name"]); ?></option><?php endforeach; endif; ?>
                 </select>
@@ -439,7 +447,7 @@
         <form action="">
             <p>
 				<label for="channel-address1" class="">所属组织机构：</label>
-                <select name="change_belong_agent_id_sel" id="change_belong_agent_id_sel" class="channel-select-min">
+                <select name="change_belong_agent_id_sel" id="change_belong_agent_id_sel" class="channel-select-min" style="width:150px">
                    <option selected value="">请选择所属组织</option>
 				   <?php if(is_array($all_agent)): foreach($all_agent as $key=>$agent): ?><option value="<?php echo ($agent["agent_id"]); ?>"><?php echo ($agent["agent_name"]); ?></option><?php endforeach; endif; ?>
                 </select>

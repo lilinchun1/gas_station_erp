@@ -2,15 +2,20 @@
 import ( "@.MyClass.Spreadsheet_Excel_Reader" );
 class IndexAction extends Action {
 	private $uploaded_url = "Runtime/Temp";
-	public function index(){
-		echo "hello";
-		$this->display(':index');
+	public $uid = 0;
+	function __construct(){
+		parent::__construct();
+		//获取用户信息
+		$userinfo = getUserInfo();
+		$this->uid = $userinfo['uid'];
+		//获取可查看菜单路径
+		$url_str = ableUrlStr($this->uid);
+		$this->assign('urlStr', $url_str);
 	}
-	
-	
 	
 	//展示刊例维护
 	function importingApp() {
+		//var_dump($url_str);exit;
 		$appRule = new Model ( "AppRule" );
 		if ($_POST ['add_udp'] == "1") { //新增
 			$rule_no = $_POST['rule_no'];
@@ -57,24 +62,23 @@ class IndexAction extends Action {
 			$where .= " and a.createtime = '$createtime_sel' ";
 		}
 		
-		//if($where != " where 1 "){//只有点击查询，显示结果
-			$sel = " select a.*,b.realname from app_rule a
-			left join bi_user b on a.createuserid = b.uid
-			$where and a.rule_status = 0 group by a.rule_no order by a.createtime";
-			$que = $appRule->query($sel);
-			foreach ($que as $k=>$v){
-				$que[$k]['createtime'] = date("Y-m-d",$v['createtime']);
-			}
-			$this->assign('issueArr', $que);
-		//}
+		$sel = " select a.*,b.realname from app_rule a
+		left join bi_user b on a.createuserid = b.uid
+		$where and a.rule_status = 0 group by a.rule_no order by a.createtime";
+		$que = $appRule->query($sel);
+		foreach ($que as $k=>$v){
+			$que[$k]['createtime'] = date("Y-m-d",$v['createtime']);
+		}
+		
+		$this->assign('issueArr', $que);
+		//供菜单给当前页面加样式
+		$this->assign('nowUrl', "management/Index/importingApp");
 		$this->display(':index');
 		
 	}
 	
 	//执行导入app期刊
 	function doImporting($fileName,$nowPageNum,$nowLineNum,$rule_no){
-		//=================================临时用户id
-		$uid = 123;
 		//信息创建时间
 		$createtime = strtotime(date("Y-m-d"));
 		//刊例状态，起始为0
@@ -139,7 +143,7 @@ class IndexAction extends Action {
 							'app_type'  => $app_type,
 							'numa'		=> $page,
 							'numb'	    => $several,
-							'createuserid'=>$uid,
+							'createuserid'=>$this->uid,
 							'createtime'=>$createtime,
 							'rule_status'=>$rule_status
 					) );echo $appRule->getlastsql(),"<br />\n";
@@ -154,7 +158,7 @@ class IndexAction extends Action {
 							'app_type'  => $app_type,
 							'numa'		=> $page,
 							'numb'      => $several,
-							'createuserid'=>$uid,
+							'createuserid'=>$this->uid,
 							'createtime'=>$createtime,
 							'rule_status'=>$rule_status
 					) );echo $appRule->getlastsql(),"<br />\n";
@@ -229,32 +233,27 @@ class IndexAction extends Action {
 				$release_time_sel = strtotime($_POST['release_time_sel']);;
 				$where .= " and release_time = '$release_time_sel' ";
 			}
-			//if($where != " where 1 "){//只有点击查询，显示结果
-				$sel = " select * from app_rule a $where and rule_status >=1 group by rule_no order by release_time";
-				$que = $appRule->query($sel);
-				foreach ($que as $k=>$v){
-					$que[$k]['createtime'] = date("Y-m-d",$v['createtime']);
-					$que[$k]['release_time'] = $v['release_time']?date("Y-m-d",$v['release_time']):"";
-					$que[$k]['start_time'] = date("Y-m-d",$v['start_time']);
-				}
-				$this->assign('issueArr', $que);
-			//}
+			$sel = " select * from app_rule a $where and rule_status >=1 group by rule_no order by release_time";
+			$que = $appRule->query($sel);
+			foreach ($que as $k=>$v){
+				$que[$k]['createtime'] = date("Y-m-d",$v['createtime']);
+				$que[$k]['release_time'] = $v['release_time']?date("Y-m-d",$v['release_time']):"";
+				$que[$k]['start_time'] = date("Y-m-d",$v['start_time']);
+			}
+			$this->assign('issueArr', $que);
+			//供菜单给当前页面加样式
+			$this->assign('nowUrl', "management/Index/addRuleTarget");
 			$this->display(':rule_send');
 	}
 	
 	
 	function verup(){
 		//echo 4353246;
+		//供菜单给当前页面加样式
+		$this->assign('nowUrl', "management/Index/verup");
 		$this->display(':verup');
 	}
-	
-	
-	
-	
-	
-	
-	
-	
+
 	//自动补全对应函数	
 	function getAppRule(){
 		$model = new Model();

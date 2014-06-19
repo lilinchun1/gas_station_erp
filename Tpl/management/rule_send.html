@@ -59,7 +59,8 @@
 						var kid=val['id'];
 						var parent=val['pid'];
 						var value=val['value'];
-						zNodes[key]= {'id':kid, 'pId':parent, 'name':value, 'open':true ,'t':kid};
+						var length=val['length'];
+						zNodes[key]= {'id':kid, 'pId':parent, 'name':value, 'open':true ,'t':length};
 					});
 				},
 
@@ -68,13 +69,8 @@
 				}
 			});
 			//===================================================树形结构js传递==========
-				//alert($("#treeDemo").html());
 				$.fn.zTree.init($("#treeDemo"), setting, zNodes);
-				setCheck();
-				$("#py").bind("change", setCheck);
-				$("#sy").bind("change", setCheck);
-				$("#pn").bind("change", setCheck);
-				$("#sn").bind("change", setCheck);
+
 			$.openDOMWindow({
 	            loader:1,
 	            loaderHeight:16,
@@ -261,12 +257,7 @@
 						<ul id="treeDemo" class="ztree"></ul>
 						<input type="text" value="" id="add_quanxian_id"/>
 					</div>
-					<div style="display:none">
-						<input type="checkbox" id="py" class="checkbox first"  />
-						<input type="checkbox" id="sy" class="checkbox first" checked />
-						<input type="checkbox" id="pn" class="checkbox first" />
-						<input type="checkbox" id="sn" class="checkbox first" checked />
-					</div>
+
 				</p>
 
 				<p>
@@ -322,35 +313,21 @@ getAppRule();
 				dblClickExpand: false
 			},
 			callback: {
-				beforeClick: beforeClick,
+
 				onCheck: onCheck
 			}
 		};
 
 		var code;
 		
-		function setCheck() {
-			var zTree = $.fn.zTree.getZTreeObj("treeDemo"),
-			py = $("#py").attr("checked")? "p":"",
-			sy = $("#sy").attr("checked")? "s":"",
-			pn = $("#pn").attr("checked")? "p":"",
-			sn = $("#sn").attr("checked")? "s":"",
-			type = { "Y":py + sy, "N":pn + sn};
-			zTree.setting.check.chkboxType = type;
-			showCode('setting.check.chkboxType = { "Y" : "' + type.Y + '", "N" : "' + type.N + '" };');
-		}
 		function showCode(str) {
 			if (!code) code = $("#code");
 			code.empty();
 			code.append("<li>"+str+"</li>");
 		}
-		function beforeClick(treeId, treeNode) {
-			var zTree = $.fn.zTree.getZTreeObj("treeDemo");
-			zTree.checkNode(treeNode, !treeNode.checked, null, true);
-			return false;
-		}
-		
-		function onCheck(e, treeId, treeNode) {
+
+
+		function onCheck(event, treeId, treeNode) {
 			var zTree = $.fn.zTree.getZTreeObj("treeDemo"),
 			nodes = zTree.getCheckedNodes(true),
 			v = "";
@@ -360,6 +337,8 @@ getAppRule();
 			if (v.length > 0 ) v = v.substring(0, v.length-1);
 			var cityObj = $("#add_quanxian_id");
 			cityObj.attr("value", v);
+
+
 		}
 
 		function showMenu() {

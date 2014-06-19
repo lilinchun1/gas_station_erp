@@ -46,7 +46,7 @@
                     </div>
                 </div>
                 <div class="role-table over-h-y">
-					<input type="text" id="selrole_hidden_id" value="" /><!--ID缓存框-->
+					<input type="text" id="selrole_hidden_id" style="display:none;" value="" /><!--ID缓存框-->
                     <ul class="role-table-list">
                         <li>
                             <span class="span-1"></span>
@@ -59,10 +59,10 @@
                             <span class="span-1"><b>状态</b></span>
                         </li>
 						<volist name="list" id="vo">
-							<li class="list_sel">
+							<li class="list_sel" onclick="selectUserRadio('{$vo['uid']}');">
 								<span class="span-1">
 									<input type="radio" name="radio1" id="{$vo['userRadioID']}" value="{$vo['uid']}"
-										onclick="selectUserRadio('{$vo['uid']}');" class="role-table-radio"/>
+										 class="role-table-radio"/>
 								</span>
 								<span class="span-1" title="#">{$vo.realname}</span>
 								<span class="span-1" title="#">{$vo.sex}</span>
@@ -71,7 +71,7 @@
 								<span class="span-2" title="#">{$vo.username}</span>
 								<span class="span-1" title="#">{$vo.rolename}</span>
 								<span class="span-1" title="#">{$vo.del_flag}</span>
-								<span class="roleid_hidden" title="#">{$vo.uid}</span>
+								<span class="roleid_hidden" style="display:none;" title="#">{$vo.uid}</span>
 
 							</li>
 						</volist>
@@ -528,11 +528,15 @@
                 }
             });
 			//显示
+			if( user_val == ''){
+				alert("请选择一条职员信息再进行编辑");
+				return;
+			}
             var mod_handleUrl="{:U('configuration/User/userDetailSelect')}";
             var arr=new Array();
             var str=new String();
-			var user_val=$("#selrole_hidden_id").val();
-            $.getJSON(mod_handleUrl,{ "user_id":user_val},
+			var user_id_val=$("#selrole_hidden_id").val();
+            $.getJSON(mod_handleUrl,{ "user_id":user_id_val},
                     function (data){
                        //alert(data['username']);
 						$("#user_id").val(data['uid']);//uid
@@ -678,6 +682,10 @@
         });
 
             $('#j_del_button').click(function(){
+			 if( user_val == ''){
+				alert("请选择一条职员信息再进行编辑");
+				return;
+			 }
 			 $.openDOMWindow({
 			    loader:1,
 				loaderHeight:16,
@@ -702,6 +710,10 @@
 
 		//重置密码
         $('#j_reset_password').click(function(){
+			if( user_val == ''){
+				alert("请选择一条职员信息再进行编辑");
+				return;
+			}
             var reset_userid_txt= $("#selrole_hidden_id").val();
             var del_handleUrl="{:U('configuration/User/reset_password')}";
             $.getJSON(del_handleUrl,{"reset_userid_txt":reset_userid_txt},
@@ -715,6 +727,10 @@
 
 		//激活失效
         $('#j_modify_user_state').click(function(){
+			if( user_val == ''){
+				alert("请选择一条职员信息再进行编辑");
+				return;
+			}
             var modify_userid_txt= $("#selrole_hidden_id").val();
             var del_handleUrl="{:U('configuration/User/modify_user_state')}";
             $.getJSON(del_handleUrl,{"modify_userid_txt":modify_userid_txt},

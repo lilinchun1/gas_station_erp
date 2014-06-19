@@ -20,11 +20,13 @@ class ChannelAction extends CommonAction {
 		$this->display(':channel_index');
 	}
 
+	//获取所有代理商
 	public function getAllAgent(){
 		$all_agent_info = getAllAgent();
 		$this->ajaxReturn($all_agent_info, 'json');
 	}
 
+	//获取所有渠道类型
 	public function getAllChannelType(){
 		$all_type_info = getAllChannelType();
 		$this->ajaxReturn($all_type_info, 'json');
@@ -299,10 +301,12 @@ class ChannelAction extends CommonAction {
 			{
 				$tmp_channel_id = $Model->query('select last_insert_id() as id');
 				$channel_id = $tmp_channel_id[0]['id'];
+				/*
 				$area['channel_id'] = $channel_id;
 				$area['province'] = $province;
 				$area['city'] = $city;
 				$is_set = $channel_area->add($area);
+				*/
 
 				$type_link['channel_id'] = $channel_id;
 				if('' != $channel_second_type)
