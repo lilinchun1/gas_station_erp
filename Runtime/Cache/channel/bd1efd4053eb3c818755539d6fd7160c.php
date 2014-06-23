@@ -27,9 +27,10 @@
 		  clear:left;
 	}
 	</style>
-
+<script type="text/javascript" src="__PUBLIC__/js/jquery-1.10.2.min.js"></script>
 </head>
 <body>
+<div class="head-wrap">
 <div id="head">
     <h1 class="head-logo"><a href="index.html">ERP管理系统</a></h1>
     <h2 class="head-tt">智能手机加油站ERP管理系统</h2>
@@ -50,13 +51,14 @@
 </div>
 <div id="nav">
     <ul class="main-nav" id="j-nav-active">
-        <li class="url_link" url=""><a href="">加油站监控</a></li>
+        <li class="url_link" url="<?php echo U('control/Index/index');?>"><a href="<?php echo U('control/Index/index');?>">加油站监控</a></li>
         <li class="url_link" url="<?php echo U('channel/Channel/index');?>"><a href="<?php echo U('channel/Channel/index');?>">渠道管理</a></li>
         <li class="url_link" url="<?php echo U('management/Index/importingApp');?>"><a href="<?php echo U('management/Index/importingApp');?>">运营管理</a></li>
-        <li class="url_link" url="<?php echo U('channel/Channel/index');?>"><a href="">统计分析</a></li>
-        <li class="url_link" url="<?php echo U('channel/Channel/index');?>"><a href="">广告管理</a></li>
+        <li class="url_link" url="<?php echo U('statistics/Index/index');?>"><a href="<?php echo U('statistics/Index/index');?>">统计分析</a></li>
+        <li class="url_link" url="<?php echo U('ad/Index/index');?>"><a href="<?php echo U('ad/Index/index');?>">广告管理</a></li>
         <li class="url_link" url="<?php echo U('configuration/Org/index');?>"><a href="<?php echo U('configuration/Org/index');?>">系统设置</a></li>
     </ul>
+</div>
 </div>
 <script type="text/javascript">
 	function show_change_password(){
@@ -86,8 +88,8 @@
     <ul class="aside-nav">
     <li class="aside-nav-nth1 url_link"  url="<?php echo U('channel/Channel/index');?>"><a href="<?php echo U('channel/Channel/index');?>">渠道管理</a></li>
     <li class="url_link" url="<?php echo U('channel/Channel/index');?>"><a href="<?php echo U('channel/Channel/index');?>"><input type="button" value="渠道信息"></a></li>
-    <li class="url_link" url="<?php echo U('channel/Channel/index');?>"><a href="<?php echo U('channel/Place/index');?>"><input type="button" class="" value="网点信息"></a></li>
-    <li class="url_link" url="<?php echo U('channel/Channel/index');?>"><a href="<?php echo U('channel/Device/index');?>"><input type="button" class="" value="加油站信息"></a></li>
+    <li class="url_link" url="<?php echo U('channel/Place/index');?>"><a href="<?php echo U('channel/Place/index');?>"><input type="button" class="" value="网点信息"></a></li>
+    <li class="url_link" url="<?php echo U('channel/Device/index');?>"><a href="<?php echo U('channel/Device/index');?>"><input type="button" class="" value="加油站信息"></a></li>
 </ul>
 
 
@@ -136,12 +138,12 @@
         </form>
     </div>
 </div>
-<div class="role-table">
+<div class="role-table" id="select_results">
     <div class="hd">
         <ul id="device_select_result_ul" class="channel-tab">
         </ul>
     </div>
-    <div class="bd over-h-y">
+    <div class="bd over-h-y" >
         <ul class="role-table-list">
             <li>
                 <span class="span-1"></span>
@@ -167,9 +169,9 @@
 					<?php if($isDeleteResult != 1): ?><span class="span-1" title="#"><?php echo ($vo["status"]); ?></span><?php endif; ?>
 					<span class="span-1" title="#"><?php echo ($vo["deploy_time"]); ?></span>
 					<span class="span-1" title="#"><?php echo ($vo["begin_time"]); ?></span>
-					<?php if(!empty($vo['device_image_0'])): ?><img class="" src="<?php echo ($vo["device_image_0"]); ?>" /><?php endif; ?>
-							<?php if(!empty($vo['device_image_1'])): ?><img class="" src="<?php echo ($vo["device_image_1"]); ?>" /><?php endif; ?>
-							<?php if(!empty($vo['device_image_2'])): ?><img class="" src="<?php echo ($vo["device_image_2"]); ?>" /><?php endif; ?>
+					<?php if(!empty($vo['device_image_0'])): ?><img class="smaallimg" src="<?php echo ($vo["device_image_0"]); ?>" /><?php endif; ?>
+							<?php if(!empty($vo['device_image_1'])): ?><img class="smaallimg" src="<?php echo ($vo["device_image_1"]); ?>" /><?php endif; ?>
+							<?php if(!empty($vo['device_image_2'])): ?><img class="smaallimg" src="<?php echo ($vo["device_image_2"]); ?>" /><?php endif; ?>
 				</li><?php endforeach; endif; else: echo "" ;endif; ?>
         </ul>
 		<!--
@@ -1185,7 +1187,22 @@
 						})  
 					}
 				}  
-	} 
+	}
+
+	$(function(){
+		ImgPreview();	
+	});
+var ImgPreview=function(){
+	$(".smaallimg").hover(function(e){ 
+		jQuery("<img class='preview' src='"+this.src+"'/>").appendTo("#select_results");
+		$(".preview").css("top",(e.pageY-5)+"px").css("position","absolute").css("margin-left","80px").css("margin-bottom","300px").css("width","550px").css("height","400px").fadeIn("fast");
+	},function(){
+		$(".preview").remove();
+	});
+	$(".smaallimg").mousemove(function(e){
+		$(".preview").css("top",(e.pageY-5)+"px").css("position","absolute").css("margin-left","80px");
+	});
+};
 </script>
 <script type="text/javascript">jQuery(".role-table").slide({trigger: "click"});</script>
 </body>

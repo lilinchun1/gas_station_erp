@@ -105,8 +105,8 @@
         <li class="url_link" url=""><a href="">加油站监控</a></li>
         <li class="url_link" url="<?php echo U('channel/Channel/index');?>"><a href="<?php echo U('channel/Channel/index');?>">渠道管理</a></li>
         <li class="url_link" url="<?php echo U('management/Index/importingApp');?>"><a href="<?php echo U('management/Index/importingApp');?>">运营管理</a></li>
-        <li class="url_link" url="<?php echo U('channel/Channel/index');?>"><a href="">统计分析</a></li>
-        <li class="url_link" url="<?php echo U('channel/Channel/index');?>"><a href="">广告管理</a></li>
+        <li class="url_link" url="<?php echo U('channel/Channele/index2');?>"><a href="">统计分析</a></li>
+        <li class="url_link" url="<?php echo U('channel/Channele/index2');?>"><a href="">广告管理</a></li>
         <li class="url_link" url="<?php echo U('configuration/Org/index');?>"><a href="<?php echo U('configuration/Org/index');?>">系统设置</a></li>
     </ul>
 </div>
@@ -141,12 +141,6 @@
     <li class="url_link" url="<?php echo U('management/Index/addRuleTarget');?>"><a href="<?php echo U('management/Index/addRuleTarget');?>"><input type="button" class="" value="刊例发布"></a></li>
     <li class="url_link" url="<?php echo U('management/Index/verup');?>"><a href="<?php echo U('management/Index/verup');?>"><input type="button" class="" value="版本升级"></a></li>
 </ul>
-		<!--<ul class="aside-nav">
-			<li class="aside-nav-nth1"><a href="">APP刊例管理</a></li>
-			<li class="active"><a href="<?php echo U('management/Index/importingApp');?>"><input type="button" value="刊例维护"></a></li>
-			<li style="display:none" class="url_link" url="<?php echo U('management/Index/addRuleTarget');?>"><a href="<?php echo U('management/Index/addRuleTarget');?>"><input type="button" class="" value="刊例发布"></a></li>
-            <li><a href="<?php echo U('management/Index/verup');?>"><input type="button" class="" value="版本升级"></a></li>
-		</ul>-->
 	</div>
 	<div class="right">
 		<div class="right-con">

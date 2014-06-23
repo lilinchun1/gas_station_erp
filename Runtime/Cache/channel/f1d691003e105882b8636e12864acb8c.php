@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <title>网点信息</title>
     <link rel="stylesheet" href="../../Public/css/configuration.css"/>
+    <script type="text/javascript" src="__PUBLIC__/js/jquery-1.10.2.min.js"></script>
 	<script type="text/javascript" src="__PUBLIC__/js/script_city.js"></script>
 	<script language="javascript" type="text/javascript" src="__PUBLIC__/js/My97DatePicker/WdatePicker.js"></script>
 	<script>
@@ -16,6 +17,7 @@
 	</script>
 </head>
 <body>
+<div class="head-wrap">
 <div id="head">
     <h1 class="head-logo"><a href="index.html">ERP管理系统</a></h1>
     <h2 class="head-tt">智能手机加油站ERP管理系统</h2>
@@ -36,13 +38,14 @@
 </div>
 <div id="nav">
     <ul class="main-nav" id="j-nav-active">
-        <li class="url_link" url=""><a href="">加油站监控</a></li>
+        <li class="url_link" url="<?php echo U('control/Index/index');?>"><a href="<?php echo U('control/Index/index');?>">加油站监控</a></li>
         <li class="url_link" url="<?php echo U('channel/Channel/index');?>"><a href="<?php echo U('channel/Channel/index');?>">渠道管理</a></li>
         <li class="url_link" url="<?php echo U('management/Index/importingApp');?>"><a href="<?php echo U('management/Index/importingApp');?>">运营管理</a></li>
-        <li class="url_link" url="<?php echo U('channel/Channel/index');?>"><a href="">统计分析</a></li>
-        <li class="url_link" url="<?php echo U('channel/Channel/index');?>"><a href="">广告管理</a></li>
+        <li class="url_link" url="<?php echo U('statistics/Index/index');?>"><a href="<?php echo U('statistics/Index/index');?>">统计分析</a></li>
+        <li class="url_link" url="<?php echo U('ad/Index/index');?>"><a href="<?php echo U('ad/Index/index');?>">广告管理</a></li>
         <li class="url_link" url="<?php echo U('configuration/Org/index');?>"><a href="<?php echo U('configuration/Org/index');?>">系统设置</a></li>
     </ul>
+</div>
 </div>
 <script type="text/javascript">
 	function show_change_password(){
@@ -72,8 +75,8 @@
     <ul class="aside-nav">
     <li class="aside-nav-nth1 url_link"  url="<?php echo U('channel/Channel/index');?>"><a href="<?php echo U('channel/Channel/index');?>">渠道管理</a></li>
     <li class="url_link" url="<?php echo U('channel/Channel/index');?>"><a href="<?php echo U('channel/Channel/index');?>"><input type="button" value="渠道信息"></a></li>
-    <li class="url_link" url="<?php echo U('channel/Channel/index');?>"><a href="<?php echo U('channel/Place/index');?>"><input type="button" class="" value="网点信息"></a></li>
-    <li class="url_link" url="<?php echo U('channel/Channel/index');?>"><a href="<?php echo U('channel/Device/index');?>"><input type="button" class="" value="加油站信息"></a></li>
+    <li class="url_link" url="<?php echo U('channel/Place/index');?>"><a href="<?php echo U('channel/Place/index');?>"><input type="button" class="" value="网点信息"></a></li>
+    <li class="url_link" url="<?php echo U('channel/Device/index');?>"><a href="<?php echo U('channel/Device/index');?>"><input type="button" class="" value="加油站信息"></a></li>
 </ul>
 
 

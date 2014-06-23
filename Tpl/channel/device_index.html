@@ -27,7 +27,7 @@
 		  clear:left;
 	}
 	</style>
-
+<script type="text/javascript" src="__PUBLIC__/js/jquery-1.10.2.min.js"></script>
 </head>
 <body>
 <include file="./Tpl/include/pb-head.html"/>
@@ -79,12 +79,12 @@
         </form>
     </div>
 </div>
-<div class="role-table">
+<div class="role-table" id="select_results">
     <div class="hd">
         <ul id="device_select_result_ul" class="channel-tab">
         </ul>
     </div>
-    <div class="bd over-h-y">
+    <div class="bd over-h-y" >
         <ul class="role-table-list">
             <li>
                 <span class="span-1"></span>
@@ -116,13 +116,13 @@
 					<span class="span-1" title="#">{$vo.deploy_time}</span>
 					<span class="span-1" title="#">{$vo.begin_time}</span>
 					<if condition="!empty($vo['device_image_0'])">
-								<img class="" src="{$vo.device_image_0}" />
+								<img class="smaallimg" src="{$vo.device_image_0}" />
 							</if>
 							<if condition="!empty($vo['device_image_1'])">
-								<img class="" src="{$vo.device_image_1}" />
+								<img class="smaallimg" src="{$vo.device_image_1}" />
 							</if>
 							<if condition="!empty($vo['device_image_2'])">
-								<img class="" src="{$vo.device_image_2}" />
+								<img class="smaallimg" src="{$vo.device_image_2}" />
 							</if>
 				</li>
 			</volist>
@@ -1020,7 +1020,22 @@
 						})  
 					}
 				}  
-	} 
+	}
+
+	$(function(){
+		ImgPreview();	
+	});
+var ImgPreview=function(){
+	$(".smaallimg").hover(function(e){ 
+		jQuery("<img class='preview' src='"+this.src+"'/>").appendTo("#select_results");
+		$(".preview").css("top",(e.pageY-5)+"px").css("position","absolute").css("margin-left","80px").css("margin-bottom","300px").css("width","550px").css("height","400px").fadeIn("fast");
+	},function(){
+		$(".preview").remove();
+	});
+	$(".smaallimg").mousemove(function(e){
+		$(".preview").css("top",(e.pageY-5)+"px").css("position","absolute").css("margin-left","80px");
+	});
+};
 </script>
 <script type="text/javascript">jQuery(".role-table").slide({trigger: "click"});</script>
 </body>

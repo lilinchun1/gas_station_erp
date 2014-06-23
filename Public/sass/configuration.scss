@@ -1,15 +1,17 @@
 @charset "UTF-8";
 @import "reset";
 @import "font";
-$nav-height:60px; //主导航高度
+$nav-height:40px; //主导航高度
 $aside-bg:#34acd8;//侧边栏背景色
-$border-color:#DDDDDD; //通用边框颜色
+$border-color:#dadada; //通用边框颜色
 $container-left-width:180px;  //container 左边栏宽度
 $font-n-color:#767676; //默认文字颜色
-$font-h-color:#34acd8; //默认hover文字颜色
+$font-h-color:#5c97ee; //默认hover文字颜色
 $bg-color:#f6f6f6;
 $min-width-kuang:965px;
 $min-width-kuang2:750px;
+$color-main:#2581e5; //主配色
+$heiti:"SimHei";
 %bdrs{//通用圆角边框
   border-radius: 5px;
 }
@@ -58,29 +60,30 @@ $min-width-kuang2:750px;
 .fthover{
   color: $font-h-color;}
 /*通用头部*/
+.head-wrap{background: #2581e5 url(../../Public/image/nav_bg.png) top right repeat-y;}
 #head{
   min-width: $min-width-kuang;
-  height: 120px;
-  background: #00bcff;
+  height: 80px;
   }
 .head-logo{
   margin: 15px 0 0 15px;
   float: left;
-  width: 120px;
-  height: 70px;
-  background: #fff url(../../Public/image/1.jpg) 0 0 no-repeat;
+  width: 233px;
+  height: 30px;
+  background: url(../../Public/image/jn-logo.png) 0 0 no-repeat;
     a{
       height: 100%;
       display: block;
       text-indent: -9999em;}
 }
 .head-tt {
-  padding-left: 5%;
-  margin-top: 30px;
-  float: left;
+  position: absolute;
+  margin-top: 15px;
+  width: 100%;
   text-align: center;
-  font-size: 34px;
+  font-size: 24px;
   color: #ffffff;
+  font-family: $heiti;
   font-weight: normal; }
 
 #head{
@@ -99,6 +102,7 @@ $min-width-kuang2:750px;
       a{
         padding-left: 10px;
         font-size: 16px;
+        color: #ffffff;
         line-height: 24px;}
     }
   }
@@ -106,24 +110,31 @@ $min-width-kuang2:750px;
 
 
   .left-nav{
+    position: relative;
     margin-top: 10px;
     li {
       padding: 0 10px;
       font-size: 16px;
       line-height: 24px;
+      color: #ffffff;
+      &:hover{
+        color: #000000;}
       span{
-        margin-top: 8px;
-        float: right;
+        position: absolute;
+        top: 8px;
+        right: 4px;
         width: 0;
         height: 0;
         border: 6px solid transparent;
         border-top: 6px solid  $border-color;
         display: block;}
+
       ul{
         display: none;}
       &:hover{ background: #ffffff;
         ul{
-          display: block;}
+          display: block;
+        }
       }
     }
   }
@@ -132,13 +143,12 @@ $min-width-kuang2:750px;
 #footer{
   min-width: $min-width-kuang;
   height: 200px;
-  background: #00bcff;}
+  background: $color-main;}
 
 /*主导航部分*/
 #nav{
-  min-width: $min-width-kuang;
+  min-width: 886px;
   height: $nav-height;
-  background: $bg-color;
   border-bottom : 1px solid $border-color;
   box-shadow: 0px 1px 5px rgba(180,180,180,0.3);
 }
@@ -149,44 +159,25 @@ $min-width-kuang2:750px;
       padding: 0 30px;
       height: $nav-height;
       float: left;
-      border-right: 1px solid $border-color;
-      background: $bg-color;
-       /* &:nth-child(1){
-          background: #EF9549;
-        }
-      &:nth-child(3){
-        background: #EEC95A;
-      }
-      &:nth-child(2){
-        background: #60CD9B;
-      }
-      &:nth-child(4){
-        background: #31C0BE;
-      }
-      &:nth-child(5){
-        background: #EEC95A;
-      }
-      &:nth-child(6){
-        background: #E87352;
-      }*/
-      &:nth-child(n){
-
-      }
-      &:hover{
-
-        background: #34ACD8;
+      border-right: 1px solid $color-main;
+      background:url(../../Public/image/nav_btn-bg.png) 0 0 repeat-x;
         a{
           color: #ffffff;
-          @extend  %trans-all;
-        }
+          font-size: 16px;}
+        &:hover{
+        background:url(../../Public/image/nav_btn-bg2.png) 0 0 repeat-x;
+          a{
+            @extend  %trans-all;
+            color: #000000;
+          }
       }
         a{
           font-size: 20px;
 
           }
     }
-  .active{ background: #34ACD8;
-      a{color: #ffffff;}
+  .active{ background:url(../../Public/image/nav_btn-bg2.png) 0 0 repeat-x;
+      a{color: #000;}
   }
 }
 
@@ -195,7 +186,7 @@ $min-width-kuang2:750px;
   margin: 5px auto;
   overflow: hidden;
   min-width: $min-width-kuang;
-  background: #F6F6F6;
+  background: #2a70d8;
   .left {
     position: relative;
     float: left;
@@ -207,7 +198,7 @@ $min-width-kuang2:750px;
       .right-con{
         padding-top:20px;
         margin-left: $container-left-width;
-        border-left: 1px solid $border-color;
+
         min-height: 500px;
         background: #ffffff;}
   }
@@ -226,7 +217,7 @@ $min-width-kuang2:750px;
       input{
         background: transparent;
         font-size: 16px;
-        color: $font-n-color;
+        color: #fff;
         font-family: "Microsoft Yahei";
 
       }
@@ -260,7 +251,7 @@ $min-width-kuang2:750px;
   margin: 0 auto;
   width: 98%;
   //min-width: 950px;
-  border: 1px solid $border-color;
+
   overflow: hidden;}
 .org-right-btns{
   height: 70px;
@@ -348,7 +339,7 @@ $min-width-kuang2:750px;
   background: #ffffff;
   border-bottom: 1px dashed $border-color;
     label{
-      padding:0 10px 0 40px;}
+      padding:0 10px 0 0;}
 }
 .role-control-btn {
   margin-left: 10px;
@@ -507,27 +498,44 @@ $min-width-kuang2:750px;
 }
 
 /*登陆页面*/
+.wrap{
+  position: fixed;
+  top: 50%;
+  left: 0;
+  width: 100%;
+  margin-top: -225px;
+  background: $color-main url(../../Public/image/longin_bg.png) center right no-repeat;}
+.logo-360{
+  float: right;
+  margin-right: 8%;
+  margin-top: 20px;
+  width: 233px;
+  height: 30px;
+  background: url(../../Public/image/jn-logo.png) 0 0 no-repeat;
+}
 #tishi{
   float: right;
   margin-right: 40px;}
 #index-login{
-  position: fixed;
-  top: 50%;
-  left: 0;
-  margin-top: -200px;
-  width: 100%;
+  position: relative;
+  margin: 0 auto;
+  width: 1000px;
   //min-width: 1120px;
-  height: 400px;
-  background: $font-h-color;
+  height: 450px;
+
     h1{
-      margin-top: 40px;
+      position: absolute;
+      top: -70px;
+      width: 100%;
+      height: 50px;
       font-size: 30px;
-      color: #ffffff;
+      color: #000000;
       text-align: center;
+      font-weight: normal;
     }
     span {
       position: absolute;
-      top: -80px;
+      top: -100px;
       left: 2%;
       width: 343px;
       height: 500px;
@@ -537,12 +545,12 @@ $min-width-kuang2:750px;
 
 }
 .index-login-con{
-  float: right;
+  position: absolute;
+  top: 90px;
+  right: 8%;
   padding:30px 0 20px 0;
-  margin: 30px 10% 0 0;
   width: 450px;
   //min-width: 980px;
-  height: 200px;
   background: #ffffff;
   border-radius: 20px;
     p{
@@ -556,7 +564,8 @@ $min-width-kuang2:750px;
       width: 100px;
       line-height: 30px;
       text-align: right;
-      font-weight: bold;
+      font-size: 16px;
+      color: #b1b6b8;
     }
     input{
       @extend %input-t;
@@ -565,13 +574,27 @@ $min-width-kuang2:750px;
     }
     button{
       @extend %edit-btn;
+      width: 202px;
       margin-left: 110px;
     }
 }
-
+.index-login-con-tt1 {
+  margin-left: 110px;
+  font-size: 22px;
+  color: #f38c13;
+  font-weight: normal;
+  font-family: $heiti;
+}
+.index-login-con-tt2{
+  font-size: 16px;
+  color: #b1b6b8;
+  font-weight: normal;
+}
 /*登陆默认页*/
 .default-index{
-  min-width: 1140px;}
+  min-width: 1140px;
+  overflow: hidden;
+  background: #f7f7f7;}
 .default-index-tt{
   margin: 40px auto 0 auto;
   width: 762px;
@@ -964,6 +987,7 @@ $min-width-kuang2:750px;
 }
 .role-inquire{
   min-width: $min-width-kuang2;
+  padding: 0 40px;
 }
 input.input-org-info,input.channel-select{
   margin-bottom: 15px;}

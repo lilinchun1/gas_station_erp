@@ -7,9 +7,6 @@
 	<script type="text/javascript" src="__PUBLIC__/js/jquery-1.10.2.min.js"></script>
 	<script type="text/javascript" src="__PUBLIC__/js/jquery.SuperSlide.2.1.1.js"></script>
 	<script type="text/javascript" src="__PUBLIC__/js/My97DatePicker/WdatePicker.js"></script>
-
-	
-	
 	<script type="text/javascript">
 	$(document).ready(function(){
 		//================================================================默认动作
@@ -27,25 +24,31 @@
 		//禁止浏览器自动填充
 		$("form").attr( "autocomplete","off");
 		//================================================================触发操作
-		//创建，编辑弹出框
+		//创建，编辑
 		$('.status_add,.status_udp').click(function(){
+			//弹出框为添加
+			$("button[name='add_udp']").val("1");
 			if($(this).hasClass("status_udp")){
-				var rule_status = $("input[name='role-info']:checked").parent().parent().find(".rule_status_list").val();
+				//获取状态
+				var rule_status = $("input[name='role-list']:checked").parent().parent().find(".rule_status_list").val();
 				if(rule_status >= 2){
 					alert("不能编辑");
 					return;
 				}
-				var rule_no = $("input[name='role-info']:checked").parent().parent().find(".rule_no_list").text();
-				var start_time = $("input[name='role-info']:checked").parent().parent().find(".start_time_list").text();
+				var rule_no = $("input[name='role-list']:checked").parent().parent().find(".rule_no_list").text();
+				var start_time = $("input[name='role-list']:checked").parent().parent().find(".start_time_list").text();
 				if(rule_no == ""){
 					alert("请选择编辑条目");
 					return;
 				}
 				$("#rule_no").val(rule_no);
 				$("#start_time").val(start_time);
+				var send_id = $("input[name='role-list']:checked").parent().find(".send_id_list").val();
+				$("input[name='send_id']").val(send_id);
+				//弹出框为编辑
+				$("button[name='add_udp']").val("2");
 			}
-
-
+			//===================================================树形结构开始==========
 			var handleUrl="{:U('management/Index/getChannelArr')}";
 			var zNodes=new Array();
 			var now=new Date().getTime();//加个时间戳表示每次是新的请求
@@ -60,7 +63,7 @@
 						var parent=val['pid'];
 						var value=val['value'];
 						var length=val['length'];
-						zNodes[key]= {'id':kid, 'pId':parent, 'name':value, 'open':true ,'t':length};
+						zNodes[key]= {'id':kid, 'pId':parent, 'name':value, 'open':true ,'t':length,'half': true};
 					});
 				},
 
@@ -68,9 +71,9 @@
 					 alert("请求失败!");
 				}
 			});
-			//===================================================树形结构js传递==========
-				$.fn.zTree.init($("#treeDemo"), setting, zNodes);
-
+			$.fn.zTree.init($("#treeDemo"), setting, zNodes);
+			//===================================================树形结构结束==========
+			//弹出窗口
 			$.openDOMWindow({
 	            loader:1,
 	            loaderHeight:16,
@@ -84,12 +87,13 @@
 		//删除，发布，作废弹出框
 		$(".status_del,.status_2,.status_3").click(function(){
 			//获取状态值
-			var rule_status = $("input[name='role-info']:checked").parent().parent().find(".rule_status_list").val();
+			var rule_status = $("input[name='role-list']:checked").parent().parent().find(".rule_status_list").val();
 			if($(this).hasClass("status_del")){
 				var noSelMes = "请选择删除条目";
 				//改变确认框内容
 				$(".delete-message").text("确认删除？");
 				$(".del_fb_zf").text("删除");
+				//告诉后台为删除
 				$(".del_fb_zf").val("1");
 				if(rule_status >= 2){
 					alert("不能删除");
@@ -114,13 +118,14 @@
 					return;
 				}
 			}
-			
-			var rule_no = $("input[name='role-info']:checked").parent().parent().find(".rule_no_list").text();
+
+			var rule_no = $("input[name='role-list']:checked").parent().parent().find(".rule_no_list").text();
 			if(rule_no == ""){
 				alert(noSelMes);
 				return;
 			}
-			$("#rule_no_hid").val(rule_no);
+			send_id = $("input[name='role-list']:checked").parent().find(".send_id_list").val();
+			$("#change_send_id").val(send_id);
 			
 			//弹出页面
 			$.openDOMWindow({
@@ -157,12 +162,6 @@
 <div id="container">
 	<div class="left">
         <include file="./Tpl/include/pb-management-aside.html"/>
-        <!--<ul class="aside-nav">
-            <li class="aside-nav-nth1"><a href="">APP刊例管理</a></li>
-            <li><a href="{:U('management/Index/importingApp')}"><input type="button" value="刊例维护"></a></li>
-            <li class="active"><a href="{:U('management/Index/addRuleTarget')}"><input type="button" class="" value="刊例发布"></a></li>
-            <li><a href="{:U('management/Index/verup')}"><input type="button" class="" value="版本升级"></a></li>
-        </ul>-->
 	</div>
 	<div class="right">
 		<div class="right-con">
@@ -174,8 +173,7 @@
 								<label for="channel-org-name" class="">刊例名称</label>
 								<input type="text" name="rule_no_sel" id="channel-org-name" class="input-org-info"/>
 								<label for="maintain-create-people" class="">创建人</label>
-								<input type="text" name="createuser_sel" id="maintain-create-people"
-									   class="input-org-info"/>
+								<input type="text" name="createuser_sel" id="maintain-create-people" class="input-org-info"/>
 								<label for="maintain-create-date" class="">发布日期</label>
 								<input type="text" name="release_time_sel" id="maintain-create-date" class="input-org-info" readonly="true" onClick="WdatePicker()"/>
 								<button type="submit" name="select" class="role-control-btn">查询</button>
@@ -197,7 +195,7 @@
 						<ul class="role-table-list">
 							<li>
 								<span class="span-1"></span>
-								<span class="span-2"><b>刊例名称</b></span>
+								<span class="span-2"><b>刊例号</b></span>
 								<span class="span-2"><b>投放日期</b></span>
 								<span class="span-2"><b>发布渠道</b></span>
 								<span class="span-2"><b>发布状态</b></span>
@@ -205,7 +203,10 @@
 							</li>
 							<foreach name="issueArr" item="issue">
 								<li class="rule_info_list">
-									<span class="span-1"><input type="radio" name="role-info" id="" class="role-table-radio"/></span>
+									<span class="span-1">
+										<input type="radio" name="role-list" id="" class="role-table-radio"/>
+										<input type="hidden" name="send_id_list" class="send_id_list" value="{$issue.id}">
+									</span>
 									<span class="span-2 rule_no_list" title="#">{$issue.rule_no}</span>
 									<span class="span-2 start_time_list" title="#">{$issue.start_time}</span>
 									<span class="span-2" title="#">发布渠道</span>
@@ -217,7 +218,7 @@
 											已发布
 										</if>
 										<if condition="$issue['rule_status'] eq 3">
-											作废
+											已作废
 										</if>
 										<input type="hidden" class="rule_status_list" value="{$issue['rule_status']}"/>
 									</span>
@@ -241,17 +242,18 @@
 				<p>
 					<label for="rule_no" class="role-lab">*刊例名称</label>
 					<input type="text" name="rule_no" id="rule_no" class="input-role-name"/>
+					<input type="hidden" name="send_id" id="send_id" class="input-role-name"/>
 				</p>
 		
 				<p>
-					<label for="issue-date" class="role-lab">*投放日期</label>
+					<label for="start_time" class="role-lab">*投放日期</label>
 					<input type="text" name="start_time" id="start_time" class="input-role-name" readonly="true" onClick="WdatePicker()"/>
 				</p>
 		
 				<p>
-					<label for="issue-channel" class="role-lab">*发布渠道</label>
+					<label for="target_num" class="role-lab">*发布渠道</label>
 					<br/>
-					<!--<input type="text" name="target_num" id="issue-channel" class="input-role-name" value="1-21,2-3,2-4"/>-->
+					<input type="text" name="target_num" id="target_num" class="input-role-name" value="1-21,2-3,2-4"/>
 					<!--权限树形-->
 					<div class="zTreeDemoBackground left">
 						<ul id="treeDemo" class="ztree"></ul>
@@ -278,7 +280,7 @@
 			<div class="alert-role-add-con">
 				<p class="delete-message">确认删除？</p>
 				<p>
-					<input type="hidden" name="rule_no_hid" id="rule_no_hid" value=""/>
+					<input type="hidden" name="change_send_id" id="change_send_id" value=""/>
 					<button type="submit" name="del_fb_zf" class="alert-btn2 del_fb_zf" id="j_del_ok" value="1">删除</button>
 					<a href="." class="closeDOMWindow">
 						<button type="button" class="alert-btn2">关闭</button>
@@ -315,24 +317,34 @@ getAppRule();
 			callback: {
 
 				onCheck: onCheck
+				
 			}
 		};
 
 		var code;
-		
-		function showCode(str) {
-			if (!code) code = $("#code");
-			code.empty();
-			code.append("<li>"+str+"</li>");
-		}
-
 
 		function onCheck(event, treeId, treeNode) {
-			var zTree = $.fn.zTree.getZTreeObj("treeDemo"),
-			nodes = zTree.getCheckedNodes(true),
+			var zTree = $.fn.zTree.getZTreeObj("treeDemo");
+			nodes = zTree.getCheckedNodes(true);
+
+			var treeObj = $.fn.zTree.getZTreeObj("treeDemo");
+			var halfCheck = treeObj.getNodes()[0].getCheckStatus();
+			
+			//console.log(node);
+
+
 			v = "";
 			for (var i=0, l=nodes.length; i<l; i++) {
-				v += nodes[i].id + ",";
+				var k=i-1;
+				if(halfCheck.half==true){
+					console.log(k);
+						v += nodes[i].id + ",";
+				}else{
+					if(nodes[i].pId!=null){
+						v += nodes[i].pId + ",";
+					}
+				}
+					
 			}
 			if (v.length > 0 ) v = v.substring(0, v.length-1);
 			var cityObj = $("#add_quanxian_id");
@@ -340,25 +352,6 @@ getAppRule();
 
 
 		}
-
-		function showMenu() {
-			var cityObj = $("#add_quanxian_id");
-			var cityOffset = $("#add_quanxian_id").offset();
-			$("#menuContent").css({left:cityOffset.left + "px", top:cityOffset.top + cityObj.outerHeight() + "px"}).slideDown("fast");
-
-			$("body").bind("mousedown", onBodyDown);
-		}
-		function hideMenu() {
-			$("#menuContent").fadeOut("fast");
-			$("body").unbind("mousedown", onBodyDown);
-		}
-		function onBodyDown(event) {
-			if (!(event.target.id == "menuBtn" || event.target.id == "add_quanxian_id" || event.target.id == "menuContent" || $(event.target).parents("#menuContent").length>0)) {
-				hideMenu();
-			}
-		}
-		
-
 //===================================================树形结构js结束==========
 </script>
 </div>

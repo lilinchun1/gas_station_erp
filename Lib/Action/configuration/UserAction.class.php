@@ -9,6 +9,7 @@ class UserAction extends CommonAction {
 	public function index(){
 		$userinfo = getUserInfo();
 		$this->username = $userinfo['realname']; //登录的用户名
+		$this->assign('nowUrl', "configuration/User/index");
 		$this->display(':user_index');
 	}
 

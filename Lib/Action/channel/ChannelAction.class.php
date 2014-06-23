@@ -17,6 +17,7 @@ class ChannelAction extends CommonAction {
 		$all_agent = getAllAgent();
 		$this->assign('first_channel_type', $first_channel_type);
 		$this->assign('all_agent', $all_agent);
+		$this->assign('nowUrl', "channel/Channel/index");
 		$this->display(':channel_index');
 	}
 

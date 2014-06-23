@@ -9,6 +9,7 @@ class RoleAction extends CommonAction {
 	public function index(){
 		$userinfo = getUserInfo();
 		$this->username = $userinfo['realname']; //登录的用户名
+		$this->assign('nowUrl', "configuration/Role/show_role");
 		$this->display(':role_index');
 	}
 

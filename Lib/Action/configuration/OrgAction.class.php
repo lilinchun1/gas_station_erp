@@ -9,6 +9,7 @@ class OrgAction extends CommonAction {
 	public function index(){
 		$userinfo = getUserInfo();
 		$this->username = $userinfo['realname']; //登录的用户名
+		$this->assign('nowUrl', "configuration/Org/index");
 		$this->display(':org_index');
 	}
 

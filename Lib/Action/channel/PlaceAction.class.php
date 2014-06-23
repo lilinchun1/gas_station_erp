@@ -13,6 +13,7 @@ class PlaceAction extends CommonAction {
 		$this->is_have_user_purview = in_array($userinfo['grade'], array(1,2,3));
 		$first_place_type = getAllChannelType();
 		$this->assign('first_place_type', $first_place_type);*/
+		$this->assign('nowUrl', "channel/Place/index");
 		$this->display(':place_index');
 	}
 
