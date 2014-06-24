@@ -1,6 +1,7 @@
 @charset "UTF-8";
 @import "reset";
 @import "font";
+$btns-color:#5095fc;
 $nav-height:40px; //主导航高度
 $aside-bg:#34acd8;//侧边栏背景色
 $border-color:#dadada; //通用边框颜色
@@ -10,21 +11,21 @@ $font-h-color:#5c97ee; //默认hover文字颜色
 $bg-color:#f6f6f6;
 $min-width-kuang:965px;
 $min-width-kuang2:750px;
-$color-main:#2581e5; //主配色
+$color-main:#2a70d8; //主配色
 $heiti:"SimHei";
 %bdrs{//通用圆角边框
   border-radius: 5px;
 }
 %edit-btn{  //通用按钮样式
   padding: 6px 28px;
- /* box-shadow: 0 1px 3px rgba(0,0,0,.6);
+ /* box-shadow: 0 1px 3px rgba(0,0,0,.6);*/
   border-bottom: 1px solid rgba(0,0,0,.25);
   text-shadow: 0 -1px 1px rgba(0,0,0,.25);
-  border-radius: 5px;*/
+  border-radius: 5px;
   font-size: 16px;
   font-family: 'Microsoft Yahei';
   color: #ffffff;
-  background: $font-h-color;
+  background: $btns-color;
   cursor: pointer;
   @extend %trans-all;
     &:hover{
@@ -59,6 +60,9 @@ $heiti:"SimHei";
   background: $bg-color;}
 .fthover{
   color: $font-h-color;}
+
+
+
 /*通用头部*/
 .head-wrap{background: #2581e5 url(../../Public/image/nav_bg.png) top right repeat-y;}
 #head{
@@ -150,25 +154,28 @@ $heiti:"SimHei";
   min-width: 886px;
   height: $nav-height;
   border-bottom : 1px solid $border-color;
-  box-shadow: 0px 1px 5px rgba(180,180,180,0.3);
+  box-shadow: 0px 1px 1px rgba(180,180,180,0.3);
 }
 .main-nav{
   line-height: $nav-height;
+  float: right;
     li{
       @extend  %trans-all;
       padding: 0 30px;
       height: $nav-height;
       float: left;
       border-right: 1px solid $color-main;
-      background:url(../../Public/image/nav_btn-bg.png) 0 0 repeat-x;
+/*      background: $font-h-color;*/
+      /*background:url(../../Public/image/nav_btn-bg.png) 0 0 repeat-x;*/
         a{
           color: #ffffff;
           font-size: 16px;}
         &:hover{
-        background:url(../../Public/image/nav_btn-bg2.png) 0 0 repeat-x;
+      /*  background:url(../../Public/image/nav_btn-bg2.png) 0 0 repeat-x;*/
+          background: rgba(61, 205, 255, .6);
           a{
             @extend  %trans-all;
-            color: #000000;
+            color: #fff;
           }
       }
         a{
@@ -176,8 +183,9 @@ $heiti:"SimHei";
 
           }
     }
-  .active{ background:url(../../Public/image/nav_btn-bg2.png) 0 0 repeat-x;
-      a{color: #000;}
+  .active{ /*background:url(../../Public/image/nav_btn-bg2.png) 0 0 repeat-x;*/
+            background: rgba(61, 205, 255, .6);
+              a{color: #fff;}
   }
 }
 
@@ -288,6 +296,7 @@ $heiti:"SimHei";
       }
     .info-right{
       @extend .info-left;
+      min-height: 280px;
     }
     label{
       float: left;
@@ -337,7 +346,7 @@ $heiti:"SimHei";
   margin: 0 auto;
   width: 98%;
   background: #ffffff;
-  border-bottom: 1px dashed $border-color;
+  border: 1px solid $border-color;
     label{
       padding:0 10px 0 0;}
 }
@@ -577,6 +586,8 @@ $heiti:"SimHei";
       width: 202px;
       margin-left: 110px;
     }
+    .haf-input{
+      width: 80px;}
 }
 .index-login-con-tt1 {
   margin-left: 110px;
@@ -640,7 +651,7 @@ $heiti:"SimHei";
   text-indent: 0;
 }
 .channel-index-btns{
-  border: 1px solid $border-color;
+
   padding-bottom: 20px;}
 .channel-tab{
   margin: 0 auto;
@@ -782,6 +793,9 @@ $heiti:"SimHei";
 }
 .yellow-color{
   color: #ffaf04;
+}
+.pdl10{
+  padding: 0 10px;
 }
 .station-state-list{
   padding: 0 0;
