@@ -639,16 +639,6 @@
 		device_flag = device_delete;
 	}
 
-    window.onscroll = function () {
-        var scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
-        var fixDiv = document.getElementById('j-fixed-top');
-        if (scrollTop >= 300) {
-            fixDiv.style.position = 'fixed';
-            fixDiv.style.top = '0px';
-        } else if (scrollTop <= 299) {
-            fixDiv.style.position = 'static';
-        }
-    }
 
 	$(document).ready(function () {
 		var state = "<?php echo ($isDeleteResult); ?>";

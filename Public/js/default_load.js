@@ -18,6 +18,19 @@ $(function() {
 			dom.eq(key).addClass("active");
 		}
 	}
+	//调整窗口
+	if($("#j-fixed-top")){
+		window.onscroll=function(){
+			var scrollTop=document.documentElement.scrollTop||document.body.scrollTop;
+			var fixDiv=document.getElementById('j-fixed-top');
+			if(scrollTop>=300){
+				fixDiv.style.position='fixed';
+				fixDiv.style.top='0px';
+			}else if(scrollTop<=299){
+				fixDiv.style.position='static';
+			}
+		};
+	}
 });
 
 // ==================================== role_index.html ====================================================
