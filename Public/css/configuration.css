@@ -311,10 +311,10 @@ a, .alert-btn, .role-control-btn, .alert-btn2, .alert-btn3, .alert-btn4, .org-ri
   line-height: 40px;
   float: right; }
   .main-nav li {
+    margin-right: 1px;
     padding: 0 30px;
     height: 40px;
-    float: left;
-    border-right: 1px solid #2a70d8; }
+    float: left; }
     .main-nav li a {
       color: #ffffff;
       font-size: 16px; }
@@ -358,8 +358,10 @@ a, .alert-btn, .role-control-btn, .alert-btn2, .alert-btn3, .alert-btn4, .org-ri
     width: 100%;
     height: 40px;
     line-height: 40px;
-    text-align: center;
+    text-align: left;
     color: #767676; }
+    .aside-nav li li a {
+      display: block; }
     .aside-nav li li input {
       background: transparent;
       font-size: 16px;
@@ -371,13 +373,13 @@ a, .alert-btn, .role-control-btn, .alert-btn2, .alert-btn3, .alert-btn4, .org-ri
       .aside-nav li li:hover input {
         color: #ffffff; }
   .aside-nav .aside-nav-nth1 {
-    text-align: center;
+    text-indent: 20px;
     height: 60px;
     font-size: 24px;
     line-height: 60px;
     color: #fff;
     font-weight: bold;
-    /*      background: $aside-bg;*/ }
+    cursor: pointer; }
     .aside-nav .aside-nav-nth1 a {
       color: #ffffff; }
     .aside-nav .aside-nav-nth1:hover {
@@ -389,7 +391,7 @@ a, .alert-btn, .role-control-btn, .alert-btn2, .alert-btn3, .alert-btn4, .org-ri
       content: ">";
       position: absolute;
       top: 0;
-      right: 5px;
+      right: 50px;
       width: 20px;
       height: 40px;
       display: block;
@@ -1073,5 +1075,8 @@ input.input-org-info, input.channel-select {
     margin-bottom: 15px; } }
 #forever {
   margin-top: 18px; }
+
+.j-show-list {
+  padding-left: 15px; }
 
 /*@ sourceMappingURL=configuration.css.map */

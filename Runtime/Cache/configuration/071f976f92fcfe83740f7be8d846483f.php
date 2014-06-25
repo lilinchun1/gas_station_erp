@@ -64,25 +64,10 @@
 	<div class="left">
 		
 <ul class="aside-nav cf">
-    <li class="aside-nav-nth1" ><a>系统设置</a>
+    <li class="aside-nav-nth1" ><a>系统设置<i class="j-show-list">-</i></a>
             <ul><li class="url_link" url="<?php echo U('configuration/Org/index');?>"><a href="<?php echo U('configuration/Org/index');?>"><input  type="button"  value="组织结构" ></a></li>
                 <li class="url_link" url="<?php echo U('configuration/Role/show_role');?>"><a href="<?php echo U('configuration/Role/show_role');?>"><input type="button" class="" value="角色维护" ></a></li>
                 <li class="url_link" url="<?php echo U('configuration/User/index');?>"><a href="<?php echo U('configuration/User/index');?>"><input type="button" class="" value="职员维护" ></a></li></ul>
-    </li>
-
-</ul>
-<ul class="aside-nav cf">
-    <li class="aside-nav-nth1" ><a>系统设置</a>
-        <ul><li class="url_link" url="<?php echo U('configuration/Org/index');?>"><a href="<?php echo U('configuration/Org/index');?>"><input  type="button"  value="组织结构" ></a></li>
-            <li class="url_link" url="<?php echo U('configuration/Role/show_role');?>"><a href="<?php echo U('configuration/Role/show_role');?>"><input type="button" class="" value="角色维护" ></a></li>
-            <li class="url_link" url="<?php echo U('configuration/User/index');?>"><a href="<?php echo U('configuration/User/index');?>"><input type="button" class="" value="职员维护" ></a></li></ul>
-    </li>
-
-</ul><ul class="aside-nav cf">
-    <li class="aside-nav-nth1" ><a>系统设置</a>
-        <ul><li class="url_link" url="<?php echo U('configuration/Org/index');?>"><a href="<?php echo U('configuration/Org/index');?>"><input  type="button"  value="组织结构" ></a></li>
-            <li class="url_link" url="<?php echo U('configuration/Role/show_role');?>"><a href="<?php echo U('configuration/Role/show_role');?>"><input type="button" class="" value="角色维护" ></a></li>
-            <li class="url_link" url="<?php echo U('configuration/User/index');?>"><a href="<?php echo U('configuration/User/index');?>"><input type="button" class="" value="职员维护" ></a></li></ul>
     </li>
 
 </ul>
@@ -264,9 +249,17 @@
     $(function(){
         $('.aside-nav-nth1').click(function(event){
             var oUl1 = $(this).find('ul');
-            oUl1.toggle();
+            var OI1 = $(this).find('.j-show-list');
+            if(oUl1.is(':visible')){
+                OI1.html('+');
+                oUl1.hide();
+            }else if(oUl1.is(':hidden')){
+                OI1.html('-');
+                oUl1.show();
+            }
             event.stopPropagation();
         });
+
     })
 </script>
 
@@ -280,8 +273,8 @@
 					<input type="text" name="addname"  class="input-role-name" id="add_role_name_txt"/>
 				</p>
 				<p>
-					<label for="role_agent_id" class="role-lab">所属组织</label>
-					<select id="role_agent_id" class="role_agent_id">
+					<label for="role_agent_id_add" class="role-lab">所属组织</label>
+					<select id="role_agent_id_add" class="role_agent_id">
 						<option value="">请选择组织</option>
 					</select>
 				</p>
@@ -317,6 +310,12 @@
 				<p>
 					<label for="role-addname" class="role-lab">角色名称</label>
 					<input type="text" name="addname" id="mod_rolename" class="input-role-name"/>
+				</p>
+				<p>
+					<label for="role_agent_id_udp" class="role-lab">所属组织</label>
+					<select id="role_agent_id_udp" class="role_agent_id">
+						<option value="">请选择组织</option>
+					</select>
 				</p>
 				<p>
 					<label for="role-textarea" class="role-lab">角色描述</label>
@@ -415,7 +414,7 @@ $(function(){
 				case 5:mstr = "==========";break;
 				case 6:mstr = "============";break;
 			}
-			$("#role_agent_id").append("<option value='"+n['agent_id']+"'>"+mstr+n['agent_name']+"</option>");
+			$(".role_agent_id").append("<option value='"+n['agent_id']+"'>"+mstr+n['agent_name']+"</option>");
 		})
 	},"json");
 	
@@ -471,7 +470,7 @@ $(function(){
 			var add_memo_txt = $("#add_memo_txt").val();// 角色描述
 			var add_menu_id_txt = $("#add_quanxian_id").val();// 权限ID
 			// alert(add_menu_id_txt);return;
-			var role_agent_id = $("#role_agent_id").val();
+			var role_agent_id = $("#role_agent_id_add").val();
 			// alert(add_role_name_txt);
 			// return false;
 			var add_handleUrl = "<?php echo U('configuration/Role/add_role');?>";
@@ -493,7 +492,7 @@ $(function(){
 		showWindow(1,16,17,'#j_add_win');
 		return false;
 	});
-	
+
 	//查看权限
 	$("#j_selrole_button").click(function() {
 		var role_id = $("#selrole_hidden_id").val();
@@ -606,7 +605,6 @@ $(function(){
 				str = $("#quanxian_id").val();
 				arr = str.split(',');// 注split可以用字符或字符串分割
 				var idkey = "";
-
 				$.ajax({
 					type : "POST",
 					url : handleUrl,
@@ -695,8 +693,15 @@ $(function(){
 						$("#mod_memo").val(data['memo']);// 描述
 						$("#mod_quanxian_id").val(data['menuid']);// 权限ID
 						$("#mod_id_hide").val(data['roleid']);// id
+						//给选择组织赋值
+						$.each($("#role_agent_id_udp option"),function(i,n){
+							if($(n).val() == data['role_agent_id']){
+								//alert(data['role_agent_id'])
+								$("#role_agent_id_udp").find("option[value='"+data['role_agent_id']+"']").attr("selected",true);
+							}
+					    })
 					},
-
+//===============================================================================================================
 					error : function(XMLHttpRequest, textStatus,
 							errorThrown) {
 						alert("请求失败!");
@@ -705,32 +710,28 @@ $(function(){
 				// ========权限结束
 
 				// 保存
-				$('#j_mod_save')
-						.click(
-								function() {
-									var modify_role_id_txt = $(
-											"#mod_id_hide").val();// id
-									var modify_role_name_txt = $(
-											"#mod_rolename").val();// 名称
-									var modify_memo_txt = $("#mod_memo")
-											.val();// 描述
-									var modify_menu_id_txt = $(
-											"#mod_quanxian_id").val();// 权限id
-									var mod_save_handleUrl = "<?php echo U('configuration/Role/edit_role');?>";
-									$
-											.getJSON(
-													mod_save_handleUrl,
-													{
-														"modify_role_id_txt" : modify_role_id_txt,
-														"modify_role_name_txt" : modify_role_name_txt,
-														"modify_memo_txt" : modify_memo_txt,
-														"modify_menu_id_txt" : modify_menu_id_txt
-													},
-													function(data) {
-														alert(data);
-														window.location.href = window.location.href;
-													}, 'json');
-								});// 结束
+				$('#j_mod_save').click(function() {
+					var modify_role_id_txt = $("#mod_id_hide").val();// id
+					var modify_role_name_txt = $("#mod_rolename").val();// 名称
+					var role_agent_id = $("#role_agent_id_udp").val();
+					var modify_memo_txt = $("#mod_memo").val();// 描述
+					var modify_menu_id_txt = $("#mod_quanxian_id").val();// 权限id
+					var mod_save_handleUrl = "<?php echo U('configuration/Role/edit_role');?>";
+					$.getJSON(
+						mod_save_handleUrl,
+						{
+							"modify_role_id_txt" : modify_role_id_txt,
+							"modify_role_name_txt" : modify_role_name_txt,
+							"modify_memo_txt" : modify_memo_txt,
+							"modify_menu_id_txt" : modify_menu_id_txt,
+							"role_agent_id":role_agent_id
+						},
+						function(data) {
+							alert(data);
+							window.location.href = window.location.href;
+						},
+					'json');
+				});// 结束
 				$("#j_mod_close").click(function() {
 					window.location.href = window.location.href;
 				});

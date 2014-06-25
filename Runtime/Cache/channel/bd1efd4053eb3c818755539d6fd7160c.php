@@ -85,13 +85,16 @@
 </script>
 <div id="container">
 <div class="left">
-    <ul class="aside-nav">
-    <li class="aside-nav-nth1 url_link"  url="<?php echo U('channel/Channel/index');?>"><a href="<?php echo U('channel/Channel/index');?>">渠道管理</a></li>
-    <li class="url_link" url="<?php echo U('channel/Channel/index');?>"><a href="<?php echo U('channel/Channel/index');?>"><input type="button" value="渠道信息"></a></li>
-    <li class="url_link" url="<?php echo U('channel/Place/index');?>"><a href="<?php echo U('channel/Place/index');?>"><input type="button" class="" value="网点信息"></a></li>
-    <li class="url_link" url="<?php echo U('channel/Device/index');?>"><a href="<?php echo U('channel/Device/index');?>"><input type="button" class="" value="加油站信息"></a></li>
+    
+<ul class="aside-nav">
+    <li class="aside-nav-nth1"><a>渠道管理<i class="j-show-list">-</i></a>
+        <ul>
+            <li class="url_link" url="<?php echo U('channel/Channel/index');?>"><a href="<?php echo U('channel/Channel/index');?>"><input type="button" value="渠道信息"></a></li>
+            <li class="url_link" url="<?php echo U('channel/Place/index');?>"><a href="<?php echo U('channel/Place/index');?>"><input type="button" class="" value="网点信息"></a></li>
+            <li class="url_link" url="<?php echo U('channel/Device/index');?>"><a href="<?php echo U('channel/Device/index');?>"><input type="button" class="" value="加油站信息"></a></li>
+        </ul>
+    </li>
 </ul>
-
 
     <!--<ul class="aside-nav">
         <li class="aside-nav-nth1"><a href="<?php echo U('channel/Channel/index');?>">渠道管理</a></li>
@@ -313,6 +316,11 @@
 		var old_password_txt=$('#old_password_txt').val();//业务范围
 		var new_password_txt=$('#new_password_txt').val();//业务范围
 		var re_new_password_txt=$('#re_new_password_txt').val();//业务范围
+		var pwReg = /^[0-9]*$/;
+		if(new_password_txt.length<6||!pwReg.test(new_password_txt)){
+			alert("输入的密码不能小于6个字符，且只能为英文或者数字");
+			return false;
+		}
 		$.getJSON(handleUrl,{'old_password_txt':old_password_txt,'new_password_txt':new_password_txt,'re_new_password_txt':re_new_password_txt},
 			function (data){
 				var tmp_msg = "<?php echo C('change_password_success');?>";
@@ -371,7 +379,23 @@
 
     }
 </script>
+<script>
+    $(function(){
+        $('.aside-nav-nth1').click(function(event){
+            var oUl1 = $(this).find('ul');
+            var OI1 = $(this).find('.j-show-list');
+            if(oUl1.is(':visible')){
+                OI1.html('+');
+                oUl1.hide();
+            }else if(oUl1.is(':hidden')){
+                OI1.html('-');
+                oUl1.show();
+            }
+            event.stopPropagation();
+        });
 
+    })
+</script>
 <div id="j_add_device" style="display:none;">
 <div class="alert-role-add">
     <h3>加油站信息</h3>

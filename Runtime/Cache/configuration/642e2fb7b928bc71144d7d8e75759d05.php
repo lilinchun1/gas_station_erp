@@ -75,7 +75,7 @@
     <div class="left">
         
 <ul class="aside-nav cf">
-    <li class="aside-nav-nth1" ><a><i class="j-show-list">-</i>系统设置</a>
+    <li class="aside-nav-nth1" ><a>系统设置<i class="j-show-list">-</i></a>
             <ul><li class="url_link" url="<?php echo U('configuration/Org/index');?>"><a href="<?php echo U('configuration/Org/index');?>"><input  type="button"  value="组织结构" ></a></li>
                 <li class="url_link" url="<?php echo U('configuration/Role/show_role');?>"><a href="<?php echo U('configuration/Role/show_role');?>"><input type="button" class="" value="角色维护" ></a></li>
                 <li class="url_link" url="<?php echo U('configuration/User/index');?>"><a href="<?php echo U('configuration/User/index');?>"><input type="button" class="" value="职员维护" ></a></li></ul>
@@ -287,10 +287,10 @@
             var OI1 = $(this).find('.j-show-list');
             if(oUl1.is(':visible')){
                 OI1.html('+');
-                oUl1.hide(100);
+                oUl1.hide();
             }else if(oUl1.is(':hidden')){
                 OI1.html('-');
-                oUl1.show(100);
+                oUl1.show();
             }
             event.stopPropagation();
         });
