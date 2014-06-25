@@ -84,17 +84,17 @@ $heiti:"SimHei";
 }
 .head-tt {
   position: absolute;
-  top: 50px;
+  top: 48px;
   left: 20px;
-  width: 100%;
-  font-size: 24px;
+  font-size: 20px;
   color: #ffffff;
   font-weight: normal; }
 
 #head{
   position: relative;
   .login{
-    width:280px;
+    width:240px;
+    padding-top: 40px;
     height: 100%;
     float: right;
     .left {
@@ -109,7 +109,7 @@ $heiti:"SimHei";
       border-left: 2px solid $border-color;
       a{
         padding-left: 10px;
-        font-size: 16px;
+        font-size: 14px;
         color: #ffffff;
         line-height: 24px;}
     }
@@ -121,12 +121,13 @@ $heiti:"SimHei";
     position: relative;
     margin-top: 10px;
     li {
-      padding: 0 10px;
-      font-size: 16px;
+      padding: 0 0 10px 10px;
+      font-size: 14px;
       line-height: 24px;
       color: #ffffff;
       &:hover{
-        color: #000000;}
+        color: #000000;
+      }
       span{
         position: absolute;
         top: 8px;
@@ -139,9 +140,13 @@ $heiti:"SimHei";
 
       ul{
         display: none;}
-      &:hover{ background: #ffffff;
+      &:hover{
+                background: #ffffff;
+                box-shadow: 0 0 4px rgba(68, 171, 255,.4) inset ;
+
         ul{
           display: block;
+          li{ box-shadow: 0 0 0 rgba(68, 171, 255,.5) inset ;}
         }
       }
     }
@@ -150,14 +155,14 @@ $heiti:"SimHei";
 /*通用底部*/
 #footer{
   min-width: $min-width-kuang;
-  height: 200px;
+  height: 80px;
   background: $color-main;}
 
 /*主导航部分*/
 #nav{
   position: absolute;
-  top: 42px;
-  right: 0;
+  top: 50px;
+  right: 250px;
   z-index: 1;
   min-width: 886px;
   height: $nav-height;
@@ -197,10 +202,10 @@ $heiti:"SimHei";
 
 /*系统设置-container*/
 #container {
-  margin: 5px auto;
+  margin: 1px auto;
   overflow: hidden;
   min-width: $min-width-kuang;
-  background: #2a70d8;
+  background: #5095fc;
   .left {
     position: relative;
     float: left;
@@ -213,7 +218,7 @@ $heiti:"SimHei";
         padding-top:20px;
         margin-left: $container-left-width;
 
-        min-height: 500px;
+        min-height: 755px;
         background: #ffffff;}
   }
 }
@@ -222,8 +227,8 @@ $heiti:"SimHei";
 .aside-nav{
   width: 100%;
     li{
-      margin-bottom: 10px;
-      padding-left: 30px;
+      margin-bottom: 1px;
+      text-align: center;
       height: 40px;
       line-height: 40px;
       color: $font-n-color;
@@ -236,7 +241,7 @@ $heiti:"SimHei";
 
       }
       &:hover{
-        background: $aside-bg;
+        background: rgba(61, 205, 255, 1);
         cursor: pointer;
           input{
             color: #ffffff;
@@ -244,18 +249,34 @@ $heiti:"SimHei";
       }
     }
     .aside-nav-nth1{
+      text-align: center;
       height: 60px;
-      font-size: 20px;
+      font-size: 24px;
       line-height: 60px;
       color: #fff;
-      background: $aside-bg;
+      font-weight: bold;
+/*      background: $aside-bg;*/
         a{
           color: #ffffff;}
+      &:hover{
+        background: none;}
     }
     .active{
-      background: $aside-bg;
+      position: relative;
+      background: rgba(61, 205, 255, 1);
+      &:after{content: ">";
+        position: absolute;
+        top: 0;
+        right: 5px;
+        width: 20px;
+        height: 40px;
+        display: block;
+        color: #ffffff;
+        font-size: 16px;
+        font-weight: bolder;}
+    }
       input {
-        color: #fff;}
+        color: #fff;
     }
 }
 

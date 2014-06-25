@@ -233,17 +233,17 @@ a, .alert-btn, .role-control-btn, .alert-btn2, .alert-btn3, .alert-btn4, .org-ri
 
 .head-tt {
   position: absolute;
-  top: 50px;
+  top: 48px;
   left: 20px;
-  width: 100%;
-  font-size: 24px;
+  font-size: 20px;
   color: #ffffff;
   font-weight: normal; }
 
 #head {
   position: relative; }
   #head .login {
-    width: 280px;
+    width: 240px;
+    padding-top: 40px;
     height: 100%;
     float: right; }
     #head .login .left {
@@ -258,7 +258,7 @@ a, .alert-btn, .role-control-btn, .alert-btn2, .alert-btn3, .alert-btn4, .org-ri
       border-left: 2px solid #dadada; }
       #head .login .right a {
         padding-left: 10px;
-        font-size: 16px;
+        font-size: 14px;
         color: #ffffff;
         line-height: 24px; }
 
@@ -266,8 +266,8 @@ a, .alert-btn, .role-control-btn, .alert-btn2, .alert-btn3, .alert-btn4, .org-ri
   position: relative;
   margin-top: 10px; }
   .left-nav li {
-    padding: 0 10px;
-    font-size: 16px;
+    padding: 0 0 10px 10px;
+    font-size: 14px;
     line-height: 24px;
     color: #ffffff; }
     .left-nav li:hover {
@@ -284,21 +284,24 @@ a, .alert-btn, .role-control-btn, .alert-btn2, .alert-btn3, .alert-btn4, .org-ri
     .left-nav li ul {
       display: none; }
     .left-nav li:hover {
-      background: #ffffff; }
+      background: #ffffff;
+      box-shadow: 0 0 4px rgba(68, 171, 255, 0.4) inset; }
       .left-nav li:hover ul {
         display: block; }
+        .left-nav li:hover ul li {
+          box-shadow: 0 0 0 rgba(68, 171, 255, 0.5) inset; }
 
 /*通用底部*/
 #footer {
   min-width: 965px;
-  height: 200px;
+  height: 80px;
   background: #2a70d8; }
 
 /*主导航部分*/
 #nav {
   position: absolute;
-  top: 42px;
-  right: 0;
+  top: 50px;
+  right: 250px;
   z-index: 1;
   min-width: 886px;
   height: 40px;
@@ -328,10 +331,10 @@ a, .alert-btn, .role-control-btn, .alert-btn2, .alert-btn3, .alert-btn4, .org-ri
 
 /*系统设置-container*/
 #container {
-  margin: 5px auto;
+  margin: 1px auto;
   overflow: hidden;
   min-width: 965px;
-  background: #2a70d8; }
+  background: #5095fc; }
   #container .left {
     position: relative;
     float: left;
@@ -343,15 +346,15 @@ a, .alert-btn, .role-control-btn, .alert-btn2, .alert-btn3, .alert-btn4, .org-ri
     #container .right .right-con {
       padding-top: 20px;
       margin-left: 180px;
-      min-height: 500px;
+      min-height: 755px;
       background: #ffffff; }
 
 /*系统设置左边导航栏*/
 .aside-nav {
   width: 100%; }
   .aside-nav li {
-    margin-bottom: 10px;
-    padding-left: 30px;
+    margin-bottom: 1px;
+    text-align: center;
     height: 40px;
     line-height: 40px;
     color: #767676; }
@@ -361,22 +364,38 @@ a, .alert-btn, .role-control-btn, .alert-btn2, .alert-btn3, .alert-btn4, .org-ri
       color: #fff;
       font-family: "Microsoft Yahei"; }
     .aside-nav li:hover {
-      background: #34acd8;
+      background: #3dcdff;
       cursor: pointer; }
       .aside-nav li:hover input {
         color: #ffffff; }
   .aside-nav .aside-nav-nth1 {
+    text-align: center;
     height: 60px;
-    font-size: 20px;
+    font-size: 24px;
     line-height: 60px;
     color: #fff;
-    background: #34acd8; }
+    font-weight: bold;
+    /*      background: $aside-bg;*/ }
     .aside-nav .aside-nav-nth1 a {
       color: #ffffff; }
+    .aside-nav .aside-nav-nth1:hover {
+      background: none; }
   .aside-nav .active {
-    background: #34acd8; }
-    .aside-nav .active input {
-      color: #fff; }
+    position: relative;
+    background: #3dcdff; }
+    .aside-nav .active:after {
+      content: ">";
+      position: absolute;
+      top: 0;
+      right: 5px;
+      width: 20px;
+      height: 40px;
+      display: block;
+      color: #ffffff;
+      font-size: 16px;
+      font-weight: bolder; }
+  .aside-nav input {
+    color: #fff; }
 
 /*系统设置右边内容部分*/
 .org-right-con {
