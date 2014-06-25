@@ -119,7 +119,7 @@ body, h1, h2, h3, h4, h5, h6, hr, p, blockquote, dl, dt, dd, ul, ol, li, pre, fo
 .bk30 {
   height: 30px; }
 
-a, .alert-btn, .role-control-btn, .alert-btn2, .alert-btn3, .alert-btn4, .org-right-btns .area-btn, .index-login-con button, .main-nav li, .main-nav li:hover a, .aside-nav li, .channel-tab li {
+a, .alert-btn, .role-control-btn, .alert-btn2, .alert-btn3, .alert-btn4, .org-right-btns .area-btn, .index-login-con button, .main-nav li, .main-nav li:hover a, .aside-nav li li, .channel-tab li {
   -webkit-transition: all .3s ease-in-out 0s;
   -moz-transition: all .3s ease-in-out 0s;
   -ms-transition: all .3s ease-in-out 0s;
@@ -352,21 +352,23 @@ a, .alert-btn, .role-control-btn, .alert-btn2, .alert-btn3, .alert-btn4, .org-ri
 /*系统设置左边导航栏*/
 .aside-nav {
   width: 100%; }
-  .aside-nav li {
+  .aside-nav li li {
+    float: left;
     margin-bottom: 1px;
-    text-align: center;
+    width: 100%;
     height: 40px;
     line-height: 40px;
+    text-align: center;
     color: #767676; }
-    .aside-nav li input {
+    .aside-nav li li input {
       background: transparent;
       font-size: 16px;
       color: #fff;
       font-family: "Microsoft Yahei"; }
-    .aside-nav li:hover {
+    .aside-nav li li:hover {
       background: #3dcdff;
       cursor: pointer; }
-      .aside-nav li:hover input {
+      .aside-nav li li:hover input {
         color: #ffffff; }
   .aside-nav .aside-nav-nth1 {
     text-align: center;
@@ -1069,5 +1071,7 @@ input.input-org-info, input.channel-select {
   input.input-org-info, input.channel-select {
     width: 90px;
     margin-bottom: 15px; } }
+#forever {
+  margin-top: 18px; }
 
 /*@ sourceMappingURL=configuration.css.map */

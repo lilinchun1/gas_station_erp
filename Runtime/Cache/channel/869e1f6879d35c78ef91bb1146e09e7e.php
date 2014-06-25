@@ -67,15 +67,9 @@
 </script>
 <div id="container">
 <div class="left">
-    <!--<ul class="aside-nav">
-    <li class="aside-nav-nth1"><a href="<?php echo U('channel/Channel/index');?>">渠道管理</a></li>
-    <li class="url_link" url="<?php echo U('channel/Channel/index');?>"><a href="<?php echo U('channel/Channel/index');?>"><input type="button" value="渠道信息"></a></li>
-    <li class="url_link" url="<?php echo U('channel/Place/index');?>"><a href="<?php echo U('channel/Place/index');?>"><input type="button" class="" value="网点信息"></a></li>
-    <li class="url_link" url="<?php echo U('channel/Device/index');?>"><a href="<?php echo U('channel/Device/index');?>"><input type="button" class="" value="加油站信息"></a></li>
-</ul>-->
-
+    
 <ul class="aside-nav">
-    <li class="aside-nav-nth1"><a href="<?php echo U('channel/Channel/index');?>">渠道管理</a>
+    <li class="aside-nav-nth1"><a>渠道管理</a>
         <ul>
             <li class="url_link" url="<?php echo U('channel/Channel/index');?>"><a href="<?php echo U('channel/Channel/index');?>"><input type="button" value="渠道信息"></a></li>
             <li class="url_link" url="<?php echo U('channel/Place/index');?>"><a href="<?php echo U('channel/Place/index');?>"><input type="button" class="" value="网点信息"></a></li>
@@ -359,10 +353,16 @@
 </script>
 <script>
     $(function(){
-        $('.aside-nav-nth1').click(function(){
+        $('.aside-nav-nth1').click(function(event){
             var oUl1 = $(this).find('ul');
             oUl1.toggle();
-            return false;
+            var oI1 = $(this).find('i');
+            oI1.toggle(function(){
+                oI1.html('-');
+            },function(){
+                oI1.html('+');
+            });
+            event.stopPropagation();
         });
     })
 </script>

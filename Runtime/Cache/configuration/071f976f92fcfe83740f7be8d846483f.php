@@ -62,12 +62,31 @@
 </script>
 <div id="container">
 	<div class="left">
-		<ul class="aside-nav">
-    <li class="aside-nav-nth1" ><a href="<?php echo U('configuration/Org/index');?>">系统设置</a></li>
-    <li class="url_link" url="<?php echo U('configuration/Org/index');?>"><a href="<?php echo U('configuration/Org/index');?>"><input  type="button"  value="组织结构" ></a></li>
-    <li class="url_link" url="<?php echo U('configuration/Role/show_role');?>"><a href="<?php echo U('configuration/Role/show_role');?>"><input type="button" class="" value="角色维护" ></a></li>
-    <li class="url_link" url="<?php echo U('configuration/User/index');?>"><a href="<?php echo U('configuration/User/index');?>"><input type="button" class="" value="职员维护" ></a></li>
+		
+<ul class="aside-nav cf">
+    <li class="aside-nav-nth1" ><a>系统设置</a>
+            <ul><li class="url_link" url="<?php echo U('configuration/Org/index');?>"><a href="<?php echo U('configuration/Org/index');?>"><input  type="button"  value="组织结构" ></a></li>
+                <li class="url_link" url="<?php echo U('configuration/Role/show_role');?>"><a href="<?php echo U('configuration/Role/show_role');?>"><input type="button" class="" value="角色维护" ></a></li>
+                <li class="url_link" url="<?php echo U('configuration/User/index');?>"><a href="<?php echo U('configuration/User/index');?>"><input type="button" class="" value="职员维护" ></a></li></ul>
+    </li>
+
 </ul>
+<ul class="aside-nav cf">
+    <li class="aside-nav-nth1" ><a>系统设置</a>
+        <ul><li class="url_link" url="<?php echo U('configuration/Org/index');?>"><a href="<?php echo U('configuration/Org/index');?>"><input  type="button"  value="组织结构" ></a></li>
+            <li class="url_link" url="<?php echo U('configuration/Role/show_role');?>"><a href="<?php echo U('configuration/Role/show_role');?>"><input type="button" class="" value="角色维护" ></a></li>
+            <li class="url_link" url="<?php echo U('configuration/User/index');?>"><a href="<?php echo U('configuration/User/index');?>"><input type="button" class="" value="职员维护" ></a></li></ul>
+    </li>
+
+</ul><ul class="aside-nav cf">
+    <li class="aside-nav-nth1" ><a>系统设置</a>
+        <ul><li class="url_link" url="<?php echo U('configuration/Org/index');?>"><a href="<?php echo U('configuration/Org/index');?>"><input  type="button"  value="组织结构" ></a></li>
+            <li class="url_link" url="<?php echo U('configuration/Role/show_role');?>"><a href="<?php echo U('configuration/Role/show_role');?>"><input type="button" class="" value="角色维护" ></a></li>
+            <li class="url_link" url="<?php echo U('configuration/User/index');?>"><a href="<?php echo U('configuration/User/index');?>"><input type="button" class="" value="职员维护" ></a></li></ul>
+    </li>
+
+</ul>
+
 	</div>
 	<div class="right">
 		<div class="right-con">
@@ -241,7 +260,15 @@
 
     }
 </script>
-
+<script>
+    $(function(){
+        $('.aside-nav-nth1').click(function(event){
+            var oUl1 = $(this).find('ul');
+            oUl1.toggle();
+            event.stopPropagation();
+        });
+    })
+</script>
 
 <div id="j_add_win" style="display:none;">
 	<div class="alert-role-add w1k">

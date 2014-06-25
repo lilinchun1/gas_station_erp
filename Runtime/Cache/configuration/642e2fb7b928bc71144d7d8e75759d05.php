@@ -73,22 +73,15 @@
 </script>
 <div id="container">
     <div class="left">
-        <!--<ul class="aside-nav">
-    <li class="aside-nav-nth1" ><a href="<?php echo U('configuration/Org/index');?>">系统设置</a></li>
-    <li class="url_link" url="<?php echo U('configuration/Org/index');?>"><a href="<?php echo U('configuration/Org/index');?>"><input  type="button"  value="组织结构" ></a></li>
-    <li class="url_link" url="<?php echo U('configuration/Role/show_role');?>"><a href="<?php echo U('configuration/Role/show_role');?>"><input type="button" class="" value="角色维护" ></a></li>
-    <li class="url_link" url="<?php echo U('configuration/User/index');?>"><a href="<?php echo U('configuration/User/index');?>"><input type="button" class="" value="职员维护" ></a></li>
-</ul>-->
-
-<ul class="aside-nav">
-    <li class="aside-nav-nth1" ><a href="<?php echo U('configuration/Org/index');?>">系统设置</a>
+        
+<ul class="aside-nav cf">
+    <li class="aside-nav-nth1" ><a><i class="j-show-list">-</i>系统设置</a>
             <ul><li class="url_link" url="<?php echo U('configuration/Org/index');?>"><a href="<?php echo U('configuration/Org/index');?>"><input  type="button"  value="组织结构" ></a></li>
                 <li class="url_link" url="<?php echo U('configuration/Role/show_role');?>"><a href="<?php echo U('configuration/Role/show_role');?>"><input type="button" class="" value="角色维护" ></a></li>
                 <li class="url_link" url="<?php echo U('configuration/User/index');?>"><a href="<?php echo U('configuration/User/index');?>"><input type="button" class="" value="职员维护" ></a></li></ul>
     </li>
 
 </ul>
-
 
         <!--<ul class="aside-nav">
             <li class="aside-nav-nth1"><a href="<?php echo U('configuration/Org/index');?>">系统设置</a></li>
@@ -289,11 +282,19 @@
 </script>
 <script>
     $(function(){
-        $('.aside-nav-nth1').click(function(){
+        $('.aside-nav-nth1').click(function(event){
             var oUl1 = $(this).find('ul');
-            oUl1.toggle();
-            return false;
+            var OI1 = $(this).find('.j-show-list');
+            if(oUl1.is(':visible')){
+                OI1.html('+');
+                oUl1.hide(100);
+            }else if(oUl1.is(':hidden')){
+                OI1.html('-');
+                oUl1.show(100);
+            }
+            event.stopPropagation();
         });
+
     })
 </script>
 <div class="alert-org-add" id="j_add_win" style=" display:none;">

@@ -64,12 +64,31 @@
 
 <div id="container">
     <div class="left">
-        <ul class="aside-nav">
-    <li class="aside-nav-nth1 url_link" url="<?php echo U('configuration/Org/index');?>"><a href="<?php echo U('configuration/Org/index');?>">系统设置</a></li>
-    <li class="url_link" url="<?php echo U('configuration/Org/index');?>"><a href="<?php echo U('configuration/Org/index');?>"><input  type="button"  value="组织结构" ></a></li>
-    <li class="url_link" url="<?php echo U('configuration/Role/show_role');?>"><a href="<?php echo U('configuration/Role/show_role');?>"><input type="button" class="" value="角色维护" ></a></li>
-    <li class="url_link" url="<?php echo U('configuration/User/index');?>"><a href="<?php echo U('configuration/User/index');?>"><input type="button" class="" value="职员维护" ></a></li>
+        
+<ul class="aside-nav cf">
+    <li class="aside-nav-nth1" ><a><i>+</i>系统设置</a>
+            <ul><li class="url_link" url="<?php echo U('configuration/Org/index');?>"><a href="<?php echo U('configuration/Org/index');?>"><input  type="button"  value="组织结构" ></a></li>
+                <li class="url_link" url="<?php echo U('configuration/Role/show_role');?>"><a href="<?php echo U('configuration/Role/show_role');?>"><input type="button" class="" value="角色维护" ></a></li>
+                <li class="url_link" url="<?php echo U('configuration/User/index');?>"><a href="<?php echo U('configuration/User/index');?>"><input type="button" class="" value="职员维护" ></a></li></ul>
+    </li>
+
 </ul>
+<ul class="aside-nav cf">
+    <li class="aside-nav-nth1" ><a>系统设置</a>
+        <ul><li class="url_link" url="<?php echo U('configuration/Org/index');?>"><a href="<?php echo U('configuration/Org/index');?>"><input  type="button"  value="组织结构" ></a></li>
+            <li class="url_link" url="<?php echo U('configuration/Role/show_role');?>"><a href="<?php echo U('configuration/Role/show_role');?>"><input type="button" class="" value="角色维护" ></a></li>
+            <li class="url_link" url="<?php echo U('configuration/User/index');?>"><a href="<?php echo U('configuration/User/index');?>"><input type="button" class="" value="职员维护" ></a></li></ul>
+    </li>
+
+</ul><ul class="aside-nav cf">
+    <li class="aside-nav-nth1" ><a>系统设置</a>
+        <ul><li class="url_link" url="<?php echo U('configuration/Org/index');?>"><a href="<?php echo U('configuration/Org/index');?>"><input  type="button"  value="组织结构" ></a></li>
+            <li class="url_link" url="<?php echo U('configuration/Role/show_role');?>"><a href="<?php echo U('configuration/Role/show_role');?>"><input type="button" class="" value="角色维护" ></a></li>
+            <li class="url_link" url="<?php echo U('configuration/User/index');?>"><a href="<?php echo U('configuration/User/index');?>"><input type="button" class="" value="职员维护" ></a></li></ul>
+    </li>
+
+</ul>
+
         <!-- <ul class="aside-nav">
              <li class="aside-nav-nth1"><a href="<?php echo U('configuration/Org/index');?>">系统设置</a></li>
              <li><a href="<?php echo U('configuration/Org/index');?>"><input  type="button"  value="组织结构" ></a></li>
@@ -291,6 +310,11 @@
 		var old_password_txt=$('#old_password_txt').val();//业务范围
 		var new_password_txt=$('#new_password_txt').val();//业务范围
 		var re_new_password_txt=$('#re_new_password_txt').val();//业务范围
+		var pwReg = /^[0-9]*$/;
+		if(new_password_txt.length<6||!pwReg.test(new_password_txt)){
+			alert("输入的密码不能小于6个字符，且只能为英文或者数字");
+			return false;
+		}
 		$.getJSON(handleUrl,{'old_password_txt':old_password_txt,'new_password_txt':new_password_txt,'re_new_password_txt':re_new_password_txt},
 			function (data){
 				var tmp_msg = "<?php echo C('change_password_success');?>";
@@ -349,7 +373,16 @@
 
     }
 </script>
-
+<script>
+    $(function(){
+        $('.aside-nav-nth1').click(function(event){
+            var oUl1 = $(this).find('ul');
+            oUl1.toggle();
+            $(this)
+            event.stopPropagation();
+        });
+    })
+</script>
 <div id="j_mod_edit" style="display:none;">
     <div class="alert-role-add">
         <h3>编辑职员信息</h3>

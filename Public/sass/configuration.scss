@@ -226,12 +226,14 @@ $heiti:"SimHei";
 /*系统设置左边导航栏*/
 .aside-nav{
   width: 100%;
-    li{
+   li li{
+     float: left;
       margin-bottom: 1px;
-      text-align: center;
-      height: 40px;
-      line-height: 40px;
-      color: $font-n-color;
+      width: 100%;
+     height: 40px;
+     line-height: 40px;
+     text-align: center;
+     color: $font-n-color;
       @extend  %trans-all;
       input{
         background: transparent;
@@ -1037,3 +1039,5 @@ input.input-org-info,input.channel-select{
   input.input-org-info,input.channel-select{width: 90px;
     margin-bottom: 15px;}
 }
+#forever{
+  margin-top: 18px;}
