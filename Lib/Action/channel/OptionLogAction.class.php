@@ -4,7 +4,7 @@ foreach ($_GET as $k=>$v) {
 	$_GET[$k] = urldecode($v);
 }
 //操作日志类
-class OptionLogAction extends CommonAction {
+class OptionLogAction extends Action {
 	public function index(){
 		$userinfo = getUserInfo();
 		$this->is_channel_user = in_array("渠道部", $userinfo['group']); //等于1为渠道部用户

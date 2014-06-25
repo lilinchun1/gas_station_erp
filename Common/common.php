@@ -3,17 +3,46 @@ function p($array) {
 	dump ( $array, true, 'pre', 0 );
 }
 
-// 根据用户ID返回用户信息
-function getUserInfo($uid = '') {
+// 根据用户ID返回用户信息，否则返回当前登陆者信息
+function getUserInfo($uid = "") {
 	$userinfo = null;
-	$is_open_purview = C ( 'is_open_purview' ); // 是否开启权限 1开启
-	if ('1' == $is_open_purview) {
-		empty ( $uid ) ? $user_id = $_SESSION ['userinfo'] ['uid'] : $user_id = $uid;
+	if ($uid) {
 		$user_db = D ( 'User' );
-		$userinfo = $user_db->getUser ( $user_id );
+		$userinfo = $user_db->getUser ( $uid );
+		//获取用户有权限的url集合
+		$userinfo['urlstr'] = ableUrlStr($uid);
 	} else {
-		$userinfo ['role'] = 0;
-		$userinfo ['username'] = $_SESSION ['userinfo'] ['username'];
+		//如果当期无登陆用户，跳转到登陆页
+		if(!isset($_SESSION['userinfo']['uid']))
+		{
+			$login_url = __ROOT__ . "/index.php/configuration/Login/login";
+			redirect($login_url);
+			return;
+		}
+		$userinfo = $_SESSION ['userinfo'];
+	}
+	return $userinfo;
+}
+//获取根用户信息
+function getRoot($username, $password) {
+	$userinfo = array();
+	if ($username == C('ROOT_USER') && $password == C('ROOT_PWSD')) {
+		$userinfo = array(
+				'uid' => 'root',
+				'username' => $username,
+				'realname' =>"根用户",
+				'agentsid' => 0,
+				'grade' => 1,
+		);
+		//跟用户拥有所有页面权限
+		$model = new Model ();
+		$str = "SELECT url FROM bi_menu";
+		$que = $model->query ( $str );
+		$url_str = "";
+		foreach ( $que as $k => $v ) {
+			$url_str .= $v ['url'].",";
+		}
+		$userinfo['urlstr'] = $url_str;
 	}
 	return $userinfo;
 }

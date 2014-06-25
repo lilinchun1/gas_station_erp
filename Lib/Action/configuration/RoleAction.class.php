@@ -5,11 +5,12 @@ foreach ($_GET as $k=>$v) {
 }
 
 //角色类
-class RoleAction extends CommonAction {
+class RoleAction extends Action {
 	public function index(){
 		$userinfo = getUserInfo();
 		$this->username = $userinfo['realname']; //登录的用户名
 		$this->assign('nowUrl', "configuration/Role/show_role");
+		$this->assign('urlStr', $userinfo['urlstr']);
 		$this->display(':role_index');
 	}
 

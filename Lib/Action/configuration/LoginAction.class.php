@@ -11,23 +11,27 @@ class LoginAction extends Action {
 	//登录之后的默认页
 	 public function default_index(){
 		$userinfo = getUserInfo();
-		$this->username = $userinfo['realname']; //登录的用户名
+		$this->assign('username', $userinfo['realname']);
+		$this->assign('urlStr', $userinfo['urlstr']);
+		//var_dump( $_SESSION ['userinfo']);exit;
 		$this->display(':default_index');
 	}
 
 	// 用户登录
 	public function login() {
 		if (submit_verify('USER_LOGIN')) {
+			$return_num = 0;
 			$username = trim($_POST['username']);
 			$password = trim($_POST['password']);
 			$userinfo = array();
 			$vercode = $_SESSION['verify'];
 			session('vercode',null);
-			// 验证码
+			// 验证码检查
 			if($vercode != md5($_POST['verify'])) {
-				$msg = C('verification_code_error');
+				$msg = C('verification_code_error');//验证码错误提示
 				if ($_POST['is_ajax']) {
-					$this->ajaxReturn(array('login'=>6002, 'emsg'=>'verification_code_error','msg'=>$msg));
+					$return_num = 6002;
+					$this->ajaxReturn(array('login'=>$return_num, 'emsg'=>'verification_code_error','msg'=>$msg));
 				} else {
 					$this->error($msg);
 				}
@@ -37,11 +41,19 @@ class LoginAction extends Action {
 			if (!$userinfo) {
 				$userm = M('user');
 				// 检查是否有该用户
-				$uinfo = $userm->where("username='$username' && del_flag=0")->find();
+				$uinfo = $userm->where("username='$username' and del_flag=0")->find();
 				if (!empty($uinfo)) {
 					// 检查用户密码是否错误
-					$userinfo = $userm->where("username='$username' && password='$password' && del_flag=0")->find();
+					$userinfo = $userm->where("username='$username' and password='$password' and del_flag=0")->find();
+					if($userinfo['uid']){
+						//获取权限信息
+						$userinfo['urlstr'] = ableUrlStr($userinfo['uid']);
+					}
 				} else {
+					$uinfo = $userm->where("username='$username' and del_flag=1")->find();
+					if($uinfo){
+						$msg = "用户已失效";
+					}
 					$msg = C('no_have_this_username');
 				}
 			}
@@ -49,22 +61,31 @@ class LoginAction extends Action {
 			if (!empty($userinfo)) {
 				unset($userinfo['password']);
 				session('userinfo',$userinfo);
-				$emsg = 'login_success';
+				$emsg = 'login_success';//登陆成功信息提示
 				$msg = C($emsg);
 				if ($_POST['is_ajax']) {
 					// 设置最后登录时间
-					if ($userinfo['uid'] != 'root') {
+					if ($userinfo['uid'] != 'root') {//根用户不能修改
 						$data['lastlogintime'] = time();
 						$userm->where("uid={$userinfo['uid']}")->save($data);
 					}
-					$this->ajaxReturn(array('login'=>2001, 'emsg'=>'login_success', 'msg'=>$msg));
+					$return_num = 2001;
+					$this->ajaxReturn(array('login'=>$return_num, 'emsg'=>'login_success', 'msg'=>$msg));
 				} else {
 					$this->redirect('Login/login', '',3, $msg);
 				}
 			} else {
 				empty($msg) ? $msg = C('login_failed') : 1;
+				if($msg == C('no_have_this_username')){
+					$return_num = 6000;
+				}else if($msg == "用户已失效"){
+					$return_num = 6003;
+				}else{
+					$msg == "密码错误";
+					$return_num = 6001;
+				}
 				if ($_POST['is_ajax']) {
-					$this->ajaxReturn(array('login'=>6001, 'emsg'=>'login_failed','msg'=>$msg));
+					$this->ajaxReturn(array('login'=>$return_num, 'emsg'=>'login_failed','msg'=>$msg));
 				} else {
 					$this->redirect('Login/login', '',3, $msg);
 				}
@@ -77,6 +98,7 @@ class LoginAction extends Action {
 
 	// 退出登录
 	public function logout() {
+		session('userinfo',null);
 		session_unset();
 		session_destroy();
 		$this->index();

@@ -74,6 +74,10 @@
 						//alert("用户错误");
 						$("#tishi").html("<img src='__PUBLIC__/image/tanhao.png'/> 用户名不存在，请重新输入");
 					}
+					if(data['login'] == 6003){
+						//alert("用户错误");
+						$("#tishi").html("<img src='__PUBLIC__/image/tanhao.png'/> 该用户已经失效，请联系管理员");
+					}
 					if(data['login'] == 6001){
 						//alert("密码密码有误");
 						$("#tishi").html("<img src='__PUBLIC__/image/tanhao.png'/> 密码有误，请重新输入");

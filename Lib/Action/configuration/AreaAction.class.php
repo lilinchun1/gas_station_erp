@@ -5,7 +5,7 @@ foreach ($_GET as $k=>$v) {
 }
 
 //区域类
-class AreaAction extends CommonAction {
+class AreaAction extends Action {
 	public function index(){
 		$this->display('config:area_index');
 	}

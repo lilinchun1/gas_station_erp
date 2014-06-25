@@ -1,6 +1,5 @@
 <?php
 return array (
-<<<<<<< .mine
 		// '配置项'=>'配置值'
 		'DB_TYPE' => 'mysql', // 数据库类型
 		'DB_HOST' => '192.168.0.10', // 服务器地址
@@ -13,13 +12,11 @@ return array (
 		'URL_MODEL' => 1,
 		'URL_HTML_SUFFIX'=>'', // 多个用 | 分割,
 		'SESSION_AUTO_START' =>true,
-		'DOMAIN' => 'http://192.168.0.65/',
-		'image_url' => 'http://192.168.0.65/',
+		'DOMAIN' => 'http://admin.jienuo-service.net/',
+		'image_url' => 'http://img.jienuo-service.net/',
 		'__PUBLIC__'     => '__APP__/Public/',
 		'is_open_purview' => '1', // 是否开启权限 1开启
 		'page_show_number' => 30  //每页显示数量
-=======
->>>>>>> .r2950
 );
 //"mysql://root:@192.168.0.63:3306/jn"
 ?>

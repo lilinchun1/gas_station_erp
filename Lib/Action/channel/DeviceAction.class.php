@@ -4,7 +4,7 @@ foreach ($_GET as $k=>$v) {
 	$_GET[$k] = urldecode($v);
 }
 //设备类
-class DeviceAction extends CommonAction {
+class DeviceAction extends Action {
 	public function index(){
 		$userinfo = getUserInfo();
 		$this->username = $userinfo['realname']; //登录的用户名
@@ -14,6 +14,7 @@ class DeviceAction extends CommonAction {
 		$first_place_type = getAllChannelType();
 		$this->assign('first_place_type', $first_place_type);*/
 		$this->assign('nowUrl', "channel/Device/index");
+		$this->assign('urlStr', $userinfo['urlstr']);
 		$this->display(':device_index');
 	}
 

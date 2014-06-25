@@ -8,6 +8,10 @@ images_dir = "Public/image"
 javascripts_dir = "Public/js"
 fonts_dir = "Public/fonts"
 
+
+enable_sourcemaps = true
+sass_options = {:sourcemap => true}
+
 # You can select your preferred output style here (can be overridden via the command line):
 # output_style = :expanded or :nested or :compact or :compressed
 

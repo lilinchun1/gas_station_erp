@@ -4,7 +4,7 @@ foreach ($_GET as $k=>$v) {
 	$_GET[$k] = urldecode($v);
 }
 //渠道商类
-class ChannelAction extends CommonAction {
+class ChannelAction extends Action {
 	public function index(){
 		$userinfo = getUserInfo();
 		$this->username = $userinfo['realname']; //登录的用户名
@@ -18,6 +18,7 @@ class ChannelAction extends CommonAction {
 		$this->assign('first_channel_type', $first_channel_type);
 		$this->assign('all_agent', $all_agent);
 		$this->assign('nowUrl', "channel/Channel/index");
+		$this->assign('urlStr', $userinfo['urlstr']);
 		$this->display(':channel_index');
 	}
 

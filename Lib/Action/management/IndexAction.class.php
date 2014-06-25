@@ -7,13 +7,18 @@ class IndexAction extends Action {
 		parent::__construct();
 		//获取用户信息
 		$userinfo = getUserInfo();
+		//var_dump( $userinfo);exit;
 		$this->uid = $userinfo['uid'];
 		//获取可查看菜单路径
-		$url_str = ableUrlStr($this->uid);
-		$this->assign('urlStr', $url_str);
+		$this->assign('urlStr', $userinfo['urlstr']);
+		$this->assign('username', $userinfo['realname']);
 	}
 	
-	//展示刊例维护
+	/**
+	 * importingApp展示刊例维护
+	 * @param 
+	 * @return mixed
+	 */
 	function importingApp() {
 		//var_dump($url_str);exit;
 		$appRule = new Model ( "AppRule" );
@@ -45,6 +50,9 @@ class IndexAction extends Action {
 			$del_rule_no = $_POST['del_rule_no'];
 			$appRule->query("DELETE FROM app_rule WHERE rule_no = '$del_rule_no'");
 		}
+		
+		
+		//查询
 		$where = " where 1 ";
 		if($_POST['rule_no_sel']){
 			$rule_no_sel = $_POST['rule_no_sel'];
@@ -188,62 +196,77 @@ class IndexAction extends Action {
 	
 	//展示刊例发布
 	function addRuleTarget(){
-		$appRule = new Model ( "AppRule" );
-		if ($_POST ['add_udp']) { //新增
+		$ruleSend = new Model ( "RuleSend" );
+		if ($_POST ['add_udp'] == "1") { //新增
 			$rule_no    = $_POST['rule_no'];
 			$start_time = strtotime($_POST['start_time']);
 			$target_num = $_POST['target_num'];
-
+			$que = $ruleSend->add ( array (
+					'rule_no'   => $rule_no,
+					'target_num'    => $target_num,
+					'start_time'  => $start_time,
+					'createuserid'  => $this->uid,
+					'rule_status'		=> 1,
+					'createtime'		=> time()
+			) );
+			//echo $ruleSend->getLastSql();exit;
+		}else if($_POST ['add_udp'] == "2"){ //编辑
+			$send_id    = $_POST['send_id'];
+			$rule_no    = $_POST['rule_no'];
+			$start_time = strtotime($_POST['start_time']);
+			$target_num = $_POST['target_num'];
+			
 			$data = null;
-			$data['rule_status']= 1;
+			$data['rule_no'] = $rule_no;
 			$data['start_time'] = $start_time;
 			$data['target_num'] = $target_num;
-			$que = $appRule->where("rule_no = '$rule_no'")->save($data);
+			$que = $ruleSend->where("id = '$send_id'")->save($data);
 		}else if($_POST ['del_fb_zf'] == "1"){//删除
-			$del_rule_no    = $_POST['rule_no_hid'];
-			$appRule->query("DELETE FROM app_rule WHERE rule_no = '$del_rule_no'");
+			$send_id    = $_POST['change_send_id'];
+			$ruleSend->query("DELETE FROM rule_send WHERE id = '$send_id'");
 		}else if($_POST ['del_fb_zf'] == "2"){//发布
-			$rule_no    = $_POST['rule_no_hid'];
+			$send_id    = $_POST['change_send_id'];
 			$data = null;
 			$data['rule_status'] = 2;
-			$data['release_time'] = strtotime(date("Y-m-d"));
-			$que = $appRule->where("rule_no = '$rule_no'")->save($data);
+			$data['release_time'] = time();
+			$que = $ruleSend->where("id = '$send_id'")->save($data);
 		}else if($_POST ['del_fb_zf'] == "3"){//作废
-			$rule_no    = $_POST['rule_no_hid'];
+			$send_id    = $_POST['change_send_id'];
 			$data = null;
 			$data['rule_status'] = 3;
-			$que = $appRule->where("rule_no = '$rule_no'")->save($data);
+			$que = $ruleSend->where("id = '$send_id'")->save($data);
 		}
-			$where = " where 1 ";
-			if($_POST['rule_no_sel']){
-				$rule_no_sel = $_POST['rule_no_sel'];
-				$where .= " and rule_no = '$rule_no_sel' ";
-			}
-			
-			if($_POST['createuser_sel']){
-				$createuser_sel = $_POST['createuser_sel'];
-				$str = "select uid from bi_user where realname like '%$createuser_sel%'";
-				$que = $appRule->query($str);
-				$createuserid = $que[0]['uid'];
-				$where .= " and createuserid = '$createuserid' ";
-			}
-			
-			
-			if($_POST['release_time_sel']){
-				$release_time_sel = strtotime($_POST['release_time_sel']);;
-				$where .= " and release_time = '$release_time_sel' ";
-			}
-			$sel = " select * from app_rule a $where and rule_status >=1 group by rule_no order by release_time";
-			$que = $appRule->query($sel);
-			foreach ($que as $k=>$v){
-				$que[$k]['createtime'] = date("Y-m-d",$v['createtime']);
-				$que[$k]['release_time'] = $v['release_time']?date("Y-m-d",$v['release_time']):"";
-				$que[$k]['start_time'] = date("Y-m-d",$v['start_time']);
-			}
-			$this->assign('issueArr', $que);
-			//供菜单给当前页面加样式
-			$this->assign('nowUrl', "management/Index/addRuleTarget");
-			$this->display(':rule_send');
+		
+		$where = " where 1 ";
+		if($_POST['rule_no_sel']){
+			$rule_no_sel = $_POST['rule_no_sel'];
+			$where .= " and rule_no = '$rule_no_sel' ";
+		}
+		
+		if($_POST['createuser_sel']){
+			$createuser_sel = $_POST['createuser_sel'];
+			$str = "select uid from bi_user where realname like '%$createuser_sel%'";
+			$que = $ruleSend->query($str);
+			$createuserid = $que[0]['uid'];
+			$where .= " and createuserid = '$createuserid' ";
+		}
+		
+		
+		if($_POST['release_time_sel']){
+			$release_time_sel = strtotime($_POST['release_time_sel']);;
+			$where .= " and release_time = '$release_time_sel' ";
+		}
+		$sel = " select * from rule_send $where order by release_time desc";
+		$que = $ruleSend->query($sel);
+		foreach ($que as $k=>$v){
+			$que[$k]['createtime'] = date("Y-m-d",$v['createtime']);
+			$que[$k]['release_time'] = $v['release_time']?date("Y-m-d",$v['release_time']):"";
+			$que[$k]['start_time'] = date("Y-m-d",$v['start_time']);
+		}
+		$this->assign('issueArr', $que);
+		//供菜单给当前页面加样式
+		$this->assign('nowUrl', "management/Index/addRuleTarget");
+		$this->display(':rule_send');
 	}
 	
 	
@@ -261,7 +284,7 @@ class IndexAction extends Action {
 		//return 2354;
 		//现在未过滤期刊号，所有期刊都算了
 		$selStr = "
-				SELECT rule_no FROM app_rule WHERE rule_status = 0 GROUP BY rule_no
+				SELECT rule_no FROM app_rule GROUP BY rule_no
 		";
 		//echo json_encode($selStr);exit;
 		$list = $model->query($selStr);

@@ -418,8 +418,8 @@
         <div class="alert-user-add-con">
             <form action="">
                 <p>
-                    <label for="user-addname" class="role-lab">姓&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;名</label>
-                    <input type="text" name="addname" id="user-addname" class="input-role-name"/>
+                    <label for="user-addname" class="role-lab">姓&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;名</label>
+                    <input type="text" name="addname" id="user-addname" class="input-role-name"/><i class="red-color pdl10">*</i>
                     <input type="radio" name="change-sex" class="change-sex" id="man" value="1"/><label for="man" class="sex">男</label>
                     <input type="radio" name="change-sex" class="change-sex" id="woman" value="0"/><label for="woman" class="sex">女</label>
                 </p>
@@ -429,10 +429,10 @@
                 </p>
                 <p>
                     <label for="login-id" class="role-lab">登陆账号</label>
-                    <input type="text" name="addname" id="login-id" class="input-role-name"/>
+                    <input type="text" name="addname" id="login-id" class="input-role-name"/><i class="red-color pdl10">*</i>
                 </p>
                 <p>
-                    <label for="login-id" class="email">邮&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;箱</label>
+                    <label for="login-id" class="email">邮&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;箱</label>
                     <input type="text" name="addname" id="email" class="input-role-name"/>
                 </p>
                 <div>
@@ -448,7 +448,8 @@
 						<ul class="list">
 							<li class="title">
 								<input id="citySel" type="text" readonly value="" class="input-role-name"/>
-								<a id="menuBtn" href="#" onclick="showMenu(); return false;">选择</a>
+                                <i class="red-color pdl10">*</i>
+                                <a id="menuBtn" href="#" onclick="showMenu(); return false;">选择</a>
 							</li>
 						</ul>
 					</div>
@@ -457,7 +458,6 @@
 					</div>
 					<input type="text" value="" id="id_hidden"/>
                 </div>
-               
                 </p>
                 <p>
                     <button type="button" class="alert-btn2" id="j_add_save">保存</button>

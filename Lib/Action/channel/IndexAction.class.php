@@ -3,7 +3,7 @@ foreach ($_GET as $k=>$v) {
 	$_GET[$k] = urldecode($v);
 }
 //首页
-class IndexAction extends CommonAction {
+class IndexAction extends Action {
     public function index(){
 		//header('Content-type: text/html; charset=utf-8');
 	    //echo "欢迎使用渠道管理系统, 请先登录\n";

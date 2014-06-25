@@ -4,7 +4,7 @@ foreach ($_GET as $k=>$v) {
 	$_GET[$k] = urldecode($v);
 }
 //网点类
-class PlaceAction extends CommonAction {
+class PlaceAction extends Action {
 	public function index(){
 		$userinfo = getUserInfo();
 		$this->username = $userinfo['realname']; //登录的用户名
@@ -14,6 +14,7 @@ class PlaceAction extends CommonAction {
 		$first_place_type = getAllChannelType();
 		$this->assign('first_place_type', $first_place_type);*/
 		$this->assign('nowUrl', "channel/Place/index");
+		$this->assign('urlStr', $userinfo['urlstr']);
 		$this->display(':place_index');
 	}
 

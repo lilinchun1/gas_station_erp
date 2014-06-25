@@ -5,11 +5,12 @@ foreach ($_GET as $k=>$v) {
 }
 
 //职员用户类
-class UserAction extends CommonAction {
+class UserAction extends Action {
 	public function index(){
 		$userinfo = getUserInfo();
 		$this->username = $userinfo['realname']; //登录的用户名
 		$this->assign('nowUrl', "configuration/User/index");
+		$this->assign('urlStr', $userinfo['urlstr']);
 		$this->display(':user_index');
 	}
 

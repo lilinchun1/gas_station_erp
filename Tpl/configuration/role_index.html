@@ -1,55 +1,47 @@
 <!doctype html>
 <html lang="zh-CN">
 <head>
-    <meta charset="UTF-8">
-    <title>角色维护</title>
-    <!--<link rel="stylesheet" href="../../Public/css/configuration.css"/>-->
+	<meta charset="UTF-8">
+	<title>角色维护</title>
 	<link rel="stylesheet" href="__PUBLIC__/css/configuration.css"/>
 	<script type="text/javascript" src="__PUBLIC__/js/jquery-1.10.2.min.js"></script>
 </head>
 <body>
 <include file="./Tpl/include/pb-head.html" />
 <div id="container">
-    <div class="left">
-        <include file="./Tpl/include/pb-configuration-aside.html" />
-        <!--<ul class="aside-nav">
-            <li class="aside-nav-nth1"><a href="{:U('configuration/Org/index')}">系统设置</a></li>
-            <li><a href="{:U('configuration/Org/index')}"><input  type="button"  value="组织结构" ></a></li>
-            <li class="active"><a href="{:U('configuration/Role/show_role')}"><input type="button" class="" value="角色维护" ></a></li>
-            <li><a href="{:U('configuration/User/index')}"><input type="button" class="" value="职员维护" ></a></li>
-        </ul>-->
-    </div>
-    <div class="right">
-        <div class="right-con">
-            <div class="org-right-con">
-                <div class="role-control" id="j-fixed-top">
-                    <div class="role-inquire">
-                        <form name="roleSelect" method="get" action="{:U('configuration/Role/show_role')}">
-                            <label for="role-name" class="role-lab">角色名称</label>
-                            <input type="text" name="role_name_txt" id="role_name_txt" value="{$_GET['role_name_txt']}" 
-								autocomplete="off" class="input-org-info"/>
-                            <input type="submit" id="select_button" name="select_button" class="role-control-btn">
-                        </form>
-                    </div>
-                    <div class="org-right-btns">
-                            <button type="button" class="area-btn" id="j_add_button">添加</button>
-                            <button type="button" class="area-btn" id="j_mod_button">编辑</button>
-                            <button type="button" class="area-btn" id="j_del_button">删除</button>
-                            <button type="button" class="area-btn" id="j_selrole_button">查看权限</button>
+	<div class="left">
+		<include file="./Tpl/include/pb-configuration-aside.html" />
+	</div>
+	<div class="right">
+		<div class="right-con">
+			<div class="org-right-con">
+				<div class="role-control" id="j-fixed-top">
+					<div class="role-inquire">
+						<form name="roleSelect" method="get" action="{:U('configuration/Role/show_role')}">
+							<label for="role-name" class="role-lab">角色名称</label>
+							<input type="text" name="role_name_txt" id="role_name_txt" value="{$_GET['role_name_txt']}" autocomplete="off" class="input-org-info"/>
+							<input type="submit" id="select_button" name="select_button" class="role-control-btn">
+						</form>
+					</div>
+					<div class="org-right-btns">
+							<button type="button" class="area-btn" id="j_add_button">添加</button>
+							<button type="button" class="area-btn" id="j_mod_button">编辑</button>
+							<button type="button" class="area-btn" id="j_del_button">删除</button>
+							<button type="button" class="area-btn" id="j_selrole_button">查看权限</button>
 							<input type="text" id="selrole_hidden_id" style="display:none;" value="" />
 							<input type="text" id="quanxian_id" style="display:none;" value="" />
 							
-                    </div>
-                </div>
-                <div class="role-table over-h-y">
-                    <ul class="role-table-list">
-                        <li>
-                            <span class="span-1"></span>
-                            <span class="span-2"><b>角色名称</b></span>
-                            <span class="span-3"><b>角色描述</b></span>
-                            <span class="span-2"><b>创建人</b></span>
-                            <span class="span-2"><b>创建日期</b></span>
-                        </li>
+					</div>
+				</div>
+				<div class="role-table over-h-y">
+					<ul class="role-table-list">
+						<li>
+							<span class="span-1"></span>
+							<span class="span-2"><b>角色名称</b></span>
+							<span class="span-3"><b>角色描述</b></span>
+							<span class="span-2"><b>创建人</b></span>
+							<span class="span-2"><b>创建日期</b></span>
+						</li>
 						<volist name="list" id="vo">
 							<li class="list_sel">
 									<span class="span-1"><input type="radio" name="role-info_rad" id="" class="role-table-radio"/></span>
@@ -61,12 +53,12 @@
 									<span class="roleid_hidden" title="#" style="display:none;">{$vo.roleid}</span>
 							</li>
 						</volist>
-                    </ul>
+					</ul>
 					<div class="resultpage">{$page}</div>
-                </div>
-            </div>
-        </div>
-    </div>
+				</div>
+			</div>
+		</div>
+	</div>
 </div>
 
 <include file="./Tpl/include/pb-foot.html" />
@@ -81,28 +73,33 @@
 					<input type="text" name="addname"  class="input-role-name" id="add_role_name_txt"/>
 				</p>
 				<p>
+					<label for="role_agent_id" class="role-lab">所属组织</label>
+					<select id="role_agent_id" class="role_agent_id">
+						<option value="">请选择组织</option>
+					</select>
+				</p>
+				<p>
 					<label for="add_memo_txt" class="role-lab">角色描述</label>
 					<textarea name=""  cols="30" rows="3" class="role-teatarea" id="add_memo_txt"></textarea>
 				</p>
-
 				<p>
 					<button type="button" class="alert-btn2" id="j_add_save">保存</button>
 					<button type="button" class="alert-btn2" id="j_add_close">关闭</button>
 				</p>
 			</form>
 		</div>
-        <div class="tree">
-            <p>
-                <label for="cityid">设置权限</label>
+		<div class="tree">
+			<p>
+				<label for="cityid">设置权限</label>
 
-                <!--权限树形-->
-            	<div class="zTreeDemoBackground left">
+				<!--权限树形-->
+				<div class="zTreeDemoBackground left">
 					<ul id="treeDemo" class="ztree"></ul>
 					<input type="text" value="" id="add_quanxian_id"/>
 				</div>
 				
-            </p>
-        </div>
+			</p>
+		</div>
 	</div>
 </div>
 <div id="j_mod_win" style="display:none">
@@ -110,7 +107,7 @@
 		<h3>编辑角色信息</h3>
 		<div class="alert-role-add-con">
 			<form action="">
-                <p>
+				<p>
 					<label for="role-addname" class="role-lab">角色名称</label>
 					<input type="text" name="addname" id="mod_rolename" class="input-role-name"/>
 				</p>
@@ -125,38 +122,38 @@
 					<button type="button" class="alert-btn2" id="j_mod_close">关闭</button>
 
 				</p>
-                <input type="text" id="mod_id_hide" value=""/>
+				<input type="text" id="mod_id_hide" value=""/>
 			</form>
 		</div>
-        <div class="tree">
-            <p>
-                <label for="">设置权限</label>
-                <!--权限树形-->
-            	<div class="zTreeDemoBackground left">
+		<div class="tree">
+			<p>
+				<label for="">设置权限</label>
+				<!--权限树形-->
+				<div class="zTreeDemoBackground left">
 					<ul id="mod_treeDemo" class="ztree"></ul>
 					<input type="text" value="" id="mod_quanxian_id"/>
 				</div>
-            <div id="mod_menuContent" class="menuContent" style="display:none; ">
-                <ul id="mod_treeDemo" class="ztree" style="margin-top:0; width:50px; height: 50px;"></ul>
-            </div>
-            </p>
-        </div>
+			<div id="mod_menuContent" class="menuContent" style="display:none; ">
+				<ul id="mod_treeDemo" class="ztree" style="margin-top:0; width:50px; height: 50px;"></ul>
+			</div>
+			</p>
+		</div>
 	</div>
 </div>
 
 <div id="j_show_purview" style="display:none">
 	<div class="alert-role-add">
-        <h3>查看权限</h3>
+		<h3>查看权限</h3>
 
-                <div class="zTreeDemoBackground left">
+				<div class="zTreeDemoBackground left">
 					<ul id="show_treeDemo" class="ztree"></ul>
 					<input type="text" value="" id="show_quanxian_id"/>
 				</div>
 
 		<a href="." class="closeDOMWindow">
-		    <button type="button" class="alert-btn2">关闭</button>
+			<button type="button" class="alert-btn2">关闭</button>
 		</a>
-        <div class="bk10"></div>
+		<div class="bk10"></div>
 	</div>
 </div>
 
@@ -186,451 +183,357 @@
 <script type="text/javascript" src="__PUBLIC__/js/tree/jquery.ztree.excheck-3.5.js"></script>
 <script type="text/javascript" src="__PUBLIC__/js/jquery.bigautocomplete.js"></script>
 <script>
-window.onscroll=function(){
-    var scrollTop=document.documentElement.scrollTop||document.body.scrollTop;
-    var fixDiv=document.getElementById('j-fixed-top');
-    if(scrollTop>=300){
-        fixDiv.style.position='fixed';
-        fixDiv.style.top='0px';
-    }else if(scrollTop<=299){
-        fixDiv.style.position='static';
-    }
-}
-//===================================================树形结构js==========================
-		var setting = {
-			check: {
-				enable: true
-			},
-			data: {
-				simpleData: {
-					enable: true
-				}
-			},
-			view: {
-				dblClickExpand: false
-			},
-			callback: {
-				beforeClick: beforeClick,
-				onCheck: onCheck
+$(function(){
+	//===================================================================默认执行
+	window.onscroll=function(){
+		var scrollTop=document.documentElement.scrollTop||document.body.scrollTop;
+		var fixDiv=document.getElementById('j-fixed-top');
+		if(scrollTop>=300){
+			fixDiv.style.position='fixed';
+			fixDiv.style.top='0px';
+		}else if(scrollTop<=299){
+			fixDiv.style.position='static';
+		}
+	}
+	//给添加修改赋组织值
+	var getAgentUrl = "{:U('configuration/Role/getAgentArr')}";
+	$.post(getAgentUrl,{},function(data){
+		$.each(data,function(i,n){
+			var mstr = "";
+			switch(n['lv']){
+				case 1:mstr = "==";break;
+				case 2:mstr = "====";break;
+				case 3:mstr = "======";break;
+				case 4:mstr = "========";break;
+				case 5:mstr = "==========";break;
+				case 6:mstr = "============";break;
 			}
-		};
+			$("#role_agent_id").append("<option value='"+n['agent_id']+"'>"+mstr+n['agent_name']+"</option>");
+		})
+	},"json");
+	
+	//===================================================================触发执行
+	//添加
+	$('#j_add_button').click(function() {
+		var handleUrl = "{:U('configuration/Role/select_all_purview')}";
+		var zNodes = new Array();
+		var now = new Date().getTime();// 加个时间戳表示每次是新的请求
+		$.ajax({
+			type : "POST",
+			url : handleUrl,
+			async : false,
+			dataType : "json",
+			success : function(data) {
+				$.each(data, function(key, val) {
+					var kid = val['id'];
+					var parent = val['parent'];
+					var value = val['value'];
+					zNodes[key] = {
+						'id' : kid,
+						'pId' : parent,
+						'name' : value,
+						'open' : true,
+						't' : kid
+					};
+				});
+			},
 
-		var code;
+			error : function(XMLHttpRequest, textStatus, errorThrown) {
+				// alert("请求失败!");
+			}
+		});
+		//=================树形结构js传递=====================
+		//设置参数
+		var setting = getTreeSetting(true,true,false,beforeClick,onCheck);
+		$.fn.zTree.init($("#treeDemo"), setting, zNodes);
 		
-		function setCheck() {
-			var zTree = $.fn.zTree.getZTreeObj("treeDemo"),
-			py = $("#py").attr("checked")? "p":"",
-			sy = $("#sy").attr("checked")? "s":"",
-			pn = $("#pn").attr("checked")? "p":"",
-			sn = $("#sn").attr("checked")? "s":"",
-			type = { "Y":py + sy, "N":pn + sn};
-			zTree.setting.check.chkboxType = type;
-			showCode('setting.check.chkboxType = { "Y" : "' + type.Y + '", "N" : "' + type.N + '" };');
-		}
-		function showCode(str) {
-			if (!code) code = $("#code");
-			code.empty();
-			code.append("<li>"+str+"</li>");
-		}
 		function beforeClick(treeId, treeNode) {
 			var zTree = $.fn.zTree.getZTreeObj("treeDemo");
 			zTree.checkNode(treeNode, !treeNode.checked, null, true);
 			return false;
 		}
+		//执行触发函数
+		setCheck("treeDemo");
+		$("#py,#sy,#pn,#sn").change(function(){
+			setCheck("treeDemo");
+		});
+		//=================树形结构结束=====================
+		// 保存
+		$('#j_add_save').click(function() {
+			var add_role_name_txt = $("#add_role_name_txt").val();// 角色名
+			var add_memo_txt = $("#add_memo_txt").val();// 角色描述
+			var add_menu_id_txt = $("#add_quanxian_id").val();// 权限ID
+			// alert(add_menu_id_txt);return;
+			var role_agent_id = $("#role_agent_id").val();
+			// alert(add_role_name_txt);
+			// return false;
+			var add_handleUrl = "{:U('configuration/Role/add_role')}";
+			$.getJSON(add_handleUrl, {
+				"add_role_name_txt" : add_role_name_txt,
+				"add_memo_txt" : add_memo_txt,
+				"add_menu_id_txt" : add_menu_id_txt,
+				"role_agent_id" : role_agent_id
+			}, function(data) {
+				alert(data);
+				window.location.href = window.location.href;
+			}, 'json');
+		});// 结束
+		//关闭窗口
+		$("#j_add_close").click(function() {
+			window.location.href = window.location.href;
+		});
+		//显示窗口
+		showWindow(1,16,17,'#j_add_win');
+		return false;
+	});
+	
+	//查看权限
+	$("#j_selrole_button").click(function() {
+		var role_id = $("#selrole_hidden_id").val();
+		if (role_id == "") {
+			alert("请选择一条角色信息再进行查看");
+			return false;
+		}
+		//权限
+		var handleUrl = "{:U('configuration/Role/select_all_purview')}";
+		var zNodes = new Array();
+		var now = new Date().getTime();// 加个时间戳表示每次是新的请求
+		var str = new String();
+		var arr = new Array();
+		str = $("#quanxian_id").val();
+		arr = str.split(',');// 注split可以用字符或字符串分割
+		var idkey = "";
+
+		$.ajax({
+			type : "POST",
+			url : handleUrl,
+			async : false,
+			dataType : "json",
+			success : function(data) {
+				$.each(data, function(key, val) {
+					var kid = val['id'];
+					var parent = val['parent'];
+					var value = val['value'];
+					for ( var i = 0; i < arr.length; i++) {
+						if (arr[i] == kid) {
+							zNodes[key] = {
+								'id' : kid,
+								'pId' : parent,
+								'name' : value,
+								'open' : true,
+								checked : true,
+								't' : kid,
+								doCheck : false
+							};
+							break;
+						} else {
+							zNodes[key] = {
+								'id' : kid,
+								'pId' : parent,
+								'name' : value,
+								'open' : true,
+								't' : kid,
+								doCheck : false
+							};
+						}
+					}
+
+				});
+			},
+
+			error : function(XMLHttpRequest, textStatus, errorThrown) {
+				// alert("请求失败!");
+			}
+		});
 		
-		function onCheck(e, treeId, treeNode) {
-			var zTree = $.fn.zTree.getZTreeObj("treeDemo"),
-			nodes = zTree.getCheckedNodes(true),
-			v = "";
-			for (var i=0, l=nodes.length; i<l; i++) {
-				v += nodes[i].id + ",";
-			}
-			if (v.length > 0 ) v = v.substring(0, v.length-1);
-			var cityObj = $("#add_quanxian_id");
-			cityObj.attr("value", v);
-		}
-
-		function showMenu() {
-			var cityObj = $("#add_quanxian_id");
-			var cityOffset = $("#add_quanxian_id").offset();
-			$("#menuContent").css({left:cityOffset.left + "px", top:cityOffset.top + cityObj.outerHeight() + "px"}).slideDown("fast");
-
-			$("body").bind("mousedown", onBodyDown);
-		}
-		function hideMenu() {
-			$("#menuContent").fadeOut("fast");
-			$("body").unbind("mousedown", onBodyDown);
-		}
-		function onBodyDown(event) {
-			if (!(event.target.id == "menuBtn" || event.target.id == "add_quanxian_id" || event.target.id == "menuContent" || $(event.target).parents("#menuContent").length>0)) {
-				hideMenu();
-			}
-		}
 		
-
-//===================================================树形结构js结束==========
-//===================================================修改树形结构js开始==========
-		var mod_setting = {
-			check: {
-				enable: true
-			},
-			data: {
-				simpleData: {
-					enable: true
-				}
-			},
-			view: {
-				dblClickExpand: false
-			},
-			callback: {
-				beforeClick: mod_beforeClick,
-				onCheck: mod_onCheck
-			}
-		};
-
-		var show_setting = {
-			check: {
-				enable: true
-			},
-			data: {
-				simpleData: {
-					enable: true
-				}
-			},
-			view: {
-				dblClickExpand: false
-			},
-			callback: {
-				beforeCheck: show_beforeCheck,
-				onCheck: onCheck
-			}
-		};
+		//=================树形结构js传递=====================
+		var show_setting = getTreeSetting(true,true,false,show_beforeCheck,onCheck);
+		
+		$.fn.zTree.init($("#show_treeDemo"), show_setting, zNodes);
+		
 		function show_beforeCheck(treeId, treeNode) {
 			className = (className === "dark" ? "":"dark");
 			showLog("[ "+getTime()+" beforeCheck ]&nbsp;&nbsp;&nbsp;&nbsp;" + treeNode.name );
 			return (treeNode.doCheck !== false);
 		}
-		function mod_setCheck() {
-			var zTree = $.fn.zTree.getZTreeObj("mod_treeDemo"),
-			py = $("#py").attr("checked")? "p":"",
-			sy = $("#sy").attr("checked")? "s":"",
-			pn = $("#pn").attr("checked")? "p":"",
-			sn = $("#sn").attr("checked")? "s":"",
-			type = { "Y":py + sy, "N":pn + sn};
-			zTree.setting.check.chkboxType = type;
-			showCode('setting.check.chkboxType = { "Y" : "' + type.Y + '", "N" : "' + type.N + '" };');
-		}
-		function mod_showCode(str) {
-			if (!code) code = $("#code");
-			code.empty();
-			code.append("<li>"+str+"</li>");
-		}
-		function mod_beforeClick(treeId, treeNode) {
-			var zTree = $.fn.zTree.getZTreeObj("mod_treeDemo");
-			zTree.checkNode(treeNode, !treeNode.checked, null, true);
-			return false;
-		}
-		
-		function mod_onCheck(e, treeId, treeNode) {
-			var zTree = $.fn.zTree.getZTreeObj("mod_treeDemo"),
-			nodes = zTree.getCheckedNodes(true),
-			v = "";
-			for (var i=0, l=nodes.length; i<l; i++) {
-				v += nodes[i].id + ",";
-			}
-			if (v.length > 0 ) v = v.substring(0, v.length-1);
-			var cityObj = $("#mod_quanxian_id");
-			cityObj.attr("value", v);
-		}
-
-		function mod_showMenu() {
-			var cityObj = $("#mod_quanxian_id");
-			var cityOffset = $("#mod_quanxian_id").offset();
-			$("#menuContent").css({left:cityOffset.left + "px", top:cityOffset.top + cityObj.outerHeight() + "px"}).slideDown("fast");
-
-			$("body").bind("mousedown", onBodyDown);
-		}
-		function mod_hideMenu() {
-			$("#menuContent").fadeOut("fast");
-			$("body").unbind("mousedown", onBodyDown);
-		}
-		function onBodyDown(event) {
-			if (!(event.target.id == "menuBtn" || event.target.id == "mod_quanxian_id" || event.target.id == "menuContent" || $(event.target).parents("#menuContent").length>0)) {
-				hideMenu();
-			}
-		}
-
-
-
-
-
-
-
-
-
-
-
-
-$(document).ready(function(){
-
-
-
-
-//===============================================保存添加事件=======================================
-	$('#j_add_button').click(function(){
-			var handleUrl="{:U('configuration/Role/select_all_purview')}";
-			var zNodes=new Array();
-			var now=new Date().getTime();//加个时间戳表示每次是新的请求
-		$.ajax({
-			type: "POST",
-			url: handleUrl,
-			async: false,
-			dataType: "json",
-			success: function(data){
-				$.each(data,function(key,val){
-					var kid=val['id'];
-					var parent=val['parent'];
-					var value=val['value'];
-							zNodes[key]= {'id':kid, 'pId':parent, 'name':value, 'open':true ,'t':kid};
-				});
-			},
-
-			error: function(XMLHttpRequest, textStatus, errorThrown) {
-				// alert("请求失败!");
-			}
-		});
-//===================================================树形结构js传递==========
-			$.fn.zTree.init($("#treeDemo"), setting, zNodes);
-			setCheck();
-			$("#py").bind("change", setCheck);
-			$("#sy").bind("change", setCheck);
-			$("#pn").bind("change", setCheck);
-			$("#sn").bind("change", setCheck);
-        //保存
-        $('#j_add_save').click(function(){
-			var add_role_name_txt=$("#add_role_name_txt").val();//角色名
-			var add_memo_txt=$("#add_memo_txt").val();//角色描述
-			var add_menu_id_txt=$("#add_quanxian_id").val();//权限ID
-			//alert(add_role_name_txt);
-            //return false;
-            var add_handleUrl="{:U('configuration/Role/add_role')}";
-            $.getJSON(add_handleUrl,{"add_role_name_txt":add_role_name_txt,"add_memo_txt":add_memo_txt,
-                        "add_menu_id_txt":add_menu_id_txt},
-                    function (data){
-						alert(data);
-                        window.location.href = window.location.href;
-                    }
-                    ,'json'
-            );
-        });//结束
-		$("#j_add_close").click(function(){
-			window.location.href = window.location.href;
-		});
-        $.openDOMWindow({
-            loader:1,
-            loaderHeight:16,
-            loaderWidth:17,
-            windowSourceID:'#j_add_win'
-        });
-        return false;
-    });
-//===============================================单击查看权限事件=======================================
-	$("#j_selrole_button").click(function(){
-			var role_id=$("#selrole_hidden_id").val();
-			if(role_id==""){
-				alert("请选择一条角色信息再进行查看");
-				return false;
-			}
-			/*
-			var role_handleUrl="{:U('configuration/Role/select_purview')}";
-			var purview_role_id_txt=$("#selrole_hidden_id").val();
-            $.getJSON(role_handleUrl,{"purview_role_id_txt":purview_role_id_txt},
-                    function (data){
-						alert(data);
-                    }
-                    ,'json'
-            );
-			*/
-			//========权限
-			var handleUrl="{:U('configuration/Role/select_all_purview')}";
-			var zNodes=new Array();
-			var now=new Date().getTime();//加个时间戳表示每次是新的请求
-			var str=new String();
-			var arr=new Array();
-			str=$("#quanxian_id").val();
-			arr=str.split(',');//注split可以用字符或字符串分割
-			var idkey="";
-			
-		$.ajax({
-			type: "POST",
-			url: handleUrl,
-			async: false,
-			dataType: "json",
-			success: function(data){
-				$.each(data,function(key,val){
-					var kid=val['id'];
-					var parent=val['parent'];
-					var value=val['value'];
-					for(var i=0;i<arr.length;i++)
-					{
-						if(arr[i]==kid){
-							zNodes[key]= {'id':kid, 'pId':parent, 'name':value, 'open':true ,checked:true,'t':kid, doCheck:false};
-							break;
-						}else{
-							zNodes[key]= {'id':kid, 'pId':parent, 'name':value, 'open':true ,'t':kid, doCheck:false};
-						}
-					}
-
-				});
-			},
-
-			error: function(XMLHttpRequest, textStatus, errorThrown) {
-				// alert("请求失败!");
-			}
-		});
-			$.fn.zTree.init($("#show_treeDemo"), show_setting, zNodes);
-
-			$.openDOMWindow({
-				loader:1,
-				loaderHeight:16,
-				loaderWidth:17,
-				windowSourceID:'#j_show_purview'
-        });
-        return false;
+		//=================树形结构结束=====================
+		showWindow(1,16,17,'#j_show_purview');
+		return false;
 	});
-//=====================================================单击删除按钮弹出模态窗事件============================================
-    $('#j_del_button').click(function(){
-		var role_id=$("#selrole_hidden_id").val();
-		if(role_id==""){
+	
+	
+	//删除
+	$('#j_del_button').click(function() {
+		var role_id = $("#selrole_hidden_id").val();
+		if (role_id == "") {
 			alert("请选择一条角色信息再进行编辑");
 			return false;
 		}
-        var delete_role_id_txt=$("#selrole_hidden_id").val();
-        //单击删除确认按钮
-        $('#j_del_ok').click(function(){
-            var del_handleUrl="{:U('configuration/Role/delete_role')}";
-            $.getJSON(del_handleUrl,{"delete_role_id_txt":delete_role_id_txt},
-                    function (data){
-                       // alert(data);
-                        window.location.href = window.location.href;
-                    }
-                    ,'json'
-            );
-        });
-
-
-        $.openDOMWindow({
-            loader:1,
-            loaderHeight:16,
-            loaderWidth:17,
-            windowSourceID:'#j_del_win'
-        });
-        return false;
-
-
-    });
-//===============================================单击编辑事件=======================================
-	$("#j_mod_button").click(function(){
-		//========权限
-			var handleUrl="{:U('configuration/Role/select_all_purview')}";
-			var zNodes=new Array();
-			var now=new Date().getTime();//加个时间戳表示每次是新的请求
-			var str=new String();
-			var arr=new Array();
-			str=$("#quanxian_id").val();
-			arr=str.split(',');//注split可以用字符或字符串分割
-			var idkey="";
-			
-		$.ajax({
-			type: "POST",
-			url: handleUrl,
-			async: false,
-			dataType: "json",
-			success: function(data){
-				$.each(data,function(key,val){
-					var kid=val['id'];
-					var parent=val['parent'];
-					var value=val['value'];
-					for(var i=0;i<arr.length;i++)
-					{
-						if(arr[i]==kid){
-							zNodes[key]= {'id':kid, 'pId':parent, 'name':value, 'open':true ,checked:true,'t':kid};
-							break;
-						}else{
-							zNodes[key]= {'id':kid, 'pId':parent, 'name':value, 'open':true ,'t':kid};
-						}
-					}
-
-				});
-			},
-
-			error: function(XMLHttpRequest, textStatus, errorThrown) {
-				// alert("请求失败!");
-			}
+		var delete_role_id_txt = $("#selrole_hidden_id").val();
+		// 单击删除确认按钮
+		$('#j_del_ok').click(function() {
+			var del_handleUrl = "{:U('configuration/Role/delete_role')}";
+			$.getJSON(del_handleUrl, {
+				"delete_role_id_txt" : delete_role_id_txt
+			}, function(data) {
+				// alert(data);
+				window.location.href = window.location.href;
+			}, 'json');
 		});
-			$.fn.zTree.init($("#mod_treeDemo"), mod_setting, zNodes);
-			mod_setCheck();
-			$("#py").bind("change", mod_setCheck);
-			$("#sy").bind("change", mod_setCheck);
-			$("#pn").bind("change", mod_setCheck);
-			$("#sn").bind("change", mod_setCheck);
+		showWindow(1,16,17,'#j_del_win');
+		return false;
 
-			var role_id=$("#selrole_hidden_id").val();
-			if(role_id==""){
-				alert("请选择一条角色信息再进行编辑");
-				return false;
-			}
-			var mod_handleUrl="{:U('configuration/Role/roleDetailSelect')}/role_id/"+role_id;
-			var now=new Date().getTime();//加个时间戳表示每次是新的请求
-			$.ajax({
-				type: "POST",
-				url: mod_handleUrl,
-				async: false,
-				dataType: "json",
-				success: function(data){
-					$("#mod_rolename").val(data['rolename']);//名称
-					$("#mod_memo").val(data['memo']);//描述
-					$("#mod_quanxian_id").val(data['menuid']);//权限ID
-					$("#mod_id_hide").val(data['roleid']);//id
-				},
-
-				error: function(XMLHttpRequest, textStatus, errorThrown) {
-					 alert("请求失败!");
-				}
-			});
-//========权限结束
-
-		//保存
-        $('#j_mod_save').click(function(){
-			var modify_role_id_txt=$("#mod_id_hide").val();//id
-			var modify_role_name_txt=$("#mod_rolename").val();//名称
-			var modify_memo_txt=$("#mod_memo").val();//描述
-			var modify_menu_id_txt=$("#mod_quanxian_id").val();//权限id
-            var mod_save_handleUrl="{:U('configuration/Role/edit_role')}";
-            $.getJSON(mod_save_handleUrl,{"modify_role_id_txt":modify_role_id_txt,"modify_role_name_txt":modify_role_name_txt,"modify_memo_txt":modify_memo_txt,
-                        "modify_menu_id_txt":modify_menu_id_txt},
-                    function (data){
-                        alert(data);
-						window.location.href = window.location.href;
-                    }
-                    ,'json'
-            );
-        });//结束
-		$("#j_mod_close").click(function(){
-			window.location.href = window.location.href;
-		});
-		//展示
-		 $.openDOMWindow({
-            loader:1,
-            loaderHeight:16,
-            loaderWidth:17,
-            windowSourceID:'#j_mod_win'
-        });
-        return false;
 	});
+	
+	//编辑
+	$("#j_mod_button")
+	.click(
+			function() {
+				// ========权限
+				var handleUrl = "{:U('configuration/Role/select_all_purview')}";
+				var zNodes = new Array();
+				var now = new Date().getTime();// 加个时间戳表示每次是新的请求
+				var str = new String();
+				var arr = new Array();
+				str = $("#quanxian_id").val();
+				arr = str.split(',');// 注split可以用字符或字符串分割
+				var idkey = "";
 
+				$.ajax({
+					type : "POST",
+					url : handleUrl,
+					async : false,
+					dataType : "json",
+					success : function(data) {
+						$.each(data, function(key, val) {
+							var kid = val['id'];
+							var parent = val['parent'];
+							var value = val['value'];
+							for ( var i = 0; i < arr.length; i++) {
+								if (arr[i] == kid) {
+									zNodes[key] = {
+										'id' : kid,
+										'pId' : parent,
+										'name' : value,
+										'open' : true,
+										checked : true,
+										't' : kid
+									};
+									break;
+								} else {
+									zNodes[key] = {
+										'id' : kid,
+										'pId' : parent,
+										'name' : value,
+										'open' : true,
+										't' : kid
+									};
+								}
+							}
 
+						});
+					},
 
+					error : function(XMLHttpRequest, textStatus,
+							errorThrown) {
+						// alert("请求失败!");
+					}
+				});
+				
+				
+				//=================树形结构js传递=====================
+				var mod_setting = getTreeSetting(true,true,false,mod_beforeClick,mod_onCheck);
+				
+				$.fn.zTree.init($("#mod_treeDemo"), mod_setting, zNodes);
+				
+				function mod_beforeClick(treeId, treeNode) {
+					var zTree = $.fn.zTree.getZTreeObj("mod_treeDemo");
+					zTree.checkNode(treeNode, !treeNode.checked, null, true);
+					return false;
+				}
+				
+				function mod_onCheck(e, treeId, treeNode) {
+					var zTree = $.fn.zTree.getZTreeObj("mod_treeDemo"),
+					nodes = zTree.getCheckedNodes(true),
+					v = "";
+					for (var i=0, l=nodes.length; i<l; i++) {
+						v += nodes[i].id + ",";
+					}
+					if (v.length > 0 ) v = v.substring(0, v.length-1);
+					var cityObj = $("#mod_quanxian_id");
+					cityObj.attr("value", v);
+				}
+				
+				setCheck("mod_treeDemo");
+				$("#py,#sy,#pn,#sn").change(function(){
+					setCheck("mod_treeDemo");
+				});
+				//=================树形结构结束=====================
+				var role_id = $("#selrole_hidden_id").val();
+				if (role_id == "") {
+					alert("请选择一条角色信息再进行编辑");
+					return false;
+				}
+				var mod_handleUrl = "{:U('configuration/Role/roleDetailSelect')}/role_id/"
+						+ role_id;
+				var now = new Date().getTime();// 加个时间戳表示每次是新的请求
+				$.ajax({
+					type : "POST",
+					url : mod_handleUrl,
+					async : false,
+					dataType : "json",
+					success : function(data) {
+						$("#mod_rolename").val(data['rolename']);// 名称
+						$("#mod_memo").val(data['memo']);// 描述
+						$("#mod_quanxian_id").val(data['menuid']);// 权限ID
+						$("#mod_id_hide").val(data['roleid']);// id
+					},
+
+					error : function(XMLHttpRequest, textStatus,
+							errorThrown) {
+						alert("请求失败!");
+					}
+				});
+				// ========权限结束
+
+				// 保存
+				$('#j_mod_save')
+						.click(
+								function() {
+									var modify_role_id_txt = $(
+											"#mod_id_hide").val();// id
+									var modify_role_name_txt = $(
+											"#mod_rolename").val();// 名称
+									var modify_memo_txt = $("#mod_memo")
+											.val();// 描述
+									var modify_menu_id_txt = $(
+											"#mod_quanxian_id").val();// 权限id
+									var mod_save_handleUrl = "{:U('configuration/Role/edit_role')}";
+									$
+											.getJSON(
+													mod_save_handleUrl,
+													{
+														"modify_role_id_txt" : modify_role_id_txt,
+														"modify_role_name_txt" : modify_role_name_txt,
+														"modify_memo_txt" : modify_memo_txt,
+														"modify_menu_id_txt" : modify_menu_id_txt
+													},
+													function(data) {
+														alert(data);
+														window.location.href = window.location.href;
+													}, 'json');
+								});// 结束
+				$("#j_mod_close").click(function() {
+					window.location.href = window.location.href;
+				});
+				showWindow(1,16,17,'#j_mod_win');
+				return false;
+			});
+	
+	
+});
+$(document).ready(function(){
 //===============================================单击查询框里某一条数据=======================================
 	$(".list_sel").click(function(){
 		$(this).find(".role-table-radio").attr("checked",'checked'); 
@@ -651,12 +554,7 @@ $(document).ready(function(){
 					 alert("请求失败!");
 				}
 		});
-    });
-
-
-
-
-
+	});
 	role_name_blurry();
 
 });

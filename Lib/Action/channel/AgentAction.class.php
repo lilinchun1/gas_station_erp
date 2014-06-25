@@ -5,7 +5,7 @@ foreach ($_GET as $k=>$v) {
 }
 
 //代理商类
-class AgentAction extends CommonAction {
+class AgentAction extends Action {
 	public function index(){
 		$userinfo = getUserInfo();
 		$this->is_channel_user = in_array("渠道部", $userinfo['group']); //等于1为渠道部用户

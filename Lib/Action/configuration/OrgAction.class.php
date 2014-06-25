@@ -5,11 +5,12 @@ foreach ($_GET as $k=>$v) {
 }
 
 //组织结构类
-class OrgAction extends CommonAction {
+class OrgAction extends Action {
 	public function index(){
 		$userinfo = getUserInfo();
 		$this->username = $userinfo['realname']; //登录的用户名
 		$this->assign('nowUrl', "configuration/Org/index");
+		$this->assign('urlStr', $userinfo['urlstr']);
 		$this->display(':org_index');
 	}
 
