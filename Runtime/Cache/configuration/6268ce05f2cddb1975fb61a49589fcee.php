@@ -38,29 +38,7 @@
     </ul>
 </div>
 </div>
-<script type="text/javascript">
-	function show_change_password(){
-		//$('#change_password_id').show();
-		$.openDOMWindow({
-            loader:1,
-            loaderHeight:16,
-            loaderWidth:17,
-            windowSourceID:'#change_password_id'
-        });
-        return false;
-	}
 
-	function show_user_logout(){
-		//$('#change_password_id').show();
-		$.openDOMWindow({
-            loader:1,
-            loaderHeight:16,
-            loaderWidth:17,
-            windowSourceID:'#j_logout_win'
-        });
-        return false;
-	}
-</script>
 
 <div id="container">
 	<div class="left">
@@ -87,7 +65,7 @@
 							<input type="text" name="org_name_txt" id="org_name_txt" class="input-org-info"/>
 							<label for="use-id" class="use-id">账号</label>
 							<input type="text" name="username_txt" id="username_txt" class="input-org-info"/>
-							<input type="submit" id="select_button" name="select_button" class="role-control-btn">
+							<input type="submit" id="select_button" name="select_button" class="role-control-btn" value="查询"/>
 						</form>
 					</div>
 					<div class="org-right-btns">
@@ -369,6 +347,29 @@
 
     })
 </script>
+<script type="text/javascript">
+    function show_change_password(){
+        //$('#change_password_id').show();
+        $.openDOMWindow({
+            loader:1,
+            loaderHeight:16,
+            loaderWidth:17,
+            windowSourceID:'#change_password_id'
+        });
+        return false;
+    }
+
+    function show_user_logout(){
+        //$('#change_password_id').show();
+        $.openDOMWindow({
+            loader:1,
+            loaderHeight:16,
+            loaderWidth:17,
+            windowSourceID:'#j_logout_win'
+        });
+        return false;
+    }
+</script>
 <div id="j_mod_edit" style="display:none;">
 	<div class="alert-role-add">
 		<h3>编辑职员信息</h3>
@@ -398,29 +399,6 @@
 
 					</ul>
 				</div>
-				<p>
-					<label for="mod_citySel">所属组织机构:</label>
-					<input type="text" />
-				<div class="content_wrap">
-					<div class="zTreeDemoBackground left">
-						<ul id="treeDemo1" class="ztree"></ul>
-					</div>
-				</div>
-				<div class="content_wrap">
-				   <div class="zTreeDemoBackground left">
-						<ul class="list">
-							<li class="title">
-								<input id="mod_citySel" type="text" readonly value="" class="input-role-name"/>
-								<a id="mod_menuBtn" href="#" onclick="mod_showMenu(); return false;">选择</a>
-							</li>
-						</ul>
-					</div>
-					<div id="mod_menuContent" class="menuContent" style="display:none; ">
-						<ul id="mod_treeDemo" class="ztree" style="margin-top:0; width:160px;"></ul>
-					</div>
-					<input type="text" value="" id="mod_id_hidden"/>
-				</div>
-				</p>
 				<p>
 					<button type="button" class="alert-btn2" id="j_mod_save">保存</button>
 					<button type="button" class="alert-btn2" id="j_mod_close">关闭</button>
@@ -466,24 +444,6 @@
 
 					</ul>
 				</div>
-				<p>
-					<label for="citySel">所属组织机构:</label>
-				<div class="content_wrap">
-				   <div class="zTreeDemoBackground left">
-						<ul class="list">
-							<li class="title">
-								<input id="citySel" type="text" readonly value="" class="input-role-name"/>
-								<i class="red-color pdl10">*</i>
-								<a id="menuBtn" href="#" onclick="showMenu(); return false;">选择</a>
-							</li>
-						</ul>
-					</div>
-					<div id="menuContent" class="menuContent" style="display:none; ">
-						<ul id="treeDemo" class="ztree" style="margin-top:0; width:160px;"></ul>
-					</div>
-					<input type="text" value="" id="id_hidden"/>
-				</div>
-				</p>
 				<p>
 					<button type="button" class="alert-btn2" id="j_add_save">保存</button>
 					<button type="button" class="alert-btn2" id="j_add_close">关闭</button>
@@ -533,10 +493,52 @@ $(function(){
 			$(".role_agent_id").append("<option value='"+n['agent_id']+"'>"+mstr+n['agent_name']+"</option>");
 		})
 	},"json");
-	$(".role_agent_id").change(function(){
-		
+	//组织改变触发
+	$("#role_agent_id_add").change(function(){
+		var role_agent_id = $(this).val();
+		var getAgentUrl = "<?php echo U('configuration/Role/getRoleByAgentId');?>";
+		$.post(getAgentUrl,{'role_agent_id':role_agent_id},function(data){
+			$('#j_ul_checkbox li').remove();
+			$.each(data,function(i,n){
+				checked = "";
+				if(roleStr.indexOf(n['roleid']+",") >= 0 )
+				{
+					checked = "checked"
+				}
+				$('#j_ul_checkbox').append("<li><input type='checkbox' name='role' class='j_checkbox' value='"+n['roleid']+"' onclick='j_checkbox(this)' "+checked+"/><label for='ck1' class='role-lab'>"+n['rolename']+"</label></li>");
+			})
+		},"json");
 	});
+	
 });
+
+//保持组织id用,分割
+var roleStr = "";
+//复选框触发
+function j_checkbox(obj){
+	if($(obj).attr("checked")){
+		roleStr += $(obj).val()+",";
+	}else{
+		roleStr = roleStr.replace($(obj).val()+",","");
+	}
+}
+
+
+
+/*
+$array=explode("a","asddad addsadassd dasdadfsdfasdaaa",4);
+//print_r($array);
+
+//剔除字符串左边开头的空格,并返回
+//如有第二个参数则是剔除左边开头的空格换成剔除第二个参数里的字符串
+$str=ltrim("a asd ","a");
+
+//剔除字符串右边开头的空格
+$str=rtrim(" asd ");
+
+ */
+
+
 
 	var user_val='';
 	function selectUserRadio(user_id){
@@ -610,6 +612,7 @@ $(function(){
 				alert("请选择一条职员信息再进行编辑");
 				return;
 			}
+			//给编辑框赋值
 			var mod_handleUrl="<?php echo U('configuration/User/userDetailSelect');?>";
 			var arr=new Array();
 			var str=new String();
@@ -661,6 +664,7 @@ $(function(){
 		});
 		//单击添加按钮
 		$('#j_add_button').click(function(){
+			/*
 			//列出角色
 			var handleUrl="<?php echo U('configuration/Role/show_all_role');?>";
 			$.ajax({
@@ -681,7 +685,7 @@ $(function(){
 					// alert("请求失败!");
 				}
 			});
-
+			*/
 			//单击保存按钮
 			$('#j_add_save').click(function(){
 				var add_login_id= $('#user-addname').val(); //登陆账号

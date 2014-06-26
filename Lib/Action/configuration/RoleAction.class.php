@@ -272,5 +272,14 @@ class RoleAction extends Action {
 		}
 		$this->lv--;
 	}
+	
+	
+	function getRoleByAgentId(){
+		$role_agent_id = $_POST['role_agent_id'];
+		$model = new Model();
+		$sql = " SELECT * FROM bi_role WHERE role_agent_id = $role_agent_id ";
+		$que = $model->query($sql);
+		echo json_encode($que);
+	}
 }
 ?>

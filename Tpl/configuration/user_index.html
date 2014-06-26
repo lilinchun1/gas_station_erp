@@ -199,29 +199,6 @@
 					</ul>
 				</div>
 				<p>
-					<label for="mod_citySel">所属组织机构:</label>
-					<input type="text" />
-				<div class="content_wrap">
-					<div class="zTreeDemoBackground left">
-						<ul id="treeDemo1" class="ztree"></ul>
-					</div>
-				</div>
-				<div class="content_wrap">
-				   <div class="zTreeDemoBackground left">
-						<ul class="list">
-							<li class="title">
-								<input id="mod_citySel" type="text" readonly value="" class="input-role-name"/>
-								<a id="mod_menuBtn" href="#" onclick="mod_showMenu(); return false;">选择</a>
-							</li>
-						</ul>
-					</div>
-					<div id="mod_menuContent" class="menuContent" style="display:none; ">
-						<ul id="mod_treeDemo" class="ztree" style="margin-top:0; width:160px;"></ul>
-					</div>
-					<input type="text" value="" id="mod_id_hidden"/>
-				</div>
-				</p>
-				<p>
 					<button type="button" class="alert-btn2" id="j_mod_save">保存</button>
 					<button type="button" class="alert-btn2" id="j_mod_close">关闭</button>
 					<input type="text" id="user_id" value="" />
@@ -266,24 +243,6 @@
 
 					</ul>
 				</div>
-				<p>
-					<label for="citySel">所属组织机构:</label>
-				<div class="content_wrap">
-				   <div class="zTreeDemoBackground left">
-						<ul class="list">
-							<li class="title">
-								<input id="citySel" type="text" readonly value="" class="input-role-name"/>
-								<i class="red-color pdl10">*</i>
-								<a id="menuBtn" href="#" onclick="showMenu(); return false;">选择</a>
-							</li>
-						</ul>
-					</div>
-					<div id="menuContent" class="menuContent" style="display:none; ">
-						<ul id="treeDemo" class="ztree" style="margin-top:0; width:160px;"></ul>
-					</div>
-					<input type="text" value="" id="id_hidden"/>
-				</div>
-				</p>
 				<p>
 					<button type="button" class="alert-btn2" id="j_add_save">保存</button>
 					<button type="button" class="alert-btn2" id="j_add_close">关闭</button>
@@ -333,26 +292,52 @@ $(function(){
 			$(".role_agent_id").append("<option value='"+n['agent_id']+"'>"+mstr+n['agent_name']+"</option>");
 		})
 	},"json");
-	//保持组织id用,分割
-	var roleStr = "";
 	//组织改变触发
 	$("#role_agent_id_add").change(function(){
 		var role_agent_id = $(this).val();
 		var getAgentUrl = "{:U('configuration/Role/getRoleByAgentId')}";
 		$.post(getAgentUrl,{'role_agent_id':role_agent_id},function(data){
+			$('#j_ul_checkbox li').remove();
 			$.each(data,function(i,n){
-				$('#j_ul_checkbox').append("<li><input type='checkbox' name='role' class='j_checkbox' value='"+n['roleid']+"'/><label for='ck1' class='role-lab'>"+n['rolename']+"</label></li>");
+				checked = "";
+				if(roleStr.indexOf(n['roleid']+",") >= 0 )
+				{
+					checked = "checked"
+				}
+				$('#j_ul_checkbox').append("<li><input type='checkbox' name='role' class='j_checkbox' value='"+n['roleid']+"' onclick='j_checkbox(this)' "+checked+"/><label for='ck1' class='role-lab'>"+n['rolename']+"</label></li>");
 			})
-			
 		},"json");
 	});
-	//复选框触发
-	$(".j_checkbox").click(function(){
-		alert(43)
-	});
-	function 
 	
 });
+
+//保持组织id用,分割
+var roleStr = "";
+//复选框触发
+function j_checkbox(obj){
+	if($(obj).attr("checked")){
+		roleStr += $(obj).val()+",";
+	}else{
+		roleStr = roleStr.replace($(obj).val()+",","");
+	}
+}
+
+
+
+/*
+$array=explode("a","asddad addsadassd dasdadfsdfasdaaa",4);
+//print_r($array);
+
+//剔除字符串左边开头的空格,并返回
+//如有第二个参数则是剔除左边开头的空格换成剔除第二个参数里的字符串
+$str=ltrim("a asd ","a");
+
+//剔除字符串右边开头的空格
+$str=rtrim(" asd ");
+
+ */
+
+
 
 	var user_val='';
 	function selectUserRadio(user_id){

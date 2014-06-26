@@ -214,10 +214,13 @@ a, .alert-btn, .role-control-btn, .alert-btn2, .alert-btn3, .alert-btn4, .org-ri
 /*通用头部*/
 .head-wrap {
   background: #2581e5 url(../../Public/image/nav_bg.png) top right repeat-y;
-  box-shadow: 0px 1px 1px rgba(180, 180, 180, 0.3); }
+  box-shadow: 0px 1px 1px rgba(180, 180, 180, 0.3);
+  min-width: 1024px;
+  position: relative;
+  width: 100%; }
 
 #head {
-  min-width: 965px;
+  min-width: 1024px;
   height: 90px; }
 
 .head-logo {
@@ -245,6 +248,7 @@ a, .alert-btn, .role-control-btn, .alert-btn2, .alert-btn3, .alert-btn4, .org-ri
     position: absolute;
     top: 40px;
     right: 0;
+    padding-top: 6px;
     width: 240px;
     float: right; }
     #head .login .left {
@@ -294,7 +298,8 @@ a, .alert-btn, .role-control-btn, .alert-btn2, .alert-btn3, .alert-btn4, .org-ri
 
 /*通用底部*/
 #footer {
-  min-width: 965px;
+  width: 100%;
+  min-width: 1024px;
   height: 80px;
   background: #2a70d8; }
 
@@ -335,7 +340,7 @@ a, .alert-btn, .role-control-btn, .alert-btn2, .alert-btn3, .alert-btn4, .org-ri
   width: 100%;
   margin: 1px auto;
   overflow: hidden;
-  /*  min-width: $min-width-kuang;*/
+  min-width: 1024px;
   background: #5095fc; }
   #container .left {
     position: relative;
@@ -1074,7 +1079,11 @@ input.input-org-info, input.channel-select {
 @media screen and (max-width: 1300px) {
   input.input-org-info, input.channel-select {
     width: 90px;
-    margin-bottom: 15px; } }
+    margin-bottom: 15px; }
+
+  .head-tt {
+    top: 15px;
+    left: 380px; } }
 #forever {
   margin-top: 18px; }
 

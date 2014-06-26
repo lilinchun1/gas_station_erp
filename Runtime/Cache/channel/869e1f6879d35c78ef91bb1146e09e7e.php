@@ -107,7 +107,7 @@
                 <input type="text" name="contract_end_time_2" id="contract_end_time_2" class="input-org-info"
                        value="<?php echo ($_GET['contract_end_time_2']); ?>" onClick="WdatePicker()"/>
 			    <input type="text" name="select_del_flag_txt" id="select_del_flag_txt" value="0" style="display:none;"/>
-                <input type="submit" class="role-control-btn">
+                <input type="submit" class="role-control-btn" value="查询" />
             </p>
 
 
@@ -200,6 +200,7 @@
     <ul id="channel_log_info" class="role-table-list role-table-list2">
     </ul>
 </div>
+    <div class="bk3"></div>
 </div>
 </div>
 </div>

@@ -9,7 +9,7 @@ $container-left-width:180px;  //container 左边栏宽度
 $font-n-color:#767676; //默认文字颜色
 $font-h-color:#5c97ee; //默认hover文字颜色
 $bg-color:#f6f6f6;
-$min-width-kuang:965px;
+$min-width-kuang:1024px;
 $min-width-kuang2:750px;
 $color-main:#2a70d8; //主配色
 $heiti:"SimHei";
@@ -66,6 +66,9 @@ $heiti:"SimHei";
 /*通用头部*/
 .head-wrap{background: #2581e5 url(../../Public/image/nav_bg.png) top right repeat-y;
   box-shadow: 0px 1px 1px rgba(180,180,180,0.3);
+  min-width: $min-width-kuang;
+  position: relative;
+  width: 100%;
 }
 #head{
   min-width: $min-width-kuang;
@@ -96,6 +99,7 @@ $heiti:"SimHei";
     position: absolute;
     top: 40px;
     right: 0;
+    padding-top: 6px;
     width:240px;
     float: right;
     .left {
@@ -155,6 +159,7 @@ $heiti:"SimHei";
 
 /*通用底部*/
 #footer{
+  width: 100%;
   min-width: $min-width-kuang;
   height: 80px;
   background: $color-main;}
@@ -207,7 +212,7 @@ $heiti:"SimHei";
   width: 100%;
   margin: 1px auto;
   overflow: hidden;
-/*  min-width: $min-width-kuang;*/
+  min-width: $min-width-kuang;
   background: #5095fc;
   .left {
     position: relative;
@@ -1043,7 +1048,11 @@ input.input-org-info,input.channel-select{
 @media screen and (max-width: 1300px){
   input.input-org-info,input.channel-select{width: 90px;
     margin-bottom: 15px;}
+  .head-tt{
+    top: 15px;
+    left: 380px;}
 }
+
 #forever{
   margin-top: 18px;}
 .j-show-list{
