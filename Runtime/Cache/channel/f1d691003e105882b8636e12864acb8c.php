@@ -20,7 +20,7 @@
 <div class="head-wrap">
 <div id="head">
     <h1 class="head-logo"><a href="index.html">ERP管理系统</a></h1>
-    <h2 class="head-tt">智能手机加油站ERP管理系统</h2>
+    <h2 class="head-tt">智能手机加油站业务支撑系统</h2>
     <div class="login">
         <div class="left">
             <ul class="left-nav">
@@ -161,6 +161,7 @@
             <li class="on">操作日志</li>
             <!--<li>删除日志</li>-->
         </ul>
+
     </div>
     <div class="bd">
         <ul id="place_log_info" class="role-table-list role-table-list2">
