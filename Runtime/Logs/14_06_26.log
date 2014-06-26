@@ -1,0 +1,111 @@
+[ 2014-06-26T09:07:37+08:00 ] 192.168.0.65 /gas_station_erp/index.php/configuration//gas_station_erp/gas_station_erp/Tpl/configuration/Public/css/configuration.css
+ERR: 无法加载模块:gas_station_erp
+
+[ 2014-06-26T09:07:48+08:00 ] 192.168.0.65 /gas_station_erp/index.php/Login/login
+NOTIC: [2] htmlspecialchars() expects parameter 2 to be long, string given D:\trunk\frame\Lib\Core\App.class.php 第 56 行.
+NOTIC: [2] htmlspecialchars() expects parameter 2 to be long, string given D:\trunk\frame\Lib\Core\App.class.php 第 56 行.
+NOTIC: [2] htmlspecialchars() expects parameter 2 to be long, string given D:\trunk\frame\Lib\Core\App.class.php 第 56 行.
+NOTIC: [2] htmlspecialchars() expects parameter 2 to be long, string given D:\trunk\frame\Lib\Core\App.class.php 第 56 行.
+NOTIC: [2] htmlspecialchars() expects parameter 2 to be long, string given D:\trunk\frame\Lib\Core\App.class.php 第 56 行.
+INFO: [ app_begin ] --START--
+INFO: ReadHtmlCache Behavior ::run [ RunTime:0.000000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000000s ]
+SQL: SELECT url FROM bi_menu [ RunTime:0.001000s ]
+
+[ 2014-06-26T09:07:48+08:00 ] 192.168.0.65 /gas_station_erp/index.php/configuration//gas_station_erp/gas_station_erp/Tpl/configuration/Public/css/configuration.css
+ERR: 无法加载模块:gas_station_erp
+
+[ 2014-06-26T09:07:52+08:00 ] 192.168.0.65 /gas_station_erp/index.php/configuration/Org/show_org_tree
+INFO: [ app_begin ] --START--
+INFO: ReadHtmlCache Behavior ::run [ RunTime:0.001000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001000s ]
+NOTIC: [2] urldecode() expects parameter 1 to be string, array given D:\trunk\gas_station_erp\Lib\Action\configuration\OrgAction.class.php 第 4 行.
+SQL: select * from qd_agent a where a.isDelete=0 [ RunTime:0.002000s ]
+
+[ 2014-06-26T09:12:01+08:00 ] 192.168.0.65 /gas_station_erp/index.php/configuration//gas_station_erp/gas_station_erp/Tpl/configuration/Public/css/configuration.css
+ERR: 无法加载模块:gas_station_erp
+
+[ 2014-06-26T09:12:14+08:00 ] 192.168.0.65 /gas_station_erp/index.php/Login/login
+NOTIC: [2] htmlspecialchars() expects parameter 2 to be long, string given D:\trunk\frame\Lib\Core\App.class.php 第 56 行.
+NOTIC: [2] htmlspecialchars() expects parameter 2 to be long, string given D:\trunk\frame\Lib\Core\App.class.php 第 56 行.
+NOTIC: [2] htmlspecialchars() expects parameter 2 to be long, string given D:\trunk\frame\Lib\Core\App.class.php 第 56 行.
+NOTIC: [2] htmlspecialchars() expects parameter 2 to be long, string given D:\trunk\frame\Lib\Core\App.class.php 第 56 行.
+NOTIC: [2] htmlspecialchars() expects parameter 2 to be long, string given D:\trunk\frame\Lib\Core\App.class.php 第 56 行.
+INFO: [ app_begin ] --START--
+INFO: ReadHtmlCache Behavior ::run [ RunTime:0.001000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001000s ]
+SQL: SELECT url FROM bi_menu [ RunTime:0.001000s ]
+
+[ 2014-06-26T09:12:14+08:00 ] 192.168.0.65 /gas_station_erp/index.php/configuration//gas_station_erp/gas_station_erp/Tpl/configuration/Public/css/configuration.css
+ERR: 无法加载模块:gas_station_erp
+
+[ 2014-06-26T09:12:19+08:00 ] 192.168.0.65 /gas_station_erp/index.php/configuration/Org/show_org_tree
+INFO: [ app_begin ] --START--
+INFO: ReadHtmlCache Behavior ::run [ RunTime:0.002001s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.002001s ]
+NOTIC: [2] urldecode() expects parameter 1 to be string, array given D:\trunk\gas_station_erp\Lib\Action\configuration\OrgAction.class.php 第 4 行.
+SQL: select * from qd_agent a where a.isDelete=0 [ RunTime:0.001000s ]
+
+[ 2014-06-26T09:13:02+08:00 ] 192.168.0.65 /gas_station_erp/index.php/configuration/Org/show_org_tree
+INFO: [ app_begin ] --START--
+INFO: ReadHtmlCache Behavior ::run [ RunTime:0.001000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001000s ]
+NOTIC: [2] urldecode() expects parameter 1 to be string, array given D:\trunk\gas_station_erp\Lib\Action\configuration\OrgAction.class.php 第 4 行.
+SQL: select * from qd_agent a where a.isDelete=0 [ RunTime:0.002000s ]
+
+[ 2014-06-26T09:13:47+08:00 ] 192.168.0.65 /gas_station_erp/index.php/configuration/Org/show_org_tree
+INFO: [ app_begin ] --START--
+INFO: ReadHtmlCache Behavior ::run [ RunTime:0.000000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000000s ]
+NOTIC: [2] urldecode() expects parameter 1 to be string, array given D:\trunk\gas_station_erp\Lib\Action\configuration\OrgAction.class.php 第 4 行.
+SQL: select * from qd_agent a where a.isDelete=0 [ RunTime:0.001000s ]
+
+[ 2014-06-26T09:13:53+08:00 ] 192.168.0.65 /gas_station_erp/index.php/configuration/Org/show_org_tree
+INFO: [ app_begin ] --START--
+INFO: ReadHtmlCache Behavior ::run [ RunTime:0.000000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001000s ]
+NOTIC: [2] urldecode() expects parameter 1 to be string, array given D:\trunk\gas_station_erp\Lib\Action\configuration\OrgAction.class.php 第 4 行.
+SQL: select * from qd_agent a where a.isDelete=0 [ RunTime:0.001000s ]
+
+[ 2014-06-26T09:13:54+08:00 ] 192.168.0.65 /gas_station_erp/index.php/configuration/Org/show_org_tree
+INFO: [ app_begin ] --START--
+INFO: ReadHtmlCache Behavior ::run [ RunTime:0.001000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001000s ]
+NOTIC: [2] urldecode() expects parameter 1 to be string, array given D:\trunk\gas_station_erp\Lib\Action\configuration\OrgAction.class.php 第 4 行.
+SQL: select * from qd_agent a where a.isDelete=0 [ RunTime:0.003001s ]
+
+[ 2014-06-26T09:14:26+08:00 ] 192.168.0.65 /gas_station_erp/index.php/configuration/Org/show_org_tree
+INFO: [ app_begin ] --START--
+INFO: ReadHtmlCache Behavior ::run [ RunTime:0.001000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001000s ]
+NOTIC: [2] urldecode() expects parameter 1 to be string, array given D:\trunk\gas_station_erp\Lib\Action\configuration\OrgAction.class.php 第 4 行.
+SQL: select * from qd_agent a where a.isDelete=0 [ RunTime:0.002000s ]
+
+[ 2014-06-26T09:15:02+08:00 ] 192.168.0.65 /gas_station_erp/index.php/configuration/Org/show_org_tree
+INFO: [ app_begin ] --START--
+INFO: ReadHtmlCache Behavior ::run [ RunTime:0.000000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000000s ]
+NOTIC: [2] urldecode() expects parameter 1 to be string, array given D:\trunk\gas_station_erp\Lib\Action\configuration\OrgAction.class.php 第 4 行.
+SQL: select * from qd_agent a where a.isDelete=0 [ RunTime:0.001000s ]
+
+[ 2014-06-26T09:15:04+08:00 ] 192.168.0.65 /gas_station_erp/index.php/configuration/Org/show_org_tree
+INFO: [ app_begin ] --START--
+INFO: ReadHtmlCache Behavior ::run [ RunTime:0.000000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001000s ]
+NOTIC: [2] urldecode() expects parameter 1 to be string, array given D:\trunk\gas_station_erp\Lib\Action\configuration\OrgAction.class.php 第 4 行.
+SQL: select * from qd_agent a where a.isDelete=0 [ RunTime:0.001000s ]
+
+[ 2014-06-26T09:15:07+08:00 ] 192.168.0.65 /gas_station_erp/index.php/configuration/Org/show_org_tree
+INFO: [ app_begin ] --START--
+INFO: ReadHtmlCache Behavior ::run [ RunTime:0.002000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.002000s ]
+NOTIC: [2] urldecode() expects parameter 1 to be string, array given D:\trunk\gas_station_erp\Lib\Action\configuration\OrgAction.class.php 第 4 行.
+SQL: select * from qd_agent a where a.isDelete=0 [ RunTime:0.002000s ]
+
+[ 2014-06-26T09:15:10+08:00 ] 192.168.0.65 /gas_station_erp/index.php/configuration/Org/show_org_tree
+INFO: [ app_begin ] --START--
+INFO: ReadHtmlCache Behavior ::run [ RunTime:0.000000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000000s ]
+NOTIC: [2] urldecode() expects parameter 1 to be string, array given D:\trunk\gas_station_erp\Lib\Action\configuration\OrgAction.class.php 第 4 行.
+SQL: select * from qd_agent a where a.isDelete=0 [ RunTime:0.001000s ]
+

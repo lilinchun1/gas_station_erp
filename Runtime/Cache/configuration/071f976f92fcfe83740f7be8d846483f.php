@@ -37,35 +37,13 @@
     </ul>
 </div>
 </div>
-<script type="text/javascript">
-	function show_change_password(){
-		//$('#change_password_id').show();
-		$.openDOMWindow({
-            loader:1,
-            loaderHeight:16,
-            loaderWidth:17,
-            windowSourceID:'#change_password_id'
-        });
-        return false;
-	}
 
-	function show_user_logout(){
-		//$('#change_password_id').show();
-		$.openDOMWindow({
-            loader:1,
-            loaderHeight:16,
-            loaderWidth:17,
-            windowSourceID:'#j_logout_win'
-        });
-        return false;
-	}
-</script>
 <div id="container">
 	<div class="left">
 		
 <ul class="aside-nav cf">
     <li class="aside-nav-nth1" ><a>系统设置<i class="j-show-list">-</i></a>
-            <ul><li class="url_link" url="<?php echo U('configuration/Org/index');?>"><a href="<?php echo U('configuration/Org/index');?>"><input  type="button"  value="组织结构" ></a></li>
+            <ul><li class="url_link" url="<?php echo U('configuration/Org/index');?>"><a href="<?php echo U('configuration/Org/index');?>"><input  type="button"  value="组织机构" ></a></li>
                 <li class="url_link" url="<?php echo U('configuration/Role/show_role');?>"><a href="<?php echo U('configuration/Role/show_role');?>"><input type="button" class="" value="角色维护" ></a></li>
                 <li class="url_link" url="<?php echo U('configuration/User/index');?>"><a href="<?php echo U('configuration/User/index');?>"><input type="button" class="" value="职员维护" ></a></li></ul>
     </li>
@@ -81,7 +59,7 @@
 						<form name="roleSelect" method="get" action="<?php echo U('configuration/Role/show_role');?>">
 							<label for="role-name" class="role-lab">角色名称</label>
 							<input type="text" name="role_name_txt" id="role_name_txt" value="<?php echo ($_GET['role_name_txt']); ?>" autocomplete="off" class="input-org-info"/>
-							<input type="submit" id="select_button" name="select_button" class="role-control-btn">
+							<input type="submit" id="select_button" name="select_button" class="role-control-btn" value="查询" />
 						</form>
 					</div>
 					<div class="org-right-btns">
@@ -261,6 +239,29 @@
         });
 
     })
+</script>
+<script type="text/javascript">
+    function show_change_password(){
+        //$('#change_password_id').show();
+        $.openDOMWindow({
+            loader:1,
+            loaderHeight:16,
+            loaderWidth:17,
+            windowSourceID:'#change_password_id'
+        });
+        return false;
+    }
+
+    function show_user_logout(){
+        //$('#change_password_id').show();
+        $.openDOMWindow({
+            loader:1,
+            loaderHeight:16,
+            loaderWidth:17,
+            windowSourceID:'#j_logout_win'
+        });
+        return false;
+    }
 </script>
 
 <div id="j_add_win" style="display:none;">

@@ -93,9 +93,10 @@ $heiti:"SimHei";
 #head{
   position: relative;
   .login{
+    position: absolute;
+    top: 40px;
+    right: 0;
     width:240px;
-    padding-top: 40px;
-    height: 100%;
     float: right;
     .left {
       position: relative;
@@ -203,9 +204,10 @@ $heiti:"SimHei";
 
 /*系统设置-container*/
 #container {
+  width: 100%;
   margin: 1px auto;
   overflow: hidden;
-  min-width: $min-width-kuang;
+/*  min-width: $min-width-kuang;*/
   background: #5095fc;
   .left {
     position: relative;
@@ -218,7 +220,6 @@ $heiti:"SimHei";
       .right-con{
         padding-top:20px;
         margin-left: $container-left-width;
-
         min-height: 755px;
         background: #ffffff;}
   }

@@ -26,7 +26,7 @@
 							<input type="text" name="org_name_txt" id="org_name_txt" class="input-org-info"/>
 							<label for="use-id" class="use-id">账号</label>
 							<input type="text" name="username_txt" id="username_txt" class="input-org-info"/>
-							<input type="submit" id="select_button" name="select_button" class="role-control-btn">
+							<input type="submit" id="select_button" name="select_button" class="role-control-btn" value="查询"/>
 						</form>
 					</div>
 					<div class="org-right-btns">
@@ -303,7 +303,7 @@
 			<p>
 				<button type="button" class="alert-btn2" id="j_del_ok">确定</button>
 				<a href="." class="closeDOMWindow">
-					<button type="button" class="alert-btn2">关闭</button>
+					<button type="button" class="alert-btn2">取消</button>
 				</a>
 			</p>
 		</div>
@@ -333,9 +333,25 @@ $(function(){
 			$(".role_agent_id").append("<option value='"+n['agent_id']+"'>"+mstr+n['agent_name']+"</option>");
 		})
 	},"json");
-	$(".role_agent_id").change(function(){
-		
+	//保持组织id用,分割
+	var roleStr = "";
+	//组织改变触发
+	$("#role_agent_id_add").change(function(){
+		var role_agent_id = $(this).val();
+		var getAgentUrl = "{:U('configuration/Role/getRoleByAgentId')}";
+		$.post(getAgentUrl,{'role_agent_id':role_agent_id},function(data){
+			$.each(data,function(i,n){
+				$('#j_ul_checkbox').append("<li><input type='checkbox' name='role' class='j_checkbox' value='"+n['roleid']+"'/><label for='ck1' class='role-lab'>"+n['rolename']+"</label></li>");
+			})
+			
+		},"json");
 	});
+	//复选框触发
+	$(".j_checkbox").click(function(){
+		alert(43)
+	});
+	function 
+	
 });
 
 	var user_val='';
@@ -410,6 +426,7 @@ $(function(){
 				alert("请选择一条职员信息再进行编辑");
 				return;
 			}
+			//给编辑框赋值
 			var mod_handleUrl="{:U('configuration/User/userDetailSelect')}";
 			var arr=new Array();
 			var str=new String();
@@ -461,6 +478,7 @@ $(function(){
 		});
 		//单击添加按钮
 		$('#j_add_button').click(function(){
+			/*
 			//列出角色
 			var handleUrl="{:U('configuration/Role/show_all_role')}";
 			$.ajax({
@@ -481,7 +499,7 @@ $(function(){
 					// alert("请求失败!");
 				}
 			});
-
+			*/
 			//单击保存按钮
 			$('#j_add_save').click(function(){
 				var add_login_id= $('#user-addname').val(); //登陆账号

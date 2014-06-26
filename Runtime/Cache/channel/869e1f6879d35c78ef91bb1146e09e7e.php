@@ -42,29 +42,7 @@
     </ul>
 </div>
 </div>
-<script type="text/javascript">
-	function show_change_password(){
-		//$('#change_password_id').show();
-		$.openDOMWindow({
-            loader:1,
-            loaderHeight:16,
-            loaderWidth:17,
-            windowSourceID:'#change_password_id'
-        });
-        return false;
-	}
 
-	function show_user_logout(){
-		//$('#change_password_id').show();
-		$.openDOMWindow({
-            loader:1,
-            loaderHeight:16,
-            loaderWidth:17,
-            windowSourceID:'#j_logout_win'
-        });
-        return false;
-	}
-</script>
 <div id="container">
 <div class="left">
     
@@ -368,6 +346,29 @@
 
     })
 </script>
+<script type="text/javascript">
+    function show_change_password(){
+        //$('#change_password_id').show();
+        $.openDOMWindow({
+            loader:1,
+            loaderHeight:16,
+            loaderWidth:17,
+            windowSourceID:'#change_password_id'
+        });
+        return false;
+    }
+
+    function show_user_logout(){
+        //$('#change_password_id').show();
+        $.openDOMWindow({
+            loader:1,
+            loaderHeight:16,
+            loaderWidth:17,
+            windowSourceID:'#j_logout_win'
+        });
+        return false;
+    }
+</script>
 <!--添加框-->
 <div id="j_add_channel" style="display:none;">
 <div class="alert-role-add">
@@ -562,7 +563,7 @@
 		channel_flag = channel_delete;
 	}
 
-   
+
 
 </script>
 <!--<script type="text/javascript">jQuery(".role-table").slide({trigger: "click"});</script>-->

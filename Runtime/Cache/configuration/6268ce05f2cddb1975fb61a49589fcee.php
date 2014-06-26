@@ -67,7 +67,7 @@
 		
 <ul class="aside-nav cf">
     <li class="aside-nav-nth1" ><a>系统设置<i class="j-show-list">-</i></a>
-            <ul><li class="url_link" url="<?php echo U('configuration/Org/index');?>"><a href="<?php echo U('configuration/Org/index');?>"><input  type="button"  value="组织结构" ></a></li>
+            <ul><li class="url_link" url="<?php echo U('configuration/Org/index');?>"><a href="<?php echo U('configuration/Org/index');?>"><input  type="button"  value="组织机构" ></a></li>
                 <li class="url_link" url="<?php echo U('configuration/Role/show_role');?>"><a href="<?php echo U('configuration/Role/show_role');?>"><input type="button" class="" value="角色维护" ></a></li>
                 <li class="url_link" url="<?php echo U('configuration/User/index');?>"><a href="<?php echo U('configuration/User/index');?>"><input type="button" class="" value="职员维护" ></a></li></ul>
     </li>
@@ -503,7 +503,7 @@
 			<p>
 				<button type="button" class="alert-btn2" id="j_del_ok">确定</button>
 				<a href="." class="closeDOMWindow">
-					<button type="button" class="alert-btn2">关闭</button>
+					<button type="button" class="alert-btn2">取消</button>
 				</a>
 			</p>
 		</div>

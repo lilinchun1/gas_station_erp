@@ -322,15 +322,32 @@ class IndexAction extends Action {
 		$arr[0]['value'] = "辽宁省";
 		$arr[0]['id'] = "1-1";
 		$arr[0]['pid'] = "0";
+		$arr[0]['length'] = "2";
 		
 		$arr[1]['value'] = "大连市";
 		$arr[1]['id'] = "2-2";
 		$arr[1]['pid'] = "1-1";
+		$arr[1]['length'] = "1";
 		
 		$arr[2]['value'] = "轻轨站";
 		$arr[2]['id'] = "3-2";
 		$arr[2]['pid'] = "2-2";
+		$arr[2]['length'] = "2";
 		
+		$arr[3]['value'] = "火车站";
+		$arr[3]['id'] = "3-3";
+		$arr[3]['pid'] = "2-2";
+		$arr[3]['length'] = "2";
+
+		$arr[4]['value'] = "吉林省";
+		$arr[4]['id'] = "1-2";
+		$arr[4]['pid'] = "0";
+		$arr[4]['length'] = "2";
+
+		$arr[5]['value'] = "白城市";
+		$arr[5]['id'] = "2-9";
+		$arr[5]['pid'] = "1-2";
+		$arr[5]['length'] = "1";
 		echo json_encode($arr);
 	}
 }

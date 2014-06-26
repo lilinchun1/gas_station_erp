@@ -242,9 +242,10 @@ a, .alert-btn, .role-control-btn, .alert-btn2, .alert-btn3, .alert-btn4, .org-ri
 #head {
   position: relative; }
   #head .login {
+    position: absolute;
+    top: 40px;
+    right: 0;
     width: 240px;
-    padding-top: 40px;
-    height: 100%;
     float: right; }
     #head .login .left {
       position: relative;
@@ -331,9 +332,10 @@ a, .alert-btn, .role-control-btn, .alert-btn2, .alert-btn3, .alert-btn4, .org-ri
 
 /*系统设置-container*/
 #container {
+  width: 100%;
   margin: 1px auto;
   overflow: hidden;
-  min-width: 965px;
+  /*  min-width: $min-width-kuang;*/
   background: #5095fc; }
   #container .left {
     position: relative;

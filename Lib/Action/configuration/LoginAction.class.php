@@ -53,8 +53,9 @@ class LoginAction extends Action {
 					$uinfo = $userm->where("username='$username' and del_flag=1")->find();
 					if($uinfo){
 						$msg = "用户已失效";
+					}else{
+						$msg = C('no_have_this_username');
 					}
-					$msg = C('no_have_this_username');
 				}
 			}
 

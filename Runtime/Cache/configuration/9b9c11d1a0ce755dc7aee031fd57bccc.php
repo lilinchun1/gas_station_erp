@@ -38,29 +38,7 @@
     </ul>
 </div>
 </div>
-<script type="text/javascript">
-	function show_change_password(){
-		//$('#change_password_id').show();
-		$.openDOMWindow({
-            loader:1,
-            loaderHeight:16,
-            loaderWidth:17,
-            windowSourceID:'#change_password_id'
-        });
-        return false;
-	}
 
-	function show_user_logout(){
-		//$('#change_password_id').show();
-		$.openDOMWindow({
-            loader:1,
-            loaderHeight:16,
-            loaderWidth:17,
-            windowSourceID:'#j_logout_win'
-        });
-        return false;
-	}
-</script>
 <div id="container">
    <div class="default-index">
        <div class="default-index-tt">
@@ -200,7 +178,46 @@
 
     }
 </script>
+<script>
+    $(function(){
+        $('.aside-nav-nth1').click(function(event){
+            var oUl1 = $(this).find('ul');
+            var OI1 = $(this).find('.j-show-list');
+            if(oUl1.is(':visible')){
+                OI1.html('+');
+                oUl1.hide();
+            }else if(oUl1.is(':hidden')){
+                OI1.html('-');
+                oUl1.show();
+            }
+            event.stopPropagation();
+        });
 
+    })
+</script>
+<script type="text/javascript">
+    function show_change_password(){
+        //$('#change_password_id').show();
+        $.openDOMWindow({
+            loader:1,
+            loaderHeight:16,
+            loaderWidth:17,
+            windowSourceID:'#change_password_id'
+        });
+        return false;
+    }
+
+    function show_user_logout(){
+        //$('#change_password_id').show();
+        $.openDOMWindow({
+            loader:1,
+            loaderHeight:16,
+            loaderWidth:17,
+            windowSourceID:'#j_logout_win'
+        });
+        return false;
+    }
+</script>
 
 </body>
 </html>

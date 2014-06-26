@@ -83,6 +83,7 @@ class RoleAction extends Action {
 		$rolename = trim(I('add_role_name_txt'));
 		$memo = trim(I('add_memo_txt'));
 		$menu_id = trim(I('add_menu_id_txt'));
+		$role_agent_id = trim(I('role_agent_id'));
 		$adduserid = $_SESSION['userinfo']['uid'];
 		$adddate= strtotime(date('Y-m-d'));
 		$msg =	C('add_role_success');
@@ -91,6 +92,7 @@ class RoleAction extends Action {
 		$role_menu = M("role_menu");
 
 		$data['rolename'] = $rolename;
+		$data['role_agent_id'] = $role_agent_id;
 		$data['memo'] = $memo;
 		$data['adduserid'] = $adduserid;
 		$data['adddate'] = $adddate;
@@ -159,6 +161,7 @@ class RoleAction extends Action {
 	public function edit_role(){
 		$role_id = trim(I('modify_role_id_txt'));
 		$rolename = trim(I('modify_role_name_txt'));
+		$role_agent_id = trim(I('role_agent_id'));
 		$memo = trim(I('modify_memo_txt'));
 		$menu_id = trim(I('modify_menu_id_txt'));
 		$modifyuserid = $_SESSION['userinfo']['uid'];
@@ -169,6 +172,7 @@ class RoleAction extends Action {
 		$role_menu = M("role_menu");
 
 		$data['rolename'] = $rolename;
+		$data['role_agent_id'] = $role_agent_id;
 		$data['memo'] = $memo;
 		$data['modifyuserid'] = $modifyuserid;
 		$data['modifydate'] = $modifydate;
@@ -245,6 +249,28 @@ class RoleAction extends Action {
 		
 		$this->ajaxReturn($data, 'json');
 	}
-
+	
+	public function getAgentArr(){
+		$sql = "SELECT agent_name,agent_id,father_agentid FROM qd_agent WHERE isDelete = 0 ORDER BY father_agentid,agent_id";
+		$model = new Model();
+		$que = $que1 = $model->query($sql);
+		$this->eharr($que, 0);
+		echo json_encode($this->AgentArr);
+	}
+	
+	
+	public $AgentArr = array();
+	public $lv = 0;
+	function eharr($arr,$id){
+		foreach($arr as $k=>$v){
+			if($v['father_agentid'] == $id){
+				$v['lv'] = $this->lv;
+				$this->lv++;
+				$this->AgentArr[] = $v;
+				$this->eharr($arr, $v['agent_id']);
+			}
+		}
+		$this->lv--;
+	}
 }
 ?>

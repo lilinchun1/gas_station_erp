@@ -48,35 +48,13 @@
     </ul>
 </div>
 </div>
-<script type="text/javascript">
-	function show_change_password(){
-		//$('#change_password_id').show();
-		$.openDOMWindow({
-            loader:1,
-            loaderHeight:16,
-            loaderWidth:17,
-            windowSourceID:'#change_password_id'
-        });
-        return false;
-	}
 
-	function show_user_logout(){
-		//$('#change_password_id').show();
-		$.openDOMWindow({
-            loader:1,
-            loaderHeight:16,
-            loaderWidth:17,
-            windowSourceID:'#j_logout_win'
-        });
-        return false;
-	}
-</script>
 <div id="container">
     <div class="left">
         
 <ul class="aside-nav cf">
     <li class="aside-nav-nth1" ><a>系统设置<i class="j-show-list">-</i></a>
-            <ul><li class="url_link" url="<?php echo U('configuration/Org/index');?>"><a href="<?php echo U('configuration/Org/index');?>"><input  type="button"  value="组织结构" ></a></li>
+            <ul><li class="url_link" url="<?php echo U('configuration/Org/index');?>"><a href="<?php echo U('configuration/Org/index');?>"><input  type="button"  value="组织机构" ></a></li>
                 <li class="url_link" url="<?php echo U('configuration/Role/show_role');?>"><a href="<?php echo U('configuration/Role/show_role');?>"><input type="button" class="" value="角色维护" ></a></li>
                 <li class="url_link" url="<?php echo U('configuration/User/index');?>"><a href="<?php echo U('configuration/User/index');?>"><input type="button" class="" value="职员维护" ></a></li></ul>
     </li>
@@ -297,6 +275,29 @@
 
     })
 </script>
+<script type="text/javascript">
+    function show_change_password(){
+        //$('#change_password_id').show();
+        $.openDOMWindow({
+            loader:1,
+            loaderHeight:16,
+            loaderWidth:17,
+            windowSourceID:'#change_password_id'
+        });
+        return false;
+    }
+
+    function show_user_logout(){
+        //$('#change_password_id').show();
+        $.openDOMWindow({
+            loader:1,
+            loaderHeight:16,
+            loaderWidth:17,
+            windowSourceID:'#j_logout_win'
+        });
+        return false;
+    }
+</script>
 <div class="alert-org-add" id="j_add_win" style=" display:none;">
     <div class="org-right-info" id="add">
         <h3>组织机构信息</h3>
@@ -342,7 +343,7 @@
 			<p>
 				<button type="button" class="alert-btn2" id="j_del_ok">删除</button>
 				<a href="#" class="closeDOMWindow">
-					<button type="button" class="alert-btn2">关闭</button>
+					<button type="button" class="alert-btn2">取消</button>
 				</a>
 			</p>
 		</div>
