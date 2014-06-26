@@ -1,7 +1,7 @@
 $(function() {
 	// 可查看url集合str
 	var urlStr = $(".urlStr").val();
-	// alert(urlStr);
+	//alert(urlStr);
 	// 当前页面url
 	var nowUrl = $(".nowUrl").val();
 	// 当前页面菜单

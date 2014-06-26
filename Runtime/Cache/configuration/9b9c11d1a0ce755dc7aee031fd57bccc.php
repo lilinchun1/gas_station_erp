@@ -11,7 +11,7 @@
 <div class="head-wrap">
 <div id="head">
     <h1 class="head-logo"><a href="index.html">ERP管理系统</a></h1>
-    <h2 class="head-tt">智能手机加油站ERP管理系统</h2>
+    <h2 class="head-tt">智能手机加油站业务支撑系统</h2>
     <div class="login">
         <div class="left">
             <ul class="left-nav">
@@ -54,7 +54,7 @@
    </div>
 </div>
 <div id="footer">
-
+    <p>大连捷诺科技有限公司 关于捷诺 | 服务热线 0411-123456789</p>
 </div>
 <!-- 控制菜单显示 -->
 <input type="hidden" class="urlStr" value="<?php echo ($urlStr); ?>">

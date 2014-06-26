@@ -6,6 +6,9 @@
 	<link rel="stylesheet" href="__PUBLIC__/css/configuration.css"/>
 	<link rel="stylesheet" href="__PUBLIC__/css/page.css"/>
 	<script type="text/javascript" src="__PUBLIC__/js/jquery-1.10.2.min.js"></script>
+    <style>
+        .role-table-list{min-width: 1008px;}
+    </style>
 </head>
 <body>
 <div class="head-wrap">
@@ -100,7 +103,7 @@
 </div>
 
 <div id="footer">
-
+    <p>大连捷诺科技有限公司 关于捷诺 | 服务热线 0411-123456789</p>
 </div>
 <!-- 控制菜单显示 -->
 <input type="hidden" class="urlStr" value="<?php echo ($urlStr); ?>">

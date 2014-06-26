@@ -98,8 +98,8 @@
 		<div class="alert-user-add-con">
 			<form action="">
 				<p>
-					<label for="user-addname" class="role-lab">姓&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;名</label>
-					<input type="text" name="addname" id="user-addname" class="input-role-name"/><i class="red-color pdl10">*</i>
+					<label for="realname" class="role-lab">姓&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;名</label>
+					<input type="text" name="addname" id="realname" class="input-role-name"/><i class="red-color pdl10">*</i>
 					<input type="radio" name="change-sex" class="change-sex" id="man" value="1"/><label for="man" class="sex">男</label>
 					<input type="radio" name="change-sex" class="change-sex" id="woman" value="0"/><label for="woman" class="sex">女</label>
 				</p>
@@ -116,8 +116,8 @@
 					<input type="text" name="addname" id="email" class="input-role-name"/>
 				</p>
 				<p>
-					<label for="role_agent_id_add" class="role-lab">所属组织</label>
-					<select id="role_agent_id_add" class="role_agent_id">
+					<label for="role_agent_id" class="role-lab">所属组织</label>
+					<select id="role_agent_id" class="role_agent_id">
 						<option value="">请选择组织</option>
 					</select>
 				</p>
@@ -130,7 +130,7 @@
 				<p>
 					<input type="hidden" name="uid_hid" class="uid_hid"/>
 					<button type="button" class="alert-btn2" id="j_add_save">保存</button>
-					<button type="button" class="alert-btn2" id="j_add_close">关闭</button>
+					<button type="button" class="alert-btn2" id="j_close">关闭</button>
 
 				</p>
 			</form>
@@ -178,8 +178,10 @@ $(function(){
 		})
 	},"json");
 	//组织改变触发
-	$("#role_agent_id_add").change(function(){
+	$(".role_agent_id").change(function(){
 		var role_agent_id = $(this).val();
+		//组织改变后之前选中的角色取消
+		roleStr = "";
 		role_check(role_agent_id);
 	});
 	
@@ -216,24 +218,15 @@ function role_check(role_agent_id){
 		})
 	},"json");
 }
-/*
-$array=explode("a","asddad addsadassd dasdadfsdfasdaaa",4);
-//print_r($array);
 
-//剔除字符串左边开头的空格,并返回
-//如有第二个参数则是剔除左边开头的空格换成剔除第二个参数里的字符串
-$str=ltrim("a asd ","a");
-
-//剔除字符串右边开头的空格
-$str=rtrim(" asd ");
-
- */
 	$(document).ready(function () {
 		//单击 添加/编辑 按钮
 		$('#j_add_button,#j_mod_button').click(function(){
 			//为添加
 			if($(this).attr("id") == "j_add_button"){
 				$(".h_title").text("添加职员信息");
+				//给隐藏域赋空值
+				$(".uid_hid").val("");
 			//为编辑
 			}else if($(this).attr("id") == "j_mod_button"){
 				$(".h_title").text("修改职员信息");
@@ -247,23 +240,25 @@ $str=rtrim(" asd ");
 				$(".uid_hid").val(user_id);
 				//给编辑框赋值
 				var mod_handleUrl="{:U('configuration/User/userDetailSelect')}";
+				//组织id
 				var agent_id;
 				$.getJSON(mod_handleUrl,{ "user_id":user_id},
 					function (data){
 					   //alert(data['username']);
-						$("#user-addname").val(data['realname']);
+						$("#realname").val(data['realname']);
 						$("#user-phone").val(data['telphone']);
 						$("#login-id").val(data['username']);
 						$("#email").val(data['email']);
-						
+
 						agent_id = data['orgid'];
 						//改变组织下拉框
 						$(".role_agent_id option[value='"+agent_id+"']").attr("selected",true);
 						//给角色字符串赋值
 						roleStr = data['role_id_str'];
-						//当前下拉框的角色
+						//指定组织下选中已有的角色
 						role_check(agent_id);
-
+						
+						//性别赋值
 						var sex = data['sex'];
 						if(sex == '0'){
 							$('#woman').eq(0).attr("checked",true);
@@ -280,58 +275,40 @@ $str=rtrim(" asd ");
 		
 		//单击保存按钮
 		$('#j_add_save').click(function(){
-			var add_login_id= $('#user-addname').val(); //登陆账号
-			if (add_login_id=="")
-			{	
-				alert("请输入真实姓名");
-				return false;
+			var user_id = $(".uid_hid").val();
+			var handleUrl;
+			if(user_id){
+				//编辑路径
+				handleUrl="{:U('configuration/User/edit_user')}";
+			}else{
+				//添加路径
+				handleUrl="{:U('configuration/User/add_user')}";
 			}
-			var add_user_addname = $('#login-id').val();	  //姓名
-			if (add_user_addname=="")
-			{	
-				alert("请输入登入账号");
-				return false;
-			}
-			var add_telphone_txt = $('#user-phone').val();	  //联系电话
+			var realname = $('#realname').val();	  //姓名
+			var login_id= $('#login-id').val(); //登陆账号
+			var telphone_txt = $('#user-phone').val();	  //联系电话
 			var add_user_email = $('#email').val();	  //邮箱*/
-			var add_user_sex = $(':radio[name="change-sex"]:checked').val(); //性别
-			var add_org_id = $('#role_agent_id_add').val();  //所属组织机构
-			if (add_org_id=="")
-			{	
-				alert("请选择组织结构");
-				return false;
-			}
-			if (roleStr=="")
-			{	
-				alert("请选择角色");
-				return false;
-			}
-
+			var user_sex = $(':radio[name="change-sex"]:checked').val(); //性别
+			var org_id = $('#role_agent_id').val();  //所属组织机构
 			var emailRegExp = new RegExp(		 "[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?");
 			if (!emailRegExp.test(add_user_email)||add_user_email.indexOf('.')==-1){
 				alert("请检查邮箱格式");
 				return false;
 			}
-			var add_save_handleUrl="{:U('configuration/User/add_user')}";
-			$.getJSON(add_save_handleUrl,{
-				"add_user_name_txt":add_user_addname,
-				"add_telphone_txt":add_telphone_txt,
-				"add_email_txt":add_user_email,
-				"add_realname_txt":add_login_id,
-				"add_sex_txt":add_user_sex,
-				"add_org_txt":add_org_id,
-				"add_role_txt":roleStr},
+
+			$.getJSON(handleUrl,{
+					"userid_txt":user_id,
+					"realname_txt":realname,
+					"telphone_txt":telphone_txt,
+					"email_txt":add_user_email,
+					"user_name_txt":login_id,
+					"sex_txt":user_sex,
+					"org_txt":org_id,
+					"role_txt":roleStr
+				},
 				function (data){
-					var tmp_msg = "{:C('add_user_success')}";
-					if(tmp_msg == data)
-					{
-						alert(data);
-						window.location.href = window.location.href;
-					}
-					else
-					{
-						alert(data);
-					}
+					alert(data);
+					window.location.href = window.location.href;
 				}
 			,'json');
 		});
@@ -339,52 +316,8 @@ $str=rtrim(" asd ");
 		
 		
 		//关闭按钮
-		$("#j_add_close").click(function(){
+		$("#j_close").click(function(){
 			window.location.href = window.location.href;
-		});
-		
-		
-		//单击编辑
-		$('#j_mod_button').click(function(){
-
-			//单击保存按钮
-			$('#j_mod_save').click(function(){
-				var add_uid=$('#user_id').val();
-				var add_login_id= $('#mod-login-id').val(); //登陆账号
-				var add_user_addname = $('#mod-name').val();	  //姓名
-				var add_telphone_txt = $('#mod-user-phone').val();	  //联系电话
-				var add_user_email = $('#mod-email').val();	  //邮箱*/
-				var add_user_sex = $(':radio[name="change-sex"]:checked').val(); //性别
-				var add_org_id = $('#mod_id_hidden').val();  //所属组织机构
-				var add_user_ckbox="";
-				var emailRegExp = new RegExp(		 "[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?");
-				if (!emailRegExp.test(add_user_email)||add_user_email.indexOf('.')==-1){
-					alert("请检查邮箱格式");
-					return false;
-				}
-				$(":checkbox[name=role]").each(function() {
-					if ($(this).attr("checked")) {
-						add_user_ckbox += $(this).attr('id')+",";
-					}
-				});
-
-				var add_save_handleUrl="{:U('configuration/User/edit_user')}";
-				$.getJSON(add_save_handleUrl,{
-							"modify_userid_txt":add_uid,
-							"modify_realname_txt":add_user_addname,
-							"modify_telphone_txt":add_telphone_txt,
-							"modify_email_txt":add_user_email,
-							"modify_user_name_txt":add_login_id,
-							"modify_sex_txt":add_user_sex,
-							"modify_org_txt":add_org_id,
-							"modify_role_txt":add_user_ckbox},
-						function (data){
-							alert(data);
-							window.location.href = window.location.href;
-						}
-						,'json'
-				)
-			});
 		});
 
 		//单击删除确认按钮
@@ -402,11 +335,11 @@ $str=rtrim(" asd ");
 
 		//重置密码
 		$('#j_reset_password').click(function(){
-			if( user_val == ''){
+			var reset_userid_txt= $("input[name='radio_list']:checked").val();
+			if( !reset_userid_txt ){
 				alert("请选择一条职员信息再进行编辑");
 				return;
 			}
-			var reset_userid_txt= $("input[name='radio_list']:checked").val();
 			var del_handleUrl="{:U('configuration/User/reset_password')}";
 			$.getJSON(del_handleUrl,{"reset_userid_txt":reset_userid_txt},
 					function (data){
@@ -419,23 +352,20 @@ $str=rtrim(" asd ");
 
 		//激活失效
 		$('#j_modify_user_state').click(function(){
-			if( user_val == ''){
+			var modify_userid_txt= $("input[name='radio_list']:checked").val();
+			if( modify_userid_txt == ''){
 				alert("请选择一条职员信息再进行编辑");
 				return;
 			}
-			var modify_userid_txt= $("input[name='radio_list']:checked").val();
 			var del_handleUrl="{:U('configuration/User/modify_user_state')}";
 			$.getJSON(del_handleUrl,{"modify_userid_txt":modify_userid_txt},
-					function (data){
-						alert(data);
-						window.location.href = window.location.href;
-					}
-					,'json'
+				function (data){
+					alert(data);
+					window.location.href = window.location.href;
+				}
+				,'json'
 			);
 		});
-
-
-	
 });
 </script>
 </body>

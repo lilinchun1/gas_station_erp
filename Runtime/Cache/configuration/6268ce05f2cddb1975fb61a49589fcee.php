@@ -129,7 +129,7 @@
 	</div>
 </div>
 <div id="footer">
-
+    <p>大连捷诺科技有限公司 关于捷诺 | 服务热线 0411-123456789</p>
 </div>
 <!-- 控制菜单显示 -->
 <input type="hidden" class="urlStr" value="<?php echo ($urlStr); ?>">

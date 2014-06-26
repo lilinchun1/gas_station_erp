@@ -40,7 +40,7 @@ $heiti:"SimHei";
 }
 
 %input-t{   //输入框通用样式
-  width: 160px;
+  width: 120px;
   height: 24px;
   line-height: 24px;
   text-indent: 4px;
@@ -162,14 +162,20 @@ $heiti:"SimHei";
 #footer{
   width: 100%;
   min-width: $min-width-kuang;
-  height: 80px;
-  background: $color-main;}
+  height: 40px;
+  background: $color-main;
+    p{
+      padding-top: 10px;
+      color: #ffffff;
+      font-size: 14px;
+      text-align: center;}
+}
 
 /*主导航部分*/
 #nav{
   position: absolute;
   top: 50px;
-  right: 250px;
+  right: 280px;
   z-index: 1;
   min-width: 886px;
   height: $nav-height;
@@ -605,15 +611,17 @@ $heiti:"SimHei";
   position: absolute;
   top: 90px;
   right: 10%;
-  padding:30px 0 20px 0;
+  padding:0 0 20px 0;
   width: 420px;
   //min-width: 980px;
-  background: #ffffff;
+  background: rgba(62, 163, 242, 0.60);
   border-radius: 20px;
     p{
       margin-bottom: 20px;
       margin-left: 10px;
         img{vertical-align: middle;}
+        a{
+          color: #ffffff;}
     }
     label{
       float: left;
@@ -622,31 +630,44 @@ $heiti:"SimHei";
       line-height: 30px;
       text-align: right;
       font-size: 16px;
-      color: #b1b6b8;
+      color: #fff;
     }
     input{
       @extend %input-t;
       width: 200px;
       height: 30px;
+      background: rgba(135, 169, 213, 0.60);
+      color: #ffffff;
+      border: 0 none;
+      text-indent: 5px;
     }
     button{
       @extend %edit-btn;
       width: 202px;
+      height:30px;
       margin-left: 110px;
     }
     .haf-input{
       width: 80px;}
 }
+.login-tt-head{
+  margin-bottom: 20px;
+  height: 60px;
+  border-top-right-radius: 20px;
+  border-top-left-radius: 20px;
+  line-height: 60px;
+  background: #0357ae;
+}
 .index-login-con-tt1 {
-  margin-left: 110px;
+  margin-left: 120px;
   font-size: 22px;
-  color: #f38c13;
+  color: #f3eb0a;
   font-weight: normal;
   font-family: $heiti;
 }
 .index-login-con-tt2{
   font-size: 16px;
-  color: #b1b6b8;
+  color: #fff;
   font-weight: normal;
 }
 /*登陆默认页*/
@@ -700,7 +721,7 @@ $heiti:"SimHei";
 }
 .channel-index-btns{
   input{
-    margin: 5px 0;}
+    margin: 5px 15px 5px 0;}
   padding-bottom: 20px;}
 .channel-tab{
   margin: 0 auto;
@@ -1071,6 +1092,11 @@ input.input-org-info,input.channel-select{
 .j-show-list{
   padding-left: 15px;}
 
+
+.url_link{
+  display:none;
+}
+
 /*page*/
 .resultpage{
   background-color: #fff;
@@ -1117,6 +1143,7 @@ input.input-org-info,input.channel-select{
 .resultpage select{
   text-align:center;
   font-size:12px;
-  width:32px;
+  width:50px;
   border:1px solid #ddd;
 }
+/*page-end*/
