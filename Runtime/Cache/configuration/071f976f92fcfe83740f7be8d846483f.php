@@ -4,13 +4,14 @@
 	<meta charset="UTF-8">
 	<title>角色维护</title>
 	<link rel="stylesheet" href="__PUBLIC__/css/configuration.css"/>
+	<link rel="stylesheet" href="__PUBLIC__/css/page.css"/>
 	<script type="text/javascript" src="__PUBLIC__/js/jquery-1.10.2.min.js"></script>
 </head>
 <body>
 <div class="head-wrap">
 <div id="head">
     <h1 class="head-logo"><a href="index.html">ERP管理系统</a></h1>
-    <h2 class="head-tt">智能手机加油站ERP管理系统</h2>
+    <h2 class="head-tt">智能手机加油站业务支撑系统</h2>
     <div class="login">
         <div class="left">
             <ul class="left-nav">

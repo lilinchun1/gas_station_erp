@@ -153,15 +153,11 @@ class UserAction extends Action {
 		$dataUser[0]['orgname'] = getAgentNameFromAgentID($dataUser[0]['orgid']);
 
 		$role_id = $Model->query("select roleid from bi_user_role where userid=" . $user_id);
-		$role = null;
+		$role_id_str = "";
 		foreach($role_id as $key=>$val){
-			$role_name = $Model->query("select rolename from bi_role where roleid=" . $val['roleid']);
-			$role .= $role_name[0]['rolename'] . ",";
+			$role_id_str .= $val['roleid'].",";
 		}
-		if(!empty($role_id[0]['roleid'])){
-			$role = substr($role, 0, -1);
-		}
-		$dataUser[0]['rolename'] = $role;
+		$dataUser[0]['role_id_str'] = $role_id_str;
 
 		$data = $dataUser[0];
 		$this->ajaxReturn($data,'json');

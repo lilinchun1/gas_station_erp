@@ -18,16 +18,16 @@ $(function() {
 			dom.eq(key).addClass("active");
 		}
 	}
-	//调整窗口
+	//固定标题
 	if($("#j-fixed-top")){
 		window.onscroll=function(){
 			var scrollTop=document.documentElement.scrollTop||document.body.scrollTop;
 			var fixDiv=document.getElementById('j-fixed-top');
-			if(scrollTop>=300){
+			if(scrollTop>=280){
 				fixDiv.style.position='fixed';
 				fixDiv.style.top='0px';
-			}else if(scrollTop<=299){
-				fixDiv.style.position='static';
+			}else if(scrollTop<1){
+				fixDiv.style.position='relative';
 			}
 		};
 	}
@@ -89,9 +89,9 @@ function setCheck(Obj) {
 //显示窗口
 function showWindow(loader,loaderHeight,loaderWidth,id){
 	$.openDOMWindow({
-		loader : 1,
-		loaderHeight : 16,
-		loaderWidth : 17,
+		loader : loader,
+		loaderHeight : loaderHeight,
+		loaderWidth : loaderWidth,
 		windowSourceID : id
 	});
 }

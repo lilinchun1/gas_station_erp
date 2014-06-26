@@ -14,19 +14,6 @@ class RoleAction extends Action {
 		$this->display(':role_index');
 	}
 
-	//展示所有角色
-	public function show_all_role(){
-		$Model = new Model();
-		$role_info = $Model->query("select * from bi_role where del_flag=0");
-		$data = null;
-		foreach($role_info as $key=>$val){
-			$data[$key]['id'] = $val['roleid'];
-			$data[$key]['value'] = $val['rolename'];
-		}
-		
-		$this->ajaxReturn($data, 'json');
-	}
-
 	//查询角色信息
 	public function show_role(){
 	    $Model = new Model();

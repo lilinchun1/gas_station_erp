@@ -170,12 +170,13 @@ a, .alert-btn, .role-control-btn, .alert-btn2, .alert-btn3, .alert-btn4, .org-ri
   border-radius: 5px; }
 
 .alert-btn, .role-control-btn, .alert-btn2, .alert-btn3, .alert-btn4, .org-right-btns .area-btn, .index-login-con button {
-  padding: 6px 28px;
+  padding: 2px 10px;
+  width: 100px;
   /* box-shadow: 0 1px 3px rgba(0,0,0,.6);*/
   border-bottom: 1px solid rgba(0, 0, 0, 0.25);
   text-shadow: 0 -1px 1px rgba(0, 0, 0, 0.25);
   border-radius: 5px;
-  font-size: 16px;
+  font-size: 14px;
   font-family: 'Microsoft Yahei';
   color: #ffffff;
   background: #5095fc;
@@ -416,9 +417,10 @@ a, .alert-btn, .role-control-btn, .alert-btn2, .alert-btn3, .alert-btn4, .org-ri
   overflow: hidden; }
 
 .org-right-btns {
-  height: 70px; }
+  padding-left: 40px;
+  height: 40px; }
   .org-right-btns .area-btn {
-    margin: 20px 0 0 40px; }
+    margin: 10px 10px 0 0; }
 
 .org-right-tree {
   margin-top: 25px;
@@ -483,7 +485,7 @@ a, .alert-btn, .role-control-btn, .alert-btn2, .alert-btn3, .alert-btn4, .org-ri
 /*角色维护页面*/
 .role-control {
   min-width: 750px;
-  padding: 20px 0;
+  padding: 5px 0;
   margin: 0 auto;
   width: 98%;
   background: #ffffff;
@@ -530,7 +532,7 @@ a, .alert-btn, .role-control-btn, .alert-btn2, .alert-btn3, .alert-btn4, .org-ri
     max-width: 278px; }
 
 .over-h-y {
-  height: 377px;
+  height: 400px;
   overflow-y: auto; }
 
 .role-table-radio {
@@ -761,6 +763,8 @@ a, .alert-btn, .role-control-btn, .alert-btn2, .alert-btn3, .alert-btn4, .org-ri
 
 .channel-index-btns {
   padding-bottom: 20px; }
+  .channel-index-btns input {
+    margin: 5px 0; }
 
 .channel-tab {
   margin: 0 auto;
@@ -1074,7 +1078,7 @@ a, .alert-btn, .role-control-btn, .alert-btn2, .alert-btn3, .alert-btn4, .org-ri
   padding: 0 40px; }
 
 input.input-org-info, input.channel-select {
-  margin-bottom: 15px; }
+  margin-bottom: 5px; }
 
 @media screen and (max-width: 1300px) {
   input.input-org-info, input.channel-select {
@@ -1089,5 +1093,54 @@ input.input-org-info, input.channel-select {
 
 .j-show-list {
   padding-left: 15px; }
+
+/*page*/
+.resultpage {
+  background-color: #fff;
+  margin-top: 50px;
+  bottom: 0;
+  text-align: center;
+  z-index: 3; }
+
+.resultpage a {
+  background-color: #fff;
+  width: 32px;
+  height: 30px;
+  padding: 4px 12px;
+  line-height: 20px;
+  text-decoration: none;
+  border: 1px solid #ddd;
+  border-left-width: 0;
+  color: #427fed;
+  font-family: tahoma,arial,'Hiragino Sans GB',"\5b8b\4f53",sans-serif;
+  font-size: 12px; }
+
+.resultpage .current {
+  background-color: #f5f5f5;
+  color: #999;
+  cursor: default;
+  width: 32px;
+  height: 30px;
+  padding: 4px 12px;
+  line-height: 20px;
+  text-decoration: none;
+  border: 1px solid #ddd;
+  border-left-width: 0;
+  font-family: tahoma,arial,'Hiragino Sans GB',"\5b8b\4f53",sans-serif;
+  font-size: 12px; }
+
+.resultpage .pages-number {
+  margin: 4px 20px 0 10px;
+  text-align: center;
+  font-size: 12px; }
+
+.resultpage :first-child {
+  border: 1px solid #ddd; }
+
+.resultpage select {
+  text-align: center;
+  font-size: 12px;
+  width: 32px;
+  border: 1px solid #ddd; }
 
 /*@ sourceMappingURL=configuration.css.map */

@@ -40,7 +40,6 @@
 					</div>
 				</div>
 				<div class="role-table over-h-y">
-					<input type="text" id="selrole_hidden_id" style="display:none;" value="" /><!--ID缓存框-->
 					<ul class="role-table-list">
 						<li>
 							<span class="span-1"></span>
@@ -53,10 +52,9 @@
 							<span class="span-1"><b>状态</b></span>
 						</li>
 						<volist name="list" id="vo">
-							<li class="list_sel" onclick="selectUserRadio('{$vo['uid']}');">
+							<li class="list_sel">
 								<span class="span-1">
-									<input type="radio" name="radio1" id="{$vo['userRadioID']}" value="{$vo['uid']}"
-										 class="role-table-radio"/>
+									<input type="radio" name="radio_list" id="{$vo['userRadioID']}" value="{$vo['uid']}"  class="role-table-radio"/>
 								</span>
 								<span class="span-1" title="#">{$vo.realname}</span>
 								<span class="span-1" title="#">{$vo.sex}</span>
@@ -87,81 +85,6 @@
 							<span class="span-3" title="#">Beatae fugiat impedit ipsa porro!</span>
 							<span class="span-3" title="#">Atque corporis laudantium perspiciatis qui?</span>
 						</li>
-						<li>
-							<span class="span-3" title="#">Lorem ipsum dolor sit amet.</span>
-							<span class="span-3" title="#">Beatae fugiat impedit ipsa porro!</span>
-							<span class="span-3" title="#">Atque corporis laudantium perspiciatis qui?</span>
-						</li>
-						<li>
-							<span class="span-3" title="#">Lorem ipsum dolor sit amet.</span>
-							<span class="span-3" title="#">Beatae fugiat impedit ipsa porro!</span>
-							<span class="span-3" title="#">Atque corporis laudantium perspiciatis qui?</span>
-						</li>
-						<li>
-							<span class="span-3" title="#">Lorem ipsum dolor sit amet.</span>
-							<span class="span-3" title="#">Beatae fugiat impedit ipsa porro!</span>
-							<span class="span-3" title="#">Atque corporis laudantium perspiciatis qui?</span>
-						</li>
-						<li>
-							<span class="span-3" title="#">Lorem ipsum dolor sit amet.</span>
-							<span class="span-3" title="#">Beatae fugiat impedit ipsa porro!</span>
-							<span class="span-3" title="#">Atque corporis laudantium perspiciatis qui?</span>
-						</li>
-						<li>
-							<span class="span-3" title="#">Lorem ipsum dolor sit amet.</span>
-							<span class="span-3" title="#">Beatae fugiat impedit ipsa porro!</span>
-							<span class="span-3" title="#">Atque corporis laudantium perspiciatis qui?</span>
-						</li>
-						<li>
-							<span class="span-3" title="#">Lorem ipsum dolor sit amet.</span>
-							<span class="span-3" title="#">Beatae fugiat impedit ipsa porro!</span>
-							<span class="span-3" title="#">Atque corporis laudantium perspiciatis qui?</span>
-						</li>
-						<li>
-							<span class="span-3" title="#">Lorem ipsum dolor sit amet.</span>
-							<span class="span-3" title="#">Beatae fugiat impedit ipsa porro!</span>
-							<span class="span-3" title="#">Atque corporis laudantium perspiciatis qui?</span>
-						</li>
-						<li>
-							<span class="span-3" title="#">Lorem ipsum dolor sit amet.</span>
-							<span class="span-3" title="#">Beatae fugiat impedit ipsa porro!</span>
-							<span class="span-3" title="#">Atque corporis laudantium perspiciatis qui?</span>
-						</li>
-						<li>
-							<span class="span-3" title="#">Lorem ipsum dolor sit amet.</span>
-							<span class="span-3" title="#">Beatae fugiat impedit ipsa porro!</span>
-							<span class="span-3" title="#">Atque corporis laudantium perspiciatis qui?</span>
-						</li>
-						<li>
-							<span class="span-3" title="#">Lorem ipsum dolor sit amet.</span>
-							<span class="span-3" title="#">Beatae fugiat impedit ipsa porro!</span>
-							<span class="span-3" title="#">Atque corporis laudantium perspiciatis qui?</span>
-						</li>
-						<li>
-							<span class="span-3" title="#">Lorem ipsum dolor sit amet.</span>
-							<span class="span-3" title="#">Beatae fugiat impedit ipsa porro!</span>
-							<span class="span-3" title="#">Atque corporis laudantium perspiciatis qui?</span>
-						</li>
-						<li>
-							<span class="span-3" title="#">Lorem ipsum dolor sit amet.</span>
-							<span class="span-3" title="#">Beatae fugiat impedit ipsa porro!</span>
-							<span class="span-3" title="#">Atque corporis laudantium perspiciatis qui?</span>
-						</li>
-						<li>
-							<span class="span-3" title="#">Lorem ipsum dolor sit amet.</span>
-							<span class="span-3" title="#">Beatae fugiat impedit ipsa porro!</span>
-							<span class="span-3" title="#">Atque corporis laudantium perspiciatis qui?</span>
-						</li>
-						<li>
-							<span class="span-3" title="#">Lorem ipsum dolor sit amet.</span>
-							<span class="span-3" title="#">Beatae fugiat impedit ipsa porro!</span>
-							<span class="span-3" title="#">Atque corporis laudantium perspiciatis qui?</span>
-						</li>
-						<li>
-							<span class="span-3" title="#">Lorem ipsum dolor sit amet.</span>
-							<span class="span-3" title="#">Beatae fugiat impedit ipsa porro!</span>
-							<span class="span-3" title="#">Atque corporis laudantium perspiciatis qui?</span>
-						</li>
 					</ul>
 				</div>
 			</div>
@@ -169,48 +92,9 @@
 	</div>
 </div>
 <include file="./Tpl/include/pb-foot.html" />
-<div id="j_mod_edit" style="display:none;">
-	<div class="alert-role-add">
-		<h3>编辑职员信息</h3>
-		<div class="alert-user-add-con">
-			<form action="">
-				<p>
-					<label for="user-addname" class="role-lab">姓&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;名</label>
-					<input type="text" name="addname" id="mod-name" class="input-role-name"/>
-					<input type="radio" name="change-sex" class="change-sex" id="mod-man" value="1"/><label for="man" class="sex">男</label>
-					<input type="radio" name="change-sex" class="change-sex" id="mod-woman" value="0"/><label for="woman" class="sex">女</label>
-				</p>
-				<p>
-					<label for="user-phone" class="role-lab">联系电话</label>
-					<input type="text" name="addname" id="mod-user-phone" class="input-role-name"/>
-				</p>
-				<p>
-					<label for="login-id" class="role-lab">登陆账号</label>
-					<input type="text" name="addname" id="mod-login-id" class="input-role-name"/>
-				</p>
-				<p>
-					<label for="login-id" class="email">邮&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;箱</label>
-					<input type="text" name="addname" id="mod-email" class="input-role-name"/>
-				</p>
-				<div>
-					<em>角色</em>
-					<ul class="user-checkbox-list" id="j_mod_ul_checkbox">
-
-					</ul>
-				</div>
-				<p>
-					<button type="button" class="alert-btn2" id="j_mod_save">保存</button>
-					<button type="button" class="alert-btn2" id="j_mod_close">关闭</button>
-					<input type="text" id="user_id" value="" />
-				</p>
-			</form>
-		</div>
-	</div>
-</div>
-
 <div id="j_add_win" style="display:none;">
 	<div class="alert-role-add">
-		<h3>添加职员信息</h3>
+		<h3 class="h_title">添加职员信息</h3>
 		<div class="alert-user-add-con">
 			<form action="">
 				<p>
@@ -244,6 +128,7 @@
 					</ul>
 				</div>
 				<p>
+					<input type="hidden" name="uid_hid" class="uid_hid"/>
 					<button type="button" class="alert-btn2" id="j_add_save">保存</button>
 					<button type="button" class="alert-btn2" id="j_add_close">关闭</button>
 
@@ -276,7 +161,7 @@
 <script type="text/javascript" src="__PUBLIC__/js/tree/jquery.ztree.excheck-3.5.js"></script>
 <script>
 $(function(){
-	//给添加修改赋组织值
+	//赋组织值
 	var getAgentUrl = "{:U('configuration/Role/getAgentArr')}";
 	$.post(getAgentUrl,{},function(data){
 		$.each(data,function(i,n){
@@ -295,18 +180,13 @@ $(function(){
 	//组织改变触发
 	$("#role_agent_id_add").change(function(){
 		var role_agent_id = $(this).val();
-		var getAgentUrl = "{:U('configuration/Role/getRoleByAgentId')}";
-		$.post(getAgentUrl,{'role_agent_id':role_agent_id},function(data){
-			$('#j_ul_checkbox li').remove();
-			$.each(data,function(i,n){
-				checked = "";
-				if(roleStr.indexOf(n['roleid']+",") >= 0 )
-				{
-					checked = "checked"
-				}
-				$('#j_ul_checkbox').append("<li><input type='checkbox' name='role' class='j_checkbox' value='"+n['roleid']+"' onclick='j_checkbox(this)' "+checked+"/><label for='ck1' class='role-lab'>"+n['rolename']+"</label></li>");
-			})
-		},"json");
+		role_check(role_agent_id);
+	});
+	
+	
+	//点一行则选中
+	$(".list_sel").click(function(){
+		$(this).find(".role-table-radio").attr("checked",true); 
 	});
 	
 });
@@ -321,9 +201,21 @@ function j_checkbox(obj){
 		roleStr = roleStr.replace($(obj).val()+",","");
 	}
 }
-
-
-
+//给定组织id显示该组织下角色，并赋已选中的角色
+function role_check(role_agent_id){
+	var getAgentUrl = "{:U('configuration/Role/getRoleByAgentId')}";
+	$.post(getAgentUrl,{'role_agent_id':role_agent_id},function(data){
+		$('#j_ul_checkbox li').remove();
+		$.each(data,function(i,n){
+			checked = "";
+			if(roleStr.indexOf(n['roleid']+",") >= 0 )
+			{
+				checked = "checked"
+			}
+			$('#j_ul_checkbox').append("<li><input type='checkbox' name='role' class='j_checkbox' value='"+n['roleid']+"' onclick='j_checkbox(this)' "+checked+"/><label for='ck1' class='role-lab'>"+n['rolename']+"</label></li>");
+		})
+	},"json");
+}
 /*
 $array=explode("a","asddad addsadassd dasdadfsdfasdaaa",4);
 //print_r($array);
@@ -336,15 +228,122 @@ $str=ltrim("a asd ","a");
 $str=rtrim(" asd ");
 
  */
-
-
-
-	var user_val='';
-	function selectUserRadio(user_id){
-		user_val = user_id;
-	}
-
 	$(document).ready(function () {
+		//单击 添加/编辑 按钮
+		$('#j_add_button,#j_mod_button').click(function(){
+			//为添加
+			if($(this).attr("id") == "j_add_button"){
+				$(".h_title").text("添加职员信息");
+			//为编辑
+			}else if($(this).attr("id") == "j_mod_button"){
+				$(".h_title").text("修改职员信息");
+				var user_id= $("input[name='radio_list']:checked").val();
+				//显示
+				if(!user_id){
+					alert("请选择编辑条目");
+					return;
+				}
+				//给隐藏域赋值
+				$(".uid_hid").val(user_id);
+				//给编辑框赋值
+				var mod_handleUrl="{:U('configuration/User/userDetailSelect')}";
+				var agent_id;
+				$.getJSON(mod_handleUrl,{ "user_id":user_id},
+					function (data){
+					   //alert(data['username']);
+						$("#user-addname").val(data['realname']);
+						$("#user-phone").val(data['telphone']);
+						$("#login-id").val(data['username']);
+						$("#email").val(data['email']);
+						
+						agent_id = data['orgid'];
+						//改变组织下拉框
+						$(".role_agent_id option[value='"+agent_id+"']").attr("selected",true);
+						//给角色字符串赋值
+						roleStr = data['role_id_str'];
+						//当前下拉框的角色
+						role_check(agent_id);
+
+						var sex = data['sex'];
+						if(sex == '0'){
+							$('#woman').eq(0).attr("checked",true);
+						}else{
+							$('#man').eq(0).attr("checked",true);
+						}
+					}
+				,'json');
+			}
+			//弹出窗口
+			showWindow(1,16,17,'#j_add_win');
+			return false;
+		});
+		
+		//单击保存按钮
+		$('#j_add_save').click(function(){
+			var add_login_id= $('#user-addname').val(); //登陆账号
+			if (add_login_id=="")
+			{	
+				alert("请输入真实姓名");
+				return false;
+			}
+			var add_user_addname = $('#login-id').val();	  //姓名
+			if (add_user_addname=="")
+			{	
+				alert("请输入登入账号");
+				return false;
+			}
+			var add_telphone_txt = $('#user-phone').val();	  //联系电话
+			var add_user_email = $('#email').val();	  //邮箱*/
+			var add_user_sex = $(':radio[name="change-sex"]:checked').val(); //性别
+			var add_org_id = $('#role_agent_id_add').val();  //所属组织机构
+			if (add_org_id=="")
+			{	
+				alert("请选择组织结构");
+				return false;
+			}
+			if (roleStr=="")
+			{	
+				alert("请选择角色");
+				return false;
+			}
+
+			var emailRegExp = new RegExp(		 "[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?");
+			if (!emailRegExp.test(add_user_email)||add_user_email.indexOf('.')==-1){
+				alert("请检查邮箱格式");
+				return false;
+			}
+			var add_save_handleUrl="{:U('configuration/User/add_user')}";
+			$.getJSON(add_save_handleUrl,{
+				"add_user_name_txt":add_user_addname,
+				"add_telphone_txt":add_telphone_txt,
+				"add_email_txt":add_user_email,
+				"add_realname_txt":add_login_id,
+				"add_sex_txt":add_user_sex,
+				"add_org_txt":add_org_id,
+				"add_role_txt":roleStr},
+				function (data){
+					var tmp_msg = "{:C('add_user_success')}";
+					if(tmp_msg == data)
+					{
+						alert(data);
+						window.location.href = window.location.href;
+					}
+					else
+					{
+						alert(data);
+					}
+				}
+			,'json');
+		});
+		
+		
+		
+		//关闭按钮
+		$("#j_add_close").click(function(){
+			window.location.href = window.location.href;
+		});
+		
+		
 		//单击编辑
 		$('#j_mod_button').click(function(){
 
@@ -386,199 +385,11 @@ $str=rtrim(" asd ");
 						,'json'
 				)
 			});
-			$('#j_mod_ul_checkbox').html("");//清空
-			//列出角色
-			var handleUrl="{:U('configuration/Role/show_all_role')}";
-			$.ajax({
-				type: "POST",
-				url: handleUrl,
-				async: false,
-				dataType: "json",
-				success: function(data){
-					$.each(data,function(key,val){
-						var id=val['id'];
-						var value=val['value'];
-						$('#j_mod_ul_checkbox').append("<li><input type='checkbox' name='role' class='j_checkbox' value='"+value+"'  id='"+id+"'/><label for='ck1' class='role-lab'>"+value+"</label></li>");
-					});
-				},
-
-				error: function(XMLHttpRequest, textStatus, errorThrown) {
-					// alert("请求失败!");
-				}
-			});
-			//显示
-			if( user_val == ''){
-				alert("请选择一条职员信息再进行编辑");
-				return;
-			}
-			//给编辑框赋值
-			var mod_handleUrl="{:U('configuration/User/userDetailSelect')}";
-			var arr=new Array();
-			var str=new String();
-			var user_id_val=$("#selrole_hidden_id").val();
-			$.getJSON(mod_handleUrl,{ "user_id":user_id_val},
-					function (data){
-					   //alert(data['username']);
-						$("#user_id").val(data['uid']);//uid
-						$("#mod-name").val(data['realname']);
-						$("#mod-user-phone").val(data['telphone']);
-						$("#mod-login-id").val(data['username']);
-						$("#mod-email").val(data['email']);
-						$("#mod_citySel").val(data['orgname']);
-						$("#mod_id_hidden").val(data['orgid']);
-						
-
-						str=data['rolename'];
-						arr=str.split(',');
-						for(var i=0;i<arr.length;i++)
-						{
-							var val=value=arr[i];
-							$("[value="+val+"]").attr("checked",true);
-							//$(".j_checkbox").val(arr[i]).attr("checked",true);
-							//alert();
-						}
-
-
-						var sex = data['sex'];
-						if(sex == '0'){
-							$('#mod-woman').eq(0).attr("checked",true);
-						}else{
-							$('#mod-man').eq(0).attr("checked",true);
-						}
-					}
-					,'json'
-			);
-			$("#j_mod_close").click(function(){
-				window.location.href = window.location.href;
-			});
-
-			//弹出窗口
-			$.openDOMWindow({
-				loader:1,
-				loaderHeight:16,
-				loaderWidth:17,
-				windowSourceID:'#j_mod_edit'
-			});
-			return false;
-		});
-		//单击添加按钮
-		$('#j_add_button').click(function(){
-			/*
-			//列出角色
-			var handleUrl="{:U('configuration/Role/show_all_role')}";
-			$.ajax({
-				type: "POST",
-				url: handleUrl,
-				async: false,
-				dataType: "json",
-				success: function(data){
-					$.each(data,function(key,val){
-						var id=val['id'];
-						var value=val['value'];
-					   // $("#j_ul").append("<li><input type='checkbox' id='"+id+"'/>"+value+"</li><br>");
-						$('#j_ul_checkbox').append("<li><input type='checkbox' name='role' value='"+value+"'  id='"+id+"'/><label for='ck1' class='role-lab'>"+value+"</label></li>");
-					});
-				},
-
-				error: function(XMLHttpRequest, textStatus, errorThrown) {
-					// alert("请求失败!");
-				}
-			});
-			*/
-			//单击保存按钮
-			$('#j_add_save').click(function(){
-				var add_login_id= $('#user-addname').val(); //登陆账号
-				if (add_login_id=="")
-				{	
-					alert("请输入真实姓名");
-					return false;
-				}
-				var add_user_addname = $('#login-id').val();	  //姓名
-				if (add_user_addname=="")
-				{	
-					alert("请输入登入账号");
-					return false;
-				}
-				var add_telphone_txt = $('#user-phone').val();	  //联系电话
-				var add_user_email = $('#email').val();	  //邮箱*/
-				var add_user_sex = $(':radio[name="change-sex"]:checked').val(); //性别
-				var add_org_id = $('#id_hidden').val();  //所属组织机构
-				if (add_org_id=="")
-				{	
-					alert("请选择组织结构");
-					return false;
-				}
-				var add_user_ckbox="";
-				$(":checkbox[name=role]").each(function() {
-					if ($(this).attr("checked")) {
-						add_user_ckbox += $(this).attr('id')+",";
-					}
-				});
-				if (add_user_ckbox=="")
-				{	
-					alert("请选择角色");
-					return false;
-				}
-
-				var emailRegExp = new RegExp(		 "[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?");
-				if (!emailRegExp.test(add_user_email)||add_user_email.indexOf('.')==-1){
-					alert("请检查邮箱格式");
-					return false;
-				}
-				var add_save_handleUrl="{:U('configuration/User/add_user')}";
-				$.getJSON(add_save_handleUrl,{
-							"add_user_name_txt":add_user_addname,
-							"add_telphone_txt":add_telphone_txt,
-							"add_email_txt":add_user_email,
-							"add_realname_txt":add_login_id,
-							"add_sex_txt":add_user_sex,
-							"add_org_txt":add_org_id,
-							"add_role_txt":add_user_ckbox},
-							function (data){
-								var tmp_msg = "{:C('add_user_success')}";
-								if(tmp_msg == data)
-								{
-									alert(data);
-									window.location.href = window.location.href;
-								}
-								else
-								{
-									alert(data);
-								}
-							}
-							,'json'
-					)
-			});
-			$("#j_add_close").click(function(){
-				window.location.href = window.location.href;
-			});
-			//弹出窗口
-			$.openDOMWindow({
-				loader:1,
-				loaderHeight:16,
-				loaderWidth:17,
-				windowSourceID:'#j_add_win'
-			});
-			return false;
-		});
-
-			$('#j_del_button').click(function(){
-			 if( user_val == ''){
-				alert("请选择一条职员信息再进行编辑");
-				return;
-			 }
-			 $.openDOMWindow({
-				loader:1,
-				loaderHeight:16,
-				loaderWidth:17,
-				windowSourceID:'#j_del_win'
-			 });
-			 return false;
 		});
 
 		//单击删除确认按钮
 		$('#j_del_ok').click(function(){
-			var delete_user_id_txt= $("#selrole_hidden_id").val();;
+			var delete_user_id_txt= $("input[name='radio_list']:checked").val();
 			var del_handleUrl="{:U('configuration/User/delete_user')}";
 			$.getJSON(del_handleUrl,{"delete_user_id_txt":delete_user_id_txt},
 					function (data){
@@ -595,7 +406,7 @@ $str=rtrim(" asd ");
 				alert("请选择一条职员信息再进行编辑");
 				return;
 			}
-			var reset_userid_txt= $("#selrole_hidden_id").val();
+			var reset_userid_txt= $("input[name='radio_list']:checked").val();
 			var del_handleUrl="{:U('configuration/User/reset_password')}";
 			$.getJSON(del_handleUrl,{"reset_userid_txt":reset_userid_txt},
 					function (data){
@@ -612,7 +423,7 @@ $str=rtrim(" asd ");
 				alert("请选择一条职员信息再进行编辑");
 				return;
 			}
-			var modify_userid_txt= $("#selrole_hidden_id").val();
+			var modify_userid_txt= $("input[name='radio_list']:checked").val();
 			var del_handleUrl="{:U('configuration/User/modify_user_state')}";
 			$.getJSON(del_handleUrl,{"modify_userid_txt":modify_userid_txt},
 					function (data){
@@ -624,12 +435,7 @@ $str=rtrim(" asd ");
 		});
 
 
-//===============================================单击查询框里某一条数据=======================================
-	$(".list_sel").click(function(){
-		$(this).find(".role-table-radio").attr("checked",'checked'); 
-		var id= $(this).find(".roleid_hidden").text();
-		$("#selrole_hidden_id").val(id);
-	});
+	
 });
 </script>
 </body>

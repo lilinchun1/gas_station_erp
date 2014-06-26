@@ -1,0 +1,49 @@
+@charset "utf-8";
+.resultpage{
+	background-color: #fff;
+	margin-top:50px;
+    bottom: 0;
+    text-align: center;
+    z-index: 3;
+}
+.resultpage a{
+	background-color:#fff;
+	width:32px;
+	height:30px;
+	padding:4px 12px;
+	line-height:20px;
+	text-decoration:none;
+	border:1px solid #ddd;
+	border-left-width:0;
+	color:#427fed;
+	font-family:tahoma,arial,'Hiragino Sans GB',"\5b8b\4f53",sans-serif;
+	font-size:12px;
+}
+.resultpage .current{
+	background-color:#f5f5f5;
+	color: #999;
+    cursor: default;
+	width:32px;
+	height:30px;
+	padding:4px 12px;
+	line-height:20px;
+	text-decoration:none;
+	border:1px solid #ddd;
+	border-left-width:0;
+	font-family:tahoma,arial,'Hiragino Sans GB',"\5b8b\4f53",sans-serif;
+	font-size:12px;
+}
+.resultpage .pages-number{
+	margin:4px 20px 0 10px;
+	text-align:center;
+	font-size:12px;
+}
+.resultpage :first-child{
+	border:1px solid #ddd;
+}
+.resultpage select{
+	text-align:center;
+	font-size:12px;
+	width:32px;
+	border:1px solid #ddd;
+}
