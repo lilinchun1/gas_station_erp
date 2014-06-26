@@ -262,12 +262,10 @@ $heiti:"SimHei";
       }
     }
     .aside-nav-nth1{
+      padding-top:14px;
       text-indent: 20px;
-      height: 60px;
-      font-size: 24px;
-      line-height: 60px;
+      font-size: 22px;
       color: #fff;
-      font-weight: bold;
       cursor: pointer;
         a{
           color: #ffffff;}
@@ -403,6 +401,7 @@ $heiti:"SimHei";
   min-width: 1300px;
   margin: 0 auto;
   border: 1px solid $border-color;
+  border-top: 0 none;
   display: table;
 
     li{
@@ -425,7 +424,7 @@ $heiti:"SimHei";
       &:nth-child(2n-1){
         background: #fff;}
       &:nth-child(1){
-        background: #bbbbbb;
+        background: #a1a1a1;
         b{
           color: #ffffff;}
       }
@@ -444,7 +443,7 @@ $heiti:"SimHei";
     }
 }
 .over-h-y{
-  height: 400px;
+  height: 450px;
   overflow-y: auto;
 }
 
@@ -512,10 +511,10 @@ $heiti:"SimHei";
       width: 98%;
       height: 30px;
       text-indent: 10px;
-      color: #ffffff;
-      border: 1px solid $font-h-color;
+      font-size: 14px;
+      color: #000;
       line-height: 30px;
-      background: $font-h-color;
+
     }
 }
 .role-table-list2 li span:first-child{

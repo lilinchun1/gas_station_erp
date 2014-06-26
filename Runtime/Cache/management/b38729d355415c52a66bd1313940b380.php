@@ -13,17 +13,6 @@
 	<script type="text/javascript">
 	$(document).ready(function(){
 		//================================================================默认动作
-		//固定标题
-		window.onscroll = function () {
-			var scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
-			var fixDiv = document.getElementById('j-fixed-top');
-			if (scrollTop >= 300) {
-				fixDiv.style.position = 'fixed';
-				fixDiv.style.top = '0px';
-			} else if (scrollTop <= 299) {
-				fixDiv.style.position = 'static';
-			}
-		}
 		//禁止浏览器自动填充
 		$("form").attr( "autocomplete","off");
 		//================================================================触发操作
@@ -60,7 +49,7 @@
 						var parent=val['pid'];
 						var value=val['value'];
 						var length=val['length'];
-						zNodes[key]= {'id':kid, 'pId':parent, 'name':value, 'open':true ,'t':length};
+						zNodes[key]= {'id':kid, 'pId':parent, 'name':value, 'open':true ,'t':length,'half': true};
 					});
 				},
 
@@ -69,7 +58,7 @@
 				}
 			});
 			//===================================================树形结构js传递==========
-				$.fn.zTree.init($("#treeDemo"), setting, zNodes);
+			.fn.zTree.init($("#treeDemo"), setting, zNodes);
 
 			$.openDOMWindow({
 	            loader:1,
@@ -153,9 +142,10 @@
 	</script>
 </head>
 <body>
+<div class="head-wrap">
 <div id="head">
     <h1 class="head-logo"><a href="index.html">ERP管理系统</a></h1>
-    <h2 class="head-tt">智能手机加油站ERP管理系统</h2>
+    <h2 class="head-tt">智能手机加油站业务支撑系统</h2>
     <div class="login">
         <div class="left">
             <ul class="left-nav">
@@ -173,45 +163,29 @@
 </div>
 <div id="nav">
     <ul class="main-nav" id="j-nav-active">
-        <li class="url_link" url=""><a href="">加油站监控</a></li>
+        <li class="url_link" url="<?php echo U('control/Index/index');?>"><a href="<?php echo U('control/Index/index');?>">加油站监控</a></li>
         <li class="url_link" url="<?php echo U('channel/Channel/index');?>"><a href="<?php echo U('channel/Channel/index');?>">渠道管理</a></li>
         <li class="url_link" url="<?php echo U('management/Index/importingApp');?>"><a href="<?php echo U('management/Index/importingApp');?>">运营管理</a></li>
-        <li class="url_link" url="<?php echo U('channel/Channele/index2');?>"><a href="">统计分析</a></li>
-        <li class="url_link" url="<?php echo U('channel/Channele/index2');?>"><a href="">广告管理</a></li>
+        <li class="url_link" url="<?php echo U('statistics/Index/index');?>"><a href="<?php echo U('statistics/Index/index');?>">统计分析</a></li>
+        <li class="url_link" url="<?php echo U('ad/Index/index');?>"><a href="<?php echo U('ad/Index/index');?>">广告管理</a></li>
         <li class="url_link" url="<?php echo U('configuration/Org/index');?>"><a href="<?php echo U('configuration/Org/index');?>">系统设置</a></li>
     </ul>
 </div>
-<script type="text/javascript">
-	function show_change_password(){
-		//$('#change_password_id').show();
-		$.openDOMWindow({
-            loader:1,
-            loaderHeight:16,
-            loaderWidth:17,
-            windowSourceID:'#change_password_id'
-        });
-        return false;
-	}
+</div>
 
-	function show_user_logout(){
-		//$('#change_password_id').show();
-		$.openDOMWindow({
-            loader:1,
-            loaderHeight:16,
-            loaderWidth:17,
-            windowSourceID:'#j_logout_win'
-        });
-        return false;
-	}
-</script>
 <div id="container">
 	<div class="left">
-        <ul class="aside-nav">
-    <li class="aside-nav-nth1" class="url_link" url="<?php echo U('configuration/Org/index');?>"><a href="">APP刊例管理</a></li>
-    <li class="url_link" url="<?php echo U('management/Index/importingApp');?>"><a href="<?php echo U('management/Index/importingApp');?>"><input type="button" value="刊例维护"></a></li>
-    <li class="url_link" url="<?php echo U('management/Index/addRuleTarget');?>"><a href="<?php echo U('management/Index/addRuleTarget');?>"><input type="button" class="" value="刊例发布"></a></li>
-    <li class="url_link" url="<?php echo U('management/Index/verup');?>"><a href="<?php echo U('management/Index/verup');?>"><input type="button" class="" value="版本升级"></a></li>
+        
+<ul class="aside-nav">
+    <li class="aside-nav-nth1" ><a>APP刊例管理<i class="j-show-list">-</i></a>
+        <ul>
+            <li class="url_link" url="<?php echo U('management/Index/importingApp');?>"><a href="<?php echo U('management/Index/importingApp');?>"><input type="button" value="刊例维护"></a></li>
+            <li class="url_link" url="<?php echo U('management/Index/addRuleTarget');?>"><a href="<?php echo U('management/Index/addRuleTarget');?>"><input type="button" class="" value="刊例发布"></a></li>
+            <li class="url_link" url="<?php echo U('management/Index/verup');?>"><a href="<?php echo U('management/Index/verup');?>"><input type="button" class="" value="版本升级"></a></li>
+        </ul>
+    </li>
 </ul>
+
         <!--<ul class="aside-nav">
             <li class="aside-nav-nth1"><a href="">APP刊例管理</a></li>
             <li><a href="<?php echo U('management/Index/importingApp');?>"><input type="button" value="刊例维护"></a></li>
@@ -340,6 +314,11 @@
 		var old_password_txt=$('#old_password_txt').val();//业务范围
 		var new_password_txt=$('#new_password_txt').val();//业务范围
 		var re_new_password_txt=$('#re_new_password_txt').val();//业务范围
+		var pwReg = /^[0-9]*$/;
+		if(new_password_txt.length<6||!pwReg.test(new_password_txt)){
+			alert("输入的密码不能小于6个字符，且只能为英文或者数字");
+			return false;
+		}
 		$.getJSON(handleUrl,{'old_password_txt':old_password_txt,'new_password_txt':new_password_txt,'re_new_password_txt':re_new_password_txt},
 			function (data){
 				var tmp_msg = "<?php echo C('change_password_success');?>";
@@ -398,7 +377,46 @@
 
     }
 </script>
+<script>
+    $(function(){
+        $('.aside-nav-nth1').click(function(event){
+            var oUl1 = $(this).find('ul');
+            var OI1 = $(this).find('.j-show-list');
+            if(oUl1.is(':visible')){
+                OI1.html('+');
+                oUl1.hide();
+            }else if(oUl1.is(':hidden')){
+                OI1.html('-');
+                oUl1.show();
+            }
+            event.stopPropagation();
+        });
 
+    })
+</script>
+<script type="text/javascript">
+    function show_change_password(){
+        //$('#change_password_id').show();
+        $.openDOMWindow({
+            loader:1,
+            loaderHeight:16,
+            loaderWidth:17,
+            windowSourceID:'#change_password_id'
+        });
+        return false;
+    }
+
+    function show_user_logout(){
+        //$('#change_password_id').show();
+        $.openDOMWindow({
+            loader:1,
+            loaderHeight:16,
+            loaderWidth:17,
+            windowSourceID:'#j_logout_win'
+        });
+        return false;
+    }
+</script>
 <div class="alert-org-add" id="j_add_win" style=" display:none;">
 	<div class="alert-role-add">
 		<form action="" method="post">
@@ -469,9 +487,7 @@ getAppRule();
 	//===================================================树形结构js==========================
 		var setting = {
 			check: {
-				enable: true,
-				chkStyle: "checkbox",
-				chkboxType: { "Y": "s", "N": "s" }
+				enable: true
 			},
 			data: {
 				simpleData: {
@@ -524,10 +540,24 @@ getAppRule();
 		function onCheck(event, treeId, treeNode) {
 			var zTree = $.fn.zTree.getZTreeObj("treeDemo");
 			nodes = zTree.getCheckedNodes(true);
+
+			var treeObj = $.fn.zTree.getZTreeObj("treeDemo");
+			var halfCheck = treeObj.getNodes()[0].getCheckStatus();
+			
+			//console.log(node);
+
+
 			v = "";
 			for (var i=0, l=nodes.length; i<l; i++) {
-
-					v += nodes[i].id + ",";
+				var k=i-1;
+				if(halfCheck.half==true){
+					console.log(k);
+						v += nodes[i].id + ",";
+				}else{
+					if(nodes[i].pId!=null){
+						v += nodes[i].pId + ",";
+					}
+				}
 					
 			}
 			if (v.length > 0 ) v = v.substring(0, v.length-1);

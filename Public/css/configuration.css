@@ -381,12 +381,10 @@ a, .alert-btn, .role-control-btn, .alert-btn2, .alert-btn3, .alert-btn4, .org-ri
       .aside-nav li li:hover input {
         color: #ffffff; }
   .aside-nav .aside-nav-nth1 {
+    padding-top: 14px;
     text-indent: 20px;
-    height: 60px;
-    font-size: 24px;
-    line-height: 60px;
+    font-size: 22px;
     color: #fff;
-    font-weight: bold;
     cursor: pointer; }
     .aside-nav .aside-nav-nth1 a {
       color: #ffffff; }
@@ -504,6 +502,7 @@ a, .alert-btn, .role-control-btn, .alert-btn2, .alert-btn3, .alert-btn4, .org-ri
   min-width: 1300px;
   margin: 0 auto;
   border: 1px solid #dadada;
+  border-top: 0 none;
   display: table; }
   .role-table-list li {
     height: 25px;
@@ -524,7 +523,7 @@ a, .alert-btn, .role-control-btn, .alert-btn2, .alert-btn3, .alert-btn4, .org-ri
     .role-table-list li:nth-child(2n-1) {
       background: #fff; }
     .role-table-list li:nth-child(1) {
-      background: #bbbbbb; }
+      background: #a1a1a1; }
       .role-table-list li:nth-child(1) b {
         color: #ffffff; }
   .role-table-list .span-1 {
@@ -538,7 +537,7 @@ a, .alert-btn, .role-control-btn, .alert-btn2, .alert-btn3, .alert-btn4, .org-ri
     max-width: 278px; }
 
 .over-h-y {
-  height: 400px;
+  height: 450px;
   overflow-y: auto; }
 
 .role-table-radio {
@@ -595,10 +594,9 @@ a, .alert-btn, .role-control-btn, .alert-btn2, .alert-btn3, .alert-btn4, .org-ri
     width: 98%;
     height: 30px;
     text-indent: 10px;
-    color: #ffffff;
-    border: 1px solid #5c97ee;
-    line-height: 30px;
-    background: #5c97ee; }
+    font-size: 14px;
+    color: #000;
+    line-height: 30px; }
 
 .role-table-list2 li span:first-child {
   text-indent: 14px; }
