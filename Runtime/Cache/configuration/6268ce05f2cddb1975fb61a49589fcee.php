@@ -170,9 +170,9 @@
 		<div class="alert-role-add-con">
 			<p class="delete-message">确认退出？</p>
 			<p>
-				<button type="button" class="alert-btn2" id="j_logout_ok" onclick="user_logout()">确定</button>
+				<button type="button" class="alert-btn-exit" id="j_logout_ok" onclick="user_logout()">确定</button>
 				<a href="." class="closeDOMWindow">
-					<button type="button" class="alert-btn2">关闭</button>
+					<button type="button" class="alert-btn-exit">关闭</button>
 				</a>
 			</p>
 		</div>

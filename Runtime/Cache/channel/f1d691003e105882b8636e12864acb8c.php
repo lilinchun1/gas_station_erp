@@ -158,7 +158,7 @@
 <div class="role-table over-h-y">
     <div class="hd">
         <ul class="channel-tab">
-            <li class="on">操作日志</li>
+            <li class="on" style="background: #ffffff;color: #000000;">操作日志</li>
             <!--<li>删除日志</li>-->
         </ul>
 
@@ -302,9 +302,9 @@
 		<div class="alert-role-add-con">
 			<p class="delete-message">确认退出？</p>
 			<p>
-				<button type="button" class="alert-btn2" id="j_logout_ok" onclick="user_logout()">确定</button>
+				<button type="button" class="alert-btn-exit" id="j_logout_ok" onclick="user_logout()">确定</button>
 				<a href="." class="closeDOMWindow">
-					<button type="button" class="alert-btn2">关闭</button>
+					<button type="button" class="alert-btn-exit">关闭</button>
 				</a>
 			</p>
 		</div>

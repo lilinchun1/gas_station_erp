@@ -210,7 +210,7 @@
 			<a href="." class="closeDOMWindow">
 				<button type="button" class="alert-btn2">关闭</button>
 			</a>
-        </p>
+        </p> 
     </div>
 </div>
 </div>
@@ -221,9 +221,9 @@
 		<div class="alert-role-add-con">
 			<p class="delete-message">确认退出？</p>
 			<p>
-				<button type="button" class="alert-btn2" id="j_logout_ok" onclick="user_logout()">确定</button>
+				<button type="button" class="alert-btn-exit" id="j_logout_ok" onclick="user_logout()">确定</button>
 				<a href="." class="closeDOMWindow">
-					<button type="button" class="alert-btn2">关闭</button>
+					<button type="button" class="alert-btn-exit">关闭</button>
 				</a>
 			</p>
 		</div>
@@ -241,7 +241,7 @@
 		var old_password_txt=$('#old_password_txt').val();//业务范围
 		var new_password_txt=$('#new_password_txt').val();//业务范围
 		var re_new_password_txt=$('#re_new_password_txt').val();//业务范围
-		var pwReg = /^[0-9]*$/;
+		var pwReg = /[a-zA-Z0-9]{6,16}/;
 		if(new_password_txt.length<6||!pwReg.test(new_password_txt)){
 			alert("输入的密码不能小于6个字符，且只能为英文或者数字");
 			return false;

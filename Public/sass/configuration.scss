@@ -445,7 +445,7 @@ $heiti:"SimHei";
     }
     .span-3{
       width: 30%;
-      max-width: 278px;
+      //max-width: 278px;
     }
 }
 .over-h-y{
@@ -503,6 +503,10 @@ $heiti:"SimHei";
 .alert-btn4{
   @extend %small-btn;
   margin: 0 0 0 200px;
+}
+.alert-btn-exit{
+  @extend %small-btn;
+  margin-left: 30px;
 }
 .delete-message{
   margin-top: 20px;
@@ -640,7 +644,7 @@ $heiti:"SimHei";
       background: rgba(195, 217, 247, 0.6);
       color: #ffffff;
       border: 0 none;
-      text-indent: 5px;
+      text-indent: 10px;
     }
     button{
       @extend %edit-btn;
