@@ -54,7 +54,7 @@
    </div>
 </div>
 <div id="footer">
-    <p>© 大连捷诺科技有限公司 <a style="color: #ffffff;" href="http://www.jienuo-service.net/">关于捷诺</a> | 服务热线 0411-86887659</p>
+    <p>© 大连捷诺科技有限公司 | <a style="color: #ffffff;" href="http://www.jienuo-service.net/" target="_blank">关于捷诺</a> | 服务热线 0411-86887659</p>
 </div>
 <!-- 控制菜单显示 -->
 <input type="hidden" class="urlStr" value="<?php echo ($urlStr); ?>">
@@ -95,9 +95,9 @@
 		<div class="alert-role-add-con">
 			<p class="delete-message">确认退出？</p>
 			<p>
-				<button type="button" class="alert-btn2" id="j_logout_ok" onclick="user_logout()">确定</button>
+				<button type="button" class="alert-btn-exit" id="j_logout_ok" onclick="user_logout()">确定</button>
 				<a href="." class="closeDOMWindow">
-					<button type="button" class="alert-btn2">关闭</button>
+					<button type="button" class="alert-btn-exit">关闭</button>
 				</a>
 			</p>
 		</div>

@@ -145,14 +145,14 @@
 						<input type="radio" name="channelDetailID" id="<?php echo ($vo['channelDetailID']); ?>" value="<?php echo ($vo['channel_id']); ?>" 
 							 class="role-table-radio"/>
 					</span>
-                    <span class="span-1" title="#"><?php echo ($vo["channel_name"]); ?></span>
-                    <span class="span-1" title="#"><?php echo ($vo["channel_type_name"]); ?></span>
-                    <span class="span-1" title="#"><?php echo ($vo["agent_name"]); ?></span>
-                    <span class="span-3" title="#"><?php echo ($vo["channel_address"]); ?></span>
-                    <span class="span-1" title="#"><?php echo ($vo["begin_time"]); ?></span>
-                    <span class="span-1" title="#"><?php echo ($vo["end_time"]); ?></span>
-                    <span class="span-1" title="#"><?php echo ($vo["place_num"]); ?></span>
-                    <span class="span-1" title="#"><?php echo ($vo["device_num"]); ?></span>
+                    <span class="span-1" title="<?php echo ($vo["channel_name"]); ?>"><?php echo ($vo["channel_name"]); ?></span>
+                    <span class="span-1" title="<?php echo ($vo["channel_type_name"]); ?>"><?php echo ($vo["channel_type_name"]); ?></span>
+                    <span class="span-1" title="<?php echo ($vo["agent_name"]); ?>"><?php echo ($vo["agent_name"]); ?></span>
+                    <span class="span-3" title="<?php echo ($vo["channel_address"]); ?>"><?php echo ($vo["channel_address"]); ?></span>
+                    <span class="span-1" title="<?php echo ($vo["begin_time"]); ?>"><?php echo ($vo["begin_time"]); ?></span>
+                    <span class="span-1" title="<?php echo ($vo["end_time"]); ?>"><?php echo ($vo["end_time"]); ?></span>
+                    <span class="span-1" title="<?php echo ($vo["place_num"]); ?>"><?php echo ($vo["place_num"]); ?></span>
+                    <span class="span-1" title="<?php echo ($vo["device_num"]); ?>"><?php echo ($vo["device_num"]); ?></span>
                 </li><?php endforeach; endif; else: echo "" ;endif; ?>
         </ul>
 		<div class="resultpage"><?php echo ($page); ?></div>
@@ -206,7 +206,7 @@
 </div>
 </div>
 <div id="footer">
-    <p>© 大连捷诺科技有限公司 <a style="color: #ffffff;" href="http://www.jienuo-service.net/">关于捷诺</a> | 服务热线 0411-86887659</p>
+    <p>© 大连捷诺科技有限公司 | <a style="color: #ffffff;" href="http://www.jienuo-service.net/" target="_blank">关于捷诺</a> | 服务热线 0411-86887659</p>
 </div>
 <!-- 控制菜单显示 -->
 <input type="hidden" class="urlStr" value="<?php echo ($urlStr); ?>">

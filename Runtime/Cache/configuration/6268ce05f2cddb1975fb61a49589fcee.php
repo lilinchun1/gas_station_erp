@@ -94,13 +94,13 @@
 								<span class="span-1">
 									<input type="radio" name="radio_list" id="<?php echo ($vo['userRadioID']); ?>" value="<?php echo ($vo['uid']); ?>"  class="role-table-radio"/>
 								</span>
-								<span class="span-1" title="#"><?php echo ($vo["realname"]); ?></span>
-								<span class="span-1" title="#"><?php echo ($vo["sex"]); ?></span>
-								<span class="span-1" title="#"><?php echo ($vo["telphone"]); ?></span>
-								<span class="span-3" title="#"><?php echo ($vo["orgname"]); ?></span>
-								<span class="span-2" title="#"><?php echo ($vo["username"]); ?></span>
-								<span class="span-1" title="#"><?php echo ($vo["rolename"]); ?></span>
-								<span class="span-1" title="#"><?php echo ($vo["del_flag"]); ?></span>
+								<span class="span-1" title="<?php echo ($vo["realname"]); ?>"><?php echo ($vo["realname"]); ?></span>
+								<span class="span-1" title="<?php echo ($vo["sex"]); ?>"><?php echo ($vo["sex"]); ?></span>
+								<span class="span-1" title="<?php echo ($vo["telphone"]); ?>"><?php echo ($vo["telphone"]); ?></span>
+								<span class="span-3" title="<?php echo ($vo["orgname"]); ?>"><?php echo ($vo["orgname"]); ?></span>
+								<span class="span-2" title="<?php echo ($vo["username"]); ?>"><?php echo ($vo["username"]); ?></span>
+								<span class="span-1" title="<?php echo ($vo["rolename"]); ?>"><?php echo ($vo["rolename"]); ?></span>
+								<span class="span-1" title="<?php echo ($vo["del_flag"]); ?>"><?php echo ($vo["del_flag"]); ?></span>
 								<span class="roleid_hidden" style="display:none;" title="#"><?php echo ($vo["uid"]); ?></span>
 
 							</li><?php endforeach; endif; else: echo "" ;endif; ?>
@@ -129,7 +129,7 @@
 	</div>
 </div>
 <div id="footer">
-    <p>© 大连捷诺科技有限公司 <a style="color: #ffffff;" href="http://www.jienuo-service.net/">关于捷诺</a> | 服务热线 0411-86887659</p>
+    <p>© 大连捷诺科技有限公司 | <a style="color: #ffffff;" href="http://www.jienuo-service.net/" target="_blank">关于捷诺</a> | 服务热线 0411-86887659</p>
 </div>
 <!-- 控制菜单显示 -->
 <input type="hidden" class="urlStr" value="<?php echo ($urlStr); ?>">

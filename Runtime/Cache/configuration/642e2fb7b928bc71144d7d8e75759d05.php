@@ -94,7 +94,7 @@
                 <div class="org-right-info" id="j_org">
                     <h3>组织机构信息</h3>
                         <div class="info-left cf">
-                            <label for="change_agent_name_txt">组织机构名称</label><input type="text" name="" id="change_agent_name_txt" readonly="true" class="input-org-info"/><i class="red-color pdl10">*</i>
+                            <label for="change_agent_name_txt">组织机构名称</label><input type="text" name="" id="change_agent_name_txt" readonly="true" class="input-org-info"/>
                             <label for="linkman">联系人</label><input readonly="true" type="text" name="" id="change_legal_txt" class="input-org-info"/>
                             <label for="address">办公地址</label><input readonly="true" type="text" name="" id="change_companyAddr_txt" class="input-org-info"/>
                             <label for="contract-number">合同编号</label><input readonly="true" type="text" name="" id="change_contract_number_txt" class="input-org-info"/>
@@ -105,7 +105,7 @@
 
                             <label for="org-s">上级组织机构</label><input readonly="true" type="text" name="" id="father_agent_name" class="input-org-info"/>
                             <label for="phone">联系电话</label><input readonly="true" type="text" name="" id="change_legal_tel_txt" class="input-org-info"/>
-                            <label for="yw-are">业务范围</label><input readonly="true" type="text" name="" id="area_name" class="input-org-info"/><i class="red-color pdl10">*</i>
+                            <label for="yw-are">业务范围</label><input readonly="true" type="text" name="" id="area_name" class="input-org-info"/>
 
 
 
@@ -134,7 +134,7 @@
     </div>
 </div>
 <div id="footer">
-    <p>© 大连捷诺科技有限公司 <a style="color: #ffffff;" href="http://www.jienuo-service.net/">关于捷诺</a> | 服务热线 0411-86887659</p>
+    <p>© 大连捷诺科技有限公司 | <a style="color: #ffffff;" href="http://www.jienuo-service.net/" target="_blank">关于捷诺</a> | 服务热线 0411-86887659</p>
 </div>
 <!-- 控制菜单显示 -->
 <input type="hidden" class="urlStr" value="<?php echo ($urlStr); ?>">
@@ -175,9 +175,9 @@
 		<div class="alert-role-add-con">
 			<p class="delete-message">确认退出？</p>
 			<p>
-				<button type="button" class="alert-btn2" id="j_logout_ok" onclick="user_logout()">确定</button>
+				<button type="button" class="alert-btn-exit" id="j_logout_ok" onclick="user_logout()">确定</button>
 				<a href="." class="closeDOMWindow">
-					<button type="button" class="alert-btn2">关闭</button>
+					<button type="button" class="alert-btn-exit">关闭</button>
 				</a>
 			</p>
 		</div>

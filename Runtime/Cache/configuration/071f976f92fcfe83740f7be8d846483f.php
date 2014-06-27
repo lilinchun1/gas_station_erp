@@ -77,7 +77,7 @@
 					</div>
 				</div>
 				<div class="role-table over-h-y">
-					<ul class="role-table-list">
+					<ul class="role-table-list tab-list-mw">
 						<li>
 							<span class="span-1"></span>
 							<span class="span-2"><b>角色名称</b></span>
@@ -87,10 +87,10 @@
 						</li>
 						<?php if(is_array($list)): $i = 0; $__LIST__ = $list;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$vo): $mod = ($i % 2 );++$i;?><li class="list_sel">
 									<span class="span-1"><input type="radio" name="role-info_rad" id="" class="role-table-radio"/></span>
-									<span class="span-2" title="#"><?php echo ($vo["rolename"]); ?></span>
-									<span class="span-3" title="#"><?php echo ($vo["memo"]); ?></span>
-									<span class="span-2" title="#"><?php echo ($vo["addusername"]); ?></span>
-									<span class="span-2" title="#"><?php echo ($vo["adddate"]); ?></span>
+									<span class="span-2" title="<?php echo ($vo["rolename"]); ?>"><?php echo ($vo["rolename"]); ?></span>
+									<span class="span-3" title="<?php echo ($vo["memo"]); ?>"><?php echo ($vo["memo"]); ?></span>
+									<span class="span-2" title="<?php echo ($vo["addusername"]); ?>"><?php echo ($vo["addusername"]); ?></span>
+									<span class="span-2" title="<?php echo ($vo["adddate"]); ?>"><?php echo ($vo["adddate"]); ?></span>
 									<!--角色ID-->
 									<span class="roleid_hidden" title="#" style="display:none;"><?php echo ($vo["roleid"]); ?></span>
 							</li><?php endforeach; endif; else: echo "" ;endif; ?>
@@ -103,7 +103,7 @@
 </div>
 
 <div id="footer">
-    <p>© 大连捷诺科技有限公司 <a style="color: #ffffff;" href="http://www.jienuo-service.net/">关于捷诺</a> | 服务热线 0411-86887659</p>
+    <p>© 大连捷诺科技有限公司 | <a style="color: #ffffff;" href="http://www.jienuo-service.net/" target="_blank">关于捷诺</a> | 服务热线 0411-86887659</p>
 </div>
 <!-- 控制菜单显示 -->
 <input type="hidden" class="urlStr" value="<?php echo ($urlStr); ?>">

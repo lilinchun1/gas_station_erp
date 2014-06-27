@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>网点信息</title>
-    <link rel="stylesheet" href="../../Public/css/configuration.css"/>
+    <!--<link rel="stylesheet" href="../../Public/css/configuration.css"/>-->
     <script type="text/javascript" src="__PUBLIC__/js/jquery-1.10.2.min.js"></script>
 	<script type="text/javascript" src="__PUBLIC__/js/script_city.js"></script>
 	<script language="javascript" type="text/javascript" src="__PUBLIC__/js/My97DatePicker/WdatePicker.js"></script>
@@ -128,7 +128,7 @@
             <span class="span-1"></span>
             <span class="span-2"><b>网点名称</b></span>
             <span class="span-2"><b>所属渠道</b></span>
-            <span class="span-3"><b>网点地址</b></span>
+            <span class="span-2"><b>网点地址</b></span>
             <span class="span-1"><b>网点电话</b></span>
 			<?php if($isDeleteResult != 1): ?><span class="span-1"><b>网点状态</b></span><?php endif; ?>
             <span class="span-1"><b>启用日期</b></span>
@@ -140,15 +140,15 @@
 				<span class="span-1">
 					<input type="radio" name="placeRadioID" id="<?php echo ($vo['placeRadioID']); ?>" value="<?php echo ($vo['place_id']); ?>" 
 						 class="role-table-radio"/></span>
-				<span class="span-2" title="#"><?php echo ($vo["place_name"]); ?></span>
-				<span class="span-2" title="#"><?php echo ($vo["channel_name"]); ?></span>
-				<span class="span-3" title="#"><?php echo ($vo["region"]); ?></span>
-				<span class="span-1" title="#"><?php echo ($vo["place_tel"]); ?></span>
-				<?php if($isDeleteResult != 1): ?><span class="span-1" title="#"><?php echo ($vo["status"]); ?></span><?php endif; ?>
-				<span class="span-1" title="#"><?php echo ($vo["begin_time"]); ?></span>
-				<?php if($isDeleteResult != 1): ?><span class="span-1" title="#"><?php echo ($vo["device_num"]); ?></span>
+				<span class="span-2" title="<?php echo ($vo["place_name"]); ?>"><?php echo ($vo["place_name"]); ?></span>
+				<span class="span-2" title="<?php echo ($vo["channel_name"]); ?>"><?php echo ($vo["channel_name"]); ?></span>
+				<span class="span-2" title="<?php echo ($vo["region"]); ?>"><?php echo ($vo["region"]); ?></span>
+				<span class="span-1" title="<?php echo ($vo["place_tel"]); ?>"><?php echo ($vo["place_tel"]); ?></span>
+				<?php if($isDeleteResult != 1): ?><span class="span-1" title="<?php echo ($vo["status"]); ?>"><?php echo ($vo["status"]); ?></span><?php endif; ?>
+				<span class="span-1" title="<?php echo ($vo["begin_time"]); ?>"><?php echo ($vo["begin_time"]); ?></span>
+				<?php if($isDeleteResult != 1): ?><span class="span-1" title="<?php echo ($vo["device_num"]); ?>"><?php echo ($vo["device_num"]); ?></span>
 				<?php elseif($isDeleteResult == 1): ?>
-					<span class="span-1" title="#"><?php echo ($vo["end_time"]); ?></span><?php endif; ?>
+					<span class="span-1" title="<?php echo ($vo["end_time"]); ?>"><?php echo ($vo["end_time"]); ?></span><?php endif; ?>
 			</li><?php endforeach; endif; else: echo "" ;endif; ?>
     </ul>
 </div>
@@ -166,93 +166,7 @@
     <div class="bd">
         <ul id="place_log_info" class="role-table-list role-table-list2">
         </ul>
-        <!--<ul class="role-table-list role-table-list2">
-            <li>
-                <span class="span-3"><b>操作人</b></span>
-                <span class="span-3"><b>操作时间</b></span>
-                <span class="span-3"><b>操作内容</b></span>
-            </li>
-            <li>
-                <span class="span-3" title="#">Lorem ipsum dolor sit amet.</span>
-                <span class="span-3" title="#">Beatae fugiat impedit ipsa porro!</span>
-                <span class="span-3" title="#">Atque corporis laudantium perspiciatis qui?</span>
-            </li>
-            <li>
-                <span class="span-3" title="#">Lorem ipsum dolor sit amet.</span>
-                <span class="span-3" title="#">Beatae fugiat impedit ipsa porro!</span>
-                <span class="span-3" title="#">Atque corporis laudantium perspiciatis qui?</span>
-            </li>
-            <li>
-                <span class="span-3" title="#">Lorem ipsum dolor sit amet.</span>
-                <span class="span-3" title="#">Beatae fugiat impedit ipsa porro!</span>
-                <span class="span-3" title="#">Atque corporis laudantium perspiciatis qui?</span>
-            </li>
-            <li>
-                <span class="span-3" title="#">Lorem ipsum dolor sit amet.</span>
-                <span class="span-3" title="#">Beatae fugiat impedit ipsa porro!</span>
-                <span class="span-3" title="#">Atque corporis laudantium perspiciatis qui?</span>
-            </li>
-            <li>
-                <span class="span-3" title="#">Lorem ipsum dolor sit amet.</span>
-                <span class="span-3" title="#">Beatae fugiat impedit ipsa porro!</span>
-                <span class="span-3" title="#">Atque corporis laudantium perspiciatis qui?</span>
-            </li>
-            <li>
-                <span class="span-3" title="#">Lorem ipsum dolor sit amet.</span>
-                <span class="span-3" title="#">Beatae fugiat impedit ipsa porro!</span>
-                <span class="span-3" title="#">Atque corporis laudantium perspiciatis qui?</span>
-            </li>
-            <li>
-                <span class="span-3" title="#">Lorem ipsum dolor sit amet.</span>
-                <span class="span-3" title="#">Beatae fugiat impedit ipsa porro!</span>
-                <span class="span-3" title="#">Atque corporis laudantium perspiciatis qui?</span>
-            </li>
-            <li>
-                <span class="span-3" title="#">Lorem ipsum dolor sit amet.</span>
-                <span class="span-3" title="#">Beatae fugiat impedit ipsa porro!</span>
-                <span class="span-3" title="#">Atque corporis laudantium perspiciatis qui?</span>
-            </li>
-            <li>
-                <span class="span-3" title="#">Lorem ipsum dolor sit amet.</span>
-                <span class="span-3" title="#">Beatae fugiat impedit ipsa porro!</span>
-                <span class="span-3" title="#">Atque corporis laudantium perspiciatis qui?</span>
-            </li>
-            <li>
-                <span class="span-3" title="#">Lorem ipsum dolor sit amet.</span>
-                <span class="span-3" title="#">Beatae fugiat impedit ipsa porro!</span>
-                <span class="span-3" title="#">Atque corporis laudantium perspiciatis qui?</span>
-            </li>
-            <li>
-                <span class="span-3" title="#">Lorem ipsum dolor sit amet.</span>
-                <span class="span-3" title="#">Beatae fugiat impedit ipsa porro!</span>
-                <span class="span-3" title="#">Atque corporis laudantium perspiciatis qui?</span>
-            </li>
-            <li>
-                <span class="span-3" title="#">Lorem ipsum dolor sit amet.</span>
-                <span class="span-3" title="#">Beatae fugiat impedit ipsa porro!</span>
-                <span class="span-3" title="#">Atque corporis laudantium perspiciatis qui?</span>
-            </li>
-            <li>
-                <span class="span-3" title="#">Lorem ipsum dolor sit amet.</span>
-                <span class="span-3" title="#">Beatae fugiat impedit ipsa porro!</span>
-                <span class="span-3" title="#">Atque corporis laudantium perspiciatis qui?</span>
-            </li>
-            <li>
-                <span class="span-3" title="#">Lorem ipsum dolor sit amet.</span>
-                <span class="span-3" title="#">Beatae fugiat impedit ipsa porro!</span>
-                <span class="span-3" title="#">Atque corporis laudantium perspiciatis qui?</span>
-            </li>
-            <li>
-                <span class="span-3" title="#">Lorem ipsum dolor sit amet.</span>
-                <span class="span-3" title="#">Beatae fugiat impedit ipsa porro!</span>
-                <span class="span-3" title="#">Atque corporis laudantium perspiciatis qui?</span>
-            </li>
-            <li>
-                <span class="span-3" title="#">Lorem ipsum dolor sit amet.</span>
-                <span class="span-3" title="#">Beatae fugiat impedit ipsa porro!</span>
-                <span class="span-3" title="#">Atque corporis laudantium perspiciatis qui?</span>
-            </li>
-        </ul>-->
+
     </div>
 
 </div>
@@ -261,7 +175,7 @@
 </div>
 </div>
 <div id="footer">
-    <p>© 大连捷诺科技有限公司 <a style="color: #ffffff;" href="http://www.jienuo-service.net/">关于捷诺</a> | 服务热线 0411-86887659</p>
+    <p>© 大连捷诺科技有限公司 | <a style="color: #ffffff;" href="http://www.jienuo-service.net/" target="_blank">关于捷诺</a> | 服务热线 0411-86887659</p>
 </div>
 <!-- 控制菜单显示 -->
 <input type="hidden" class="urlStr" value="<?php echo ($urlStr); ?>">
@@ -616,8 +530,8 @@
 	</div>
 </div>
 
-<script type="text/javascript" src="../../Public/js/jquery-1.6.1.js"></script>
-<script type="text/javascript" src="../../Public/js/jquery.SuperSlide.2.1.1.js"></script>
+<!--<script type="text/javascript" src="../../Public/js/jquery-1.6.1.js"></script>
+<script type="text/javascript" src="../../Public/js/jquery.SuperSlide.2.1.1.js"></script>-->
 <link rel="stylesheet" href="__PUBLIC__/css/configuration.css"/>
 <link rel="stylesheet" href="__PUBLIC__/css/jquery.bigautocomplete.css" type="text/css" />
 <script type="text/javascript" src="__PUBLIC__/js/jquery-1.6.1.js"></script>

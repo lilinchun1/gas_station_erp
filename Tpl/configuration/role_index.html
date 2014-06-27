@@ -38,7 +38,7 @@
 					</div>
 				</div>
 				<div class="role-table over-h-y">
-					<ul class="role-table-list">
+					<ul class="role-table-list tab-list-mw">
 						<li>
 							<span class="span-1"></span>
 							<span class="span-2"><b>角色名称</b></span>
@@ -49,10 +49,10 @@
 						<volist name="list" id="vo">
 							<li class="list_sel">
 									<span class="span-1"><input type="radio" name="role-info_rad" id="" class="role-table-radio"/></span>
-									<span class="span-2" title="#">{$vo.rolename}</span>
-									<span class="span-3" title="#">{$vo.memo}</span>
-									<span class="span-2" title="#">{$vo.addusername}</span>
-									<span class="span-2" title="#">{$vo.adddate}</span>
+									<span class="span-2" title="{$vo.rolename}">{$vo.rolename}</span>
+									<span class="span-3" title="{$vo.memo}">{$vo.memo}</span>
+									<span class="span-2" title="{$vo.addusername}">{$vo.addusername}</span>
+									<span class="span-2" title="{$vo.adddate}">{$vo.adddate}</span>
 									<!--角色ID-->
 									<span class="roleid_hidden" title="#" style="display:none;">{$vo.roleid}</span>
 							</li>

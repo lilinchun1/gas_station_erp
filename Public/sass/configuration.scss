@@ -317,7 +317,6 @@ $heiti:"SimHei";
   margin-top: 25px;
   width: 225px;
   float: left;
-  border-right: 1px dashed $border-color;
   min-height: 400px;}
 .org-right-info{
   margin: 25px 0 0 10px;
@@ -678,6 +677,7 @@ $heiti:"SimHei";
 /*登陆默认页*/
 .default-index{
   min-width: 1140px;
+  min-height:820px;
   overflow: hidden;
   background: #f7f7f7;}
 .default-index-tt{
@@ -1152,3 +1152,6 @@ input.input-org-info,input.channel-select{
   border:1px solid #ddd;
 }
 /*page-end*/
+
+.role-table .tab-list-mw{
+  min-width: 1080px;}

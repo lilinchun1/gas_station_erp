@@ -142,14 +142,14 @@
 					<span class="span-1">
 						<input type="radio" name="deviceRadioID" id="<?php echo ($vo['deviceRadioID']); ?>" value="<?php echo ($vo['device_id']); ?>"
 							  class="role-table-radio"/></span>
-					<span class="span-1" title="#"><?php echo ($vo["device_no"]); ?></span>
-					<span class="span-1" title="#"><?php echo ($vo["MAC"]); ?></span>
-					<span class="span-1" title="#"><?php echo ($vo["device_type"]); ?></span>
-					<span class="span-2" title="#"><?php echo ($vo["place_name"]); ?></span>
-					<span class="span-1" title="#"><?php echo ($vo["address"]); ?></span>
-					<?php if($isDeleteResult != 1): ?><span class="span-1" title="#"><?php echo ($vo["status"]); ?></span><?php endif; ?>
-					<span class="span-1" title="#"><?php echo ($vo["deploy_time"]); ?></span>
-					<span class="span-1" title="#"><?php echo ($vo["begin_time"]); ?></span>
+					<span class="span-1" title="<?php echo ($vo["device_no"]); ?>"><?php echo ($vo["device_no"]); ?></span>
+					<span class="span-1" title="<?php echo ($vo["MAC"]); ?>"><?php echo ($vo["MAC"]); ?></span>
+					<span class="span-1" title="<?php echo ($vo["device_type"]); ?>"><?php echo ($vo["device_type"]); ?></span>
+					<span class="span-2" title="<?php echo ($vo["place_name"]); ?>"><?php echo ($vo["place_name"]); ?></span>
+					<span class="span-1" title="<?php echo ($vo["address"]); ?>"><?php echo ($vo["address"]); ?></span>
+					<?php if($isDeleteResult != 1): ?><span class="span-1" title="<?php echo ($vo["status"]); ?>"><?php echo ($vo["status"]); ?></span><?php endif; ?>
+					<span class="span-1" title="<?php echo ($vo["deploy_time"]); ?>"><?php echo ($vo["deploy_time"]); ?></span>
+					<span class="span-1" title="<?php echo ($vo["begin_time"]); ?>"><?php echo ($vo["begin_time"]); ?></span>
 					<?php if(!empty($vo['device_image_0'])): ?><img class="smaallimg" src="<?php echo ($vo["device_image_0"]); ?>" /><?php endif; ?>
 							<?php if(!empty($vo['device_image_1'])): ?><img class="smaallimg" src="<?php echo ($vo["device_image_1"]); ?>" /><?php endif; ?>
 							<?php if(!empty($vo['device_image_2'])): ?><img class="smaallimg" src="<?php echo ($vo["device_image_2"]); ?>" /><?php endif; ?>
@@ -187,7 +187,7 @@
 <div class="role-table over-h-y">
     <div class="hd">
         <ul class="channel-tab">
-            <li class="on">操作日志</li>
+            <li class="on" style="background: #ffffff;color: #000000;">操作日志</li>
             <!--<li>删除日志</li>-->
         </ul>
 
@@ -234,7 +234,7 @@
 </div>
 </div>
 <div id="footer">
-    <p>© 大连捷诺科技有限公司 <a style="color: #ffffff;" href="http://www.jienuo-service.net/">关于捷诺</a> | 服务热线 0411-86887659</p>
+    <p>© 大连捷诺科技有限公司 | <a style="color: #ffffff;" href="http://www.jienuo-service.net/" target="_blank">关于捷诺</a> | 服务热线 0411-86887659</p>
 </div>
 <!-- 控制菜单显示 -->
 <input type="hidden" class="urlStr" value="<?php echo ($urlStr); ?>">
@@ -616,8 +616,8 @@
 		</div>
 	</div>
 </div>
-<script type="text/javascript" src="../../Public/js/jquery-1.6.1.js"></script>
-<script type="text/javascript" src="../../Public/js/jquery.SuperSlide.2.1.1.js"></script>
+<!--<script type="text/javascript" src="../../Public/js/jquery-1.6.1.js"></script>
+<script type="text/javascript" src="../../Public/js/jquery.SuperSlide.2.1.1.js"></script>-->
 <link rel="stylesheet" href="__PUBLIC__/css/configuration.css"/>
 <link rel="stylesheet" href="__PUBLIC__/css/jquery.bigautocomplete.css" type="text/css" />
 <script type="text/javascript" src="__PUBLIC__/js/jquery-1.6.1.js"></script>

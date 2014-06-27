@@ -105,16 +105,16 @@
 					<span class="span-1">
 						<input type="radio" name="deviceRadioID" id="{$vo['deviceRadioID']}" value="{$vo['device_id']}"
 							  class="role-table-radio"/></span>
-					<span class="span-1" title="#">{$vo.device_no}</span>
-					<span class="span-1" title="#">{$vo.MAC}</span>
-					<span class="span-1" title="#">{$vo.device_type}</span>
-					<span class="span-2" title="#">{$vo.place_name}</span>
-					<span class="span-1" title="#">{$vo.address}</span>
+					<span class="span-1" title="{$vo.device_no}">{$vo.device_no}</span>
+					<span class="span-1" title="{$vo.MAC}">{$vo.MAC}</span>
+					<span class="span-1" title="{$vo.device_type}">{$vo.device_type}</span>
+					<span class="span-2" title="{$vo.place_name}">{$vo.place_name}</span>
+					<span class="span-1" title="{$vo.address}">{$vo.address}</span>
 					<if condition="$isDeleteResult neq 1">
-						<span class="span-1" title="#">{$vo.status}</span>
+						<span class="span-1" title="{$vo.status}">{$vo.status}</span>
 					</if>
-					<span class="span-1" title="#">{$vo.deploy_time}</span>
-					<span class="span-1" title="#">{$vo.begin_time}</span>
+					<span class="span-1" title="{$vo.deploy_time}">{$vo.deploy_time}</span>
+					<span class="span-1" title="{$vo.begin_time}">{$vo.begin_time}</span>
 					<if condition="!empty($vo['device_image_0'])">
 								<img class="smaallimg" src="{$vo.device_image_0}" />
 							</if>
@@ -424,8 +424,8 @@
 		</div>
 	</div>
 </div>
-<script type="text/javascript" src="../../Public/js/jquery-1.6.1.js"></script>
-<script type="text/javascript" src="../../Public/js/jquery.SuperSlide.2.1.1.js"></script>
+<!--<script type="text/javascript" src="../../Public/js/jquery-1.6.1.js"></script>
+<script type="text/javascript" src="../../Public/js/jquery.SuperSlide.2.1.1.js"></script>-->
 <link rel="stylesheet" href="__PUBLIC__/css/configuration.css"/>
 <link rel="stylesheet" href="__PUBLIC__/css/jquery.bigautocomplete.css" type="text/css" />
 <script type="text/javascript" src="__PUBLIC__/js/jquery-1.6.1.js"></script>
