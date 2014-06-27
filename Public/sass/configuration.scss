@@ -336,7 +336,7 @@ $heiti:"SimHei";
     }
     .info-left{
       margin-top: 20px;
-      width: 350px;
+      width: 300px;
       float: left;
       }
     .info-right{
@@ -449,7 +449,7 @@ $heiti:"SimHei";
     }
 }
 .over-h-y{
-  height: 450px;
+  height: 410px;
   overflow-y: auto;
 }
 
@@ -469,9 +469,9 @@ $heiti:"SimHei";
   position: relative;
 }
 .tree{
-  float: right;
+
   margin: 3px 200px 0 0;
-  width: 400px;
+  width: 300px;
   float: right;}
 .alert-role-add-con{
   float: left;
@@ -511,7 +511,7 @@ $heiti:"SimHei";
 
 /*职员维护页面*/
 .data-log{
-  margin-top: 60px;
+  margin-top: 20px;
     h3 {
       margin: 0 auto;
       width: 98%;
@@ -609,6 +609,7 @@ $heiti:"SimHei";
 }
 .index-login-con{
   position: absolute;
+  z-index: 2;
   top: 90px;
   right: 10%;
   padding:0 0 20px 0;
@@ -636,7 +637,7 @@ $heiti:"SimHei";
       @extend %input-t;
       width: 200px;
       height: 30px;
-      background: rgba(135, 169, 213, 0.60);
+      background: rgba(195, 217, 247, 0.6);
       color: #ffffff;
       border: 0 none;
       text-indent: 5px;
@@ -1100,7 +1101,7 @@ input.input-org-info,input.channel-select{
 /*page*/
 .resultpage{
   background-color: #fff;
-  margin-top:50px;
+  margin-top:20px;
   bottom: 0;
   text-align: center;
   z-index: 3;

@@ -19,7 +19,7 @@ $(function() {
 		}
 	}
 	//固定标题
-	if($("#j-fixed-top")){
+	/*if($("#j-fixed-top")){
 		window.onscroll=function(){
 			var scrollTop=document.documentElement.scrollTop||document.body.scrollTop;
 			var fixDiv=document.getElementById('j-fixed-top');
@@ -30,7 +30,7 @@ $(function() {
 				fixDiv.style.position='relative';
 			}
 		};
-	}
+	}*/
 });
 
 // ==================================== role_index.html ====================================================

@@ -30,9 +30,6 @@
                 <button type="button" id="login_button" name="login_button" onclick="checkLogin()">登陆</button>
                 <em id="tishi"></em>
             </p>
-
-
-
         </div>
         <span></span>
     </div>
