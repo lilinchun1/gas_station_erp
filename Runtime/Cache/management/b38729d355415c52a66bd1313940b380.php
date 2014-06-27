@@ -58,7 +58,7 @@
 				}
 			});
 			//===================================================树形结构js传递==========
-			.fn.zTree.init($("#treeDemo"), setting, zNodes);
+			$.fn.zTree.init($("#treeDemo"), setting, zNodes);
 
 			$.openDOMWindow({
 	            loader:1,
@@ -253,7 +253,7 @@
 	</div>
 </div>
 <div id="footer">
-
+    <p>© 大连捷诺科技有限公司 | <a style="color: #ffffff;" href="http://www.jienuo-service.net/" target="_blank">关于捷诺</a> | 服务热线 0411-86887659</p>
 </div>
 <!-- 控制菜单显示 -->
 <input type="hidden" class="urlStr" value="<?php echo ($urlStr); ?>">
@@ -283,7 +283,7 @@
 			<a href="." class="closeDOMWindow">
 				<button type="button" class="alert-btn2">关闭</button>
 			</a>
-        </p>
+        </p> 
     </div>
 </div>
 </div>
@@ -294,9 +294,9 @@
 		<div class="alert-role-add-con">
 			<p class="delete-message">确认退出？</p>
 			<p>
-				<button type="button" class="alert-btn2" id="j_logout_ok" onclick="user_logout()">确定</button>
+				<button type="button" class="alert-btn-exit" id="j_logout_ok" onclick="user_logout()">确定</button>
 				<a href="." class="closeDOMWindow">
-					<button type="button" class="alert-btn2">关闭</button>
+					<button type="button" class="alert-btn-exit">关闭</button>
 				</a>
 			</p>
 		</div>
@@ -314,7 +314,7 @@
 		var old_password_txt=$('#old_password_txt').val();//业务范围
 		var new_password_txt=$('#new_password_txt').val();//业务范围
 		var re_new_password_txt=$('#re_new_password_txt').val();//业务范围
-		var pwReg = /^[0-9]*$/;
+		var pwReg = /[a-zA-Z0-9]{6,16}/;
 		if(new_password_txt.length<6||!pwReg.test(new_password_txt)){
 			alert("输入的密码不能小于6个字符，且只能为英文或者数字");
 			return false;
@@ -446,9 +446,9 @@
 				</p>
 
 				<p>
-					<button type="submit" name="add_udp" class="alert-btn2" value="1">保存</button>
+					<button type="submit" name="add_udp" class="alert-btn-exit" value="1">保存</button>
 					<a href="." class="closeDOMWindow">
-						<button type="button" class="alert-btn">关闭</button>
+						<button type="button" class="alert-btn-exit">关闭</button>
 					</a>
 				</p>
 			</div>
@@ -464,9 +464,9 @@
 				<p class="delete-message">确认删除？</p>
 				<p>
 					<input type="hidden" name="rule_no_hid" id="rule_no_hid" value=""/>
-					<button type="submit" name="del_fb_zf" class="alert-btn2 del_fb_zf" id="j_del_ok" value="1">删除</button>
+					<button type="submit" name="del_fb_zf" class="alert-btn-exit del_fb_zf" id="j_del_ok" value="1">删除</button>
 					<a href="." class="closeDOMWindow">
-						<button type="button" class="alert-btn2">关闭</button>
+						<button type="button" class="alert-btn-exit">关闭</button>
 					</a>
 				</p>
 			</div>

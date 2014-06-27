@@ -120,6 +120,7 @@
     </div>
 </div>
 <div class="role-table" id="select_results">
+    <div class="num-list">共100条</div>
     <div class="hd">
         <ul id="device_select_result_ul" class="channel-tab">
         </ul>

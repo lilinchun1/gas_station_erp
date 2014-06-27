@@ -149,6 +149,13 @@ $heiti:"SimHei";
       &:hover{
                 background: #ffffff;
                 box-shadow: 0 0 4px rgba(68, 171, 255,.4) inset ;
+        span{
+          top: 2px;
+          transform:rotate(180deg);
+          -ms-transform:rotate(180deg);
+          -moz-transform:rotate(180deg);
+          -webkit-transform:rotate(180deg);
+          -o-transform:rotate(180deg);}
 
         ul{
           display: block;
@@ -270,7 +277,7 @@ $heiti:"SimHei";
     .aside-nav-nth1{
       padding-top:14px;
       text-indent: 20px;
-      font-size: 22px;
+      font-size: 20px;
       color: #fff;
       cursor: pointer;
         a{
@@ -325,6 +332,10 @@ $heiti:"SimHei";
   background: #ffffff;
   padding-bottom: 20px;
   border: 1px solid $border-color;
+  .input-org-info{
+    width: 160px;}
+  .min-w{
+    width: 80px;}
     .org-select {
       @extend %input-t;
       margin-top: 15px;
@@ -335,7 +346,8 @@ $heiti:"SimHei";
     }
     .info-left{
       margin-top: 20px;
-      width: 300px;
+      padding-left:4px;
+      width: 340px;
       float: left;
       }
     .info-right{
@@ -400,6 +412,13 @@ $heiti:"SimHei";
 }
 .role-table{
   margin-top: 20px;
+  position: relative;
+}
+.num-list{
+  position: absolute;
+  top: 0;
+  right: 20px;
+  font-size: 14px;
 }
 .role-table-list{
   width: 98%;

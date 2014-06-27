@@ -122,6 +122,7 @@
     </div>
 </div>
 <div class="role-table">
+    <div class="num-list">共100条</div>
     <div class="hd">
         <ul class="channel-tab" id="j-tab-ch">
         </ul>

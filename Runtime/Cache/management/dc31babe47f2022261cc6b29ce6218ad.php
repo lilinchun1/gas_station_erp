@@ -180,7 +180,7 @@
 	</div>
 </div>
 <div id="footer">
-    <p>© 大连捷诺科技有限公司 <a style="color: #ffffff;" href="http://www.jienuo-service.net/">关于捷诺</a> | 服务热线 0411-86887659</p>
+    <p>© 大连捷诺科技有限公司 | <a style="color: #ffffff;" href="http://www.jienuo-service.net/" target="_blank">关于捷诺</a> | 服务热线 0411-86887659</p>
 </div>
 <!-- 控制菜单显示 -->
 <input type="hidden" class="urlStr" value="<?php echo ($urlStr); ?>">
@@ -364,7 +364,7 @@
 				<p>
 					<button type="submit" name="add_udp" class="alert-btn2" value="1">保存</button>
 					<a href="." class="closeDOMWindow">
-						<button type="button" class="alert-btn">关闭</button>
+						<button type="button" class="alert-btn2">关闭</button>
 					</a>
 				</p>
 			</div>
@@ -380,9 +380,9 @@
 				<p class="delete-message">确认删除？</p>
 				<p>
 					<input type="hidden" name="del_rule_no" id="del_rule_no" value=""/>
-					<button type="submit" name="delete" class="alert-btn2" id="j_del_ok" value="1">删除</button>
+					<button type="submit" name="delete" class="alert-btn-exit" id="j_del_ok" value="1">删除</button>
 					<a href="." class="closeDOMWindow">
-						<button type="button" class="alert-btn2">关闭</button>
+						<button type="button" class="alert-btn-exit">关闭</button>
 					</a>
 				</p>
 			</div>
