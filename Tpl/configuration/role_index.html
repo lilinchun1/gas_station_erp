@@ -41,18 +41,20 @@
 					<ul class="role-table-list tab-list-mw">
 						<li>
 							<span class="span-1"></span>
-							<span class="span-2"><b>角色名称</b></span>
-							<span class="span-3"><b>角色描述</b></span>
-							<span class="span-2"><b>创建人</b></span>
-							<span class="span-2"><b>创建日期</b></span>
+							<span class="span-1"><b>角色名称</b></span>
+							<span class="span-2"><b>角色描述</b></span>
+							<span class="span-2"><b>所属组织结构</b></span>
+							<span class="span-1"><b>创建人</b></span>
+							<span class="span-1"><b>创建日期</b></span>
 						</li>
 						<volist name="list" id="vo">
 							<li class="list_sel">
 									<span class="span-1"><input type="radio" name="role-info_rad" id="" class="role-table-radio"/></span>
-									<span class="span-2" title="{$vo.rolename}">{$vo.rolename}</span>
-									<span class="span-3" title="{$vo.memo}">{$vo.memo}</span>
-									<span class="span-2" title="{$vo.addusername}">{$vo.addusername}</span>
-									<span class="span-2" title="{$vo.adddate}">{$vo.adddate}</span>
+									<span class="span-1" title="{$vo.rolename}">{$vo.rolename}</span>
+									<span class="span-2" title="{$vo.memo}">{$vo.memo}</span>
+									<span class="span-2" title="{$vo.memo}">{$vo.agent_name}</span>
+									<span class="span-1" title="{$vo.addusername}">{$vo.addusername}</span>
+									<span class="span-1" title="{$vo.adddate}">{$vo.adddate}</span>
 									<!--角色ID-->
 									<span class="roleid_hidden" title="#" style="display:none;">{$vo.roleid}</span>
 							</li>
@@ -322,9 +324,10 @@ $(function(){
 								'pId' : parent,
 								'name' : value,
 								'open' : true,
-								checked : true,
+								'checked' : true,
 								't' : kid,
-								doCheck : false
+								doCheck : false,
+								"chkDisabled":true
 							};
 							break;
 						} else {
@@ -334,7 +337,8 @@ $(function(){
 								'name' : value,
 								'open' : true,
 								't' : kid,
-								doCheck : false
+								doCheck : false,
+								"chkDisabled":true
 							};
 						}
 					}
@@ -352,7 +356,7 @@ $(function(){
 		var show_setting = getTreeSetting(true,true,false,show_beforeCheck,onCheck);
 		
 		$.fn.zTree.init($("#show_treeDemo"), show_setting, zNodes);
-		
+		var code, log, className = "dark";
 		function show_beforeCheck(treeId, treeNode) {
 			className = (className === "dark" ? "":"dark");
 			showLog("[ "+getTime()+" beforeCheck ]&nbsp;&nbsp;&nbsp;&nbsp;" + treeNode.name );

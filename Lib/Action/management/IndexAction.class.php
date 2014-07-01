@@ -3,6 +3,8 @@ import ( "@.MyClass.Spreadsheet_Excel_Reader" );
 class IndexAction extends Action {
 	private $uploaded_url = "Runtime/Temp";
 	public $uid = 0;
+	//区域顶级父id值
+	public $top_pid = 0;
 	function __construct(){
 		parent::__construct();
 		//获取用户信息
@@ -266,7 +268,7 @@ class IndexAction extends Action {
 		$this->assign('issueArr', $que);
 		//供菜单给当前页面加样式
 		$this->assign('nowUrl', "management/Index/addRuleTarget");
-		$this->display(':rule_send');
+		$this->display(':addRuleTarget');
 	}
 	
 	
@@ -318,36 +320,112 @@ class IndexAction extends Action {
 		$this->display(':app_info');
 	}
 	
+	
+	public $que_channel;
+	//获取所有省市渠道
 	function getChannelArr(){
-		$arr[0]['value'] = "辽宁省";
-		$arr[0]['id'] = "1-1";
-		$arr[0]['pid'] = "0";
-		$arr[0]['length'] = "2";
+		$provinceIdArr = array();
+		$cityIdArr = array();
+		$cityArr = array();
+		$areaIdStr = "";
+		$model = new Model();
 		
-		$arr[1]['value'] = "大连市";
-		$arr[1]['id'] = "2-2";
-		$arr[1]['pid'] = "1-1";
-		$arr[1]['length'] = "1";
+		$sql_channel = "
+				SELECT a.channel_id area_id,a.channel_name area_name,b.city pid FROM qd_channel a
+				LEFT JOIN qd_channel_area b ON a.channel_id = b.channel_id
+				";
+		$this->que_channel = $model->query($sql_channel);
 		
-		$arr[2]['value'] = "轻轨站";
-		$arr[2]['id'] = "3-2";
-		$arr[2]['pid'] = "2-2";
-		$arr[2]['length'] = "2";
+		$sql_province = "SELECT * FROM qd_channel_area GROUP BY province";
+		$que_province = $model->query($sql_province);
+		foreach ($que_province as $k=>$v){
+			$sql_province_id = "SELECT * FROM bi_area WHERE area_name LIKE '%$v[province]%' OR CONCAT(area_name,'省') LIKE '$v[province]'";
+			$que_province_id = $model->query($sql_province_id);
+			$provinceIdArr[] = $que_province_id[0]['area_id'];
+		}
 		
-		$arr[3]['value'] = "火车站";
-		$arr[3]['id'] = "3-3";
-		$arr[3]['pid'] = "2-2";
-		$arr[3]['length'] = "2";
-
-		$arr[4]['value'] = "吉林省";
-		$arr[4]['id'] = "1-2";
-		$arr[4]['pid'] = "0";
-		$arr[4]['length'] = "2";
-
-		$arr[5]['value'] = "白城市";
-		$arr[5]['id'] = "2-9";
-		$arr[5]['pid'] = "1-2";
-		$arr[5]['length'] = "1";
-		echo json_encode($arr);
+		$sql_city = "SELECT * FROM qd_channel_area GROUP BY city";
+		$que_city = $model->query($sql_city);
+		foreach ($que_city as $k=>$v){
+			$sql_city_id = "SELECT * FROM bi_area WHERE area_name LIKE '%$v[city]%' OR CONCAT(area_name,'市') LIKE '$v[city]'";
+			$que_city_id = $model->query($sql_city_id);
+			$cityIdArr[] = $que_city_id[0]['area_id'];
+			
+			foreach ($que_channel as $ck=>$cv){
+				if($cv['pid'] == $v['city']){
+					$que_channel[$ck]['pid'] = $que_city_id[0]['area_id'];
+				}
+			}
+			
+		}
+		
+		$areaIdArr = array_merge($provinceIdArr,$cityIdArr);
+		
+		$areaIdStr = implode(",",$areaIdArr);
+		$sql_area = "
+				SELECT * FROM bi_area WHERE area_id IN ($areaIdStr)
+				";
+		$que_area = $model->query($sql_area);
+		
+		//$que = array_merge($que_area,$que_channel);
+		
+		$this->getProvinceCity($que_area, $this->top_pid);
+		
+		echo json_encode($this->areaArr);
 	}
+	
+	public $areaArr = array();
+	public $lv;
+	//沥遍排序获取区域数组
+	function getProvinceCity($arr,$parentId){
+		//同父级区域的数量
+		$length = 0;
+		foreach($arr as $k=>$v){
+			if($v['pid'] == $parentId){
+				$length++;
+				//当前等级
+				$this->lv++;
+				$this->areaArr[count($this->areaArr)]['value'] = $v['area_name'];
+				//自身等级+id
+				$this->areaArr[count($this->areaArr)-1]['id'] = $this->lv."-".$v['area_id'];
+				//父级等级+id如果是省级则父级为$this->top_pid) 即0
+				$parentLvId = "";
+				if($parentId == $this->top_pid){//如果父id为0
+					$parentLvId = "0";
+				}else{
+					$parentLvId = ($this->lv-1)."-".$parentId;
+				}
+				$this->areaArr[count($this->areaArr)-1]['pid'] = $parentLvId;
+				$this->areaArr[count($this->areaArr)-1]['small_pid'] = $parentId;
+				
+				foreach ($this->que_channel as $ck=>$cv){
+					if($v['area_name']."市" == $cv['pid']){
+						$this->areaArr[count($this->areaArr)]['value'] = $cv['area_name'];
+						$this->areaArr[count($this->areaArr)-1]['id'] = "3-".$v['area_id'];
+						$this->areaArr[count($this->areaArr)-1]['pid'] = "2-".$v['area_id'];
+						$this->areaArr[count($this->areaArr)-1]['small_pid'] = $v['area_id'];
+					}
+				}
+				
+				
+				
+				
+				
+				$this->getProvinceCity($arr, $v['area_id']);
+			}
+			
+		}
+		/*
+		//赋同父级区域的数量
+		foreach ($this->areaArr as $k=>$v){
+			//因为从沥遍的函数返回已经减1，这里的$this->lv为父级的等级
+			if($v['small_pid'] == $parentId){
+				$this->areaArr[$k]['length'] = $length;
+			}
+		}
+		*/
+		$this->lv--;
+	}
+	
+	
 }

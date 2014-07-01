@@ -33,6 +33,16 @@ $(function() {
 	}*/
 });
 
+//显示窗口
+function showWindow(loader,loaderHeight,loaderWidth,id){
+	$.openDOMWindow({
+		loader : loader,
+		loaderHeight : loaderHeight,
+		loaderWidth : loaderWidth,
+		windowSourceID : id
+	});
+}
+
 // ==================================== role_index.html ====================================================
 //==========树形开始
 var code;
@@ -81,18 +91,9 @@ function setCheck(Obj) {
 	sy = $("#sy").attr("checked")? "s":"",
 	pn = $("#pn").attr("checked")? "p":"",
 	sn = $("#sn").attr("checked")? "s":"",
-	type = { "Y":py + sy, "N":pn + sn};
+	type = { "Y" : "ps", "N" : "ps" };;
 	zTree.setting.check.chkboxType = type;
 	showCode('setting.check.chkboxType = { "Y" : "' + type.Y + '", "N" : "' + type.N + '" };');
 }
 //==========树形结束
-//显示窗口
-function showWindow(loader,loaderHeight,loaderWidth,id){
-	$.openDOMWindow({
-		loader : loader,
-		loaderHeight : loaderHeight,
-		loaderWidth : loaderWidth,
-		windowSourceID : id
-	});
-}
 // ==================================== role_index.html end====================================================

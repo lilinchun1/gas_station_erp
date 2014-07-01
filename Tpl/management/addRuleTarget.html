@@ -10,136 +10,129 @@
 
 	
 	
-	<script type="text/javascript">
-	$(document).ready(function(){
-		//================================================================默认动作
-		//禁止浏览器自动填充
-		$("form").attr( "autocomplete","off");
-		//================================================================触发操作
-		//创建，编辑弹出框
-		$('.status_add,.status_udp').click(function(){
-			if($(this).hasClass("status_udp")){
-				var rule_status = $("input[name='role-info']:checked").parent().parent().find(".rule_status_list").val();
-				if(rule_status >= 2){
-					alert("不能编辑");
-					return;
-				}
-				var rule_no = $("input[name='role-info']:checked").parent().parent().find(".rule_no_list").text();
-				var start_time = $("input[name='role-info']:checked").parent().parent().find(".start_time_list").text();
-				if(rule_no == ""){
-					alert("请选择编辑条目");
-					return;
-				}
-				$("#rule_no").val(rule_no);
-				$("#start_time").val(start_time);
-			}
-
-
-			var handleUrl="{:U('management/Index/getChannelArr')}";
-			var zNodes=new Array();
-			var now=new Date().getTime();//加个时间戳表示每次是新的请求
-			$.ajax({
-				type: "POST",
-				url: handleUrl,
-				async: false,
-				dataType: "json",
-				success: function(data){
-					$.each(data,function(key,val){
-						var kid=val['id'];
-						var parent=val['pid'];
-						var value=val['value'];
-						var length=val['length'];
-						zNodes[key]= {'id':kid, 'pId':parent, 'name':value, 'open':true ,'t':length,'half': true};
-					});
-				},
-
-				error: function(XMLHttpRequest, textStatus, errorThrown) {
-					 alert("请求失败!");
-				}
-			});
-			//===================================================树形结构js传递==========
-			$.fn.zTree.init($("#treeDemo"), setting, zNodes);
-
-			$.openDOMWindow({
-	            loader:1,
-	            loaderHeight:16,
-	            loaderWidth:17,
-	            windowSourceID:'#j_add_win'
-	        });
-	        return false;
-		});
-		
-		
-		//删除，发布，作废弹出框
-		$(".status_del,.status_2,.status_3").click(function(){
-			//获取状态值
+<script type="text/javascript">
+$(function(){
+	//================================================================默认动作
+	//禁止浏览器自动填充
+	$("form").attr( "autocomplete","off");
+	//================================================================触发操作
+	//创建，编辑弹出框
+	$('.status_add,.status_udp').click(function(){
+		if($(this).hasClass("status_udp")){
 			var rule_status = $("input[name='role-info']:checked").parent().parent().find(".rule_status_list").val();
-			if($(this).hasClass("status_del")){
-				var noSelMes = "请选择删除条目";
-				//改变确认框内容
-				$(".delete-message").text("确认删除？");
-				$(".del_fb_zf").text("删除");
-				$(".del_fb_zf").val("1");
-				if(rule_status >= 2){
-					alert("不能删除");
-					return;
-				}
-			}else if($(this).hasClass("status_2")){
-				var noSelMes = "请选择要发布条目";
-				$(".delete-message").text("确认发布？");
-				$(".del_fb_zf").text("发布");
-				$(".del_fb_zf").val("2");
-				if(rule_status != 1){
-					alert("不能发布");
-					return;
-				}
-			}else if($(this).hasClass("status_3")){
-				var noSelMes = "请选择要作废条目";
-				$(".delete-message").text("确认作废？");
-				$(".del_fb_zf").text("作废");
-				$(".del_fb_zf").val("3");
-				if(rule_status != 2){
-					alert("不能作废");
-					return;
-				}
-			}
-			
-			var rule_no = $("input[name='role-info']:checked").parent().parent().find(".rule_no_list").text();
-			if(rule_no == ""){
-				alert(noSelMes);
+			if(rule_status >= 2){
+				alert("不能编辑");
 				return;
 			}
-			$("#rule_no_hid").val(rule_no);
-			
-			//弹出页面
-			$.openDOMWindow({
-	            loader:1,
-	            loaderHeight:16,
-	            loaderWidth:17,
-	            windowSourceID:'#j_del_win'
-	        });
-	        return false;
+			var rule_no = $("input[name='role-info']:checked").parent().parent().find(".rule_no_list").text();
+			var start_time = $("input[name='role-info']:checked").parent().parent().find(".start_time_list").text();
+			if(rule_no == ""){
+				alert("请选择编辑条目");
+				return;
+			}
+			$("#rule_no").val(rule_no);
+			$("#start_time").val(start_time);
+		}
+
+		//获取省市数组
+		var handleUrl="{:U('management/Index/getChannelArr')}";
+		var zNodes=new Array();
+		var now=new Date().getTime();//加个时间戳表示每次是新的请求
+		$.ajax({
+			type: "POST",
+			url: handleUrl,
+			async: false,
+			dataType: "json",
+			success: function(data){
+				$.each(data,function(key,val){
+					var kid=val['id'];
+					var parent=val['pid'];
+					var value=val['value'];
+					var length=val['length'];
+					zNodes[key]= {'id':kid, 'pId':parent, 'name':value, 'open':true ,'t':length,'half': true};
+				});
+			},
+
+			error: function(XMLHttpRequest, textStatus, errorThrown) {
+				 alert("请求失败!");
+			}
 		});
-		//点一行则选中
-		$(".rule_info_list").click(function(){
-			$(this).find(".role-table-radio").attr("checked",true);
-		});
-		
+		//树形结构
+		$.fn.zTree.init($("#treeDemo"), setting, zNodes);
+		//弹出窗口
+		showWindow(1,16,17,'#j_add_win');
 	});
-	//根据选择范围圈定应用名称下拉内容
-	function getAppRule() {
-		$.post("{:U('management/Index/getAppRule')}", {'sad':1}, function(data) {
-			var str = data;
-			//str = [{title:"中国移动网上营业厅"},{title:"中国银行"},{title:"中国移动"},{title:"中国好声音第三期"},{title:"中国好声音 第一期"},{title:"中国电信网上营业厅"},{title:"中国工商银行"},{title:"中国好声音第二期"},{title:"中国地图"}];
-			$("#rule_no").bigAutocomplete({
-				width : 150,
-				data : str,
-				callback : function(data) {
-				}
-			});
-		}, "json");
-	}
-	</script>
+	
+	
+	//删除，发布，作废弹出框
+	$(".status_del,.status_2,.status_3").click(function(){
+		//获取状态值
+		var rule_status = $("input[name='role-info']:checked").parent().parent().find(".rule_status_list").val();
+		if($(this).hasClass("status_del")){
+			var noSelMes = "请选择删除条目";
+			//改变确认框内容
+			$(".delete-message").text("确认删除？");
+			$(".del_fb_zf").text("删除");
+			$(".del_fb_zf").val("1");
+			if(rule_status >= 2){
+				alert("不能删除");
+				return;
+			}
+		}else if($(this).hasClass("status_2")){
+			var noSelMes = "请选择要发布条目";
+			$(".delete-message").text("确认发布？");
+			$(".del_fb_zf").text("发布");
+			$(".del_fb_zf").val("2");
+			if(rule_status != 1){
+				alert("不能发布");
+				return;
+			}
+		}else if($(this).hasClass("status_3")){
+			var noSelMes = "请选择要作废条目";
+			$(".delete-message").text("确认作废？");
+			$(".del_fb_zf").text("作废");
+			$(".del_fb_zf").val("3");
+			if(rule_status != 2){
+				alert("不能作废");
+				return;
+			}
+		}
+		
+		var rule_no = $("input[name='role-info']:checked").parent().parent().find(".rule_no_list").text();
+		if(rule_no == ""){
+			alert(noSelMes);
+			return;
+		}
+		$("#rule_no_hid").val(rule_no);
+		
+		//弹出页面
+		$.openDOMWindow({
+            loader:1,
+            loaderHeight:16,
+            loaderWidth:17,
+            windowSourceID:'#j_del_win'
+        });
+        return false;
+	});
+	//点一行则选中
+	$(".rule_info_list").click(function(){
+		$(this).find(".role-table-radio").attr("checked",true);
+	});
+});
+//自动补全
+function getAppRule() {
+	$.post("{:U('management/Index/getAppRule')}", {'sad':1}, function(data) {
+		var str = data;
+		//str = [{title:"中国移动网上营业厅"},{title:"中国银行"},{title:"中国移动"},{title:"中国好声音第三期"},{title:"中国好声音 第一期"},{title:"中国电信网上营业厅"},{title:"中国工商银行"},{title:"中国好声音第二期"},{title:"中国地图"}];
+		$("#rule_no").bigAutocomplete({
+			width : 150,
+			data : str,
+			callback : function(data) {
+			}
+		});
+	}, "json");
+}
+</script>
 </head>
 <body>
 <include file="./Tpl/include/pb-head.html"/>
@@ -279,68 +272,62 @@
 </div>
 <link rel="stylesheet" type="text/css" href="__PUBLIC__/css/jquery.bigautocomplete.css"/>
 <script type="text/javascript" src="__PUBLIC__/js/jquery.bigautocomplete.js"></script>
-
-
-	<!--树形结构类-->
-	<link rel="stylesheet" href="__PUBLIC__/css/tree/tree.css" type="text/css">
-	<link rel="stylesheet" href="__PUBLIC__/css/jquery.bigautocomplete.css" type="text/css" />
-	<script type="text/javascript" src="__PUBLIC__/js/tree/jquery.ztree.core-3.5.js"></script>
-	<script type="text/javascript" src="__PUBLIC__/js/tree/jquery.ztree.excheck-3.5.js"></script>
+<!--树形结构类-->
+<link rel="stylesheet" href="__PUBLIC__/css/tree/tree.css" type="text/css">
+<!-- 自动补全 -->
+<link rel="stylesheet" href="__PUBLIC__/css/jquery.bigautocomplete.css" type="text/css" />
+<script type="text/javascript" src="__PUBLIC__/js/tree/jquery.ztree.core-3.5.js"></script>
+<script type="text/javascript" src="__PUBLIC__/js/tree/jquery.ztree.excheck-3.5.js"></script>
 <script type="text/javascript">
 getAppRule();
-	//===================================================树形结构js==========================
-		var setting = {
-			check: {
-				enable: true
-			},
-			data: {
-				simpleData: {
-					enable: true
-				}
-			},
-			view: {
-				dblClickExpand: false
-			},
-			callback: {
-
-				onCheck: onCheck
-				
-			}
-		};
-
-		var code;
-		
-		function onCheck(event, treeId, treeNode) {
-			var zTree = $.fn.zTree.getZTreeObj("treeDemo");
-			nodes = zTree.getCheckedNodes(true);
-
-			var treeObj = $.fn.zTree.getZTreeObj("treeDemo");
-			var halfCheck = treeObj.getNodes()[0].getCheckStatus();
-			
-			//console.log(node);
-
-
-			v = "";
-			for (var i=0, l=nodes.length; i<l; i++) {
-				var k=i-1;
-				if(halfCheck.half==true){
-					console.log(k);
-						v += nodes[i].id + ",";
-				}else{
-					if(nodes[i].pId!=null){
-						v += nodes[i].pId + ",";
-					}
-				}
-					
-			}
-			if (v.length > 0 ) v = v.substring(0, v.length-1);
-			var cityObj = $("#add_quanxian_id");
-			cityObj.attr("value", v);
-
-
+//===================================================树形结构js==========================
+var setting = {
+	check: {
+		enable: true
+	},
+	data: {
+		simpleData: {
+			enable: true
 		}
+	},
+	view: {
+		dblClickExpand: false
+	},
+	callback: {
+
+		onCheck: onCheck
+		
+	}
+};
+var code;
+function onCheck(event, treeId, treeNode) {
+	var zTree = $.fn.zTree.getZTreeObj("treeDemo");
+	nodes = zTree.getCheckedNodes(true);
+
+	var treeObj = $.fn.zTree.getZTreeObj("treeDemo");
+	var halfCheck = treeObj.getNodes()[0].getCheckStatus();
+	
+	//console.log(node);
+
+
+	v = "";
+	for (var i=0, l=nodes.length; i<l; i++) {
+		var k=i-1;
+		if(halfCheck.half==true){
+			console.log(k);
+				v += nodes[i].id + ",";
+		}else{
+			if(nodes[i].pId!=null){
+				v += nodes[i].pId + ",";
+			}
+		}
+			
+	}
+	if (v.length > 0 ) v = v.substring(0, v.length-1);
+	var cityObj = $("#add_quanxian_id");
+	cityObj.attr("value", v);
+}
 //===================================================树形结构js结束==========
 </script>
-</div>
 </body>
 </html>

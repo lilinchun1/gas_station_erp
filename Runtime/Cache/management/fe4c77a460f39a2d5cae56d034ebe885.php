@@ -2,84 +2,137 @@
 <html lang="zh-CN">
 <head>
 	<meta charset="UTF-8">
-	<title>刊例维护</title>
+	<title>刊例发布</title>
 	<link rel="stylesheet" href="__PUBLIC__/css/configuration.css"/>
 	<script type="text/javascript" src="__PUBLIC__/js/jquery-1.10.2.min.js"></script>
 	<script type="text/javascript" src="__PUBLIC__/js/jquery.SuperSlide.2.1.1.js"></script>
 	<script type="text/javascript" src="__PUBLIC__/js/My97DatePicker/WdatePicker.js"></script>
-	<script type="text/javascript">
-	$(function(){
-		//================================================================默认动作
-		//固定标题
-		window.onscroll = function () {
-			var scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
-			var fixDiv = document.getElementById('j-fixed-top');
-			if (scrollTop >= 300) {
-				fixDiv.style.position = 'fixed';
-				fixDiv.style.top = '0px';
-			} else if (scrollTop <= 299) {
-				fixDiv.style.position = 'static';
-			}
-		}
-		//禁止浏览器自动填充
-		$("form").attr( "autocomplete","off");
-		//================================================================触发
-		//添加，编辑弹出框
-		$('#rule_no_add,#rule_no_udp').click(function(){
-			//编辑
-			if($(this).hasClass("rule_no_udp")){
-				//获取选中行期刊号
-				var rule_no = $("input[name='role-info']:checked").parent().parent().find(".rule_no_list").text();
-				if(rule_no == ""){
-					alert("请选择编辑条目");
-					return;
-				}
-				//赋值到编辑窗口中
-				$("#rule_no_hid").val(rule_no);
-				//隐藏域期刊号
-				$("#old_rule_no").val(rule_no);
-				$("button[name='add_udp']").val("2");
-			}else{
-				$("button[name='add_udp']").val("1");
-			}
-			//弹出页面
-			$.openDOMWindow({
-				loader:1,
-				loaderHeight:16,
-				loaderWidth:17,
-				windowSourceID:'#j_add_win'
-			});
-			return false;
-		});
-		//删除弹出框
-		$(".rule_no_del").click(function(){
-			var rule_no = $("input[name='role-info']:checked").parent().parent().find(".rule_no_list").text();
-			if(rule_no == ""){
-				alert("请选择删除条目");
+
+	
+	
+<script type="text/javascript">
+$(function(){
+	//================================================================默认动作
+	//禁止浏览器自动填充
+	$("form").attr( "autocomplete","off");
+	//================================================================触发操作
+	//创建，编辑弹出框
+	$('.status_add,.status_udp').click(function(){
+		if($(this).hasClass("status_udp")){
+			var rule_status = $("input[name='role-info']:checked").parent().parent().find(".rule_status_list").val();
+			if(rule_status >= 2){
+				alert("不能编辑");
 				return;
 			}
-			$("#del_rule_no").val(rule_no);
-			
-			//弹出页面
-			$.openDOMWindow({
-				loader:1,
-				loaderHeight:16,
-				loaderWidth:17,
-				windowSourceID:'#j_del_win'
-			});
-			return false;
+			var rule_no = $("input[name='role-info']:checked").parent().parent().find(".rule_no_list").text();
+			var start_time = $("input[name='role-info']:checked").parent().parent().find(".start_time_list").text();
+			if(rule_no == ""){
+				alert("请选择编辑条目");
+				return;
+			}
+			$("#rule_no").val(rule_no);
+			$("#start_time").val(start_time);
+		}
+
+		//获取省市数组
+		var handleUrl="<?php echo U('management/Index/getChannelArr');?>";
+		var zNodes=new Array();
+		var now=new Date().getTime();//加个时间戳表示每次是新的请求
+		$.ajax({
+			type: "POST",
+			url: handleUrl,
+			async: false,
+			dataType: "json",
+			success: function(data){
+				$.each(data,function(key,val){
+					var kid=val['id'];
+					var parent=val['pid'];
+					var value=val['value'];
+					var length=val['length'];
+					zNodes[key]= {'id':kid, 'pId':parent, 'name':value, 'open':true ,'t':length,'half': true};
+				});
+			},
+
+			error: function(XMLHttpRequest, textStatus, errorThrown) {
+				 alert("请求失败!");
+			}
 		});
-		//点一行则选中
-		$(".rule_info_list").click(function(){
-			$(this).find(".role-table-radio").attr("checked",true);
-		});
-		//app查看
-		$(".app_info_list").click(function(){
-			var rule_no = $(this).parent().parent().find(".rule_no_list").text();
-			var val = window.showModalDialog("<?php echo U('management/Index/app_info');?>/rule_no/"+rule_no,self,"dialogwidth=850px;dialogheight=700px;dialogtop=200px;dialogleft=700px;center=no;help=no;resizable=no;status=no;scroll=yes");
-		});
+		//树形结构
+		$.fn.zTree.init($("#treeDemo"), setting, zNodes);
+		//弹出窗口
+		showWindow(1,16,17,'#j_add_win');
 	});
-	</script>
+	
+	
+	//删除，发布，作废弹出框
+	$(".status_del,.status_2,.status_3").click(function(){
+		//获取状态值
+		var rule_status = $("input[name='role-info']:checked").parent().parent().find(".rule_status_list").val();
+		if($(this).hasClass("status_del")){
+			var noSelMes = "请选择删除条目";
+			//改变确认框内容
+			$(".delete-message").text("确认删除？");
+			$(".del_fb_zf").text("删除");
+			$(".del_fb_zf").val("1");
+			if(rule_status >= 2){
+				alert("不能删除");
+				return;
+			}
+		}else if($(this).hasClass("status_2")){
+			var noSelMes = "请选择要发布条目";
+			$(".delete-message").text("确认发布？");
+			$(".del_fb_zf").text("发布");
+			$(".del_fb_zf").val("2");
+			if(rule_status != 1){
+				alert("不能发布");
+				return;
+			}
+		}else if($(this).hasClass("status_3")){
+			var noSelMes = "请选择要作废条目";
+			$(".delete-message").text("确认作废？");
+			$(".del_fb_zf").text("作废");
+			$(".del_fb_zf").val("3");
+			if(rule_status != 2){
+				alert("不能作废");
+				return;
+			}
+		}
+		
+		var rule_no = $("input[name='role-info']:checked").parent().parent().find(".rule_no_list").text();
+		if(rule_no == ""){
+			alert(noSelMes);
+			return;
+		}
+		$("#rule_no_hid").val(rule_no);
+		
+		//弹出页面
+		$.openDOMWindow({
+            loader:1,
+            loaderHeight:16,
+            loaderWidth:17,
+            windowSourceID:'#j_del_win'
+        });
+        return false;
+	});
+	//点一行则选中
+	$(".rule_info_list").click(function(){
+		$(this).find(".role-table-radio").attr("checked",true);
+	});
+});
+//自动补全
+function getAppRule() {
+	$.post("<?php echo U('management/Index/getAppRule');?>", {'sad':1}, function(data) {
+		var str = data;
+		//str = [{title:"中国移动网上营业厅"},{title:"中国银行"},{title:"中国移动"},{title:"中国好声音第三期"},{title:"中国好声音 第一期"},{title:"中国电信网上营业厅"},{title:"中国工商银行"},{title:"中国好声音第二期"},{title:"中国地图"}];
+		$("#rule_no").bigAutocomplete({
+			width : 150,
+			data : str,
+			callback : function(data) {
+			}
+		});
+	}, "json");
+}
+</script>
 </head>
 <body>
 <div class="head-wrap">
@@ -126,6 +179,12 @@
     </li>
 </ul>
 
+        <!--<ul class="aside-nav">
+            <li class="aside-nav-nth1"><a href="">APP刊例管理</a></li>
+            <li><a href="<?php echo U('management/Index/importingApp');?>"><input type="button" value="刊例维护"></a></li>
+            <li class="active"><a href="<?php echo U('management/Index/addRuleTarget');?>"><input type="button" class="" value="刊例发布"></a></li>
+            <li><a href="<?php echo U('management/Index/verup');?>"><input type="button" class="" value="版本升级"></a></li>
+        </ul>-->
 	</div>
 	<div class="right">
 		<div class="right-con">
@@ -134,23 +193,24 @@
 					<div class="role-inquire channel-index-btns">
 						<form action="" method="post">
 							<p>
-								<label for="channel-org-name" class="">刊例号</label>
+								<label for="channel-org-name" class="">刊例名称</label>
 								<input type="text" name="rule_no_sel" id="channel-org-name" class="input-org-info"/>
 								<label for="maintain-create-people" class="">创建人</label>
 								<input type="text" name="createuser_sel" id="maintain-create-people"
 									   class="input-org-info"/>
-								<label for="maintain-create-date" class="">创建日期</label>
-								<input type="text" name="createtime_sel" id="maintain-create-date" class="input-org-info" onClick="WdatePicker()" readonly/>
+								<label for="maintain-create-date" class="">发布日期</label>
+								<input type="text" name="release_time_sel" id="maintain-create-date" class="input-org-info" readonly="true" onClick="WdatePicker()"/>
 								<button type="submit" name="select" class="role-control-btn">查询</button>
 							</p>
 						</form>
 					</div>
 					<div class="org-right-btns">
 						<form action="">
-							<button type="button" id="rule_no_add" class="area-btn rule_no_add">添加</button>
-							<button type="button" id="rule_no_udp" class="area-btn rule_no_udp">编辑</button>
-							<button type="button" id="rule_no_del" class="area-btn rule_no_del">删除</button>
-
+							<button type="button" class="area-btn status_add">添加</button>
+							<button type="button" class="area-btn status_udp">编辑</button>
+							<button type="button" class="area-btn status_del">删除</button>
+							<button type="button" class="area-btn status_2">发布</button>
+							<button type="button" class="area-btn status_3">作废</button>
 						</form>
 					</div>
 				</div>
@@ -159,18 +219,24 @@
 						<ul class="role-table-list">
 							<li>
 								<span class="span-1"></span>
-								<span class="span-2"><b>刊例号</b></span>
-								<span class="span-2"><b>创建人</b></span>
-								<span class="span-2"><b>创建日期</b></span>
-								<span class="span-3"><b>刊例详情</b></span>
-
+								<span class="span-2"><b>刊例名称</b></span>
+								<span class="span-2"><b>投放日期</b></span>
+								<span class="span-2"><b>发布渠道</b></span>
+								<span class="span-2"><b>发布状态</b></span>
+								<span class="span-2"><b>发布日期</b></span>
 							</li>
 							<?php if(is_array($issueArr)): foreach($issueArr as $key=>$issue): ?><li class="rule_info_list">
 									<span class="span-1"><input type="radio" name="role-info" id="" class="role-table-radio"/></span>
 									<span class="span-2 rule_no_list" title="#"><?php echo ($issue["rule_no"]); ?></span>
-									<span class="span-2" title="#"><?php echo ($issue["realname"]); ?></span>
-									<span class="span-2" title="#"><?php echo ($issue["createtime"]); ?></span>
-									<span class="span-3" title="#"><a href="#" class="app_info_list">查看</a></span>
+									<span class="span-2 start_time_list" title="#"><?php echo ($issue["start_time"]); ?></span>
+									<span class="span-2" title="#">发布渠道</span>
+									<span class="span-2" title="#">
+										<?php if($issue['rule_status'] == 1): ?>待发布<?php endif; ?>
+										<?php if($issue['rule_status'] == 2): ?>已发布<?php endif; ?>
+										<?php if($issue['rule_status'] == 3): ?>作废<?php endif; ?>
+										<input type="hidden" class="rule_status_list" value="<?php echo ($issue['rule_status']); ?>"/>
+									</span>
+									<span class="span-2" title="#"><?php echo ($issue["release_time"]); ?></span>
 								</li><?php endforeach; endif; ?>
 						</ul>
 					</div>
@@ -345,27 +411,38 @@
         return false;
     }
 </script>
-<!-- 创建，编辑刊例 -->
 <div class="alert-org-add" id="j_add_win" style=" display:none;">
 	<div class="alert-role-add">
-		<form action="" method="post" enctype="multipart/form-data">
+		<form action="" method="post">
 			<h3>刊例信息</h3>
-			<div class="alert-user-add-con">
+		
+			<div class="alert-role-add-con">
 				<p>
-					<label for="rule_no_hid" class="role-lab">刊例名称</label>
-					<input type="text" name="rule_no" id="rule_no_hid" class="input-role-name"/>
-					<input type="hidden" name="old_rule_no" id="old_rule_no" value=""/>
+					<label for="rule_no" class="role-lab">*刊例名称</label>
+					<input type="text" name="rule_no" id="rule_no" class="input-role-name"/>
 				</p>
-	
+		
 				<p>
-					<label for="maintain-xx" class="role-lab">刊例明细</label>
-					<input type="file" name="app_file" id="maintain-xx" class="input-role-name" style="border: 0 none;"/>
+					<label for="issue-date" class="role-lab">*投放日期</label>
+					<input type="text" name="start_time" id="start_time" class="input-role-name" readonly="true" onClick="WdatePicker()"/>
 				</p>
-	
+		
 				<p>
-					<button type="submit" name="add_udp" class="alert-btn2" value="1">保存</button>
+					<label for="issue-channel" class="role-lab">*发布渠道</label>
+					<br/>
+					<!--<input type="text" name="target_num" id="issue-channel" class="input-role-name" value="1-21,2-3,2-4"/>-->
+					<!--权限树形-->
+					<div class="zTreeDemoBackground left">
+						<ul id="treeDemo" class="ztree"></ul>
+						<input type="text" value="" id="add_quanxian_id"/>
+					</div>
+
+				</p>
+
+				<p>
+					<button type="submit" name="add_udp" class="alert-btn-exit" value="1">保存</button>
 					<a href="." class="closeDOMWindow">
-						<button type="button" class="alert-btn2">关闭</button>
+						<button type="button" class="alert-btn-exit">关闭</button>
 					</a>
 				</p>
 			</div>
@@ -380,8 +457,8 @@
 			<div class="alert-role-add-con">
 				<p class="delete-message">确认删除？</p>
 				<p>
-					<input type="hidden" name="del_rule_no" id="del_rule_no" value=""/>
-					<button type="submit" name="delete" class="alert-btn-exit" id="j_del_ok" value="1">删除</button>
+					<input type="hidden" name="rule_no_hid" id="rule_no_hid" value=""/>
+					<button type="submit" name="del_fb_zf" class="alert-btn-exit del_fb_zf" id="j_del_ok" value="1">删除</button>
 					<a href="." class="closeDOMWindow">
 						<button type="button" class="alert-btn-exit">关闭</button>
 					</a>
@@ -390,5 +467,64 @@
 		</form>
 	</div>
 </div>
+<link rel="stylesheet" type="text/css" href="__PUBLIC__/css/jquery.bigautocomplete.css"/>
+<script type="text/javascript" src="__PUBLIC__/js/jquery.bigautocomplete.js"></script>
+<!--树形结构类-->
+<link rel="stylesheet" href="__PUBLIC__/css/tree/tree.css" type="text/css">
+<!-- 自动补全 -->
+<link rel="stylesheet" href="__PUBLIC__/css/jquery.bigautocomplete.css" type="text/css" />
+<script type="text/javascript" src="__PUBLIC__/js/tree/jquery.ztree.core-3.5.js"></script>
+<script type="text/javascript" src="__PUBLIC__/js/tree/jquery.ztree.excheck-3.5.js"></script>
+<script type="text/javascript">
+getAppRule();
+//===================================================树形结构js==========================
+var setting = {
+	check: {
+		enable: true
+	},
+	data: {
+		simpleData: {
+			enable: true
+		}
+	},
+	view: {
+		dblClickExpand: false
+	},
+	callback: {
+
+		onCheck: onCheck
+		
+	}
+};
+var code;
+function onCheck(event, treeId, treeNode) {
+	var zTree = $.fn.zTree.getZTreeObj("treeDemo");
+	nodes = zTree.getCheckedNodes(true);
+
+	var treeObj = $.fn.zTree.getZTreeObj("treeDemo");
+	var halfCheck = treeObj.getNodes()[0].getCheckStatus();
+	
+	//console.log(node);
+
+
+	v = "";
+	for (var i=0, l=nodes.length; i<l; i++) {
+		var k=i-1;
+		if(halfCheck.half==true){
+			console.log(k);
+				v += nodes[i].id + ",";
+		}else{
+			if(nodes[i].pId!=null){
+				v += nodes[i].pId + ",";
+			}
+		}
+			
+	}
+	if (v.length > 0 ) v = v.substring(0, v.length-1);
+	var cityObj = $("#add_quanxian_id");
+	cityObj.attr("value", v);
+}
+//===================================================树形结构js结束==========
+</script>
 </body>
 </html>

@@ -342,11 +342,11 @@ function role_check(role_agent_id){
 			}
 			var del_handleUrl="{:U('configuration/User/reset_password')}";
 			$.getJSON(del_handleUrl,{"reset_userid_txt":reset_userid_txt},
-					function (data){
-						alert(data);
-						window.location.href = window.location.href;
-					}
-					,'json'
+				function (data){
+					alert(data);
+					window.location.href = window.location.href;
+				}
+				,'json'
 			);
 		});
 

@@ -98,7 +98,7 @@ $heiti:"SimHei";
   position: relative;
   .login{
     position: absolute;
-    top: 40px;
+    top: 0;
     right: 0;
     padding-top: 6px;
     width:240px;
@@ -142,7 +142,9 @@ $heiti:"SimHei";
         height: 0;
         border: 6px solid transparent;
         border-top: 6px solid  $border-color;
-        display: block;}
+        display: block;
+        @extend %trans-all;
+      }
 
       ul{
         display: none;}
@@ -151,11 +153,9 @@ $heiti:"SimHei";
                 box-shadow: 0 0 4px rgba(68, 171, 255,.4) inset ;
         span{
           top: 2px;
-          transform:rotate(180deg);
-          -ms-transform:rotate(180deg);
-          -moz-transform:rotate(180deg);
-          -webkit-transform:rotate(180deg);
-          -o-transform:rotate(180deg);}
+          border: 6px solid transparent;
+          border-bottom: 6px solid  $border-color;
+          }
 
         ul{
           display: block;
@@ -465,6 +465,12 @@ $heiti:"SimHei";
       width: 30%;
       //max-width: 278px;
     }
+}
+
+#channel_log_info{
+  
+  li:nth-child(1){
+    background: #fff;}
 }
 .over-h-y{
   height: 410px;

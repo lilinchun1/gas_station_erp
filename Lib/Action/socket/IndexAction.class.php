@@ -65,10 +65,22 @@ class IndexAction extends Action {
 		// accept incoming connections
 		// 另一个Socket来处理通信
 		$socket2 = socket_accept($socket) or die("Could not acceptincoming connection\n");
+		
+		$model = new Model();
+		while(true){
+			$input = socket_read($socket2, 1024) or die("Could not readinput\n");
+			// 输出输入字符串
+			echo $input;
+			$model->query("insert into test(test)values('$input')");
+			socket_write ( $socket2, $input, strlen ( $input ) );
+		}
+		
+		
+		
 		// 获得客户端的输入
-		$input = socket_read($socket2, 1024) or die("Could not readinput\n");
-		// 清空输入字符串
-		echo $input = trim($input);
+		//$input = socket_read($socket2, 1024) or die("Could not readinput\n");
+		// 输出输入字符串
+		//echo $input = $input;
 		//将输入结果写入ok.php，这句是我加的
 		//echo $input;exit;
 		//fputs(fopen('ok.php','a+'),"$input");
@@ -78,7 +90,7 @@ class IndexAction extends Action {
 		//$output = strrev($input) ."\n";
 		socket_write ( $socket2, $input, strlen ( $input ) );
 		// 关闭sockets
-		socket_close($socket2);
-		socket_close($socket);
+		//socket_close($socket2);
+		//socket_close($socket);
 	}
 }

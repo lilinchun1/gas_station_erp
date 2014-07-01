@@ -29,7 +29,7 @@
 </div>
 <div id="nav">
     <ul class="main-nav" id="j-nav-active">
-        <li class="url_link" url="<?php echo U('control/Index/index');?>"><a href="<?php echo U('control/Index/index');?>">加油站监控</a></li>
+        <li class="url_link" url="<?php echo U('monitoring/Index/station');?>"><a href="<?php echo U('monitoring/Index/station');?>">加油站监控</a></li>
         <li class="url_link" url="<?php echo U('channel/Channel/index');?>"><a href="<?php echo U('channel/Channel/index');?>">渠道管理</a></li>
         <li class="url_link" url="<?php echo U('management/Index/importingApp');?>"><a href="<?php echo U('management/Index/importingApp');?>">运营管理</a></li>
         <li class="url_link" url="<?php echo U('statistics/Index/index');?>"><a href="<?php echo U('statistics/Index/index');?>">统计分析</a></li>
@@ -201,7 +201,8 @@
 					if(tmp_msg == data)
 					{
 						alert(data);
-						window.location.href = window.location.href;
+						user_logout();
+						//window.location.href = window.location.href;
 					}
 					else
 					{
@@ -543,11 +544,11 @@ function role_check(role_agent_id){
 			}
 			var del_handleUrl="<?php echo U('configuration/User/reset_password');?>";
 			$.getJSON(del_handleUrl,{"reset_userid_txt":reset_userid_txt},
-					function (data){
-						alert(data);
-						window.location.href = window.location.href;
-					}
-					,'json'
+				function (data){
+					alert(data);
+					window.location.href = window.location.href;
+				}
+				,'json'
 			);
 		});
 

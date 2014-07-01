@@ -1,5 +1,5 @@
 <?php
-//¸ù¾ÝÕûÐÍÈÕÆÚ»ñµÃ×Ö·û´®ÈÕÆÚ
+//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ú»ï¿½ï¿½ï¿½Ö·ï¿½ï¿½ï¿½ï¿½ï¿½
 function getDateFromTime($time) {
 	$date = null;
 	if(!empty($time))
@@ -10,7 +10,7 @@ function getDateFromTime($time) {
 	return $date;
 }
 
-//¸ù¾ÝÍøµãÍ¼Æ¬IDµÃµ½Í¼Æ¬Â·¾¶
+//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í¼Æ¬IDï¿½Ãµï¿½Í¼Æ¬Â·ï¿½ï¿½
 function getDevicePhotoPathFromID($device_photo_id) {
 	$Model = new Model();
 	$device_photo_path  =  $Model->query("select image_path from qd_device_image where image_id=" . $device_photo_id);
@@ -18,7 +18,7 @@ function getDevicePhotoPathFromID($device_photo_id) {
 	return $device_photo_path[0]['image_path'];
 }
 
-//¸ù¾ÝÍøµãÍ¼Æ¬IDµÃµ½Í¼Æ¬Â·¾¶
+//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í¼Æ¬IDï¿½Ãµï¿½Í¼Æ¬Â·ï¿½ï¿½
 function getPlacePhotoPathFromID($place_photo_id) {
 	$Model = new Model();
 	$place_photo_path  =  $Model->query("select image_path from qd_place_image where image_id=" . $place_photo_id);
@@ -26,7 +26,7 @@ function getPlacePhotoPathFromID($place_photo_id) {
 	return $place_photo_path[0]['image_path'];
 }
 
-//¸ù¾ÝÀàÐÍµÃµ½ËùÓÐÊôÐÔ
+//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ÍµÃµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 function getTypeAttrString($first_type_id) {
 	$Model = new Model();
 	$second_type_id  =  $Model->query("select channel_type_id from qd_channel_type where channel_type_father_id=" . $first_type_id);
@@ -40,7 +40,7 @@ function getTypeAttrString($first_type_id) {
 	return $second_type_id_string;
 }
 
-//ÐÞ¸Ä¶ÔÓ¦±íµÄID
+//ï¿½Þ¸Ä¶ï¿½Ó¦ï¿½ï¿½ï¿½ID
 function changeID($option_name='', $up_option_id='', $option_id='')
 {
 	$Model = new Model();
@@ -63,7 +63,7 @@ function changeID($option_name='', $up_option_id='', $option_id='')
 }
 
 
-//¼õÉÙ»òÔö¼Ó¶ÔÓ¦±íµÄÊýÁ¿
+//ï¿½ï¿½ï¿½Ù»ï¿½ï¿½ï¿½ï¿½Ó¶ï¿½Ó¦ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 function changeNum($option_name='', $up_option_id='', $option_id='', $option='')
 {
 	$Model = new Model();
@@ -174,7 +174,7 @@ function changeNum($option_name='', $up_option_id='', $option_id='', $option='')
 	}
 }
 
-//ÅÐ¶Ï´úÀíÉÌÈ¨ÏÞ
+//ï¿½Ð¶Ï´ï¿½ï¿½ï¿½ï¿½ï¿½È¨ï¿½ï¿½
 function judgeAgentPurview($user_agent_id='', $option_agent_id='') {
 	if(empty($user_agent_id))
 	{
@@ -216,105 +216,105 @@ function judgeAgentPurview($user_agent_id='', $option_agent_id='') {
 	return $is_have_purview;
 }
 
-//¸ù¾Ý´úÀíÉÌºÏÍ¬±àºÅ·µ»Ø´úÀíÉÌID
+//ï¿½ï¿½Ý´ï¿½ï¿½ï¿½ï¿½Ìºï¿½Í¬ï¿½ï¿½Å·ï¿½ï¿½Ø´ï¿½ï¿½ï¿½ï¿½ï¿½ID
 function getAgentIDFromAgentContract($contract_number='') {
 	$Model = new Model();
 	$agent_id  = $Model->query("select agent_id from qd_agent where contract_number='$contract_number'");
 	return $agent_id[0]['agent_id'];
 }
 
-//¸ù¾ÝÇþµÀºÏÍ¬±àºÅ·µ»ØÇþµÀID
+//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í¬ï¿½ï¿½Å·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ID
 function getChannelIDFromChannelContract($contract_number='') {
 	$Model = new Model();
 	$channel_id  = $Model->query("select channel_id from qd_channel where contract_number='$contract_number'");
 	return $channel_id[0]['channel_id'];
 }
 
-//¸ù¾ÝÉè±¸MACµØÖ··µ»ØÉè±¸ID
+//ï¿½ï¿½ï¿½ï¿½è±¸MACï¿½ï¿½Ö·ï¿½ï¿½ï¿½ï¿½ï¿½è±¸ID
 function getDeviceIDFromDeviceMAC($MAC='') {
 	$Model = new Model();
 	$device_id  = $Model->query("select device_id from qd_device where MAC='$MAC'");
 	return $device_id[0]['device_id'];
 }
 
-//¸ù¾ÝÉè±¸±àºÅ·µ»ØÉè±¸ID
+//ï¿½ï¿½ï¿½ï¿½è±¸ï¿½ï¿½Å·ï¿½ï¿½ï¿½ï¿½è±¸ID
 function getDeviceIDFromDeviceNO($device_no='') {
 	$Model = new Model();
 	$device_id  = $Model->query("select device_id from qd_device where device_no='$device_no'");
 	return $device_id[0]['device_id'];
 }
 
-//¸ù¾ÝÉè±¸ID·µ»ØÉè±¸±àºÅ
+//ï¿½ï¿½ï¿½ï¿½è±¸IDï¿½ï¿½ï¿½ï¿½ï¿½è±¸ï¿½ï¿½ï¿½
 function getDeviceNOFromDeviceID($device_id='') {
 	$Model = new Model();
 	$device_no  = $Model->query("select device_no from qd_device where device_id='$device_id'");
 	return $device_no[0]['device_no'];
 }
 
-//¸ù¾ÝÇþµÀID·µ»ØËùÊô´úÀíÉÌID
+//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½IDï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ID
 function getAgentIDFromChannelID($channel_id='') {
 	$Model = new Model();
 	$agent_id  = $Model->query("select agent_id from qd_channel where channel_id='$channel_id'");
 	return $agent_id[0]['agent_id'];
 }
 
-//¸ù¾ÝÍøµãID·µ»ØËùÊôÇþµÀID
+//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½IDï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ID
 function getChannelIDFromPlaceID($place_id='') {
 	$Model = new Model();
 	$channel_id  = $Model->query("select channel_id from qd_place where place_id='$place_id'");
 	return $channel_id[0]['channel_id'];
 }
 
-//¸ù¾ÝÉè±¸ID·µ»ØËùÊôÍøµãID
+//ï¿½ï¿½ï¿½ï¿½è±¸IDï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ID
 function getPlaceIDFromDeviceID($device_id='') {
 	$Model = new Model();
 	$place_id  = $Model->query("select place_id from qd_device where device_id='$device_id'");
 	return $place_id[0]['place_id'];
 }
 
-//¸ù¾Ý´úÀíÉÌÃû×Ö·µ»Ø´úÀíÉÌID
+//ï¿½ï¿½Ý´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö·ï¿½ï¿½Ø´ï¿½ï¿½ï¿½ï¿½ï¿½ID
 function getAgentIDFromAgentName($agent_name='') {
 	$Model = new Model();
 	$agent_id  = $Model->query("select agent_id from qd_agent where agent_name='$agent_name'");
 	return $agent_id[0]['agent_id'];
 }
 
-//¸ù¾Ý´úÀíÉÌID·µ»Ø´úÀíÉÌÃû×Ö
+//ï¿½ï¿½Ý´ï¿½ï¿½ï¿½ï¿½ï¿½IDï¿½ï¿½ï¿½Ø´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 function getAgentNameFromAgentID($agent_id='') {
 	$Model = new Model();
 	$agent_name  = $Model->query("select agent_name from qd_agent where agent_id=" . $agent_id);
 	return $agent_name[0]['agent_name'];
 }
 
-//¸ù¾ÝÇþµÀÉÌÃû×Ö·µ»ØÇþµÀÉÌID
+//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ID
 function getChannelIDFromChannelName($channel_name='') {
 	$Model = new Model();
 	$channel_id  = $Model->query("select channel_id from qd_channel where channel_name='$channel_name'");
 	return $channel_id[0]['channel_id'];
 }
 
-//¸ù¾ÝÇþµÀÉÌID·µ»ØÇþµÀÉÌÃû×Ö
+//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½IDï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 function getChannelNameFromChannelID($channel_id='') {
 	$Model = new Model();
 	$channel_name  = $Model->query("select channel_name from qd_channel where channel_id=" . $channel_id);
 	return $channel_name[0]['channel_name'];
 }
 
-//¸ù¾ÝÍøµãÃû×Ö·µ»ØÍøµãID
+//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ID
 function getPlaceIDFromPlaceName($place_name='') {
 	$Model = new Model();
 	$place_id  = $Model->query("select place_id from qd_place where place_name='$place_name'");
 	return $place_id[0]['place_id'];
 }
 
-//¸ù¾ÝÍøµã±àºÅ·µ»ØÍøµãID
+//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Å·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ID
 function getPlaceIDFromPlaceNO($place_no='') {
 	$Model = new Model();
 	$place_id  = $Model->query("select place_id from qd_place where place_no='$place_no'");
 	return $place_id[0]['place_id'];
 }
 
-//¸ù¾ÝÍøµãID·µ»ØÍøµãÃû×Ö
+//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½IDï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 function getPlaceNameFromPlaceID($place_id='') {
 	$Model = new Model();
 	$place_name  = $Model->query("select place_name from qd_place where place_id='$place_id'");
@@ -322,28 +322,34 @@ function getPlaceNameFromPlaceID($place_id='') {
 }
 
 
-//µÃµ½ËùÓÐÇþµÀ1¼¶ÀàÐÍ
+//ï¿½Ãµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½1ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 function getAllChannelType() {
 	$Model = new Model();
 	$first_channel_type  = $Model->query("select channel_type_id, channel_type_name from qd_channel_type where channel_type_father_id='0'");
 	return $first_channel_type;
 }
 
-//µÃµ½ËùÓÐ´úÀíÉÌ
+//ï¿½Ãµï¿½ï¿½ï¿½ï¿½Ð´ï¿½ï¿½ï¿½ï¿½ï¿½
 function getAllAgent() {
+	$userinfo = getUserInfo();
+	$orgid = $userinfo['orgid'];
+	if($orgid){
+		$where = " and agent_id = $orgid";
+	}
+	
 	$Model = new Model();
-	$all_agent  = $Model->query("select agent_id, agent_name from qd_agent where isDelete='0'");
+	$all_agent  = $Model->query("select agent_id, agent_name from qd_agent where isDelete='0' $where");
 	return $all_agent;
 }
 
-//¸ù¾ÝÇþµÀID²éÑ¯ÇþµÀÀàÐÍID
+//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½IDï¿½ï¿½Ñ¯ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ID
 function getChannelTypeIDFromChannelID($channel_id='') {
 	$Model = new Model();
 	$channel_type_id  = $Model->query("select a.channel_type_id from qd_channel_type_link a where a.channel_id=" . $channel_id);
 	return $channel_type_id[0]['channel_type_id'];
 }
 
-//¸ù¾ÝÇþµÀID²éÑ¯ÇþµÀÀàÐÍ
+//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½IDï¿½ï¿½Ñ¯ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 function getChannelTypeFromID($channel_id='') {
 	$Model = new Model();
 	$first_channel_type  = $Model->query("select a.channel_type_father_id, a.channel_type_name from qd_channel_type a, qd_channel_type_link b where							a.channel_type_id=b.channel_type_id and b.channel_id=" . $channel_id);
@@ -355,7 +361,7 @@ function getChannelTypeFromID($channel_id='') {
 	return $first_channel_type[0]['channel_type_name'];
 }
 
-//¸ù¾ÝÀàÐÍID²éÑ¯ÀàÐÍÃû×Ö
+//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½IDï¿½ï¿½Ñ¯ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 function getTypeNameFromID($type_id='') {
 	$Model = new Model();
 	$place_type  = $Model->query("select a.channel_type_father_id, a.channel_type_name from qd_channel_type a where a.channel_type_id=" . $type_id);
@@ -367,7 +373,7 @@ function getTypeNameFromID($type_id='') {
 	return $place_type[0]['channel_type_name'];
 }
 
-//Ìí¼ÓÈÕÖ¾ÐÅÏ¢
+//ï¿½ï¿½ï¿½ï¿½ï¿½Ö¾ï¿½ï¿½Ï¢
 function addOptionLog($optin_name='', $option_id='', $option_type='', $option_descrption=''){
 	$Model = new Model();
 	$logs_option = M("logs_option");
@@ -390,7 +396,7 @@ function addOptionLog($optin_name='', $option_id='', $option_type='', $option_de
 	return;
 }
 
-//Ìí¼ÓÉè±¸ÈÕÖ¾ÐÅÏ¢
+//ï¿½ï¿½ï¿½ï¿½è±¸ï¿½ï¿½Ö¾ï¿½ï¿½Ï¢
 function addDeviceLog($agent_id='', $channel_id='', $place_id='', $device_id='', $begin_time='', $end_time=''){
 	$Model = new Model();
 	$logs_device = M("logs_device");

@@ -32,7 +32,7 @@
 </div>
 <div id="nav">
     <ul class="main-nav" id="j-nav-active">
-        <li class="url_link" url="<?php echo U('control/Index/index');?>"><a href="<?php echo U('control/Index/index');?>">加油站监控</a></li>
+        <li class="url_link" url="<?php echo U('monitoring/Index/station');?>"><a href="<?php echo U('monitoring/Index/station');?>">加油站监控</a></li>
         <li class="url_link" url="<?php echo U('channel/Channel/index');?>"><a href="<?php echo U('channel/Channel/index');?>">渠道管理</a></li>
         <li class="url_link" url="<?php echo U('management/Index/importingApp');?>"><a href="<?php echo U('management/Index/importingApp');?>">运营管理</a></li>
         <li class="url_link" url="<?php echo U('statistics/Index/index');?>"><a href="<?php echo U('statistics/Index/index');?>">统计分析</a></li>
@@ -80,17 +80,19 @@
 					<ul class="role-table-list tab-list-mw">
 						<li>
 							<span class="span-1"></span>
-							<span class="span-2"><b>角色名称</b></span>
-							<span class="span-3"><b>角色描述</b></span>
-							<span class="span-2"><b>创建人</b></span>
-							<span class="span-2"><b>创建日期</b></span>
+							<span class="span-1"><b>角色名称</b></span>
+							<span class="span-2"><b>角色描述</b></span>
+							<span class="span-2"><b>所属组织结构</b></span>
+							<span class="span-1"><b>创建人</b></span>
+							<span class="span-1"><b>创建日期</b></span>
 						</li>
 						<?php if(is_array($list)): $i = 0; $__LIST__ = $list;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$vo): $mod = ($i % 2 );++$i;?><li class="list_sel">
 									<span class="span-1"><input type="radio" name="role-info_rad" id="" class="role-table-radio"/></span>
-									<span class="span-2" title="<?php echo ($vo["rolename"]); ?>"><?php echo ($vo["rolename"]); ?></span>
-									<span class="span-3" title="<?php echo ($vo["memo"]); ?>"><?php echo ($vo["memo"]); ?></span>
-									<span class="span-2" title="<?php echo ($vo["addusername"]); ?>"><?php echo ($vo["addusername"]); ?></span>
-									<span class="span-2" title="<?php echo ($vo["adddate"]); ?>"><?php echo ($vo["adddate"]); ?></span>
+									<span class="span-1" title="<?php echo ($vo["rolename"]); ?>"><?php echo ($vo["rolename"]); ?></span>
+									<span class="span-2" title="<?php echo ($vo["memo"]); ?>"><?php echo ($vo["memo"]); ?></span>
+									<span class="span-2" title="<?php echo ($vo["memo"]); ?>"><?php echo ($vo["agent_name"]); ?></span>
+									<span class="span-1" title="<?php echo ($vo["addusername"]); ?>"><?php echo ($vo["addusername"]); ?></span>
+									<span class="span-1" title="<?php echo ($vo["adddate"]); ?>"><?php echo ($vo["adddate"]); ?></span>
 									<!--角色ID-->
 									<span class="roleid_hidden" title="#" style="display:none;"><?php echo ($vo["roleid"]); ?></span>
 							</li><?php endforeach; endif; else: echo "" ;endif; ?>
@@ -175,7 +177,8 @@
 					if(tmp_msg == data)
 					{
 						alert(data);
-						window.location.href = window.location.href;
+						user_logout();
+						//window.location.href = window.location.href;
 					}
 					else
 					{
@@ -523,9 +526,10 @@ $(function(){
 								'pId' : parent,
 								'name' : value,
 								'open' : true,
-								checked : true,
+								'checked' : true,
 								't' : kid,
-								doCheck : false
+								doCheck : false,
+								"chkDisabled":true
 							};
 							break;
 						} else {
@@ -535,7 +539,8 @@ $(function(){
 								'name' : value,
 								'open' : true,
 								't' : kid,
-								doCheck : false
+								doCheck : false,
+								"chkDisabled":true
 							};
 						}
 					}
@@ -553,7 +558,7 @@ $(function(){
 		var show_setting = getTreeSetting(true,true,false,show_beforeCheck,onCheck);
 		
 		$.fn.zTree.init($("#show_treeDemo"), show_setting, zNodes);
-		
+		var code, log, className = "dark";
 		function show_beforeCheck(treeId, treeNode) {
 			className = (className === "dark" ? "":"dark");
 			showLog("[ "+getTime()+" beforeCheck ]&nbsp;&nbsp;&nbsp;&nbsp;" + treeNode.name );

@@ -38,7 +38,7 @@
 </div>
 <div id="nav">
     <ul class="main-nav" id="j-nav-active">
-        <li class="url_link" url="<?php echo U('control/Index/index');?>"><a href="<?php echo U('control/Index/index');?>">加油站监控</a></li>
+        <li class="url_link" url="<?php echo U('monitoring/Index/station');?>"><a href="<?php echo U('monitoring/Index/station');?>">加油站监控</a></li>
         <li class="url_link" url="<?php echo U('channel/Channel/index');?>"><a href="<?php echo U('channel/Channel/index');?>">渠道管理</a></li>
         <li class="url_link" url="<?php echo U('management/Index/importingApp');?>"><a href="<?php echo U('management/Index/importingApp');?>">运营管理</a></li>
         <li class="url_link" url="<?php echo U('statistics/Index/index');?>"><a href="<?php echo U('statistics/Index/index');?>">统计分析</a></li>
@@ -118,7 +118,7 @@
     </div>
 </div>
 <div class="role-table">
-    <div class="num-list">共100条</div>
+    <div class="num-list">共<span id="sum"><?php echo ($place_select_number); ?></span>条</div>
 <div class="hd">
     <ul id="place_select_result_ul" class="channel-tab">
     </ul>
@@ -165,6 +165,9 @@
 
     </div>
     <div class="bd">
+		<ul class="role-table-list role-table-list2">
+			<li><span class='span-3'><b>操作人</b></span><span class='span-3'><b>操作时间</b></span><span class='span-3'><b>操作日志</b></span></li>
+		</ul>
         <ul id="place_log_info" class="role-table-list role-table-list2">
         </ul>
 
@@ -248,7 +251,8 @@
 					if(tmp_msg == data)
 					{
 						alert(data);
-						window.location.href = window.location.href;
+						user_logout();
+						//window.location.href = window.location.href;
 					}
 					else
 					{
@@ -543,6 +547,10 @@
 
 
 	 $(document).ready(function () {
+		var sum = $("#sum").text();
+		if(sum==""){
+			$("#sum").text("0");
+		}
 		var state = "<?php echo ($isDeleteResult); ?>";
 		if(1 == state){
 			$("#place_select_result_ul").empty();
@@ -784,7 +792,7 @@
 		$(".list_sel").click(function(){
 			$(this).find(".role-table-radio").attr("checked",'checked');
 			$("#place_log_info").empty();
-			$("#place_log_info").append("<li><span class='span-3'><b>操作人</b></span><span class='span-3'><b>操作时间</b></span><span class='span-3'><b>操作日志</b></span></li>");
+			//$("#place_log_info").append("<li><span class='span-3'><b>操作人</b></span><span class='span-3'><b>操作时间</b></span><span class='span-3'><b>操作日志</b></span></li>");
 			var handleUrl = "<?php echo U('channel/Place/placeLogSelect');?>";
 			var place_id=place_val;
 			$.getJSON(handleUrl,{"place_id":place_id},

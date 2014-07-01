@@ -51,7 +51,7 @@
 </div>
 <div id="nav">
     <ul class="main-nav" id="j-nav-active">
-        <li class="url_link" url="<?php echo U('control/Index/index');?>"><a href="<?php echo U('control/Index/index');?>">加油站监控</a></li>
+        <li class="url_link" url="<?php echo U('monitoring/Index/station');?>"><a href="<?php echo U('monitoring/Index/station');?>">加油站监控</a></li>
         <li class="url_link" url="<?php echo U('channel/Channel/index');?>"><a href="<?php echo U('channel/Channel/index');?>">渠道管理</a></li>
         <li class="url_link" url="<?php echo U('management/Index/importingApp');?>"><a href="<?php echo U('management/Index/importingApp');?>">运营管理</a></li>
         <li class="url_link" url="<?php echo U('statistics/Index/index');?>"><a href="<?php echo U('statistics/Index/index');?>">统计分析</a></li>
@@ -120,7 +120,7 @@
     </div>
 </div>
 <div class="role-table" id="select_results">
-    <div class="num-list">共100条</div>
+    <div class="num-list">共<span id="sum"><?php echo ($device_select_number); ?></span>条</div>
     <div class="hd">
         <ul id="device_select_result_ul" class="channel-tab">
         </ul>
@@ -194,40 +194,11 @@
 
     </div>
     <div class="bd">
+		<ul class="role-table-list role-table-list2">
+			<li><span class='span-3'><b>操作人</b></span><span class='span-3'><b>操作时间</b></span><span class='span-3'><b>操作日志</b></span></li>
+		</ul>
         <ul id="device_log_info" class="role-table-list role-table-list2">
         </ul>
-        <!--<ul class="role-table-list role-table-list2">
-            <li>
-                <span class="span-3"><b>操作人</b></span>
-                <span class="span-3"><b>操作时间</b></span>
-                <span class="span-3"><b>操作内容</b></span>
-            </li>
-            <li>
-                <span class="span-3" title="#">Lorem ipsum dolor sit amet.</span>
-                <span class="span-3" title="#">Beatae fugiat impedit ipsa porro!</span>
-                <span class="span-3" title="#">Atque corporis laudantium perspiciatis qui?</span>
-            </li>
-            <li>
-                <span class="span-3" title="#">Lorem ipsum dolor sit amet.</span>
-                <span class="span-3" title="#">Beatae fugiat impedit ipsa porro!</span>
-                <span class="span-3" title="#">Atque corporis laudantium perspiciatis qui?</span>
-            </li>
-            <li>
-                <span class="span-3" title="#">Lorem ipsum dolor sit amet.</span>
-                <span class="span-3" title="#">Beatae fugiat impedit ipsa porro!</span>
-                <span class="span-3" title="#">Atque corporis laudantium perspiciatis qui?</span>
-            </li>
-            <li>
-                <span class="span-3" title="#">Lorem ipsum dolor sit amet.</span>
-                <span class="span-3" title="#">Beatae fugiat impedit ipsa porro!</span>
-                <span class="span-3" title="#">Atque corporis laudantium perspiciatis qui?</span>
-            </li>
-            <li>
-                <span class="span-3" title="#">Lorem ipsum dolor sit amet.</span>
-                <span class="span-3" title="#">Beatae fugiat impedit ipsa porro!</span>
-                <span class="span-3" title="#">Atque corporis laudantium perspiciatis qui?</span>
-            </li>
-        </ul>-->
     </div>
 </div>
 </div>
@@ -307,7 +278,8 @@
 					if(tmp_msg == data)
 					{
 						alert(data);
-						window.location.href = window.location.href;
+						user_logout();
+						//window.location.href = window.location.href;
 					}
 					else
 					{
@@ -412,12 +384,12 @@
 
             <p>
                 <label for="mac1" class="">MAC&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
-                <input type="text" name="" id="add_mac1" class="input-mac"/>-
-                <input type="text" name="" id="add_mac2" class="input-mac"/>-
-                <input type="text" name="" id="add_mac3" class="input-mac"/>-
-                <input type="text" name="" id="add_mac4" class="input-mac"/>-
-                <input type="text" name="" id="add_mac5" class="input-mac"/>-
-                <input type="text" name="" id="add_mac6" class="input-mac"/>
+                <input type="text" name="" id="add_mac1" class="input-mac" onkeyup="value=value.replace(/[^\w\.\/]/ig,'')" maxlength="2"/>-
+                <input type="text" name="" id="add_mac2" class="input-mac" onkeyup="value=value.replace(/[^\w\.\/]/ig,'')" maxlength="2"/>-
+                <input type="text" name="" id="add_mac3" class="input-mac" onkeyup="value=value.replace(/[^\w\.\/]/ig,'')" maxlength="2"/>-
+                <input type="text" name="" id="add_mac4" class="input-mac" onkeyup="value=value.replace(/[^\w\.\/]/ig,'')" maxlength="2"/>-
+                <input type="text" name="" id="add_mac5" class="input-mac" onkeyup="value=value.replace(/[^\w\.\/]/ig,'')" maxlength="2"/>-
+                <input type="text" name="" id="add_mac6" class="input-mac" onkeyup="value=value.replace(/[^\w\.\/]/ig,'')" maxlength="2"/>
 				<input type="text" name="add_mac_txt" id="add_mac_txt" class="input-mac" style="display:none;"/>
             </p>
 
@@ -512,12 +484,12 @@
 
             <p>
                 <label for="mac1" class="">MAC&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
-                <input type="text" name="" id="change_mac1" class="input-mac"/>-
-                <input type="text" name="" id="change_mac2" class="input-mac"/>-
-                <input type="text" name="" id="change_mac3" class="input-mac"/>-
-                <input type="text" name="" id="change_mac4" class="input-mac"/>-
-                <input type="text" name="" id="change_mac5" class="input-mac"/>-
-                <input type="text" name="" id="change_mac6" class="input-mac"/>
+                <input type="text" name="" id="change_mac1" class="input-mac" onkeyup="value=value.replace(/[^\w\.\/]/ig,'')" maxlength="2"/>-
+                <input type="text" name="" id="change_mac2" class="input-mac" onkeyup="value=value.replace(/[^\w\.\/]/ig,'')" maxlength="2"/>-
+                <input type="text" name="" id="change_mac3" class="input-mac" onkeyup="value=value.replace(/[^\w\.\/]/ig,'')" maxlength="2"/>-
+                <input type="text" name="" id="change_mac4" class="input-mac" onkeyup="value=value.replace(/[^\w\.\/]/ig,'')" maxlength="2"/>-
+                <input type="text" name="" id="change_mac5" class="input-mac" onkeyup="value=value.replace(/[^\w\.\/]/ig,'')" maxlength="2"/>-
+                <input type="text" name="" id="change_mac6" class="input-mac" onkeyup="value=value.replace(/[^\w\.\/]/ig,'')" maxlength="2"/>
 				<input type="text" name="change_mac_txt" id="change_mac_txt" class="input-mac" style="display:none;"/>
             </p>
 
@@ -644,6 +616,10 @@
 
 
 	$(document).ready(function () {
+		var sum = $("#sum").text();
+		if(sum==""){
+			$("#sum").text("0");
+		}
 		var state = "<?php echo ($isDeleteResult); ?>";
 		if(1 == state){
 			$("#device_select_result_ul").empty();
@@ -785,12 +761,29 @@
 			 });
 			 return false;
         });
-
+		$(".input-mac").keyup(function(){
+			var mac=$(this).val();
+			if(mac.length>=2){
+				$(this).next().focus();
+			}
+		});
 		$('#submit_add_device').click(function(){
 			var handleUrl = "<?php echo U('channel/Device/deviceAdd');?>";
 			var add_device_no_txt=$("#add_device_no_txt").val();//终端编号
 			var add_mac_txt=$("#add_mac1").val() + "-" + $("#add_mac2").val() + "-" + $("#add_mac3").val() + "-" +
 				$("#add_mac4").val() + "-" + $("#add_mac5").val() + "-" + $("#add_mac6").val();//mac地址
+				//MAC验证
+			var reg1 = /^[A-Fa-f0-9]{1,2}\-[A-Fa-f0-9]{1,2}\-[A-Fa-f0-9]{1,2}\-[A-Fa-f0-9]{1,2}\-[A-Fa-f0-9]{1,2}\-[A-Fa-f0-9]{1,2}$/;
+			var reg2 = /^[A-Fa-f0-9]{1,2}\:[A-Fa-f0-9]{1,2}\:[A-Fa-f0-9]{1,2}\:[A-Fa-f0-9]{1,2}\:[A-Fa-f0-9]{1,2}\:[A-Fa-f0-9]{1,2}$/;
+
+			if (reg1.test(add_mac_txt)) {
+
+			} else if (reg2.test(add_mac_txt)) {
+
+			} else {
+				alert("验证码输入有误");
+				return false;
+			}
 			var add_place_name_txt=$("#add_place_name_txt").val();//所属网点
 			var add_deploy_time_sel=$("#add_deploy_time_sel").val();//部署时间
 			var add_begin_time_sel=$("#add_begin_time_sel").val();//启动时间
@@ -833,6 +826,18 @@
 			var change_device_no_txt=$("#change_device_no_txt").val();//终端编号
 			var change_mac_txt=$("#change_mac1").val() + "-" + $("#change_mac2").val() + "-" + $("#change_mac3").val() + "-" +
 				$("#change_mac4").val() + "-" + $("#change_mac5").val() + "-" + $("#change_mac6").val();//mac地址
+			//MAC验证
+			var reg1 = /^[A-Fa-f0-9]{1,2}\-[A-Fa-f0-9]{1,2}\-[A-Fa-f0-9]{1,2}\-[A-Fa-f0-9]{1,2}\-[A-Fa-f0-9]{1,2}\-[A-Fa-f0-9]{1,2}$/;
+			var reg2 = /^[A-Fa-f0-9]{1,2}\:[A-Fa-f0-9]{1,2}\:[A-Fa-f0-9]{1,2}\:[A-Fa-f0-9]{1,2}\:[A-Fa-f0-9]{1,2}\:[A-Fa-f0-9]{1,2}$/;
+
+			if (reg1.test(add_mac_txt)) {
+
+			} else if (reg2.test(add_mac_txt)) {
+
+			} else {
+				alert("验证码输入有误");
+				return false;
+			}
 			var change_place_name_txt=$("#change_place_name_txt").val();//所属网点
 			var change_deploy_time_sel=$("#change_deploy_time_sel").val();//部署时间
 			var change_begin_time_sel=$("#change_begin_time_sel").val();//启动时间
@@ -878,7 +883,7 @@
 		$(".list_sel").click(function(){
 			$(this).find(".role-table-radio").attr("checked",'checked');
 			$("#device_log_info").empty();
-			$("#device_log_info").append("<li><span class='span-3'><b>操作人</b></span><span class='span-3'><b>操作时间</b></span><span class='span-3'><b>操作日志</b></span></li>");
+			//$("#device_log_info").append("<li><span class='span-3'><b>操作人</b></span><span class='span-3'><b>操作时间</b></span><span class='span-3'><b>操作日志</b></span></li>");
 			var handleUrl = "<?php echo U('channel/Device/deviceLogSelect');?>";
 			var device_id=device_val;
 			$.getJSON(handleUrl,{"device_id":device_id},
