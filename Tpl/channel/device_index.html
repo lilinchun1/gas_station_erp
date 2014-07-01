@@ -128,34 +128,10 @@
 				</li>
 			</volist>
         </ul>
-		<!--
-        <ul class="role-table-list">
-            <li>
-                <span class="span-1"></span>
-                <span class="span-2"><b>加油站编号</b></span>
-                <span class="span-1"><b>MAC</b></span>
-                <span class="span-1"><b>加油站类型</b></span>
-                <span class="span-2"><b>所属网点</b></span>
-                <span class="span-2"><b>所在点位</b></span>
-                <span class="span-2"><b>部署时间</b></span>
-                <span class="span-1"><b>图片预览</b></span>
-            </li>
-            <li>
-                <span class="span-1"><input type="radio" name="role-info" id="" class="role-table-radio"/></span>
-                <span class="span-2" title="#">222222222222222222</span>
-                <span class="span-1" title="#">Dolore eius expedita molestias!</span>
-                <span class="span-1" title="#">Blanditiis dolorum pariatur vitae?</span>
-                <span class="span-2" title="#">Perspiciatis quae ratione repudiandae!</span>
-                <span class="span-2" title="#">Ipsa nulla quidem voluptate?</span>
-                <span class="span-2" title="#">Consequuntur eveniet itaque velit.</span>
-                <span class="span-1" title="#"><img src="__PUBLIC__/image/img.png" alt=""/></span>
-            </li>
-        </ul>
-		-->
-
+	<div class="resultpage">{$page}</div>
     </div>
 </div>
-<div class="resultpage">{$page}</div>
+
 
 <div class="role-table over-h-y">
     <div class="hd">
@@ -716,6 +692,7 @@
 			,'json'
 			);
 		});
+		$(".resultpage").attr("style","display:block");
 	});
 
 	function place_name_blurry()

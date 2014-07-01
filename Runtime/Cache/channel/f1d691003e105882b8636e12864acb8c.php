@@ -345,7 +345,7 @@
     }
 </script>
 <div id="j_add_place" style="display:none;">
-<div class="alert-role-add">
+<div class="alert-role-add verup-alert-add">
     <h3>网点信息</h3>
 
     <div class="alert-user-add-con">
@@ -355,37 +355,33 @@
                 <label for="channel-addname" class="role-lab">网点名称</label>
                 <input type="text" name="add_place_name_txt" id="add_place_name_txt" class="input-role-name"/>
                 <i class="red-color pdl10">*</i>
-            </p>
-
-			<p>
                 <label for="channel-addname" class="role-lab">网点编号</label>
                 <input type="text" name="add_place_no_txt" id="add_place_no_txt" class="input-role-name"/>
                 <i class="red-color pdl10">*</i>
             </p>
 
-			<p>
+
+		<!--	<p>
                 <label for="channel-addname" class="role-lab">网点地址</label>
                 <input type="text" name="add_region_txt" id="add_region_txt" class="input-role-name"/>
                 <i class="red-color pdl10">*</i>
-            </p>
 
-			<p>
                 <label for="channel-addname" class="role-lab">网点电话</label>
                 <input type="text" name="add_place_tel_txt" id="add_place_tel_txt" class="input-role-name"/>
-            </p>
+            </p>-->
+
 
 			<p>
                 <label for="channel-addname" class="role-lab">联系人</label>
                 <input type="text" name="add_contacts_txt" id="add_contacts_txt" class="input-role-name"/>
-            </p>
-
-			<p>
+                <i class="red-color pdl10" style="color: #ffffff;">*</i>
                 <label for="channel-addname" class="role-lab">联系人电话</label>
                 <input type="text" name="add_contacts_tel_txt" id="add_contacts_tel_txt" class="input-role-name"/>
             </p>
 
+
             <p>
-                <label for="channel-address1" class="">网点区域</label>
+                <label for="channel-address1" class="">网点地址</label>
                 <span id="add_select_showcity"></span><!--省市联动-->
                 <input type="text" name="" id="" class="input-role-name"/>
                 <i class="red-color pdl10">*</i>
@@ -394,16 +390,14 @@
                 <label for="channel-qd" class="role-lab">所属渠道</label>
                 <input type="text" name="add_channel_name_txt" id="add_channel_name_txt" class="input-role-name"/>
                 <i class="red-color pdl10">*</i>
-            </p>
-
-            <p>
                 <label for="channel-address1" class="">网点状态</label>
-				<select name="add_status_sel" id="add_status_sel" class="channel-select-min">
-					<option value="test">测试期</option>
-					<option value="use">启用</option>
-				</select>
+                <select name="add_status_sel" id="add_status_sel" class="channel-select-min">
+                    <option value="test">测试期</option>
+                    <option value="use">启用</option>
+                </select>
                 <i class="red-color pdl10">*</i>
             </p>
+
 
             <p>
                 <label for="sq-date">测试日期</label>
@@ -411,12 +405,9 @@
 					style="margin-top: 0;" onClick="WdatePicker()" readonly="readonly"/>
                 <input type="date" name="add_test_end_time_sel" id="add_test_end_time_sel" class="input-org-info min-w"
 					style="margin-top: 0;" onClick="WdatePicker()" readonly="readonly"/>
-            </p>
-
-            <p>
                 <label for="sq-date">启用日期</label>
                 <input type="date" name="add_begin_time_sel" id="add_begin_time_sel" class="input-org-info"
-					style="margin-top: 0;" onClick="WdatePicker()" readonly="readonly"/>
+                       style="margin-top: 0;" onClick="WdatePicker()" readonly="readonly"/>
             </p>
 
             <p>
@@ -430,7 +421,7 @@
 </div>
 
 <div id="j_change_place" style="display:none;">
-<div class="alert-role-add">
+<div class="alert-role-add verup-alert-add">
     <h3>网点信息</h3>
 
     <div class="alert-user-add-con">
@@ -440,61 +431,50 @@
                 <label for="channel-addname" class="role-lab">网点名称</label>
                 <input type="text" name="change_place_name_txt" id="change_place_name_txt" class="input-role-name"/>
                 <i class="red-color pdl10">*</i>
-            </p>
-
-			<p>
                 <label for="channel-addname" class="role-lab">网点编号</label>
                 <input type="text" name="change_place_no_txt" id="change_place_no_txt" class="input-role-name"/>
                 <i class="red-color pdl10">*</i>
             </p>
 
-			<p>
+			<!--<p>
                 <label for="channel-addname" class="role-lab">网点地址</label>
                 <input type="text" name="change_region_txt" id="change_region_txt" class="input-role-name"/>
                 <i class="red-color pdl10">*</i>
-            </p>
-
-			<p>
                 <label for="channel-addname" class="role-lab">网点电话</label>
                 <input type="text" name="change_place_tel_txt" id="change_place_tel_txt" class="input-role-name"/>
-            </p>
+            </p>-->
 
 			<p>
                 <label for="channel-addname" class="role-lab">联系人</label>
                 <input type="text" name="change_contacts_txt" id="change_contacts_txt" class="input-role-name"/>
-            </p>
-
-			<p>
+                <i class="red-color pdl10" style="color: #ffffff;">*</i>
                 <label for="channel-addname" class="role-lab">联系人电话</label>
                 <input type="text" name="change_contacts_tel_txt" id="change_contacts_tel_txt" class="input-role-name"/>
             </p>
 
+
             <p>
-                <label for="channel-address1" class="">网点区域</label>
+                <label for="channel-address1" class="">网点地址</label>
                 <span id="change_select_showcity"></span><!--省市联动-->
                 <input type="text" name="" id="" class="input-role-name"/>
                 <i class="red-color pdl10">*</i>
+
             </p>
             <p>
                 <label for="channel-qd" class="role-lab">所属渠道</label>
                 <input type="text" name="change_channel_name_txt" id="change_channel_name_txt" class="input-role-name"/>
             </p>
-
             <p>
                 <label for="channel-address1" class="">网点状态</label>
 				<select name="change_status_sel" id="change_status_sel" class="channel-select-min">
 					<option value="test">测试期</option>
 					<option value="use">启用</option>
 				</select>
-
-            </p>
-
-            <p>
                 <label for="sq-date">测试日期</label>
                 <input type="date" name="change_test_begin_time_sel" id="change_test_begin_time_sel" class="input-org-info min-w"
-					style="margin-top: 0;" onClick="WdatePicker()" readonly="readonly"/>
+                       style="margin-top: 0;" onClick="WdatePicker()" readonly="readonly"/>
                 <input type="date" name="change_test_end_time_sel" id="change_test_end_time_sel" class="input-org-info min-w"
-					style="margin-top: 0;" onClick="WdatePicker()" readonly="readonly"/>
+                       style="margin-top: 0;" onClick="WdatePicker()" readonly="readonly"/>
             </p>
 
             <p>
