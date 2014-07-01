@@ -181,8 +181,8 @@
 </script>
 <script>
     $(function(){
-        $('.aside-nav-nth1').click(function(event){
-            var oUl1 = $(this).find('ul');
+        $('.aside-nav-nth1 a').click(function(event){
+            var oUl1 = $(this).next('ul');
             var OI1 = $(this).find('.j-show-list');
             if(oUl1.is(':visible')){
                 OI1.html('+');

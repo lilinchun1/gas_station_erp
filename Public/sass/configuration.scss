@@ -64,16 +64,23 @@ $heiti:"SimHei";
 
 
 
-/*通用头部*/
-.head-wrap{background: #2581e5 url(../../Public/image/nav_bg.png) top right repeat-y;
+/*通用头部 */
+.head-wrap{
   box-shadow: 0px 1px 1px rgba(180,180,180,0.3);
   min-width: $min-width-kuang;
   position: relative;
   width: 100%;
+  background : -webkit-linear-gradient(left, #4bb4ff 0%, #166be5 100%);
+  background : -moz-linear-gradient(left, #4bb4ff 0%, #2581e5 100%);
+  background : -ms-linear-gradient(left, #4bb4ff 0%, #2581e5 100%);
+  background : -o-linear-gradient(left, #4bb4ff 0%, #2581e5 100%);
+  background : linear-gradient(left, #4bb4ff 0%, #2581e5 100%);
 }
 #head{
   min-width: $min-width-kuang;
   height: 90px;
+  background: url(../../Public/image/nav_bg.png) top right repeat-y;
+  box-shadow: 0 1px 5px rgba(122, 122, 122, 0.30);
   }
 .head-logo{
   margin: 16px 0 0 15px;
@@ -232,7 +239,8 @@ $heiti:"SimHei";
     position: relative;
     float: left;
     margin-right: -$container-left-width;
-    width: $container-left-width;}
+    width: $container-left-width;
+  }
   .right{
     float: right;
     width: 100%;
@@ -281,6 +289,7 @@ $heiti:"SimHei";
       color: #fff;
       cursor: pointer;
         a{
+          display:block;
           color: #ffffff;}
       &:hover{
         background: none;}
@@ -443,6 +452,8 @@ $heiti:"SimHei";
           /*display: table-cell;*/
           line-height: 25px;
           overflow: hidden;
+          &:first-child{
+            width: 50px;}
         }
       &:nth-child(2n){
         background: $bg-color;}
@@ -500,7 +511,7 @@ $heiti:"SimHei";
   float: right;}
 .alert-role-add-con{
   float: left;
-  margin-left: 100px;
+  margin-left: 50px;
   background: #ffffff;
   padding-bottom: 30px;
     label{
@@ -519,7 +530,7 @@ $heiti:"SimHei";
 }
 .alert-btn2{
   @extend %small-btn;
-  margin: 20px 0 0 60px;
+  margin: 20px 0 0 100px;
 }
 .alert-btn3{
   @extend %small-btn;
@@ -527,11 +538,11 @@ $heiti:"SimHei";
 }
 .alert-btn4{
   @extend %small-btn;
-  margin: 0 0 0 200px;
+  margin: 0 0 0 180px;
 }
 .alert-btn-exit{
   @extend %small-btn;
-  margin-left: 30px;
+  margin-left: 70px;
 }
 .delete-message{
   margin-top: 20px;
@@ -596,8 +607,13 @@ $heiti:"SimHei";
   left: 0;
   width: 100%;
   margin-top: -225px;
-  background: $color-main url(../../Public/image/longin_bg.png) center right no-repeat;}
-.logo-360{
+  background : -webkit-linear-gradient(left, #11a8fe 0%, #00498c 100%);
+  background : -moz-linear-gradient(left, #11a8fe 0%, #00498c 100%);
+  background : -ms-linear-gradient(left, #11a8fe 0%, #00498c 100%);
+  background : -o-linear-gradient(left, #11a8fe 0%, #00498c 100%);
+  background : linear-gradient(left, #11a8fe 0%, #00498c 100%);
+  }
+.logo-330{
   float: right;
   margin-right: 8%;
   margin-top: 20px;
@@ -614,7 +630,7 @@ $heiti:"SimHei";
   width: 100%;
   min-width: 960px;
   height: 450px;
-
+  background: url(../../Public/image/longin_bg.png) center right no-repeat;
     h1{
       position: absolute;
       top: -70px;
@@ -790,6 +806,7 @@ $heiti:"SimHei";
   width: 30px;
 }
 .device-point-pic{
+  overflow: hidden;
     h4{
       padding-left: 15px;
       margin-bottom: 10px;
@@ -845,6 +862,7 @@ $heiti:"SimHei";
 
 }
 .station-control{
+  min-width:902px;
   padding: 20px 30px;
   border: 1px solid $border-color;
   overflow: hidden;
@@ -906,6 +924,7 @@ $heiti:"SimHei";
 .station-state-list{
   padding: 0 0;
   margin: 20px auto 0 auto;
+  min-width:964px;
   width: 98%;
   border: 1px solid $border-color;
   overflow: hidden;
@@ -931,6 +950,7 @@ $heiti:"SimHei";
 
   li{
     padding: 20px 0;
+    min-width:762px;
     background: $bg-color;
     overflow: hidden;
     border-bottom: 1px dashed $border-color;}
@@ -1057,7 +1077,7 @@ $heiti:"SimHei";
   padding-left: 80px;
   float: left;}
 .alt-btn-sc{
-  padding-left: 20%;
+ 
   float: left;
   width: 100%;}
 .verup-tree-tab{

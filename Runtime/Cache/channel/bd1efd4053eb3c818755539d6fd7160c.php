@@ -119,7 +119,7 @@
         </form>
     </div>
 </div>
-<div class="role-table" id="select_results">
+<div class="role-table" id="select_results" style="min-width: 1354px;">
     <div class="num-list">共<span id="sum"><?php echo ($device_select_number); ?></span>条</div>
     <div class="hd">
         <ul id="device_select_result_ul" class="channel-tab">
@@ -129,8 +129,8 @@
         <ul class="role-table-list">
             <li>
                 <span class="span-1"></span>
-                <span class="span-1"><b>加油站编号</b></span>
-                <span class="span-1"><b>MAC</b></span>
+                <span class="span-2"><b>加油站编号</b></span>
+                <span class="span-2"><b>MAC</b></span>
                 <span class="span-1"><b>加油站类型</b></span>
                 <span class="span-2"><b>所属网点</b></span>
                 <span class="span-1"><b>所在点位</b></span>
@@ -143,8 +143,8 @@
 					<span class="span-1">
 						<input type="radio" name="deviceRadioID" id="<?php echo ($vo['deviceRadioID']); ?>" value="<?php echo ($vo['device_id']); ?>"
 							  class="role-table-radio"/></span>
-					<span class="span-1" title="<?php echo ($vo["device_no"]); ?>"><?php echo ($vo["device_no"]); ?></span>
-					<span class="span-1" title="<?php echo ($vo["MAC"]); ?>"><?php echo ($vo["MAC"]); ?></span>
+					<span class="span-2" title="<?php echo ($vo["device_no"]); ?>"><?php echo ($vo["device_no"]); ?></span>
+					<span class="span-2" title="<?php echo ($vo["MAC"]); ?>"><?php echo ($vo["MAC"]); ?></span>
 					<span class="span-1" title="<?php echo ($vo["device_type"]); ?>"><?php echo ($vo["device_type"]); ?></span>
 					<span class="span-2" title="<?php echo ($vo["place_name"]); ?>"><?php echo ($vo["place_name"]); ?></span>
 					<span class="span-1" title="<?php echo ($vo["address"]); ?>"><?php echo ($vo["address"]); ?></span>
@@ -156,34 +156,10 @@
 							<?php if(!empty($vo['device_image_2'])): ?><img class="smaallimg" src="<?php echo ($vo["device_image_2"]); ?>" /><?php endif; ?>
 				</li><?php endforeach; endif; else: echo "" ;endif; ?>
         </ul>
-		<!--
-        <ul class="role-table-list">
-            <li>
-                <span class="span-1"></span>
-                <span class="span-2"><b>加油站编号</b></span>
-                <span class="span-1"><b>MAC</b></span>
-                <span class="span-1"><b>加油站类型</b></span>
-                <span class="span-2"><b>所属网点</b></span>
-                <span class="span-2"><b>所在点位</b></span>
-                <span class="span-2"><b>部署时间</b></span>
-                <span class="span-1"><b>图片预览</b></span>
-            </li>
-            <li>
-                <span class="span-1"><input type="radio" name="role-info" id="" class="role-table-radio"/></span>
-                <span class="span-2" title="#">222222222222222222</span>
-                <span class="span-1" title="#">Dolore eius expedita molestias!</span>
-                <span class="span-1" title="#">Blanditiis dolorum pariatur vitae?</span>
-                <span class="span-2" title="#">Perspiciatis quae ratione repudiandae!</span>
-                <span class="span-2" title="#">Ipsa nulla quidem voluptate?</span>
-                <span class="span-2" title="#">Consequuntur eveniet itaque velit.</span>
-                <span class="span-1" title="#"><img src="__PUBLIC__/image/img.png" alt=""/></span>
-            </li>
-        </ul>
-		-->
-
+	<div class="resultpage"><?php echo ($page); ?></div>
     </div>
 </div>
-<div class="resultpage"><?php echo ($page); ?></div>
+
 
 <div class="role-table over-h-y">
     <div class="hd">
@@ -333,8 +309,8 @@
 </script>
 <script>
     $(function(){
-        $('.aside-nav-nth1').click(function(event){
-            var oUl1 = $(this).find('ul');
+        $('.aside-nav-nth1 a').click(function(event){
+            var oUl1 = $(this).next('ul');
             var OI1 = $(this).find('.j-show-list');
             if(oUl1.is(':visible')){
                 OI1.html('+');
@@ -372,17 +348,15 @@
     }
 </script>
 <div id="j_add_device" style="display:none;">
-<div class="alert-role-add">
+<div class="alert-role-add verup-alert-add">
     <h3>加油站信息</h3>
-    <div class="alert-user-add-con">
+    <div class="alert-user-add-con ">
         <form action="">
             <p>
                 <label for="channel-addname" class="role-lab">加油站编号</label>
                 <input type="text" name="add_device_no_txt" id="add_device_no_txt" class="input-role-name"/>
                 <i class="red-color pdl10">*</i>
-            </p>
 
-            <p>
                 <label for="mac1" class="">MAC&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
                 <input type="text" name="" id="add_mac1" class="input-mac" onkeyup="value=value.replace(/[^\w\.\/]/ig,'')" maxlength="2"/>-
                 <input type="text" name="" id="add_mac2" class="input-mac" onkeyup="value=value.replace(/[^\w\.\/]/ig,'')" maxlength="2"/>-
@@ -398,9 +372,7 @@
                 <label for="channel-line-p" class="role-lab">所属网点</label>
                 <input type="text" name="add_place_name_txt" id="add_place_name_txt" class="input-role-name"/>
                 <i class="red-color pdl10">*</i>
-            </p>
 
-            <p>
                 <label for="channel-point" class="role-lab">所在点位</label>
                 <input type="text" name="add_address_txt" id="add_address_txt" class="input-role-name"/>
                 <i class="red-color pdl10">*</i>
@@ -410,9 +382,7 @@
                 <label for="channel-point" class="role-lab">加油站型号</label>
                 <input type="text" name="add_device_type_txt" id="add_device_type_txt" class="input-role-name"/>
                 <i class="red-color pdl10">*</i>
-            </p>
 
-			<p>
 				<label for="channel-point" class="role-lab">加油站状态</label>
 				<select name="add_status_sel" id="add_status_sel" class="channel-select-min">
 					<option selected value="">选择状态</option> 
@@ -431,9 +401,7 @@
                 <label for="bs-date">部署日期</label>
                 <input type="date" name="add_deploy_time_sel" id="add_deploy_time_sel" class="input-org-info" 
 				 style="margin-top: 0;" onClick="WdatePicker()" readonly="readonly"/>
-            </p>
-
-            <p>
+                <i class="red-color pdl10" style="color: #ffffff;">*</i>
                 <label for="sq-date">启用日期</label>
                 <input type="date" name="add_begin_time_sel" id="add_begin_time_sel" class="input-org-info" 
 				 style="margin-top: 0;" onClick="WdatePicker()" readonly="readonly"/>
@@ -444,9 +412,7 @@
                 <label for="sq-date">设置开机时间</label>
                 <input type="date" name="add_power_on_time_sel" id="add_power_on_time_sel" class="input-org-info" 
 					style="margin-top: 0;" onClick="WtimePicker()" readonly="readonly"/>
-            </p>
-
-            <p>
+                <i class="red-color pdl10" style="color: #ffffff;">*</i>
                 <label for="sq-date">设置关机时间</label>
                 <input type="date" name="add_power_off_time_sel" id="add_power_off_time_sel" class="input-org-info" 
 					style="margin-top: 0;" onClick="WtimePicker()" readonly="readonly"/>
@@ -467,7 +433,7 @@
 				</form>
             </div>
             <p>
-                <button type="button" class="alert-btn2" id="submit_add_device">保存</button>
+                <button type="button" class="alert-btn4" id="submit_add_device">保存</button>
 				<a href="." class="closeDOMWindow">
 					<button type="button" class="alert-btn2">关闭</button>
 				</a>
@@ -478,7 +444,7 @@
 </div>
 
 <div id="j_change_device" style="display:none;">
-<div class="alert-role-add">
+<div class="alert-role-add verup-alert-add">
     <h3>加油站信息</h3>
 
     <div class="alert-user-add-con">
@@ -487,9 +453,7 @@
                 <label for="channel-addname" class="role-lab">加油站编号</label>
                 <input type="text" name="change_device_no_txt" id="change_device_no_txt" class="input-role-name"/>
                 <i class="red-color pdl10">*</i>
-            </p>
 
-            <p>
                 <label for="mac1" class="">MAC&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
                 <input type="text" name="" id="change_mac1" class="input-mac" onkeyup="value=value.replace(/[^\w\.\/]/ig,'')" maxlength="2"/>-
                 <input type="text" name="" id="change_mac2" class="input-mac" onkeyup="value=value.replace(/[^\w\.\/]/ig,'')" maxlength="2"/>-
@@ -505,9 +469,7 @@
                 <label for="channel-line-p" class="role-lab">所属网点</label>
                 <input type="text" name="change_place_name_txt" id="change_place_name_txt" class="input-role-name"/>
                 <i class="red-color pdl10">*</i>
-            </p>
 
-            <p>
                 <label for="channel-point" class="role-lab">所在点位</label>
                 <input type="text" name="change_address_txt" id="change_address_txt" class="input-role-name"/>
                 <i class="red-color pdl10">*</i>
@@ -517,9 +479,7 @@
                 <label for="channel-point" class="role-lab">加油站型号</label>
                 <input type="text" name="change_device_type_txt" id="change_device_type_txt" class="input-role-name"/>
                 <i class="red-color pdl10">*</i>
-            </p>
 
-			<p>
 				<label for="channel-point" class="role-lab">加油站状态</label>
 				<select name="change_status_sel" id="change_status_sel" class="channel-select-min">
 					<option selected value="">选择状态</option> 
@@ -539,9 +499,6 @@
                 <input type="date" name="change_deploy_time_sel" id="change_deploy_time_sel" class="input-org-info" 
 					style="margin-top: 0;" onClick="WdatePicker()" readonly="readonly"/>
                 <i class="red-color pdl10">*</i>
-            </p>
-
-            <p>
                 <label for="sq-date">启用日期</label>
                 <input type="date" name="change_begin_time_sel" id="change_begin_time_sel" class="input-org-info" 
 					style="margin-top: 0;" onClick="WdatePicker()" readonly="readonly"/>
@@ -551,9 +508,7 @@
                 <label for="sq-date">设置开机时间</label>
                 <input type="date" name="change_power_on_time_sel" id="change_power_on_time_sel" class="input-org-info" 
 					style="margin-top: 0;" onClick="WtimePicker()" readonly="readonly"/>
-            </p>
-
-            <p>
+                <i class="red-color pdl10" style="color: #ffffff;">*</i>
                 <label for="sq-date">设置关机时间</label>
                 <input type="date" name="change_power_off_time_sel" id="change_power_off_time_sel" class="input-org-info" 
 					style="margin-top: 0;" onClick="WtimePicker()" readonly="readonly"/>
@@ -577,7 +532,7 @@
 				</form>
             </div>
             <p>
-                <button type="button" class="alert-btn2" id="submit_change_device">保存</button>
+                <button type="button" class="alert-btn4" id="submit_change_device">保存</button>
 				<a href="." class="closeDOMWindow">
 					<button type="button" class="alert-btn2">关闭</button>
 				</a>
@@ -909,6 +864,7 @@
 			,'json'
 			);
 		});
+		$(".resultpage").attr("style","display:block");
 	});
 
 	function place_name_blurry()

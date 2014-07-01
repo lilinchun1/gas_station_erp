@@ -155,40 +155,6 @@
                 </li><?php endforeach; endif; else: echo "" ;endif; ?>
         </ul>
 		<div class="resultpage"><?php echo ($page); ?></div>
-        <!--<ul class="role-table-list">
-            <li>
-                <span class="span-1"></span>
-                <span class="span-1"><b>渠道商名称</b></span>
-                <span class="span-1"><b>渠道商类型</b></span>
-                <span class="span-1"><b>所属组织机构</b></span>
-                <span class="span-3"><b>地址信息</b></span>
-                <span class="span-2"><b>合同开始日期</b></span>
-                <span class="span-1"><b>合同截至日期</b></span>
-                <span class="span-1"><b>启用网点数量</b></span>
-                <span class="span-1"><b>投放加油站数量</b></span>
-            </li>
-            <?php if(is_array($list)): $i = 0; $__LIST__ = $list;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$vo): $mod = ($i % 2 );++$i;?><li>
-                    <span class="span-1"><input type="radio" name="role-info" id="" class="role-table-radio"/></span>
-                    <span class="span-1" title="#"><?php echo ($vo["channel_name"]); ?></span>
-                    <span class="span-1" title="#"><?php echo ($vo["channel_type_name"]); ?></span>
-                    <span class="span-1" title="#"><?php echo ($vo["agent_name"]); ?></span>
-                    <span class="span-3" title="#"><?php echo ($vo["channel_address"]); ?></span>
-                    <span class="span-2" title="#"><?php echo ($vo["begin_time"]); ?></span>
-                    <span class="span-1" title="#"><?php echo ($vo["end_time"]); ?></span>
-                    <span class="span-1" title="#"><?php echo ($vo["place_num"]); ?></span>
-                    <span class="span-1" title="#"><?php echo ($vo["device_num"]); ?></span>
-                </li><?php endforeach; endif; else: echo "" ;endif; ?>
-            <li>
-                <span class="span-1"><input type="radio" name="role-info" id="" class="role-table-radio"/></span>
-                <span class="span-1" title="#">Lorem ipsum dolor sit.</span>
-                <span class="span-1" title="#">Dolore eius expedita molestias!</span>
-                <span class="span-1" title="#">Blanditiis dolorum pariatur vitae?</span>
-                <span class="span-3" title="#">Perspiciatis quae ratione repudiandae!</span>
-                <span class="span-2" title="#">Ipsa nulla quidem voluptate?</span>
-                <span class="span-1" title="#">Consequuntur eveniet itaque velit.</span>
-                <span class="span-1" title="#">Aspernatur blanditiis ipsum nulla!</span>
-            </li>
-        </ul>-->
     </div>
 </div>
 
@@ -336,8 +302,8 @@
 </script>
 <script>
     $(function(){
-        $('.aside-nav-nth1').click(function(event){
-            var oUl1 = $(this).find('ul');
+        $('.aside-nav-nth1 a').click(function(event){
+            var oUl1 = $(this).next('ul');
             var OI1 = $(this).find('.j-show-list');
             if(oUl1.is(':visible')){
                 OI1.html('+');

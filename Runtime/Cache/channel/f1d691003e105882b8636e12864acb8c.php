@@ -152,9 +152,10 @@
 					<span class="span-1" title="<?php echo ($vo["end_time"]); ?>"><?php echo ($vo["end_time"]); ?></span><?php endif; ?>
 			</li><?php endforeach; endif; else: echo "" ;endif; ?>
     </ul>
+	<div class="resultpage"><?php echo ($page); ?></div>
 </div>
 </div>
-<div class="resultpage"><?php echo ($page); ?></div>
+
 
 <div class="role-table over-h-y">
     <div class="hd">
@@ -306,8 +307,8 @@
 </script>
 <script>
     $(function(){
-        $('.aside-nav-nth1').click(function(event){
-            var oUl1 = $(this).find('ul');
+        $('.aside-nav-nth1 a').click(function(event){
+            var oUl1 = $(this).next('ul');
             var OI1 = $(this).find('.j-show-list');
             if(oUl1.is(':visible')){
                 OI1.html('+');
@@ -411,7 +412,7 @@
             </p>
 
             <p>
-                <button type="button" class="alert-btn2" id="submit_add_place">保存</button>
+                <button type="button" class="alert-btn4" id="submit_add_place">保存</button>
 				<a href="." class="closeDOMWindow">
 					<button type="button" class="alert-btn2">关闭</button>
 				</a>
@@ -484,7 +485,7 @@
             </p>
 
             <p>
-                <button type="button" class="alert-btn2" id="submit_change_place">保存</button>
+                <button type="button" class="alert-btn4" id="submit_change_place">保存</button>
 				<a href="." class="closeDOMWindow">
 					<button type="button" class="alert-btn2">关闭</button>
 				</a>
@@ -538,6 +539,8 @@
 
 
 	 $(document).ready(function () {
+		 //设置page显示
+		$(".resultpage").attr("style","display:block");
 		var sum = $("#sum").text();
 		if(sum==""){
 			$("#sum").text("0");
@@ -798,6 +801,7 @@
 		});
 
 	});
+				
 
 	$('#submit_change_place').click(function(){
 		var handleUrl = "<?php echo U('channel/Place/placeSave');?>";
@@ -842,7 +846,6 @@
 				}
 			,'json'
 			);
-
 	});
 
 	function channel_name_blurry()

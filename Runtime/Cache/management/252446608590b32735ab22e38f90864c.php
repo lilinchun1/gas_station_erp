@@ -361,8 +361,8 @@
 </script>
 <script>
     $(function(){
-        $('.aside-nav-nth1').click(function(event){
-            var oUl1 = $(this).find('ul');
+        $('.aside-nav-nth1 a').click(function(event){
+            var oUl1 = $(this).next('ul');
             var OI1 = $(this).find('.j-show-list');
             if(oUl1.is(':visible')){
                 OI1.html('+');
@@ -430,7 +430,7 @@
                     </div>
                 </div>
                 <div class="alt-btn-sc cf">
-                    <button type="submit" name="add_udp" class="alert-btn2" value="1">保存</button>
+                    <button type="submit" name="add_udp" class="alert-btn4" value="1">保存</button>
                     <a href="." class="closeDOMWindow">
                         <button type="button" class="alert-btn">关闭</button>
                     </a>
@@ -470,7 +470,7 @@
                     </div>
                 </div>
                 <div class="alt-btn-sc cf">
-                    <button type="submit" name="add_udp" class="alert-btn2" value="1">保存</button>
+                    <button type="submit" name="add_udp" class="alert-btn4" value="1">保存</button>
                     <a href="." class="closeDOMWindow">
                         <button type="button" class="alert-btn">关闭</button>
                     </a>
