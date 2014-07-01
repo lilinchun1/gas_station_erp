@@ -324,7 +324,7 @@
 					</select>
 				</p>
 				<div>
-					<em>角色</em>
+					<label>角色</label>
 					<ul class="user-checkbox-list" id="j_ul_checkbox">
 
 					</ul>

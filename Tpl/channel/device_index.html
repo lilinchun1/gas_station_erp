@@ -181,12 +181,12 @@
 <div id="j_add_device" style="display:none;">
 <div class="alert-role-add">
     <h3>加油站信息</h3>
-
     <div class="alert-user-add-con">
         <form action="">
             <p>
-                <label for="channel-addname" class="role-lab">设备编号</label>
+                <label for="channel-addname" class="role-lab">加油站编号</label>
                 <input type="text" name="add_device_no_txt" id="add_device_no_txt" class="input-role-name"/>
+                <i class="red-color pdl10">*</i>
             </p>
 
             <p>
@@ -198,25 +198,29 @@
                 <input type="text" name="" id="add_mac5" class="input-mac" onkeyup="value=value.replace(/[^\w\.\/]/ig,'')" maxlength="2"/>-
                 <input type="text" name="" id="add_mac6" class="input-mac" onkeyup="value=value.replace(/[^\w\.\/]/ig,'')" maxlength="2"/>
 				<input type="text" name="add_mac_txt" id="add_mac_txt" class="input-mac" style="display:none;"/>
+                <i class="red-color pdl10">*</i>
             </p>
 
             <p>
                 <label for="channel-line-p" class="role-lab">所属网点</label>
                 <input type="text" name="add_place_name_txt" id="add_place_name_txt" class="input-role-name"/>
+                <i class="red-color pdl10">*</i>
             </p>
 
             <p>
                 <label for="channel-point" class="role-lab">所在点位</label>
                 <input type="text" name="add_address_txt" id="add_address_txt" class="input-role-name"/>
+                <i class="red-color pdl10">*</i>
             </p>
 
 			<p>
-                <label for="channel-point" class="role-lab">终端型号</label>
+                <label for="channel-point" class="role-lab">加油站型号</label>
                 <input type="text" name="add_device_type_txt" id="add_device_type_txt" class="input-role-name"/>
+                <i class="red-color pdl10">*</i>
             </p>
 
 			<p>
-				<label for="channel-point" class="role-lab">终端状态</label>
+				<label for="channel-point" class="role-lab">加油站状态</label>
 				<select name="add_status_sel" id="add_status_sel" class="channel-select-min">
 					<option selected value="">选择状态</option> 
 					<optgroup label="运行">  
@@ -226,7 +230,8 @@
 					<optgroup label="未运行">  
 						<option value="not_use">未运行</option>    
 					</optgroup>  
-				</select>&nbsp;&nbsp;&nbsp;&nbsp;
+				</select>
+                <i class="red-color pdl10">*</i>
 		    </p>
 
             <p>
@@ -239,6 +244,7 @@
                 <label for="sq-date">启用日期</label>
                 <input type="date" name="add_begin_time_sel" id="add_begin_time_sel" class="input-org-info" 
 				 style="margin-top: 0;" onClick="WdatePicker()" readonly="readonly"/>
+                <i class="red-color pdl10">*</i>
             </p>
 
             <p>
@@ -285,8 +291,9 @@
     <div class="alert-user-add-con">
         <form action="">
             <p>
-                <label for="channel-addname" class="role-lab">设备编号</label>
+                <label for="channel-addname" class="role-lab">加油站编号</label>
                 <input type="text" name="change_device_no_txt" id="change_device_no_txt" class="input-role-name"/>
+                <i class="red-color pdl10">*</i>
             </p>
 
             <p>
@@ -298,25 +305,29 @@
                 <input type="text" name="" id="change_mac5" class="input-mac" onkeyup="value=value.replace(/[^\w\.\/]/ig,'')" maxlength="2"/>-
                 <input type="text" name="" id="change_mac6" class="input-mac" onkeyup="value=value.replace(/[^\w\.\/]/ig,'')" maxlength="2"/>
 				<input type="text" name="change_mac_txt" id="change_mac_txt" class="input-mac" style="display:none;"/>
+                <i class="red-color pdl10">*</i>
             </p>
 
             <p>
                 <label for="channel-line-p" class="role-lab">所属网点</label>
                 <input type="text" name="change_place_name_txt" id="change_place_name_txt" class="input-role-name"/>
+                <i class="red-color pdl10">*</i>
             </p>
 
             <p>
                 <label for="channel-point" class="role-lab">所在点位</label>
                 <input type="text" name="change_address_txt" id="change_address_txt" class="input-role-name"/>
+                <i class="red-color pdl10">*</i>
             </p>
 
 			<p>
-                <label for="channel-point" class="role-lab">终端型号</label>
+                <label for="channel-point" class="role-lab">加油站型号</label>
                 <input type="text" name="change_device_type_txt" id="change_device_type_txt" class="input-role-name"/>
+                <i class="red-color pdl10">*</i>
             </p>
 
 			<p>
-				<label for="channel-point" class="role-lab">终端状态</label>
+				<label for="channel-point" class="role-lab">加油站状态</label>
 				<select name="change_status_sel" id="change_status_sel" class="channel-select-min">
 					<option selected value="">选择状态</option> 
 					<optgroup label="运行">  
@@ -326,13 +337,15 @@
 					<optgroup label="未运行">  
 						<option value="not_use">未运行</option>    
 					</optgroup>  
-				</select>&nbsp;&nbsp;&nbsp;&nbsp;
+				</select>
+                <i class="red-color pdl10">*</i>
 		    </p>
 
             <p>
                 <label for="bs-date">部署日期</label>
                 <input type="date" name="change_deploy_time_sel" id="change_deploy_time_sel" class="input-org-info" 
 					style="margin-top: 0;" onClick="WdatePicker()" readonly="readonly"/>
+                <i class="red-color pdl10">*</i>
             </p>
 
             <p>

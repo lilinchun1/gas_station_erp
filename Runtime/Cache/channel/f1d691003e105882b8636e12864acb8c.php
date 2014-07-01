@@ -354,16 +354,19 @@
             <p>
                 <label for="channel-addname" class="role-lab">网点名称</label>
                 <input type="text" name="add_place_name_txt" id="add_place_name_txt" class="input-role-name"/>
+                <i class="red-color pdl10">*</i>
             </p>
 
 			<p>
                 <label for="channel-addname" class="role-lab">网点编号</label>
                 <input type="text" name="add_place_no_txt" id="add_place_no_txt" class="input-role-name"/>
+                <i class="red-color pdl10">*</i>
             </p>
 
 			<p>
                 <label for="channel-addname" class="role-lab">网点地址</label>
                 <input type="text" name="add_region_txt" id="add_region_txt" class="input-role-name"/>
+                <i class="red-color pdl10">*</i>
             </p>
 
 			<p>
@@ -384,10 +387,13 @@
             <p>
                 <label for="channel-address1" class="">网点区域</label>
                 <span id="add_select_showcity"></span><!--省市联动-->
+                <input type="text" name="" id="" class="input-role-name"/>
+                <i class="red-color pdl10">*</i>
             </p>
             <p>
                 <label for="channel-qd" class="role-lab">所属渠道</label>
                 <input type="text" name="add_channel_name_txt" id="add_channel_name_txt" class="input-role-name"/>
+                <i class="red-color pdl10">*</i>
             </p>
 
             <p>
@@ -396,20 +402,20 @@
 					<option value="test">测试期</option>
 					<option value="use">启用</option>
 				</select>
-
+                <i class="red-color pdl10">*</i>
             </p>
 
             <p>
                 <label for="sq-date">测试日期</label>
-                <input type="date" name="add_test_begin_time_sel" id="add_test_begin_time_sel" class="input-org-info min-w" 
+                <input type="date" name="add_test_begin_time_sel" id="add_test_begin_time_sel" class="input-org-info min-w"
 					style="margin-top: 0;" onClick="WdatePicker()" readonly="readonly"/>
-                <input type="date" name="add_test_end_time_sel" id="add_test_end_time_sel" class="input-org-info min-w" 
+                <input type="date" name="add_test_end_time_sel" id="add_test_end_time_sel" class="input-org-info min-w"
 					style="margin-top: 0;" onClick="WdatePicker()" readonly="readonly"/>
             </p>
 
             <p>
                 <label for="sq-date">启用日期</label>
-                <input type="date" name="add_begin_time_sel" id="add_begin_time_sel" class="input-org-info" 
+                <input type="date" name="add_begin_time_sel" id="add_begin_time_sel" class="input-org-info"
 					style="margin-top: 0;" onClick="WdatePicker()" readonly="readonly"/>
             </p>
 
@@ -433,16 +439,19 @@
             <p>
                 <label for="channel-addname" class="role-lab">网点名称</label>
                 <input type="text" name="change_place_name_txt" id="change_place_name_txt" class="input-role-name"/>
+                <i class="red-color pdl10">*</i>
             </p>
 
 			<p>
                 <label for="channel-addname" class="role-lab">网点编号</label>
                 <input type="text" name="change_place_no_txt" id="change_place_no_txt" class="input-role-name"/>
+                <i class="red-color pdl10">*</i>
             </p>
 
 			<p>
                 <label for="channel-addname" class="role-lab">网点地址</label>
                 <input type="text" name="change_region_txt" id="change_region_txt" class="input-role-name"/>
+                <i class="red-color pdl10">*</i>
             </p>
 
 			<p>
@@ -463,6 +472,8 @@
             <p>
                 <label for="channel-address1" class="">网点区域</label>
                 <span id="change_select_showcity"></span><!--省市联动-->
+                <input type="text" name="" id="" class="input-role-name"/>
+                <i class="red-color pdl10">*</i>
             </p>
             <p>
                 <label for="channel-qd" class="role-lab">所属渠道</label>
@@ -480,15 +491,15 @@
 
             <p>
                 <label for="sq-date">测试日期</label>
-                <input type="date" name="change_test_begin_time_sel" id="change_test_begin_time_sel" class="input-org-info min-w" 
+                <input type="date" name="change_test_begin_time_sel" id="change_test_begin_time_sel" class="input-org-info min-w"
 					style="margin-top: 0;" onClick="WdatePicker()" readonly="readonly"/>
-                <input type="date" name="change_test_end_time_sel" id="change_test_end_time_sel" class="input-org-info min-w" 
+                <input type="date" name="change_test_end_time_sel" id="change_test_end_time_sel" class="input-org-info min-w"
 					style="margin-top: 0;" onClick="WdatePicker()" readonly="readonly"/>
             </p>
 
             <p>
                 <label for="sq-date">启用日期</label>
-                <input type="date" name="change_begin_time_sel" id="change_begin_time_sel" class="input-org-info" 
+                <input type="date" name="change_begin_time_sel" id="change_begin_time_sel" class="input-org-info"
 					style="margin-top: 0;" onClick="WdatePicker()" readonly="readonly"/>
             </p>
 
@@ -642,7 +653,7 @@
 					$("#change_region_txt").val(data['region']);
 					$("#change_contract_number_txt").val(data['contract_number']);
 					$("#change_begin_time_sel").val(data['begin_time']);
-	
+
 					tmp_first_place_type_id = data['first_place_type_id'];
 					tmp_place_type_id = data['place_type_id'];
 					if('' == tmp_first_place_type_id)

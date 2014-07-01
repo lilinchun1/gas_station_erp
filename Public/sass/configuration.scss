@@ -436,10 +436,11 @@ $heiti:"SimHei";
           height: 25px;
           overflow: hidden;
           cursor: pointer}
-        span{
+        span {
           padding: 0 5px;
           height: 25px;
           display:inline-block;
+          /*display: table-cell;*/
           line-height: 25px;
           overflow: hidden;
         }
@@ -554,10 +555,10 @@ $heiti:"SimHei";
 .role-table-list2 li span:first-child{
   text-indent: 14px;}
 .alert-user-add-con{
-  padding: 20px 0 0 70px;
+  padding: 20px 0 0 0px;
     label{
       padding-right: 20px;
-
+      width: 100px;
       display: inline-block;
       text-align: right;}
     p{
@@ -681,11 +682,11 @@ $heiti:"SimHei";
 }
 .login-tt-head{
   margin-bottom: 20px;
-  height: 60px;
+  height: 40px;
   border-top-right-radius: 20px;
   border-top-left-radius: 20px;
   line-height: 60px;
-  background: #0357ae;
+  background: rgba(3,87,174,0.6);
 }
 .index-login-con-tt1 {
   margin-left: 120px;
@@ -790,8 +791,10 @@ $heiti:"SimHei";
 }
 .device-point-pic{
     h4{
+      padding-left: 15px;
       margin-bottom: 10px;
-      font-weight: normal;}
+      font-weight: bolder;
+      font-size: 14px;}
     span{
       margin-right: 10px;
       width: 110px;
@@ -1180,3 +1183,17 @@ input.input-org-info,input.channel-select{
 
 .role-table .tab-list-mw{
   min-width: 1080px;}
+
+#channel_num,#device_num{
+  color: #ed130a;
+}
+#add_role_name_txt,#mod_rolename{
+  width: 160px;}
+.alert-user-add-con{
+  input[text]{
+    width: 150px;}
+}
+.role_agent_id{
+  width: 160px;
+  @extend %input-t;
+}

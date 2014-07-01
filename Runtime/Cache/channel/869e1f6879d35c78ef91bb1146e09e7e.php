@@ -109,8 +109,6 @@
 			    <input type="text" name="select_del_flag_txt" id="select_del_flag_txt" value="0" style="display:none;"/>
                 <input type="submit" class="role-control-btn" value="查询" />
             </p>
-
-
         </form>
     </div>
     <div class="org-right-btns">
@@ -134,7 +132,7 @@
                 <span class="span-1"><b>渠道商名称</b></span>
                 <span class="span-1"><b>渠道商类型</b></span>
                 <span class="span-1"><b>所属组织机构</b></span>
-                <span class="span-3"><b>地址信息</b></span>
+                <span class="span-2"><b>地址信息</b></span>
                 <span class="span-1"><b>合同开始日期</b></span>
                 <span class="span-1"><b>合同截至日期</b></span>
                 <span class="span-1"><b>启用网点数量</b></span>
@@ -149,7 +147,7 @@
                     <span class="span-1" title="<?php echo ($vo["channel_name"]); ?>"><?php echo ($vo["channel_name"]); ?></span>
                     <span class="span-1" title="<?php echo ($vo["channel_type_name"]); ?>"><?php echo ($vo["channel_type_name"]); ?></span>
                     <span class="span-1" title="<?php echo ($vo["agent_name"]); ?>"><?php echo ($vo["agent_name"]); ?></span>
-                    <span class="span-3" title="<?php echo ($vo["channel_address"]); ?>"><?php echo ($vo["channel_address"]); ?></span>
+                    <span class="span-2" title="<?php echo ($vo["channel_address"]); ?>"><?php echo ($vo["channel_address"]); ?></span>
                     <span class="span-1" title="<?php echo ($vo["begin_time"]); ?>"><?php echo ($vo["begin_time"]); ?></span>
                     <span class="span-1" title="<?php echo ($vo["end_time"]); ?>"><?php echo ($vo["end_time"]); ?></span>
                     <span class="span-1" title="<?php echo ($vo["place_num"]); ?>"><?php echo ($vo["place_num"]); ?></span>
@@ -383,31 +381,36 @@
 
     <div class="alert-user-add-con">
             <p>
-				<label for="channel-address1" class="">所属组织机构：</label>
+				<label for="channel-address1" class="">所属组织机构</label>
                 <select name="add_agent_id_sel" id="add_agent_id_sel" class="channel-select-min" style="width:150px">
                    <option selected value="">请选择所属组织</option>
 				   <?php if(is_array($all_agent)): foreach($all_agent as $key=>$agent): ?><option value="<?php echo ($agent["agent_id"]); ?>"><?php echo ($agent["agent_name"]); ?></option><?php endforeach; endif; ?>
                 </select>
+                <i class="red-color pdl10">*</i>
 			</p>
 
             <p>
                 <label for="channel-addname" class="role-lab">渠道名称</label>
                 <input type="text" name="add_channel_name_txt" id="add_channel_name_txt" class="input-role-name"/>
+                <i class="red-color pdl10">*</i>
             </p>
 
             <p>
                 <label for="channel-address1" class="">渠道地址</label>
                 <span id="add_select_showcity"></span><!--省市联动-->
+                <input type="text" name=""  class="input-role-name" style="width: 120px;"/>
+                <i class="red-color pdl10">*</i>
             </p>
             <p>
                 <label for="channel-address1" class="">渠道类型</label>
-				<select style="width:164px" name="add_channel_first_type_sel" id="add_channel_first_type_sel" class="channel-select-min">
+				<select style="width:124px" name="add_channel_first_type_sel" id="add_channel_first_type_sel" class="channel-select-min">
 					<option value="">请选择类型</option>
 					<?php if(is_array($first_channel_type)): foreach($first_channel_type as $key=>$type): ?><option value="<?php echo ($type["channel_type_id"]); ?>"><?php echo ($type["channel_type_name"]); ?></option><?php endforeach; endif; ?>
 				</select>
                 <select name="add_channel_second_type_sel" id="add_channel_second_type_sel" class="channel-select-min">
 					<option value="">全部</option>
 				</select>
+                <i class="red-color pdl10">*</i>
                 <a class="channel-wz-a"  id="sort_button">修改类别</a><a class="channel-wz-a" id="attr_button">修改属性</a>
 				<html>
 
@@ -480,21 +483,28 @@
     <div class="alert-user-add-con">
         <form action="">
             <p>
-				<label for="channel-address1" class="">所属组织机构：</label>
+				<label for="channel-address1" class="">所属组织机构</label>
                 <select name="change_belong_agent_id_sel" id="change_belong_agent_id_sel" class="channel-select-min" style="width:150px">
                    <option selected value="">请选择所属组织</option>
 				   <?php if(is_array($all_agent)): foreach($all_agent as $key=>$agent): ?><option value="<?php echo ($agent["agent_id"]); ?>"><?php echo ($agent["agent_name"]); ?></option><?php endforeach; endif; ?>
                 </select>
-			</p>
+                <i class="red-color pdl10">*</i>
+
+            </p>
 
             <p>
                 <label for="channel-addname" class="role-lab">渠道名称</label>
                 <input type="text" name="change_channel_name_txt" id="change_channel_name_txt" class="input-role-name"/>
+                <i class="red-color pdl10">*</i>
+
             </p>
 
             <p>
                 <label for="channel-address1" class="">渠道地址</label>
                 <span id="change_select_showcity"></span><!--省市联动-->
+                <input type="text" name=""  class="input-role-name" style="width: 120px;"/>
+                <i class="red-color pdl10">*</i>
+
             </p>
             <p>
                 <label for="channel-address1" class="">渠道类型</label>
@@ -505,6 +515,8 @@
                 <select name="change_channel_second_type_sel" id="change_channel_second_type_sel" class="channel-select-min">
 					<option value="">全部</option>
 				</select>
+                <i class="red-color pdl10">*</i>
+
                 <!--<a class="channel-wz-a" href="">修改类别</a><a class="channel-wz-a" href="">修改属性</a>-->
             </p>
             <p>

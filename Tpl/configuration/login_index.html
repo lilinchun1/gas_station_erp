@@ -16,8 +16,8 @@
         <div class="logo-360"></div>
         <div class="index-login-con">
             <div class="login-tt-head">
-                <b class="index-login-con-tt1">用户登陆</b>
-                <b class="index-login-con-tt2">UserLogin</b>
+               <!-- <b class="index-login-con-tt1">用户登陆</b>
+                <b class="index-login-con-tt2">UserLogin</b>-->
             </div>
             <p><label for="username">用户名:</label><input type="text" name="username" id="username" AUTOCOMPLETE="off" class="index-login-input"/></p>
             <p><label for="password">密&nbsp;&nbsp;&nbsp;码:</label><input type="password" name="password" id="password" AUTOCOMPLETE="off" /></p>
