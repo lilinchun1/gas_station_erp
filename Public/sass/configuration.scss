@@ -70,16 +70,16 @@ $heiti:"SimHei";
   min-width: $min-width-kuang;
   position: relative;
   width: 100%;
-  background : -webkit-linear-gradient(left, #4bb4ff 0%, #166be5 100%);
-  background : -moz-linear-gradient(left, #4bb4ff 0%, #2581e5 100%);
-  background : -ms-linear-gradient(left, #4bb4ff 0%, #2581e5 100%);
-  background : -o-linear-gradient(left, #4bb4ff 0%, #2581e5 100%);
-  background : linear-gradient(left, #4bb4ff 0%, #2581e5 100%);
+  background : -webkit-linear-gradient(bottom, #4bb4ff 0%, $color-main 100%);
+  background : -moz-linear-gradient(bottom, #4bb4ff 0%, $color-main 100%);
+  background : -ms-linear-gradient(bottom, #4bb4ff 0%, $color-main 100%);
+  background : -o-linear-gradient(bottom, #4bb4ff 0%, $color-main 100%);
+  background : linear-gradient(bottom, #4bb4ff 0%, $color-main 100%);
 }
 #head{
   min-width: $min-width-kuang;
   height: 90px;
-  background: url(../../Public/image/nav_bg.png) top right repeat-y;
+/*  background: url(../../Public/image/nav_bg.png) top right repeat-y;*/
   box-shadow: 0 1px 5px rgba(122, 122, 122, 0.30);
   }
 .head-logo{
@@ -607,11 +607,11 @@ $heiti:"SimHei";
   left: 0;
   width: 100%;
   margin-top: -225px;
-  background : -webkit-linear-gradient(left, #11a8fe 0%, #00498c 100%);
-  background : -moz-linear-gradient(left, #11a8fe 0%, #00498c 100%);
-  background : -ms-linear-gradient(left, #11a8fe 0%, #00498c 100%);
-  background : -o-linear-gradient(left, #11a8fe 0%, #00498c 100%);
-  background : linear-gradient(left, #11a8fe 0%, #00498c 100%);
+  background : -webkit-linear-gradient(left, #4bb4ff 0%, $color-main 100%);
+  background : -moz-linear-gradient(left, #4bb4ff 0%, $color-main 100%);
+  background : -ms-linear-gradient(left, #4bb4ff 0%, $color-main 100%);
+  background : -o-linear-gradient(left, #4bb4ff 0%, $color-main 100%);
+  background : linear-gradient(left, #4bb4ff 0%, $color-main 100%);
   }
 .logo-330{
   float: right;
@@ -630,7 +630,7 @@ $heiti:"SimHei";
   width: 100%;
   min-width: 960px;
   height: 450px;
-  background: url(../../Public/image/longin_bg.png) center right no-repeat;
+  /*background: url(../../Public/image/longin_bg.png) center right no-repeat;*/
     h1{
       position: absolute;
       top: -70px;
@@ -1217,3 +1217,10 @@ input.input-org-info,input.channel-select{
   width: 160px;
   @extend %input-t;
 }
+.logo-360{
+  position: absolute;
+  top: 30px;
+  right: 110px;
+  width: 233px;
+  height: 30px;
+  background: url(../../Public/image/jn-logo.png) 0 0 no-repeat;}

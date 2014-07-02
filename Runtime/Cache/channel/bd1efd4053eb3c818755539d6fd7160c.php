@@ -83,7 +83,7 @@
 </div>
 <div class="right">
 <div class="right-con">
-<div class="org-right-con">
+<div class="org-right-con" >
 <div class="role-control" id="j-fixed-top">
     <div class="role-inquire channel-index-btns">
         <form name="deviceSelect" method="get" action="<?php echo U('channel/Device/deviceSelect');?>">
@@ -119,14 +119,14 @@
         </form>
     </div>
 </div>
-<div class="role-table" id="select_results" style="min-width: 1354px;">
+<div class="role-table" id="select_results" >
     <div class="num-list">共<span id="sum"><?php echo ($device_select_number); ?></span>条</div>
     <div class="hd">
         <ul id="device_select_result_ul" class="channel-tab">
         </ul>
     </div>
     <div class="bd over-h-y" >
-        <ul class="role-table-list">
+        <ul class="role-table-list" style="min-width: 1370px;">
             <li>
                 <span class="span-1"></span>
                 <span class="span-2"><b>加油站编号</b></span>
