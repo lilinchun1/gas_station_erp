@@ -352,15 +352,17 @@
 			<h3>刊例信息</h3>
 			<div class="alert-user-add-con">
 				<p>
-					<label for="rule_no_hid" class="role-lab">刊例名称</label>
+					<label for="rule_no_hid" class="role-lab">刊例号</label>
 					<input type="text" name="rule_no" id="rule_no_hid" class="input-role-name"/>
 					<input type="hidden" name="old_rule_no" id="old_rule_no" value=""/>
+                    <input type="file" name="app_file" id="maintain-xx" class="input-role-name" style="border: 0 none; width: 73px;"/>
+                    <i class="red-color pdl10">*</i>
 				</p>
 	
-				<p>
+				<!--<p>
 					<label for="maintain-xx" class="role-lab">刊例明细</label>
 					<input type="file" name="app_file" id="maintain-xx" class="input-role-name" style="border: 0 none;"/>
-				</p>
+				</p>-->
 	
 				<p>
 					<button type="submit" name="add_udp" class="alert-btn2" value="1">保存</button>

@@ -129,7 +129,7 @@
         <ul class="role-table-list">
             <li>
                 <span class="span-1"></span>
-                <span class="span-1"><b>渠道商名称</b></span>
+                <span class="span-2"><b>渠道商名称</b></span>
                 <span class="span-1"><b>渠道商类型</b></span>
                 <span class="span-1"><b>所属组织机构</b></span>
                 <span class="span-2"><b>地址信息</b></span>
@@ -144,7 +144,7 @@
 						<input type="radio" name="channelDetailID" id="<?php echo ($vo['channelDetailID']); ?>" value="<?php echo ($vo['channel_id']); ?>" 
 							 class="role-table-radio"/>
 					</span>
-                    <span class="span-1" title="<?php echo ($vo["channel_name"]); ?>"><?php echo ($vo["channel_name"]); ?></span>
+                    <span class="span-2" title="<?php echo ($vo["channel_name"]); ?>"><?php echo ($vo["channel_name"]); ?></span>
                     <span class="span-1" title="<?php echo ($vo["channel_type_name"]); ?>"><?php echo ($vo["channel_type_name"]); ?></span>
                     <span class="span-1" title="<?php echo ($vo["agent_name"]); ?>"><?php echo ($vo["agent_name"]); ?></span>
                     <span class="span-2" title="<?php echo ($vo["channel_address"]); ?>"><?php echo ($vo["channel_address"]); ?></span>

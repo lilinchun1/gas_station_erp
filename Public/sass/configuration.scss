@@ -296,7 +296,7 @@ $heiti:"SimHei";
     }
     .active{
       position: relative;
-      background: rgba(61, 205, 255, 1);
+      background: rgba(61,205,255,0.6);
       &:after{content: ">";
         position: absolute;
         top: 0;
@@ -1220,7 +1220,10 @@ input.input-org-info,input.channel-select{
 .logo-360{
   position: absolute;
   top: 30px;
-  right: 110px;
+  right: 120px;
   width: 233px;
   height: 30px;
   background: url(../../Public/image/jn-logo.png) 0 0 no-repeat;}
+
+#j_del_ok{
+  margin-left: 50px;}
