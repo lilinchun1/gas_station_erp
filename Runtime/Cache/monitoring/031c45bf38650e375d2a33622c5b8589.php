@@ -153,7 +153,7 @@
                             <div class="row-lt">
                                 <span class="row-lt-l">
                                     <em>APP刊例</em>
-                                    <span class="icon-spam yellow-color"></span>
+                                    <span class="icon-close red-color"></span>
                                 </span>
                                 <span class="row-lt-l">
                                     <em>上屏程序版本</em>
@@ -166,36 +166,36 @@
                             </div>
                             <div class="row-lt">
                                 <span class="row-lt-l">
-                                    <em>中屏状态</em>
-                                    <span class="icon-checkmark green-color"></span>
+                                    <em class="ccc-color">中屏状态</em>
+                                    <span class="icon-spam yellow-color"></span>
                                 </span>
                                 <span class="row-lt-l">
-                                    <em>上屏状态</em>
-                                    <span class="icon-checkmark green-color"></span>
+                                    <em class="ccc-color">上屏状态</em>
+                                    <span class="icon-spam yellow-color"></span>
                                 </span>
                                 <span class="row-lt-l">
-                                    <em>广告刊例</em>
-                                    <span class="icon-close red-color"></span>
-                                </span>
-                            </div>
-                            <div class="row-lt">
-                                <span class="row-lt-l">
-                                    <em>网络流量预警</em>
-                                    <span class="icon-bulb green-color"></span>
-                                </span>
-                                <span class="row-lt-l">
-                                    <em>开关机时间预警</em>
-                                    <span class="icon-bulb green-color"></span>
+                                    <em class="ccc-color">广告刊例</em>
+                                    <span class="icon-spam yellow-color"></span>
                                 </span>
                             </div>
                             <div class="row-lt">
                                 <span class="row-lt-l">
-                                    <em>CPU预警</em>
-                                    <span class="icon-bulb red-color"></span>
+                                    <em class="ccc-color">网络流量预警</em>
+                                    <span class="icon-spam yellow-color"></span>
                                 </span>
                                 <span class="row-lt-l">
-                                    <em>硬盘预警</em>
-                                    <span class="icon-bulb green-color"></span>
+                                    <em class="ccc-color">开关机时间预警</em>
+                                    <span class="icon-spam yellow-color"></span>
+                                </span>
+                            </div>
+                            <div class="row-lt">
+                                <span class="row-lt-l">
+                                    <em class="ccc-color">CPU预警</em>
+                                    <span class="icon-spam yellow-color"></span>
+                                </span>
+                                <span class="row-lt-l">
+                                    <em class="ccc-color">硬盘预警</em>
+                                    <span class="icon-spam yellow-color"></span>
                                 </span>
                             </div>
                         </div>

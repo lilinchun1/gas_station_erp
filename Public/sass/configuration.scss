@@ -881,17 +881,17 @@ $heiti:"SimHei";
     margin-right:1%;
     float: left;
     width: 24%;
-    height: 150px;
+
     @extend %bdrs;
     //background: $bg-color;
       h4{
-        margin-top: 10px;
+
         font-size: 18px;
         padding-left:40px;
       }
       span{
         float: left;
-        margin: 10px 0 0 10%;
+        margin: 0 0 0 10%;
         width: 100px;
         height: 100px;
 
@@ -899,7 +899,7 @@ $heiti:"SimHei";
             width: 100%;}
         }
       .station-zhuangtai{
-        margin-top: 10px;
+
         float: left;
         width: 40%;
         height: 100px;
@@ -925,12 +925,15 @@ $heiti:"SimHei";
 .yellow-color{
   color: #ffaf04;
 }
+.ccc-color{
+  color: #cccccc;
+}
 .pdl10{
   padding: 0 10px;
 }
 .station-state-list{
   padding: 0 0;
-  margin: 20px auto 0 auto;
+  margin: 10px auto 0 auto;
   min-width:964px;
   width: 98%;
   border: 1px solid $border-color;
