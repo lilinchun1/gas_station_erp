@@ -70,11 +70,11 @@ $heiti:"SimHei";
   min-width: $min-width-kuang;
   position: relative;
   width: 100%;
-  background : -webkit-linear-gradient(bottom, #4bb4ff 0%, $color-main 100%);
-  background : -moz-linear-gradient(bottom, #4bb4ff 0%, $color-main 100%);
-  background : -ms-linear-gradient(bottom, #4bb4ff 0%, $color-main 100%);
-  background : -o-linear-gradient(bottom, #4bb4ff 0%, $color-main 100%);
-  background : linear-gradient(bottom, #4bb4ff 0%, $color-main 100%);
+  background : -webkit-linear-gradient(bottom, #3f94ff 10%, $color-main 100%);
+  background : -moz-linear-gradient(bottom, #3f94ff 10%, $color-main 100%);
+  background : -ms-linear-gradient(bottom, #3f94ff 10%, $color-main 100%);
+  background : -o-linear-gradient(bottom, #3f94ff 10%, $color-main 100%);
+  background : linear-gradient(bottom, #3f94ff 10%, $color-main 100%);
 }
 #head{
   min-width: $min-width-kuang;
@@ -545,8 +545,8 @@ $heiti:"SimHei";
   margin-left: 70px;
 }
 .delete-message{
-  margin-top: 20px;
-  margin-left: 100px;
+  margin: 20px 0 20px 50px;
+  text-align: center;
 }
 
 /*职员维护页面*/
@@ -564,7 +564,13 @@ $heiti:"SimHei";
     }
 }
 .role-table-list2 li span:first-child{
+  width: 120px;
   text-indent: 14px;}
+.role-table-list2{
+  li span:nth-child(2){
+    width: 120px;
+  }
+}
 .alert-user-add-con{
   padding: 20px 0 0 0px;
     label{
@@ -718,10 +724,11 @@ $heiti:"SimHei";
 }
 /*登陆默认页*/
 .default-index{
+  position: relative;
   min-width: 1140px;
   min-height:820px;
   overflow: hidden;
-  background: #f7f7f7;}
+  background: #e8ebef;}
 .default-index-tt{
   margin: 40px auto 0 auto;
   width: 762px;
@@ -863,8 +870,8 @@ $heiti:"SimHei";
 }
 .station-control{
   min-width:902px;
-  padding: 20px 30px;
-  border: 1px solid $border-color;
+  padding: 0 30px;
+ 
   overflow: hidden;
 }
 .station-control-list{
@@ -876,11 +883,11 @@ $heiti:"SimHei";
     width: 24%;
     height: 150px;
     @extend %bdrs;
-    background: $bg-color;
+    //background: $bg-color;
       h4{
         margin-top: 10px;
-        font-size: 16px;
-        text-align: center;
+        font-size: 18px;
+        padding-left:40px;
       }
       span{
         float: left;
@@ -942,8 +949,7 @@ $heiti:"SimHei";
   display: none;}
 .station-state-tree1{
   width: 200px;
-  min-height: 253px;
-  background: #e0e0e0;
+  min-height: 172px;
   float: left;
 }
 .station-state-list-con{
@@ -989,18 +995,20 @@ $heiti:"SimHei";
   padding-top: 10px;
   margin: 20px 0 0 20px;
   float: left;
-  width: 76%;
-  border: 1px solid #000;
+  width: 90%;
   @extend %bdrs;
   [class^="icon-"], [class*=" icon-"]{
     font-size: 20px;
   }
-    dt{
+  .row-lt{
+    width: 20%;
+    float: left;
+    overflow: hidden;}
+    .row-lt-l{
+      float: left;
       margin-bottom: 10px;
-      width: 25%;
       height: 30px;
       line-height: 30px;
-      float: left;
         em{
           width: 100px;
           text-align: right;
@@ -1227,3 +1235,53 @@ input.input-org-info,input.channel-select{
 
 #j_del_ok{
   margin-left: 50px;}
+
+/*默认登陆页*/
+.default-tw{
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  margin: auto;
+  width: 960px;
+  height: 600px;
+  background: #f2f3f4;
+  border-radius: 5px;
+  box-shadow: 0 0 15px rgba(189, 189, 189, 0.30);
+}
+%default-index-width{
+  margin: 0 auto;
+  width: 920px;
+}
+.default-tw-tt{
+  position: relative;
+  @extend %default-index-width;
+  margin-top: 15px;
+  height: 90px;
+  border: 1px solid #000;
+  background: #ffffff;
+
+}
+.default-tw-slide{
+  margin-top: 15px;
+  @extend %default-index-width;
+  height: 260px;
+  border: 1px solid #000;
+}
+.default-tw-news{
+  margin-top: 10px;
+  @extend %default-index-width;
+    .news-left{
+      width: 530px;
+      height: 180px;
+      float: left;
+      border: 1px solid #000;
+    }
+    .news-right{
+      float: right;
+      width: 350px;
+      height: 180px;
+      border: 1px solid #000;
+    }
+}

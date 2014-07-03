@@ -131,7 +131,7 @@
                 <span class="span-1"></span>
                 <span class="span-2"><b>加油站编号</b></span>
                 <span class="span-2"><b>MAC</b></span>
-                <span class="span-1"><b>加油站类型</b></span>
+                <span class="span-1"><b>加油站型号</b></span>
                 <span class="span-2"><b>所属网点</b></span>
                 <span class="span-1"><b>所在点位</b></span>
 				<?php if($isDeleteResult != 1): ?><span class="span-1"><b>加油站状态</b></span><?php endif; ?>

@@ -40,7 +40,7 @@
 </div>
 
 <div id="container">
-   <div class="default-index">
+   <!--<div class="default-index">
        <div class="default-index-tt">
 
        </div>
@@ -51,7 +51,26 @@
            <h1></h1>
            <em>自由定制投放方案，个性高效，全城到达每个广告位都期待被您征服，色彩出众画面亮丽，高质的音频输出，保证每个视频、图片、文字的精彩播放。</em>
        </div>
-   </div>
+   </div>-->
+    <div class="default-index">
+        <div class="default-tw">
+            <div class="default-tw-tt">
+
+            </div>
+            <div class="default-tw-slide">
+
+            </div>
+            <div class="default-tw-news">
+                <div class="news-left">
+
+                </div>
+                <div class="news-right">
+
+                </div>
+            </div>
+        </div>
+    </div>
+
 </div>
 <div id="footer">
     <p>© 大连捷诺科技有限公司 | <a style="color: #ffffff;" href="http://www.jienuo-service.net/" target="_blank">关于捷诺</a> | 服务热线 0411-86887659</p>

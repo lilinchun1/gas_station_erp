@@ -131,77 +131,74 @@
                             <em>报警时长  ： 6小时20分</em>
                             <em>辽宁省  大连市  高新园区  黄浦路A   万达影城     网点B</em>
                         </div>
-                        <div class="point-pic">
+                        <!--<div class="point-pic">
                             <span><img src="__PUBLIC__/image/1.jpg" alt=""/></span>
                             <em>万达影城</em>
+                        </div>-->
+                        <div class="station-state-dl">
+                            <div class="row-lt">
+                                <span class="row-lt-l">
+                                    <em>在线状态</em>
+                                    <span class="icon-checkmark green-color"></span>
+                                </span>
+                                <span class="row-lt-l">
+                                    <em>正常开机</em>
+                                    <span class="icon-checkmark green-color"></span>
+                                </span>
+                                <span class="row-lt-l">
+                                    <em>正常关机机</em>
+                                    <span class="icon-checkmark green-color"></span>
+                                </span>
+                            </div>
+                            <div class="row-lt">
+                                <span class="row-lt-l">
+                                    <em>APP刊例</em>
+                                    <span class="icon-spam yellow-color"></span>
+                                </span>
+                                <span class="row-lt-l">
+                                    <em>上屏程序版本</em>
+                                    <span class="icon-checkmark green-color"></span>
+                                </span>
+                                <span class="row-lt-l">
+                                    <em>下屏程序版本</em>
+                                    <span class="icon-close red-color"></span>
+                                </span>
+                            </div>
+                            <div class="row-lt">
+                                <span class="row-lt-l">
+                                    <em>中屏状态</em>
+                                    <span class="icon-checkmark green-color"></span>
+                                </span>
+                                <span class="row-lt-l">
+                                    <em>上屏状态</em>
+                                    <span class="icon-checkmark green-color"></span>
+                                </span>
+                                <span class="row-lt-l">
+                                    <em>广告刊例</em>
+                                    <span class="icon-close red-color"></span>
+                                </span>
+                            </div>
+                            <div class="row-lt">
+                                <span class="row-lt-l">
+                                    <em>网络流量预警</em>
+                                    <span class="icon-bulb green-color"></span>
+                                </span>
+                                <span class="row-lt-l">
+                                    <em>开关机时间预警</em>
+                                    <span class="icon-bulb green-color"></span>
+                                </span>
+                            </div>
+                            <div class="row-lt">
+                                <span class="row-lt-l">
+                                    <em>CPU预警</em>
+                                    <span class="icon-bulb red-color"></span>
+                                </span>
+                                <span class="row-lt-l">
+                                    <em>硬盘预警</em>
+                                    <span class="icon-bulb green-color"></span>
+                                </span>
+                            </div>
                         </div>
-                        <dl class="station-state-dl">
-                            <dt>
-                                <em>正常开机</em>
-                                <span class="icon-checkmark green-color"></span>
-                            </dt>
-                            <dt>
-                                <em>正常关机机</em>
-                                <span class="icon-checkmark green-color"></span>
-                            </dt>
-                            <dt>
-                                <em>上屏状态</em>
-                                <span class="icon-checkmark green-color"></span>
-                            </dt>
-                            <dt>
-                                <em>下屏状态</em>
-                                <span class="icon-close red-color"></span>
-                            </dt>
-                            <dt>
-                                <em>网络状态</em>
-                                <span class="icon-checkmark green-color"></span>
-                            </dt>
-                            <dt>
-                                <em>连接线状态</em>
-                                <span class="icon-checkmark green-color"></span>
-                            </dt>
-                            <dt>
-                                <em>连接口状态</em>
-                                <span class="icon-close red-color"></span>
-                            </dt>
-                            <dt>
-                                <em>客户端程序状态</em>
-                                <span class="icon-close red-color"></span>
-                            </dt>
-                            <dt>
-                                <em>系统版本</em>
-                                <span class="icon-spam yellow-color"></span>
-                            </dt>
-                            <dt>
-                                <em>APP应用</em>
-                                <span class="icon-spam yellow-color"></span>
-                            </dt>
-                            <dt>
-                                <em>媒体广告</em>
-                                <span class="icon-spam yellow-color"></span>
-                            </dt>
-                            <dt>
-                                <em>CPU预警</em>
-                                <span class="icon-bulb red-color"></span>
-                            </dt>
-                            <dt>
-                                <em>内存预警</em>
-                                <span class="icon-bulb red-color"></span>
-                            </dt>
-                            <dt>
-                                <em>硬盘预警</em>
-                                <span class="icon-bulb green-color"></span>
-                            </dt>
-                            <dt>
-                                <em>网络流量预警</em>
-                                <span class="icon-bulb green-color"></span>
-                            </dt>
-                            <dt>
-                                <em>开关机时间预警</em>
-                                <span class="icon-bulb green-color"></span>
-                            </dt>
-
-                        </dl>
                     </li>
                 </ul>
             </div>
