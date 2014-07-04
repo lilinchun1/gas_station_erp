@@ -1262,29 +1262,46 @@ input.input-org-info,input.channel-select{
   @extend %default-index-width;
   margin-top: 15px;
   height: 90px;
-  border: 1px solid #000;
-  background: #ffffff;
-
+  background: url(../image/line-bg.jpg) center bottom no-repeat;
+    h1 {
+      font-size: 24px;
+    }
+    h2{
+      font-size: 20px;}
 }
 .default-tw-slide{
   margin-top: 15px;
   @extend %default-index-width;
   height: 260px;
-  border: 1px solid #000;
+
+  background: #fff url(../image/1.jpg) 0 0 no-repeat;
 }
 .default-tw-news{
-  margin-top: 10px;
+  margin-top: 30px;
   @extend %default-index-width;
     .news-left{
       width: 530px;
       height: 180px;
       float: left;
-      border: 1px solid #000;
+        b{
+          font-size: 18px;
+        }
+        p{
+          margin-top: 10px;
+          line-height: 24px;
+        }
     }
     .news-right{
       float: right;
       width: 350px;
       height: 180px;
-      border: 1px solid #000;
+        p{
+          margin-top: 34px;
+          line-height: 24px;
+        }
+        i{
+          margin-top: 20px;
+          float: right;
+        }
     }
 }

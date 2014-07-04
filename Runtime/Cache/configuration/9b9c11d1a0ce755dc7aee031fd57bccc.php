@@ -55,17 +55,28 @@
     <div class="default-index">
         <div class="default-tw">
             <div class="default-tw-tt">
-
+                <h1>创新赢未来</h1>
+                <h2>innovation leads the future</h2>
             </div>
             <div class="default-tw-slide">
 
             </div>
             <div class="default-tw-news">
                 <div class="news-left">
-
+                    <b>手机加油站简介</b>
+                   <p>
+                       “智能手机加油站”，在向广大智能手机用户提供免费、简单、快速、安全的充电及应用安装服务的同时，也为广大合作伙伴提供了一个优质的新型线下应用推广平台。“智能手机加油站”将逐渐覆盖全国，使得这一线下应用市场成为中国智能移动设备用户主要应用安装方式之一。
+                   </p>
                 </div>
                 <div class="news-right">
-
+                    <p>
+                        智能手机加油站业务支撑系统于2014年7月18日正式上线运行!
+                        感谢您支持，期待您的关注。在使用过程中遇到任何问题，请联系我们，服务邮箱jienuo@kuaiyong.com
+                    </p>
+                    <i>
+                        大连捷诺科技有限公司
+                        二零一四年七月十八日
+                    </i>
                 </div>
             </div>
         </div>
