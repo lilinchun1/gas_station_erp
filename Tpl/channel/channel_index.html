@@ -167,7 +167,7 @@
             <p>
                 <label for="channel-address1" class="">渠道地址</label>
                 <span id="add_select_showcity"></span><!--省市联动-->
-                <input type="text" name=""  class="input-role-name" style="width: 120px;"/>
+                <input type="text" name="channel_address"  class="input-role-name" style="width: 120px;"/>
                 <i class="red-color pdl10">*</i>
             </p>
             <p>
@@ -248,7 +248,7 @@
             <p>
                 <label for="channel-address1" class="">渠道地址</label>
                 <span id="change_select_showcity"></span><!--省市联动-->
-                <input type="text" name=""  class="input-role-name" style="width: 120px;"/>
+                <input type="text" name="channel_address" id="change_channel_address_txt"  class="input-role-name" style="width: 120px;"/>
                 <i class="red-color pdl10">*</i>
 
             </p>
@@ -460,10 +460,12 @@
 			var add_channel_second_type_sel=$("#add_channel_second_type_sel").val();//属性
 			var add_contacts_txt=$("#add_contacts_txt").val();//联系人名称
 			var add_contacts_tel_txt=$("#add_contacts_tel_txt").val();//联系人电话
-			//var add_channel_address_txt=$("#add_channel_address_txt").val();//渠道商地址
+			var add_channel_address_txt=$("input[name='channel_address']").val();//渠道商地址
 			var add_contract_number_txt=$("#add_contract_number_txt").val();
 			var add_begin_time_sel=$("#add_begin_time_sel").val();
 			var add_end_time_sel=$("#add_end_time_sel").val();
+
+//========================================================
 			if(add_agent_id_sel==""){
 				alert("请选择组织结构");
 				return false;
@@ -485,7 +487,8 @@
 								 "add_select_province":add_select_province,"add_select_city":add_select_city,
 								 "add_channel_first_type_sel":add_channel_first_type_sel,"add_channel_second_type_sel":add_channel_second_type_sel,
 								 "add_contacts_txt":add_contacts_txt,"add_contract_number_txt":add_contract_number_txt,
-								 "add_begin_time_sel":add_begin_time_sel,"add_end_time_sel":add_end_time_sel
+								 "add_begin_time_sel":add_begin_time_sel,"add_end_time_sel":add_end_time_sel,
+								 "add_channel_address_txt":add_channel_address_txt
 								 },
 				function (data){
 					var tmp_msg = "{:C('add_channel_success')}";
@@ -647,6 +650,7 @@
 					$("#change_select_showcity").empty();
 					showprovince("change_select_province", "change_select_city", data['province'], "change_select_showcity");
 					showcity("change_select_city", data['city'], "change_select_province", "change_select_showcity");
+					alert(channel_val);
 					if('0' == channel_first_type)
 					{
 						$("#change_channel_first_type_sel").val(channel_second_type);
@@ -659,7 +663,8 @@
 					}
 					$("#change_contacts_txt").val(data['contacts']);
 					$("#change_contacts_tel_txt").val(data['contacts_tel']);
-					//$("#change_channel_address_txt").val(data['channel_address']);
+					$("#change_channel_address_txt").val(data['channel_address']);
+					//alert(data['channel_address']);return;
 					$("#change_contract_number_txt").val(data['contract_number']);
 					$("#change_begin_time_sel").val(data['begin_time']);
 					$("#change_end_time_sel").val(data['end_time']);
@@ -690,7 +695,7 @@
 			var dst_channel_second_type_sel=$("#change_channel_second_type_sel").val();//属性
 			var change_contacts_txt=$("#change_contacts_txt").val();//联系人名称
 			var change_contacts_tel_txt=$("#change_contacts_tel_txt").val();//联系人电话
-			//var change_channel_address_txt=$("#change_channel_address_txt").val();//渠道商地址
+			var change_channel_address_txt=$("#change_channel_address_txt").val();//渠道商地址
 			var change_contract_number_txt=$("#change_contract_number_txt").val();
 			var change_begin_time_sel=$("#change_begin_time_sel").val();
 			var change_end_time_sel=$("#change_end_time_sel").val();
@@ -716,11 +721,13 @@
 								 "src_channel_first_type":src_channel_first_type,"src_channel_second_type":src_channel_second_type,
 								 "dst_channel_first_type_sel":dst_channel_first_type_sel,"dst_channel_second_type_sel":dst_channel_second_type_sel,
 								 "change_contacts_txt":change_contacts_txt,"change_contacts_tel_txt":change_contacts_tel_txt,
-								 //"change_channel_tel_txt":change_channel_tel_txt,"change_channel_address_txt":change_channel_address_txt,
+								 "change_channel_address_txt":change_channel_address_txt,
 								 "change_contract_number_txt":change_contract_number_txt,"change_begin_time_sel":change_begin_time_sel,
 								 "change_end_time_sel":change_end_time_sel
+								 //"change_channel_tel_txt":change_channel_tel_txt,
 								 },
 				function (data){
+					//alert(data);return;
 					var tmp_msg = "{:C('change_channel_success')}";
 					if(tmp_msg == data)
 					{

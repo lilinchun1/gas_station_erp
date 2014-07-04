@@ -87,8 +87,7 @@
                 <label for="channel-ss-channel" class="">所属渠道</label>
                 <input type="text" name="channel_name_txt" id="channel_name_txt" autocomplete="off" value="<?php echo ($_GET['channel_name_txt']); ?>"
 					class="input-org-info"/>
-            </p>
-            <p>
+   
                 <label for="channel-org-name" class="">测试结束期</label>
                 <input type="text" name="select_test_end_time_1" id="select_test_end_time_1" class="input-org-info"
                        value="<?php echo ($_GET['select_test_end_time_1']); ?>" onClick="WdatePicker()"/>

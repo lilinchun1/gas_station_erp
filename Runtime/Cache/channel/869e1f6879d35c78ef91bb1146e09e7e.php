@@ -648,8 +648,11 @@
             var del_handleUrl="<?php echo U('channel/Channel/channelContractDelete');?>";
             $.getJSON(del_handleUrl,{"channel_id":channel_id},
                     function (data){
-                        alert(data);
-                        window.location.href = window.location.href;
+						if(confirm("确定要终止合同吗？")){
+							alert(data);
+							window.location.href = window.location.href;
+						}
+                      
                     }
                     ,'json'
             );
@@ -679,6 +682,22 @@
 			var add_contract_number_txt=$("#add_contract_number_txt").val();
 			var add_begin_time_sel=$("#add_begin_time_sel").val();
 			var add_end_time_sel=$("#add_end_time_sel").val();
+			if(add_agent_id_sel==""){
+				alert("请选择组织结构");
+				return false;
+			}
+			if(add_channel_name_txt==""){
+				alert("请输入渠道名称");
+				return false;
+			}
+			if(add_channel_first_type_sel==""){
+				alert("请选择渠道类型");
+				return false;				
+			}
+			if(add_channel_second_type_sel==""){
+				alert("请选择渠道属性");
+				return false;				
+			}
 			$.getJSON(handleUrl,{"add_channel_name_txt":add_channel_name_txt,"add_agent_id_sel":add_agent_id_sel,
 								 "add_contacts_tel_txt":add_contacts_tel_txt,
 								 "add_select_province":add_select_province,"add_select_city":add_select_city,
@@ -893,6 +912,23 @@
 			var change_contract_number_txt=$("#change_contract_number_txt").val();
 			var change_begin_time_sel=$("#change_begin_time_sel").val();
 			var change_end_time_sel=$("#change_end_time_sel").val();
+		
+			if(change_agent_id_sel==""){
+				alert("请选择组织结构");
+				return false;
+			}
+			if(change_channel_name_txt==""){
+				alert("请输入渠道名称");
+				return false;
+			}
+			if(change_channel_first_type_sel==""){
+				alert("请选择渠道类型");
+				return false;				
+			}
+			if(change_channel_second_type_sel==""){
+				alert("请选择渠道属性");
+				return false;				
+			}
 			$.getJSON(handleUrl,{"change_channel_name_txt":change_channel_name_txt,"change_channel_id_txt":change_channel_id_txt,
 								"change_agent_id_sel":change_agent_id_sel,"change_dst_province":change_dst_province,"change_dst_city":change_dst_city,
 								 "src_channel_first_type":src_channel_first_type,"src_channel_second_type":src_channel_second_type,
