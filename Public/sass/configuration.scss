@@ -1287,8 +1287,10 @@ input.input-org-info,input.channel-select{
           font-size: 18px;
         }
         p{
+          padding-right: 30px;
           margin-top: 10px;
           line-height: 24px;
+          border-right: 1px solid rgba(117, 117, 117, 0.30);
         }
     }
     .news-right{
