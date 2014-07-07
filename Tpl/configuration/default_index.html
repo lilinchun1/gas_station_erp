@@ -20,15 +20,41 @@
        </div>
    </div>-->
     <div class="default-index">
-     
-			<div id="demo2" class="jcSlider">
-				<ul class="imgList">
-					<li><a><img src="__PUBLIC__/image/pic/30f0184c74d88e5e4f6b2b0304a5a59c.png" alt="图片一" /></a></li>
-					<li><a><img src="__PUBLIC__/image/pic/c4abb1b84dc468f3da68c37898e18f09.png" alt="图片二" /></a></li>
-					<li><a><img src="__PUBLIC__/image/pic/5b387eab0c69dc3da4a51b6f4fb8576b.png" alt="图片三" /></a></li>
-					<li><a><img src="__PUBLIC__/image/pic/a96bf5b093e42062f8d60357a3113ae2.png" alt="图片四" /></a></li>
-				</ul>
-			</div>
+            <div class="default-tw">
+            <div class="default-tw-tt">
+                <h1>创新赢未来</h1>
+                <h2>innovation leads the future</h2>
+            </div>
+           
+				<div id="demo2" class="jcSlider">
+					<ul class="imgList">
+						<li><a><img src="__PUBLIC__/image/pic/30f0184c74d88e5e4f6b2b0304a5a59c.png" alt="图片一" /></a></li>
+						<li><a><img src="__PUBLIC__/image/pic/c4abb1b84dc468f3da68c37898e18f09.png" alt="图片二" /></a></li>
+						<li><a><img src="__PUBLIC__/image/pic/5b387eab0c69dc3da4a51b6f4fb8576b.png" alt="图片三" /></a></li>
+						<li><a><img src="__PUBLIC__/image/pic/a96bf5b093e42062f8d60357a3113ae2.png" alt="图片四" /></a></li>
+					</ul>
+				</div>
+            
+            <div class="default-tw-news">
+                <div class="news-left">
+                    <b>手机加油站简介</b>
+                   <p>
+                       “智能手机加油站”，在向广大智能手机用户提供免费、简单、快速、安全的充电及应用安装服务的同时，也为广大合作伙伴提供了一个优质的新型线下应用推广平台。“智能手机加油站”将逐渐覆盖全国，使得这一线下应用市场成为中国智能移动设备用户主要应用安装方式之一。
+                   </p>
+                </div>
+                <div class="news-right">
+                    <p>
+                        智能手机加油站业务支撑系统于2014年7月18日正式上线运行!
+                        感谢您支持，期待您的关注。在使用过程中遇到任何问题，请联系我们，服务邮箱jienuo@kuaiyong.com
+                    </p>
+                    <i>
+                        大连捷诺科技有限公司<br>
+                        二零一四年七月十八日
+                    </i>
+                </div>
+            </div>
+        </div>
+			
         
     </div>
 
@@ -47,11 +73,11 @@
 	<script src="__PUBLIC__/js/pic/jQuery-jcSlider.js" language="javascript" type="text/javascript"></script>
 	<style>
 	
-	.jcSlider { width:956px; position:relative; height:300px; background:url(__PUBLIC__/image/pic/sliderbg.png) no-repeat; padding:9px;}
-	.imgHide { width:956px; height:300px; overflow:hidden; position:relative; }
-	.imgList { height:9999%; width:9999%; position:absolute; top:0; left:0; z-index:1;}
-	.imgList li { position:absolute; left:0; top:0; height:300px; width:956px; list-style:none; display:none; overflow:hidden; }
-	.imgNum { position:absolute; left:0; top:0; z-index:2; display:none; }
+	.jcSlider { width:940px; height:260px; background:url(__PUBLIC__/image/pic/sliderbg.png) no-repeat; padding:0px;}
+	.imgHide { width:940px; height:260px; overflow:hidden; }
+	.imgList { height:260px; width:900px;  top:0; left:0; z-index:1;}
+	.imgList li {  left:0; top:0; height:260px; width:940px; list-style:none; display:none; overflow:hidden; }
+	.imgNum { left:0; top:0; z-index:2; display:none; }
 	.imgNum dd { width:14px; height:14px; float:left; list-style:none; cursor:pointer;  margin:0 3px; overflow:hidden; }
 	.imgNum dd a { display:block; height:14px; width:14px; text-indent:-999em; overflow:hidden; text-align:center; line-height:14px; background:url(__PUBLIC__/image/pic/pagination.png) no-repeat 0 0; }
 	.imgNum dd a:hover,.imgNum dd.select a { background-position:0 -14px; }
@@ -77,14 +103,14 @@
 					loadHeight : 32 
 				},
 				autoPlay:true,
-				autoTime:1500,
+				autoTime:2500,
 				arrow : false,
 				numBtn:true,
 				numBtnEvent:'mouseover', 
 				numBtnPos:'right', 
 				setNumBtn : {
-					x : 0,
-					y : 275
+					x : -20,
+					y : 230
 				},
 				scaling:false
 			});

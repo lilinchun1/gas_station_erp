@@ -1309,4 +1309,48 @@ input.input-org-info, input.channel-select {
 .station-chart .channel-tab li {
   width: 130px; }
 
+.bingtu {
+  margin-top: 20px;
+  float: right;
+  height: 300px;
+  border-left: 1px solid #dadada;
+  background: #ccc;
+  width: 33%; }
+
+.w66p {
+  margin-top: 20px;
+  background: #ccc;
+  float: left;
+  width: 66%; }
+  .w66p .data-log {
+    margin-top: 0;
+    background: #ffffff; }
+
+.statistics-list {
+  margin: 0 auto;
+  width: 100%;
+  border: 1px solid #dadada;
+  border-top: 0 none;
+  display: table; }
+  .statistics-list li {
+    height: 25px;
+    display: table-row; }
+    .statistics-list li span {
+      padding: 0 5px;
+      height: 25px;
+      /*      display:inline-block;*/
+      display: table-cell;
+      line-height: 25px;
+      overflow: hidden; }
+    .statistics-list li:nth-child(2n) {
+      background: #f6f6f6; }
+    .statistics-list li:nth-child(2n-1) {
+      background: #fff; }
+    .statistics-list li:nth-child(1) {
+      background: #a1a1a1; }
+      .statistics-list li:nth-child(1) b {
+        color: #ffffff; }
+  .statistics-list .span-1 {
+    width: 13%; }
+
 /*@ sourceMappingURL=configuration.css.map */

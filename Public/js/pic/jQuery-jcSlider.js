@@ -1,9 +1,4 @@
-/*
- * jQuery - jcSlider v2.4
- * Copyright(c) 2012 by Adam’
- * Date: 2012-08-27
- * qq : 1741498
- */
+
 ;(function($){
 	$.fn.jcSlider = function(options) {
 		var defaults = {
@@ -32,7 +27,7 @@
 			},
 			scaling:true,                  //是否设置图片大小，提供true,false
 			setScaling : {
-				width:956,                 //设置图片宽度单位(px)
+				width:940,                 //设置图片宽度单位(px)
 				height:300                 //设置图片高度单位(px)
 			}
 		};

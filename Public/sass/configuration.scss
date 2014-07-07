@@ -1315,3 +1315,56 @@ input.input-org-info,input.channel-select{
     width: 130px;
   }
 }
+.bingtu{
+  margin-top: 20px;
+  float: right;
+  height: 300px;
+  border-left: 1px solid $border-color;
+  background: #ccc;
+  width: 33%;
+}
+.w66p{
+  margin-top: 20px;
+  background: #ccc;
+  float: left;
+  width: 66%;
+  .data-log{
+    margin-top: 0;
+    background: #ffffff;
+  }
+}
+
+.statistics-list{
+  margin: 0 auto;
+  width: 100%;
+  border: 1px solid $border-color;
+  border-top: 0 none;
+  display: table;
+
+  li{
+    height: 25px;
+    display: table-row;
+    span {
+      padding: 0 5px;
+      height: 25px;
+/*      display:inline-block;*/
+      display: table-cell;
+      line-height: 25px;
+      overflow: hidden;
+    }
+    &:nth-child(2n){
+      background: $bg-color;}
+    &:nth-child(2n-1){
+      background: #fff;}
+    &:nth-child(1){
+      background: #a1a1a1;
+      b{
+        color: #ffffff;}
+    }
+
+  }
+  .span-1{
+    width: 13%;
+}
+
+}

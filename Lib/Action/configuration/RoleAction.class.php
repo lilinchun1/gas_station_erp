@@ -21,7 +21,9 @@ class RoleAction extends Action {
 	    
 		$orgid = $userinfo['orgid'];
 		//echo json_encode($orgid);exit;
-		$role_name = trim(I('role_name_txt'));
+		$role_name = trim(I('role_name_txt')); 
+		$org_name = I('org_name_txt');//h
+		
 		//$page_show_number = 30;       //每页显示的数量
 		C('page_show_number')?$page_show_number=C('page_show_number'):$page_show_number=30;  //每页显示的数量
 		$where = ' where 1=1 ';
@@ -29,9 +31,16 @@ class RoleAction extends Action {
 		{
 			$where .= " and a.rolename='$role_name'";
 		}
+		if(!empty($org_name)) 
+		{
+			$org_id = getAgentIDFromAgentName($org_name);
+			$where .= " and a.role_agent_id='$org_id'";
+		}
+	
 		if($orgid){
 			$where .= " and a.role_agent_id=$orgid";
-			$where_count = " where role_agent_id=$orgid ";
+			
+			$where_count = " where role_agent_id=$orgid and agent_id=$org_id";
 		}
 
 		$que_count = $model->query("select count(*) count from bi_role $where_count");
@@ -163,6 +172,7 @@ class RoleAction extends Action {
 		}
 		$this->ajaxReturn($role_name_arr,'json');
 	}
+
 
     //编辑角色信息
 	public function edit_role(){
