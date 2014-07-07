@@ -55,7 +55,7 @@
         <li class="url_link" url="<?php echo U('channel/Channel/index');?>"><a href="<?php echo U('channel/Channel/index');?>">渠道管理</a></li>
         <li class="url_link" url="<?php echo U('management/Index/importingApp');?>"><a href="<?php echo U('management/Index/importingApp');?>">运营管理</a></li>
         <li class="url_link" url="<?php echo U('statistics/Index/index');?>"><a href="<?php echo U('statistics/Index/index');?>">统计分析</a></li>
-        <li class="url_link" url="<?php echo U('ad/Index/index');?>"><a href="<?php echo U('ad/Index/index');?>">广告管理</a></li>
+     <!--   <li class="url_link" url="<?php echo U('ad/Index/index');?>"><a href="<?php echo U('ad/Index/index');?>">广告管理</a></li> -->
         <li class="url_link" url="<?php echo U('configuration/Org/index');?>"><a href="<?php echo U('configuration/Org/index');?>">系统设置</a></li>
     </ul>
 </div>
@@ -639,8 +639,10 @@
             var del_handleUrl="<?php echo U('channel/Device/deviceRepeal');?>";
             $.getJSON(del_handleUrl,{"device_id":device_id},
                     function (data){
-                        alert(data);
-                        window.location.href = window.location.href;
+						if(confirm("确定要撤销吗？")){
+							alert(data);
+							window.location.href = window.location.href;
+						}
                     }
                     ,'json'
             );
@@ -763,6 +765,26 @@
 			var add_image_path_0=tmp_image_path_0;
 			var add_image_path_1=tmp_image_path_1;
 			var add_image_path_2=tmp_image_path_2;
+			if (add_device_no_txt=="") {
+				alert("加油站编号不能为空");
+				return false;
+			} 
+			if (add_place_name_txt=="") {
+				alert("所属网点不能为空");
+				return false;
+			} 
+			if (add_address_txt=="") {
+				alert("所在点位不能为空");
+				return false;
+			} 
+			if (add_status_sel=="") {
+				alert("请选择加油站状态");
+				return false;
+			} 
+			if (add_power_on_time_sel=="") {
+				alert("启用日期不能为空");
+				return false;
+			} 
 			$.getJSON(handleUrl,{"add_device_no_txt":add_device_no_txt,"add_mac_txt":add_mac_txt,"add_place_name_txt":add_place_name_txt,
 								 "add_deploy_time_sel":add_deploy_time_sel,"add_begin_time_sel":add_begin_time_sel,
 								 "add_status_sel":add_status_sel,"add_device_type_txt":add_device_type_txt,
@@ -820,7 +842,26 @@
 			var change_image_path_0=tmp_change_image_path_0;
 			var change_image_path_1=tmp_change_image_path_1;
 			var change_image_path_2=tmp_change_image_path_2;
-
+			if (change_device_no_txt=="") {
+				alert("加油站编号不能为空");
+				return false;
+			} 
+			if (change_place_name_txt=="") {
+				alert("所属网点不能为空");
+				return false;
+			} 
+			if (change_address_txt=="") {
+				alert("所在点位不能为空");
+				return false;
+			} 
+			if (change_status_sel=="") {
+				alert("请选择加油站状态");
+				return false;
+			} 
+			if (change_power_on_time_sel=="") {
+				alert("启用日期不能为空");
+				return false;
+			} 
 			$.getJSON(handleUrl,{"change_device_id_txt":change_device_id_txt,"change_device_no_txt":change_device_no_txt,
 								 "change_mac_txt":change_mac_txt,"change_place_name_txt":change_place_name_txt,
 								 "change_deploy_time_sel":change_deploy_time_sel,"change_begin_time_sel":change_begin_time_sel,

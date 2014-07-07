@@ -75,6 +75,7 @@ $heiti:"SimHei";
   background : -ms-linear-gradient(bottom, #3f94ff 10%, $color-main 100%);
   background : -o-linear-gradient(bottom, #3f94ff 10%, $color-main 100%);
   background : linear-gradient(bottom, #3f94ff 10%, $color-main 100%);
+  background: $color-main;
 }
 #head{
   min-width: $min-width-kuang;
@@ -1306,4 +1307,11 @@ input.input-org-info,input.channel-select{
           float: right;
         }
     }
+}
+
+/*统计分析*/
+.station-chart{
+  .channel-tab li{
+    width: 130px;
+  }
 }

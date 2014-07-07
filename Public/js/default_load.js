@@ -91,7 +91,7 @@ function setCheck(Obj) {
 	sy = $("#sy").attr("checked")? "s":"",
 	pn = $("#pn").attr("checked")? "p":"",
 	sn = $("#sn").attr("checked")? "s":"",
-	type = { "Y" : "ps", "N" : "ps" };;
+	type = { "Y" : "ps", "N" : "ps" };
 	zTree.setting.check.chkboxType = type;
 	showCode('setting.check.chkboxType = { "Y" : "' + type.Y + '", "N" : "' + type.N + '" };');
 }

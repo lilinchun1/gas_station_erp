@@ -42,7 +42,7 @@
         <li class="url_link" url="<?php echo U('channel/Channel/index');?>"><a href="<?php echo U('channel/Channel/index');?>">渠道管理</a></li>
         <li class="url_link" url="<?php echo U('management/Index/importingApp');?>"><a href="<?php echo U('management/Index/importingApp');?>">运营管理</a></li>
         <li class="url_link" url="<?php echo U('statistics/Index/index');?>"><a href="<?php echo U('statistics/Index/index');?>">统计分析</a></li>
-        <li class="url_link" url="<?php echo U('ad/Index/index');?>"><a href="<?php echo U('ad/Index/index');?>">广告管理</a></li>
+     <!--   <li class="url_link" url="<?php echo U('ad/Index/index');?>"><a href="<?php echo U('ad/Index/index');?>">广告管理</a></li> -->
         <li class="url_link" url="<?php echo U('configuration/Org/index');?>"><a href="<?php echo U('configuration/Org/index');?>">系统设置</a></li>
     </ul>
 </div>
@@ -383,7 +383,7 @@
             <p>
                 <label for="channel-address1" class="">网点地址</label>
                 <span id="add_select_showcity"></span><!--省市联动-->
-                <input type="text" name="" id="" class="input-role-name"/>
+                <input type="text" name="" id="add_region_txt" class="input-role-name"/>
                 <i class="red-color pdl10">*</i>
             </p>
             <p>
@@ -456,7 +456,7 @@
             <p>
                 <label for="channel-address1" class="">网点地址</label>
                 <span id="change_select_showcity"></span><!--省市联动-->
-                <input type="text" name="" id="" class="input-role-name"/>
+                <input type="text" name="" id="change_region_txt" class="input-role-name"/>
                 <i class="red-color pdl10">*</i>
 
             </p>
@@ -727,8 +727,10 @@
             var del_handleUrl="<?php echo U('channel/Place/placeRepeal');?>";
             $.getJSON(del_handleUrl,{"place_id":place_id},
                     function (data){
-                        alert(data);
-                        window.location.href = window.location.href;
+						if(confirm("确定要撤销吗？")){
+							alert(data);
+							window.location.href = window.location.href;
+						}
                     }
                     ,'json'
             );
@@ -756,7 +758,18 @@
 			var add_begin_time_sel=$("#add_begin_time_sel").val();
 			//var add_end_time_sel=$("#add_end_time_sel").val();
 			var add_end_time_sel = 22222222;
-
+			if(add_place_name_txt==""){
+				alert("网点名称不能为空");
+				return false;
+			}
+			if(add_place_no_txt==""){
+				alert("网点编号不能为空");
+				return false;
+			}
+			if(add_channel_name_txt==""){
+				alert("所属渠道不能为空");
+				return false;
+			}
 			$.getJSON(handleUrl,{"add_place_name_txt":add_place_name_txt,"add_place_no_txt":add_place_no_txt,"add_place_tel_txt":add_place_tel_txt,
 								 "add_select_province":add_select_province,"add_select_city":add_select_city,
 								 "add_channel_name_txt":add_channel_name_txt,"add_contacts_txt":add_contacts_txt,
@@ -822,6 +835,18 @@
 		//var change_image_id_2 = $("#change_image_id_2").val();
 		var change_begin_time_sel=$("#change_begin_time_sel").val();
 		//var change_end_time_sel=$("#change_end_time_sel").val();
+			if(change_place_name_txt==""){
+				alert("网点名称不能为空");
+				return false;
+			}
+			if(change_place_no_txt==""){
+				alert("网点编号不能为空");
+				return false;
+			}
+			if(change_channel_name_txt==""){
+				alert("所属渠道不能为空");
+				return false;
+			}
 		$.getJSON(handleUrl,{"change_place_id_txt":change_place_id_txt,"change_place_name_txt":change_place_name_txt,
 								 "change_place_no_txt":change_place_no_txt,"change_place_tel_txt":change_place_tel_txt,
 								 "change_select_province":change_select_province,"change_select_city":change_select_city,

@@ -36,7 +36,7 @@
         <li class="url_link" url="<?php echo U('channel/Channel/index');?>"><a href="<?php echo U('channel/Channel/index');?>">渠道管理</a></li>
         <li class="url_link" url="<?php echo U('management/Index/importingApp');?>"><a href="<?php echo U('management/Index/importingApp');?>">运营管理</a></li>
         <li class="url_link" url="<?php echo U('statistics/Index/index');?>"><a href="<?php echo U('statistics/Index/index');?>">统计分析</a></li>
-        <li class="url_link" url="<?php echo U('ad/Index/index');?>"><a href="<?php echo U('ad/Index/index');?>">广告管理</a></li>
+     <!--   <li class="url_link" url="<?php echo U('ad/Index/index');?>"><a href="<?php echo U('ad/Index/index');?>">广告管理</a></li> -->
         <li class="url_link" url="<?php echo U('configuration/Org/index');?>"><a href="<?php echo U('configuration/Org/index');?>">系统设置</a></li>
     </ul>
 </div>
@@ -61,6 +61,9 @@
 				<div class="role-control" id="j-fixed-top">
 					<div class="role-inquire">
 						<form name="roleSelect" method="get" action="<?php echo U('configuration/Role/show_role');?>">
+							<label for="at-org" class="">所属组织机构</label>
+							<input type="text" name="org_name_txt" id="org_name_txt" value="<?php echo ($_GET['org_name_txt']); ?>" autocomplete="off" class="input-org-info"/>
+						
 							<label for="role-name" class="role-lab">角色名称</label>
 							<input type="text" name="role_name_txt" id="role_name_txt" value="<?php echo ($_GET['role_name_txt']); ?>" autocomplete="off" class="input-org-info"/>
 							<input type="submit" id="select_button" name="select_button" class="role-control-btn" value="查询" />
@@ -772,6 +775,7 @@ $(document).ready(function(){
 		});
 	});
 	role_name_blurry();
+	agent_name_blurry();
 
 });
 
@@ -789,5 +793,19 @@ $(document).ready(function(){
 			,'json'
 		);
 	}
+    function agent_name_blurry() {
+        var handleUrl = "<?php echo U('channel/Agent/agentnameBlurrySelect');?>";
+        var agent_name = '';
+        $.getJSON(handleUrl, {"agent_name": agent_name},
+                function (data) {
+                    var str = data;
+                    //alert(data);
+                    //alert(str[1]['title']);
+                    $("#org_name_txt").bigAutocomplete({width: 150, data: data, callback: function (data) {
+                    }});
+                }
+                , 'json'
+        );
+    }
 </script>
 </html>

@@ -1,0 +1,671 @@
+[ 2014-07-07T08:42:14+08:00 ] 127.0.0.1 /gas_station_erp/index.php/configuration//gas_station_erp/gas_station_erp/Tpl/configuration/Public/css/configuration.css
+ERR: Êó†Ê≥ïÂä†ËΩΩÊ®°Âùó:gas_station_erp
+
+[ 2014-07-07T08:42:38+08:00 ] 127.0.0.1 /gas_station_erp/index.php/configuration//gas_station_erp/gas_station_erp/Tpl/configuration/Public/css/configuration.css
+ERR: Êó†Ê≥ïÂä†ËΩΩÊ®°Âùó:gas_station_erp
+
+[ 2014-07-07T08:43:08+08:00 ] 127.0.0.1 /gas_station_erp/index.php/Login/login
+NOTIC: [2] htmlspecialchars() expects parameter 2 to be long, string given D:\trunk\frame\Lib\Core\App.class.php Á¨¨ 56 Ë°å.
+NOTIC: [2] htmlspecialchars() expects parameter 2 to be long, string given D:\trunk\frame\Lib\Core\App.class.php Á¨¨ 56 Ë°å.
+NOTIC: [2] htmlspecialchars() expects parameter 2 to be long, string given D:\trunk\frame\Lib\Core\App.class.php Á¨¨ 56 Ë°å.
+NOTIC: [2] htmlspecialchars() expects parameter 2 to be long, string given D:\trunk\frame\Lib\Core\App.class.php Á¨¨ 56 Ë°å.
+NOTIC: [2] htmlspecialchars() expects parameter 2 to be long, string given D:\trunk\frame\Lib\Core\App.class.php Á¨¨ 56 Ë°å.
+INFO: [ app_begin ] --START--
+INFO: ReadHtmlCache Behavior ::run [ RunTime:0.001000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001000s ]
+NOTIC: [2] mysql_connect() [<a href='function.mysql-connect'>function.mysql-connect</a>]: [2002] ”…”⁄¡¨Ω”∑Ω‘⁄“ª∂Œ ±º‰∫Û√ª”–’˝»∑¥∏¥ªÚ¡¨Ω”µƒ÷˜ª˙√ª”–∑¥”¶£¨¡¨Ω”≥¢ ‘ ß∞‹°£
+ (trying to connect via tcp://192.168.0.10:3306) D:\trunk\frame\Lib\Driver\Db\DbMysql.class.php Á¨¨ 55 Ë°å.
+NOTIC: [2] mysql_connect() [<a href='function.mysql-connect'>function.mysql-connect</a>]: ”…”⁄¡¨Ω”∑Ω‘⁄“ª∂Œ ±º‰∫Û√ª”–’˝»∑¥∏¥ªÚ¡¨Ω”µƒ÷˜ª˙√ª”–∑¥”¶£¨¡¨Ω”≥¢ ‘ ß∞‹°£
+ D:\trunk\frame\Lib\Driver\Db\DbMysql.class.php Á¨¨ 55 Ë°å.
+ERR: ”…”⁄¡¨Ω”∑Ω‘⁄“ª∂Œ ±º‰∫Û√ª”–’˝»∑¥∏¥ªÚ¡¨Ω”µƒ÷˜ª˙√ª”–∑¥”¶£¨¡¨Ω”≥¢ ‘ ß∞‹°£
+
+
+[ 2014-07-07T08:43:29+08:00 ] 127.0.0.1 /gas_station_erp/index.php/Login/login
+NOTIC: [2] htmlspecialchars() expects parameter 2 to be long, string given D:\trunk\frame\Lib\Core\App.class.php Á¨¨ 56 Ë°å.
+NOTIC: [2] htmlspecialchars() expects parameter 2 to be long, string given D:\trunk\frame\Lib\Core\App.class.php Á¨¨ 56 Ë°å.
+NOTIC: [2] htmlspecialchars() expects parameter 2 to be long, string given D:\trunk\frame\Lib\Core\App.class.php Á¨¨ 56 Ë°å.
+NOTIC: [2] htmlspecialchars() expects parameter 2 to be long, string given D:\trunk\frame\Lib\Core\App.class.php Á¨¨ 56 Ë°å.
+NOTIC: [2] htmlspecialchars() expects parameter 2 to be long, string given D:\trunk\frame\Lib\Core\App.class.php Á¨¨ 56 Ë°å.
+INFO: [ app_begin ] --START--
+INFO: ReadHtmlCache Behavior ::run [ RunTime:0.000000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000000s ]
+
+[ 2014-07-07T08:43:50+08:00 ] 127.0.0.1 /gas_station_erp/index.php/Login/login
+NOTIC: [2] htmlspecialchars() expects parameter 2 to be long, string given D:\trunk\frame\Lib\Core\App.class.php Á¨¨ 56 Ë°å.
+NOTIC: [2] htmlspecialchars() expects parameter 2 to be long, string given D:\trunk\frame\Lib\Core\App.class.php Á¨¨ 56 Ë°å.
+NOTIC: [2] htmlspecialchars() expects parameter 2 to be long, string given D:\trunk\frame\Lib\Core\App.class.php Á¨¨ 56 Ë°å.
+NOTIC: [2] htmlspecialchars() expects parameter 2 to be long, string given D:\trunk\frame\Lib\Core\App.class.php Á¨¨ 56 Ë°å.
+NOTIC: [2] htmlspecialchars() expects parameter 2 to be long, string given D:\trunk\frame\Lib\Core\App.class.php Á¨¨ 56 Ë°å.
+INFO: [ app_begin ] --START--
+INFO: ReadHtmlCache Behavior ::run [ RunTime:0.001000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001000s ]
+
+[ 2014-07-07T08:43:50+08:00 ] 127.0.0.1 /gas_station_erp/index.php/Login/login
+NOTIC: [2] htmlspecialchars() expects parameter 2 to be long, string given D:\trunk\frame\Lib\Core\App.class.php Á¨¨ 56 Ë°å.
+NOTIC: [2] htmlspecialchars() expects parameter 2 to be long, string given D:\trunk\frame\Lib\Core\App.class.php Á¨¨ 56 Ë°å.
+NOTIC: [2] htmlspecialchars() expects parameter 2 to be long, string given D:\trunk\frame\Lib\Core\App.class.php Á¨¨ 56 Ë°å.
+NOTIC: [2] htmlspecialchars() expects parameter 2 to be long, string given D:\trunk\frame\Lib\Core\App.class.php Á¨¨ 56 Ë°å.
+NOTIC: [2] htmlspecialchars() expects parameter 2 to be long, string given D:\trunk\frame\Lib\Core\App.class.php Á¨¨ 56 Ë°å.
+INFO: [ app_begin ] --START--
+INFO: ReadHtmlCache Behavior ::run [ RunTime:0.001000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001000s ]
+
+[ 2014-07-07T08:43:50+08:00 ] 127.0.0.1 /gas_station_erp/index.php/Login/login
+NOTIC: [2] htmlspecialchars() expects parameter 2 to be long, string given D:\trunk\frame\Lib\Core\App.class.php Á¨¨ 56 Ë°å.
+NOTIC: [2] htmlspecialchars() expects parameter 2 to be long, string given D:\trunk\frame\Lib\Core\App.class.php Á¨¨ 56 Ë°å.
+NOTIC: [2] htmlspecialchars() expects parameter 2 to be long, string given D:\trunk\frame\Lib\Core\App.class.php Á¨¨ 56 Ë°å.
+NOTIC: [2] htmlspecialchars() expects parameter 2 to be long, string given D:\trunk\frame\Lib\Core\App.class.php Á¨¨ 56 Ë°å.
+NOTIC: [2] htmlspecialchars() expects parameter 2 to be long, string given D:\trunk\frame\Lib\Core\App.class.php Á¨¨ 56 Ë°å.
+INFO: [ app_begin ] --START--
+INFO: ReadHtmlCache Behavior ::run [ RunTime:0.001001s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001001s ]
+
+[ 2014-07-07T08:43:50+08:00 ] 127.0.0.1 /gas_station_erp/index.php/Login/login
+NOTIC: [2] htmlspecialchars() expects parameter 2 to be long, string given D:\trunk\frame\Lib\Core\App.class.php Á¨¨ 56 Ë°å.
+NOTIC: [2] htmlspecialchars() expects parameter 2 to be long, string given D:\trunk\frame\Lib\Core\App.class.php Á¨¨ 56 Ë°å.
+NOTIC: [2] htmlspecialchars() expects parameter 2 to be long, string given D:\trunk\frame\Lib\Core\App.class.php Á¨¨ 56 Ë°å.
+NOTIC: [2] htmlspecialchars() expects parameter 2 to be long, string given D:\trunk\frame\Lib\Core\App.class.php Á¨¨ 56 Ë°å.
+NOTIC: [2] htmlspecialchars() expects parameter 2 to be long, string given D:\trunk\frame\Lib\Core\App.class.php Á¨¨ 56 Ë°å.
+INFO: [ app_begin ] --START--
+INFO: ReadHtmlCache Behavior ::run [ RunTime:0.001000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001000s ]
+
+[ 2014-07-07T08:44:11+08:00 ] 127.0.0.1 /gas_station_erp/index.php/Login/login
+NOTIC: [2] htmlspecialchars() expects parameter 2 to be long, string given D:\trunk\frame\Lib\Core\App.class.php Á¨¨ 56 Ë°å.
+NOTIC: [2] htmlspecialchars() expects parameter 2 to be long, string given D:\trunk\frame\Lib\Core\App.class.php Á¨¨ 56 Ë°å.
+NOTIC: [2] htmlspecialchars() expects parameter 2 to be long, string given D:\trunk\frame\Lib\Core\App.class.php Á¨¨ 56 Ë°å.
+NOTIC: [2] htmlspecialchars() expects parameter 2 to be long, string given D:\trunk\frame\Lib\Core\App.class.php Á¨¨ 56 Ë°å.
+NOTIC: [2] htmlspecialchars() expects parameter 2 to be long, string given D:\trunk\frame\Lib\Core\App.class.php Á¨¨ 56 Ë°å.
+INFO: [ app_begin ] --START--
+INFO: ReadHtmlCache Behavior ::run [ RunTime:0.000000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000000s ]
+
+[ 2014-07-07T08:44:11+08:00 ] 127.0.0.1 /gas_station_erp/index.php/configuration//gas_station_erp/gas_station_erp/Tpl/configuration/Public/css/configuration.css
+ERR: Êó†Ê≥ïÂä†ËΩΩÊ®°Âùó:gas_station_erp
+
+[ 2014-07-07T08:44:15+08:00 ] 127.0.0.1 /gas_station_erp/index.php/configuration//gas_station_erp/gas_station_erp/Tpl/configuration/Public/css/configuration.css
+ERR: Êó†Ê≥ïÂä†ËΩΩÊ®°Âùó:gas_station_erp
+
+[ 2014-07-07T08:44:19+08:00 ] 127.0.0.1 /gas_station_erp/index.php/configuration//gas_station_erp/gas_station_erp/Tpl/configuration/Public/css/configuration.css
+ERR: Êó†Ê≥ïÂä†ËΩΩÊ®°Âùó:gas_station_erp
+
+[ 2014-07-07T08:44:42+08:00 ] 127.0.0.1 /gas_station_erp/index.php/configuration//gas_station_erp/gas_station_erp/Tpl/configuration/Public/css/configuration.css
+ERR: Êó†Ê≥ïÂä†ËΩΩÊ®°Âùó:gas_station_erp
+
+[ 2014-07-07T08:45:15+08:00 ] 127.0.0.1 /gas_station_erp/index.php/configuration//gas_station_erp/gas_station_erp/Tpl/configuration/Public/css/configuration.css
+ERR: Êó†Ê≥ïÂä†ËΩΩÊ®°Âùó:gas_station_erp
+
+[ 2014-07-07T08:45:16+08:00 ] 127.0.0.1 /gas_station_erp/index.php/configuration//gas_station_erp/gas_station_erp/Tpl/configuration/Public/css/configuration.css
+ERR: Êó†Ê≥ïÂä†ËΩΩÊ®°Âùó:gas_station_erp
+
+[ 2014-07-07T08:45:17+08:00 ] 127.0.0.1 /gas_station_erp/index.php/configuration//gas_station_erp/gas_station_erp/Tpl/configuration/Public/css/configuration.css
+ERR: Êó†Ê≥ïÂä†ËΩΩÊ®°Âùó:gas_station_erp
+
+[ 2014-07-07T08:58:00+08:00 ] 127.0.0.1 /gas_station_erp/index.php/configuration//gas_station_erp/gas_station_erp/Tpl/configuration/Public/css/configuration.css
+ERR: Êó†Ê≥ïÂä†ËΩΩÊ®°Âùó:gas_station_erp
+
+[ 2014-07-07T08:58:01+08:00 ] 127.0.0.1 /gas_station_erp/index.php/configuration//gas_station_erp/gas_station_erp/Tpl/configuration/Public/css/configuration.css
+ERR: Êó†Ê≥ïÂä†ËΩΩÊ®°Âùó:gas_station_erp
+
+[ 2014-07-07T08:58:19+08:00 ] 127.0.0.1 /gas_station_erp/index.php/configuration//gas_station_erp/gas_station_erp/Tpl/configuration/Public/css/configuration.css
+ERR: Êó†Ê≥ïÂä†ËΩΩÊ®°Âùó:gas_station_erp
+
+[ 2014-07-07T08:58:21+08:00 ] 127.0.0.1 /gas_station_erp/index.php/configuration//gas_station_erp/gas_station_erp/Tpl/configuration/Public/css/configuration.css
+ERR: Êó†Ê≥ïÂä†ËΩΩÊ®°Âùó:gas_station_erp
+
+[ 2014-07-07T08:58:22+08:00 ] 127.0.0.1 /gas_station_erp/index.php/configuration//gas_station_erp/gas_station_erp/Tpl/configuration/Public/css/configuration.css
+ERR: Êó†Ê≥ïÂä†ËΩΩÊ®°Âùó:gas_station_erp
+
+[ 2014-07-07T08:58:22+08:00 ] 127.0.0.1 /gas_station_erp/index.php/configuration//gas_station_erp/gas_station_erp/Tpl/configuration/Public/css/configuration.css
+ERR: Êó†Ê≥ïÂä†ËΩΩÊ®°Âùó:gas_station_erp
+
+[ 2014-07-07T08:58:23+08:00 ] 127.0.0.1 /gas_station_erp/index.php/configuration//gas_station_erp/gas_station_erp/Tpl/configuration/Public/css/configuration.css
+ERR: Êó†Ê≥ïÂä†ËΩΩÊ®°Âùó:gas_station_erp
+
+[ 2014-07-07T08:58:23+08:00 ] 127.0.0.1 /gas_station_erp/index.php/configuration//gas_station_erp/gas_station_erp/Tpl/configuration/Public/css/configuration.css
+ERR: Êó†Ê≥ïÂä†ËΩΩÊ®°Âùó:gas_station_erp
+
+[ 2014-07-07T08:58:24+08:00 ] 127.0.0.1 /gas_station_erp/index.php/configuration//gas_station_erp/gas_station_erp/Tpl/configuration/Public/css/configuration.css
+ERR: Êó†Ê≥ïÂä†ËΩΩÊ®°Âùó:gas_station_erp
+
+[ 2014-07-07T09:02:54+08:00 ] 127.0.0.1 /gas_station_erp/index.php/Login/login
+NOTIC: [2] htmlspecialchars() expects parameter 2 to be long, string given D:\trunk\frame\Lib\Core\App.class.php Á¨¨ 56 Ë°å.
+NOTIC: [2] htmlspecialchars() expects parameter 2 to be long, string given D:\trunk\frame\Lib\Core\App.class.php Á¨¨ 56 Ë°å.
+NOTIC: [2] htmlspecialchars() expects parameter 2 to be long, string given D:\trunk\frame\Lib\Core\App.class.php Á¨¨ 56 Ë°å.
+NOTIC: [2] htmlspecialchars() expects parameter 2 to be long, string given D:\trunk\frame\Lib\Core\App.class.php Á¨¨ 56 Ë°å.
+NOTIC: [2] htmlspecialchars() expects parameter 2 to be long, string given D:\trunk\frame\Lib\Core\App.class.php Á¨¨ 56 Ë°å.
+INFO: [ app_begin ] --START--
+INFO: ReadHtmlCache Behavior ::run [ RunTime:0.001000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001000s ]
+NOTIC: [2] mysql_connect() [<a href='function.mysql-connect'>function.mysql-connect</a>]: [2002] ”…”⁄¡¨Ω”∑Ω‘⁄“ª∂Œ ±º‰∫Û√ª”–’˝»∑¥∏¥ªÚ¡¨Ω”µƒ÷˜ª˙√ª”–∑¥”¶£¨¡¨Ω”≥¢ ‘ ß∞‹°£
+ (trying to connect via tcp://192.168.0.10:3306) D:\trunk\frame\Lib\Driver\Db\DbMysql.class.php Á¨¨ 55 Ë°å.
+NOTIC: [2] mysql_connect() [<a href='function.mysql-connect'>function.mysql-connect</a>]: ”…”⁄¡¨Ω”∑Ω‘⁄“ª∂Œ ±º‰∫Û√ª”–’˝»∑¥∏¥ªÚ¡¨Ω”µƒ÷˜ª˙√ª”–∑¥”¶£¨¡¨Ω”≥¢ ‘ ß∞‹°£
+ D:\trunk\frame\Lib\Driver\Db\DbMysql.class.php Á¨¨ 55 Ë°å.
+ERR: ”…”⁄¡¨Ω”∑Ω‘⁄“ª∂Œ ±º‰∫Û√ª”–’˝»∑¥∏¥ªÚ¡¨Ω”µƒ÷˜ª˙√ª”–∑¥”¶£¨¡¨Ω”≥¢ ‘ ß∞‹°£
+
+
+[ 2014-07-07T09:03:15+08:00 ] 127.0.0.1 /gas_station_erp/index.php/Login/login
+NOTIC: [2] htmlspecialchars() expects parameter 2 to be long, string given D:\trunk\frame\Lib\Core\App.class.php Á¨¨ 56 Ë°å.
+NOTIC: [2] htmlspecialchars() expects parameter 2 to be long, string given D:\trunk\frame\Lib\Core\App.class.php Á¨¨ 56 Ë°å.
+NOTIC: [2] htmlspecialchars() expects parameter 2 to be long, string given D:\trunk\frame\Lib\Core\App.class.php Á¨¨ 56 Ë°å.
+NOTIC: [2] htmlspecialchars() expects parameter 2 to be long, string given D:\trunk\frame\Lib\Core\App.class.php Á¨¨ 56 Ë°å.
+NOTIC: [2] htmlspecialchars() expects parameter 2 to be long, string given D:\trunk\frame\Lib\Core\App.class.php Á¨¨ 56 Ë°å.
+INFO: [ app_begin ] --START--
+INFO: ReadHtmlCache Behavior ::run [ RunTime:0.001000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001000s ]
+
+[ 2014-07-07T09:03:15+08:00 ] 127.0.0.1 /gas_station_erp/index.php/Login/login
+NOTIC: [2] htmlspecialchars() expects parameter 2 to be long, string given D:\trunk\frame\Lib\Core\App.class.php Á¨¨ 56 Ë°å.
+NOTIC: [2] htmlspecialchars() expects parameter 2 to be long, string given D:\trunk\frame\Lib\Core\App.class.php Á¨¨ 56 Ë°å.
+NOTIC: [2] htmlspecialchars() expects parameter 2 to be long, string given D:\trunk\frame\Lib\Core\App.class.php Á¨¨ 56 Ë°å.
+NOTIC: [2] htmlspecialchars() expects parameter 2 to be long, string given D:\trunk\frame\Lib\Core\App.class.php Á¨¨ 56 Ë°å.
+NOTIC: [2] htmlspecialchars() expects parameter 2 to be long, string given D:\trunk\frame\Lib\Core\App.class.php Á¨¨ 56 Ë°å.
+INFO: [ app_begin ] --START--
+INFO: ReadHtmlCache Behavior ::run [ RunTime:0.000000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000000s ]
+
+[ 2014-07-07T09:03:15+08:00 ] 127.0.0.1 /gas_station_erp/index.php/Login/login
+NOTIC: [2] htmlspecialchars() expects parameter 2 to be long, string given D:\trunk\frame\Lib\Core\App.class.php Á¨¨ 56 Ë°å.
+NOTIC: [2] htmlspecialchars() expects parameter 2 to be long, string given D:\trunk\frame\Lib\Core\App.class.php Á¨¨ 56 Ë°å.
+NOTIC: [2] htmlspecialchars() expects parameter 2 to be long, string given D:\trunk\frame\Lib\Core\App.class.php Á¨¨ 56 Ë°å.
+NOTIC: [2] htmlspecialchars() expects parameter 2 to be long, string given D:\trunk\frame\Lib\Core\App.class.php Á¨¨ 56 Ë°å.
+NOTIC: [2] htmlspecialchars() expects parameter 2 to be long, string given D:\trunk\frame\Lib\Core\App.class.php Á¨¨ 56 Ë°å.
+INFO: [ app_begin ] --START--
+INFO: ReadHtmlCache Behavior ::run [ RunTime:0.001000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001000s ]
+
+[ 2014-07-07T09:03:15+08:00 ] 127.0.0.1 /gas_station_erp/index.php/Login/login
+NOTIC: [2] htmlspecialchars() expects parameter 2 to be long, string given D:\trunk\frame\Lib\Core\App.class.php Á¨¨ 56 Ë°å.
+NOTIC: [2] htmlspecialchars() expects parameter 2 to be long, string given D:\trunk\frame\Lib\Core\App.class.php Á¨¨ 56 Ë°å.
+NOTIC: [2] htmlspecialchars() expects parameter 2 to be long, string given D:\trunk\frame\Lib\Core\App.class.php Á¨¨ 56 Ë°å.
+NOTIC: [2] htmlspecialchars() expects parameter 2 to be long, string given D:\trunk\frame\Lib\Core\App.class.php Á¨¨ 56 Ë°å.
+NOTIC: [2] htmlspecialchars() expects parameter 2 to be long, string given D:\trunk\frame\Lib\Core\App.class.php Á¨¨ 56 Ë°å.
+INFO: [ app_begin ] --START--
+INFO: ReadHtmlCache Behavior ::run [ RunTime:0.000000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000000s ]
+
+[ 2014-07-07T09:03:15+08:00 ] 127.0.0.1 /gas_station_erp/index.php/Login/login
+NOTIC: [2] htmlspecialchars() expects parameter 2 to be long, string given D:\trunk\frame\Lib\Core\App.class.php Á¨¨ 56 Ë°å.
+NOTIC: [2] htmlspecialchars() expects parameter 2 to be long, string given D:\trunk\frame\Lib\Core\App.class.php Á¨¨ 56 Ë°å.
+NOTIC: [2] htmlspecialchars() expects parameter 2 to be long, string given D:\trunk\frame\Lib\Core\App.class.php Á¨¨ 56 Ë°å.
+NOTIC: [2] htmlspecialchars() expects parameter 2 to be long, string given D:\trunk\frame\Lib\Core\App.class.php Á¨¨ 56 Ë°å.
+NOTIC: [2] htmlspecialchars() expects parameter 2 to be long, string given D:\trunk\frame\Lib\Core\App.class.php Á¨¨ 56 Ë°å.
+INFO: [ app_begin ] --START--
+INFO: ReadHtmlCache Behavior ::run [ RunTime:0.001000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001000s ]
+
+[ 2014-07-07T09:03:36+08:00 ] 127.0.0.1 /gas_station_erp/index.php/Login/login
+NOTIC: [2] htmlspecialchars() expects parameter 2 to be long, string given D:\trunk\frame\Lib\Core\App.class.php Á¨¨ 56 Ë°å.
+NOTIC: [2] htmlspecialchars() expects parameter 2 to be long, string given D:\trunk\frame\Lib\Core\App.class.php Á¨¨ 56 Ë°å.
+NOTIC: [2] htmlspecialchars() expects parameter 2 to be long, string given D:\trunk\frame\Lib\Core\App.class.php Á¨¨ 56 Ë°å.
+NOTIC: [2] htmlspecialchars() expects parameter 2 to be long, string given D:\trunk\frame\Lib\Core\App.class.php Á¨¨ 56 Ë°å.
+NOTIC: [2] htmlspecialchars() expects parameter 2 to be long, string given D:\trunk\frame\Lib\Core\App.class.php Á¨¨ 56 Ë°å.
+INFO: [ app_begin ] --START--
+INFO: ReadHtmlCache Behavior ::run [ RunTime:0.000000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000000s ]
+
+[ 2014-07-07T09:36:39+08:00 ] 127.0.0.1 /gas_station_erp/index.php/Login/login
+NOTIC: [2] htmlspecialchars() expects parameter 2 to be long, string given D:\trunk\frame\Lib\Core\App.class.php Á¨¨ 56 Ë°å.
+NOTIC: [2] htmlspecialchars() expects parameter 2 to be long, string given D:\trunk\frame\Lib\Core\App.class.php Á¨¨ 56 Ë°å.
+NOTIC: [2] htmlspecialchars() expects parameter 2 to be long, string given D:\trunk\frame\Lib\Core\App.class.php Á¨¨ 56 Ë°å.
+NOTIC: [2] htmlspecialchars() expects parameter 2 to be long, string given D:\trunk\frame\Lib\Core\App.class.php Á¨¨ 56 Ë°å.
+NOTIC: [2] htmlspecialchars() expects parameter 2 to be long, string given D:\trunk\frame\Lib\Core\App.class.php Á¨¨ 56 Ë°å.
+INFO: [ app_begin ] --START--
+INFO: ReadHtmlCache Behavior ::run [ RunTime:0.001000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001000s ]
+NOTIC: [2] mysql_connect() [<a href='function.mysql-connect'>function.mysql-connect</a>]: [2002] ”…”⁄¡¨Ω”∑Ω‘⁄“ª∂Œ ±º‰∫Û√ª”–’˝»∑¥∏¥ªÚ¡¨Ω”µƒ÷˜ª˙√ª”–∑¥”¶£¨¡¨Ω”≥¢ ‘ ß∞‹°£
+ (trying to connect via tcp://192.168.0.10:3306) D:\trunk\frame\Lib\Driver\Db\DbMysql.class.php Á¨¨ 55 Ë°å.
+NOTIC: [2] mysql_connect() [<a href='function.mysql-connect'>function.mysql-connect</a>]: ”…”⁄¡¨Ω”∑Ω‘⁄“ª∂Œ ±º‰∫Û√ª”–’˝»∑¥∏¥ªÚ¡¨Ω”µƒ÷˜ª˙√ª”–∑¥”¶£¨¡¨Ω”≥¢ ‘ ß∞‹°£
+ D:\trunk\frame\Lib\Driver\Db\DbMysql.class.php Á¨¨ 55 Ë°å.
+ERR: ”…”⁄¡¨Ω”∑Ω‘⁄“ª∂Œ ±º‰∫Û√ª”–’˝»∑¥∏¥ªÚ¡¨Ω”µƒ÷˜ª˙√ª”–∑¥”¶£¨¡¨Ω”≥¢ ‘ ß∞‹°£
+
+
+[ 2014-07-07T09:39:34+08:00 ] 127.0.0.1 /gas_station_erp/index.php/configuration//gas_station_erp/gas_station_erp/Tpl/configuration/Public/css/configuration.css
+ERR: Êó†Ê≥ïÂä†ËΩΩÊ®°Âùó:gas_station_erp
+
+[ 2014-07-07T09:39:45+08:00 ] 127.0.0.1 /gas_station_erp/index.php/Login/login
+NOTIC: [2] htmlspecialchars() expects parameter 2 to be long, string given D:\trunk\frame\Lib\Core\App.class.php Á¨¨ 56 Ë°å.
+NOTIC: [2] htmlspecialchars() expects parameter 2 to be long, string given D:\trunk\frame\Lib\Core\App.class.php Á¨¨ 56 Ë°å.
+NOTIC: [2] htmlspecialchars() expects parameter 2 to be long, string given D:\trunk\frame\Lib\Core\App.class.php Á¨¨ 56 Ë°å.
+NOTIC: [2] htmlspecialchars() expects parameter 2 to be long, string given D:\trunk\frame\Lib\Core\App.class.php Á¨¨ 56 Ë°å.
+NOTIC: [2] htmlspecialchars() expects parameter 2 to be long, string given D:\trunk\frame\Lib\Core\App.class.php Á¨¨ 56 Ë°å.
+INFO: [ app_begin ] --START--
+INFO: ReadHtmlCache Behavior ::run [ RunTime:0.001000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001000s ]
+
+[ 2014-07-07T09:40:15+08:00 ] 127.0.0.1 /gas_station_erp/index.php/Login/login
+NOTIC: [2] htmlspecialchars() expects parameter 2 to be long, string given D:\trunk\frame\Lib\Core\App.class.php Á¨¨ 56 Ë°å.
+NOTIC: [2] htmlspecialchars() expects parameter 2 to be long, string given D:\trunk\frame\Lib\Core\App.class.php Á¨¨ 56 Ë°å.
+NOTIC: [2] htmlspecialchars() expects parameter 2 to be long, string given D:\trunk\frame\Lib\Core\App.class.php Á¨¨ 56 Ë°å.
+NOTIC: [2] htmlspecialchars() expects parameter 2 to be long, string given D:\trunk\frame\Lib\Core\App.class.php Á¨¨ 56 Ë°å.
+NOTIC: [2] htmlspecialchars() expects parameter 2 to be long, string given D:\trunk\frame\Lib\Core\App.class.php Á¨¨ 56 Ë°å.
+INFO: [ app_begin ] --START--
+INFO: ReadHtmlCache Behavior ::run [ RunTime:0.001000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001000s ]
+NOTIC: [2] mysql_connect() [<a href='function.mysql-connect'>function.mysql-connect</a>]: [2002] ”…”⁄¡¨Ω”∑Ω‘⁄“ª∂Œ ±º‰∫Û√ª”–’˝»∑¥∏¥ªÚ¡¨Ω”µƒ÷˜ª˙√ª”–∑¥”¶£¨¡¨Ω”≥¢ ‘ ß∞‹°£
+ (trying to connect via tcp://192.168.0.10:3306) D:\trunk\frame\Lib\Driver\Db\DbMysql.class.php Á¨¨ 55 Ë°å.
+NOTIC: [2] mysql_connect() [<a href='function.mysql-connect'>function.mysql-connect</a>]: ”…”⁄¡¨Ω”∑Ω‘⁄“ª∂Œ ±º‰∫Û√ª”–’˝»∑¥∏¥ªÚ¡¨Ω”µƒ÷˜ª˙√ª”–∑¥”¶£¨¡¨Ω”≥¢ ‘ ß∞‹°£
+ D:\trunk\frame\Lib\Driver\Db\DbMysql.class.php Á¨¨ 55 Ë°å.
+ERR: ”…”⁄¡¨Ω”∑Ω‘⁄“ª∂Œ ±º‰∫Û√ª”–’˝»∑¥∏¥ªÚ¡¨Ω”µƒ÷˜ª˙√ª”–∑¥”¶£¨¡¨Ω”≥¢ ‘ ß∞‹°£
+
+
+[ 2014-07-07T09:40:36+08:00 ] 127.0.0.1 /gas_station_erp/index.php/Login/login
+NOTIC: [2] htmlspecialchars() expects parameter 2 to be long, string given D:\trunk\frame\Lib\Core\App.class.php Á¨¨ 56 Ë°å.
+NOTIC: [2] htmlspecialchars() expects parameter 2 to be long, string given D:\trunk\frame\Lib\Core\App.class.php Á¨¨ 56 Ë°å.
+NOTIC: [2] htmlspecialchars() expects parameter 2 to be long, string given D:\trunk\frame\Lib\Core\App.class.php Á¨¨ 56 Ë°å.
+NOTIC: [2] htmlspecialchars() expects parameter 2 to be long, string given D:\trunk\frame\Lib\Core\App.class.php Á¨¨ 56 Ë°å.
+NOTIC: [2] htmlspecialchars() expects parameter 2 to be long, string given D:\trunk\frame\Lib\Core\App.class.php Á¨¨ 56 Ë°å.
+INFO: [ app_begin ] --START--
+INFO: ReadHtmlCache Behavior ::run [ RunTime:0.002000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.002000s ]
+
+[ 2014-07-07T09:40:36+08:00 ] 127.0.0.1 /gas_station_erp/index.php/Login/login
+NOTIC: [2] htmlspecialchars() expects parameter 2 to be long, string given D:\trunk\frame\Lib\Core\App.class.php Á¨¨ 56 Ë°å.
+NOTIC: [2] htmlspecialchars() expects parameter 2 to be long, string given D:\trunk\frame\Lib\Core\App.class.php Á¨¨ 56 Ë°å.
+NOTIC: [2] htmlspecialchars() expects parameter 2 to be long, string given D:\trunk\frame\Lib\Core\App.class.php Á¨¨ 56 Ë°å.
+NOTIC: [2] htmlspecialchars() expects parameter 2 to be long, string given D:\trunk\frame\Lib\Core\App.class.php Á¨¨ 56 Ë°å.
+NOTIC: [2] htmlspecialchars() expects parameter 2 to be long, string given D:\trunk\frame\Lib\Core\App.class.php Á¨¨ 56 Ë°å.
+INFO: [ app_begin ] --START--
+INFO: ReadHtmlCache Behavior ::run [ RunTime:0.001000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001000s ]
+
+[ 2014-07-07T09:40:36+08:00 ] 127.0.0.1 /gas_station_erp/index.php/Login/login
+NOTIC: [2] htmlspecialchars() expects parameter 2 to be long, string given D:\trunk\frame\Lib\Core\App.class.php Á¨¨ 56 Ë°å.
+NOTIC: [2] htmlspecialchars() expects parameter 2 to be long, string given D:\trunk\frame\Lib\Core\App.class.php Á¨¨ 56 Ë°å.
+NOTIC: [2] htmlspecialchars() expects parameter 2 to be long, string given D:\trunk\frame\Lib\Core\App.class.php Á¨¨ 56 Ë°å.
+NOTIC: [2] htmlspecialchars() expects parameter 2 to be long, string given D:\trunk\frame\Lib\Core\App.class.php Á¨¨ 56 Ë°å.
+NOTIC: [2] htmlspecialchars() expects parameter 2 to be long, string given D:\trunk\frame\Lib\Core\App.class.php Á¨¨ 56 Ë°å.
+INFO: [ app_begin ] --START--
+INFO: ReadHtmlCache Behavior ::run [ RunTime:0.001000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.002000s ]
+
+[ 2014-07-07T09:40:36+08:00 ] 127.0.0.1 /gas_station_erp/index.php/Login/login
+NOTIC: [2] htmlspecialchars() expects parameter 2 to be long, string given D:\trunk\frame\Lib\Core\App.class.php Á¨¨ 56 Ë°å.
+NOTIC: [2] htmlspecialchars() expects parameter 2 to be long, string given D:\trunk\frame\Lib\Core\App.class.php Á¨¨ 56 Ë°å.
+NOTIC: [2] htmlspecialchars() expects parameter 2 to be long, string given D:\trunk\frame\Lib\Core\App.class.php Á¨¨ 56 Ë°å.
+NOTIC: [2] htmlspecialchars() expects parameter 2 to be long, string given D:\trunk\frame\Lib\Core\App.class.php Á¨¨ 56 Ë°å.
+NOTIC: [2] htmlspecialchars() expects parameter 2 to be long, string given D:\trunk\frame\Lib\Core\App.class.php Á¨¨ 56 Ë°å.
+INFO: [ app_begin ] --START--
+INFO: ReadHtmlCache Behavior ::run [ RunTime:0.001000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001000s ]
+
+[ 2014-07-07T09:40:36+08:00 ] 127.0.0.1 /gas_station_erp/index.php/Login/login
+NOTIC: [2] htmlspecialchars() expects parameter 2 to be long, string given D:\trunk\frame\Lib\Core\App.class.php Á¨¨ 56 Ë°å.
+NOTIC: [2] htmlspecialchars() expects parameter 2 to be long, string given D:\trunk\frame\Lib\Core\App.class.php Á¨¨ 56 Ë°å.
+NOTIC: [2] htmlspecialchars() expects parameter 2 to be long, string given D:\trunk\frame\Lib\Core\App.class.php Á¨¨ 56 Ë°å.
+NOTIC: [2] htmlspecialchars() expects parameter 2 to be long, string given D:\trunk\frame\Lib\Core\App.class.php Á¨¨ 56 Ë°å.
+NOTIC: [2] htmlspecialchars() expects parameter 2 to be long, string given D:\trunk\frame\Lib\Core\App.class.php Á¨¨ 56 Ë°å.
+INFO: [ app_begin ] --START--
+INFO: ReadHtmlCache Behavior ::run [ RunTime:0.001000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001000s ]
+
+[ 2014-07-07T09:40:36+08:00 ] 127.0.0.1 /gas_station_erp/index.php/configuration//gas_station_erp/gas_station_erp/Tpl/configuration/Public/css/configuration.css
+ERR: Êó†Ê≥ïÂä†ËΩΩÊ®°Âùó:gas_station_erp
+
+[ 2014-07-07T09:44:15+08:00 ] 127.0.0.1 /gas_station_erp/index.php/Login/login
+NOTIC: [2] htmlspecialchars() expects parameter 2 to be long, string given D:\trunk\frame\Lib\Core\App.class.php Á¨¨ 56 Ë°å.
+NOTIC: [2] htmlspecialchars() expects parameter 2 to be long, string given D:\trunk\frame\Lib\Core\App.class.php Á¨¨ 56 Ë°å.
+NOTIC: [2] htmlspecialchars() expects parameter 2 to be long, string given D:\trunk\frame\Lib\Core\App.class.php Á¨¨ 56 Ë°å.
+NOTIC: [2] htmlspecialchars() expects parameter 2 to be long, string given D:\trunk\frame\Lib\Core\App.class.php Á¨¨ 56 Ë°å.
+NOTIC: [2] htmlspecialchars() expects parameter 2 to be long, string given D:\trunk\frame\Lib\Core\App.class.php Á¨¨ 56 Ë°å.
+INFO: [ app_begin ] --START--
+INFO: ReadHtmlCache Behavior ::run [ RunTime:0.001000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001000s ]
+NOTIC: [2] mysql_connect() [<a href='function.mysql-connect'>function.mysql-connect</a>]: [2002] ”…”⁄¡¨Ω”∑Ω‘⁄“ª∂Œ ±º‰∫Û√ª”–’˝»∑¥∏¥ªÚ¡¨Ω”µƒ÷˜ª˙√ª”–∑¥”¶£¨¡¨Ω”≥¢ ‘ ß∞‹°£
+ (trying to connect via tcp://192.168.0.10:3306) D:\trunk\frame\Lib\Driver\Db\DbMysql.class.php Á¨¨ 55 Ë°å.
+NOTIC: [2] mysql_connect() [<a href='function.mysql-connect'>function.mysql-connect</a>]: ”…”⁄¡¨Ω”∑Ω‘⁄“ª∂Œ ±º‰∫Û√ª”–’˝»∑¥∏¥ªÚ¡¨Ω”µƒ÷˜ª˙√ª”–∑¥”¶£¨¡¨Ω”≥¢ ‘ ß∞‹°£
+ D:\trunk\frame\Lib\Driver\Db\DbMysql.class.php Á¨¨ 55 Ë°å.
+ERR: ”…”⁄¡¨Ω”∑Ω‘⁄“ª∂Œ ±º‰∫Û√ª”–’˝»∑¥∏¥ªÚ¡¨Ω”µƒ÷˜ª˙√ª”–∑¥”¶£¨¡¨Ω”≥¢ ‘ ß∞‹°£
+
+
+[ 2014-07-07T09:44:37+08:00 ] 127.0.0.1 /gas_station_erp/index.php/Login/login
+NOTIC: [2] htmlspecialchars() expects parameter 2 to be long, string given D:\trunk\frame\Lib\Core\App.class.php Á¨¨ 56 Ë°å.
+NOTIC: [2] htmlspecialchars() expects parameter 2 to be long, string given D:\trunk\frame\Lib\Core\App.class.php Á¨¨ 56 Ë°å.
+NOTIC: [2] htmlspecialchars() expects parameter 2 to be long, string given D:\trunk\frame\Lib\Core\App.class.php Á¨¨ 56 Ë°å.
+NOTIC: [2] htmlspecialchars() expects parameter 2 to be long, string given D:\trunk\frame\Lib\Core\App.class.php Á¨¨ 56 Ë°å.
+NOTIC: [2] htmlspecialchars() expects parameter 2 to be long, string given D:\trunk\frame\Lib\Core\App.class.php Á¨¨ 56 Ë°å.
+INFO: [ app_begin ] --START--
+INFO: ReadHtmlCache Behavior ::run [ RunTime:0.001000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001000s ]
+
+[ 2014-07-07T09:50:17+08:00 ] 127.0.0.1 /gas_station_erp/index.php/Login/login
+NOTIC: [2] htmlspecialchars() expects parameter 2 to be long, string given D:\trunk\frame\Lib\Core\App.class.php Á¨¨ 56 Ë°å.
+NOTIC: [2] htmlspecialchars() expects parameter 2 to be long, string given D:\trunk\frame\Lib\Core\App.class.php Á¨¨ 56 Ë°å.
+NOTIC: [2] htmlspecialchars() expects parameter 2 to be long, string given D:\trunk\frame\Lib\Core\App.class.php Á¨¨ 56 Ë°å.
+NOTIC: [2] htmlspecialchars() expects parameter 2 to be long, string given D:\trunk\frame\Lib\Core\App.class.php Á¨¨ 56 Ë°å.
+NOTIC: [2] htmlspecialchars() expects parameter 2 to be long, string given D:\trunk\frame\Lib\Core\App.class.php Á¨¨ 56 Ë°å.
+INFO: [ app_begin ] --START--
+INFO: ReadHtmlCache Behavior ::run [ RunTime:0.001000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001000s ]
+NOTIC: [2] mysql_connect() [<a href='function.mysql-connect'>function.mysql-connect</a>]: [2002] ”…”⁄¡¨Ω”∑Ω‘⁄“ª∂Œ ±º‰∫Û√ª”–’˝»∑¥∏¥ªÚ¡¨Ω”µƒ÷˜ª˙√ª”–∑¥”¶£¨¡¨Ω”≥¢ ‘ ß∞‹°£
+ (trying to connect via tcp://192.168.0.10:3306) D:\trunk\frame\Lib\Driver\Db\DbMysql.class.php Á¨¨ 55 Ë°å.
+NOTIC: [2] mysql_connect() [<a href='function.mysql-connect'>function.mysql-connect</a>]: ”…”⁄¡¨Ω”∑Ω‘⁄“ª∂Œ ±º‰∫Û√ª”–’˝»∑¥∏¥ªÚ¡¨Ω”µƒ÷˜ª˙√ª”–∑¥”¶£¨¡¨Ω”≥¢ ‘ ß∞‹°£
+ D:\trunk\frame\Lib\Driver\Db\DbMysql.class.php Á¨¨ 55 Ë°å.
+ERR: ”…”⁄¡¨Ω”∑Ω‘⁄“ª∂Œ ±º‰∫Û√ª”–’˝»∑¥∏¥ªÚ¡¨Ω”µƒ÷˜ª˙√ª”–∑¥”¶£¨¡¨Ω”≥¢ ‘ ß∞‹°£
+
+
+[ 2014-07-07T09:53:46+08:00 ] 127.0.0.1 /gas_station_erp/index.php/configuration//gas_station_erp/gas_station_erp/Tpl/configuration/Public/css/configuration.css
+ERR: Êó†Ê≥ïÂä†ËΩΩÊ®°Âùó:gas_station_erp
+
+[ 2014-07-07T09:53:55+08:00 ] 127.0.0.1 /gas_station_erp/index.php/Login/login
+NOTIC: [2] htmlspecialchars() expects parameter 2 to be long, string given D:\trunk\frame\Lib\Core\App.class.php Á¨¨ 56 Ë°å.
+NOTIC: [2] htmlspecialchars() expects parameter 2 to be long, string given D:\trunk\frame\Lib\Core\App.class.php Á¨¨ 56 Ë°å.
+NOTIC: [2] htmlspecialchars() expects parameter 2 to be long, string given D:\trunk\frame\Lib\Core\App.class.php Á¨¨ 56 Ë°å.
+NOTIC: [2] htmlspecialchars() expects parameter 2 to be long, string given D:\trunk\frame\Lib\Core\App.class.php Á¨¨ 56 Ë°å.
+NOTIC: [2] htmlspecialchars() expects parameter 2 to be long, string given D:\trunk\frame\Lib\Core\App.class.php Á¨¨ 56 Ë°å.
+INFO: [ app_begin ] --START--
+INFO: ReadHtmlCache Behavior ::run [ RunTime:0.001000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001000s ]
+SQL: SELECT url FROM bi_menu [ RunTime:0.018001s ]
+
+[ 2014-07-07T09:58:40+08:00 ] 127.0.0.1 /gas_station_erp/index.php/configuration/Org/show_org_tree
+INFO: [ app_begin ] --START--
+INFO: ReadHtmlCache Behavior ::run [ RunTime:0.001000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001000s ]
+NOTIC: [2] urldecode() expects parameter 1 to be string, array given D:\trunk\gas_station_erp\Lib\Action\configuration\OrgAction.class.php Á¨¨ 4 Ë°å.
+SQL: select * from qd_agent a where a.isDelete=0 [ RunTime:0.055003s ]
+
+[ 2014-07-07T09:58:41+08:00 ] 127.0.0.1 /gas_station_erp/index.php/statistics/Index/index
+ERR: Êó†Ê≥ïÂä†ËΩΩÊ®°Âùó:statistics
+
+[ 2014-07-07T09:58:43+08:00 ] 127.0.0.1 /gas_station_erp/index.php/configuration/Org/show_org_tree
+INFO: [ app_begin ] --START--
+INFO: ReadHtmlCache Behavior ::run [ RunTime:0.000000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000000s ]
+NOTIC: [2] urldecode() expects parameter 1 to be string, array given D:\trunk\gas_station_erp\Lib\Action\configuration\OrgAction.class.php Á¨¨ 4 Ë°å.
+SQL: select * from qd_agent a where a.isDelete=0 [ RunTime:0.001000s ]
+
+[ 2014-07-07T09:58:47+08:00 ] 127.0.0.1 /gas_station_erp/index.php/statistics/Index/index
+ERR: Êó†Ê≥ïÂä†ËΩΩÊ®°Âùó:statistics
+
+[ 2014-07-07T09:58:49+08:00 ] 127.0.0.1 /gas_station_erp/index.php/configuration/Org/show_org_tree
+INFO: [ app_begin ] --START--
+INFO: ReadHtmlCache Behavior ::run [ RunTime:0.001000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001000s ]
+NOTIC: [2] urldecode() expects parameter 1 to be string, array given D:\trunk\gas_station_erp\Lib\Action\configuration\OrgAction.class.php Á¨¨ 4 Ë°å.
+SQL: select * from qd_agent a where a.isDelete=0 [ RunTime:0.001000s ]
+
+[ 2014-07-07T09:59:13+08:00 ] 127.0.0.1 /gas_station_erp/index.php/statistics/Index/index
+ERR: Êó†Ê≥ïÂä†ËΩΩÊ®°Âùó:statistics
+
+[ 2014-07-07T09:59:15+08:00 ] 127.0.0.1 /gas_station_erp/index.php/configuration/Org/show_org_tree
+INFO: [ app_begin ] --START--
+INFO: ReadHtmlCache Behavior ::run [ RunTime:0.001000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001000s ]
+NOTIC: [2] urldecode() expects parameter 1 to be string, array given D:\trunk\gas_station_erp\Lib\Action\configuration\OrgAction.class.php Á¨¨ 4 Ë°å.
+SQL: select * from qd_agent a where a.isDelete=0 [ RunTime:0.001000s ]
+
+[ 2014-07-07T09:59:16+08:00 ] 127.0.0.1 /gas_station_erp/index.php/configuration/Role/getAgentArr
+INFO: [ app_begin ] --START--
+INFO: ReadHtmlCache Behavior ::run [ RunTime:0.001000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001000s ]
+NOTIC: [2] urldecode() expects parameter 1 to be string, array given D:\trunk\gas_station_erp\Lib\Action\configuration\RoleAction.class.php Á¨¨ 4 Ë°å.
+NOTIC: [8] Undefined index: orgid D:\trunk\gas_station_erp\Lib\Action\configuration\RoleAction.class.php Á¨¨ 262 Ë°å.
+NOTIC: [8] Undefined variable: where D:\trunk\gas_station_erp\Lib\Action\configuration\RoleAction.class.php Á¨¨ 266 Ë°å.
+SQL: SELECT agent_name,agent_id,father_agentid FROM qd_agent WHERE isDelete = 0  ORDER BY father_agentid,agent_id [ RunTime:0.001000s ]
+
+[ 2014-07-07T09:59:16+08:00 ] 127.0.0.1 /gas_station_erp/index.php/configuration/Role/rolenameBlurrySelect?role_name=
+NOTIC: [2] htmlspecialchars() expects parameter 2 to be long, string given D:\trunk\frame\Lib\Core\App.class.php Á¨¨ 57 Ë°å.
+INFO: [ app_begin ] --START--
+INFO: ReadHtmlCache Behavior ::run [ RunTime:0.000000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000000s ]
+NOTIC: [2] urldecode() expects parameter 1 to be string, array given D:\trunk\gas_station_erp\Lib\Action\configuration\RoleAction.class.php Á¨¨ 4 Ë°å.
+NOTIC: [2] htmlspecialchars() expects parameter 2 to be long, string given D:\trunk\frame\Common\common.php Á¨¨ 110 Ë°å.
+NOTIC: [2] htmlspecialchars() expects parameter 2 to be long, string given D:\trunk\frame\Common\common.php Á¨¨ 110 Ë°å.
+SQL: SHOW COLUMNS FROM `bi_role` [ RunTime:0.011000s ]
+SQL: SELECT DISTINCT  `rolename` FROM `bi_role` WHERE ( `rolename` LIKE '%%' )  [ RunTime:0.001000s ]
+
+[ 2014-07-07T09:59:16+08:00 ] 127.0.0.1 /gas_station_erp/index.php/channel/Agent/agentnameBlurrySelect?agent_name=
+NOTIC: [2] htmlspecialchars() expects parameter 2 to be long, string given D:\trunk\frame\Lib\Core\App.class.php Á¨¨ 57 Ë°å.
+INFO: [ app_begin ] --START--
+INFO: ReadHtmlCache Behavior ::run [ RunTime:0.000000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000000s ]
+NOTIC: [2] urldecode() expects parameter 1 to be string, array given D:\trunk\gas_station_erp\Lib\Action\channel\AgentAction.class.php Á¨¨ 4 Ë°å.
+NOTIC: [2] htmlspecialchars() expects parameter 2 to be long, string given D:\trunk\frame\Common\common.php Á¨¨ 110 Ë°å.
+NOTIC: [2] htmlspecialchars() expects parameter 2 to be long, string given D:\trunk\frame\Common\common.php Á¨¨ 110 Ë°å.
+SQL: SHOW COLUMNS FROM `qd_agent` [ RunTime:0.002000s ]
+SQL: SELECT DISTINCT  `agent_name` FROM `qd_agent` WHERE ( `agent_name` LIKE '%%' )  [ RunTime:0.002001s ]
+
+[ 2014-07-07T09:59:19+08:00 ] 127.0.0.1 /gas_station_erp/index.php/configuration/Role/getAgentArr
+INFO: [ app_begin ] --START--
+INFO: ReadHtmlCache Behavior ::run [ RunTime:0.000000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000000s ]
+NOTIC: [2] urldecode() expects parameter 1 to be string, array given D:\trunk\gas_station_erp\Lib\Action\configuration\RoleAction.class.php Á¨¨ 4 Ë°å.
+NOTIC: [8] Undefined index: orgid D:\trunk\gas_station_erp\Lib\Action\configuration\RoleAction.class.php Á¨¨ 262 Ë°å.
+NOTIC: [8] Undefined variable: where D:\trunk\gas_station_erp\Lib\Action\configuration\RoleAction.class.php Á¨¨ 266 Ë°å.
+SQL: SELECT agent_name,agent_id,father_agentid FROM qd_agent WHERE isDelete = 0  ORDER BY father_agentid,agent_id [ RunTime:0.001000s ]
+
+[ 2014-07-07T09:59:19+08:00 ] 127.0.0.1 /gas_station_erp/index.php/channel/Agent/agentnameBlurrySelect?agent_name=
+NOTIC: [2] htmlspecialchars() expects parameter 2 to be long, string given D:\trunk\frame\Lib\Core\App.class.php Á¨¨ 57 Ë°å.
+INFO: [ app_begin ] --START--
+INFO: ReadHtmlCache Behavior ::run [ RunTime:0.001000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001000s ]
+NOTIC: [2] urldecode() expects parameter 1 to be string, array given D:\trunk\gas_station_erp\Lib\Action\channel\AgentAction.class.php Á¨¨ 4 Ë°å.
+NOTIC: [2] htmlspecialchars() expects parameter 2 to be long, string given D:\trunk\frame\Common\common.php Á¨¨ 110 Ë°å.
+NOTIC: [2] htmlspecialchars() expects parameter 2 to be long, string given D:\trunk\frame\Common\common.php Á¨¨ 110 Ë°å.
+SQL: SHOW COLUMNS FROM `qd_agent` [ RunTime:0.002000s ]
+SQL: SELECT DISTINCT  `agent_name` FROM `qd_agent` WHERE ( `agent_name` LIKE '%%' )  [ RunTime:0.002000s ]
+
+[ 2014-07-07T09:59:26+08:00 ] 127.0.0.1 /gas_station_erp/index.php/channel//gas_station_erp/gas_station_erp/Tpl/channel/Public/css/configuration.css
+ERR: Êó†Ê≥ïÂä†ËΩΩÊ®°Âùó:gas_station_erp
+
+[ 2014-07-07T09:59:26+08:00 ] 127.0.0.1 /gas_station_erp/index.php/channel/Agent/agentnameBlurrySelect?agent_name=
+NOTIC: [2] htmlspecialchars() expects parameter 2 to be long, string given D:\trunk\frame\Lib\Core\App.class.php Á¨¨ 57 Ë°å.
+INFO: [ app_begin ] --START--
+INFO: ReadHtmlCache Behavior ::run [ RunTime:0.001000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001000s ]
+NOTIC: [2] urldecode() expects parameter 1 to be string, array given D:\trunk\gas_station_erp\Lib\Action\channel\AgentAction.class.php Á¨¨ 4 Ë°å.
+NOTIC: [2] htmlspecialchars() expects parameter 2 to be long, string given D:\trunk\frame\Common\common.php Á¨¨ 110 Ë°å.
+NOTIC: [2] htmlspecialchars() expects parameter 2 to be long, string given D:\trunk\frame\Common\common.php Á¨¨ 110 Ë°å.
+SQL: SHOW COLUMNS FROM `qd_agent` [ RunTime:0.002000s ]
+SQL: SELECT DISTINCT  `agent_name` FROM `qd_agent` WHERE ( `agent_name` LIKE '%%' )  [ RunTime:0.002000s ]
+
+[ 2014-07-07T09:59:26+08:00 ] 127.0.0.1 /gas_station_erp/index.php/channel/Channel/channelnameBlurrySelect
+INFO: [ app_begin ] --START--
+INFO: ReadHtmlCache Behavior ::run [ RunTime:0.000000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000000s ]
+NOTIC: [2] urldecode() expects parameter 1 to be string, array given D:\trunk\gas_station_erp\Lib\Action\channel\ChannelAction.class.php Á¨¨ 4 Ë°å.
+NOTIC: [2] htmlspecialchars() expects parameter 2 to be long, string given D:\trunk\frame\Common\common.php Á¨¨ 110 Ë°å.
+SQL: SHOW COLUMNS FROM `qd_channel` [ RunTime:0.004000s ]
+SQL: SELECT DISTINCT  `channel_name` FROM `qd_channel` WHERE ( `channel_name` LIKE '%%' )  [ RunTime:0.006001s ]
+
+[ 2014-07-07T09:59:29+08:00 ] 127.0.0.1 /gas_station_erp/index.php/channel/Channel/channelnameBlurrySelect
+INFO: [ app_begin ] --START--
+INFO: ReadHtmlCache Behavior ::run [ RunTime:0.000000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000000s ]
+NOTIC: [2] urldecode() expects parameter 1 to be string, array given D:\trunk\gas_station_erp\Lib\Action\channel\ChannelAction.class.php Á¨¨ 4 Ë°å.
+NOTIC: [2] htmlspecialchars() expects parameter 2 to be long, string given D:\trunk\frame\Common\common.php Á¨¨ 110 Ë°å.
+SQL: SHOW COLUMNS FROM `qd_channel` [ RunTime:0.002000s ]
+SQL: SELECT DISTINCT  `channel_name` FROM `qd_channel` WHERE ( `channel_name` LIKE '%%' )  [ RunTime:0.002000s ]
+
+[ 2014-07-07T09:59:29+08:00 ] 127.0.0.1 /gas_station_erp/index.php/channel/Place/placenameBlurrySelect
+INFO: [ app_begin ] --START--
+INFO: ReadHtmlCache Behavior ::run [ RunTime:0.001000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001000s ]
+NOTIC: [2] urldecode() expects parameter 1 to be string, array given D:\trunk\gas_station_erp\Lib\Action\channel\PlaceAction.class.php Á¨¨ 4 Ë°å.
+NOTIC: [2] htmlspecialchars() expects parameter 2 to be long, string given D:\trunk\frame\Common\common.php Á¨¨ 110 Ë°å.
+SQL: SHOW COLUMNS FROM `qd_place` [ RunTime:0.003000s ]
+SQL: SELECT DISTINCT  `place_name` FROM `qd_place` WHERE ( `place_name` LIKE '%%' )  [ RunTime:0.003001s ]
+
+[ 2014-07-07T09:59:32+08:00 ] 127.0.0.1 /gas_station_erp/index.php/channel/Channel/channelnameBlurrySelect
+INFO: [ app_begin ] --START--
+INFO: ReadHtmlCache Behavior ::run [ RunTime:0.001000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001000s ]
+NOTIC: [2] urldecode() expects parameter 1 to be string, array given D:\trunk\gas_station_erp\Lib\Action\channel\ChannelAction.class.php Á¨¨ 4 Ë°å.
+NOTIC: [2] htmlspecialchars() expects parameter 2 to be long, string given D:\trunk\frame\Common\common.php Á¨¨ 110 Ë°å.
+SQL: SHOW COLUMNS FROM `qd_channel` [ RunTime:0.002001s ]
+SQL: SELECT DISTINCT  `channel_name` FROM `qd_channel` WHERE ( `channel_name` LIKE '%%' )  [ RunTime:0.005000s ]
+
+[ 2014-07-07T09:59:32+08:00 ] 127.0.0.1 /gas_station_erp/index.php/channel/Place/placenameBlurrySelect
+INFO: [ app_begin ] --START--
+INFO: ReadHtmlCache Behavior ::run [ RunTime:0.000000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000000s ]
+NOTIC: [2] urldecode() expects parameter 1 to be string, array given D:\trunk\gas_station_erp\Lib\Action\channel\PlaceAction.class.php Á¨¨ 4 Ë°å.
+NOTIC: [2] htmlspecialchars() expects parameter 2 to be long, string given D:\trunk\frame\Common\common.php Á¨¨ 110 Ë°å.
+SQL: SHOW COLUMNS FROM `qd_place` [ RunTime:0.001000s ]
+SQL: SELECT DISTINCT  `place_name` FROM `qd_place` WHERE ( `place_name` LIKE '%%' )  [ RunTime:0.003001s ]
+
+[ 2014-07-07T09:59:32+08:00 ] 127.0.0.1 /gas_station_erp/index.php/channel//gas_station_erp/gas_station_erp/Tpl/channel/Public/css/configuration.css
+ERR: Êó†Ê≥ïÂä†ËΩΩÊ®°Âùó:gas_station_erp
+
+[ 2014-07-07T09:59:33+08:00 ] 127.0.0.1 /gas_station_erp/index.php/channel/Device/devicenoBlurrySelect?device_no=
+NOTIC: [2] htmlspecialchars() expects parameter 2 to be long, string given D:\trunk\frame\Lib\Core\App.class.php Á¨¨ 57 Ë°å.
+INFO: [ app_begin ] --START--
+INFO: ReadHtmlCache Behavior ::run [ RunTime:0.000000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000000s ]
+NOTIC: [2] urldecode() expects parameter 1 to be string, array given D:\trunk\gas_station_erp\Lib\Action\channel\DeviceAction.class.php Á¨¨ 4 Ë°å.
+NOTIC: [2] htmlspecialchars() expects parameter 2 to be long, string given D:\trunk\frame\Common\common.php Á¨¨ 110 Ë°å.
+NOTIC: [2] htmlspecialchars() expects parameter 2 to be long, string given D:\trunk\frame\Common\common.php Á¨¨ 110 Ë°å.
+SQL: SHOW COLUMNS FROM `qd_device` [ RunTime:0.014000s ]
+SQL: SELECT DISTINCT  `device_no` FROM `qd_device` WHERE ( `device_no` LIKE '%%' )  [ RunTime:0.009000s ]
+
+[ 2014-07-07T09:59:33+08:00 ] 127.0.0.1 /gas_station_erp/index.php/channel/Place/placenameBlurrySelect?place_name=
+NOTIC: [2] htmlspecialchars() expects parameter 2 to be long, string given D:\trunk\frame\Lib\Core\App.class.php Á¨¨ 57 Ë°å.
+INFO: [ app_begin ] --START--
+INFO: ReadHtmlCache Behavior ::run [ RunTime:0.000000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000000s ]
+NOTIC: [2] urldecode() expects parameter 1 to be string, array given D:\trunk\gas_station_erp\Lib\Action\channel\PlaceAction.class.php Á¨¨ 4 Ë°å.
+NOTIC: [2] htmlspecialchars() expects parameter 2 to be long, string given D:\trunk\frame\Common\common.php Á¨¨ 110 Ë°å.
+NOTIC: [2] htmlspecialchars() expects parameter 2 to be long, string given D:\trunk\frame\Common\common.php Á¨¨ 110 Ë°å.
+SQL: SHOW COLUMNS FROM `qd_place` [ RunTime:0.002000s ]
+SQL: SELECT DISTINCT  `place_name` FROM `qd_place` WHERE ( `place_name` LIKE '%%' )  [ RunTime:0.002000s ]
+
+[ 2014-07-07T09:59:33+08:00 ] 127.0.0.1 /gas_station_erp/index.php/channel/Device/devicemacBlurrySelect
+INFO: [ app_begin ] --START--
+INFO: ReadHtmlCache Behavior ::run [ RunTime:0.001000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001000s ]
+NOTIC: [2] urldecode() expects parameter 1 to be string, array given D:\trunk\gas_station_erp\Lib\Action\channel\DeviceAction.class.php Á¨¨ 4 Ë°å.
+NOTIC: [2] htmlspecialchars() expects parameter 2 to be long, string given D:\trunk\frame\Common\common.php Á¨¨ 110 Ë°å.
+SQL: SHOW COLUMNS FROM `qd_device` [ RunTime:0.002000s ]
+SQL: SELECT DISTINCT  `MAC` FROM `qd_device` WHERE ( `MAC` LIKE '%%' )  [ RunTime:0.005000s ]
+
+[ 2014-07-07T09:59:33+08:00 ] 127.0.0.1 /gas_station_erp/index.php/channel/Place/placenameBlurrySelect
+INFO: [ app_begin ] --START--
+INFO: ReadHtmlCache Behavior ::run [ RunTime:0.001000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001000s ]
+NOTIC: [2] urldecode() expects parameter 1 to be string, array given D:\trunk\gas_station_erp\Lib\Action\channel\PlaceAction.class.php Á¨¨ 4 Ë°å.
+NOTIC: [2] htmlspecialchars() expects parameter 2 to be long, string given D:\trunk\frame\Common\common.php Á¨¨ 110 Ë°å.
+SQL: SHOW COLUMNS FROM `qd_place` [ RunTime:0.001000s ]
+SQL: SELECT DISTINCT  `place_name` FROM `qd_place` WHERE ( `place_name` LIKE '%%' )  [ RunTime:0.003000s ]
+
+[ 2014-07-07T09:59:34+08:00 ] 127.0.0.1 /gas_station_erp/index.php/channel//gas_station_erp/gas_station_erp/Tpl/channel/Public/css/configuration.css
+ERR: Êó†Ê≥ïÂä†ËΩΩÊ®°Âùó:gas_station_erp
+
+[ 2014-07-07T09:59:34+08:00 ] 127.0.0.1 /gas_station_erp/index.php/channel/Agent/agentnameBlurrySelect?agent_name=
+NOTIC: [2] htmlspecialchars() expects parameter 2 to be long, string given D:\trunk\frame\Lib\Core\App.class.php Á¨¨ 57 Ë°å.
+INFO: [ app_begin ] --START--
+INFO: ReadHtmlCache Behavior ::run [ RunTime:0.000000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000000s ]
+NOTIC: [2] urldecode() expects parameter 1 to be string, array given D:\trunk\gas_station_erp\Lib\Action\channel\AgentAction.class.php Á¨¨ 4 Ë°å.
+NOTIC: [2] htmlspecialchars() expects parameter 2 to be long, string given D:\trunk\frame\Common\common.php Á¨¨ 110 Ë°å.
+NOTIC: [2] htmlspecialchars() expects parameter 2 to be long, string given D:\trunk\frame\Common\common.php Á¨¨ 110 Ë°å.
+SQL: SHOW COLUMNS FROM `qd_agent` [ RunTime:0.002000s ]
+SQL: SELECT DISTINCT  `agent_name` FROM `qd_agent` WHERE ( `agent_name` LIKE '%%' )  [ RunTime:0.001000s ]
+
+[ 2014-07-07T09:59:34+08:00 ] 127.0.0.1 /gas_station_erp/index.php/channel/Channel/channelnameBlurrySelect
+INFO: [ app_begin ] --START--
+INFO: ReadHtmlCache Behavior ::run [ RunTime:0.000000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001000s ]
+NOTIC: [2] urldecode() expects parameter 1 to be string, array given D:\trunk\gas_station_erp\Lib\Action\channel\ChannelAction.class.php Á¨¨ 4 Ë°å.
+NOTIC: [2] htmlspecialchars() expects parameter 2 to be long, string given D:\trunk\frame\Common\common.php Á¨¨ 110 Ë°å.
+SQL: SHOW COLUMNS FROM `qd_channel` [ RunTime:0.002000s ]
+SQL: SELECT DISTINCT  `channel_name` FROM `qd_channel` WHERE ( `channel_name` LIKE '%%' )  [ RunTime:0.002000s ]
+
+[ 2014-07-07T10:19:15+08:00 ] 127.0.0.1 /gas_station_erp/index.php/configuration//gas_station_erp/gas_station_erp/Tpl/configuration/Public/css/configuration.css
+ERR: Êó†Ê≥ïÂä†ËΩΩÊ®°Âùó:gas_station_erp
+
+[ 2014-07-07T10:19:35+08:00 ] 127.0.0.1 /gas_station_erp/index.php/Login/login
+NOTIC: [2] htmlspecialchars() expects parameter 2 to be long, string given D:\trunk\frame\Lib\Core\App.class.php Á¨¨ 56 Ë°å.
+NOTIC: [2] htmlspecialchars() expects parameter 2 to be long, string given D:\trunk\frame\Lib\Core\App.class.php Á¨¨ 56 Ë°å.
+NOTIC: [2] htmlspecialchars() expects parameter 2 to be long, string given D:\trunk\frame\Lib\Core\App.class.php Á¨¨ 56 Ë°å.
+NOTIC: [2] htmlspecialchars() expects parameter 2 to be long, string given D:\trunk\frame\Lib\Core\App.class.php Á¨¨ 56 Ë°å.
+NOTIC: [2] htmlspecialchars() expects parameter 2 to be long, string given D:\trunk\frame\Lib\Core\App.class.php Á¨¨ 56 Ë°å.
+INFO: [ app_begin ] --START--
+INFO: ReadHtmlCache Behavior ::run [ RunTime:0.001001s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001001s ]
+SQL: SELECT url FROM bi_menu [ RunTime:0.001000s ]
+
+[ 2014-07-07T10:19:39+08:00 ] 127.0.0.1 /gas_station_erp/index.php/channel//gas_station_erp/gas_station_erp/Tpl/channel/Public/css/configuration.css
+ERR: Êó†Ê≥ïÂä†ËΩΩÊ®°Âùó:gas_station_erp
+
+[ 2014-07-07T10:19:39+08:00 ] 127.0.0.1 /gas_station_erp/index.php/channel/Agent/agentnameBlurrySelect?agent_name=
+NOTIC: [2] htmlspecialchars() expects parameter 2 to be long, string given D:\trunk\frame\Lib\Core\App.class.php Á¨¨ 57 Ë°å.
+INFO: [ app_begin ] --START--
+INFO: ReadHtmlCache Behavior ::run [ RunTime:0.001000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001000s ]
+NOTIC: [2] urldecode() expects parameter 1 to be string, array given D:\trunk\gas_station_erp\Lib\Action\channel\AgentAction.class.php Á¨¨ 4 Ë°å.
+NOTIC: [2] htmlspecialchars() expects parameter 2 to be long, string given D:\trunk\frame\Common\common.php Á¨¨ 110 Ë°å.
+NOTIC: [2] htmlspecialchars() expects parameter 2 to be long, string given D:\trunk\frame\Common\common.php Á¨¨ 110 Ë°å.
+SQL: SHOW COLUMNS FROM `qd_agent` [ RunTime:0.003000s ]
+SQL: SELECT DISTINCT  `agent_name` FROM `qd_agent` WHERE ( `agent_name` LIKE '%%' )  [ RunTime:0.001000s ]
+
+[ 2014-07-07T10:19:40+08:00 ] 127.0.0.1 /gas_station_erp/index.php/channel/Channel/channelnameBlurrySelect
+INFO: [ app_begin ] --START--
+INFO: ReadHtmlCache Behavior ::run [ RunTime:0.001000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001000s ]
+NOTIC: [2] urldecode() expects parameter 1 to be string, array given D:\trunk\gas_station_erp\Lib\Action\channel\ChannelAction.class.php Á¨¨ 4 Ë°å.
+NOTIC: [2] htmlspecialchars() expects parameter 2 to be long, string given D:\trunk\frame\Common\common.php Á¨¨ 110 Ë°å.
+SQL: SHOW COLUMNS FROM `qd_channel` [ RunTime:0.002000s ]
+SQL: SELECT DISTINCT  `channel_name` FROM `qd_channel` WHERE ( `channel_name` LIKE '%%' )  [ RunTime:0.003000s ]
+
+[ 2014-07-07T10:20:02+08:00 ] 127.0.0.1 /gas_station_erp/index.php/channel/Channel/channelnameBlurrySelect
+INFO: [ app_begin ] --START--
+INFO: ReadHtmlCache Behavior ::run [ RunTime:0.000000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000000s ]
+NOTIC: [2] urldecode() expects parameter 1 to be string, array given D:\trunk\gas_station_erp\Lib\Action\channel\ChannelAction.class.php Á¨¨ 4 Ë°å.
+NOTIC: [2] htmlspecialchars() expects parameter 2 to be long, string given D:\trunk\frame\Common\common.php Á¨¨ 110 Ë°å.
+SQL: SHOW COLUMNS FROM `qd_channel` [ RunTime:0.002000s ]
+SQL: SELECT DISTINCT  `channel_name` FROM `qd_channel` WHERE ( `channel_name` LIKE '%%' )  [ RunTime:0.002000s ]
+
+[ 2014-07-07T10:20:02+08:00 ] 127.0.0.1 /gas_station_erp/index.php/channel/Place/placenameBlurrySelect
+INFO: [ app_begin ] --START--
+INFO: ReadHtmlCache Behavior ::run [ RunTime:0.001000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001000s ]
+NOTIC: [2] urldecode() expects parameter 1 to be string, array given D:\trunk\gas_station_erp\Lib\Action\channel\PlaceAction.class.php Á¨¨ 4 Ë°å.
+NOTIC: [2] htmlspecialchars() expects parameter 2 to be long, string given D:\trunk\frame\Common\common.php Á¨¨ 110 Ë°å.
+SQL: SHOW COLUMNS FROM `qd_place` [ RunTime:0.002000s ]
+SQL: SELECT DISTINCT  `place_name` FROM `qd_place` WHERE ( `place_name` LIKE '%%' )  [ RunTime:0.003000s ]
+
+[ 2014-07-07T10:20:04+08:00 ] 127.0.0.1 /gas_station_erp/index.php/channel//gas_station_erp/gas_station_erp/Tpl/channel/Public/css/configuration.css
+ERR: Êó†Ê≥ïÂä†ËΩΩÊ®°Âùó:gas_station_erp
+
+[ 2014-07-07T10:20:04+08:00 ] 127.0.0.1 /gas_station_erp/index.php/channel/Device/devicenoBlurrySelect?device_no=
+NOTIC: [2] htmlspecialchars() expects parameter 2 to be long, string given D:\trunk\frame\Lib\Core\App.class.php Á¨¨ 57 Ë°å.
+INFO: [ app_begin ] --START--
+INFO: ReadHtmlCache Behavior ::run [ RunTime:0.000000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000000s ]
+NOTIC: [2] urldecode() expects parameter 1 to be string, array given D:\trunk\gas_station_erp\Lib\Action\channel\DeviceAction.class.php Á¨¨ 4 Ë°å.
+NOTIC: [2] htmlspecialchars() expects parameter 2 to be long, string given D:\trunk\frame\Common\common.php Á¨¨ 110 Ë°å.
+NOTIC: [2] htmlspecialchars() expects parameter 2 to be long, string given D:\trunk\frame\Common\common.php Á¨¨ 110 Ë°å.
+SQL: SHOW COLUMNS FROM `qd_device` [ RunTime:0.002000s ]
+SQL: SELECT DISTINCT  `device_no` FROM `qd_device` WHERE ( `device_no` LIKE '%%' )  [ RunTime:0.004000s ]
+
+[ 2014-07-07T10:20:05+08:00 ] 127.0.0.1 /gas_station_erp/index.php/channel/Place/placenameBlurrySelect?place_name=
+NOTIC: [2] htmlspecialchars() expects parameter 2 to be long, string given D:\trunk\frame\Lib\Core\App.class.php Á¨¨ 57 Ë°å.
+INFO: [ app_begin ] --START--
+INFO: ReadHtmlCache Behavior ::run [ RunTime:0.001000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001000s ]
+NOTIC: [2] urldecode() expects parameter 1 to be string, array given D:\trunk\gas_station_erp\Lib\Action\channel\PlaceAction.class.php Á¨¨ 4 Ë°å.
+NOTIC: [2] htmlspecialchars() expects parameter 2 to be long, string given D:\trunk\frame\Common\common.php Á¨¨ 110 Ë°å.
+NOTIC: [2] htmlspecialchars() expects parameter 2 to be long, string given D:\trunk\frame\Common\common.php Á¨¨ 110 Ë°å.
+SQL: SHOW COLUMNS FROM `qd_place` [ RunTime:0.002000s ]
+SQL: SELECT DISTINCT  `place_name` FROM `qd_place` WHERE ( `place_name` LIKE '%%' )  [ RunTime:0.003000s ]
+
+[ 2014-07-07T10:20:05+08:00 ] 127.0.0.1 /gas_station_erp/index.php/channel/Device/devicemacBlurrySelect
+INFO: [ app_begin ] --START--
+INFO: ReadHtmlCache Behavior ::run [ RunTime:0.001000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001000s ]
+NOTIC: [2] urldecode() expects parameter 1 to be string, array given D:\trunk\gas_station_erp\Lib\Action\channel\DeviceAction.class.php Á¨¨ 4 Ë°å.
+NOTIC: [2] htmlspecialchars() expects parameter 2 to be long, string given D:\trunk\frame\Common\common.php Á¨¨ 110 Ë°å.
+SQL: SHOW COLUMNS FROM `qd_device` [ RunTime:0.002000s ]
+SQL: SELECT DISTINCT  `MAC` FROM `qd_device` WHERE ( `MAC` LIKE '%%' )  [ RunTime:0.005001s ]
+
+[ 2014-07-07T10:20:05+08:00 ] 127.0.0.1 /gas_station_erp/index.php/channel/Place/placenameBlurrySelect
+INFO: [ app_begin ] --START--
+INFO: ReadHtmlCache Behavior ::run [ RunTime:0.002000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.002000s ]
+NOTIC: [2] urldecode() expects parameter 1 to be string, array given D:\trunk\gas_station_erp\Lib\Action\channel\PlaceAction.class.php Á¨¨ 4 Ë°å.
+NOTIC: [2] htmlspecialchars() expects parameter 2 to be long, string given D:\trunk\frame\Common\common.php Á¨¨ 110 Ë°å.
+SQL: SHOW COLUMNS FROM `qd_place` [ RunTime:0.001000s ]
+SQL: SELECT DISTINCT  `place_name` FROM `qd_place` WHERE ( `place_name` LIKE '%%' )  [ RunTime:0.002000s ]
+
