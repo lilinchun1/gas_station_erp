@@ -1209,3 +1209,115 @@ INFO: ReadHtmlCache Behavior ::run [ RunTime:0.001000s ]
 INFO: [ app_begin ] --END-- [ RunTime:0.001000s ]
 SQL: SELECT url FROM bi_menu [ RunTime:0.001000s ]
 
+[ 2014-07-08T13:45:51+08:00 ] 127.0.0.1 /gas_station_erp/index.php/channel//gas_station_erp/gas_station_erp/Tpl/channel/Public/css/configuration.css
+ERR: 无法加载模块:gas_station_erp
+
+[ 2014-07-08T13:45:51+08:00 ] 127.0.0.1 /gas_station_erp/index.php/channel/Agent/agentnameBlurrySelect?agent_name=
+NOTIC: [2] htmlspecialchars() expects parameter 2 to be long, string given D:\trunk\frame\Lib\Core\App.class.php 第 57 行.
+INFO: [ app_begin ] --START--
+INFO: ReadHtmlCache Behavior ::run [ RunTime:0.000000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000000s ]
+NOTIC: [2] urldecode() expects parameter 1 to be string, array given D:\trunk\gas_station_erp\Lib\Action\channel\AgentAction.class.php 第 4 行.
+NOTIC: [2] htmlspecialchars() expects parameter 2 to be long, string given D:\trunk\frame\Common\common.php 第 110 行.
+NOTIC: [2] htmlspecialchars() expects parameter 2 to be long, string given D:\trunk\frame\Common\common.php 第 110 行.
+SQL: SHOW COLUMNS FROM `qd_agent` [ RunTime:0.002000s ]
+SQL: SELECT DISTINCT  `agent_name` FROM `qd_agent` WHERE ( `agent_name` LIKE '%%' )  [ RunTime:0.001000s ]
+
+[ 2014-07-08T13:45:51+08:00 ] 127.0.0.1 /gas_station_erp/index.php/channel/Channel/channelnameBlurrySelect
+INFO: [ app_begin ] --START--
+INFO: ReadHtmlCache Behavior ::run [ RunTime:0.000000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001001s ]
+NOTIC: [2] urldecode() expects parameter 1 to be string, array given D:\trunk\gas_station_erp\Lib\Action\channel\ChannelAction.class.php 第 4 行.
+NOTIC: [2] htmlspecialchars() expects parameter 2 to be long, string given D:\trunk\frame\Common\common.php 第 110 行.
+SQL: SHOW COLUMNS FROM `qd_channel` [ RunTime:0.002000s ]
+SQL: SELECT DISTINCT  `channel_name` FROM `qd_channel` WHERE ( `channel_name` LIKE '%%' )  [ RunTime:0.003001s ]
+
+[ 2014-07-08T13:45:58+08:00 ] 127.0.0.1 /gas_station_erp/index.php/channel/Agent/agentnameBlurrySelect?agent_name=
+NOTIC: [2] htmlspecialchars() expects parameter 2 to be long, string given D:\trunk\frame\Lib\Core\App.class.php 第 57 行.
+INFO: [ app_begin ] --START--
+INFO: ReadHtmlCache Behavior ::run [ RunTime:0.001000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001000s ]
+NOTIC: [2] urldecode() expects parameter 1 to be string, array given D:\trunk\gas_station_erp\Lib\Action\channel\AgentAction.class.php 第 4 行.
+NOTIC: [2] htmlspecialchars() expects parameter 2 to be long, string given D:\trunk\frame\Common\common.php 第 110 行.
+NOTIC: [2] htmlspecialchars() expects parameter 2 to be long, string given D:\trunk\frame\Common\common.php 第 110 行.
+SQL: SHOW COLUMNS FROM `qd_agent` [ RunTime:0.003000s ]
+SQL: SELECT DISTINCT  `agent_name` FROM `qd_agent` WHERE ( `agent_name` LIKE '%%' )  [ RunTime:0.002000s ]
+
+[ 2014-07-08T13:45:58+08:00 ] 127.0.0.1 /gas_station_erp/index.php/channel/Channel/channelnameBlurrySelect
+INFO: [ app_begin ] --START--
+INFO: ReadHtmlCache Behavior ::run [ RunTime:0.001000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001000s ]
+NOTIC: [2] urldecode() expects parameter 1 to be string, array given D:\trunk\gas_station_erp\Lib\Action\channel\ChannelAction.class.php 第 4 行.
+NOTIC: [2] htmlspecialchars() expects parameter 2 to be long, string given D:\trunk\frame\Common\common.php 第 110 行.
+SQL: SHOW COLUMNS FROM `qd_channel` [ RunTime:0.002001s ]
+SQL: SELECT DISTINCT  `channel_name` FROM `qd_channel` WHERE ( `channel_name` LIKE '%%' )  [ RunTime:0.003000s ]
+
+[ 2014-07-08T13:45:59+08:00 ] 127.0.0.1 /gas_station_erp/index.php/configuration/Org/show_org_tree
+INFO: [ app_begin ] --START--
+INFO: ReadHtmlCache Behavior ::run [ RunTime:0.001001s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001001s ]
+NOTIC: [2] urldecode() expects parameter 1 to be string, array given D:\trunk\gas_station_erp\Lib\Action\configuration\OrgAction.class.php 第 4 行.
+SQL: select * from qd_agent a where a.isDelete=0 [ RunTime:0.002000s ]
+
+[ 2014-07-08T13:46:01+08:00 ] 127.0.0.1 /gas_station_erp/index.php/configuration/Role/getAgentArr
+INFO: [ app_begin ] --START--
+INFO: ReadHtmlCache Behavior ::run [ RunTime:0.001001s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001001s ]
+NOTIC: [2] urldecode() expects parameter 1 to be string, array given D:\trunk\gas_station_erp\Lib\Action\configuration\RoleAction.class.php 第 4 行.
+NOTIC: [8] Undefined index: orgid D:\trunk\gas_station_erp\Lib\Action\configuration\RoleAction.class.php 第 272 行.
+NOTIC: [8] Undefined variable: where D:\trunk\gas_station_erp\Lib\Action\configuration\RoleAction.class.php 第 276 行.
+SQL: SELECT agent_name,agent_id,father_agentid FROM qd_agent WHERE isDelete = 0  ORDER BY father_agentid,agent_id [ RunTime:0.002000s ]
+
+[ 2014-07-08T13:46:01+08:00 ] 127.0.0.1 /gas_station_erp/index.php/configuration/Role/rolenameBlurrySelect?role_name=
+NOTIC: [2] htmlspecialchars() expects parameter 2 to be long, string given D:\trunk\frame\Lib\Core\App.class.php 第 57 行.
+INFO: [ app_begin ] --START--
+INFO: ReadHtmlCache Behavior ::run [ RunTime:0.001000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001000s ]
+NOTIC: [2] urldecode() expects parameter 1 to be string, array given D:\trunk\gas_station_erp\Lib\Action\configuration\RoleAction.class.php 第 4 行.
+NOTIC: [2] htmlspecialchars() expects parameter 2 to be long, string given D:\trunk\frame\Common\common.php 第 110 行.
+NOTIC: [2] htmlspecialchars() expects parameter 2 to be long, string given D:\trunk\frame\Common\common.php 第 110 行.
+SQL: SHOW COLUMNS FROM `bi_role` [ RunTime:0.002000s ]
+SQL: SELECT DISTINCT  `rolename` FROM `bi_role` WHERE ( `rolename` LIKE '%%' )  [ RunTime:0.001000s ]
+
+[ 2014-07-08T13:46:01+08:00 ] 127.0.0.1 /gas_station_erp/index.php/channel/Agent/agentnameBlurrySelect?agent_name=
+NOTIC: [2] htmlspecialchars() expects parameter 2 to be long, string given D:\trunk\frame\Lib\Core\App.class.php 第 57 行.
+INFO: [ app_begin ] --START--
+INFO: ReadHtmlCache Behavior ::run [ RunTime:0.001000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001000s ]
+NOTIC: [2] urldecode() expects parameter 1 to be string, array given D:\trunk\gas_station_erp\Lib\Action\channel\AgentAction.class.php 第 4 行.
+NOTIC: [2] htmlspecialchars() expects parameter 2 to be long, string given D:\trunk\frame\Common\common.php 第 110 行.
+NOTIC: [2] htmlspecialchars() expects parameter 2 to be long, string given D:\trunk\frame\Common\common.php 第 110 行.
+SQL: SHOW COLUMNS FROM `qd_agent` [ RunTime:0.002000s ]
+SQL: SELECT DISTINCT  `agent_name` FROM `qd_agent` WHERE ( `agent_name` LIKE '%%' )  [ RunTime:0.002001s ]
+
+[ 2014-07-08T13:47:04+08:00 ] 127.0.0.1 /gas_station_erp/index.php/configuration/Role/getAgentArr
+INFO: [ app_begin ] --START--
+INFO: ReadHtmlCache Behavior ::run [ RunTime:0.001000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001000s ]
+NOTIC: [2] urldecode() expects parameter 1 to be string, array given D:\trunk\gas_station_erp\Lib\Action\configuration\RoleAction.class.php 第 4 行.
+NOTIC: [8] Undefined index: orgid D:\trunk\gas_station_erp\Lib\Action\configuration\RoleAction.class.php 第 272 行.
+NOTIC: [8] Undefined variable: where D:\trunk\gas_station_erp\Lib\Action\configuration\RoleAction.class.php 第 276 行.
+SQL: SELECT agent_name,agent_id,father_agentid FROM qd_agent WHERE isDelete = 0  ORDER BY father_agentid,agent_id [ RunTime:0.002000s ]
+
+[ 2014-07-08T13:47:04+08:00 ] 127.0.0.1 /gas_station_erp/index.php/configuration/Role/rolenameBlurrySelect?role_name=
+NOTIC: [2] htmlspecialchars() expects parameter 2 to be long, string given D:\trunk\frame\Lib\Core\App.class.php 第 57 行.
+INFO: [ app_begin ] --START--
+INFO: ReadHtmlCache Behavior ::run [ RunTime:0.001000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001000s ]
+NOTIC: [2] urldecode() expects parameter 1 to be string, array given D:\trunk\gas_station_erp\Lib\Action\configuration\RoleAction.class.php 第 4 行.
+NOTIC: [2] htmlspecialchars() expects parameter 2 to be long, string given D:\trunk\frame\Common\common.php 第 110 行.
+NOTIC: [2] htmlspecialchars() expects parameter 2 to be long, string given D:\trunk\frame\Common\common.php 第 110 行.
+SQL: SHOW COLUMNS FROM `bi_role` [ RunTime:0.002000s ]
+SQL: SELECT DISTINCT  `rolename` FROM `bi_role` WHERE ( `rolename` LIKE '%%' )  [ RunTime:0.002000s ]
+
+[ 2014-07-08T13:47:04+08:00 ] 127.0.0.1 /gas_station_erp/index.php/channel/Agent/agentnameBlurrySelect?agent_name=
+NOTIC: [2] htmlspecialchars() expects parameter 2 to be long, string given D:\trunk\frame\Lib\Core\App.class.php 第 57 行.
+INFO: [ app_begin ] --START--
+INFO: ReadHtmlCache Behavior ::run [ RunTime:0.001000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001000s ]
+NOTIC: [2] urldecode() expects parameter 1 to be string, array given D:\trunk\gas_station_erp\Lib\Action\channel\AgentAction.class.php 第 4 行.
+NOTIC: [2] htmlspecialchars() expects parameter 2 to be long, string given D:\trunk\frame\Common\common.php 第 110 行.
+NOTIC: [2] htmlspecialchars() expects parameter 2 to be long, string given D:\trunk\frame\Common\common.php 第 110 行.
+SQL: SHOW COLUMNS FROM `qd_agent` [ RunTime:0.001000s ]
+SQL: SELECT DISTINCT  `agent_name` FROM `qd_agent` WHERE ( `agent_name` LIKE '%%' )  [ RunTime:0.001000s ]
+

@@ -5,6 +5,13 @@
     <title>渠道信息</title>
     <!--<link rel="stylesheet" href="../../Public/css/configuration.css"/>-->
     <link rel="stylesheet" href="__PUBLIC__/css/configuration.css"/>
+    <style>
+        #head,.head-wrap,#footer{
+            min-width: 990px;
+        }
+        .role-control{
+            width: 99.8%;}
+    </style>
 </head>
 <body>
 <div class="head-wrap">
