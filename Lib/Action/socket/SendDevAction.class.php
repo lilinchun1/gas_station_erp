@@ -1,27 +1,34 @@
 <?php
-import ( "@.MyClass.Spreadsheet_Excel_Reader" );
-class IndexAction extends Action {
-	private $uploaded_url = "Runtime/Temp";
+class SendDevAction extends Action {
+	//socket发送序号
 	public static $sendNum = 1000000;
+	//所有机器各部分问题集合，机器编号做索引
 	public static $devInfoArr = array();
+	//获取发送序号
 	function getNewSendNum(){
 		self::$sendNum++;
 		return self::$sendNum;
 	}
 	public function index() {
 		set_time_limit ( 0 );
+		//发送端口号
 		$port = 7659;
+		//发送IP
 		$host = '192.168.0.63';
+		//创建一个socket
 		$socket = socket_create ( AF_INET, SOCK_STREAM, SOL_TCP );
+		//连接对方机器
 		$connect = socket_connect ( $socket, $host, $port );
-		
+		//初次发送参数
 		$auth_method = 1; // 1 - MD5。2-99 - 保留未用。
+		//用户名
 		$account = "guest";
+		//密码
 		$password = md5 ( "admin" );
 		// 发送绑定请求
 		$bind_rc = "BIND_RC:".$this->getNewSendNum().",auth_method:$auth_method,account:$account,password:$password;";
 		socket_write ( $socket, $bind_rc, strlen ( $bind_rc ) );
-		// 接收处理字符串
+		//接收处理字符串
 		$getStrArr = $this->getRespArr($socket,131072);
 		//获取随机数
 		$random_number = $this->getAttributeVal($getStrArr,"random_number");
@@ -42,7 +49,12 @@ class IndexAction extends Action {
 		
 		$model = new Model();
 		while(true){
-			$sql_dev = "SELECT device_no,MAC FROM qd_device";
+			$sql_dev = "
+					SELECT a.*,b.rule_no FROM qd_device a
+					LEFT JOIN rule_send b ON b.target_num LIKE CONCAT('3-',a.channel_id,',') AND b.rule_status = 2
+					LEFT JOIN app_upgrade c ON c.target_num LIKE CONCAT('3-',a.channel_id,',') AND c.status = 1
+					WHERE a.isDelete = 0
+					";
 			$que_dev = $model->query($sql_dev);
 			foreach ($que_dev as $k=>$v){
 				$dev_status = "DEV_STATUS:".$this->getNewSendNum().",dev_uid:".$v['device_no'].",dev_mac:".$v['MAC'].",above_screen,touch_screen,conn_line_1,conn_line_2,conn_line_3,boot_time_length,boot_times,vol,cpu_usage,cpu,mem_usage,mem,disk_usage,disk,wifi,station_3g,wifi_conn_num,station_3g_flow,wifi_send_flow,wifi_recv_flow,conn_line_1_send,conn_line_1_recv,conn_line_2_send,conn_line_2_recv,conn_line_3_send,conn_line_3_recv,station_system,station_client,poweron_time,poweroff_time;";
@@ -60,7 +72,8 @@ class IndexAction extends Action {
 				//关机时间
 				$poweroff_time = $this->getAttributeVal($getStrArr,"poweroff_time");
 				
-				
+				//上屏程序版本
+				$adpg_ver = "1";
 				$adpg_info = "ADPG_INFO:".$this->getNewSendNum().",dev_uid:".$v['device_no'].",dev_mac:".$v['MAC'].",adpg_ver:$adpg_ver;";
 				socket_write ( $socket, $adpg_info, strlen ( $adpg_info ) );
 				//获取返回各属性值数组
@@ -68,7 +81,8 @@ class IndexAction extends Action {
 				//实际上屏广告版本号
 				$adpg_ver_x = $this->getAttributeVal($getStrArr,"adpg_ver_x");
 				
-				
+				//中屏程序版本
+				$sapg_ver = "1";
 				$adpg_info = "SAPG_INFO:".$this->getNewSendNum().",dev_uid:".$v['device_no'].",dev_mac:".$v['MAC'].",sapg_ver:$sapg_ver;";
 				socket_write ( $socket, $adpg_info, strlen ( $adpg_info ) );
 				//获取返回各属性值数组
@@ -76,28 +90,35 @@ class IndexAction extends Action {
 				//实际中屏程序版本号
 				$sapg_ver_x = $this->getAttributeVal($getStrArr,"sapg_ver_x");
 				
+				
+				
+				self::$devInfoArr[$v['device_no']] = array();
+				//默认0是正常
+				self::$devInfoArr[$v['device_no']]['poweron_time'] = 0;
+				self::$devInfoArr[$v['device_no']]['poweroff_time'] = 0;
+				self::$devInfoArr[$v['device_no']]['station_system'] = 0;
+				self::$devInfoArr[$v['device_no']]['adpg_ver_x'] = 0;
+				self::$devInfoArr[$v['device_no']]['sapg_ver_x'] = 0;
+				
+				//判断开机是否正常
+				$normalOnTime1 =  $v['power_on_time'] - 60*30;
+				$normalOnTime2 =  $v['power_on_time'] + 60*15;
+				if($poweron_time < $normalOnTime1 || $poweron_time > $normalOnTime2 ){
+					self::$devInfoArr[$v['device_no']]['poweron_time'] = 1;
+				}
+				//判断关机是否正常
+				$normalOffTime1 = $v['power_off_time'] - 60*30;
+				$normalOffTime2 =  $v['power_off_time'] + 60*15;
+				if($poweroff_time < $normalOffTime1 || $poweroff_time > $normalOffTime2 ){
+					self::$devInfoArr[$v['device_no']]['poweroff_time'] = 1;
+				}
+				//判断系统是否正常
+				if($station_system != 0){
+					self::$devInfoArr[$v['device_no']]['station_system'] = 1;
+				}
 			}
-			
+			sleep(60*10);
 		}
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		/*
-		boot_time_length 开机时长，单位：分钟
-		station_system   蓝屏、系统崩溃、死机
-		poweron_time     开机时间
-		poweroff_time    关机时间
-		*/
 
 		
 		
@@ -111,38 +132,8 @@ class IndexAction extends Action {
 		if($enquire_link_resp != self::$sendNum){
 			return;
 		}
-		
-		
-		
-		
-		
-		$array = explode ( ";", $bind_rc_resp );
-		
-		
-		
-		if ($bind_rc_resp == "bind_rc_resp,10000023;random_number,987654;") {
-			echo "1OK";
-			// 发送
-			$setString2 = "bind_sr,10000024;auth_method,1;account,guest;password,200820e3227815ed1756a6b531e7e0d2;random_number,987654;\0";
-			socket_write ( $socket, $setString, strlen ( $setString ) );
-			// 接收
-			$bind_rc_resp = socket_read ( $socket, 8192 );
-			if ($bind_rc_resp == "bind_sr_resp,10000024;bind_status,0;") {
-				echo "2OK!";
-			} else {
-				echo $bind_rc_resp;
-			}
-		} else {
-			echo $bind_rc_resp;
-			$setString2 = "bind_sr,10000024;auth_method,1;account,guest;password,200820e3227815ed1756a6b531e7e0d2;random_number,641310;\0";
-			socket_write ( $socket, $setString, strlen ( $setString ) );
-			$bind_rc_resp = socket_read ( $socket, 8192 );
-			echo "=================";
-			echo $bind_rc_resp;
-		}
-		echo "closeing socket..";
-		// socket_close ( $socket );
-		echo "ok .\n\n";
+
+		socket_close ( $socket );
 	}
 	//给定字符串数组，获取指定属性的值
 	function getAttributeVal($getStrArr,$attribute){

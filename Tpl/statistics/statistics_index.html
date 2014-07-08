@@ -3,14 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <title>渠道信息</title>
-    <!--<link rel="stylesheet" href="../../Public/css/configuration.css"/>-->
     <link rel="stylesheet" href="__PUBLIC__/css/configuration.css"/>
+	<script type="text/javascript" src="__PUBLIC__/js/jquery-1.10.2.min.js"></script>
+	<script type="text/javascript" src="__PUBLIC__/js/jquery.SuperSlide.2.1.1.js"></script>
+	<script type="text/javascript" src="__PUBLIC__/js/My97DatePicker/WdatePicker.js"></script>
     <style>
         #head,.head-wrap,#footer{
             min-width: 990px;
         }
         .role-control{
-            width: 99.8%;}
+            width: 99.7%;}
     </style>
 </head>
 <body>
@@ -45,6 +47,9 @@
                                     <option value="">全部</option>
                                 </select>
                                 <label for="channel-org-name" class="">渠道名称</label>
+                                <input type="text" name="channel-org-name" id="channel-org-name"  class="input-org-info"
+                                       value=""/>
+                                <label for="channel-org-name" class="">网点名称</label>
                                 <input type="text" name="channel-org-name" id="channel-org-name"  class="input-org-info"
                                        value=""/>
                             </p>
@@ -87,7 +92,7 @@
                                     <div class="bingtu-tt">
                                         安装量分析
                                     </div>
-									<div id="dabing_container" style="min-width:200px;height: 400px"></div>
+									<div id="dabing_container" style="min-width:200px;height: 325px"></div>
                                 </div>
                                 <div class="role-table w66p">
                                     <div class="data-log">
@@ -193,24 +198,43 @@
                                             <span class='span-1'>66666666</span>
                                             <span class='span-1'>77777777</span>
                                         </li>
-
+                                        <li>
+                                            <span class='span-1'>11111111</span>
+                                            <span class='span-1'>22222222</span>
+                                            <span class='span-1'>33333333</span>
+                                            <span class='span-1'>44444444</span>
+                                            <span class='span-1'>55555555</span>
+                                            <span class='span-1'>66666666</span>
+                                            <span class='span-1'>77777777</span>
+                                        </li>
+                                        <li>
+                                            <span class='span-1'>11111111</span>
+                                            <span class='span-1'>22222222</span>
+                                            <span class='span-1'>33333333</span>
+                                            <span class='span-1'>44444444</span>
+                                            <span class='span-1'>55555555</span>
+                                            <span class='span-1'>66666666</span>
+                                            <span class='span-1'>77777777</span>
+                                        </li>
                                     </ul>
                                 </div>
                             </div>
                         </div>
                         <div class="div-tab-chart">
-                            <div class="tongji-tu">
-                                222222222222
+                            <div class="tongji-tu" id="avg_div">
+								<div id="avg_container" style="min-width:400px; height: 400px; margin: 0 auto; "></div>
                             </div>
                             <div class="list-wrap-statistics">
-                                <div class="bingtu w49p">
-                                    <div class="bingtu-tt">
-                                        安装量分析
+                                <div class="bingtu w49p" style="border: 0 none;">
+                                    <div class="bingtu-tt" style="border-bottom: 0 none;background: #ffffff;">
+                                        <input type="submit" class="role-control-btn2 active" value="top10 &uarr;" />
+                                        <input type="submit" class="role-control-btn2" value="top10 &darr;" />
                                     </div>
+									<div id="top_container" style="min-width: 310px; max-width: 800px; height: 400px; margin: 0 auto; border: 1px solid #dadada;"></div>
                                 </div>
                                 <div class="role-table w66p w50p">
                                     <div class="data-log">
-                                        <h3>安装量汇总<input type="submit" class="role-control-btn" value="导出" /></h3>
+                                        <h3>平均安装量<input type="submit" class="role-control-btn" value="导出" /></h3>
 
                                     </div>
                                     <ul class="statistics-list">
@@ -241,14 +265,17 @@
         </div>
     </div>
 </div>
-<include file="./Tpl/include/pb-foot.html"/>
+
 <script type="text/javascript" src="__PUBLIC__/js/jquery.SuperSlide.2.1.1.js"></script>
 <script type="text/javascript" src="__PUBLIC__/js/jquery-1.6.1.js"></script>
-<script type="text/javascript" src="__PUBLIC__/js/jquery.SuperSlide.2.1.1.js"></script>
+
 <!--<script type="text/javascript" src="../../Public/js/jquery-1.6.1.js"></script>-->
 <!--<script type="text/javascript" src="../../Public/js/jquery.SuperSlide.2.1.1.js"></script>-->
-		<script type="text/javascript">
+<include file="./Tpl/include/pb-foot.html"/>
+<script type="text/javascript" src="__PUBLIC__/js/jquery.SuperSlide.2.1.1.js"></script>
+<script type="text/javascript">
 $(function () {
+	
         $('#container_table').highcharts({
             chart: {
                 zoomType: 'xy'
@@ -409,11 +436,86 @@ $(function () {
             ]
         }]
     });
+		//平均安装量
+	$('#avg_container').highcharts({
+		chart: {
+            type: 'area'
+        },
+		xAxis: [{
+			categories: ['1月份', '2月份', '3月份', '4月份', '5月份', '6月份',
+			'7月份', '8月份', '9月份', '10月份', '11月份', '12月份']
+        }],
+		yAxis: {
+			min: 0,
+			title: {
+				text: '平均安装量'
+			}
+        },
+		colors:[
+			'#77a1e5',//第一个颜色
+			'#f15c80',//第二个颜色
+			'#a6c96a',//第三个颜色
+			'#1aadce', //。。。。
+			   '#492970',
+			   '#f28f43', 
+			   'blue', 
+			   '#c42525', 
+			   '#a6c96a'
+		 ],
+        title: {
+            text: '平均安装量分析'
+        },
+		labels: {
+			format: '{value} ',
+			style: {
+				color: Highcharts.getOptions().colors[0]
+			}
+		},
+        series: [{
+            type: 'area',
+            name: '平均总安装量',
+            data: [17.0, 26.9, 39.5, 44.5, 28.2, 11.5, 15.2, 26.5, 33.3, 48.3, 53.9, 19.6],
+        }]
+    });
+	//top10
+    $('#top_container').highcharts({
+		chart: {
+			type: 'bar'
+		},
+		title: {
+			text: '平均安装量排名'
+		},
+		xAxis: {
+			categories: ['大连', '北京', '鞍山', '长春', '哈尔滨','济南','天津','重庆','桂林','宁夏']
+		},
+		yAxis: {
+			title: {
+				text: ''
+			}
+		},
+		legend: {
+			reversed: true
+		},
+		labels: {
+			format: '{value} ',
+			style: {
+				color: Highcharts.getOptions().colors[0]
+			}
+		},
+		plotOptions: {
+			series: {
+				stacking: 'normal'
+			}
+		},
+			series: [{
+			name: '平均安装量',
+			data: [50, 40, 35, 30, 25,20,18,15,10,5]
+		}]
+	});
+	jQuery(".role-table").slide({trigger:"click"});
  });
-    
+</script>
 
-		</script>
-<script type="text/javascript">jQuery(".role-table").slide({trigger:"click"});</script>
 
 <script src="__PUBLIC__/js/table/highcharts.js"></script>
 <script src="__PUBLIC__/js/table/modules/exporting.js"></script>

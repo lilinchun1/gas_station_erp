@@ -44,8 +44,8 @@
     <li class="aside-nav-nth1 url_link" url=""><a>加油站监控<i class="j-show-list">-</i></a>
         <ul>
             <li class="url_link" url=""><a href=""><input  type="button"  value="监控平台" ></a></li>
-            <li class="url_link" url=""><a href=""><input type="button" class="" value="预警设置" ></a></li>
-            <li class="url_link" url=""><a href=""><input type="button" class="" value="异常记录" ></a></li>
+            <li class="url_link" url=""><a href=""><input type="button" class="" value="监控设置" ></a></li>
+            <!--<li class="url_link" url=""><a href=""><input type="button" class="" value="异常记录" ></a></li>-->
         </ul>
     </li>
 </ul>

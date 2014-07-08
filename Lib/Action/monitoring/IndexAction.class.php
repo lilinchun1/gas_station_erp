@@ -1,8 +1,13 @@
 <?php
+import ( "@.Action.socket.SendDevAction" );
 class IndexAction extends Action {
 	public $uid = 0;
 	function __construct(){
 		parent::__construct();
+		echo SendDevAction::$sendNum;exit;
+		
+		
+		
 		//获取用户信息
 		$userinfo = getUserInfo();
 		//var_dump( $userinfo);exit;
@@ -10,6 +15,16 @@ class IndexAction extends Action {
 		//获取可查看菜单路径
 		$this->assign('urlStr', $userinfo['urlstr']);
 		$this->assign('username', $userinfo['realname']);
+	}
+	
+	/**
+	 * station监控平台
+	 * @param
+	 * @return mixed
+	 */
+	function station(){
+		echo 
+		$this->display(':station_index');
 	}
 	
 	/**
@@ -29,14 +44,4 @@ class IndexAction extends Action {
 	function record(){
 		$this->display(':record_index');
 	}
-	
-	/**
-	 * station监控平台
-	 * @param
-	 * @return mixed
-	 */
-	function station(){
-		$this->display(':station_index');
-	}
-	
 }
