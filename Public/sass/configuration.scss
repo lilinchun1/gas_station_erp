@@ -157,7 +157,7 @@ $heiti:"SimHei";
       ul{
         display: none;}
       &:hover{
-                background: #ffffff;
+                background: rgba(255, 255, 255,.9);
                 box-shadow: 0 0 4px rgba(68, 171, 255,.4) inset ;
         span{
           top: 2px;
@@ -167,7 +167,9 @@ $heiti:"SimHei";
 
         ul{
           display: block;
-          li{ box-shadow: 0 0 0 rgba(68, 171, 255,.5) inset ;}
+          li{
+            background: rgba(255, 255, 255,.1);
+            box-shadow: 0 0 0 rgba(68, 171, 255,.5) inset ;}
         }
       }
     }
@@ -410,7 +412,7 @@ $heiti:"SimHei";
   min-width: $min-width-kuang2;
   padding: 5px 0;
   margin: 0 auto;
-  width: 98%;
+/*  width: 98%;*/
   background: #ffffff;
   border: 1px solid $border-color;
     label{
@@ -690,6 +692,7 @@ $heiti:"SimHei";
       @extend %input-t;
       width: 200px;
       height: 30px;
+      background: #C3D9F7;
       background: rgba(195, 217, 247, 0.6);
       color: #ffffff;
       border: 0 none;
@@ -1006,11 +1009,13 @@ $heiti:"SimHei";
     font-size: 20px;
   }
   .row-lt{
-    width: 20%;
+    width: 19%;
     float: left;
+    border-right: 1px dashed $border-color;
     overflow: hidden;}
     .row-lt-l{
-      float: left;
+      display: block;
+      text-align: center;
       margin-bottom: 10px;
       height: 30px;
       line-height: 30px;
@@ -1319,10 +1324,18 @@ input.input-org-info,input.channel-select{
 .bingtu{
   margin-top: 20px;
   float: right;
-min-height: 300px;
+  min-height: 300px;
   border-left: 1px solid $border-color;
   background: #ccc;
   width: 33%;
+}
+.bingtu-tt {
+  height: 30px;
+  background: $bg-color;
+  line-height: 30px;
+  text-indent: 10px;
+  border: 1px solid $border-color;
+  border-left: 0 none;
 }
 .w66p{
   margin-top: 20px;
@@ -1332,8 +1345,13 @@ min-height: 300px;
   .data-log{
     margin-top: 0;
     background: #ffffff;
+      h3{
+        width: 100%;
+        background: $bg-color;
+        border: 1px solid $border-color;}
   }
   .role-control-btn{
+    margin: 3px 10px 0 0;
     float: right;}
 }
 
@@ -1371,9 +1389,14 @@ min-height: 300px;
 }
 
 }
-
+.pdl50{
+  padding-left: 50px;}
 .w50p{
   width: 50%;}
 .w49p{
   width: 49%;
 }
+.tongji-tu{
+  width: 95.8%;
+  padding: 0 2%;
+  border: 1px solid $border-color;}

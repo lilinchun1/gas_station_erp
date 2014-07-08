@@ -868,7 +868,7 @@
 					$("#change_select_showcity").empty();
 					showprovince("change_select_province", "change_select_city", data['province'], "change_select_showcity");
 					showcity("change_select_city", data['city'], "change_select_province", "change_select_showcity");
-					alert(channel_val);
+					//alert(channel_val);
 					if('0' == channel_first_type)
 					{
 						$("#change_channel_first_type_sel").val(channel_second_type);

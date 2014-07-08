@@ -58,10 +58,10 @@
            
 				<div id="demo2" class="jcSlider">
 					<ul class="imgList">
-						<li><a><img src="__PUBLIC__/image/pic/30f0184c74d88e5e4f6b2b0304a5a59c.png" alt="图片一" /></a></li>
+						<li><a><img src="__PUBLIC__/image/pic/lun_1.png" alt="图片一" /></a></li>
 						<li><a><img src="__PUBLIC__/image/pic/c4abb1b84dc468f3da68c37898e18f09.png" alt="图片二" /></a></li>
-						<li><a><img src="__PUBLIC__/image/pic/5b387eab0c69dc3da4a51b6f4fb8576b.png" alt="图片三" /></a></li>
-						<li><a><img src="__PUBLIC__/image/pic/a96bf5b093e42062f8d60357a3113ae2.png" alt="图片四" /></a></li>
+						<!--<li><a><img src="__PUBLIC__/image/pic/5b387eab0c69dc3da4a51b6f4fb8576b.png" alt="图片三" /></a></li>
+						<li><a><img src="__PUBLIC__/image/pic/a96bf5b093e42062f8d60357a3113ae2.png" alt="图片四" /></a></li>-->
 					</ul>
 				</div>
             
@@ -73,6 +73,7 @@
                    </p>
                 </div>
                 <div class="news-right">
+                    <b>亲，业务支撑系统上线啦！</b>
                     <p>
                         智能手机加油站业务支撑系统于2014年7月18日正式上线运行!
                         感谢您支持，期待您的关注。在使用过程中遇到任何问题，请联系我们，服务邮箱jienuo@kuaiyong.com
@@ -102,7 +103,7 @@
 <div id="change_password_id" style="display:none;">
     <div class="alert-role-add" >
     <h3>修改密码</h3>
-    <div class="alert-role-add-con">
+    <div class="alert-role-add-con pdl50">
         <p>
             <label for="old_password_txt" class="role-lab">旧密码&nbsp;&nbsp;&nbsp;</label>
             <input type="password" name="old_password_txt" id="old_password_txt" class="input-role-name"/>
@@ -116,7 +117,7 @@
             <input type="password" name="re_new_password_txt" id="re_new_password_txt" class="input-role-name"/>
         </p>
         <p>
-            <button type="button" class="alert-btn2" onclick="change_password()">修改密码</button>
+            <button type="button" class="alert-btn3" onclick="change_password()">修改密码</button>
 			<a href="." class="closeDOMWindow">
 				<button type="button" class="alert-btn2">关闭</button>
 			</a>

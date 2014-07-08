@@ -187,7 +187,7 @@
 					<div class="role-inquire channel-index-btns">
 						<form action="" method="post">
 							<p>
-								<label for="channel-org-name" class="">刊例名称</label>
+								<label for="channel-org-name" class="">刊例号</label>
 								<input type="text" name="rule_no_sel" id="channel-org-name" class="input-org-info"/>
 								<label for="maintain-create-people" class="">创建人</label>
 								<input type="text" name="createuser_sel" id="maintain-create-people" class="input-org-info"/>
@@ -254,7 +254,7 @@
 <div id="change_password_id" style="display:none;">
     <div class="alert-role-add" >
     <h3>修改密码</h3>
-    <div class="alert-role-add-con">
+    <div class="alert-role-add-con pdl50">
         <p>
             <label for="old_password_txt" class="role-lab">旧密码&nbsp;&nbsp;&nbsp;</label>
             <input type="password" name="old_password_txt" id="old_password_txt" class="input-role-name"/>
@@ -268,7 +268,7 @@
             <input type="password" name="re_new_password_txt" id="re_new_password_txt" class="input-role-name"/>
         </p>
         <p>
-            <button type="button" class="alert-btn2" onclick="change_password()">修改密码</button>
+            <button type="button" class="alert-btn3" onclick="change_password()">修改密码</button>
 			<a href="." class="closeDOMWindow">
 				<button type="button" class="alert-btn2">关闭</button>
 			</a>
@@ -414,18 +414,20 @@
 		
 			<div class="alert-role-add-con">
 				<p>
-					<label for="rule_no" class="role-lab">*刊例名称</label>
+					<label for="rule_no" class="role-lab">刊例号</label>
 					<input type="text" name="rule_no" id="rule_no" class="input-role-name"/>
 					<input type="hidden" name="send_id" id="send_id" class="input-role-name"/>
+                    <i class="red-color pdl10">*</i>
 				</p>
 		
 				<p>
-					<label for="start_time" class="role-lab">*投放日期</label>
+					<label for="start_time" class="role-lab">投放日期</label>
 					<input type="text" name="start_time" id="start_time" class="input-role-name" readonly="true" onClick="WdatePicker()"/>
+                    <i class="red-color pdl10">*</i>
 				</p>
 		
 				<p>
-					<label for="target_num" class="role-lab">*发布渠道</label>
+					<label for="target_num" class="role-lab">发布渠道</label><i class="red-color pdl10">*</i>
 					<br/>
 					<input type="text" name="target_num" id="target_num" class="input-role-name" value="1-21,2-3,2-4"/>
 					<!--权限树形-->
@@ -437,7 +439,7 @@
 				</p>
 
 				<p>
-					<button type="submit" name="add_udp" class="alert-btn2" value="1">保存</button>
+					<button type="submit" name="add_udp" class="alert-btn3" value="1">保存</button>
 					<a href="." class="closeDOMWindow">
 						<button type="button" class="alert-btn">关闭</button>
 					</a>
@@ -455,7 +457,7 @@
 				<p class="delete-message">确认删除？</p>
 				<p>
 					<input type="hidden" name="change_send_id" id="change_send_id" value=""/>
-					<button type="submit" name="del_fb_zf" class="alert-btn2 del_fb_zf" id="j_del_ok" value="1">删除</button>
+					<button type="submit" name="del_fb_zf" class="alert-btn3 del_fb_zf" id="j_del_ok" value="1">删除</button>
 					<a href="." class="closeDOMWindow">
 						<button type="button" class="alert-btn2">关闭</button>
 					</a>
