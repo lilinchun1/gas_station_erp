@@ -12,17 +12,7 @@
     <script type="text/javascript">
         $(function(){
             //================================================================默认动作
-            //固定标题
-            window.onscroll = function () {
-                var scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
-                var fixDiv = document.getElementById('j-fixed-top');
-                if (scrollTop >= 300) {
-                    fixDiv.style.position = 'fixed';
-                    fixDiv.style.top = '0px';
-                } else if (scrollTop <= 299) {
-                    fixDiv.style.position = 'static';
-                }
-            }
+
             //禁止浏览器自动填充
             $("form").attr( "autocomplete","off");
             //================================================================触发操作
@@ -293,7 +283,7 @@
     </div>
 </div>
 <!--发布渠道弹出框-->
-<div class="alert-org-add" id="j_edit_win" style=" display:none1;">
+<!--<div class="alert-org-add" id="j_edit_win" style=" display:none1;">
     <div class="verup-alert-add">
         <form action="" method="post">
             <h3>发布渠道</h3>
@@ -311,9 +301,9 @@
             </div>
         </form>
     </div>
-</div>
+</div>-->
 <!--更新信息弹出框-->
-<div class="alert-org-add" id="j_edit_win" style=" display:none1;">
+<!--<div class="alert-org-add" id="j_edit_win" style=" display:none1;">
     <div class="verup-alert-add">
         <form action="" method="post">
             <h3><span class="verup-alert-close">x</span></h3>
@@ -430,7 +420,7 @@
             </div>
         </form>
     </div>
-</div>
+</div>-->
 <link rel="stylesheet" type="text/css" href="__PUBLIC__/css/jquery.bigautocomplete.css"/>
 <script type="text/javascript" src="__PUBLIC__/js/jquery.bigautocomplete.js"></script>
 <script type="text/javascript">

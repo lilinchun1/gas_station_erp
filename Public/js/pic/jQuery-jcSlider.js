@@ -27,8 +27,8 @@
 			},
 			scaling:true,                  //是否设置图片大小，提供true,false
 			setScaling : {
-				width:940,                 //设置图片宽度单位(px)
-				height:300                 //设置图片高度单位(px)
+				width:920,                 //设置图片宽度单位(px)
+				height:260                 //设置图片高度单位(px)
 			}
 		};
 		var options = $.extend(defaults,options);

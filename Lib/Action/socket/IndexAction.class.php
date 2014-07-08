@@ -61,6 +61,20 @@ class IndexAction extends Action {
 				$poweroff_time = $this->getAttributeVal($getStrArr,"poweroff_time");
 				
 				
+				$adpg_info = "ADPG_INFO:".$this->getNewSendNum().",dev_uid:".$v['device_no'].",dev_mac:".$v['MAC'].",adpg_ver:$adpg_ver;";
+				socket_write ( $socket, $adpg_info, strlen ( $adpg_info ) );
+				//获取返回各属性值数组
+				$getStrArr = $this->getRespArr($socket,131072);
+				//实际上屏广告版本号
+				$adpg_ver_x = $this->getAttributeVal($getStrArr,"adpg_ver_x");
+				
+				
+				$adpg_info = "SAPG_INFO:".$this->getNewSendNum().",dev_uid:".$v['device_no'].",dev_mac:".$v['MAC'].",sapg_ver:$sapg_ver;";
+				socket_write ( $socket, $adpg_info, strlen ( $adpg_info ) );
+				//获取返回各属性值数组
+				$getStrArr = $this->getRespArr($socket,131072);
+				//实际中屏程序版本号
+				$sapg_ver_x = $this->getAttributeVal($getStrArr,"sapg_ver_x");
 				
 			}
 			

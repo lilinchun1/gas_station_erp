@@ -26,6 +26,9 @@
 		  opacity: 0;
 		  clear:left;
 	}
+        .head-wrap,#footer{
+           max-width: 1660px;
+        }
 	</style>
 <script type="text/javascript" src="__PUBLIC__/js/jquery-1.10.2.min.js"></script>
 </head>
@@ -61,7 +64,7 @@
 </div>
 </div>
 
-<div id="container">
+<div id="container" style="min-width: 1550px">
 <div class="left">
     
 <ul class="aside-nav">

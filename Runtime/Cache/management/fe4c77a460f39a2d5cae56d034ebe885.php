@@ -7,132 +7,132 @@
 	<script type="text/javascript" src="__PUBLIC__/js/jquery-1.10.2.min.js"></script>
 	<script type="text/javascript" src="__PUBLIC__/js/jquery.SuperSlide.2.1.1.js"></script>
 	<script type="text/javascript" src="__PUBLIC__/js/My97DatePicker/WdatePicker.js"></script>
-
-	
-	
-<script type="text/javascript">
-$(function(){
-	//================================================================默认动作
-	//禁止浏览器自动填充
-	$("form").attr( "autocomplete","off");
-	//================================================================触发操作
-	//创建，编辑弹出框
-	$('.status_add,.status_udp').click(function(){
-		if($(this).hasClass("status_udp")){
-			var rule_status = $("input[name='role-info']:checked").parent().parent().find(".rule_status_list").val();
-			if(rule_status >= 2){
-				alert("不能编辑");
-				return;
+	<script type="text/javascript">
+	$(document).ready(function(){
+		//================================================================默认动作
+		//禁止浏览器自动填充
+		$("form").attr( "autocomplete","off");
+		//================================================================触发操作
+		//创建，编辑
+		$('.status_add,.status_udp').click(function(){
+			//弹出框为添加
+			$("button[name='add_udp']").val("1");
+			if($(this).hasClass("status_udp")){
+				//获取状态
+				var rule_status = $("input[name='role-list']:checked").parent().parent().find(".rule_status_list").val();
+				if(rule_status >= 2){
+					alert("不能编辑");
+					return;
+				}
+				var rule_no = $("input[name='role-list']:checked").parent().parent().find(".rule_no_list").text();
+				var start_time = $("input[name='role-list']:checked").parent().parent().find(".start_time_list").text();
+				if(rule_no == ""){
+					alert("请选择编辑条目");
+					return;
+				}
+				$("#rule_no").val(rule_no);
+				$("#start_time").val(start_time);
+				var send_id = $("input[name='role-list']:checked").parent().find(".send_id_list").val();
+				$("input[name='send_id']").val(send_id);
+				//弹出框为编辑
+				$("button[name='add_udp']").val("2");
 			}
-			var rule_no = $("input[name='role-info']:checked").parent().parent().find(".rule_no_list").text();
-			var start_time = $("input[name='role-info']:checked").parent().parent().find(".start_time_list").text();
+			//===================================================树形结构开始==========
+			var handleUrl="<?php echo U('management/Index/getChannelArr');?>";
+			var zNodes=new Array();
+			var now=new Date().getTime();//加个时间戳表示每次是新的请求
+			$.ajax({
+				type: "POST",
+				url: handleUrl,
+				async: false,
+				dataType: "json",
+				success: function(data){
+					$.each(data,function(key,val){
+						var kid=val['id'];
+						var parent=val['pid'];
+						var value=val['value'];
+						var length=val['length'];
+						zNodes[key]= {'id':kid, 'pId':parent, 'name':value ,'t':length,'half': true};
+					});
+				},
+
+				error: function(XMLHttpRequest, textStatus, errorThrown) {
+					 alert("请求失败!");
+				}
+			});
+			$.fn.zTree.init($("#treeDemo"), setting, zNodes);
+			//===================================================树形结构结束==========
+			//弹出窗口
+			showWindow(1,16,17,'#j_add_win');
+		});
+		
+		
+		//删除，发布，作废弹出框
+		$(".status_del,.status_2,.status_3").click(function(){
+			//获取状态值
+			var rule_status = $("input[name='role-list']:checked").parent().parent().find(".rule_status_list").val();
+			if($(this).hasClass("status_del")){
+				var noSelMes = "请选择删除条目";
+				//改变确认框内容
+				$(".delete-message").text("确认删除？");
+				$(".del_fb_zf").text("删除");
+				//告诉后台为删除
+				$(".del_fb_zf").val("1");
+				if(rule_status >= 2){
+					alert("不能删除");
+					return;
+				}
+			}else if($(this).hasClass("status_2")){
+				var noSelMes = "请选择要发布条目";
+				$(".delete-message").text("确认发布？");
+				$(".del_fb_zf").text("发布");
+				$(".del_fb_zf").val("2");
+				if(rule_status != 1){
+					alert("不能发布");
+					return;
+				}
+			}else if($(this).hasClass("status_3")){
+				var noSelMes = "请选择要作废条目";
+				$(".delete-message").text("确认作废？");
+				$(".del_fb_zf").text("作废");
+				$(".del_fb_zf").val("3");
+				if(rule_status != 2){
+					alert("不能作废");
+					return;
+				}
+			}
+
+			var rule_no = $("input[name='role-list']:checked").parent().parent().find(".rule_no_list").text();
 			if(rule_no == ""){
-				alert("请选择编辑条目");
+				alert(noSelMes);
 				return;
 			}
-			$("#rule_no").val(rule_no);
-			$("#start_time").val(start_time);
-		}
-
-		//获取省市数组
-		var handleUrl="<?php echo U('management/Index/getChannelArr');?>";
-		var zNodes=new Array();
-		var now=new Date().getTime();//加个时间戳表示每次是新的请求
-		$.ajax({
-			type: "POST",
-			url: handleUrl,
-			async: false,
-			dataType: "json",
-			success: function(data){
-				$.each(data,function(key,val){
-					var kid=val['id'];
-					var parent=val['pid'];
-					var value=val['value'];
-					var length=val['length'];
-					zNodes[key]= {'id':kid, 'pId':parent, 'name':value, 'open':false ,'t':length,'half': true};
-				});
-			},
-
-			error: function(XMLHttpRequest, textStatus, errorThrown) {
-				 alert("请求失败!");
-			}
+			send_id = $("input[name='role-list']:checked").parent().find(".send_id_list").val();
+			$("#change_send_id").val(send_id);
+			
+			//弹出页面
+			showWindow(1,16,17,'#j_del_win');
 		});
-		//树形结构
-		$.fn.zTree.init($("#treeDemo"), setting, zNodes);
-		//弹出窗口
-		showWindow(1,16,17,'#j_add_win');
-	});
-	
-	
-	//删除，发布，作废弹出框
-	$(".status_del,.status_2,.status_3").click(function(){
-		//获取状态值
-		var rule_status = $("input[name='role-info']:checked").parent().parent().find(".rule_status_list").val();
-		if($(this).hasClass("status_del")){
-			var noSelMes = "请选择删除条目";
-			//改变确认框内容
-			$(".delete-message").text("确认删除？");
-			$(".del_fb_zf").text("删除");
-			$(".del_fb_zf").val("1");
-			if(rule_status >= 2){
-				alert("不能删除");
-				return;
-			}
-		}else if($(this).hasClass("status_2")){
-			var noSelMes = "请选择要发布条目";
-			$(".delete-message").text("确认发布？");
-			$(".del_fb_zf").text("发布");
-			$(".del_fb_zf").val("2");
-			if(rule_status != 1){
-				alert("不能发布");
-				return;
-			}
-		}else if($(this).hasClass("status_3")){
-			var noSelMes = "请选择要作废条目";
-			$(".delete-message").text("确认作废？");
-			$(".del_fb_zf").text("作废");
-			$(".del_fb_zf").val("3");
-			if(rule_status != 2){
-				alert("不能作废");
-				return;
-			}
-		}
-		
-		var rule_no = $("input[name='role-info']:checked").parent().parent().find(".rule_no_list").text();
-		if(rule_no == ""){
-			alert(noSelMes);
-			return;
-		}
-		$("#rule_no_hid").val(rule_no);
-		
-		//弹出页面
-		$.openDOMWindow({
-            loader:1,
-            loaderHeight:16,
-            loaderWidth:17,
-            windowSourceID:'#j_del_win'
-        });
-        return false;
-	});
-	//点一行则选中
-	$(".rule_info_list").click(function(){
-		$(this).find(".role-table-radio").attr("checked",true);
-	});
-});
-//自动补全
-function getAppRule() {
-	$.post("<?php echo U('management/Index/getAppRule');?>", {'sad':1}, function(data) {
-		var str = data;
-		//str = [{title:"中国移动网上营业厅"},{title:"中国银行"},{title:"中国移动"},{title:"中国好声音第三期"},{title:"中国好声音 第一期"},{title:"中国电信网上营业厅"},{title:"中国工商银行"},{title:"中国好声音第二期"},{title:"中国地图"}];
-		$("#rule_no").bigAutocomplete({
-			width : 150,
-			data : str,
-			callback : function(data) {
-			}
+		//点一行则选中
+		$(".rule_info_list").click(function(){
+			$(this).find(".role-table-radio").attr("checked",true);
 		});
-	}, "json");
-}
-</script>
+		
+	});
+	//根据选择范围圈定应用名称下拉内容
+	function getAppRule() {
+		$.post("<?php echo U('management/Index/getAppRule');?>", {'sad':1}, function(data) {
+			var str = data;
+			//str = [{title:"中国移动网上营业厅"},{title:"中国银行"},{title:"中国移动"},{title:"中国好声音第三期"},{title:"中国好声音 第一期"},{title:"中国电信网上营业厅"},{title:"中国工商银行"},{title:"中国好声音第二期"},{title:"中国地图"}];
+			$("#rule_no").bigAutocomplete({
+				width : 150,
+				data : str,
+				callback : function(data) {
+				}
+			});
+		}, "json");
+	}
+	</script>
 </head>
 <body>
 <div class="head-wrap">
@@ -160,7 +160,7 @@ function getAppRule() {
         <li class="url_link" url="<?php echo U('channel/Channel/index');?>"><a href="<?php echo U('channel/Channel/index');?>">渠道管理</a></li>
         <li class="url_link" url="<?php echo U('management/Index/importingApp');?>"><a href="<?php echo U('management/Index/importingApp');?>">运营管理</a></li>
         <li class="url_link" url="<?php echo U('statistics/Index/index');?>"><a href="<?php echo U('statistics/Index/index');?>">统计分析</a></li>
-        <li class="url_link" url="<?php echo U('ad/Index/index');?>"><a href="<?php echo U('ad/Index/index');?>">广告管理</a></li>
+     <!--   <li class="url_link" url="<?php echo U('ad/Index/index');?>"><a href="<?php echo U('ad/Index/index');?>">广告管理</a></li> -->
         <li class="url_link" url="<?php echo U('configuration/Org/index');?>"><a href="<?php echo U('configuration/Org/index');?>">系统设置</a></li>
     </ul>
 </div>
@@ -170,7 +170,7 @@ function getAppRule() {
 	<div class="left">
         
 <ul class="aside-nav">
-    <li class="aside-nav-nth1" ><a>APP刊例管理<i class="j-show-list">-</i></a>
+    <li class="aside-nav-nth1" ><a>刊例管理<i class="j-show-list">-</i></a>
         <ul>
             <li class="url_link" url="<?php echo U('management/Index/importingApp');?>"><a href="<?php echo U('management/Index/importingApp');?>"><input type="button" value="刊例维护"></a></li>
             <li class="url_link" url="<?php echo U('management/Index/addRuleTarget');?>"><a href="<?php echo U('management/Index/addRuleTarget');?>"><input type="button" class="" value="刊例发布"></a></li>
@@ -179,12 +179,6 @@ function getAppRule() {
     </li>
 </ul>
 
-        <!--<ul class="aside-nav">
-            <li class="aside-nav-nth1"><a href="">APP刊例管理</a></li>
-            <li><a href="<?php echo U('management/Index/importingApp');?>"><input type="button" value="刊例维护"></a></li>
-            <li class="active"><a href="<?php echo U('management/Index/addRuleTarget');?>"><input type="button" class="" value="刊例发布"></a></li>
-            <li><a href="<?php echo U('management/Index/verup');?>"><input type="button" class="" value="版本升级"></a></li>
-        </ul>-->
 	</div>
 	<div class="right">
 		<div class="right-con">
@@ -193,11 +187,10 @@ function getAppRule() {
 					<div class="role-inquire channel-index-btns">
 						<form action="" method="post">
 							<p>
-								<label for="channel-org-name" class="">刊例号</label>
+								<label for="channel-org-name" class="">刊例名称</label>
 								<input type="text" name="rule_no_sel" id="channel-org-name" class="input-org-info"/>
 								<label for="maintain-create-people" class="">创建人</label>
-								<input type="text" name="createuser_sel" id="maintain-create-people"
-									   class="input-org-info"/>
+								<input type="text" name="createuser_sel" id="maintain-create-people" class="input-org-info"/>
 								<label for="maintain-create-date" class="">发布日期</label>
 								<input type="text" name="release_time_sel" id="maintain-create-date" class="input-org-info" readonly="true" onClick="WdatePicker()"/>
 								<button type="submit" name="select" class="role-control-btn">查询</button>
@@ -226,14 +219,17 @@ function getAppRule() {
 								<span class="span-2"><b>发布日期</b></span>
 							</li>
 							<?php if(is_array($issueArr)): foreach($issueArr as $key=>$issue): ?><li class="rule_info_list">
-									<span class="span-1"><input type="radio" name="role-info" id="" class="role-table-radio"/></span>
+									<span class="span-1">
+										<input type="radio" name="role-list" id="" class="role-table-radio"/>
+										<input type="hidden" name="send_id_list" class="send_id_list" value="<?php echo ($issue["id"]); ?>">
+									</span>
 									<span class="span-2 rule_no_list" title="#"><?php echo ($issue["rule_no"]); ?></span>
 									<span class="span-2 start_time_list" title="#"><?php echo ($issue["start_time"]); ?></span>
 									<span class="span-2" title="#">发布渠道</span>
 									<span class="span-2" title="#">
 										<?php if($issue['rule_status'] == 1): ?>待发布<?php endif; ?>
 										<?php if($issue['rule_status'] == 2): ?>已发布<?php endif; ?>
-										<?php if($issue['rule_status'] == 3): ?>作废<?php endif; ?>
+										<?php if($issue['rule_status'] == 3): ?>已作废<?php endif; ?>
 										<input type="hidden" class="rule_status_list" value="<?php echo ($issue['rule_status']); ?>"/>
 									</span>
 									<span class="span-2" title="#"><?php echo ($issue["release_time"]); ?></span>
@@ -418,22 +414,20 @@ function getAppRule() {
 		
 			<div class="alert-role-add-con">
 				<p>
-					<label for="rule_no" class="role-lab">刊例号</label>
+					<label for="rule_no" class="role-lab">*刊例名称</label>
 					<input type="text" name="rule_no" id="rule_no" class="input-role-name"/>
-                    <i class="red-color pdl10">*</i>
+					<input type="hidden" name="send_id" id="send_id" class="input-role-name"/>
 				</p>
 		
 				<p>
-					<label for="issue-date" class="role-lab">投放日期</label>
+					<label for="start_time" class="role-lab">*投放日期</label>
 					<input type="text" name="start_time" id="start_time" class="input-role-name" readonly="true" onClick="WdatePicker()"/>
-                    <i class="red-color pdl10">*</i>
 				</p>
 		
 				<p>
-					<label for="issue-channel" class="role-lab">发布渠道</label>
-                    <i class="red-color pdl10">*</i>
+					<label for="target_num" class="role-lab">*发布渠道</label>
 					<br/>
-					<!--<input type="text" name="target_num" id="issue-channel" class="input-role-name" value="1-21,2-3,2-4"/>-->
+					<input type="text" name="target_num" id="target_num" class="input-role-name" value="1-21,2-3,2-4"/>
 					<!--权限树形-->
 					<div class="zTreeDemoBackground left">
 						<ul id="treeDemo" class="ztree"></ul>
@@ -443,9 +437,9 @@ function getAppRule() {
 				</p>
 
 				<p>
-					<button type="submit" name="add_udp" class="alert-btn-exit" value="1">保存</button>
+					<button type="submit" name="add_udp" class="alert-btn2" value="1">保存</button>
 					<a href="." class="closeDOMWindow">
-						<button type="button" class="alert-btn-exit">关闭</button>
+						<button type="button" class="alert-btn">关闭</button>
 					</a>
 				</p>
 			</div>
@@ -460,10 +454,10 @@ function getAppRule() {
 			<div class="alert-role-add-con">
 				<p class="delete-message">确认删除？</p>
 				<p>
-					<input type="hidden" name="rule_no_hid" id="rule_no_hid" value=""/>
-					<button type="submit" name="del_fb_zf" class="alert-btn-exit del_fb_zf" id="j_del_ok" value="1">删除</button>
+					<input type="hidden" name="change_send_id" id="change_send_id" value=""/>
+					<button type="submit" name="del_fb_zf" class="alert-btn2 del_fb_zf" id="j_del_ok" value="1">删除</button>
 					<a href="." class="closeDOMWindow">
-						<button type="button" class="alert-btn-exit">关闭</button>
+						<button type="button" class="alert-btn2">关闭</button>
 					</a>
 				</p>
 			</div>
@@ -472,12 +466,13 @@ function getAppRule() {
 </div>
 <link rel="stylesheet" type="text/css" href="__PUBLIC__/css/jquery.bigautocomplete.css"/>
 <script type="text/javascript" src="__PUBLIC__/js/jquery.bigautocomplete.js"></script>
-<!--树形结构类-->
-<link rel="stylesheet" href="__PUBLIC__/css/tree/tree.css" type="text/css">
-<!-- 自动补全 -->
-<link rel="stylesheet" href="__PUBLIC__/css/jquery.bigautocomplete.css" type="text/css" />
-<script type="text/javascript" src="__PUBLIC__/js/tree/jquery.ztree.core-3.5.js"></script>
-<script type="text/javascript" src="__PUBLIC__/js/tree/jquery.ztree.excheck-3.5.js"></script>
+
+
+	<!--树形结构类-->
+	<link rel="stylesheet" href="__PUBLIC__/css/tree/tree.css" type="text/css">
+	<link rel="stylesheet" href="__PUBLIC__/css/jquery.bigautocomplete.css" type="text/css" />
+	<script type="text/javascript" src="__PUBLIC__/js/tree/jquery.ztree.core-3.5.js"></script>
+	<script type="text/javascript" src="__PUBLIC__/js/tree/jquery.ztree.excheck-3.5.js"></script>
 <script type="text/javascript">
 getAppRule();
 //===================================================树形结构js==========================
@@ -529,5 +524,6 @@ function onCheck(event, treeId, treeNode) {
 }
 //===================================================树形结构js结束==========
 </script>
+</div>
 </body>
 </html>
