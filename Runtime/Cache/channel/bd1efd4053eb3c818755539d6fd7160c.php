@@ -27,7 +27,7 @@
 		  clear:left;
 	}
         .head-wrap,#head,#footer{
-           min-width: 1660px;
+          min-width: 1550px;
         }
 	</style>
 <script type="text/javascript" src="__PUBLIC__/js/jquery-1.10.2.min.js"></script>
@@ -1240,5 +1240,10 @@ var ImgPreview=function(){
 };
 </script>
 <script type="text/javascript">jQuery(".role-table").slide({trigger: "click"});</script>
+<script>
+    $(function(){
+        $('.head-wrap,#head,#footer').css('min-width','1550px');
+    })
+</script>
 </body>
 </html>

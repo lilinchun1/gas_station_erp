@@ -51,10 +51,10 @@
     <div class="left">
         
 <ul class="aside-nav">
-    <li class="aside-nav-nth1"><a>统计分析<i class="j-show-list">-</i></a>
+    <li class="aside-nav-nth1"><a>运营分析<i class="j-show-list">-</i></a>
         <ul>
-            <li class="url_link" url="<?php echo U('statistics/Index/index');?>"><a href="<?php echo U('statistics/Index/index');?>"><input type="button" value="运营分析"></a></li>
-            <li class="url_link" url=""><a href=""><input type="button" value="安装量分析"></a></li>
+            <li class="url_link" url="<?php echo U('statistics/Index/index');?>"><a href="<?php echo U('statistics/Index/index');?>"><input type="button" value="安装量分析"></a></li>
+            <li class="url_link" url=""><a href=""><input type="button" value="用户量分析"></a></li>
         </ul>
     </li>
 </ul>

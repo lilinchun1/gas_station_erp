@@ -5,10 +5,6 @@ class IndexAction extends Action {
 	function __construct(){
 		parent::__construct();
 		//SendDevAction::getNewSendNum();
-		echo SendDevAction::$sendNum;exit;
-		
-		
-		
 		//获取用户信息
 		$userinfo = getUserInfo();
 		//var_dump( $userinfo);exit;
@@ -24,7 +20,14 @@ class IndexAction extends Action {
 	 * @return mixed
 	 */
 	function station(){
-		echo 
+		$model = new Model();
+		$breakSql = "
+				SELECT * FROM (SELECT * FROM (SELECT * FROM dev_status WHERE btype_id IN (101,102) ORDER BY id DESC) a GROUP BY dev_mac,btype_id ORDER BY dev_mac,btype_id) a
+				LEFT JOIN qd_device b ON a.dev_uid = b.device_no
+				";
+		$breakQue = $model->query($breakSql);
+		
+		
 		$this->display(':station_index');
 	}
 	

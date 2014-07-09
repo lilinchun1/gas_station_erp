@@ -488,7 +488,7 @@ $heiti:"SimHei";
     background: #fff;}
 }
 .over-h-y{
-  height: 410px;
+  min-height: 310px;
   overflow-y: auto;
 }
 
@@ -963,6 +963,7 @@ $heiti:"SimHei";
 .station-state-list-con{
 
   li{
+    margin-left:200px;
     padding: 20px 0;
     min-width:762px;
     background: $bg-color;

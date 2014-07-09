@@ -4,11 +4,28 @@ class SendDevAction extends Action {
 	public static $sendNum = 1000000;
 	//所有机器各部分问题集合，机器编号做索引
 	public static $devInfoArr = array();
-	//获取发送序号
-	function getNewSendNum(){
-		self::$sendNum++;
-		return self::$sendNum;
-	}
+	
+	//设定延迟超出时间 15*60
+	private $powerMoreTime = 900;
+	//设定延迟早于时间 30*60
+	private $powerLessTime = 1800;
+	//间隔时间60*60
+	private $callTime = 3600;
+	
+	//故障码
+	//是否在线
+	private $onLine = 101;
+	//开机时间
+	private $powerOn = 102;
+	//关机时间
+	private $powerOff = 103;
+	//APP刊例
+	private $appRule = 104;
+	//上屏程序版本
+	private $adpg_ver = 105;
+	//中屏程序版本
+	private $sapg_ver = 106;
+	
 	public function index() {
 		set_time_limit ( 0 );
 		//发送端口号
@@ -19,13 +36,14 @@ class SendDevAction extends Action {
 		$socket = socket_create ( AF_INET, SOCK_STREAM, SOL_TCP );
 		//连接对方机器
 		$connect = socket_connect ( $socket, $host, $port );
+		
 		//初次发送参数
 		$auth_method = 1; // 1 - MD5。2-99 - 保留未用。
 		//用户名
 		$account = "guest";
 		//密码
 		$password = md5 ( "admin" );
-		// 发送绑定请求
+		//发送绑定请求
 		$bind_rc = "BIND_RC:".$this->getNewSendNum().",auth_method:$auth_method,account:$account,password:$password;";
 		socket_write ( $socket, $bind_rc, strlen ( $bind_rc ) );
 		//接收处理字符串
@@ -48,15 +66,19 @@ class SendDevAction extends Action {
 		
 		
 		$model = new Model();
+		$dev_status = new Model("DevStatus");
 		while(true){
 			$sql_dev = "
-					SELECT a.*,b.rule_no FROM qd_device a
-					LEFT JOIN rule_send b ON b.target_num LIKE CONCAT('3-',a.channel_id,',') AND b.rule_status = 2
-					LEFT JOIN app_upgrade c ON c.target_num LIKE CONCAT('3-',a.channel_id,',') AND c.status = 1
+					SELECT * FROM qd_device a
 					WHERE a.isDelete = 0
 					";
+					/*
+					LEFT JOIN rule_send b ON b.target_num LIKE CONCAT('3-',a.channel_id,',') AND b.rule_status = 2
+					LEFT JOIN app_upgrade c ON c.target_num LIKE CONCAT('3-',a.channel_id,',') AND c.status = 1
+					*/
 			$que_dev = $model->query($sql_dev);
 			foreach ($que_dev as $k=>$v){
+				//发送机器状态请求
 				$dev_status = "DEV_STATUS:".$this->getNewSendNum().",dev_uid:".$v['device_no'].",dev_mac:".$v['MAC'].",above_screen,touch_screen,conn_line_1,conn_line_2,conn_line_3,boot_time_length,boot_times,vol,cpu_usage,cpu,mem_usage,mem,disk_usage,disk,wifi,station_3g,wifi_conn_num,station_3g_flow,wifi_send_flow,wifi_recv_flow,conn_line_1_send,conn_line_1_recv,conn_line_2_send,conn_line_2_recv,conn_line_3_send,conn_line_3_recv,station_system,station_client,poweron_time,poweroff_time;";
 				socket_write ( $socket, $dev_status, strlen ( $dev_status ) );
 				//获取返回各属性值数组
@@ -71,7 +93,7 @@ class SendDevAction extends Action {
 				$poweron_time = $this->getAttributeVal($getStrArr,"poweron_time");
 				//关机时间
 				$poweroff_time = $this->getAttributeVal($getStrArr,"poweroff_time");
-				
+				/*
 				//上屏程序版本
 				$adpg_ver = "1";
 				$adpg_info = "ADPG_INFO:".$this->getNewSendNum().",dev_uid:".$v['device_no'].",dev_mac:".$v['MAC'].",adpg_ver:$adpg_ver;";
@@ -89,39 +111,55 @@ class SendDevAction extends Action {
 				$getStrArr = $this->getRespArr($socket,131072);
 				//实际中屏程序版本号
 				$sapg_ver_x = $this->getAttributeVal($getStrArr,"sapg_ver_x");
+				*/
 				
-				
-				
-				self::$devInfoArr[$v['device_no']] = array();
 				//默认0是正常
-				self::$devInfoArr[$v['device_no']]['poweron_time'] = 0;
-				self::$devInfoArr[$v['device_no']]['poweroff_time'] = 0;
-				self::$devInfoArr[$v['device_no']]['station_system'] = 0;
-				self::$devInfoArr[$v['device_no']]['adpg_ver_x'] = 0;
-				self::$devInfoArr[$v['device_no']]['sapg_ver_x'] = 0;
-				
-				//判断开机是否正常
-				$normalOnTime1 =  $v['power_on_time'] - 60*30;
-				$normalOnTime2 =  $v['power_on_time'] + 60*15;
-				if($poweron_time < $normalOnTime1 || $poweron_time > $normalOnTime2 ){
-					self::$devInfoArr[$v['device_no']]['poweron_time'] = 1;
-				}
-				//判断关机是否正常
-				$normalOffTime1 = $v['power_off_time'] - 60*30;
-				$normalOffTime2 =  $v['power_off_time'] + 60*15;
-				if($poweroff_time < $normalOffTime1 || $poweroff_time > $normalOffTime2 ){
-					self::$devInfoArr[$v['device_no']]['poweroff_time'] = 1;
-				}
 				//判断系统是否正常
 				if($station_system != 0){
-					self::$devInfoArr[$v['device_no']]['station_system'] = 1;
+					$data = array();
+					$data['dev_uid'] = $v['device_no'];
+					$data['dev_mac'] = $v['MAC'];
+					$data['btype_id'] = $this->onLine;
+					$data['status'] = 1;
+					$data['return_time'] = time();
+					$data['createtime'] = time();
+					$dev_status->add($data);
 				}
+				
+				/*
+				 //判断开机是否正常
+				$normalOnTime1 =  $v['power_on_time'] - $this->powerLessTime;
+				$normalOnTime2 =  $v['power_on_time'] + $this->powerMoreTime;
+				if($poweron_time < $normalOnTime1 || $poweron_time > $normalOnTime2 ){
+				$data = array();
+				$data['dev_uid'] = $v['device_no'];
+				$data['dev_mac'] = $v['MAC'];
+				$data['btype_id'] = $this->powerOn;
+				$data['status'] = 1;
+				$data['return_time'] = time();
+				$data['createtime'] = time();
+				$dev_status->add($data);
+				}
+				//判断关机是否正常
+				$normalOffTime1 = $v['power_off_time'] - $this->powerLessTime;
+				$normalOffTime2 =  $v['power_off_time'] + $this->powerMoreTime ;
+				if($poweroff_time < $normalOffTime1 || $poweroff_time > $normalOffTime2 ){
+				$data = array();
+				$data['dev_uid'] = $v['device_no'];
+				$data['dev_mac'] = $v['MAC'];
+				$data['btype_id'] = $this->powerOff;
+				$data['status'] = 1;
+				$data['return_time'] = time();
+				$data['createtime'] = time();
+				$dev_status->add($data);
+				}
+				*/
 			}
-			sleep(60*10);
+			sleep($this->callTime);
 		}
 
 		
-		
+		/*
 		//心跳包
 		$enquire_link = "ENQUIRE_LINK:".$this->getNewSendNum().";";
 		socket_write ( $socket, $enquire_link, strlen ( $enquire_link ) );
@@ -132,9 +170,18 @@ class SendDevAction extends Action {
 		if($enquire_link_resp != self::$sendNum){
 			return;
 		}
-
+		*/
 		socket_close ( $socket );
 	}
+	
+	//获取发送序号
+	function getNewSendNum(){
+		self::$sendNum++;
+		return self::$sendNum;
+	}
+	
+	
+	
 	//给定字符串数组，获取指定属性的值
 	function getAttributeVal($getStrArr,$attribute){
 		foreach($getStrArr as $k=>$v){

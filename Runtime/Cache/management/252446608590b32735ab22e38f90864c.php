@@ -393,21 +393,26 @@
 <div class="alert-org-add" id="j_add_win" style=" display:none;">
     <div class="verup-alert-add">
         <form action="" method="post">
-            <h3>刊例信息</h3>
+            <h3>版本信息</h3>
             <div class="verup-alert-con">
                 <div class="verup-alert-con-left">
                     <p>
-                        <label for="main-pg">主程序</label>
+                        <label for="main-pg">SmartApp</label>
                         <input type="text" name="" id="main-pg" class="input-org-info"/>
                         <button class="role-control-btn">浏览</button>
                     </p>
                     <p>
-                        <label for="main-pg">主程序</label>
+                        <label for="main-pg">VideoPlayer</label>
                         <input type="text" name="" id="main-pg" class="input-org-info"/>
                         <button class="role-control-btn">浏览</button>
                     </p>
                     <p>
-                        <label for="main-pg">主程序</label>
+                        <label for="main-pg">UpdateApp</label>
+                        <input type="text" name="" id="main-pg" class="input-org-info"/>
+                        <button class="role-control-btn">浏览</button>
+                    </p>
+                    <p>
+                        <label for="main-pg">SmartGuard</label>
                         <input type="text" name="" id="main-pg" class="input-org-info"/>
                         <button class="role-control-btn">浏览</button>
                     </p>
@@ -433,21 +438,26 @@
 <div class="alert-org-add" id="j_edit_win" style=" display:none;">
     <div class="verup-alert-add">
         <form action="" method="post">
-            <h3>刊例信息</h3>
+            <h3>版本信息</h3>
             <div class="verup-alert-con">
                 <div class="verup-alert-con-left">
                     <p>
-                        <label for="main-pg">主程序</label>
+                        <label for="main-pg">SmartApp</label>
                         <input type="text" name="" id="main-pg" class="input-org-info"/>
                         <button class="role-control-btn">浏览</button>
                     </p>
                     <p>
-                        <label for="main-pg">主程序</label>
+                        <label for="main-pg">VideoPlayer</label>
                         <input type="text" name="" id="main-pg" class="input-org-info"/>
                         <button class="role-control-btn">浏览</button>
                     </p>
                     <p>
-                        <label for="main-pg">主程序</label>
+                        <label for="main-pg">UpdateApp</label>
+                        <input type="text" name="" id="main-pg" class="input-org-info"/>
+                        <button class="role-control-btn">浏览</button>
+                    </p>
+                    <p>
+                        <label for="main-pg">SmartGuard</label>
                         <input type="text" name="" id="main-pg" class="input-org-info"/>
                         <button class="role-control-btn">浏览</button>
                     </p>

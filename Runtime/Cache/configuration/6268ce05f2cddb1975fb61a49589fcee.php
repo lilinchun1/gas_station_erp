@@ -6,6 +6,11 @@
 	<!--<link rel="stylesheet" href="../../Public/css/configuration.css"/>-->
 	<link rel="stylesheet" href="	__PUBLIC__/css/configuration.css"/>
 	<script type="text/javascript" src="__PUBLIC__/js/jquery-1.10.2.min.js"></script>
+    <style>
+        .role-table-list{
+            min-width: 1250px;
+        }
+    </style>
 </head>
 <body>
 <div class="head-wrap">

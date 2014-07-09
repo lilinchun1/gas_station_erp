@@ -78,20 +78,20 @@
                 <label for="channel-org-name" class="">网点名称&nbsp;&nbsp;&nbsp;</label>
                 <input type="text" name="place_name_txt" id="place_name_txt" autocomplete="off" value="<?php echo ($_GET['place_name_txt']); ?>" 
 					class="input-org-info"/>
-                <label for="channel-ss-are" class="">所属区域</label>
+                <label for="channel-ss-are" class="">所属区域</label>&nbsp;
                  <span id="select_showcity"></span>
                 <script type="text/javascript">
                     showprovince("select_province", "select_city", "<?php echo ($_GET['select_province']); ?>", "select_showcity");
                     showcity("select_city", "<?php echo ($_GET['select_city']); ?>", "select_province", "select_showcity");
                 </script>
-                <label for="channel-ss-channel" class="">所属渠道</label>
+                <label for="channel-ss-channel" class="">所属渠道</label>&nbsp;
                 <input type="text" name="channel_name_txt" id="channel_name_txt" autocomplete="off" value="<?php echo ($_GET['channel_name_txt']); ?>"
 					class="input-org-info"/>
    
                 <label for="channel-org-name" class="">测试结束期</label>
                 <input type="text" name="select_test_end_time_1" id="select_test_end_time_1" class="input-org-info"
                        value="<?php echo ($_GET['select_test_end_time_1']); ?>" onClick="WdatePicker()"/>
-				&nbsp;&nbsp;--&nbsp;&nbsp;
+				&nbsp;&nbsp;&nbsp;--&nbsp;&nbsp;&nbsp;
 				<input type="text" name="select_test_end_time_2" id="select_test_end_time_2" class="input-org-info"
                        value="<?php echo ($_GET['select_test_end_time_2']); ?>" onClick="WdatePicker()"/>
                 <label for="channel-state" class="">网点状态</label>
