@@ -20,6 +20,8 @@ class IndexAction extends Action {
 	 * @return mixed
 	 */
 	function index() {
+		//供菜单给当前页面加样式
+		$this->assign('nowUrl', "statistics/Index/index");
 		$this->display(':statistics_index');
 	}
 	

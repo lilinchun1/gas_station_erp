@@ -59,7 +59,8 @@
 				<div id="demo2" class="jcSlider">
 					<ul class="imgList">
 						<li><a><img src="__PUBLIC__/image/pic/lun_1.png" alt="图片一" /></a></li>
-						<li><a><img src="__PUBLIC__/image/pic/c4abb1b84dc468f3da68c37898e18f09.png" alt="图片二" /></a></li>
+						<li><a><img src="__PUBLIC__/image/pic/lun_2.png" alt="图片二" /></a></li>
+						<li><a><img src="__PUBLIC__/image/pic/c4abb1b84dc468f3da68c37898e18f09.png" alt="图片三" /></a></li>
 						<!--<li><a><img src="__PUBLIC__/image/pic/5b387eab0c69dc3da4a51b6f4fb8576b.png" alt="图片三" /></a></li>
 						<li><a><img src="__PUBLIC__/image/pic/a96bf5b093e42062f8d60357a3113ae2.png" alt="图片四" /></a></li>-->
 					</ul>

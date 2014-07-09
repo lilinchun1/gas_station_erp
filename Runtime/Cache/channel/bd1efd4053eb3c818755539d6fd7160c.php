@@ -26,8 +26,8 @@
 		  opacity: 0;
 		  clear:left;
 	}
-        .head-wrap,#footer{
-           max-width: 1660px;
+        .head-wrap,#head,#footer{
+           min-width: 1660px;
         }
 	</style>
 <script type="text/javascript" src="__PUBLIC__/js/jquery-1.10.2.min.js"></script>
@@ -197,7 +197,7 @@
 <div id="change_password_id" style="display:none;">
     <div class="alert-role-add" >
     <h3>修改密码</h3>
-    <div class="alert-role-add-con">
+    <div class="alert-role-add-con pdl50">
         <p>
             <label for="old_password_txt" class="role-lab">旧密码&nbsp;&nbsp;&nbsp;</label>
             <input type="password" name="old_password_txt" id="old_password_txt" class="input-role-name"/>
@@ -211,7 +211,7 @@
             <input type="password" name="re_new_password_txt" id="re_new_password_txt" class="input-role-name"/>
         </p>
         <p>
-            <button type="button" class="alert-btn2" onclick="change_password()">修改密码</button>
+            <button type="button" class="alert-btn3" onclick="change_password()">修改密码</button>
 			<a href="." class="closeDOMWindow">
 				<button type="button" class="alert-btn2">关闭</button>
 			</a>

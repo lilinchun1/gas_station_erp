@@ -303,7 +303,7 @@ $heiti:"SimHei";
       &:after{content: ">";
         position: absolute;
         top: 0;
-        right: 50px;
+        right: 20px;
         width: 20px;
         height: 40px;
         display: block;
@@ -1145,7 +1145,7 @@ $heiti:"SimHei";
 }
 .role-inquire{
   min-width: $min-width-kuang2;
-  padding: 0 40px;
+  padding: 0 30px;
 }
 input.input-org-info,input.channel-select{
   margin-bottom: 5px;}
@@ -1422,7 +1422,8 @@ input.input-org-info,input.channel-select{
   }
 }
 
-.default-tw-tt h1,.default-tw-tt h2,.news-left b,.news-right b{
+.default-tw-tt h1,.default-tw-tt h2,{
   color: #6c6c6c;}
-.news-right b{
+.news-left b,.news-right b{
+  font-weight: normal;
   font-size: 18px;}

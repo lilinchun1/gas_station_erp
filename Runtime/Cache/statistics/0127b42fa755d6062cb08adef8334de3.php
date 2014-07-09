@@ -3,8 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <title>渠道信息</title>
-    <!--<link rel="stylesheet" href="../../Public/css/configuration.css"/>-->
     <link rel="stylesheet" href="__PUBLIC__/css/configuration.css"/>
+	<script type="text/javascript" src="__PUBLIC__/js/jquery-1.10.2.min.js"></script>
+	<script type="text/javascript" src="__PUBLIC__/js/jquery.SuperSlide.2.1.1.js"></script>
+	<script type="text/javascript" src="__PUBLIC__/js/My97DatePicker/WdatePicker.js"></script>
     <style>
         #head,.head-wrap,#footer{
             min-width: 990px;
@@ -51,7 +53,8 @@
 <ul class="aside-nav">
     <li class="aside-nav-nth1"><a>统计分析<i class="j-show-list">-</i></a>
         <ul>
-            <li class="url_link" url=""><a href=""><input type="button" value="统计分析1"></a></li>
+            <li class="url_link" url="<?php echo U('statistics/Index/index');?>"><a href="<?php echo U('statistics/Index/index');?>"><input type="button" value="运营分析"></a></li>
+            <li class="url_link" url=""><a href=""><input type="button" value="安装量分析"></a></li>
         </ul>
     </li>
 </ul>
@@ -132,7 +135,7 @@
                                 </div>
                                 <div class="role-table w66p">
                                     <div class="data-log">
-                                        <h3>安装量汇总<input type="submit" class="role-control-btn" value="导出" /></h3>
+                                        <h3>安装量明细<input type="submit" class="role-control-btn" value="导出" /></h3>
 
                                     </div>
                                     <ul class="statistics-list">

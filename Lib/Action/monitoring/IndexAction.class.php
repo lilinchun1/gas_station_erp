@@ -4,6 +4,7 @@ class IndexAction extends Action {
 	public $uid = 0;
 	function __construct(){
 		parent::__construct();
+		//SendDevAction::getNewSendNum();
 		echo SendDevAction::$sendNum;exit;
 		
 		
