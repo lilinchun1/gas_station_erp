@@ -494,6 +494,13 @@ $(function () {
                 categories: ['1月份', '2月份', '3月份', '4月份', '5月份', '6月份',
                     '7月份', '8月份', '9月份', '10月份', '11月份', '12月份']
             }],
+			lang: {
+				printChart:"打印图表",
+				downloadJPEG:"下载JPEG格式图片",
+				downloadPDF:"下载PDF格式文件",
+				downloadPNG:"下载PNG格式图片",
+				downloadSVG:"下载SVG格式文件"
+			},
             yAxis: [{ // Primary yAxis
                 labels: {
                     format: '{value}%',
@@ -515,7 +522,7 @@ $(function () {
                     }
                 },
                 labels: {
-                    format: '{value} ',
+                    format: '{value}个',
                     style: {
                         color: Highcharts.getOptions().colors[0]
                     }
@@ -540,7 +547,7 @@ $(function () {
                 yAxis: 1,
                 data: [49.9, 71.5, 106.4, 129.2, 144.0, 176.0, 135.6, 148.5, 216.4, 194.1, 95.6, 54.4],
                 tooltip: {
-                    valueSuffix: ' '
+                    valueSuffix: '个'
                 }
 				
     
@@ -550,7 +557,7 @@ $(function () {
                 yAxis: 1,
                 data: [49.9, 71.5, 106.4, 129.2, 144.0, 176.0, 135.6, 148.5, 216.4, 194.1, 95.6, 54.4],
                 tooltip: {
-                    valueSuffix: ' '
+                    valueSuffix: '个'
                 },
 				visible: false//默认隐藏
             },
@@ -560,7 +567,7 @@ $(function () {
                 yAxis: 1,
                 data: [49.9, 71.5, 106.4, 129.2, 144.0, 176.0, 135.6, 148.5, 216.4, 194.1, 95.6, 54.4],
                 tooltip: {
-                    valueSuffix: ' '
+                    valueSuffix: '个'
                 },
 				visible: false//默认隐藏
             },{
@@ -613,6 +620,13 @@ $(function () {
 			   '#c42525', 
 			   '#a6c96a'
 		 ],
+		lang: {
+			printChart:"打印图表",
+			downloadJPEG:"下载JPEG格式图片",
+			downloadPDF:"下载PDF格式文件",
+			downloadPNG:"下载PNG格式图片",
+			downloadSVG:"下载SVG格式文件"
+		},
         title: {
             text: '安装量类型分析'
         },
@@ -640,7 +654,7 @@ $(function () {
             ]
         }]
     });
-		//平均安装量
+	//平均安装量
 	$('#avg_container').highcharts({
 		chart: {
             type: 'area'
@@ -653,8 +667,21 @@ $(function () {
 			min: 0,
 			title: {
 				text: '平均安装量'
+			},
+			labels: {
+				format: '{value}个',
+				style: {
+					color: Highcharts.getOptions().colors[0]
+				}
 			}
         },
+		lang: {
+			printChart:"打印图表",
+			downloadJPEG:"下载JPEG格式图片",
+			downloadPDF:"下载PDF格式文件",
+			downloadPNG:"下载PNG格式图片",
+			downloadSVG:"下载SVG格式文件"
+		},
 		colors:[
 			'#77a1e5',//第一个颜色
 			'#f15c80',//第二个颜色
@@ -669,16 +696,14 @@ $(function () {
         title: {
             text: '平均安装量分析'
         },
-		labels: {
-			format: '{value} ',
-			style: {
-				color: Highcharts.getOptions().colors[0]
-			}
-		},
+
         series: [{
             type: 'area',
             name: '平均总安装量',
             data: [17.0, 26.9, 39.5, 44.5, 28.2, 11.5, 15.2, 26.5, 33.3, 48.3, 53.9, 19.6],
+			tooltip: {
+                    valueSuffix: '个'
+            }
         }]
     });
 	//top10
@@ -689,19 +714,32 @@ $(function () {
 		title: {
 			text: '平均安装量排名'
 		},
+		lang: {
+			printChart:"打印图表",
+			downloadJPEG:"下载JPEG格式图片",
+			downloadPDF:"下载PDF格式文件",
+			downloadPNG:"下载PNG格式图片",
+			downloadSVG:"下载SVG格式文件"
+		},
 		xAxis: {
 			categories: ['大连', '北京', '鞍山', '长春', '哈尔滨','济南','天津','重庆','桂林','宁夏']
 		},
 		yAxis: {
 			title: {
 				text: ''
+			},
+			labels: {
+				format: '{value}个',
+				style: {
+					color: Highcharts.getOptions().colors[0]
+				}
 			}
 		},
 		legend: {
 			reversed: true
 		},
 		labels: {
-			format: '{value} ',
+			format: '{value}',
 			style: {
 				color: Highcharts.getOptions().colors[0]
 			}
@@ -713,7 +751,10 @@ $(function () {
 		},
 			series: [{
 			name: '平均安装量',
-			data: [50, 40, 35, 30, 25,20,18,15,10,5]
+			data: [50, 40, 35, 30, 25,20,18,15,10,5],
+			tooltip: {
+               valueSuffix: '个'
+            }
 		}]
 	});
 	jQuery(".role-table").slide({trigger:"click"});

@@ -47,19 +47,21 @@
                 <label for="channel-ss-channel" class="">所属渠道</label>&nbsp;
                 <input type="text" name="channel_name_txt" id="channel_name_txt" autocomplete="off" value="{$_GET['channel_name_txt']}"
 					class="input-org-info"/>
-   
-                <label for="channel-org-name" class="">测试结束期</label>
-                <input type="text" name="select_test_end_time_1" id="select_test_end_time_1" class="input-org-info"
-                       value="{$_GET['select_test_end_time_1']}" onClick="WdatePicker()"/>
-				&nbsp;&nbsp;&nbsp;--&nbsp;&nbsp;&nbsp;
-				<input type="text" name="select_test_end_time_2" id="select_test_end_time_2" class="input-org-info"
-                       value="{$_GET['select_test_end_time_2']}" onClick="WdatePicker()"/>
                 <label for="channel-state" class="">网点状态</label>
                 <select name="place_state_sel" id="place_state_sel" class="channel-select-min">
-                   <option value="" <if condition="$_GET['place_state_sel'] eq ''">selected="selected"</if>>全部</option>
-					<option value="test" <if condition="$_GET['place_state_sel'] eq 'test'">selected="selected"</if>>测试期</option>
-					<option value="use" <if condition="$_GET['place_state_sel'] eq 'use'">selected="selected"</if>>启用</option>
+                    <option value="" <if condition="$_GET['place_state_sel'] eq ''">selected="selected"</if>>全部</option>
+                    <option value="test" <if condition="$_GET['place_state_sel'] eq 'test'">selected="selected"</if>>测试期</option>
+                    <option value="use" <if condition="$_GET['place_state_sel'] eq 'use'">selected="selected"</if>>启用</option>
                 </select>
+            </p>
+            <p>
+
+                <label for="channel-org-name" class="">测试结束期</label>
+                <input type="text" name="select_test_end_time_1" id="select_test_end_time_1" class="input-org-info"
+                value="{$_GET['select_test_end_time_1']}" onClick="WdatePicker()"/>
+                &nbsp;&nbsp;&nbsp;--&nbsp;&nbsp;&nbsp;
+                <input type="text" name="select_test_end_time_2" id="select_test_end_time_2" class="input-org-info"
+                value="{$_GET['select_test_end_time_2']}" onClick="WdatePicker()"/>
 				<input type="text" name="select_del_flag_txt" id="select_del_flag_txt" value="0" style="display:none;"/>
                 <input type="submit" class="role-control-btn" value="查询"/>
             </p>

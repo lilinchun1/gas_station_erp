@@ -87,19 +87,21 @@
                 <label for="channel-ss-channel" class="">所属渠道</label>&nbsp;
                 <input type="text" name="channel_name_txt" id="channel_name_txt" autocomplete="off" value="<?php echo ($_GET['channel_name_txt']); ?>"
 					class="input-org-info"/>
-   
-                <label for="channel-org-name" class="">测试结束期</label>
-                <input type="text" name="select_test_end_time_1" id="select_test_end_time_1" class="input-org-info"
-                       value="<?php echo ($_GET['select_test_end_time_1']); ?>" onClick="WdatePicker()"/>
-				&nbsp;&nbsp;&nbsp;--&nbsp;&nbsp;&nbsp;
-				<input type="text" name="select_test_end_time_2" id="select_test_end_time_2" class="input-org-info"
-                       value="<?php echo ($_GET['select_test_end_time_2']); ?>" onClick="WdatePicker()"/>
                 <label for="channel-state" class="">网点状态</label>
                 <select name="place_state_sel" id="place_state_sel" class="channel-select-min">
-                   <option value="" <?php if($_GET['place_state_sel'] == ''): ?>selected="selected"<?php endif; ?>>全部</option>
-					<option value="test" <?php if($_GET['place_state_sel'] == 'test'): ?>selected="selected"<?php endif; ?>>测试期</option>
-					<option value="use" <?php if($_GET['place_state_sel'] == 'use'): ?>selected="selected"<?php endif; ?>>启用</option>
+                    <option value="" <?php if($_GET['place_state_sel'] == ''): ?>selected="selected"<?php endif; ?>>全部</option>
+                    <option value="test" <?php if($_GET['place_state_sel'] == 'test'): ?>selected="selected"<?php endif; ?>>测试期</option>
+                    <option value="use" <?php if($_GET['place_state_sel'] == 'use'): ?>selected="selected"<?php endif; ?>>启用</option>
                 </select>
+            </p>
+            <p>
+
+                <label for="channel-org-name" class="">测试结束期</label>
+                <input type="text" name="select_test_end_time_1" id="select_test_end_time_1" class="input-org-info"
+                value="<?php echo ($_GET['select_test_end_time_1']); ?>" onClick="WdatePicker()"/>
+                &nbsp;&nbsp;&nbsp;--&nbsp;&nbsp;&nbsp;
+                <input type="text" name="select_test_end_time_2" id="select_test_end_time_2" class="input-org-info"
+                value="<?php echo ($_GET['select_test_end_time_2']); ?>" onClick="WdatePicker()"/>
 				<input type="text" name="select_del_flag_txt" id="select_del_flag_txt" value="0" style="display:none;"/>
                 <input type="submit" class="role-control-btn" value="查询"/>
             </p>

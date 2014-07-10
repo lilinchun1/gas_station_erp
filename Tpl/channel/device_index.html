@@ -49,6 +49,13 @@
     <div class="role-inquire channel-index-btns">
         <form name="deviceSelect" method="get" action="{:U('channel/Device/deviceSelect')}">
             <p>
+                <label for="channel-class1" class="">区域</label>
+                <select name="channel_first_type_sel" id="channel-class1" class="channel-select-min">
+                    <option value="">省份</option>
+                </select>
+                <select name="channel_second_type_sel" id="channel_second_type_sel" class="channel-select-min">
+                    <option value="">城市</option>
+                </select>
                 <label for="device-drive-id" class="">设备编号</label>
                 <input type="text" name="device_no_txt" id="device_no_txt" value="{$_GET['device_no_txt']}" class="input-org-info"/>
                 <label for="mac1" class="">MAC</label>
@@ -66,6 +73,12 @@
                 </select>
                 <label for="channel-ss-channel" class="">所属网点</label>
                 <input type="text" name="place_name_txt" id="place_name_txt" value="{$_GET['place_name_txt']}" class="input-org-info"/>
+            </p>
+            <p>
+                <label for="channel-ss-channel" class="">SIM卡号</label>
+                <input type="text" name="place_name_txt" id="place_name_txt" value="" class="input-org-info"/>
+                <label for="channel-ss-channel" class="">首次启用日期</label>
+                <input type="text" name="place_name_txt" id="place_name_txt" value="" class="input-org-info"/>
 				<input type="text" name="select_del_flag_txt" id="select_del_flag_txt" value="0" style="display:none;"/>
                 <input type="submit" class="role-control-btn" value="查询"/>
             </p>
@@ -161,10 +174,10 @@
     <div class="alert-user-add-con ">
         <form action="">
             <p>
+
                 <label for="channel-addname" class="role-lab">加油站编号</label>
                 <input type="text" name="add_device_no_txt" id="add_device_no_txt" class="input-role-name"/>
                 <i class="red-color pdl10">*</i>
-
                 <label for="mac1" class="">MAC&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
                 <input type="text" name="" id="add_mac1" class="input-mac" onkeyup="value=value.replace(/[^\w\.\/]/ig,'')" maxlength="2"/>-
                 <input type="text" name="" id="add_mac2" class="input-mac" onkeyup="value=value.replace(/[^\w\.\/]/ig,'')" maxlength="2"/>-
@@ -225,7 +238,19 @@
                 <input type="date" name="add_power_off_time_sel" id="add_power_off_time_sel" class="input-org-info" 
 					style="margin-top: 0;" onClick="WtimePicker()" readonly="readonly"/>
             </p>
-
+            <p>
+                <label for="channel-addname" class="role-lab">SIM卡卡号</label>
+                <input type="text" name="add_device_no_txt" id="" class="input-role-name"/>
+                <i class="red-color pdl10">*</i>
+                <label for="channel-addname" class="role-lab">手机号码</label>
+                <input type="text" name="add_device_no_txt" id="" class="input-role-name"/>
+                <i class="red-color pdl10">*</i>
+            </p>
+            <p>
+                <label for="channel-addname" class="role-lab">首次启用日期</label>
+                <input type="text" name="add_device_no_txt" id="" class="input-role-name"/>
+                <i class="red-color pdl10">*</i>
+            </p>
             <div class="device-point-pic">
                 <h4>点位照片</h4>
                 <form action="" id="imageForm" enctype="multipart/form-data" method="POST">
@@ -321,7 +346,19 @@
                 <input type="date" name="change_power_off_time_sel" id="change_power_off_time_sel" class="input-org-info" 
 					style="margin-top: 0;" onClick="WtimePicker()" readonly="readonly"/>
             </p>
-
+            <p>
+                <label for="channel-addname" class="role-lab">SIM卡卡号</label>
+                <input type="text" name="add_device_no_txt" id="" class="input-role-name"/>
+                <i class="red-color pdl10">*</i>
+                <label for="channel-addname" class="role-lab">手机号码</label>
+                <input type="text" name="add_device_no_txt" id="" class="input-role-name"/>
+                <i class="red-color pdl10">*</i>
+            </p>
+            <p>
+                <label for="channel-addname" class="role-lab">首次启用日期</label>
+                <input type="text" name="add_device_no_txt" id="" class="input-role-name"/>
+                <i class="red-color pdl10">*</i>
+            </p>
             <div class="device-point-pic">
                 <h4>点位照片</h4>
                 <form action="" id="imageForm" enctype="multipart/form-data" method="POST">
@@ -554,12 +591,8 @@
 			var reg1 = /^[A-Fa-f0-9]{1,2}\-[A-Fa-f0-9]{1,2}\-[A-Fa-f0-9]{1,2}\-[A-Fa-f0-9]{1,2}\-[A-Fa-f0-9]{1,2}\-[A-Fa-f0-9]{1,2}$/;
 			var reg2 = /^[A-Fa-f0-9]{1,2}\:[A-Fa-f0-9]{1,2}\:[A-Fa-f0-9]{1,2}\:[A-Fa-f0-9]{1,2}\:[A-Fa-f0-9]{1,2}\:[A-Fa-f0-9]{1,2}$/;
 
-			if (reg1.test(add_mac_txt)) {
-
-			} else if (reg2.test(add_mac_txt)) {
-
-			} else {
-				alert("验证码输入有误");
+			if (!reg1.test(add_mac_txt)) {
+				alert("MAC地址输入有误");
 				return false;
 			}
 			var add_place_name_txt=$("#add_place_name_txt").val();//所属网点
@@ -627,13 +660,9 @@
 			//MAC验证
 			var reg1 = /^[A-Fa-f0-9]{1,2}\-[A-Fa-f0-9]{1,2}\-[A-Fa-f0-9]{1,2}\-[A-Fa-f0-9]{1,2}\-[A-Fa-f0-9]{1,2}\-[A-Fa-f0-9]{1,2}$/;
 			var reg2 = /^[A-Fa-f0-9]{1,2}\:[A-Fa-f0-9]{1,2}\:[A-Fa-f0-9]{1,2}\:[A-Fa-f0-9]{1,2}\:[A-Fa-f0-9]{1,2}\:[A-Fa-f0-9]{1,2}$/;
-
-			if (reg1.test(add_mac_txt)) {
-
-			} else if (reg2.test(add_mac_txt)) {
-
-			} else {
-				alert("验证码输入有误");
+			//alert(change_mac_txt);
+			if (!reg1.test(change_mac_txt)) {
+				alert("MAC地址输入有误");
 				return false;
 			}
 			var change_place_name_txt=$("#change_place_name_txt").val();//所属网点

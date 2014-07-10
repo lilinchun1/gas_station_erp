@@ -21,16 +21,43 @@ class IndexAction extends Action {
 	 */
 	function station(){
 		$model = new Model();
-		$breakSql = "
-				SELECT * FROM (SELECT * FROM (SELECT * FROM dev_status WHERE btype_id IN (101,102) ORDER BY id DESC) a GROUP BY dev_mac,btype_id ORDER BY dev_mac,btype_id) a
-				LEFT JOIN qd_device b ON a.dev_uid = b.device_no
+		//获取最近保存时间
+		$lastTimeSql = "
+				SELECT MAX(createtime) last_time FROM dev_monitor
 				";
-		$breakQue = $model->query($breakSql);
+		$lastTimeQue = $model->query($lastTimeSql);
+		$lastTime = $lastTimeQue[0]['last_time'];
+		//最近一次所有有问题机器
+		$allBreakSql = "
+				SELECT a.*,b.province,b.city,b.address FROM dev_monitor a
+				LEFT JOIN qd_device b ON a.dev_mac = b.MAC
+				WHERE createtime = $lastTime
+		";
+		$allBreakQue = $model->query($allBreakSql);
 		
+		//硬件有问题数量
+		$devBreakNum = 0;
+		//硬件有问题机器数组
+		$devBreakArr = array();
+		foreach($allBreakQue as $k=>$v){
+			if(($v['on_line'] == 1) || ($v['start_time'] == 1) || ($v['shutdown_time'] == 1)){
+				$devBreakNum++;
+				$devBreakArr[] = $v;
+			}
+		}
+		//查找所有机器数量
+		$countDevSql = "select count(*) all_num from qd_device where isDelete = 0";
+		$countDevQue = $model->query($countDevSql);
+		$allDevNum = $countDevQue[0]['all_num'];
+		//硬件运作正常数量
+		$devRightNum = $allDevNum - $devBreakNum;
 		
+		$this->assign('devRightNum',$devRightNum);
+		$this->assign('devBreakNum',$devBreakNum);
+		$this->assign('devBreakArr',$devBreakArr);
 		$this->display(':station_index');
 	}
-	
+
 	/**
 	 * alert预警设置
 	 * @param 

@@ -4,6 +4,9 @@
     <meta charset="UTF-8">
     <title>监控平台</title>
     <link rel="stylesheet" href="__PUBLIC__/css/configuration.css"/>
+    <script type="text/javascript" src="__PUBLIC__/js/jquery-1.10.2.min.js"></script>
+	<script type="text/javascript" src="__PUBLIC__/js/jquery.SuperSlide.2.1.1.js"></script>
+	<script type="text/javascript" src="__PUBLIC__/js/My97DatePicker/WdatePicker.js"></script>
 </head>
 <body>
 <div class="head-wrap">
@@ -41,7 +44,7 @@
     <div class="left">
         
 <ul class="aside-nav">
-    <li class="aside-nav-nth1 url_link" url=""><a>加油站监控<i class="j-show-list">-</i></a>
+    <li class="aside-nav-nth1 url_link" url=""><a>监控<i class="j-show-list">-</i></a>
         <ul>
             <li class="url_link" url=""><a href=""><input  type="button"  value="监控平台" ></a></li>
             <li class="url_link" url=""><a href=""><input type="button" class="" value="监控设置" ></a></li>
@@ -49,12 +52,6 @@
         </ul>
     </li>
 </ul>
-        <!--<ul class="aside-nav">
-            <li class="aside-nav-nth1"><a href="">加油站监控</a></li>
-            <li class="active"><a href=""><input  type="button"  value="监控平台" ></a></li>
-            <li><a href=""><input type="button" class="" value="预警设置" ></a></li>
-            <li><a href=""><input type="button" class="" value="异常记录" ></a></li>
-        </ul>-->
     </div>
     <div class="right">
         <div class="right-con">
@@ -65,8 +62,8 @@
                             <h4>系统监控</h4>
                             <span><img src="__PUBLIC__/image/6.png" alt=""/></span>
                             <dl class="station-zhuangtai">
-                                <dt><b class="icon-checkmark-circle green-color"></b><em>10000</em></dt>
-                                <dt><b class="icon-cancel-circle red-color"></b><em>20</em></dt>
+                                <dt><b class="icon-checkmark-circle green-color"></b><em><?php echo ($devRightNum); ?></em></dt>
+                                <dt><b class="icon-cancel-circle red-color"></b><em><?php echo ($devBreakNum); ?></em></dt>
                             </dl>
                         </li>
                         <li>
@@ -125,81 +122,83 @@
 
                 </div>
                 <ul class="station-state-list-con">
-                    <li>
-                        <div class="station-state-info">
-                            <em>报警时间 ：  2014-05-11   12：20</em>
-                            <em>报警时长  ： 6小时20分</em>
-                            <em>辽宁省  大连市  高新园区  黄浦路A   万达影城     网点B</em>
-                        </div>
-                        <!--<div class="point-pic">
-                            <span><img src="__PUBLIC__/image/1.jpg" alt=""/></span>
-                            <em>万达影城</em>
-                        </div>-->
-                        <div class="station-state-dl">
-                            <div class="row-lt">
-                                <span class="row-lt-l">
-                                    <em>在线状态</em>
-                                    <span class="icon-checkmark green-color"></span>
-                                </span>
-                                <span class="row-lt-l">
-                                    <em>正常开机</em>
-                                    <span class="icon-checkmark green-color"></span>
-                                </span>
-                                <span class="row-lt-l">
-                                    <em>正常关机</em>
-                                    <span class="icon-checkmark green-color"></span>
-                                </span>
-                            </div>
-                            <div class="row-lt">
-                                <span class="row-lt-l">
-                                    <em>APP刊例</em>
-                                    <span class="icon-close red-color"></span>
-                                </span>
-                                <span class="row-lt-l">
-                                    <em>上屏程序版本</em>
-                                    <span class="icon-checkmark green-color"></span>
-                                </span>
-                                <span class="row-lt-l">
-                                    <em>下屏程序版本</em>
-                                    <span class="icon-close red-color"></span>
-                                </span>
-                            </div>
-                            <div class="row-lt">
-                                <span class="row-lt-l">
-                                    <em class="ccc-color">中屏状态</em>
-                                    <span class="icon-spam yellow-color"></span>
-                                </span>
-                                <span class="row-lt-l">
-                                    <em class="ccc-color">上屏状态</em>
-                                    <span class="icon-spam yellow-color"></span>
-                                </span>
-                                <span class="row-lt-l">
-                                    <em class="ccc-color">广告刊例</em>
-                                    <span class="icon-spam yellow-color"></span>
-                                </span>
-                            </div>
-                            <div class="row-lt">
-                                <span class="row-lt-l">
-                                    <em class="ccc-color">网络流量预警</em>
-                                    <span class="icon-spam yellow-color"></span>
-                                </span>
-                                <span class="row-lt-l">
-                                    <em class="ccc-color">开关机时间预警</em>
-                                    <span class="icon-spam yellow-color"></span>
-                                </span>
-                            </div>
-                            <div class="row-lt">
-                                <span class="row-lt-l">
-                                    <em class="ccc-color">CPU预警</em>
-                                    <span class="icon-spam yellow-color"></span>
-                                </span>
-                                <span class="row-lt-l">
-                                    <em class="ccc-color">硬盘预警</em>
-                                    <span class="icon-spam yellow-color"></span>
-                                </span>
-                            </div>
-                        </div>
-                    </li>
+                    <?php if(is_array($devBreakArr)): foreach($devBreakArr as $key=>$devBreak): ?><li>
+	                        <div class="station-state-info">
+	                            <!-- <em>报警时间 ：  2014-05-11   12：20</em>
+	                            <em>报警时长  ： 6小时20分</em> -->
+	                            <em><?php echo ($devBreak['province']); ?>  <?php echo ($devBreak['city']); ?>  <?php echo ($devBreak['address']); ?></em>
+	                        </div>
+	                        <div class="station-state-dl">
+	                            <div class="row-lt">
+	                                <span class="row-lt-l">
+	                                    <em>在线状态</em>
+	                                    <?php if($devBreak['on_line'] == 0): ?><span class="icon-checkmark green-color"></span>
+										<?php else: ?>
+											<span class="icon-close red-color"></span><?php endif; ?>
+	                                </span>
+	                                <span class="row-lt-l">
+	                                    <em>正常开机</em>
+	                                    <?php if($devBreak['start_time'] == 0): ?><span class="icon-checkmark green-color"></span>
+										<?php else: ?>
+											<span class="icon-close red-color"></span><?php endif; ?>
+	                                </span>
+	                                <span class="row-lt-l">
+	                                    <em>正常关机</em>
+	                                    <?php if($devBreak['shutdown_time'] == 0): ?><span class="icon-checkmark green-color"></span>
+										<?php else: ?>
+											<span class="icon-close red-color"></span><?php endif; ?>
+	                                </span>
+	                            </div>
+	                            <div class="row-lt">
+	                                <span class="row-lt-l">
+	                                    <em>APP刊例</em>
+	                                    <span class="icon-close red-color"></span>
+	                                </span>
+	                                <span class="row-lt-l">
+	                                    <em>上屏程序版本</em>
+	                                    <span class="icon-checkmark green-color"></span>
+	                                </span>
+	                                <span class="row-lt-l">
+	                                    <em>下屏程序版本</em>
+	                                    <span class="icon-close red-color"></span>
+	                                </span>
+	                            </div>
+	                            <div class="row-lt">
+	                                <span class="row-lt-l">
+	                                    <em class="ccc-color">中屏状态</em>
+	                                    <span class="icon-spam yellow-color"></span>
+	                                </span>
+	                                <span class="row-lt-l">
+	                                    <em class="ccc-color">上屏状态</em>
+	                                    <span class="icon-spam yellow-color"></span>
+	                                </span>
+	                                <span class="row-lt-l">
+	                                    <em class="ccc-color">广告刊例</em>
+	                                    <span class="icon-spam yellow-color"></span>
+	                                </span>
+	                            </div>
+	                            <div class="row-lt">
+	                                <span class="row-lt-l">
+	                                    <em class="ccc-color">网络流量预警</em>
+	                                    <span class="icon-spam yellow-color"></span>
+	                                </span>
+	                                <span class="row-lt-l">
+	                                    <em class="ccc-color">开关机时间预警</em>
+	                                    <span class="icon-spam yellow-color"></span>
+	                                </span>
+	                            </div>
+	                            <div class="row-lt">
+	                                <span class="row-lt-l">
+	                                    <em class="ccc-color">CPU预警</em>
+	                                    <span class="icon-spam yellow-color"></span>
+	                                </span>
+	                                <span class="row-lt-l">
+	                                    <em class="ccc-color">硬盘预警</em>
+	                                    <span class="icon-spam yellow-color"></span>
+	                                </span>
+	                            </div>
+	                        </div>
+	                    </li><?php endforeach; endif; ?>
                 </ul>
             </div>
             <div class="station-state-list table-state" id="j-station-sh2">
@@ -736,6 +735,12 @@
             $('.mode-change a:eq(0)').removeClass();
             return false;
         });
+        
+        
+        var iID=setTimeout(function(){
+			location.reload();
+        },1000*60*60);
+        
     });
 
 </script>

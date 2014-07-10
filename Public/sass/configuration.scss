@@ -9,7 +9,7 @@ $container-left-width:140px;  //container 左边栏宽度
 $font-n-color:#767676; //默认文字颜色
 $font-h-color:#5c97ee; //默认hover文字颜色
 $bg-color:#f6f6f6;
-$min-width-kuang:1380px;
+$min-width-kuang:1480px;
 $min-width-kuang2:750px;
 $color-main:#2a70d8; //主配色
 $heiti:"SimHei";
@@ -452,7 +452,7 @@ $heiti:"SimHei";
           padding: 0 5px;
           height: 25px;
           display:inline-block;
-          /*display: table-cell;*/
+    /*      display: table-cell;*/
           line-height: 25px;
           overflow: hidden;
           &:first-child{
@@ -478,7 +478,7 @@ $heiti:"SimHei";
     }
     .span-3{
       width: 30%;
-      //max-width: 278px;
+      max-width: 278px;
     }
 }
 
@@ -488,7 +488,7 @@ $heiti:"SimHei";
     background: #fff;}
 }
 .over-h-y{
-  min-height: 310px;
+  min-height: 380px;
   overflow-y: auto;
 }
 
