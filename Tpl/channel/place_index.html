@@ -89,8 +89,8 @@
         <li>
             <span class="span-1"></span>
             <span class="span-2"><b>网点名称</b></span>
-            <span class="span-2"><b>所属渠道</b></span>
-            <span class="span-2"><b>网点地址</b></span>
+            <span class="span-3"><b>所属渠道</b></span>
+            <span class="span-3"><b>网点地址</b></span>
             <span class="span-1"><b>网点电话</b></span>
 			<if condition="$isDeleteResult neq 1">
 				<span class="span-1"><b>网点状态</b></span>
@@ -108,8 +108,8 @@
 					<input type="radio" name="placeRadioID" id="{$vo['placeRadioID']}" value="{$vo['place_id']}" 
 						 class="role-table-radio"/></span>
 				<span class="span-2" title="{$vo.place_name}">{$vo.place_name}</span>
-				<span class="span-2" title="{$vo.channel_name}">{$vo.channel_name}</span>
-				<span class="span-2" title="{$vo.region}">{$vo.region}</span>
+				<span class="span-3" title="{$vo.channel_name}">{$vo.channel_name}</span>
+				<span class="span-3" title="{$vo.region}">{$vo.region}</span>
 				<span class="span-1" title="{$vo.place_tel}">{$vo.place_tel}</span>
 				<if condition="$isDeleteResult neq 1">
 					<span class="span-1" title="{$vo.status}">{$vo.status}</span>

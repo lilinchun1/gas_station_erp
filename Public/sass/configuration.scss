@@ -9,7 +9,8 @@ $container-left-width:140px;  //container 左边栏宽度
 $font-n-color:#767676; //默认文字颜色
 $font-h-color:#5c97ee; //默认hover文字颜色
 $bg-color:#f6f6f6;
-$min-width-kuang:1480px;
+/*$min-width-kuang:1480px;*/
+$min-width-kuang:1600px;
 $min-width-kuang2:750px;
 $color-main:#2a70d8; //主配色
 $heiti:"SimHei";
@@ -780,7 +781,7 @@ $heiti:"SimHei";
 }
 .channel-index-btns{
   input{
-    margin: 5px 15px 5px 0;}
+    margin: 5px 6px 5px 0;}
   padding-bottom: 20px;}
 .channel-tab{
   margin: 0 auto;
@@ -1318,6 +1319,7 @@ input.input-org-info,input.channel-select{
 
 /*统计分析*/
 .station-chart{
+  overflow: hidden;
   .channel-tab li{
     width: 130px;
   }
@@ -1327,7 +1329,6 @@ input.input-org-info,input.channel-select{
   float: right;
   min-height: 300px;
   border: 1px solid $border-color;
-  background: #ccc;
   width: 33%;
 }
 .bingtu-tt {
@@ -1428,3 +1429,28 @@ input.input-org-info,input.channel-select{
 .news-left b,.news-right b{
   font-weight: normal;
   font-size: 18px;}
+
+.tubiao{
+  width: 99.7%;
+  overflow: hidden;
+  border: 1px solid $border-color;}
+
+.bingtu2{width: 31%;
+  margin: 0 1%;}
+.tubiao2{
+  margin-top: 20px;
+  border:0 none;}
+.list-wrap-statistics{
+}
+.tab-wrap{
+  width: 49%;
+  float: right;
+  overflow: hidden;}
+.tubiao4{
+  background: #cccccc;
+  width: 49%;
+  float: left;
+  overflow: hidden;
+  min-height: 200px;}
+.fr{
+  float: right;}

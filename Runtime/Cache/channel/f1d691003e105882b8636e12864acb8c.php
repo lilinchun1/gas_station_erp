@@ -129,8 +129,8 @@
         <li>
             <span class="span-1"></span>
             <span class="span-2"><b>网点名称</b></span>
-            <span class="span-2"><b>所属渠道</b></span>
-            <span class="span-2"><b>网点地址</b></span>
+            <span class="span-3"><b>所属渠道</b></span>
+            <span class="span-3"><b>网点地址</b></span>
             <span class="span-1"><b>网点电话</b></span>
 			<?php if($isDeleteResult != 1): ?><span class="span-1"><b>网点状态</b></span><?php endif; ?>
             <span class="span-1"><b>启用日期</b></span>
@@ -143,8 +143,8 @@
 					<input type="radio" name="placeRadioID" id="<?php echo ($vo['placeRadioID']); ?>" value="<?php echo ($vo['place_id']); ?>" 
 						 class="role-table-radio"/></span>
 				<span class="span-2" title="<?php echo ($vo["place_name"]); ?>"><?php echo ($vo["place_name"]); ?></span>
-				<span class="span-2" title="<?php echo ($vo["channel_name"]); ?>"><?php echo ($vo["channel_name"]); ?></span>
-				<span class="span-2" title="<?php echo ($vo["region"]); ?>"><?php echo ($vo["region"]); ?></span>
+				<span class="span-3" title="<?php echo ($vo["channel_name"]); ?>"><?php echo ($vo["channel_name"]); ?></span>
+				<span class="span-3" title="<?php echo ($vo["region"]); ?>"><?php echo ($vo["region"]); ?></span>
 				<span class="span-1" title="<?php echo ($vo["place_tel"]); ?>"><?php echo ($vo["place_tel"]); ?></span>
 				<?php if($isDeleteResult != 1): ?><span class="span-1" title="<?php echo ($vo["status"]); ?>"><?php echo ($vo["status"]); ?></span><?php endif; ?>
 				<span class="span-1" title="<?php echo ($vo["begin_time"]); ?>"><?php echo ($vo["begin_time"]); ?></span>
