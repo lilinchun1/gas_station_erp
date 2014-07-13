@@ -730,7 +730,6 @@ $heiti:"SimHei";
 /*登陆默认页*/
 .default-index{
   position: relative;
-  min-width: 1140px;
   min-height:820px;
   overflow: hidden;
   background: #e8ebef;}
@@ -1456,3 +1455,5 @@ input.input-org-info,input.channel-select{
 
 .long-input,.org-right-info .long-input{
   width: 200px;}
+
+.rizhi{min-height: 230px;}

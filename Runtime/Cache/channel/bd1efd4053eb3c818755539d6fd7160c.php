@@ -175,7 +175,7 @@
 </div>
 
 
-<div class="role-table over-h-y">
+<div class="role-table over-h-y rizhi">
     <div class="hd">
         <ul class="channel-tab">
             <li class="on" style="background: #ffffff;color: #000000;">操作日志</li>
@@ -434,7 +434,7 @@
             <p>
                 <label for="channel-addname" class="role-lab">SIM卡卡号</label>
                 <input type="text" name="add_device_no_txt" id="" class="input-role-name"/>
-
+                <i class="red-color pdl10" style="color: #ffffff;">*</i>
                 <label for="channel-addname" class="role-lab">手机号码</label>
                 <input type="text" name="add_device_no_txt" id="" class="input-role-name"/>
 
@@ -542,7 +542,7 @@
             <p>
                 <label for="channel-addname" class="role-lab">SIM卡卡号</label>
                 <input type="text" name="add_device_no_txt" id="" class="input-role-name"/>
-
+                <i class="red-color pdl10" style="color: #ffffff;">*</i>
                 <label for="channel-addname" class="role-lab">手机号码</label>
                 <input type="text" name="add_device_no_txt" id="" class="input-role-name"/>
 

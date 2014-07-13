@@ -158,7 +158,7 @@
     </div>
 </div>
 
-<div class="role-table over-h-y">
+<div class="role-table over-h-y rizhi">
     <div class="data-log">
         <h3>操作日志</h3>
     </div>

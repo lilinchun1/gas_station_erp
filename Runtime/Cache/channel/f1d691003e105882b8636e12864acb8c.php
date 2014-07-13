@@ -158,7 +158,7 @@
 </div>
 
 
-<div class="role-table over-h-y">
+<div class="role-table over-h-y rizhi">
     <div class="hd">
         <ul class="channel-tab">
             <li class="on" style="background: #ffffff;color: #000000;">操作日志</li>

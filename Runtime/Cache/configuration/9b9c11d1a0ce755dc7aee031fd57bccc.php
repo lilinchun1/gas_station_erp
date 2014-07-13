@@ -3,6 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <title>默认页</title>
+    <style>
+        body .head-wrap{min-width: 1024px;}
+       body #footer{min-width: 1024px;}
+        .head-wrap #head{min-width: 1024px;}
+       #df-cont{min-width: 1024px;}
+        #container.df-cont{min-width: 1024px;}
+    </style>
 </head>
 <body>
 <div class="head-wrap">
@@ -36,7 +43,7 @@
 </div>
 </div>
 
-<div id="container">
+<div id="container" class="df-cont">
    <!--<div class="default-index">
        <div class="default-index-tt">
 
