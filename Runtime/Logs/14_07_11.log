@@ -1,0 +1,23 @@
+[ 2014-07-11T14:15:41+08:00 ] 127.0.0.1 /gas_station_erp/index.php/configuration//gas_station_erp/gas_station_erp/Tpl/configuration/Public/css/configuration.css
+ERR: 无法加载模块:gas_station_erp
+
+[ 2014-07-11T14:15:52+08:00 ] 127.0.0.1 /gas_station_erp/index.php/Login/login
+NOTIC: [2] htmlspecialchars() expects parameter 2 to be long, string given D:\trunk\frame\Lib\Core\App.class.php 第 56 行.
+NOTIC: [2] htmlspecialchars() expects parameter 2 to be long, string given D:\trunk\frame\Lib\Core\App.class.php 第 56 行.
+NOTIC: [2] htmlspecialchars() expects parameter 2 to be long, string given D:\trunk\frame\Lib\Core\App.class.php 第 56 行.
+NOTIC: [2] htmlspecialchars() expects parameter 2 to be long, string given D:\trunk\frame\Lib\Core\App.class.php 第 56 行.
+NOTIC: [2] htmlspecialchars() expects parameter 2 to be long, string given D:\trunk\frame\Lib\Core\App.class.php 第 56 行.
+INFO: [ app_begin ] --START--
+INFO: ReadHtmlCache Behavior ::run [ RunTime:0.001000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001000s ]
+SQL: SELECT url FROM bi_menu [ RunTime:0.002000s ]
+
+[ 2014-07-11T14:15:58+08:00 ] 127.0.0.1 /gas_station_erp/index.php/management/Index/getAppRule
+NOTIC: [2] htmlspecialchars() expects parameter 2 to be long, string given D:\trunk\frame\Lib\Core\App.class.php 第 56 行.
+INFO: [ app_begin ] --START--
+INFO: ReadHtmlCache Behavior ::run [ RunTime:0.001000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001000s ]
+SQL: 
+				SELECT rule_no FROM app_rule GROUP BY rule_no
+		 [ RunTime:0.055003s ]
+
