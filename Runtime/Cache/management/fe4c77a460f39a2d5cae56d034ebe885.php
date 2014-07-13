@@ -36,6 +36,10 @@
 				$("input[name='send_id']").val(send_id);
 				//弹出框为编辑
 				$("button[name='add_udp']").val("2");
+				
+				$.post("<?php echo U('management/Index/getAreaIdByRule');?>",{'rule_no':rule_no},function(data){
+					alert(data);
+				},"json");
 			}
 			//===================================================树形结构开始==========
 			var handleUrl="<?php echo U('management/Index/getChannelArr');?>";
@@ -429,11 +433,10 @@
 				<p>
 					<label for="target_num" class="role-lab">发布渠道</label><i class="red-color pdl10">*</i>
 					<br/>
-					<input type="text" name="target_num" id="target_num" class="input-role-name" value="1-21,2-3,2-4"/>
+					<input type="text" name="target_num" id="target_num" class="input-role-name" value=""/>
 					<!--权限树形-->
 					<div class="zTreeDemoBackground left">
 						<ul id="treeDemo" class="ztree"></ul>
-						<input type="text" value="" id="add_quanxian_id"/>
 					</div>
 
 				</p>
@@ -521,7 +524,8 @@ function onCheck(event, treeId, treeNode) {
 			
 	}
 	if (v.length > 0 ) v = v.substring(0, v.length-1);
-	var cityObj = $("#add_quanxian_id");
+	//要赋值的文本框id
+	var cityObj = $("#target_num");
 	cityObj.attr("value", v);
 }
 //===================================================树形结构js结束==========

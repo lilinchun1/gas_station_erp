@@ -25,4 +25,9 @@ class IndexAction extends Action {
 		$this->display(':statistics_index');
 	}
 	
+	function user_statistics(){
+		$this->assign('nowUrl', "statistics/Index/user_statistics");
+		$this->display(':user_statistics');
+	}
+	
 }

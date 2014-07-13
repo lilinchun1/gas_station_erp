@@ -118,7 +118,7 @@ class PlaceAction extends Action {
 			{
 				$list[$i]['status'] = "启用";
 			}
-			$list[$i]['region'] = $list[$i]['province'] . $list[$i]['city'] . $list[$i]['region'];
+			$list[$i]['region'] =  $list[$i]['region'];
 			$place_image_info = $Model->query("select image_id, image_path, image_description from qd_place_image where place_id='" .					$list[$i]['place_id'] . "'");
 			if(empty($place_image_info[0]['image_path']))
 			{

@@ -9,8 +9,7 @@ $container-left-width:140px;  //container 左边栏宽度
 $font-n-color:#767676; //默认文字颜色
 $font-h-color:#5c97ee; //默认hover文字颜色
 $bg-color:#f6f6f6;
-$min-width-kuang:1480px;
-/*$min-width-kuang:1600px;*/
+$min-width-kuang:1510px;
 $min-width-kuang2:750px;
 $color-main:#2a70d8; //主配色
 $heiti:"SimHei";
@@ -497,7 +496,7 @@ $heiti:"SimHei";
   margin: 8px 20px 0 20px;
 }
 .alert-role-add{
-  width: 500px;
+  width: 600px;
   overflow: hidden;
   background: #ffffff;
   border: 1px solid #000;
@@ -1454,3 +1453,6 @@ input.input-org-info,input.channel-select{
   min-height: 200px;}
 .fr{
   float: right;}
+
+.long-input,.org-right-info .long-input{
+  width: 200px;}

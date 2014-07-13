@@ -95,7 +95,7 @@
                     </div>
                     <div id="dabing_container" style="min-width:200px;height: 325px"></div>
                 </div>-->
-                <div class="role-table w66p">
+                <div class="role-table">
                     <div class="data-log">
                         <h3>用户接入量明细<input type="submit" class="role-control-btn" value="导出" /></h3>
 
@@ -122,8 +122,10 @@
         <div class="div-tab-chart">
 
             <div class="list-wrap-statistics">
-
-                <div class="role-table w66p">
+				<div class="tongji-tu" id="avg_div">
+					<div id="type_container" style="min-width:400px; height: 400px; margin: 0 auto; "></div>
+                </div>
+                <div class="role-table">
                     <div class="data-log">
                         <h3>平均安装量<input type="submit" class="role-control-btn" value="导出" /></h3>
 
@@ -177,7 +179,7 @@ $(function () {
             zoomType: 'xy'
         },
         title: {
-            text: '安装量分析'
+            text: '用户量分析'
         },
         subtitle: {
             text: ''
@@ -186,227 +188,229 @@ $(function () {
             categories: ['1月份', '2月份', '3月份', '4月份', '5月份', '6月份',
                 '7月份', '8月份', '9月份', '10月份', '11月份', '12月份']
         }],
-        yAxis: [{ // Primary yAxis
-            labels: {
-                format: '{value}%',
-                style: {
-                    color: Highcharts.getOptions().colors[1]
-                }
-            },
-            title: {
-                text: '',
-                style: {
-                    color: Highcharts.getOptions().colors[1]
-                }
-            }
-        }, { // Secondary yAxis
-            title: {
-                text: '',
-                style: {
-                    color: Highcharts.getOptions().colors[0]
-                }
-            },
-            labels: {
-                format: '{value} ',
-                style: {
-                    color: Highcharts.getOptions().colors[0]
-                }
-            },
-            opposite: true
-        }],
-        tooltip: {
-            shared: true
-        },
-        plotOptions: {
-            line: {
-                dataLabels: {
-                    enabled: true
-                },
-                enableMouseTracking: false
-            }
-        },
+		colors:[
+            '#77a1e5',//第一个颜色
+            'red',//第二个颜色
+            '#a6c96a',//第三个颜色
+            '#1aadce', //。。。。
+            '#492970',
+            '#f28f43',
+            'blue',
+            '#c42525',
+            '#a6c96a'
+        ],
+		yAxis: [
+				{ // Primary yAxis
+					labels: {
+						format: '{value}%',
+						style: {
+							color: Highcharts.getOptions().colors[0]
+						}
+					},
+					title: {
+						text: '',
+						style: {
+							color: Highcharts.getOptions().colors[0]
+						}
+					},
+					opposite: true
+				},
+				{ // Secondary yAxis
+					title: {
+						text: '',
+						style: {
+							color: Highcharts.getOptions().colors[1]
+						}
+					},
+					labels: {
+						format: '{value}',
+						style: {
+							color: Highcharts.getOptions().colors[1]
+						}
+					}
+				}
+				],
+
+			tooltip: { 
+				formatter: function() { 
+					if(this.point.stackTotal!=undefined){
+						return '<b>'+ this.x +'</b><br>'+ this.series.name +': '+ this.y +'<br>'+ '接入用户总量: '+ this.point.stackTotal; 
+					}else{
+						return '<b>'+ this.x +'</b><br>'+ this.series.name +': '+ this.y +'<br>'; 
+					}
+				} 
+			}, 
+			plotOptions: { 
+					column: {
+						stacking: 'normal',
+						/*dataLabels: {
+							enabled: true, color: (Highcharts.theme && Highcharts.theme.dataLabelsColor) || 'white' 
+						} */
+					} 
+			},
+
 
         series: [{
-            name: '安装总量',
-            type: 'column',
-            yAxis: 1,
-            data: [49.9, 71.5, 106.4, 129.2, 144.0, 176.0, 135.6, 148.5, 216.4, 194.1, 95.6, 54.4],
-            tooltip: {
-                valueSuffix: ' '
-            }
-
-
-        },{
-            name: 'ios安装量',
-            type: 'column',
-            yAxis: 1,
-            data: [49.9, 71.5, 106.4, 129.2, 144.0, 176.0, 135.6, 148.5, 216.4, 194.1, 95.6, 54.4],
-            tooltip: {
-                valueSuffix: ' '
+				name:'未安装用户数量',
+                type: 'column',
+                data: [3, 4, 4, 2, 5,3,1,4,1,6,7,4],
+				yAxis: 1
+            },{
+                name: '安装用户数量',
+				type: 'column',
+                data: [5, 3, 4, 7, 2 ,3,1,4,1,4,1,2],
+				yAxis: 1
             },
-            visible: false//默认隐藏
-        },
-            {
-                name: 'Android安装量',
+			{
+				name: '用户转化率',
+				type: 'spline',
+				data: [7.0, 6.9, 9.5, 14.5, 18.2, 21.5, 25.2, 26.5, 23.3, 18.3, 13.9, 9.6],
+				tooltip: {
+					valueSuffix: '%'
+				},
+				yAxis: 0
+			}]
+    });
+
+    //用户类型分析
+    $('#type_container').highcharts({
+           chart: {
+                zoomType: 'xy'
+            },
+            title: {
+                text: '用户类型分析'
+            },
+            subtitle: {
+                text: ''
+            },
+            xAxis: [{
+                categories: ['1月份', '2月份', '3月份', '4月份', '5月份', '6月份',
+                    '7月份', '8月份', '9月份', '10月份', '11月份', '12月份']
+            }],
+			lang: {
+				printChart:"打印图表",
+				downloadJPEG:"下载JPEG格式图片",
+				downloadPDF:"下载PDF格式文件",
+				downloadPNG:"下载PNG格式图片",
+				downloadSVG:"下载SVG格式文件"
+			},
+			colors:[
+				'#77a1e5',//第一个颜色
+				'red',//第二个颜色
+				'#a6c96a',//第三个颜色
+				'#1aadce', //。。。。
+				   '#492970',
+				   '#f28f43', 
+				   'blue', 
+				   '#c42525', 
+				   '#a6c96a'
+			],
+            yAxis: [
+				{ // Primary yAxis
+					labels: {
+						format: '{value}%',
+						style: {
+							color: Highcharts.getOptions().colors[0]
+						}
+					},
+					title: {
+						text: '',
+						style: {
+							color: Highcharts.getOptions().colors[0]
+						}
+					},
+					opposite: true
+				},
+				{ // Secondary yAxis
+					title: {
+						text: '',
+						style: {
+							color: Highcharts.getOptions().colors[1]
+						}
+					},
+					labels: {
+						format: '{value}',
+						style: {
+							color: Highcharts.getOptions().colors[1]
+						}
+					}
+					
+				}
+				],
+			tooltip: { 
+				formatter: function() { 
+					if(this.point.stackTotal!=undefined){
+						if(this.series.name=='安装用户数量:'||this.series.name=='未安装用户数量:'){
+							return '<b>'+ this.x +'IOS</b><br>'+ this.series.name +''+ this.y +'<br>'+ '接入用户总量: '+ this.point.stackTotal; 
+						}
+						if(this.series.name=='安装用户数量'||this.series.name=='未安装用户数量'){
+							return '<b>'+ this.x +'Android</b><br>'+ this.series.name +': '+ this.y +'<br>'+ '接入用户总量: '+ this.point.stackTotal; 
+						}
+					}else{
+						return '<b>'+ this.x +'</b><br>'+ this.series.name +': '+ this.y +'<br>'; 
+					}
+				} 
+			}, 
+			plotOptions: { 
+					column: {
+						stacking: 'normal',
+						/*dataLabels: {
+							enabled: true, color: (Highcharts.theme && Highcharts.theme.dataLabelsColor) || 'white' 
+						} */
+					} 
+			},
+
+            series: [{
+                name: '未安装用户数量:',
                 type: 'column',
                 yAxis: 1,
                 data: [49.9, 71.5, 106.4, 129.2, 144.0, 176.0, 135.6, 148.5, 216.4, 194.1, 95.6, 54.4],
-                tooltip: {
-                    valueSuffix: ' '
-                },
-                visible: false//默认隐藏
+				stack: 'ios'
+    
+            },
+			{
+                name: '安装用户数量:',
+				type: 'column',
+				yAxis: 1,
+                data: [115, 113, 114, 117, 121 ,113,111,141,111,141,111,121],
+				stack: 'ios'
+            },
+			{
+				name:'Android未安装用户数量',
+                type: 'column',
+				yAxis: 1,
+                data: [33, 44, 14, 52, 75,73,61,64,61,66,74,44],
+				stack: 'Android'
             },{
-                name: '成功安装率',
+			    name: 'Android安装用户数量',
+                type: 'column',
+                yAxis: 1,
+                data: [49.9, 71.5, 106.4, 129.2, 144.0, 176.0, 135.6, 148.5, 216.4, 194.1, 95.6, 54.4],
+				stack: 'Android'
+				//visible: false//默认隐藏
+            },
+
+
+			{
+                name: 'ios用户转化率',
                 type: 'spline',
                 data: [7.0, 6.9, 9.5, 14.5, 18.2, 21.5, 25.2, 26.5, 23.3, 18.3, 13.9, 9.6],
                 tooltip: {
                     valueSuffix: '%'
-                }
+                },
+				yAxis: 0
             },
-            {
-                name: 'IOS安装率',
+			 {
+                name: 'Android用户转化率',
                 type: 'spline',
                 data: [9.6, 10.9, 19.5, 24.5, 38.2, 11.5, 15.2, 16.5, 13.3, 28.3, 33.9, 29.6],
                 tooltip: {
                     valueSuffix: '%'
                 },
-                visible: false//默认隐藏
-            },
-            {
-                name: 'Android安装率',
-                type: 'spline',
-                data: [17.0, 26.9, 39.5, 44.5, 28.2, 11.5, 15.2, 26.5, 33.3, 48.3, 53.9, 19.6],
-                tooltip: {
-                    valueSuffix: '%'
-                },
-                visible: false//默认隐藏
+				yAxis: 0
+				//visible: false//默认隐藏
             }
-        ]
-    });
-
-//大饼图
-    $('#dabing_container').highcharts({
-        chart: {
-            type: 'pie',
-            options3d: {
-                enabled: true,
-                alpha: 45,
-                beta: 0
-            }
-        },
-        colors:[
-            '#77a1e5',//第一个颜色
-            '#f15c80',//第二个颜色
-            '#a6c96a',//第三个颜色
-            '#1aadce', //。。。。
-            '#492970',
-            '#f28f43',
-            'blue',
-            '#c42525',
-            '#a6c96a'
-        ],
-        title: {
-            text: '安装量类型分析'
-        },
-        tooltip: {
-            pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
-        },
-        plotOptions: {
-            pie: {
-                allowPointSelect: true,
-                cursor: 'pointer',
-                depth: 35,
-                dataLabels: {
-                    enabled: true,
-                    format: '{point.name}'
-                }
-            }
-        },
-        series: [{
-            type: 'pie',
-            name: '安装率',
-            data: [
-                ['游戏',   45.0],
-                ['图书',   26.8],
-                ['应用',    8.5]
-            ]
-        }]
-    });
-    //平均安装量
-    $('#avg_container').highcharts({
-        chart: {
-            type: 'area'
-        },
-        xAxis: [{
-            categories: ['1月份', '2月份', '3月份', '4月份', '5月份', '6月份',
-                '7月份', '8月份', '9月份', '10月份', '11月份', '12月份']
-        }],
-        yAxis: {
-            min: 0,
-            title: {
-                text: '平均安装量'
-            }
-        },
-        colors:[
-            '#77a1e5',//第一个颜色
-            '#f15c80',//第二个颜色
-            '#a6c96a',//第三个颜色
-            '#1aadce', //。。。。
-            '#492970',
-            '#f28f43',
-            'blue',
-            '#c42525',
-            '#a6c96a'
-        ],
-        title: {
-            text: '平均安装量分析'
-        },
-        labels: {
-            format: '{value} ',
-            style: {
-                color: Highcharts.getOptions().colors[0]
-            }
-        },
-        series: [{
-            type: 'area',
-            name: '平均总安装量',
-            data: [17.0, 26.9, 39.5, 44.5, 28.2, 11.5, 15.2, 26.5, 33.3, 48.3, 53.9, 19.6],
-        }]
-    });
-    //top10
-    $('#top_container').highcharts({
-        chart: {
-            type: 'bar'
-        },
-        title: {
-            text: '平均安装量排名'
-        },
-        xAxis: {
-            categories: ['大连', '北京', '鞍山', '长春', '哈尔滨','济南','天津','重庆','桂林','宁夏']
-        },
-        yAxis: {
-            title: {
-                text: ''
-            }
-        },
-        legend: {
-            reversed: true
-        },
-        labels: {
-            format: '{value} ',
-            style: {
-                color: Highcharts.getOptions().colors[0]
-            }
-        },
-        plotOptions: {
-            series: {
-                stacking: 'normal'
-            }
-        },
-        series: [{
-            name: '平均安装量',
-            data: [50, 40, 35, 30, 25,20,18,15,10,5]
-        }]
+			]
     });
     jQuery(".role-table").slide({trigger:"click"});
 });

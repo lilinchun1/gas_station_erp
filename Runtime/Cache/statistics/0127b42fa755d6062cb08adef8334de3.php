@@ -54,7 +54,7 @@
     <li class="aside-nav-nth1"><a>运营分析<i class="j-show-list">-</i></a>
         <ul>
             <li class="url_link" url="<?php echo U('statistics/Index/index');?>"><a href="<?php echo U('statistics/Index/index');?>"><input type="button" value="安装量分析"></a></li>
-            <li class="url_link" url=""><a href=""><input type="button" value="用户量分析"></a></li>
+            <li class="url_link" url="<?php echo U('statistics/Index/user_statistics');?>"><a href="<?php echo U('statistics/Index/user_statistics');?>"><input type="button" value="接入用户分析"></a></li>
         </ul>
     </li>
 </ul>
@@ -501,33 +501,34 @@ $(function () {
 				downloadPNG:"下载PNG格式图片",
 				downloadSVG:"下载SVG格式文件"
 			},
-            yAxis: [{ // Primary yAxis
-                labels: {
-                    format: '{value}%',
-                    style: {
-                        color: Highcharts.getOptions().colors[1]
-                    }
-                },
-                title: {
-                    text: '',
-                    style: {
-                        color: Highcharts.getOptions().colors[1]
-                    }
-                }
-            }, { // Secondary yAxis
-                title: {
-                    text: '',
-                    style: {
-                        color: Highcharts.getOptions().colors[0]
-                    }
-                },
-                labels: {
-                    format: '{value}个',
-                    style: {
-                        color: Highcharts.getOptions().colors[0]
-                    }
-                },
-                opposite: true
+            yAxis: [{ // Secondary yAxis
+					title: {
+						text: '',
+						style: {
+							color: Highcharts.getOptions().colors[0]
+						}
+					},
+					labels: {
+						format: '{value}',
+						style: {
+							color: Highcharts.getOptions().colors[0]
+						}
+					},
+				},
+				{ // Primary yAxis
+					labels: {
+						format: '{value}%',
+						style: {
+							color: Highcharts.getOptions().colors[1]
+						}
+					},
+					title: {
+						text: '',
+						style: {
+							color: Highcharts.getOptions().colors[1]
+						}
+					},
+				opposite: true
             }],
             tooltip: {
                 shared: true
@@ -544,35 +545,36 @@ $(function () {
             series: [{
                 name: '安装总量',
                 type: 'column',
-                yAxis: 1,
+                yAxis: 0,
                 data: [49.9, 71.5, 106.4, 129.2, 144.0, 176.0, 135.6, 148.5, 216.4, 194.1, 95.6, 54.4],
                 tooltip: {
-                    valueSuffix: '个'
+                    valueSuffix: ''
                 }
 				
     
             },{
 			    name: 'ios安装量',
                 type: 'column',
-                yAxis: 1,
+                yAxis: 0,
                 data: [49.9, 71.5, 106.4, 129.2, 144.0, 176.0, 135.6, 148.5, 216.4, 194.1, 95.6, 54.4],
                 tooltip: {
-                    valueSuffix: '个'
+                    valueSuffix: ''
                 },
 				visible: false//默认隐藏
             },
 			{
 			    name: 'Android安装量',
                 type: 'column',
-                yAxis: 1,
+                yAxis: 0,
                 data: [49.9, 71.5, 106.4, 129.2, 144.0, 176.0, 135.6, 148.5, 216.4, 194.1, 95.6, 54.4],
                 tooltip: {
-                    valueSuffix: '个'
+                    valueSuffix: ''
                 },
 				visible: false//默认隐藏
             },{
                 name: '成功安装率',
                 type: 'spline',
+				yAxis: 1,
                 data: [7.0, 6.9, 9.5, 14.5, 18.2, 21.5, 25.2, 26.5, 23.3, 18.3, 13.9, 9.6],
                 tooltip: {
                     valueSuffix: '%'
@@ -581,6 +583,7 @@ $(function () {
 			 {
                 name: 'IOS安装率',
                 type: 'spline',
+				yAxis: 1,
                 data: [9.6, 10.9, 19.5, 24.5, 38.2, 11.5, 15.2, 16.5, 13.3, 28.3, 33.9, 29.6],
                 tooltip: {
                     valueSuffix: '%'
@@ -590,6 +593,7 @@ $(function () {
 			 {
                 name: 'Android安装率',
                 type: 'spline',
+				yAxis: 1,
                 data: [17.0, 26.9, 39.5, 44.5, 28.2, 11.5, 15.2, 26.5, 33.3, 48.3, 53.9, 19.6],
                 tooltip: {
                     valueSuffix: '%'
@@ -669,7 +673,7 @@ $(function () {
 				text: '平均安装量'
 			},
 			labels: {
-				format: '{value}个',
+				format: '{value}',
 				style: {
 					color: Highcharts.getOptions().colors[0]
 				}
@@ -702,7 +706,7 @@ $(function () {
             name: '平均总安装量',
             data: [17.0, 26.9, 39.5, 44.5, 28.2, 11.5, 15.2, 26.5, 33.3, 48.3, 53.9, 19.6],
 			tooltip: {
-                    valueSuffix: '个'
+                    valueSuffix: ''
             }
         }]
     });
@@ -729,7 +733,7 @@ $(function () {
 				text: ''
 			},
 			labels: {
-				format: '{value}个',
+				format: '{value}',
 				style: {
 					color: Highcharts.getOptions().colors[0]
 				}
@@ -753,7 +757,7 @@ $(function () {
 			name: '平均安装量',
 			data: [50, 40, 35, 30, 25,20,18,15,10,5],
 			tooltip: {
-               valueSuffix: '个'
+               valueSuffix: ''
             }
 		}]
 	});

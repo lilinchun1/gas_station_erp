@@ -348,7 +348,7 @@
     <div class="alert-user-add-con">
             <p>
 				<label for="channel-address1" class="">所属组织机构</label>
-                <select name="add_agent_id_sel" id="add_agent_id_sel" class="channel-select-min" style="width:150px">
+                <select name="add_agent_id_sel" id="add_agent_id_sel" class="channel-select-min" style="width:200px">
                    <option selected value="">请选择所属组织</option>
 				   <?php if(is_array($all_agent)): foreach($all_agent as $key=>$agent): ?><option value="<?php echo ($agent["agent_id"]); ?>"><?php echo ($agent["agent_name"]); ?></option><?php endforeach; endif; ?>
                 </select>
@@ -364,7 +364,7 @@
             <p>
                 <label for="channel-address1" class="">渠道地址</label>
                 <span id="add_select_showcity"></span><!--省市联动-->
-                <input type="text" name="channel_address"  class="input-role-name" style="width: 120px;"/>
+                <input type="text" name="channel_address"  class="input-role-name long-input" />
                 <i class="red-color pdl10">*</i>
             </p>
             <p>
@@ -468,7 +468,7 @@
             <p>
                 <label for="channel-address1" class="">渠道地址</label>
                 <span id="change_select_showcity"></span><!--省市联动-->
-                <input type="text" name="channel_address" id="change_channel_address_txt"  class="input-role-name" style="width: 120px;"/>
+                <input type="text" name="channel_address" id="change_channel_address_txt"  class="input-role-name long-input"/>
                 <i class="red-color pdl10">*</i>
 
             </p>

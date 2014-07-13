@@ -118,7 +118,7 @@ class DeviceAction extends Action {
 			$list[$i]['begin_time'] = getDateFromTime($list[$i]['begin_time']);
 			$list[$i]['deploy_time'] = getDateFromTime($list[$i]['deploy_time']);
 			$list[$i]['place_name'] = getPlaceNameFromPlaceID($list[$i]['place_id']);
-			$list[$i]['address'] = $list[$i]['province'] . $list[$i]['city'] . $list[$i]['address'];
+			$list[$i]['address'] = $list[$i]['address'];
 			$device_image_info = $Model->query("select image_id, image_path, image_description from qd_device_image where device_id='" .					$list[$i]['device_id'] . "'");
 			if(empty($device_image_info[0]['image_path']))
 			{

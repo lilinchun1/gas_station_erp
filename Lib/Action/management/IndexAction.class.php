@@ -198,20 +198,20 @@ class IndexAction extends Action {
 	
 	//展示刊例发布
 	function addRuleTarget(){
-		$ruleSend = new Model ( "RuleSend" );
+		$appRuleSend = new Model ( "AppRuleSend" );
 		if ($_POST ['add_udp'] == "1") { //新增
 			$rule_no    = $_POST['rule_no'];
 			$start_time = strtotime($_POST['start_time']);
 			$target_num = $_POST['target_num'];
-			$que = $ruleSend->add ( array (
-					'rule_no'   => $rule_no,
+			$que = $appRuleSend->add ( array (
+					'rule_no'       => $rule_no,
 					'target_num'    => $target_num,
-					'start_time'  => $start_time,
+					'start_time'    => $start_time,
 					'createuserid'  => $this->uid,
-					'rule_status'		=> 1,
-					'createtime'		=> time()
+					'rule_status'   => 1,
+					'createtime'    => time()
 			) );
-			//echo $ruleSend->getLastSql();exit;
+			//echo $appRuleSend->getLastSql();exit;
 		}else if($_POST ['add_udp'] == "2"){ //编辑
 			$send_id    = $_POST['send_id'];
 			$rule_no    = $_POST['rule_no'];
@@ -222,21 +222,21 @@ class IndexAction extends Action {
 			$data['rule_no'] = $rule_no;
 			$data['start_time'] = $start_time;
 			$data['target_num'] = $target_num;
-			$que = $ruleSend->where("id = '$send_id'")->save($data);
+			$que = $appRuleSend->where("id = '$send_id'")->save($data);
 		}else if($_POST ['del_fb_zf'] == "1"){//删除
 			$send_id    = $_POST['change_send_id'];
-			$ruleSend->query("DELETE FROM rule_send WHERE id = '$send_id'");
+			$appRuleSend->query("DELETE FROM app_rule_send WHERE id = '$send_id'");
 		}else if($_POST ['del_fb_zf'] == "2"){//发布
 			$send_id    = $_POST['change_send_id'];
 			$data = null;
 			$data['rule_status'] = 2;
 			$data['release_time'] = time();
-			$que = $ruleSend->where("id = '$send_id'")->save($data);
+			$que = $appRuleSend->where("id = '$send_id'")->save($data);
 		}else if($_POST ['del_fb_zf'] == "3"){//作废
 			$send_id    = $_POST['change_send_id'];
 			$data = null;
 			$data['rule_status'] = 3;
-			$que = $ruleSend->where("id = '$send_id'")->save($data);
+			$que = $appRuleSend->where("id = '$send_id'")->save($data);
 		}
 		
 		$where = " where 1 ";
@@ -248,7 +248,7 @@ class IndexAction extends Action {
 		if($_POST['createuser_sel']){
 			$createuser_sel = $_POST['createuser_sel'];
 			$str = "select uid from bi_user where realname like '%$createuser_sel%'";
-			$que = $ruleSend->query($str);
+			$que = $appRuleSend->query($str);
 			$createuserid = $que[0]['uid'];
 			$where .= " and createuserid = '$createuserid' ";
 		}
@@ -258,8 +258,8 @@ class IndexAction extends Action {
 			$release_time_sel = strtotime($_POST['release_time_sel']);;
 			$where .= " and release_time = '$release_time_sel' ";
 		}
-		$sel = " select * from rule_send $where order by release_time desc";
-		$que = $ruleSend->query($sel);
+		$sel = " select * from app_rule_send $where order by release_time desc";
+		$que = $appRuleSend->query($sel);
 		foreach ($que as $k=>$v){
 			$que[$k]['createtime'] = date("Y-m-d",$v['createtime']);
 			$que[$k]['release_time'] = $v['release_time']?date("Y-m-d",$v['release_time']):"";
@@ -271,9 +271,12 @@ class IndexAction extends Action {
 		$this->display(':addRuleTarget');
 	}
 	
-	
+	/**
+	 * verup版本升级
+	 * @param
+	 * @return mixed
+	 */
 	function verup(){
-		//echo 4353246;
 		//供菜单给当前页面加样式
 		$this->assign('nowUrl', "management/Index/verup");
 		$this->display(':verup');
@@ -350,15 +353,15 @@ class IndexAction extends Action {
 			$sql_city_id = "SELECT * FROM bi_area WHERE area_name LIKE '%$v[city]%' OR CONCAT(area_name,'市') LIKE '$v[city]'";
 			$que_city_id = $model->query($sql_city_id);
 			$cityIdArr[] = $que_city_id[0]['area_id'];
-			
-			foreach ($que_channel as $ck=>$cv){
+			//echo json_encode($this->que_channel);exit;
+			foreach ($this->que_channel as $ck=>$cv){
 				if($cv['pid'] == $v['city']){
-					$que_channel[$ck]['pid'] = $que_city_id[0]['area_id'];
+					$this->que_channel[$ck]['pid'] = $que_city_id[0]['area_id'];
 				}
 			}
 			
 		}
-		
+		//echo json_encode($this->que_channel);exit;
 		$areaIdArr = array_merge($provinceIdArr,$cityIdArr);
 		
 		$areaIdStr = implode(",",$areaIdArr);
@@ -399,18 +402,13 @@ class IndexAction extends Action {
 				$this->areaArr[count($this->areaArr)-1]['small_pid'] = $parentId;
 				
 				foreach ($this->que_channel as $ck=>$cv){
-					if($v['area_name']."市" == $cv['pid']){
+					if($v['area_id'] == $cv['pid']){
 						$this->areaArr[count($this->areaArr)]['value'] = $cv['area_name'];
-						$this->areaArr[count($this->areaArr)-1]['id'] = "3-".$v['area_id'];
-						$this->areaArr[count($this->areaArr)-1]['pid'] = "2-".$v['area_id'];
-						$this->areaArr[count($this->areaArr)-1]['small_pid'] = $v['area_id'];
+						$this->areaArr[count($this->areaArr)-1]['id'] = "3-".$cv['area_id'];
+						$this->areaArr[count($this->areaArr)-1]['pid'] = "2-".$cv['pid'];
+						$this->areaArr[count($this->areaArr)-1]['small_pid'] = $cv['area_id'];
 					}
 				}
-				
-				
-				
-				
-				
 				$this->getProvinceCity($arr, $v['area_id']);
 			}
 			
@@ -426,6 +424,18 @@ class IndexAction extends Action {
 		*/
 		$this->lv--;
 	}
-	
+	/**
+	 * getRuleAreaId根据刊例号获取发布区域
+	 * @param
+	 * @return mixed
+	 */
+	function getAreaIdByRule(){
+		$model = new Model();
+		
+		$rule_no = $_POST['rule_no'];
+		$sql = "select target_num from app_rule_send where rule_no = '$rule_no'";
+		$que = $model->query($sql);
+		echo json_encode($que[0]['target_num']);
+	}
 	
 }
