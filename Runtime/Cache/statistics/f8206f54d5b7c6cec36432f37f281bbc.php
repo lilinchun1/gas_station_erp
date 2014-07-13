@@ -136,7 +136,7 @@
                 </div>-->
                 <div class="role-table">
                     <div class="data-log">
-                        <h3>用户接入量明细<input type="submit" class="role-control-btn" value="导出" /></h3>
+                        <h3 class="biao-tt">用户接入量明细<input type="submit" class="role-control-btn fr-btn" value="导出" /></h3>
 
                     </div>
                     <ul class="statistics-list">
@@ -166,7 +166,7 @@
                 </div>
                 <div class="role-table">
                     <div class="data-log">
-                        <h3>平均安装量<input type="submit" class="role-control-btn" value="导出" /></h3>
+                        <h3 class="biao-tt">平均安装量<input type="submit" class="role-control-btn fr-btn" value="导出" /></h3>
 
                     </div>
                     <ul class="statistics-list">
