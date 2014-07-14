@@ -12,7 +12,7 @@
             min-width: 990px;
         }
         .role-control{
-            width: 99.7%;}
+            width: 98%;}
     </style>
 </head>
 <body>
