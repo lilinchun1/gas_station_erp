@@ -27,7 +27,7 @@
                 <a href="#" onclick="fleshVerify()">换一换</a>
             </p>
             <p>
-                <button type="button" id="login_button" name="login_button" onclick="checkLogin()">登陆</button>
+                <button type="button" id="login_button" name="login_button" onclick="checkLogin()">登录</button>
                 <em id="tishi"></em>
             </p>
         </div>

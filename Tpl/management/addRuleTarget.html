@@ -37,13 +37,29 @@
 				//弹出框为编辑
 				$("button[name='add_udp']").val("2");
 				
-				$.post("{:U('management/Index/getAreaIdByRule')}",{'rule_no':rule_no},function(data){
-					alert(data);
-				},"json");
+				var now=new Date().getTime();//加个时间戳表示每次是新的请求
+				$.ajax({
+					type: "POST",
+					url: "{:U('management/Index/getAreaIdByRule')}",
+					data:{"rule_no":rule_no},
+					async: false,
+					dataType: "json",
+					success: function(data){
+						$("#target_num").val(data);
+					},
+					error: function(XMLHttpRequest, textStatus, errorThrown) {
+						 alert("请求失败!");
+					}
+				});
+
 			}
 			//===================================================树形结构开始==========
 			var handleUrl="{:U('management/Index/getChannelArr')}";
 			var zNodes=new Array();
+			var str = new String();
+			var arr = new Array();
+			str = $("#target_num").val();
+			arr = str.split(',');// 注split可以用字符或字符串分割
 			var now=new Date().getTime();//加个时间戳表示每次是新的请求
 			$.ajax({
 				type: "POST",
@@ -56,7 +72,14 @@
 						var parent=val['pid'];
 						var value=val['value'];
 						var length=val['length'];
-						zNodes[key]= {'id':kid, 'pId':parent, 'name':value ,'t':length,'half': true};
+						for ( var i = 0; i < arr.length; i++) {
+							if (arr[i] == kid) {
+								zNodes[key]= {'id':kid, 'pId':parent, 'name':value ,'t':length,'checked' : true};
+								break;
+							} else {
+								zNodes[key]= {'id':kid, 'pId':parent, 'name':value ,'t':length};
+							};
+						};
 					});
 				},
 
@@ -315,16 +338,7 @@ function onCheck(event, treeId, treeNode) {
 
 	v = "";
 	for (var i=0, l=nodes.length; i<l; i++) {
-		var k=i-1;
-		if(halfCheck.half==true){
-			console.log(k);
-				v += nodes[i].id + ",";
-		}else{
-			if(nodes[i].pId!=null){
-				v += nodes[i].pId + ",";
-			}
-		}
-			
+		v += nodes[i].id + ",";
 	}
 	if (v.length > 0 ) v = v.substring(0, v.length-1);
 	//要赋值的文本框id

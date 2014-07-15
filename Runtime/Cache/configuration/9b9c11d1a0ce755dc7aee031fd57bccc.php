@@ -84,7 +84,7 @@
                     <b>亲，业务支撑系统上线啦！</b>
                     <p>
                         智能手机加油站业务支撑系统于2014年7月18日正式上线运行!
-                        感谢您支持，期待您的关注。在使用过程中遇到任何问题，请联系我们。<br> 服务邮箱jiayouzhan_server@kuaiyong.net
+                        感谢您支持，期待您的关注。在使用过程中遇到任何问题，请联系我们。<br> 服务邮箱：jiayouzhan_server@kuaiyong.net
                     </p>
                     <i>
                         大连捷诺科技有限公司<br>
@@ -135,7 +135,7 @@
 </div>
 
 <div class="divout" id="j_logout_win" style="display:none;">
-	<div class="alert-role-add" >
+	<div class="alert-role-add exit-alert" >
 		<h3>退出</h3>
 		<div class="alert-role-add-con">
 			<p class="delete-message">确认退出？</p>

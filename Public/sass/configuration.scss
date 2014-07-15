@@ -1315,7 +1315,7 @@ input.input-org-info,input.channel-select{
 
 /*统计分析*/
 .station-chart{
-  margin: 0 auto;
+  margin: 20px auto;
   width: 98%;
   overflow: hidden;
   .channel-tab li{
@@ -1469,3 +1469,5 @@ input.input-org-info,input.channel-select{
     span{
       color: #ffffff;}
  }
+.exit-alert{
+  width: 500px;}

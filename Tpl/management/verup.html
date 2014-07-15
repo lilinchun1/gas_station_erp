@@ -66,15 +66,6 @@
 						alert("不能发布");
 						return;
 					}
-				}else if($(this).hasClass("status_3")){
-					var noSelMes = "请选择要作废条目";
-					$(".delete-message").text("确认作废？");
-					$(".del_fb_zf").text("作废");
-					$(".del_fb_zf").val("3");
-					if(rule_status != 2){
-						alert("不能作废");
-						return;
-					}
 				}
 
 				var rule_no = $("input[name='role-info']:checked").parent().parent().find(".rule_no_list").text();
@@ -94,8 +85,8 @@
 				return false;
 			});
 			//点一行则选中
-			$(".rule_info_list").click(function(){
-				$(this).find(".role-table-radio").attr("checked",true);
+			$(".app_info_list").click(function(){
+				$(this).find(".app_list_radio").attr("checked",true);
 			});
 
 		});
@@ -119,12 +110,6 @@
 <div id="container">
 	<div class="left">
 		<include file="./Tpl/include/pb-management-aside.html"/>
-		<!--<ul class="aside-nav">
-			<li class="aside-nav-nth1"><a href="">APP刊例管理</a></li>
-			<li><a href="{:U('management/Index/importingApp')}"><input type="button" value="刊例维护"></a></li>
-			<li><a href="{:U('management/Index/addRuleTarget')}"><input type="button" class="" value="刊例发布"></a></li>
-			<li class="active"><a href="{:U('management/Index/verup')}"><input type="button" class="" value="版本升级"></a></li>
-		</ul>-->
 	</div>
 	<div class="right">
 		<div class="right-con">
@@ -134,14 +119,13 @@
 						<form action="" method="post">
 							<p>
 								<label for="channel-org-name" class="">SmartApp</label>
-								<input type="text" name="rule_no_sel" id="channel-org-name" class="input-org-info"/>
+								<input type="text" name="smartApp" id="channel-org-name" class="input-org-info"/>
 								<label for="maintain-create-people" class="">VideoPlayer</label>
-								<input type="text" name="createuser_sel" id="maintain-create-people"
-									   class="input-org-info"/>
+								<input type="text" name="videoPlayer" id="maintain-create-people" class="input-org-info"/>
 								<label for="maintain-create-date" class="">UpdateApp</label>
-								<input type="text" name="rule_no_sel" id="maintain-create-date" class="input-org-info"/>
+								<input type="text" name="updateApp" id="maintain-create-date" class="input-org-info"/>
 								<label for="maintain-create-date" class="">SmartGuard</label>
-								<input type="text" name="rule_no_sel" id="maintain-create-date" class="input-org-info"/>
+								<input type="text" name="smartGuard" id="maintain-create-date" class="input-org-info"/>
 								<button type="submit" name="select" class="role-control-btn">查询</button>
 							</p>
 						</form>
@@ -163,23 +147,31 @@
 								<span class="span-1"><b>SmartApp</b></span>
 								<span class="span-1"><b>VideoPlayer</b></span>
 								<span class="span-1"><b>UpdateApp</b></span>
-                                <span class="span-1"><b>SmartGuard</b></span>
+								<span class="span-1"><b>SmartGuard</b></span>
 								<span class="span-1"><b>发布渠道</b></span>
 								<span class="span-1"><b>发布状态</b></span>
 								<span class="span-2"><b>更新日期</b></span>
 								<span class="span-1"><b>更新信息</b></span>
 							</li>
-						   <li>
-							   <span class="span-1"><input type="radio" name="role-info" id="" class="role-table-radio"/></span>
-							   <span class="span-1">Lorem ipsum dolor sit amet, consectetur.</span>
-							   <span class="span-1">At error officiis provident quaerat sit.</span>
-                               <span class="span-1">At error officiis provident quaerat sit.</span>
-							   <span class="span-1">Corporis distinctio esse eum fugiat repudiandae?</span>
-							   <span class="span-1"><a href="" class="fthover">发布渠道</a></span>
-							   <span class="span-1">Aliquid consequuntur molestiae omnis quibusdam vel!</span>
-							   <span class="span-2">Alias at aut hic laudantium quae.</span>
-							   <span class="span-1"><a href="" class="fthover">更新信息</a></span>
-						   </li>
+							<foreach name="app_dev_update_arr" item="app_dev_update">
+							<li class="app_info_list">
+								<span class="span-1"><input type="radio" name="role-info" id="" class="app_list_radio" value="{$app_dev_update['id']}"/></span>
+								<span class="span-1">{$app_dev_update['smart_app']}</span>
+								<span class="span-1">{$app_dev_update['video_player']}</span>
+								<span class="span-1">{$app_dev_update['update_app']}</span>
+								<span class="span-1">{$app_dev_update['smart_guard']}</span>
+								<span class="span-1"><a href="" class="fthover">发布渠道</a></span>
+								<span class="span-1">
+									<if condition="$app_dev_update['status'] eq 0">
+										待更新
+									<else />
+										已更新
+									</if>
+								</span>
+								<span class="span-2">{$app_dev_update['status_date']}</span>
+								<span class="span-1"><a href="" class="fthover">更新信息</a></span>
+							</li>
+							</foreach>
 						</ul>
 					</div>
 				</div>
@@ -197,22 +189,22 @@
 				<div class="verup-alert-con-left">
 					<p>
 						<label for="main-pg">SmartApp</label>
-						<input type="text" name="" id="main-pg" class="input-org-info"/>
+						<input type="text" name="SmartApp" id="main-pg" class="input-org-info"/>
 						<button class="role-control-btn">浏览</button>
 					</p>
 					<p>
 						<label for="main-pg">VideoPlayer</label>
-						<input type="text" name="" id="main-pg" class="input-org-info"/>
+						<input type="text" name="VideoPlayer" id="main-pg" class="input-org-info"/>
 						<button class="role-control-btn">浏览</button>
 					</p>
 					<p>
 						<label for="main-pg">UpdateApp</label>
-						<input type="text" name="" id="main-pg" class="input-org-info"/>
+						<input type="text" name="UpdateApp" id="main-pg" class="input-org-info"/>
 						<button class="role-control-btn">浏览</button>
 					</p>
 					<p>
 						<label for="main-pg">SmartGuard</label>
-						<input type="text" name="" id="main-pg" class="input-org-info"/>
+						<input type="text" name="SmartGuard" id="main-pg" class="input-org-info"/>
 						<button class="role-control-btn">浏览</button>
 					</p>
 				</div>
@@ -272,6 +264,5 @@
 		});
 	})
 </script>
-</div>
 </body>
 </html>
