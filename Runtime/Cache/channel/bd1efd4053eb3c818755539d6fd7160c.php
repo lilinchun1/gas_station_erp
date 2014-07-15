@@ -203,7 +203,7 @@
 <!-- 控制当期页面菜单样式 -->
 <input type="hidden" class="nowUrl" value="<?php echo ($nowUrl); ?>">
 <script type="text/javascript" src="__PUBLIC__/js/default_load.js"></script>
-<script type="text/javascript" src="__PUBLIC__/js/jquery-1.6.1.js"></script>
+
 <script type="text/javascript" src="__PUBLIC__/js/jquery.DOMwindow.js" type="text/javascript"></script><!--模框JS插件-->
 <div id="change_password_id" style="display:none;">
     <div class="alert-role-add" >
@@ -232,7 +232,7 @@
 </div>
 
 <div class="divout" id="j_logout_win" style="display:none;">
-	<div class="alert-role-add" >
+	<div class="alert-role-add exit-alert" >
 		<h3>退出</h3>
 		<div class="alert-role-add-con">
 			<p class="delete-message">确认退出？</p>
@@ -413,22 +413,22 @@
 
             <p>
                 <label for="bs-date">部署日期</label>
-                <input type="date" name="add_deploy_time_sel" id="add_deploy_time_sel" class="input-org-info" 
+                <input type="input" name="add_deploy_time_sel" id="add_deploy_time_sel" class="input-org-info" 
 				 style="margin-top: 0;" onClick="WdatePicker()" readonly="readonly"/>
                 <i class="red-color pdl10">*</i>
-                <label for="sq-date">启用日期</label>
-                <input type="date" name="add_begin_time_sel" id="add_begin_time_sel" class="input-org-info" 
+                <label for="sq-date">加油站启用日期</label>
+                <input type="input" name="add_begin_time_sel" id="add_begin_time_sel" class="input-org-info" 
 				 style="margin-top: 0;" onClick="WdatePicker()" readonly="readonly"/>
 
             </p>
 
             <p>
                 <label for="sq-date">设置开机时间</label>
-                <input type="date" name="add_power_on_time_sel" id="add_power_on_time_sel" class="input-org-info" 
+                <input type="input" name="add_power_on_time_sel" id="add_power_on_time_sel" class="input-org-info" 
 					style="margin-top: 0;" onClick="WtimePicker()" readonly="readonly"/>
                 <i class="red-color pdl10" style="color: #ffffff;">*</i>
                 <label for="sq-date">设置关机时间</label>
-                <input type="date" name="add_power_off_time_sel" id="add_power_off_time_sel" class="input-org-info" 
+                <input type="input" name="add_power_off_time_sel" id="add_power_off_time_sel" class="input-org-info" 
 					style="margin-top: 0;" onClick="WtimePicker()" readonly="readonly"/>
             </p>
             <p>
@@ -440,7 +440,7 @@
 
             </p>
             <p>
-                <label for="channel-addname" class="role-lab">首次启用日期</label>
+                <label for="channel-addname" class="role-lab w130">SIM卡首次启用日期</label>
                 <input type="text" name="add_device_no_txt" id="" class="input-role-name"/>
 
             </p>
@@ -522,21 +522,21 @@
 
             <p>
                 <label for="bs-date">部署日期</label>
-                <input type="date" name="change_deploy_time_sel" id="change_deploy_time_sel" class="input-org-info" 
+                <input type="input" name="change_deploy_time_sel" id="change_deploy_time_sel" class="input-org-info" 
 					style="margin-top: 0;" onClick="WdatePicker()" readonly="readonly"/>
                 <i class="red-color pdl10">*</i>
-                <label for="sq-date">启用日期</label>
-                <input type="date" name="change_begin_time_sel" id="change_begin_time_sel" class="input-org-info" 
+                <label for="sq-date">加油站启用日期</label>
+                <input type="input" name="change_begin_time_sel" id="change_begin_time_sel" class="input-org-info" 
 					style="margin-top: 0;" onClick="WdatePicker()" readonly="readonly"/>
             </p>
 
             <p>
                 <label for="sq-date">设置开机时间</label>
-                <input type="date" name="change_power_on_time_sel" id="change_power_on_time_sel" class="input-org-info" 
+                <input type="input" name="change_power_on_time_sel" id="change_power_on_time_sel" class="input-org-info" 
 					style="margin-top: 0;" onClick="WtimePicker()" readonly="readonly"/>
                 <i class="red-color pdl10" style="color: #ffffff;">*</i>
                 <label for="sq-date">设置关机时间</label>
-                <input type="date" name="change_power_off_time_sel" id="change_power_off_time_sel" class="input-org-info" 
+                <input type="input" name="change_power_off_time_sel" id="change_power_off_time_sel" class="input-org-info" 
 					style="margin-top: 0;" onClick="WtimePicker()" readonly="readonly"/>
             </p>
             <p>
@@ -548,7 +548,7 @@
 
             </p>
             <p>
-                <label for="channel-addname" class="role-lab">首次启用日期</label>
+                <label for="channel-addname" class="role-lab w130">SIM卡首次启用日期</label>
                 <input type="text" name="add_device_no_txt" id="" class="input-role-name"/>
 
             </p>
@@ -794,8 +794,42 @@
 			var add_status_sel=$("#add_status_sel").val();//终端状态
 			var add_device_type_txt=$("#add_device_type_txt").val();//终端型号
 			var add_address_txt=$("#add_address_txt").val();//终端地址
-			var add_power_on_time_sel=$("#add_power_on_time_sel").val();
-			var add_power_off_time_sel=$("#add_power_off_time_sel").val();
+			var begin_time=$("#add_power_on_time_sel").val();//开机时间
+			
+			var on_strs= new Array(); //定义一数组 
+			on_strs=begin_time.split(":"); //字符分割 
+			for (i=0;i<on_strs.length ;i++ ) 
+			{ 
+				if(i==0){
+					var on_h=on_strs[i]*3600; //分割后的字符输出 
+				}
+				if(i==1){
+					var on_m=on_strs[i]*60; //分割后的字符输出
+				}
+				if(i==2){
+					var on_s=on_strs[i]; //分割后的字符输出
+				}
+			} 
+			var add_power_on_time_sel= on_h+on_m+on_s;//开机时间转换时间戳
+
+			var end_time=$("#add_power_off_time_sel").val();//关机时间
+
+			var off_strs= new Array(); //定义一数组 
+			off_strs=end_time.split(":"); //字符分割 
+			for (i=0;i<off_strs.length ;i++ ) 
+			{ 
+				if(i==0){
+					var off_h=off_strs[i]*3600; //分割后的字符输出 
+				}
+				if(i==1){
+					var off_m=off_strs[i]*60; //分割后的字符输出
+				}
+				if(i==2){
+					var off_s=off_strs[i]; //分割后的字符输出
+				}
+			} 
+			var add_power_off_time_sel= off_h+off_m+off_s;//关机时间转换时间戳
+
 			var add_image_path_0=tmp_image_path_0;
 			var add_image_path_1=tmp_image_path_1;
 			var add_image_path_2=tmp_image_path_2;
@@ -864,8 +898,43 @@
 			var change_status_sel=$("#change_status_sel").val();//终端状态
 			var change_device_type_txt=$("#change_device_type_txt").val();//终端型号
 			var change_address_txt=$("#change_address_txt").val();//终端地址
-			var change_power_on_time_sel=$("#change_power_on_time_sel").val();
-			var change_power_off_time_sel=$("#change_power_off_time_sel").val();
+
+			var begin_time=$("#change_power_on_time_sel").val();//开机时间
+			
+			var on_strs= new Array(); //定义一数组 
+			on_strs=begin_time.split(":"); //字符分割 
+			for (i=0;i<on_strs.length ;i++ ) 
+			{ 
+				if(i==0){
+					var on_h=on_strs[i]*3600; //分割后的字符输出 
+				}
+				if(i==1){
+					var on_m=on_strs[i]*60; //分割后的字符输出
+				}
+				if(i==2){
+					var on_s=on_strs[i]; //分割后的字符输出
+				}
+			} 
+			var change_power_on_time_sel= on_h+on_m+on_s;//开机时间转换时间戳
+
+			var end_time=$("#change_power_off_time_sel").val();//关机时间
+
+			var off_strs= new Array(); //定义一数组 
+			off_strs=end_time.split(":"); //字符分割 
+			for (i=0;i<off_strs.length ;i++ ) 
+			{ 
+				if(i==0){
+					var off_h=off_strs[i]*3600; //分割后的字符输出 
+				}
+				if(i==1){
+					var off_m=off_strs[i]*60; //分割后的字符输出
+				}
+				if(i==2){
+					var off_s=off_strs[i]; //分割后的字符输出
+				}
+			} 
+			var change_power_off_time_sel= off_h+off_m+off_s;//关机时间转换时间戳
+
 			var change_image_id_0=$("#change_image_id_0").val();
 			var change_image_id_1=$("#change_image_id_1").val();
 			var change_image_id_2=$("#change_image_id_2").val();

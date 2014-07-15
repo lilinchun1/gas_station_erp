@@ -1,0 +1,142 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>渠道信息</title>
+    <link rel="stylesheet" href="__PUBLIC__/css/configuration.css"/>
+    <link rel="stylesheet" href="../../Public/css/configuration.css"/>
+    <script type="text/javascript" src="__PUBLIC__/js/jquery-1.10.2.min.js"></script>
+    <script type="text/javascript" src="__PUBLIC__/js/jquery.SuperSlide.2.1.1.js"></script>
+    <script type="text/javascript" src="__PUBLIC__/js/My97DatePicker/WdatePicker.js"></script>
+    <style>
+        #head,.head-wrap,#footer{
+            min-width: 990px;
+        }
+        .role-control{
+            width: 99.7%;}
+    </style>
+</head>
+<body>
+<include file="./Tpl/include/pb-head.html"/>
+<div id="container" style="min-width: 990px">
+    <div class="left">
+        <include file="./Tpl/include/pb-statistics-aside.html"/>
+    </div>
+    <div class="right">
+        <div class="right-con">
+            <div class="org-right-con">
+                <div class="role-control" id="j-fixed-top">
+                    <div class="role-inquire channel-index-btns">
+                        <form name="channelSelect" method="get" action="">
+                            <p>
+                                <label for="channel-class1" class="">区域</label>
+                                <select name="channel_first_type_sel" id="channel-class1" class="channel-select-min">
+                                    <option value="">省份</option>
+                                </select>
+                                <select name="channel_second_type_sel" id="channel_second_type_sel" class="channel-select-min">
+                                    <option value="">城市</option>
+                                </select>
+
+                                <label for="day">查询日期</label>
+                                <input type="text" name="contract_end_time_1" id="contract_end_time_1" class="input-org-info"
+                                       value="{$_GET['contract_end_time_1']}" onClick="WdatePicker()"/>
+                                &nbsp;至&nbsp;
+                                <input type="text" name="contract_end_time_2" id="contract_end_time_2" class="input-org-info"
+                                       value="{$_GET['contract_end_time_2']}" onClick="WdatePicker()"/>
+                                <input type="text" name="select_del_flag_txt" id="select_del_flag_txt" value="0" style="display:none;"/>
+                                <input type="submit" class="role-control-btn" value="查询" />
+                            </p>
+                        </form>
+                    </div>
+
+                </div>
+                <div class="role-table station-chart">
+                    <div class="list-wrap-statistics">
+                        <div class="role-table">
+                            <div class="data-log">
+                                <h3>安装量日报表<input type="submit" class="role-control-btn" value="导出" /></h3>
+
+                            </div>
+                            <ul class="statistics-list">
+                                <li>
+                                    <span class='span-1'><b>日期</b></span>
+                                    <span class='span-1'><b>安装总量</b></span>
+                                    <span class='span-1'><b>IOS安装量</b></span>
+                                    <span class='span-1'><b>Android安装量</b></span>
+                                    <span class='span-1'><b>已统计加油站数量</b></span>
+                                    <span class='span-1'><b>未统计加油站数量</b></span>
+                                </li>
+                                <li>
+                                    <span class='span-1'>11111111</span>
+                                    <span class='span-1'>22222222</span>
+                                    <span class='span-1'>33333333</span>
+                                    <span class='span-1'>44444444</span>
+                                    <span class='span-1'><a href="">200</a></span>
+                                    <span class='span-1'><a href="">108</a></span>
+                                </li>
+
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bk3">
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<include file="./Tpl/include/pb-foot.html"/>
+<div class="alert-table1">
+    <div class="data-log">
+        <h3>已统计加油站安装量明细<input type="submit" class="role-control-btn fr" value="导出" /><input type="submit" class="role-control-btn fr" value="关闭" /></h3>
+    </div>
+    <ul class="statistics-list">
+        <li>
+            <span class='span-1'><b>网点地址</b></span>
+            <span class='span-1'><b>点位信息</b></span>
+            <span class='span-1'><b>MAC</b></span>
+            <span class='span-1'><b>操作</b></span>
+        </li>
+        <li>
+            <span class='span-1'>11111111</span>
+            <span class='span-1'>22222222</span>
+            <span class='span-1'>33333333</span>
+            <span class='span-1'><input type="submit" class="role-control-btn" value="已统计" /></span>
+        </li>
+
+    </ul>
+</div>
+<div class="alert-table1">
+    <div class="data-log">
+        <h3>未统计加油站<input type="submit" class="role-control-btn fr" value="导出" /><input type="submit" class="role-control-btn fr" value="关闭" /></h3>
+    </div>
+    <ul class="statistics-list">
+        <li>
+            <span class='span-1'><b>网点地址</b></span>
+            <span class='span-1'><b>点位信息</b></span>
+            <span class='span-1'><b>MAC</b></span>
+            <span class='span-1'><b>安装总量</b></span>
+            <span class='span-1'><b>IOS安装量</b></span>
+            <span class='span-1'><b>Abdrid安装量</b></span>
+        </li>
+        <li>
+            <span class='span-1'>11111111</span>
+            <span class='span-1'>22222222</span>
+            <span class='span-1'>33333333</span>
+            <span class='span-1'>44444444</span>
+            <span class='span-1'>55555555</span>
+            <span class='span-1'>66666666</span>
+        </li>
+
+    </ul>
+</div>
+<script type="text/javascript" src="../../Public/js/jquery-1.6.1.js"></script>
+<script type="text/javascript" src="../../Public/js/jquery.SuperSlide.2.1.1.js"></script>
+
+<script type="text/javascript" src="__PUBLIC__/js/jquery-1.6.1.js"></script>
+<script type="text/javascript" src="__PUBLIC__/js/jquery.SuperSlide.2.1.1.js"></script>
+
+</body>
+</html>

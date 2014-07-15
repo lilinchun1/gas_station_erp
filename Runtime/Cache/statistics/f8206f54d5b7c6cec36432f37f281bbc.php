@@ -59,7 +59,7 @@
         </ul>
     </li>
 </ul>
-<div class="bk10"></div>
+<div class="bk10 bdb-das"></div>
 <ul class="aside-nav">
     <li class="aside-nav-nth1"><a>用户分析<i class="j-show-list">-</i></a>
         <ul>
@@ -67,7 +67,7 @@
         </ul>
     </li>
 </ul>
-<div class="bk10"></div>
+<div class="bk10 bdb-das"></div>
 <ul class="aside-nav">
     <li class="aside-nav-nth1"><a>App分析<i class="j-show-list">-</i></a>
         <ul>
@@ -76,7 +76,7 @@
         </ul>
     </li>
 </ul>
-<div class="bk10"></div>
+<div class="bk10 bdb-das"></div>
 <ul class="aside-nav">
     <li class="aside-nav-nth1"><a>报表数据<i class="j-show-list">-</i></a>
         <ul>
