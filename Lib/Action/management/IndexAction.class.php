@@ -2,18 +2,21 @@
 import ( "@.MyClass.Spreadsheet_Excel_Reader" );
 class IndexAction extends Action {
 	private $uploaded_url = "Runtime/Temp";
-	public $uid = 0;
+	private $smartapp_uploaded_url    = "DevAppDownLoad/SmartApp/";
+	private $smartguard_uploaded_url  = "DevAppDownLoad/SmartGuard/";
+	private $updateapp_uploaded_url   = "DevAppDownLoad/UpdateApp/";
+	private $videoplayer_uploaded_url = "DevAppDownLoad/VideoPlayer/";
+
 	//区域顶级父id值
 	public $top_pid = 0;
+	public $userinfo = null;
 	function __construct(){
 		parent::__construct();
 		//获取用户信息
-		$userinfo = getUserInfo();
-		//var_dump( $userinfo);exit;
-		$this->uid = $userinfo['uid'];
+		$this->userinfo = getUserInfo();
 		//获取可查看菜单路径
-		$this->assign('urlStr', $userinfo['urlstr']);
-		$this->assign('username', $userinfo['realname']);
+		$this->assign('urlStr', $this->userinfo['urlstr']);
+		$this->assign('username', $this->userinfo['realname']);
 	}
 	
 	/**
@@ -153,7 +156,7 @@ class IndexAction extends Action {
 							'app_type'  => $app_type,
 							'numa'		=> $page,
 							'numb'	    => $several,
-							'createuserid'=>$this->uid,
+							'createuserid'=>$this->userinfo['uid'],
 							'createtime'=>$createtime,
 							'rule_status'=>$rule_status
 					) );echo $appRule->getlastsql(),"<br />\n";
@@ -168,7 +171,7 @@ class IndexAction extends Action {
 							'app_type'  => $app_type,
 							'numa'		=> $page,
 							'numb'      => $several,
-							'createuserid'=>$this->uid,
+							'createuserid'=>$this->userinfo['uid'],
 							'createtime'=>$createtime,
 							'rule_status'=>$rule_status
 					) );echo $appRule->getlastsql(),"<br />\n";
@@ -207,7 +210,7 @@ class IndexAction extends Action {
 					'rule_no'       => $rule_no,
 					'target_num'    => $target_num,
 					'start_time'    => $start_time,
-					'createuserid'  => $this->uid,
+					'createuserid'  => $this->userinfo['uid'],
 					'rule_status'   => 1,
 					'createtime'    => time()
 			) );
@@ -217,7 +220,7 @@ class IndexAction extends Action {
 			$rule_no    = $_POST['rule_no'];
 			$start_time = strtotime($_POST['start_time']);
 			$target_num = $_POST['target_num'];
-			
+			//echo $target_num;exit;
 			$data = null;
 			$data['rule_no'] = $rule_no;
 			$data['start_time'] = $start_time;
@@ -272,17 +275,164 @@ class IndexAction extends Action {
 	}
 	
 	/**
-	 * verup版本升级
+	 * verup版本升级列表
 	 * @param
 	 * @return mixed
 	 */
-	function verup(){
+	function verup(){//$this->userinfo['orgid'];
+		$model = new Model();
+		//权限控制，只允许同代理商员工访问
+		$userIdSql = "select uid from bi_user where orgid = ".$this->userinfo['orgid'];
+		$userIdQue = $model->query($userIdSql);
+		$userIdStr = "";
+		foreach ($userIdQue as $k=>$v){
+			$userIdStr .= $v['uid'].",";
+		}
+		$userIdStr = rtrim($userIdStr,",");
+		
+		$where = " where 1";
+		if($userIdStr){
+			$where .= " and add_user_id in ($userIdStr) ";
+		}
+		if($_POST['smartApp']){
+			$where .= " and smart_app = '$_POST[smartApp]' ";
+		}
+		if($_POST['videoPlayer']){
+			$where .= " and video_player = '$_POST[videoPlayer]' ";
+		}
+		if($_POST['updateApp']){
+			$where .= " and update_app = '$_POST[updateApp]' ";
+		}
+		if($_POST['smartGuard']){
+			$where .= " and smart_guard = '$_POST[smartGuard]' ";
+		}
+		
+		$sql = " select * from app_dev_update $where ";
+		//沥遍改变时间格式
+		$que = $model->query($sql);
+		foreach($que as $k=>$v){
+			$v['status_date']?$que[$k]['status_date'] = date("Y-m-d",$v['status_date']):$que[$k]['status_date'] = "";
+		}
+		$this->assign('app_dev_update_arr', $que);
 		//供菜单给当前页面加样式
 		$this->assign('nowUrl', "management/Index/verup");
 		$this->display(':verup');
 	}
+	/**
+	 * verup_add_udp 版本升级添加，修改
+	 * @param
+	 * @return mixed
+	 */
+	function verup_add_udp(){
+		$app_dev_update = new Model('AppDevUpdate');
+		$smartAppNo     = $_POST['smartAppNo'];
+		$videoPlayerNo  = $_POST['videoPlayerNo'];
+		$updateAppNo    = $_POST['updateAppNo'];
+		$smartGuardNo   = $_POST['smartGuardNo'];
+		$target_num     = $_POST['target_num'];
+		$updateId       = $_POST['updateId'];
 
-	//自动补全对应函数	
+		$date = array();
+		if($_FILES["SmartApp"]['name']){
+			$date['smart_app'] = $smartAppNo;
+			$smart_app_downloaded = $this->smartapp_uploaded_url."$smartAppNo";
+			$date['smart_app_downloaded'] = $smart_app_downloaded;
+			//不存在则创建
+			if(!is_dir($smart_app_downloaded)){
+				mkdir($smart_app_downloaded);
+				chmod($smart_app_downloaded, 0777);
+			}else{
+				@unlink($smart_app_downloaded.'/'.$_FILES["SmartApp"]['name']);
+			}
+			move_uploaded_file($_FILES["SmartApp"]["tmp_name"], $smart_app_downloaded.'/'.$_FILES["SmartApp"]['name']);
+		}
+		if($_FILES["VideoPlayer"]['name']){
+			$date['video_player'] = $videoPlayerNo;
+			$video_player_downloaded = $this->videoplayer_uploaded_url."$videoPlayerNo";
+			$date['video_player_downloaded'] = $video_player_downloaded;
+			//不存在则创建
+			if(!is_dir($video_player_downloaded)){
+				mkdir($video_player_downloaded);
+				chmod($video_player_downloaded, 0777);
+			}else{
+				@unlink($video_player_downloaded.'/'.$_FILES["VideoPlayer"]['name']);
+			}
+			move_uploaded_file($_FILES["VideoPlayer"]["tmp_name"], $video_player_downloaded.'/'.$_FILES["VideoPlayer"]['name']);
+		}
+		if($_FILES["UpdateApp"]['name']){
+			$date['update_app'] = $updateAppNo;
+			$update_app_downloaded = $this->updateapp_uploaded_url."$updateAppNo";
+			$date['update_app_downloaded'] = $update_app_downloaded;
+			//不存在则创建
+			if(!is_dir($update_app_downloaded)){
+				mkdir($update_app_downloaded);
+				chmod($update_app_downloaded, 0777);
+			}else{
+				@unlink($update_app_downloaded.'/'.$_FILES["UpdateApp"]['name']);
+			}
+			move_uploaded_file($_FILES["UpdateApp"]["tmp_name"], $update_app_downloaded.'/'.$_FILES["UpdateApp"]['name']);
+		}
+		if($_FILES["SmartGuard"]['name']){
+			$date['smart_guard'] = $smartGuardNo;
+			$smart_guard_downloaded = $this->smartguard_uploaded_url."$smartGuardNo";
+			$date['smart_guard_downloaded'] = $smart_guard_downloaded;
+			//不存在则创建
+			if(!is_dir($smart_guard_downloaded)){
+				mkdir($smart_guard_downloaded);
+				chmod($smart_guard_downloaded, 0777);
+			}else{
+				@unlink($smart_guard_downloaded.'/'.$_FILES["SmartGuard"]['name']);
+			}
+			move_uploaded_file($_FILES["SmartGuard"]["tmp_name"], $smart_guard_downloaded.'/'.$_FILES["SmartGuard"]['name']);
+		}
+		if($date){
+			//如果有修改id则修改
+			if($updateId){
+				$date['update_date'] = time();
+				$app_dev_update->where("id = $updateId")->save($date);
+			//否则是添加
+			}else{
+				$date['target_num'] = $target_num;
+				$date['add_user_id'] = $this->userinfo['uid'];
+				$date['create_date'] = time();
+				$app_dev_update->add($date);
+			}
+		}
+		
+		$this->redirect('Index/verup', array('cate_id'=>2), 5,' 页面跳转中 ~');
+	}
+	
+	/**
+	 * verup_udp 版本升级删除
+	 * @param
+	 * @return mixed
+	 */
+	function verup_del(){
+		$updateId       = $_POST['updateId'];
+		$model = new Model();
+		$model->query("delete from app_dev_update where id = $updateId");
+		$this->redirect('Index/verup', array('cate_id'=>2), 5,' 页面跳转中 ~');
+	}
+	
+	/**
+	 * verup_use 版本升级更新
+	 * @param
+	 * @return mixed
+	 */
+	function verup_use(){
+		$updateId       = $_POST['updateId'];
+		$app_dev_update = new Model("AppDevUpdate");
+		$date['status'] = 1;
+		$date['status_date'] = time();
+		$app_dev_update->where("id = $updateId")->save($date);
+		$this->redirect('Index/verup', array('cate_id'=>2), 5,' 页面跳转中 ~');
+	}
+
+	/**
+	 * getAppRule 自动补全对应函数
+	 * @param
+	 * @return mixed
+	 */
 	function getAppRule(){
 		$model = new Model();
 		$appNameList = array();
@@ -336,6 +486,7 @@ class IndexAction extends Action {
 		$sql_channel = "
 				SELECT a.channel_id area_id,a.channel_name area_name,b.city pid FROM qd_channel a
 				LEFT JOIN qd_channel_area b ON a.channel_id = b.channel_id
+				WHERE a.isDelete = 0
 				";
 		$this->que_channel = $model->query($sql_channel);
 		

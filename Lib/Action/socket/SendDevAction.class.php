@@ -56,7 +56,7 @@ class SendDevAction extends Action {
 		
 		$model = new Model();
 		$dev_monitor = new Model("DevMonitor");
-		//while(true){
+		while(true){
 			$sql_dev = "
 					SELECT * FROM qd_device a
 					WHERE a.isDelete = 0
@@ -110,22 +110,51 @@ class SendDevAction extends Action {
 				$data['dev_mac'] = $v['MAC'];
 				$data['dev_no']  = $v['device_no'];
 				$data['createtime'] = $createTime;
+				//默认0是全正常，无需存储
 				$hasTrouble = 0;
-				//默认0是正常
-				//判断系统是否正常
-				if($station_system && $station_system != 0){
-					$data['on_line'] = 1;
+				
+				//判断系统是否正常在线，下线
+				//现在时间
+				$nowTime = time();
+				//当天0点时间
+				$dateTime = strtotime(date("Y-m-d"));
+				//差值
+				$dValue = $nowTime - $dateTime;
+				//如果在正常开机允许延迟时间后和正常关机允许提前时间前关机则算不正常不在线
+				if($dValue >= ($v['power_on_time'] + $this->powerMoreTime) && $dValue <= ($v['power_off_time'] - $this->powerLessTime)){
+					if($station_system && $station_system != 0){
+						$data['on_line'] = 1;
+						$hasTrouble++;
+					}
+				//如果在指定时间外还在开机则也返回故障
+				}else if($dValue <= ($v['power_on_time'] - $this->powerLessTime) || $dValue >= ($v['power_off_time'] + $this->powerMoreTime)){
+					if($station_system == 0){
+						$data['on_line'] = 1;
+						$hasTrouble++;
+					}
+				}
+				
+				
+				//判断是否正常开机
+				if(($poweron_time - $dateTime) < ($v['power_on_time'] - $this->powerLessTime) || ($poweron_time - $dateTime) > ($v['power_on_time'] + $this->powerMoreTime)){
+					$data['start_time'] = 1;
 					$hasTrouble++;
 				}
+				
+				
+				//判断是否正常关机
+				if(($poweroff_time - $dateTime) < ($v['power_off_time'] - $this->powerLessTime) || ($poweroff_time - $dateTime) > ($v['power_off_time'] + $this->powerMoreTime)){
+					$data['shutdown_time'] = 1;
+					$hasTrouble++;
+				}
+				
 				//只存储有故障机器
 				if($hasTrouble){
 					$dev_monitor->add($data);
 				}
 			}
-		//	sleep($this->callTime);
-		//}
-
-		
+			sleep($this->callTime);
+		}
 		/*
 		//心跳包
 		$enquire_link = "ENQUIRE_LINK:".$this->getNewSendNum().";";

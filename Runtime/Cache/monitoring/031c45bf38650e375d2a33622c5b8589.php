@@ -49,7 +49,7 @@
     <div class="left">
         
 <ul class="aside-nav">
-    <li class="aside-nav-nth1 url_link" url=""><a>监控<i class="j-show-list">-</i></a>
+    <li class="aside-nav-nth1 url_link" url=""><a>加油站监控<i class="j-show-list">-</i></a>
         <ul>
             <li class="url_link" url=""><a href=""><input  type="button"  value="监控平台" ></a></li>
             <li class="url_link" url=""><a href=""><input type="button" class="" value="监控设置" ></a></li>
@@ -263,7 +263,7 @@
 <!-- 控制当期页面菜单样式 -->
 <input type="hidden" class="nowUrl" value="<?php echo ($nowUrl); ?>">
 <script type="text/javascript" src="__PUBLIC__/js/default_load.js"></script>
-<script type="text/javascript" src="__PUBLIC__/js/jquery-1.6.1.js"></script>
+
 <script type="text/javascript" src="__PUBLIC__/js/jquery.DOMwindow.js" type="text/javascript"></script><!--模框JS插件-->
 <div id="change_password_id" style="display:none;">
     <div class="alert-role-add" >

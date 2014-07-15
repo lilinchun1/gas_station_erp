@@ -10,6 +10,7 @@
        #df-cont{min-width: 1024px;}
         #container.df-cont{min-width: 1024px;}
     </style>
+	<script type="text/javascript" src="__PUBLIC__/js/jquery-1.6.1.js"></script>
 </head>
 <body>
 <div class="head-wrap">
@@ -106,7 +107,7 @@
 <!-- 控制当期页面菜单样式 -->
 <input type="hidden" class="nowUrl" value="<?php echo ($nowUrl); ?>">
 <script type="text/javascript" src="__PUBLIC__/js/default_load.js"></script>
-<script type="text/javascript" src="__PUBLIC__/js/jquery-1.6.1.js"></script>
+
 <script type="text/javascript" src="__PUBLIC__/js/jquery.DOMwindow.js" type="text/javascript"></script><!--模框JS插件-->
 <div id="change_password_id" style="display:none;">
     <div class="alert-role-add" >
@@ -271,7 +272,8 @@
 	</script>
 </body>
 	<link rel="stylesheet" href="__PUBLIC__/css/configuration.css"/>
-	<script type="text/javascript" src="__PUBLIC__/js/jquery-1.10.2.min.js"></script>
+	
+	<script type="text/javascript" src="__PUBLIC__/js/jquery-1.6.1.js"></script>
 	<link href="__PUBLIC__/css/pic/public.css" rel="stylesheet" type="text/css" media="all" />
 	<script src="__PUBLIC__/js/pic/jQuery-easing.js" language="javascript" type="text/javascript"></script>
 	<script src="__PUBLIC__/js/pic/jQuery-jcSlider.js" language="javascript" type="text/javascript"></script>

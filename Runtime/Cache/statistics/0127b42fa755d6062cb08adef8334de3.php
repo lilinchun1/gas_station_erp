@@ -58,7 +58,31 @@
         </ul>
     </li>
 </ul>
-
+<div class="bk10"></div>
+<ul class="aside-nav">
+    <li class="aside-nav-nth1"><a>用户分析<i class="j-show-list">-</i></a>
+        <ul>
+            <li class="url_link" url=""><a href=""><input type="button" value="用户行为分析"></a></li>
+        </ul>
+    </li>
+</ul>
+<div class="bk10"></div>
+<ul class="aside-nav">
+    <li class="aside-nav-nth1"><a>App分析<i class="j-show-list">-</i></a>
+        <ul>
+            <li class="url_link" url=""><a href=""><input type="button" value="App安装量分析"></a></li>
+            <li class="url_link" url=""><a href=""><input type="button" value="App分析"></a></li>
+        </ul>
+    </li>
+</ul>
+<div class="bk10"></div>
+<ul class="aside-nav">
+    <li class="aside-nav-nth1"><a>报表数据<i class="j-show-list">-</i></a>
+        <ul>
+            <li class="url_link" url=""><a href=""><input type="button" value="安装量日报"></a></li>
+        </ul>
+    </li>
+</ul>
     </div>
     <div class="right">
         <div class="right-con">
@@ -318,7 +342,7 @@
 <!-- 控制当期页面菜单样式 -->
 <input type="hidden" class="nowUrl" value="<?php echo ($nowUrl); ?>">
 <script type="text/javascript" src="__PUBLIC__/js/default_load.js"></script>
-<script type="text/javascript" src="__PUBLIC__/js/jquery-1.6.1.js"></script>
+
 <script type="text/javascript" src="__PUBLIC__/js/jquery.DOMwindow.js" type="text/javascript"></script><!--模框JS插件-->
 <div id="change_password_id" style="display:none;">
     <div class="alert-role-add" >
@@ -347,7 +371,7 @@
 </div>
 
 <div class="divout" id="j_logout_win" style="display:none;">
-	<div class="alert-role-add" >
+	<div class="alert-role-add exit-alert" >
 		<h3>退出</h3>
 		<div class="alert-role-add-con">
 			<p class="delete-message">确认退出？</p>
