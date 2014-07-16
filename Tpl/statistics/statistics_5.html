@@ -2,7 +2,7 @@
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
-    <title>app安装量分析</title>
+    <title>app分析</title>
     <link rel="stylesheet" href="__PUBLIC__/css/configuration.css"/>
     <link rel="stylesheet" href="../../Public/css/configuration.css"/>
     <script type="text/javascript" src="__PUBLIC__/js/jquery-1.10.2.min.js"></script>
@@ -84,22 +84,40 @@
                 <div class="role-table station-chart">
                     <div class="tubiao4">
                         <div>111111111111111</div>
-                        <div>22222222222</div>
+                        <div class="role-table3">
+                            <ul class="statistics-list">
+                                <li>
+                                    <span class='span-1'><b>应用名称</b></span>
+                                    <span class='span-1'><b>应用类型</b></span>
+                                    <span class='span-1'><b>安装数量</b></span>
+                                    <span class='span-1'><b>占比</b></span>
+                                    <span class='span-1'><b>所在位置</b></span>
+                                </li>
+                                <li>
+                                    <span class='span-1'>11111111</span>
+                                    <span class='span-1'>22222222</span>
+                                    <span class='span-1'>33333333</span>
+                                    <span class='span-1'>44444444</span>
+                                    <span class='span-1'>44444444</span>
+                                </li>
+
+                            </ul>
+                        </div>
                     </div>
                     <div class="tab-wrap">
+                        <div class="tubiao5">
+                            <div>111111111111111</div>
+                        </div>
                         <div class="hd">
-                            <ul class="channel-tab">
-                                <li>IOS安装明细</li>
-                                <li>Android安装明细</li>
-                                <input type="submit" class="role-control-btn fr" value="导出" />
-                            </ul>
+                            <div class="bingtu-tt">
+                                渠道安装量分析<input type="submit" class="role-control-btn fr" value="导出" />
+                            </div>
                         </div>
                         <div class="bd">
                             <div class="div-tab-chart">
                                 <div class="list-wrap-statistics">
 
                                     <div class="role-table3">
-
                                         <ul class="statistics-list">
                                             <li>
                                                 <span class='span-1'><b>应用名称</b></span>
@@ -171,10 +189,10 @@
 <script type="text/javascript" src="../../Public/js/jquery.SuperSlide.2.1.1.js"></script>
 
 <script type="text/javascript">
-$(function () {
+    $(function () {
 
-    jQuery(".tab-wrap").slide({trigger:"click"});
-});
+        jQuery(".tab-wrap").slide({trigger:"click"});
+    });
 </script>
 
 

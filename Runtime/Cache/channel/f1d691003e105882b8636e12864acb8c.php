@@ -188,7 +188,7 @@
 <!-- 控制当期页面菜单样式 -->
 <input type="hidden" class="nowUrl" value="<?php echo ($nowUrl); ?>">
 <script type="text/javascript" src="__PUBLIC__/js/default_load.js"></script>
-<script type="text/javascript" src="__PUBLIC__/js/jquery-1.6.1.js"></script>
+
 <script type="text/javascript" src="__PUBLIC__/js/jquery.DOMwindow.js" type="text/javascript"></script><!--模框JS插件-->
 <div id="change_password_id" style="display:none;">
     <div class="alert-role-add" >
@@ -217,7 +217,7 @@
 </div>
 
 <div class="divout" id="j_logout_win" style="display:none;">
-	<div class="alert-role-add" >
+	<div class="alert-role-add exit-alert" >
 		<h3>退出</h3>
 		<div class="alert-role-add-con">
 			<p class="delete-message">确认退出？</p>
@@ -531,7 +531,6 @@
 <script type="text/javascript" src="../../Public/js/jquery.SuperSlide.2.1.1.js"></script>-->
 <link rel="stylesheet" href="__PUBLIC__/css/configuration.css"/>
 <link rel="stylesheet" href="__PUBLIC__/css/jquery.bigautocomplete.css" type="text/css" />
-<script type="text/javascript" src="__PUBLIC__/js/jquery-1.6.1.js"></script>
 <script type="text/javascript" src="__PUBLIC__/js/jquery.SuperSlide.2.1.1.js"></script>
 <script type="text/javascript" src="__PUBLIC__/js/jquery.bigautocomplete.js"></script>
 <script type="text/javascript" src="__PUBLIC__/js/jquery.DOMwindow.js" type="text/javascript"></script><!--模框JS插件-->
@@ -812,7 +811,7 @@
 			,'json'
 			);
 		});
-
+		jQuery(".role-table").slide({trigger: "click"});
 	});
 				
 
@@ -942,6 +941,6 @@
 		placeSelect.submit();
 	}
 </script>
-<script type="text/javascript">jQuery(".role-table").slide({trigger: "click"});</script>
+<script type="text/javascript"></script>
 </body>
 </html>
