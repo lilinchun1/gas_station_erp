@@ -26,14 +26,25 @@
 		//================================================================触发
 		//添加，编辑弹出框
 		$('#rule_no_add,#rule_no_udp').click(function(){
+			$("#rule_no_hid").val("");
+			//设定当前点击添加按钮
+			$(".add_or_udp").val(1);
 			//编辑
 			if($(this).hasClass("rule_no_udp")){
+				//设定当前点击编辑按钮
+				$(".add_or_udp").val(2);
 				//获取选中行期刊号
 				var rule_no = $("input[name='role-info']:checked").parent().parent().find(".rule_no_list").text();
 				if(rule_no == ""){
 					alert("请选择编辑条目");
 					return;
 				}
+				var rule_status = $("input[name='role-info']:checked").parent().parent().find(".rule_status").val();
+				if(rule_status>=2){
+					alert("已发布不能修改");
+					return;
+				}
+				
 				//赋值到编辑窗口中
 				$("#rule_no_hid").val(rule_no);
 				//隐藏域期刊号
@@ -51,11 +62,44 @@
 			});
 			return false;
 		});
+		//提交是否为空判断
+		$("#add_submit").click(function(){
+			if($('#rule_no_hid').val()==""){
+				alert("请输入刊例号");
+				return false;
+			}
+			if($(".add_or_udp").val() == 1){
+				if($("#maintain-xx").val()==""){
+					alert("请上传刊例文件");
+					return false;
+				}
+			}
+			
+		});
+		//file判断
+		$("#maintain-xx").change(function(){
+			 var val=$(this).val();  
+			 var point = val.lastIndexOf(".");  
+			 var type = val.substr(point);  
+			 if(type==".xls"||type==".xlsx"){  
+				return true;
+			 } else{
+				alert("请选择Excel文件");
+				$(this).val("");  
+				return false;
+			 }
+
+		})
 		//删除弹出框
 		$(".rule_no_del").click(function(){
 			var rule_no = $("input[name='role-info']:checked").parent().parent().find(".rule_no_list").text();
 			if(rule_no == ""){
 				alert("请选择删除条目");
+				return;
+			}
+			var rule_status = $("input[name='role-info']:checked").parent().parent().find(".rule_status").val();
+			if(rule_status>=2){
+				alert("已发布不能删除");
 				return;
 			}
 			$("#del_rule_no").val(rule_no);
@@ -84,7 +128,7 @@
 <body>
 <div class="head-wrap">
 <div id="head">
-    <h1 class="head-logo"><a href="index.html">ERP管理系统</a></h1>
+    <h1 class="head-logo"><a href="<?php echo U('configuration/Login/default_index');?>">ERP管理系统</a></h1>
     <h2 class="head-tt">智能手机加油站业务支撑系统</h2>
     <div class="login">
         <div class="left">
@@ -117,7 +161,7 @@
 	<div class="left">
         
 <ul class="aside-nav">
-    <li class="aside-nav-nth1" ><a>刊例管理<i class="j-show-list">-</i></a>
+    <li class="aside-nav-nth1"><a>刊例管理<i class="j-show-list">-</i></a>
         <ul>
             <li class="url_link" url="<?php echo U('management/Index/importingApp');?>"><a href="<?php echo U('management/Index/importingApp');?>"><input type="button" value="刊例维护"></a></li>
             <li class="url_link" url="<?php echo U('management/Index/addRuleTarget');?>"><a href="<?php echo U('management/Index/addRuleTarget');?>"><input type="button" class="" value="刊例发布"></a></li>
@@ -166,13 +210,17 @@
 
 							</li>
 							<?php if(is_array($issueArr)): foreach($issueArr as $key=>$issue): ?><li class="rule_info_list">
-									<span class="span-1"><input type="radio" name="role-info" id="" class="role-table-radio"/></span>
+									<span class="span-1">
+										<input type="radio" name="role-info" id="" class="role-table-radio"/>
+										<input type="hidden" name="rule_status" id="rule_status" class="rule_status" value="<?php echo ($issue["rule_status"]); ?>"/>
+									</span>
 									<span class="span-2 rule_no_list" title="#"><?php echo ($issue["rule_no"]); ?></span>
 									<span class="span-2" title="#"><?php echo ($issue["realname"]); ?></span>
 									<span class="span-2" title="#"><?php echo ($issue["createtime"]); ?></span>
 									<span class="span-3" title="#"><a href="#" class="app_info_list">查看</a></span>
 								</li><?php endforeach; endif; ?>
 						</ul>
+						<div class="resultpage"><?php echo ($page); ?></div>
 					</div>
 				</div>
 			</div>
@@ -355,7 +403,7 @@
 					<label for="rule_no_hid" class="role-lab">刊例号</label>
 					<input type="text" name="rule_no" id="rule_no_hid" class="input-role-name"/>
 					<input type="hidden" name="old_rule_no" id="old_rule_no" value=""/>
-                    <input type="file" name="app_file" id="maintain-xx" class="input-role-name" style="border: 0 none; width: 73px;"/>
+                    <input type="file" name="app_file" id="maintain-xx" class="input-role-name" accept="application/vnd.ms-excel" style="border: 0 none; width: 73px;"/>
                     <i class="red-color pdl10">*</i>
 				</p>
 	
@@ -365,7 +413,7 @@
 				</p>-->
 	
 				<p>
-					<button type="submit" name="add_udp" class="alert-btn2" value="1">保存</button>
+					<button type="submit" name="add_udp" class="alert-btn2" value="1" id="add_submit">保存</button>
 					<a href="." class="closeDOMWindow">
 						<button type="button" class="alert-btn2">关闭</button>
 					</a>
@@ -392,5 +440,6 @@
 		</form>
 	</div>
 </div>
+<input type="hidden" class="add_or_udp" value="1">
 </body>
 </html>

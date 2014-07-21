@@ -18,7 +18,7 @@
 <body>
 <div class="head-wrap">
 <div id="head">
-    <h1 class="head-logo"><a href="index.html">ERP管理系统</a></h1>
+    <h1 class="head-logo"><a href="<?php echo U('configuration/Login/default_index');?>">ERP管理系统</a></h1>
     <h2 class="head-tt">智能手机加油站业务支撑系统</h2>
     <div class="login">
         <div class="left">
@@ -62,7 +62,7 @@
 <ul class="aside-nav">
     <li class="aside-nav-nth1"><a>用户分析<i class="j-show-list">-</i></a>
         <ul>
-            <li class="url_link" url=""><a href=""><input type="button" value="用户行为分析"></a></li>
+            <li class="url_link" url="<?php echo U('statistics/Index/user_behavior');?>"><a href="<?php echo U('statistics/Index/user_behavior');?>"><input type="button" value="用户行为分析"></a></li>
         </ul>
     </li>
 </ul>
@@ -70,8 +70,8 @@
 <ul class="aside-nav">
     <li class="aside-nav-nth1"><a>App分析<i class="j-show-list">-</i></a>
         <ul>
-            <li class="url_link" url=""><a href=""><input type="button" value="App安装量分析"></a></li>
-            <li class="url_link" url=""><a href=""><input type="button" value="App分析"></a></li>
+            <li class="url_link" url="<?php echo U('statistics/Index/app_installed');?>"><a href="<?php echo U('statistics/Index/app_installed');?>"><input type="button" value="App安装量分析"></a></li>
+            <li class="url_link" url="<?php echo U('statistics/Index/app_analysis');?>"><a href="<?php echo U('statistics/Index/app_analysis');?>"><input type="button" value="App分析"></a></li>
         </ul>
     </li>
 </ul>
@@ -79,7 +79,7 @@
 <ul class="aside-nav">
     <li class="aside-nav-nth1"><a>报表数据<i class="j-show-list">-</i></a>
         <ul>
-            <li class="url_link" url=""><a href=""><input type="button" value="安装量日报"></a></li>
+            <li class="url_link" url="<?php echo U('statistics/Index/installed_daily');?>"><a href="<?php echo U('statistics/Index/installed_daily');?>"><input type="button" value="安装量日报"></a></li>
         </ul>
     </li>
 </ul>

@@ -63,7 +63,7 @@ class ExportDataAction extends Action {
 	public function channelDataExport(){
 		$Model = new Model();
 		$channel = M("channel");
-		$channel_area = M("channel_area");
+		//$channel_area = M("channel_area");
 		$channel_type_link = M("channel_type_link");
 		$sql = 'select * from `360`.`qd_place`';
 		$channelList = $Model->query($sql);
@@ -96,7 +96,7 @@ class ExportDataAction extends Action {
 			$agent_info = $Model->query("select province, city from `360`.`qd_agent` where agentid='$agent_id'");
 			$area['province'] = $agent_info[0]['province'];
 			$area['city'] = $agent_info[0]['city'];
-			$is_set = $channel_area->add($area);
+			//$is_set = $channel_area->add($area);
 
 			$type_link['channel_id'] = $channel_id;
 			$tmp_channel_type_id = $Model->query("select channel_type_id from qd_channel_type where channel_type_name='%s'", $val['type']);

@@ -11,9 +11,8 @@ class LoginAction extends Action {
 	//登录之后的默认页
 	 public function default_index(){
 		$userinfo = getUserInfo();
-		$this->assign('username', $userinfo['realname']);
 		$this->assign('urlStr', $userinfo['urlstr']);
-		//var_dump( $_SESSION ['userinfo']);exit;
+		$this->assign('username', $userinfo['realname']);
 		$this->display(':default_index');
 	}
 

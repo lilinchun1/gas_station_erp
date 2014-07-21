@@ -51,7 +51,7 @@ class ChannelAction extends Action {
 		$del_flag_txt = trim(I('select_del_flag_txt'));
 		$is_channel_select_show = 1;
 		//$page_show_number = 30;       //每页显示的数量
-		C('page_show_number')?$page_show_number=C('page_show_number'):$page_show_number=30;  //每页显示的数量
+		$page_show_number = C('page_show_number')?C('page_show_number'):30;  //每页显示的数量
 		$where = "a.channel_id=b.channel_id and a.isDelete='$del_flag_txt'";
 		if(!empty($agent_name))
 		{
@@ -117,6 +117,7 @@ class ChannelAction extends Action {
 		->field('a.channel_id, a.channel_name, a.agent_id, a.contacts, a.contacts_tel, a.channel_tel, a.channel_address, a.contract_number,
 		a.place_num, a.device_num, a.begin_time, a.end_time, a.forever_type, a.isDelete, a.province, a.city, b.channel_type_id,
 		c.channel_type_father_id, c.channel_type_name')->select();
+		//echo $Model->getLastSql();exit;
 		if($list=="")
 		{
 			$listCount = 0;
@@ -188,8 +189,18 @@ class ChannelAction extends Action {
      public function channelDetailSelect(){
 	    $Model = new Model();
 		$channel_id = I('get.channel_id');
-		$where = "a.channel_id=" . $channel_id;
-		$dataChannel = $Model->table('qd_channel a')->where($where)->select();// 查询满足要求的总记录数
+		$where = " where 1 ";
+		if($channel_id){
+			$where .= " and channel_id= $channel_id";
+		}
+		//$dataChannel = $Model->table('qd_channel a')->where($where)->select();// 查询满足要求的总记录数
+		$sql = "
+				SELECT a.channel_id,channel_name,agent_id,province,city,contacts,contacts_tel,channel_tel,channel_address,
+				contract_number,place_num,device_num,begin_time,end_time,forever_type,isDelete
+				FROM qd_channel a
+				$where
+				";
+		$dataChannel = $Model->query($sql);
 		$dataChannel[0]['begin_time'] = getDateFromTime($dataChannel[0]['begin_time']);
 		$dataChannel[0]['end_time'] = getDateFromTime($dataChannel[0]['end_time']);
 		//$tmp_channel_area  = $Model->query("select province,city from qd_channel_area where channel_id='$channel_id'");
@@ -260,9 +271,9 @@ class ChannelAction extends Action {
 		$channel = M("channel");
 		$channel_area = M("channel_area");
 		$channel_type_link = M('channel_type_link');
-		$count = $Model->query("select count(*) as count from qd_channel a, qd_channel_area b where a.channel_name='%s' and a.channel_id=b.channel_id 
-		    and	b.province='%s' and b.city='%s'", $channel_name, $province, $city);
-		$channel_delete_count = $Model->query("select count(*) as count from qd_channel a where a.channel_name='%s' and a.isDelete='1'", $channel_name);
+		$count = $Model->query("select count(*) as count from qd_channel a where a.channel_name='$channel_name'
+		    and	a.province='$province' and a.city='$city'");
+		$channel_delete_count = $Model->query("select count(*) as count from qd_channel where channel_name='$channel_name' and isDelete='1'");
 		if($channel_delete_count[0]['count'] > 0)
 		{
 			$msg = C('add_delete_channel');
@@ -488,7 +499,7 @@ class ChannelAction extends Action {
 		$channel = M("channel");
 		$channel_area = M("channel_area");
 		$msg = C('delete_channel_success');
-		$count = $Model->query("select count(*) as count from qd_channel_area where channel_id=" . $channel_id);
+		$count = $Model->query("select count(*) as count from qd_channel where channel_id=" . $channel_id);
 		if($count[0]['count'] <= 1)
 		{
 			$is_set = $channel->where("channel_id=" . $channel_id)->setField('isDelete', 1);
@@ -499,13 +510,13 @@ class ChannelAction extends Action {
 				return;
 			}
 		}
-		if($count[0]['count'] > 1)
-		{
-			$isDelete = $channel_area->where("channel_id=" . $channel_id . " and province='$province' and city='$city'")->delete();
-			if($isDelete <= 0){
-				$msg = C('delete_channel_failed');
-			}
-		}
+		//if($count[0]['count'] > 1)
+		//{
+			//$isDelete = $channel_area->where("channel_id=" . $channel_id . " and province='$province' and city='$city'")->delete();
+			//if($isDelete <= 0){
+			//	$msg = C('delete_channel_failed');
+			//}
+		//}
 
 		if($msg == C('delete_channel_success'))
 		{

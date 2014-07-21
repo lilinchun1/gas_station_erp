@@ -16,7 +16,7 @@
 <body>
 <div class="head-wrap">
 <div id="head">
-    <h1 class="head-logo"><a href="index.html">ERP管理系统</a></h1>
+    <h1 class="head-logo"><a href="<?php echo U('configuration/Login/default_index');?>">ERP管理系统</a></h1>
     <h2 class="head-tt">智能手机加油站业务支撑系统</h2>
     <div class="login">
         <div class="left">
@@ -49,10 +49,10 @@
     <div class="left">
         
 <ul class="aside-nav">
-    <li class="aside-nav-nth1 url_link" url=""><a>远程监控<i class="j-show-list">-</i></a>
+    <li class="aside-nav-nth1"><a>远程监控<i class="j-show-list">-</i></a>
         <ul>
-            <li class="url_link" url=""><a href=""><input  type="button"  value="监控平台" ></a></li>
-            <li class="url_link" url=""><a href=""><input type="button" class="" value="监控设置" ></a></li>
+            <li class="url_link" url="<?php echo U('monitoring/Index/station');?>"><a href="<?php echo U('monitoring/Index/station');?>"><input  type="button"  value="监控平台" ></a></li>
+            <!--<li class="url_link" url=""><a href=""><input type="button" class="" value="监控设置" ></a></li>-->
             <!--<li class="url_link" url=""><a href=""><input type="button" class="" value="异常记录" ></a></li>-->
         </ul>
     </li>
@@ -75,51 +75,55 @@
                             <h4>APP应用</h4>
                             <span><img src="__PUBLIC__/image/1.png" alt=""/></span>
                             <dl class="station-zhuangtai">
-                                <dt><b class="icon-checkmark-circle green-color"></b><em>10000</em></dt>
-                                <dt><b class="icon-cancel-circle red-color"></b><em>20</em></dt>
+                                <dt><b class="icon-checkmark-circle green-color"></b><em>0</em></dt>
+                                <dt><b class="icon-cancel-circle red-color"></b><em>0</em></dt>
                             </dl>
                         </li>
                         <li>
                             <h4>媒体广告</h4>
                             <span><img src="__PUBLIC__/image/4.png" alt=""/></span>
                             <dl class="station-zhuangtai">
-                                <dt><b class="icon-checkmark-circle green-color"></b><em>10000</em></dt>
-                                <dt><b class="icon-cancel-circle red-color"></b><em>20</em></dt>
+                                <dt><b class="icon-checkmark-circle green-color"></b><em>0</em></dt>
+                                <dt><b class="icon-cancel-circle red-color"></b><em>0</em></dt>
                             </dl>
                         </li>
                         <li>
                             <h4>远程操作</h4>
                             <span><img src="__PUBLIC__/image/5.png" alt=""/></span>
                             <dl class="station-zhuangtai">
-                                <dt><b class="icon-checkmark-circle green-color"></b><em>10000</em></dt>
-                                <dt><b class="icon-cancel-circle red-color"></b><em>20</em></dt>
+                                <dt><b class="icon-checkmark-circle green-color"></b><em>0</em></dt>
+                                <dt><b class="icon-cancel-circle red-color"></b><em>0</em></dt>
                             </dl>
                         </li>
                     </ul>
+                    <!-- 
                     <div class="station-state-list-cx">
-                        <label for="channel-ss-are">所属网点</label>
-                        <select name="add_agent_type_sel" id="channel-ss-are" class="channel-select-min">
-                            <option selected value="">省份</option>
-                            <option class="industry" value="trade">2</option>
-                            <option class="area" value="area">3</option>
-                        </select>
-                        <select name="add_agent_type_sel" id="channel-class2" class="channel-select-min">
-                            <option selected value="">城市</option>
-                            <option class="industry" value="trade">2</option>
-                            <option class="area" value="area">3</option>
-                        </select>
-                       <!-- <select name="add_agent_type_sel" id="channel-class3" class="channel-select-min">
-                            <option selected value="">区域</option>
-                            <option class="industry" value="trade">2</option>
-                            <option class="area" value="area">3</option>
-                        </select>-->
-                        <input placeholder="请输入渠道名称" type="text" name="" id="channel-ss-channel" class="station-info"/>
-                        <button type="button" class="role-control-btn">查询</button>
-                        <button type="button" class="role-control-btn">导出</button>
+						<span id="hide">
+							<label for="channel-ss-are">所属网点</label>
+							<select name="add_agent_type_sel" id="channel-ss-are" class="channel-select-min">
+								<option selected value="">省份</option>
+								<option class="industry" value="trade">2</option>
+								<option class="area" value="area">3</option>
+							</select>
+							<select name="add_agent_type_sel" id="channel-class2" class="channel-select-min">
+								<option selected value="">城市</option>
+								<option class="industry" value="trade">2</option>
+								<option class="area" value="area">3</option>
+							</select>
+						  -- <select name="add_agent_type_sel" id="channel-class3" class="channel-select-min">
+								<option selected value="">区域</option>
+								<option class="industry" value="trade">2</option>
+								<option class="area" value="area">3</option>
+							</select>--
+							<input placeholder="请输入渠道名称" type="text" name="" id="channel-ss-channel" class="station-info"/>
+							<button type="button" class="role-control-btn">查询</button>
+							<button type="button" class="role-control-btn">导出</button>
+						</span>
                         <div class="mode-change">
                             <a href="" class="active">监控台模式</a> <a href="">列表模式</a>
                         </div>
                     </div>
+                    -->
                 </div>
             </div>
             <div class="station-state-list"  id="j-station-sh1">
@@ -131,9 +135,9 @@
                 <ul class="station-state-list-con">
                     <?php if(is_array($devPageBreakArr)): foreach($devPageBreakArr as $key=>$devBreak): ?><li>
 	                        <div class="station-state-info">
-	                            <!-- <em>报警时间 ：  2014-05-11   12：20</em>
-	                            <em>报警时长  ： 6小时20分</em> -->
-	                            <em><?php echo ($devBreak['province']); ?>  <?php echo ($devBreak['city']); ?>  <?php echo ($devBreak['address']); ?></em>
+	                            <em>报警时间 ： <?php echo ($devBreak['wrong_begin_time']); ?></em>
+	                            <em>报警时长  ： <?php echo ($devBreak['continueTime']); ?></em>
+	                            <em><?php echo ($devBreak['province']); ?>  <?php echo ($devBreak['city']); ?>  <?php echo ($devBreak['address']); ?> <?php echo ($devBreak['dev_mac']); ?> <?php echo ($devBreak['dev_no']); ?></em>
 	                        </div>
 	                        <div class="station-state-dl">
 	                            <div class="row-lt">
@@ -208,6 +212,12 @@
 	                    </li><?php endforeach; endif; ?>
                 </ul>
             </div>
+			<div class="resultpage">
+				<a id="up_page">上一页</a>
+				<span class="current"><?php echo ($pageNum); ?></span>
+				<a id="down_page">下一页</a>
+			</div>
+            <!-- 
             <div class="station-state-list table-state" id="j-station-sh2">
                 <ul class="station-list2-wz">
                     <li class="first-line">
@@ -252,8 +262,11 @@
                     </li>
                 </ul>
             </div>
+             -->
         </div>
     </div>
+    <input type="hidden" name="pageNum" class="pageNum" id="pageNum" value="<?php echo ($pageNum); ?>"/>
+    <input type="hidden" name="areaId" class="areaId" id="areaId" value="<?php echo ($areaId); ?>"/>
 </div>
 <div id="footer">
     <p>© 大连捷诺科技有限公司 | <a style="color: #ffffff;" href="http://www.jienuo-service.net/" target="_blank">关于捷诺</a> | 服务热线 0411-86887659</p>
@@ -453,9 +466,9 @@ $.ajax({
     dataType: "json",
     success: function(data){
         $.each(data,function(key,val){
-            var kid=val['id'];
-            var parent=val['parent'];
-            var value=val['value'];
+            var kid=val['area_id'];
+            var parent=val['pid'];
+            var value=val['area_name'];
             zNodes[key]= {'id':kid, 'pId':parent, 'name':value, 'open':true ,'t':kid};
         });
     },
@@ -554,6 +567,7 @@ var key;
 		$("#getNodesByParamFuzzy").bind("change", clickRadio);
 		$("#getNodesByFilter").bind("change", clickRadio);
         $('.mode-change a:eq(0)').click(function () {
+			$("#hide").show();
             $('#j-station-sh1').show();
             $('#j-station-sh2').hide();
             $(this).addClass('active');
@@ -561,6 +575,7 @@ var key;
             return false;
         });
         $('.mode-change a:eq(1)').click(function () {
+			$("#hide").hide();
             $('#j-station-sh1').hide();
             $('#j-station-sh2').show();
             $(this).addClass('active');
@@ -569,10 +584,26 @@ var key;
         });
         
         //循环刷新
-        var iID=setTimeout(function(){
-			location.reload();
-        },1000*60*60);
-        
+        var iID=setTimeout(function(){location.reload();},1000*60*60);
+		$("#treeDemo a").click(function(){
+			var agent_id=$(this).attr("title");//省市ID
+			$('#areaId').val(agent_id);
+			$('#pageNum').val(1);//页数初始化
+			var page_Num=$('#pageNum').val();//页数
+			window.location.href="<?php echo U('monitoring/Index/station');?>"+"?pageNum="+page_Num+"&areaId="+agent_id;
+		 });
+        $("#down_page").click(function(){
+			var page_Num=$('#pageNum').val();//页数
+			var agent_id=$('#areaId').val();//省市ID
+			var new_page_Num=Number(page_Num)+1;
+			window.location.href="<?php echo U('monitoring/Index/station');?>"+"?pageNum="+new_page_Num+"&areaId="+agent_id;
+		});
+		$("#up_page").click(function(){
+			var page_Num=$('#pageNum').val();//页数
+			var agent_id=$('#areaId').val();//省市ID
+			var new_page_Num=page_Num-1;
+			window.location.href="<?php echo U('monitoring/Index/station');?>"+"?pageNum="+new_page_Num+"&areaId="+agent_id;
+		});
     });
 
 </script>

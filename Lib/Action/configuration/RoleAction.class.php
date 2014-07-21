@@ -256,14 +256,30 @@ class RoleAction extends Action {
 	//查看所有权限
 	public function select_all_purview(){
 		$model = new Model();
-		$menu_info = $model->query("select menu_id, menuname, url, pid from bi_menu");
+		$userinfo = getUserInfo();
+		$uid = $userinfo['uid'];
+		$where = " where 1 ";
+		//如果当前登录的不是管理员
+		$menu_info = null;
+		if($userinfo['username'] != C("ROOT_USER")){
+			$where .= " and a.userid = $uid ";
+			$sql = "
+			SELECT c.menu_id, c.menuname, c.url, c.pid FROM bi_user_role a
+			LEFT JOIN bi_role_menu b ON a.roleid = b.role_id
+			LEFT JOIN bi_menu c ON b.menu_id = c.menu_id
+			$where
+			GROUP BY c.menu_id
+			";
+			$menu_info = $model->query($sql);
+		}else{
+			$menu_info = $model->query("select menu_id, menuname, url, pid from bi_menu");
+		}
 		$data = null;
 		foreach($menu_info as $key=>$val){
 			$data[$key]['id'] = $val['menu_id'];
 			$data[$key]['value'] = $val['menuname'];
 			$data[$key]['parent'] = $val['pid'];
 		}
-		
 		$this->ajaxReturn($data, 'json');
 	}
 	

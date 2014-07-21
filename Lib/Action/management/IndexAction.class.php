@@ -1,11 +1,15 @@
 <?php
 import ( "@.MyClass.Spreadsheet_Excel_Reader" );
+import ( "@.Action.socket.SendDevAction" );
+import( "@.MyClass.Page" );//导入分页类
 class IndexAction extends Action {
 	private $uploaded_url = "Runtime/Temp";
 	private $smartapp_uploaded_url    = "DevAppDownLoad/SmartApp/";
-	private $smartguard_uploaded_url  = "DevAppDownLoad/SmartGuard/";
-	private $updateapp_uploaded_url   = "DevAppDownLoad/UpdateApp/";
 	private $videoplayer_uploaded_url = "DevAppDownLoad/VideoPlayer/";
+	private $updateapp_uploaded_url   = "DevAppDownLoad/UpdateApp/";
+	private $smartguard_uploaded_url  = "DevAppDownLoad/SmartGuard/";
+	
+	
 
 	//区域顶级父id值
 	public $top_pid = 0;
@@ -29,6 +33,11 @@ class IndexAction extends Action {
 		$appRule = new Model ( "AppRule" );
 		if ($_POST ['add_udp'] == "1") { //新增
 			$rule_no = $_POST['rule_no'];
+			$sql = "SELECT COUNT(*) count FROM app_rule WHERE rule_no = '$rule_no'";
+			$que = $appRule->query($sql);
+			if($que[0]['count']){
+				$this->redirect('Index/importingApp', array('cate_id'=>2), 3,' 已存在该期刊号~');
+			}
 			//$rule_no = $_POST['issue_sel'];
 			//上传文件名由当前时间戳及扩展名组成
 			$fileName = time().".".end(explode('.', $_FILES["app_file"]["name"]));
@@ -61,7 +70,7 @@ class IndexAction extends Action {
 		$where = " where 1 ";
 		if($_POST['rule_no_sel']){
 			$rule_no_sel = $_POST['rule_no_sel'];
-			$where .= " and a.rule_no = '$rule_no_sel' ";
+			$where .= " and a.rule_no like '%$rule_no_sel%' ";
 		}
 		if($_POST['createuser_sel']){
 			$createuser_sel = $_POST['createuser_sel'];
@@ -75,14 +84,24 @@ class IndexAction extends Action {
 			$where .= " and a.createtime = '$createtime_sel' ";
 		}
 		
+		//每页显示数量
+		$page_show_number = C('page_show_number')?C('page_show_number'):10;
+		
 		$sel = " select a.*,b.realname from app_rule a
 		left join bi_user b on a.createuserid = b.uid
-		$where and a.rule_status = 0 group by a.rule_no order by a.createtime";
+		$where group by a.rule_no order by a.createtime desc";
 		$que = $appRule->query($sel);
+		$count = count($que);
+		$Page  = new Page($count, $page_show_number);
+		$show  = $Page->show();// 分页显示输出
+		$sel .= " limit ".$Page->firstRow.','.$Page->listRows;
+		$que = $appRule->query($sel);
+		
+		
 		foreach ($que as $k=>$v){
 			$que[$k]['createtime'] = date("Y-m-d",$v['createtime']);
 		}
-		
+		$this->assign('page',$show);// 赋值分页输出
 		$this->assign('issueArr', $que);
 		//供菜单给当前页面加样式
 		$this->assign('nowUrl', "management/Index/importingApp");
@@ -233,8 +252,15 @@ class IndexAction extends Action {
 			$send_id    = $_POST['change_send_id'];
 			$data = null;
 			$data['rule_status'] = 2;
-			$data['release_time'] = time();
+			$data['release_time'] = strtotime(date("Y-m-d"));
 			$que = $appRuleSend->where("id = '$send_id'")->save($data);
+			
+			$appRule = new Model ( "AppRule" );
+			$rule_no = $_POST['rule_no_hid'];
+			$data = null;
+			$data['rule_status'] = 2;
+			$appRule->where("rule_no = '$rule_no'")->save($data);
+			//rule_status
 		}else if($_POST ['del_fb_zf'] == "3"){//作废
 			$send_id    = $_POST['change_send_id'];
 			$data = null;
@@ -242,10 +268,25 @@ class IndexAction extends Action {
 			$que = $appRuleSend->where("id = '$send_id'")->save($data);
 		}
 		
-		$where = " where 1 ";
+		
+		
+		//权限控制，只允许同代理商员工访问
+		$userIdSql = "select uid from bi_user where orgid = ".$this->userinfo['orgid'];
+		$userIdQue = $appRuleSend->query($userIdSql);
+		$userIdStr = "";
+		foreach ($userIdQue as $k=>$v){
+			$userIdStr .= $v['uid'].",";
+		}
+		$userIdStr = rtrim($userIdStr,",");
+		
+		$where = " where 1";
+		if($userIdStr){
+			$where .= " and createuserid in ($userIdStr) ";
+		}
+		
 		if($_POST['rule_no_sel']){
 			$rule_no_sel = $_POST['rule_no_sel'];
-			$where .= " and rule_no = '$rule_no_sel' ";
+			$where .= " and rule_no like '%$rule_no_sel%' ";
 		}
 		
 		if($_POST['createuser_sel']){
@@ -258,16 +299,29 @@ class IndexAction extends Action {
 		
 		
 		if($_POST['release_time_sel']){
-			$release_time_sel = strtotime($_POST['release_time_sel']);;
+			$release_time_sel = strtotime($_POST['release_time_sel']);
 			$where .= " and release_time = '$release_time_sel' ";
 		}
+		
+		//每页显示数量
+		$page_show_number = C('page_show_number')?C('page_show_number'):10;
+		
 		$sel = " select * from app_rule_send $where order by release_time desc";
 		$que = $appRuleSend->query($sel);
+		
+		$count = count($que);
+		$Page  = new Page($count, $page_show_number);
+		$show  = $Page->show();// 分页显示输出
+		$sel .= " limit ".$Page->firstRow.','.$Page->listRows;
+		$que = $appRuleSend->query($sel);
+		
+		
 		foreach ($que as $k=>$v){
 			$que[$k]['createtime'] = date("Y-m-d",$v['createtime']);
 			$que[$k]['release_time'] = $v['release_time']?date("Y-m-d",$v['release_time']):"";
 			$que[$k]['start_time'] = date("Y-m-d",$v['start_time']);
 		}
+		$this->assign('page',$show);// 赋值分页输出
 		$this->assign('issueArr', $que);
 		//供菜单给当前页面加样式
 		$this->assign('nowUrl', "management/Index/addRuleTarget");
@@ -307,12 +361,23 @@ class IndexAction extends Action {
 			$where .= " and smart_guard = '$_POST[smartGuard]' ";
 		}
 		
+		//每页显示数量
+		$page_show_number = C('page_show_number')?C('page_show_number'):10;
+		
+		
 		$sql = " select * from app_dev_update $where ";
-		//沥遍改变时间格式
 		$que = $model->query($sql);
+		$count = count($que);
+		$Page  = new Page($count, $page_show_number);
+		$show  = $Page->show();// 分页显示输出
+		$sql .= " limit ".$Page->firstRow.','.$Page->listRows;
+		$que = $model->query($sql);
+		
+		//沥遍改变时间格式
 		foreach($que as $k=>$v){
 			$v['status_date']?$que[$k]['status_date'] = date("Y-m-d",$v['status_date']):$que[$k]['status_date'] = "";
 		}
+		$this->assign('page',$show);// 赋值分页输出
 		$this->assign('app_dev_update_arr', $que);
 		//供菜单给当前页面加样式
 		$this->assign('nowUrl', "management/Index/verup");
@@ -331,9 +396,10 @@ class IndexAction extends Action {
 		$smartGuardNo   = $_POST['smartGuardNo'];
 		$target_num     = $_POST['target_num'];
 		$updateId       = $_POST['updateId'];
+		//echo $updateId;exit;
 
 		$date = array();
-		if($_FILES["SmartApp"]['name']){
+		if($_FILES["smartApp"]['name']){
 			$date['smart_app'] = $smartAppNo;
 			$smart_app_downloaded = $this->smartapp_uploaded_url."$smartAppNo";
 			$date['smart_app_downloaded'] = $smart_app_downloaded;
@@ -342,11 +408,11 @@ class IndexAction extends Action {
 				mkdir($smart_app_downloaded);
 				chmod($smart_app_downloaded, 0777);
 			}else{
-				@unlink($smart_app_downloaded.'/'.$_FILES["SmartApp"]['name']);
+				@unlink($smart_app_downloaded.'/'.C("SmartAppName"));
 			}
-			move_uploaded_file($_FILES["SmartApp"]["tmp_name"], $smart_app_downloaded.'/'.$_FILES["SmartApp"]['name']);
+			move_uploaded_file($_FILES["smartApp"]["tmp_name"], $smart_app_downloaded.'/'.C("SmartAppName"));
 		}
-		if($_FILES["VideoPlayer"]['name']){
+		if($_FILES["videoPlayer"]['name']){
 			$date['video_player'] = $videoPlayerNo;
 			$video_player_downloaded = $this->videoplayer_uploaded_url."$videoPlayerNo";
 			$date['video_player_downloaded'] = $video_player_downloaded;
@@ -355,11 +421,11 @@ class IndexAction extends Action {
 				mkdir($video_player_downloaded);
 				chmod($video_player_downloaded, 0777);
 			}else{
-				@unlink($video_player_downloaded.'/'.$_FILES["VideoPlayer"]['name']);
+				@unlink($video_player_downloaded.'/'.C("VideoPlayerName"));
 			}
-			move_uploaded_file($_FILES["VideoPlayer"]["tmp_name"], $video_player_downloaded.'/'.$_FILES["VideoPlayer"]['name']);
+			move_uploaded_file($_FILES["videoPlayer"]["tmp_name"], $video_player_downloaded.'/'.C("VideoPlayerName"));
 		}
-		if($_FILES["UpdateApp"]['name']){
+		if($_FILES["updateApp"]['name']){
 			$date['update_app'] = $updateAppNo;
 			$update_app_downloaded = $this->updateapp_uploaded_url."$updateAppNo";
 			$date['update_app_downloaded'] = $update_app_downloaded;
@@ -368,11 +434,11 @@ class IndexAction extends Action {
 				mkdir($update_app_downloaded);
 				chmod($update_app_downloaded, 0777);
 			}else{
-				@unlink($update_app_downloaded.'/'.$_FILES["UpdateApp"]['name']);
+				@unlink($update_app_downloaded.'/'.C("UpdateAppName"));
 			}
-			move_uploaded_file($_FILES["UpdateApp"]["tmp_name"], $update_app_downloaded.'/'.$_FILES["UpdateApp"]['name']);
+			move_uploaded_file($_FILES["updateApp"]["tmp_name"], $update_app_downloaded.'/'.C("UpdateAppName"));
 		}
-		if($_FILES["SmartGuard"]['name']){
+		if($_FILES["smartGuard"]['name']){
 			$date['smart_guard'] = $smartGuardNo;
 			$smart_guard_downloaded = $this->smartguard_uploaded_url."$smartGuardNo";
 			$date['smart_guard_downloaded'] = $smart_guard_downloaded;
@@ -381,25 +447,23 @@ class IndexAction extends Action {
 				mkdir($smart_guard_downloaded);
 				chmod($smart_guard_downloaded, 0777);
 			}else{
-				@unlink($smart_guard_downloaded.'/'.$_FILES["SmartGuard"]['name']);
+				@unlink($smart_guard_downloaded.'/'.C("SmartGuardName"));
 			}
-			move_uploaded_file($_FILES["SmartGuard"]["tmp_name"], $smart_guard_downloaded.'/'.$_FILES["SmartGuard"]['name']);
+			move_uploaded_file($_FILES["smartGuard"]["tmp_name"], $smart_guard_downloaded.'/'.C("SmartGuardName"));
 		}
-		if($date){
-			//如果有修改id则修改
-			if($updateId){
-				$date['update_date'] = time();
-				$app_dev_update->where("id = $updateId")->save($date);
-			//否则是添加
-			}else{
-				$date['target_num'] = $target_num;
-				$date['add_user_id'] = $this->userinfo['uid'];
-				$date['create_date'] = time();
-				$app_dev_update->add($date);
-			}
+		$date['target_num'] = $target_num;
+		//如果有修改id则修改
+		if($updateId){
+			$date['update_date'] = time();
+			$app_dev_update->where("id = $updateId")->save($date);
+		//否则是添加
+		}else{
+			$date['add_user_id'] = $this->userinfo['uid'];
+			$date['create_date'] = time();
+			$app_dev_update->add($date);
 		}
-		
-		$this->redirect('Index/verup', array('cate_id'=>2), 5,' 页面跳转中 ~');
+		//echo $app_dev_update->getLastSql();exit;
+		$this->redirect('Index/verup', array('cate_id'=>2), 0,' 页面跳转中 ~');
 	}
 	
 	/**
@@ -408,10 +472,10 @@ class IndexAction extends Action {
 	 * @return mixed
 	 */
 	function verup_del(){
-		$updateId       = $_POST['updateId'];
+		$updateId       = $_POST['updateId_hid'];
 		$model = new Model();
 		$model->query("delete from app_dev_update where id = $updateId");
-		$this->redirect('Index/verup', array('cate_id'=>2), 5,' 页面跳转中 ~');
+		$this->redirect('Index/verup', array('cate_id'=>2), 0,' 页面跳转中 ~');
 	}
 	
 	/**
@@ -420,12 +484,55 @@ class IndexAction extends Action {
 	 * @return mixed
 	 */
 	function verup_use(){
-		$updateId       = $_POST['updateId'];
 		$app_dev_update = new Model("AppDevUpdate");
+		$updateId       = $_POST['updateId_hid'];
+		$app_dev_update_list = $app_dev_update->where("id = '$updateId'")->select();
+		$channel_id_str = $app_dev_update_list[0]['target_num'];
+		$channel_id_str = trim($channel_id_str,',');
+		$channel_id_arr = explode(",",$channel_id_str);
+		$channel_id_str = "";
+		foreach($channel_id_arr as $k=>$v){
+			$channel_id_str .= "'$v',";
+		}
+		$channel_id_str=trim($channel_id_str,',');
+		$sendDev = new SendDevAction();
+		if($app_dev_update_list[0]['smart_app']){
+			$file = $this->smartapp_uploaded_url.$app_dev_update_list[0]['smart_app'].'/'.C("SmartAppName");
+			$down_url = C("web_url")."gas_station_erp/".$file;
+			$save_path = "D:\SmartApp\SmartApp.exe";
+			$file_md5 = md5_file($file);
+			$sendDev->updateApp($channel_id_str, $down_url, $save_path, $file_md5);
+		}
+
+		if($app_dev_update_list[0]['video_player']){
+			$file = $this->videoplayer_uploaded_url.$app_dev_update_list[0]['video_player'].'/'.C("VideoPlayerName");
+			$down_url = C("web_url")."gas_station_erp/".$file;
+			$save_path = "D:\VideoPlayer\VideoPlayer.exe";
+			$file_md5 = md5_file($file);
+			$sendDev->updateApp($channel_id_str, $down_url, $save_path, $file_md5);
+		}
+		
+		if($app_dev_update_list[0]['update_app']){
+			$file = $this->updateapp_uploaded_url.$app_dev_update_list[0]['update_app'].'/'.C("UpdateAppName");
+			$down_url = C("web_url")."gas_station_erp/".$file;
+			$save_path = "D:\UpdateApp\UpdateApp.exe";
+			$file_md5 = md5_file($file);
+			$sendDev->updateApp($channel_id_str, $down_url, $save_path, $file_md5);
+		}
+		
+		if($app_dev_update_list[0]['smart_guard']){
+			$file = $this->smartguard_uploaded_url.$app_dev_update_list[0]['smart_guard'].'/'.C("SmartGuardName");
+			$down_url = C("web_url")."gas_station_erp/".$file;
+			$save_path = "D:\SmartGuard\SmartGuard.exe";
+			$file_md5 = md5_file($file);
+			$sendDev->updateApp($channel_id_str, $down_url, $save_path, $file_md5);
+		}
+		$date = array();
 		$date['status'] = 1;
 		$date['status_date'] = time();
+		$date['update_user_id'] = $this->$userinfo['uid'] == "root"?0:$this->$userinfo['uid'];
 		$app_dev_update->where("id = $updateId")->save($date);
-		$this->redirect('Index/verup', array('cate_id'=>2), 5,' 页面跳转中 ~');
+		$this->redirect('Index/verup', array('cate_id'=>2), 5,' 更新完毕，页面跳转中 ~');
 	}
 
 	/**
@@ -483,14 +590,23 @@ class IndexAction extends Action {
 		$areaIdStr = "";
 		$model = new Model();
 		
+		$where = " where 1 ";
+		if($this->userinfo['orgid']){
+			$where .= " and a.agent_id = ".$this->userinfo['orgid'];
+		}
+		
 		$sql_channel = "
-				SELECT a.channel_id area_id,a.channel_name area_name,b.city pid FROM qd_channel a
-				LEFT JOIN qd_channel_area b ON a.channel_id = b.channel_id
-				WHERE a.isDelete = 0
+				SELECT a.channel_id area_id,a.channel_name area_name,a.city pid FROM qd_channel a
+				$where
+				and a.isDelete = 0
 				";
 		$this->que_channel = $model->query($sql_channel);
 		
-		$sql_province = "SELECT * FROM qd_channel_area GROUP BY province";
+		$sql_province = "SELECT a.channel_id,a.province,a.city
+				FROM qd_channel a
+				$where
+				GROUP BY a.province
+				";
 		$que_province = $model->query($sql_province);
 		foreach ($que_province as $k=>$v){
 			$sql_province_id = "SELECT * FROM bi_area WHERE area_name LIKE '%$v[province]%' OR CONCAT(area_name,'省') LIKE '$v[province]'";
@@ -498,7 +614,11 @@ class IndexAction extends Action {
 			$provinceIdArr[] = $que_province_id[0]['area_id'];
 		}
 		
-		$sql_city = "SELECT * FROM qd_channel_area GROUP BY city";
+		$sql_city = "SELECT a.channel_id,a.province,a.city FROM
+				qd_channel a
+				$where
+				GROUP BY a.city
+				";
 		$que_city = $model->query($sql_city);
 		foreach ($que_city as $k=>$v){
 			$sql_city_id = "SELECT * FROM bi_area WHERE area_name LIKE '%$v[city]%' OR CONCAT(area_name,'市') LIKE '$v[city]'";
@@ -583,10 +703,22 @@ class IndexAction extends Action {
 	function getAreaIdByRule(){
 		$model = new Model();
 		
-		$rule_no = $_POST['rule_no'];
-		$sql = "select target_num from app_rule_send where rule_no = '$rule_no'";
+		$send_id = $_POST['send_id'];
+		$sql = "select target_num from app_rule_send where id = '$send_id'";
 		$que = $model->query($sql);
 		echo json_encode($que[0]['target_num']);
 	}
 	
+	/**
+	 * getAreaIdByUpdate根据更新id获取区域
+	 * @param
+	 * @return mixed
+	 */
+	function getAreaIdByUpdate(){
+		$model = new Model();
+		$id = $_POST['updateId'];
+		$sql = "select target_num from app_dev_update where id = '$id'";
+		$que = $model->query($sql);
+		echo json_encode($que[0]['target_num']);
+	}
 }

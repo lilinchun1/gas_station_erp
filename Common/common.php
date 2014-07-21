@@ -127,13 +127,17 @@ function getChangeLogDescription($src_log_info, $dst_log_info) {
 	return $log_description;
 }
 //回传指定登陆者权限所能访问url字符串
-function ableUrlStr($uid) {
+function ableUrlStr($uid = "") {
 	$model = new Model ();
+	$where = " where 1 ";
+	if($uid){
+		$where .= " and a.userid = '$uid' ";
+	}
 	$str = "
 	SELECT c.url FROM bi_user_role a
 	LEFT JOIN bi_role_menu b ON a.roleid = b.role_id
 	LEFT JOIN bi_menu c ON b.menu_id = c.menu_id
-	WHERE a.userid = '$uid'
+	$where 
 	";
 	$que = $model->query ( $str );
 	$url_str = "";

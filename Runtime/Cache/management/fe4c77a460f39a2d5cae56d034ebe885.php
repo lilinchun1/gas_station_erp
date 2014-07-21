@@ -37,13 +37,29 @@
 				//弹出框为编辑
 				$("button[name='add_udp']").val("2");
 				
-				$.post("<?php echo U('management/Index/getAreaIdByRule');?>",{'rule_no':rule_no},function(data){
-					alert(data);
-				},"json");
+				var now=new Date().getTime();//加个时间戳表示每次是新的请求
+				$.ajax({
+					type: "POST",
+					url: "<?php echo U('management/Index/getAreaIdByRule');?>",
+					data:{"send_id":send_id},
+					async: false,
+					dataType: "json",
+					success: function(data){
+						$("#target_num").val(data);
+					},
+					error: function(XMLHttpRequest, textStatus, errorThrown) {
+						 alert("请求失败!");
+					}
+				});
+
 			}
 			//===================================================树形结构开始==========
 			var handleUrl="<?php echo U('management/Index/getChannelArr');?>";
 			var zNodes=new Array();
+			var str = new String();
+			var arr = new Array();
+			str = $("#target_num").val();
+			arr = str.split(',');// 注split可以用字符或字符串分割
 			var now=new Date().getTime();//加个时间戳表示每次是新的请求
 			$.ajax({
 				type: "POST",
@@ -56,7 +72,14 @@
 						var parent=val['pid'];
 						var value=val['value'];
 						var length=val['length'];
-						zNodes[key]= {'id':kid, 'pId':parent, 'name':value ,'t':length,'half': true};
+						for ( var i = 0; i < arr.length; i++) {
+							if (arr[i] == kid) {
+								zNodes[key]= {'id':kid, 'pId':parent, 'name':value ,'t':length,'checked' : true};
+								break;
+							} else {
+								zNodes[key]= {'id':kid, 'pId':parent, 'name':value ,'t':length};
+							};
+						};
 					});
 				},
 
@@ -69,12 +92,28 @@
 			//弹出窗口
 			showWindow(1,16,17,'#j_add_win');
 		});
-		
+		//提交是否为空判断
+		$("#add_submit").click(function(){
+			if($('#rule_no').val()==""){
+				alert("请输入刊例号");
+				return false;
+			}
+			
+			if($("#start_time").val()==""){
+				alert("请选择投放日期");
+				return false;
+			}
+			if($("#target_num").val()==""){
+				alert("请选择发布渠道");
+				return false;
+			}
+		});
 		
 		//删除，发布，作废弹出框
 		$(".status_del,.status_2,.status_3").click(function(){
 			//获取状态值
 			var rule_status = $("input[name='role-list']:checked").parent().parent().find(".rule_status_list").val();
+			
 			if($(this).hasClass("status_del")){
 				var noSelMes = "请选择删除条目";
 				//改变确认框内容
@@ -87,6 +126,16 @@
 					return;
 				}
 			}else if($(this).hasClass("status_2")){
+				var start_time = $("input[name='role-list']:checked").parent().parent().find(".start_time_list").text();
+				var d=new Date();
+				var newdate=(d.getFullYear())+"-"+(d.getMonth() + 1)+"-"+(d.getDate());
+				var z_begin_date	=	start_time.replace('-','').replace('-','');
+				var z_end_date	=	newdate.replace('-','').replace('-','');
+				
+				if(z_end_date<=z_begin_date){
+					alert("投放日期必须大于当前日期，请修改投放日期");
+					return false;
+				}
 				var noSelMes = "请选择要发布条目";
 				$(".delete-message").text("确认发布？");
 				$(".del_fb_zf").text("发布");
@@ -95,6 +144,7 @@
 					alert("不能发布");
 					return;
 				}
+
 			}else if($(this).hasClass("status_3")){
 				var noSelMes = "请选择要作废条目";
 				$(".delete-message").text("确认作废？");
@@ -113,15 +163,103 @@
 			}
 			send_id = $("input[name='role-list']:checked").parent().find(".send_id_list").val();
 			$("#change_send_id").val(send_id);
-			
+			$("#rule_no_hid").val(rule_no);
 			//弹出页面
 			showWindow(1,16,17,'#j_del_win');
 		});
+
+		//查看发布渠道
+		$(".j_selrole_button").click(function() {
+			var send_id=$(this).parent().find(".send_id_list").val();
+			var quanxian_idurl="<?php echo U('management/Index/getAreaIdByRule');?>";
+			$.ajax({
+				type : "POST",
+				url : quanxian_idurl,
+				async : false,
+				dataType : "json",
+				data:{"send_id":send_id},
+				success : function(data) {
+					$("#quanxian_id").val(data);
+				},
+
+				error : function(XMLHttpRequest, textStatus, errorThrown) {
+					// alert("请求失败!");
+				}
+			});
+			var handleUrl =  "<?php echo U('management/Index/getChannelArr');?>";
+			var zNodes = new Array();
+			var now = new Date().getTime();// 加个时间戳表示每次是新的请求
+			var str = new String();
+			var arr = new Array();
+			str = $("#quanxian_id").val();
+			arr = str.split(',');// 注split可以用字符或字符串分割
+			var idkey = "";
+
+			$.ajax({
+				type : "POST",
+				url : handleUrl,
+				async : false,
+				dataType : "json",
+				success : function(data) {
+					$.each(data, function(key, val) {
+						var kid = val['id'];
+						var parent = val['pid'];
+						var value = val['value'];
+						for ( var i = 0; i < arr.length; i++) {
+							if (arr[i] == kid) {
+								zNodes[key] = {
+									'id' : kid,
+									'pId' : parent,
+									'name' : value,
+									'open' : false,
+									'checked' : true,
+									't' : kid,
+									doCheck : false,
+									"chkDisabled":true
+								};
+								break;
+							} else {
+								zNodes[key] = {
+									'id' : kid,
+									'pId' : parent,
+									'name' : value,
+									'open' : false,
+									't' : kid,
+									doCheck : false,
+									"chkDisabled":true
+								};
+							}
+						}
+
+					});
+				},
+
+				error : function(XMLHttpRequest, textStatus, errorThrown) {
+					// alert("请求失败!");
+				}
+			});
+			var show_setting = getTreeSetting(true,true,false,show_beforeCheck,onCheck);
+			
+			$.fn.zTree.init($("#show_treeDemo"), show_setting, zNodes);
+			var code, log, className = "dark";
+			function show_beforeCheck(treeId, treeNode) {
+				className = (className === "dark" ? "":"dark");
+				showLog("[ "+getTime()+" beforeCheck ]&nbsp;&nbsp;&nbsp;&nbsp;" + treeNode.name );
+				return (treeNode.doCheck !== false);
+			}
+			showWindow(1,16,17,'#j_show_purview');
+			return false;
+		});
+		//查看发布渠道结束
+
 		//点一行则选中
 		$(".rule_info_list").click(function(){
 			$(this).find(".role-table-radio").attr("checked",true);
 		});
-		
+		$("#j_close").click(function(){
+			window.location.href = window.location.href;
+		});
+
 	});
 	//根据选择范围圈定应用名称下拉内容
 	function getAppRule() {
@@ -136,12 +274,13 @@
 			});
 		}, "json");
 	}
+
 	</script>
 </head>
 <body>
 <div class="head-wrap">
 <div id="head">
-    <h1 class="head-logo"><a href="index.html">ERP管理系统</a></h1>
+    <h1 class="head-logo"><a href="<?php echo U('configuration/Login/default_index');?>">ERP管理系统</a></h1>
     <h2 class="head-tt">智能手机加油站业务支撑系统</h2>
     <div class="login">
         <div class="left">
@@ -174,7 +313,7 @@
 	<div class="left">
         
 <ul class="aside-nav">
-    <li class="aside-nav-nth1" ><a>刊例管理<i class="j-show-list">-</i></a>
+    <li class="aside-nav-nth1"><a>刊例管理<i class="j-show-list">-</i></a>
         <ul>
             <li class="url_link" url="<?php echo U('management/Index/importingApp');?>"><a href="<?php echo U('management/Index/importingApp');?>"><input type="button" value="刊例维护"></a></li>
             <li class="url_link" url="<?php echo U('management/Index/addRuleTarget');?>"><a href="<?php echo U('management/Index/addRuleTarget');?>"><input type="button" class="" value="刊例发布"></a></li>
@@ -229,7 +368,7 @@
 									</span>
 									<span class="span-2 rule_no_list" title="#"><?php echo ($issue["rule_no"]); ?></span>
 									<span class="span-2 start_time_list" title="#"><?php echo ($issue["start_time"]); ?></span>
-									<span class="span-2" title="#">发布渠道</span>
+									<span class="j_selrole_button span-2" title="发布渠道">发布渠道</span>
 									<span class="span-2" title="#">
 										<?php if($issue['rule_status'] == 1): ?>待发布<?php endif; ?>
 										<?php if($issue['rule_status'] == 2): ?>已发布<?php endif; ?>
@@ -239,6 +378,8 @@
 									<span class="span-2" title="#"><?php echo ($issue["release_time"]); ?></span>
 								</li><?php endforeach; endif; ?>
 						</ul>
+						<div class="resultpage"><?php echo ($page); ?></div>
+						<input type="hidden" value="" id="quanxian_id"/>
 					</div>
 				</div>
 			</div>
@@ -253,7 +394,7 @@
 <!-- 控制当期页面菜单样式 -->
 <input type="hidden" class="nowUrl" value="<?php echo ($nowUrl); ?>">
 <script type="text/javascript" src="__PUBLIC__/js/default_load.js"></script>
-<script type="text/javascript" src="__PUBLIC__/js/jquery-1.6.1.js"></script>
+
 <script type="text/javascript" src="__PUBLIC__/js/jquery.DOMwindow.js" type="text/javascript"></script><!--模框JS插件-->
 <div id="change_password_id" style="display:none;">
     <div class="alert-role-add" >
@@ -282,7 +423,7 @@
 </div>
 
 <div class="divout" id="j_logout_win" style="display:none;">
-	<div class="alert-role-add" >
+	<div class="alert-role-add exit-alert" >
 		<h3>退出</h3>
 		<div class="alert-role-add-con">
 			<p class="delete-message">确认退出？</p>
@@ -426,14 +567,14 @@
 		
 				<p>
 					<label for="start_time" class="role-lab">投放日期</label>
-					<input type="text" name="start_time" id="start_time" class="input-role-name" readonly="true" onClick="WdatePicker()"/>
+					<input type="text" name="start_time" id="start_time" class="input-role-name" readonly="true" onFocus="WdatePicker({minDate:'new Date();'})"/>
                     <i class="red-color pdl10">*</i>
 				</p>
 		
 				<p>
 					<label for="target_num" class="role-lab">发布渠道</label><i class="red-color pdl10">*</i>
 					<br/>
-					<input type="text" name="target_num" id="target_num" class="input-role-name" value=""/>
+					<input type="hidden" name="target_num" id="target_num" class="input-role-name" value=""/>
 					<!--权限树形-->
 					<div class="zTreeDemoBackground left">
 						<ul id="treeDemo" class="ztree"></ul>
@@ -442,10 +583,10 @@
 				</p>
 
 				<p>
-					<button type="submit" name="add_udp" class="alert-btn3" value="1">保存</button>
-					<a href="." class="closeDOMWindow">
-						<button type="button" class="alert-btn">关闭</button>
-					</a>
+					<button type="submit" name="add_udp" class="alert-btn3" value="1" id="add_submit">保存</button>
+					
+					<button type="button" class="alert-btn" id="j_close">关闭</button>
+					
 				</p>
 			</div>
 		</form>
@@ -460,6 +601,7 @@
 				<p class="delete-message">确认删除？</p>
 				<p>
 					<input type="hidden" name="change_send_id" id="change_send_id" value=""/>
+					<input type="hidden" name="rule_no_hid" id="rule_no_hid" value=""/>
 					<button type="submit" name="del_fb_zf" class="alert-btn3 del_fb_zf" id="j_del_ok" value="1">删除</button>
 					<a href="." class="closeDOMWindow">
 						<button type="button" class="alert-btn2">关闭</button>
@@ -469,15 +611,31 @@
 		</form>
 	</div>
 </div>
+<!--发布渠道-->
+<div id="j_show_purview" style="display:none">
+	<div class="alert-role-add">
+		<h3>发布渠道</h3>
+
+				<div class="zTreeDemoBackground left">
+					<ul id="show_treeDemo" class="ztree"></ul>
+					<input type="text" value="" id="show_quanxian_id"/>
+				</div>
+
+		<a href="." class="closeDOMWindow">
+			<button type="button" class="alert-btn2">关闭</button>
+		</a>
+		<div class="bk10"></div>
+	</div>
+</div>
 <link rel="stylesheet" type="text/css" href="__PUBLIC__/css/jquery.bigautocomplete.css"/>
 <script type="text/javascript" src="__PUBLIC__/js/jquery.bigautocomplete.js"></script>
 
 
-	<!--树形结构类-->
-	<link rel="stylesheet" href="__PUBLIC__/css/tree/tree.css" type="text/css">
-	<link rel="stylesheet" href="__PUBLIC__/css/jquery.bigautocomplete.css" type="text/css" />
-	<script type="text/javascript" src="__PUBLIC__/js/tree/jquery.ztree.core-3.5.js"></script>
-	<script type="text/javascript" src="__PUBLIC__/js/tree/jquery.ztree.excheck-3.5.js"></script>
+<!--树形结构类-->
+<link rel="stylesheet" href="__PUBLIC__/css/tree/tree.css" type="text/css">
+<link rel="stylesheet" href="__PUBLIC__/css/jquery.bigautocomplete.css" type="text/css" />
+<script type="text/javascript" src="__PUBLIC__/js/tree/jquery.ztree.core-3.5.js"></script>
+<script type="text/javascript" src="__PUBLIC__/js/tree/jquery.ztree.excheck-3.5.js"></script>
 <script type="text/javascript">
 getAppRule();
 //===================================================树形结构js==========================
@@ -512,21 +670,13 @@ function onCheck(event, treeId, treeNode) {
 
 	v = "";
 	for (var i=0, l=nodes.length; i<l; i++) {
-		var k=i-1;
-		if(halfCheck.half==true){
-			console.log(k);
-				v += nodes[i].id + ",";
-		}else{
-			if(nodes[i].pId!=null){
-				v += nodes[i].pId + ",";
-			}
-		}
-			
+		v += nodes[i].id + ",";
 	}
 	if (v.length > 0 ) v = v.substring(0, v.length-1);
 	//要赋值的文本框id
-	var cityObj = $("#target_num");
-	cityObj.attr("value", v);
+	//var cityObj = $("#target_num");
+	$("#target_num").val(v);
+	//cityObj.attr("value", v);
 }
 //===================================================树形结构js结束==========
 </script>

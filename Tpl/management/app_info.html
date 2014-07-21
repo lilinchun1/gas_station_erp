@@ -9,14 +9,14 @@
 <div class="kl-list">
     <ul class="role-table-list">
         <li>
-            <span class="span-2"><b>ios APP id</b></span>
-            <span class="span-2"><b>ios APP名称</b></span>
-            <span class="span-2"><b>安卓 APP id</b></span>
-            <span class="span-2"><b>安卓 APP 名称</b></span>
+            <span class="span-2" style="width:350px;">ios APP id</span>
+            <span class="span-2">ios APP 名称</span>
+            <span class="span-2">安卓 APPid</span>
+            <span class="span-2">安卓 APP 名称</span>
         </li>
 		<foreach name="iosArr" item="ios" key="k">
 	        <li>
-	            <span class="span-2">{$ios.app_id}</span>
+	            <span class="span-2" style="width:350px;">{$ios.app_id}</span>
 	            <span class="span-2">{$ios.app_name}</span>
 	            <span class="span-2">{$androidArr.$k.app_id}</span>
 	            <span class="span-2">{$androidArr.$k.app_name}</span>

@@ -19,7 +19,7 @@
 <body>
 <div class="head-wrap">
 <div id="head">
-    <h1 class="head-logo"><a href="index.html">ERP管理系统</a></h1>
+    <h1 class="head-logo"><a href="<?php echo U('configuration/Login/default_index');?>">ERP管理系统</a></h1>
     <h2 class="head-tt">智能手机加油站业务支撑系统</h2>
     <div class="login">
         <div class="left">
@@ -153,7 +153,7 @@
 					<span class="span-1" title="<?php echo ($vo["end_time"]); ?>"><?php echo ($vo["end_time"]); ?></span><?php endif; ?>
 			</li><?php endforeach; endif; else: echo "" ;endif; ?>
     </ul>
-	<div class="resultpage"><?php echo ($page); ?></div>
+<div class="resultpage"><?php echo ($page); ?></div>
 </div>
 </div>
 
@@ -464,6 +464,7 @@
             <p>
                 <label for="channel-qd" class="role-lab">所属渠道</label>
                 <input type="text" name="change_channel_name_txt" id="change_channel_name_txt" class="input-role-name"/>
+				<i class="red-color pdl10">*</i>
             </p>
             <p>
                 <label for="channel-address1" class="">网点状态</label>
@@ -471,6 +472,7 @@
 					<option value="test">测试期</option>
 					<option value="use">启用</option>
 				</select>
+				<i class="red-color pdl10">*</i>
                 <label for="sq-date">测试日期</label>
                 <input type="date" name="change_test_begin_time_sel" id="change_test_begin_time_sel" class="input-org-info min-w"
                        style="margin-top: 0;" onClick="WdatePicker()" readonly="readonly"/>
@@ -513,7 +515,7 @@
 <!--删除确认框-->
 <div class="divout" id="j_del_win" style="display:none;">
 	<div class="alert-role-add" >
-		<h3>组织结构</h3>
+		<h3>网点信息</h3>
 		<div class="alert-role-add-con">
 			<p class="delete-message">请确认是否删除？</p>
 			<input type="hidden" value="" id="del_id_hidden"/>
@@ -539,7 +541,7 @@
 
 	 $(document).ready(function () {
 		 //设置page显示
-		$(".resultpage").attr("style","display:block");
+		$(".resultpage").css("display:block");
 		var sum = $("#sum").text();
 		if(sum==""){
 			$("#sum").text("0");
@@ -747,6 +749,7 @@
 			var add_select_province=$("#add_select_province").val();
 			var add_select_city=$("#add_select_city").val();
 			var add_status_sel=$("#add_status_sel").val();
+			//alert(add_status_sel);
 			var add_test_begin_time_sel=$("#add_test_begin_time_sel").val();
 			var add_test_end_time_sel=$("#add_test_end_time_sel").val();
 			var add_region_txt=$("#add_region_txt").val();
@@ -768,6 +771,23 @@
 			}
 			if(add_channel_name_txt==""){
 				alert("所属渠道不能为空");
+				return false;
+			}
+			if(add_region_txt==""){
+				alert("网点地址不能为空");
+			}
+			if(add_status_sel=="test"&&(add_test_begin_time_sel==""||add_test_end_time_sel=="")){
+				alert("测试期 测试开始时间和测试结束时间不能为空");
+				return false;
+			}
+			if(add_status_sel=="use"&&(add_begin_time_sel=="")){
+				alert("启用期 启用日期不能为空");
+				return false;
+			}
+			var z_begin_date	=	add_test_begin_time_sel.replace('-','').replace('-','');
+			var z_end_date	=	add_test_end_time_sel.replace('-','').replace('-','');
+			if(add_status_sel=="test"&&(z_end_date<=z_begin_date)){
+				alert("测试结束时间必须大于测试开始时间");
 				return false;
 			}
 			$.getJSON(handleUrl,{"add_place_name_txt":add_place_name_txt,"add_place_no_txt":add_place_no_txt,"add_place_tel_txt":add_place_tel_txt,
@@ -811,7 +831,7 @@
 			,'json'
 			);
 		});
-		jQuery(".role-table").slide({trigger: "click"});
+
 	});
 				
 
@@ -847,6 +867,24 @@
 				alert("所属渠道不能为空");
 				return false;
 			}
+			if(change_region_txt==""){
+				alert("网点地址不能为空");
+				return false;
+			}
+			if(change_status_sel=="test"&&(change_test_begin_time_sel==""||change_test_end_time_sel=="")){
+				alert("测试期 测试开始时间和测试结束时间不能为空");
+				return false;
+			}
+			if(change_status_sel=="use"&&(change_begin_time_sel=="")){
+				alert("启用期 启用日期不能为空");
+				return false;
+			}
+			var z_begin_date	=	change_test_begin_time_sel.replace('-','').replace('-','');
+			var z_end_date	=	change_test_end_time_sel.replace('-','').replace('-','');
+			if(change_status_sel=="test"&&(z_end_date<=z_begin_date)){
+				alert("测试结束必须大于测试开始时间");
+				return false;
+			}
 		$.getJSON(handleUrl,{"change_place_id_txt":change_place_id_txt,"change_place_name_txt":change_place_name_txt,
 								 "change_place_no_txt":change_place_no_txt,"change_place_tel_txt":change_place_tel_txt,
 								 "change_select_province":change_select_province,"change_select_city":change_select_city,
@@ -870,6 +908,7 @@
 				}
 			,'json'
 			);
+			jQuery(".role-table").slide({trigger: "click"});
 	});
 
 	function channel_name_blurry()
@@ -941,6 +980,5 @@
 		placeSelect.submit();
 	}
 </script>
-<script type="text/javascript"></script>
 </body>
 </html>

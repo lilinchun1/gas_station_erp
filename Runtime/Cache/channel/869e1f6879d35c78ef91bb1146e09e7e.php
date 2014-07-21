@@ -14,7 +14,7 @@
 <body>
 <div class="head-wrap">
 <div id="head">
-    <h1 class="head-logo"><a href="index.html">ERP管理系统</a></h1>
+    <h1 class="head-logo"><a href="<?php echo U('configuration/Login/default_index');?>">ERP管理系统</a></h1>
     <h2 class="head-tt">智能手机加油站业务支撑系统</h2>
     <div class="login">
         <div class="left">
@@ -56,12 +56,6 @@
     </li>
 </ul>
 
-    <!--<ul class="aside-nav">
-        <li class="aside-nav-nth1"><a href="<?php echo U('channel/Channel/index');?>">渠道管理</a></li>
-        <li class="active"><a href="<?php echo U('channel/Channel/index');?>"><input type="button" value="渠道信息"></a></li>
-        <li><a href="<?php echo U('channel/Place/index');?>"><input type="button" class="" value="网点信息"></a></li>
-        <li><a href="<?php echo U('channel/Device/index');?>"><input type="button" class="" value="加油站信息"></a></li>
-    </ul>-->
 </div>
 <div class="right">
 <div class="right-con">
@@ -348,10 +342,9 @@
     <div class="alert-user-add-con">
             <p>
 				<label for="channel-address1" class="">所属组织机构</label>
-                <select name="add_agent_id_sel" id="add_agent_id_sel" class="channel-select-min" style="width:200px">
-                   <option selected value="">请选择所属组织</option>
-				   <?php if(is_array($all_agent)): foreach($all_agent as $key=>$agent): ?><option value="<?php echo ($agent["agent_id"]); ?>"><?php echo ($agent["agent_name"]); ?></option><?php endforeach; endif; ?>
-                </select>
+				<select name="add_agent_id_sel" id="add_agent_id_sel" class="channel-select-min" style="width:200px">
+					<option value="">请选择组织</option>
+				</select>
                 <i class="red-color pdl10">*</i>
 			</p>
 
@@ -364,7 +357,7 @@
             <p>
                 <label for="channel-address1" class="">渠道地址</label>
                 <span id="add_select_showcity"></span><!--省市联动-->
-                <input type="text" name="channel_address"  class="input-role-name long-input" />
+                <input type="text" name="channel_address"  class="input-role-name long-input" id="add_channel_address_txt"/>
                 <i class="red-color pdl10">*</i>
             </p>
             <p>
@@ -450,10 +443,9 @@
         <form action="">
             <p>
 				<label for="channel-address1" class="">所属组织机构</label>
-                <select name="change_belong_agent_id_sel" id="change_belong_agent_id_sel" class="channel-select-min" style="width:150px">
-                   <option selected value="">请选择所属组织</option>
-				   <?php if(is_array($all_agent)): foreach($all_agent as $key=>$agent): ?><option value="<?php echo ($agent["agent_id"]); ?>"><?php echo ($agent["agent_name"]); ?></option><?php endforeach; endif; ?>
-                </select>
+				<select name="change_belong_agent_id_sel" id="change_belong_agent_id_sel" class="channel-select-min" style="width:150px">
+					<option value="">请选择组织</option>
+				</select>
                 <i class="red-color pdl10">*</i>
 
             </p>
@@ -659,6 +651,23 @@
         });
 
 		$("#b_add_channel").click(function () {
+			//赋组织值
+			var getAgentUrl = "<?php echo U('configuration/Org/show_org_tree');?>";
+			$.post(getAgentUrl,{},function(data){
+				$.each(data,function(i,n){
+					var mstr = "";
+					switch(n['lv']){
+						case 1:mstr = "==";break;
+						case 2:mstr = "====";break;
+						case 3:mstr = "======";break;
+						case 4:mstr = "========";break;
+						case 5:mstr = "==========";break;
+						case 6:mstr = "============";break;
+					}
+					//$(".role_agent_id").append("<option value='"+n['agent_id']+"'>"+mstr+n['agent_name']+"</option>");
+					$("#add_agent_id_sel").append("<option value='"+n['id']+"'>"+mstr+n['value']+"</option>");
+				})
+			},"json");
              $.openDOMWindow({
 			     loader:1,
 				 loaderHeight:16,
@@ -678,7 +687,7 @@
 			var add_channel_second_type_sel=$("#add_channel_second_type_sel").val();//属性
 			var add_contacts_txt=$("#add_contacts_txt").val();//联系人名称
 			var add_contacts_tel_txt=$("#add_contacts_tel_txt").val();//联系人电话
-			var add_channel_address_txt=$("input[name='channel_address']").val();//渠道商地址
+			var add_channel_address_txt=$("#add_channel_address_txt").val();//渠道商地址
 			var add_contract_number_txt=$("#add_contract_number_txt").val();
 			var add_begin_time_sel=$("#add_begin_time_sel").val();
 			var add_end_time_sel=$("#add_end_time_sel").val();
@@ -699,6 +708,18 @@
 			if(add_channel_second_type_sel==""){
 				alert("请选择渠道属性");
 				return false;				
+			}
+			if(add_channel_address_txt==""){
+				alert("请选择渠道商地址");
+				return false;
+			}
+			var z_begin_date	=	add_begin_time_sel.replace('-','').replace('-','');
+			var z_end_date	=	add_end_time_sel.replace('-','').replace('-','');
+			if(add_begin_time_sel!=""){
+				if(z_end_date<=z_begin_date){
+					alert("授权截止日期必须大于授权开始日期");
+					return false;
+				}
 			}
 			$.getJSON(handleUrl,{"add_channel_name_txt":add_channel_name_txt,"add_agent_id_sel":add_agent_id_sel,
 								 "add_contacts_tel_txt":add_contacts_tel_txt,
@@ -933,6 +954,18 @@
 			if(change_channel_second_type_sel==""){
 				alert("请选择渠道属性");
 				return false;				
+			}
+			if(change_channel_address_txt==""){
+				alert("请输入渠道商地址");
+				return false;	
+			}
+			var z_begin_date	=	change_begin_time_sel.replace('-','').replace('-','');
+			var z_end_date	=	change_end_time_sel.replace('-','').replace('-','');
+			if(change_begin_time_sel!=""){
+				if(z_end_date<=z_begin_date){
+					alert("授权截止日期必须大于授权开始日期");
+					return false;
+				}
 			}
 			$.getJSON(handleUrl,{"change_channel_name_txt":change_channel_name_txt,"change_channel_id_txt":change_channel_id_txt,
 								"change_agent_id_sel":change_agent_id_sel,"change_dst_province":change_dst_province,"change_dst_city":change_dst_city,

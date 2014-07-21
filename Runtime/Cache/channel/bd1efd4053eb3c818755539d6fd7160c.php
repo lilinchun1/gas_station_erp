@@ -5,6 +5,7 @@
     <title>加油站信息</title>
     <link rel="stylesheet" href="../../Public/css/configuration.css"/>
 	<link href="__PUBLIC__/js/AjaxFileUploaderV2.1/ajaxfileupload.css" rel="stylesheet" type="text/css" /><!--引用上传的css样式-->
+	<script type="text/javascript" src="__PUBLIC__/js/script_city.js"></script>
 	<style type="text/css">
 	.img_up{
 		width:110px;
@@ -33,7 +34,7 @@
 <body>
 <div class="head-wrap">
 <div id="head">
-    <h1 class="head-logo"><a href="index.html">ERP管理系统</a></h1>
+    <h1 class="head-logo"><a href="<?php echo U('configuration/Login/default_index');?>">ERP管理系统</a></h1>
     <h2 class="head-tt">智能手机加油站业务支撑系统</h2>
     <div class="login">
         <div class="left">
@@ -90,12 +91,11 @@
         <form name="deviceSelect" method="get" action="<?php echo U('channel/Device/deviceSelect');?>">
             <p>
                 <label for="channel-class1" class="">区域</label>
-                <select name="channel_first_type_sel" id="channel-class1" class="channel-select-min">
-                    <option value="">省份</option>
-                </select>
-                <select name="channel_second_type_sel" id="channel_second_type_sel" class="channel-select-min">
-                    <option value="">城市</option>
-                </select>
+                 <span id="select_showcity"></span>
+                <script type="text/javascript">
+                    showprovince("select_province", "select_city", "<?php echo ($_GET['select_province']); ?>", "select_showcity");
+                    showcity("select_city", "<?php echo ($_GET['select_city']); ?>", "select_province", "select_showcity");
+                </script>
                 <label for="device-drive-id" class="">设备编号</label>
                 <input type="text" name="device_no_txt" id="device_no_txt" value="<?php echo ($_GET['device_no_txt']); ?>" class="input-org-info"/>
                 <label for="mac1" class="">MAC</label>
@@ -112,11 +112,15 @@
 					</optgroup>
                 </select>
                 <label for="channel-ss-channel" class="">所属网点</label>
-                <input type="text" name="place_name_txt" id="place_name_txt" value="<?php echo ($_GET['place_name_txt']); ?>" class="input-org-info"/>
+                <!--<input type="text" name="place_name_txt" id="place_name_txt" value="<?php echo ($_GET['place_name_txt']); ?>" class="input-org-info"/>-->
+ 			
+				<input type="text" name="sswd" id="sswd" value="" class="input-org-info" autocomplete='off'/>
             </p>
             <p>
                 <label for="channel-ss-channel" class="">SIM卡号</label>
-                <input type="text" name="place_name_txt" id="place_name_txt" value="" class="input-org-info"/>
+                <!--<input type="text" name="place_name_txt" id="place_name_txt" value="" class="input-org-info"/>-->
+				<input type="text" name="sim_text" id="sim_text" value="<?php echo ($_GET['sim_text']); ?>" class="input-org-info" autocomplete='off'/>
+
                 <label for="channel-ss-channel" class="">首次启用日期</label>
                 <input type="text" name="place_name_txt" id="place_name_txt" value="" class="input-org-info"/>
 				<input type="text" name="select_del_flag_txt" id="select_del_flag_txt" value="0" style="display:none;"/>
@@ -372,12 +376,12 @@
                 <input type="text" name="add_device_no_txt" id="add_device_no_txt" class="input-role-name"/>
                 <i class="red-color pdl10">*</i>
                 <label for="mac1" class="">MAC&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
-                <input type="text" name="" id="add_mac1" class="input-mac" onkeyup="value=value.replace(/[^\w\.\/]/ig,'')" maxlength="2"/>-
-                <input type="text" name="" id="add_mac2" class="input-mac" onkeyup="value=value.replace(/[^\w\.\/]/ig,'')" maxlength="2"/>-
-                <input type="text" name="" id="add_mac3" class="input-mac" onkeyup="value=value.replace(/[^\w\.\/]/ig,'')" maxlength="2"/>-
-                <input type="text" name="" id="add_mac4" class="input-mac" onkeyup="value=value.replace(/[^\w\.\/]/ig,'')" maxlength="2"/>-
-                <input type="text" name="" id="add_mac5" class="input-mac" onkeyup="value=value.replace(/[^\w\.\/]/ig,'')" maxlength="2"/>-
-                <input type="text" name="" id="add_mac6" class="input-mac" onkeyup="value=value.replace(/[^\w\.\/]/ig,'')" maxlength="2"/>
+                <input type="text" name="" id="add_mac1" class="input-mac" onkeyup="value=value.replace(/[^\a-fA-F0-9\.\/]/ig,'')" maxlength="2"/>-
+                <input type="text" name="" id="add_mac2" class="input-mac" onkeyup="value=value.replace(/[^\a-fA-F0-9\.\/]/ig,'')" maxlength="2"/>-
+                <input type="text" name="" id="add_mac3" class="input-mac" onkeyup="value=value.replace(/[^\a-fA-F0-9\.\/]/ig,'')" maxlength="2"/>-
+                <input type="text" name="" id="add_mac4" class="input-mac" onkeyup="value=value.replace(/[^\a-fA-F0-9\.\/]/ig,'')" maxlength="2"/>-
+                <input type="text" name="" id="add_mac5" class="input-mac" onkeyup="value=value.replace(/[^\a-fA-F0-9\.\/]/ig,'')" maxlength="2"/>-
+                <input type="text" name="" id="add_mac6" class="input-mac" onkeyup="value=value.replace(/[^\a-fA-F0-9\.\/]/ig,'')" maxlength="2"/>
 				<input type="text" name="add_mac_txt" id="add_mac_txt" class="input-mac" style="display:none;"/>
                 <i class="red-color pdl10">*</i>
             </p>
@@ -417,14 +421,18 @@
 				 style="margin-top: 0;" onClick="WdatePicker()" readonly="readonly"/>
                 <i class="red-color pdl10">*</i>
                 <label for="sq-date">加油站启用日期</label>
-                <input type="input" name="add_begin_time_sel" id="add_begin_time_sel" class="input-org-info" 
+               <!-- <input type="input" name="add_begin_time_sel" id="add_begin_time_sel" class="input-org-info" 
+				 style="margin-top: 0;" onClick="WdatePicker()" readonly="readonly"/>-->
+				<input type="date" name="add_begin_time_sel" id="add_begin_time_sel" class="input-org-info" 
 				 style="margin-top: 0;" onClick="WdatePicker()" readonly="readonly"/>
 
             </p>
 
             <p>
                 <label for="sq-date">设置开机时间</label>
-                <input type="input" name="add_power_on_time_sel" id="add_power_on_time_sel" class="input-org-info" 
+                <!--<input type="input" name="add_power_on_time_sel" id="add_power_on_time_sel" class="input-org-info" 
+					style="margin-top: 0;" onClick="WtimePicker()" readonly="readonly"/>-->
+				<input type="text" name="add_power_on_time_sel" id="add_power_on_time_sel" class="input-org-info" 
 					style="margin-top: 0;" onClick="WtimePicker()" readonly="readonly"/>
                 <i class="red-color pdl10" style="color: #ffffff;">*</i>
                 <label for="sq-date">设置关机时间</label>
@@ -433,16 +441,17 @@
             </p>
             <p>
                 <label for="channel-addname" class="role-lab">SIM卡卡号</label>
-                <input type="text" name="add_device_no_txt" id="" class="input-role-name"/>
+                <!--<input type="text" name="add_device_no_txt" id="" class="input-role-name"/>-->
+				<input type="text" name="add_sim_card_text" id="add_sim_card_text" class="input-role-name"/>
                 <i class="red-color pdl10" style="color: #ffffff;">*</i>
                 <label for="channel-addname" class="role-lab">手机号码</label>
-                <input type="text" name="add_device_no_txt" id="" class="input-role-name"/>
-
+                <!--<input type="text" name="add_device_no_txt" id="" class="input-role-name"/>-->
+				<input type="text" name="add_phone_number_text" id="add_phone_number_text" class="input-role-name"/>
             </p>
             <p>
                 <label for="channel-addname" class="role-lab w130">SIM卡首次启用日期</label>
-                <input type="text" name="add_device_no_txt" id="" class="input-role-name"/>
-
+                <!--<input type="text" name="add_device_no_txt" id="" class="input-role-name"/>-->
+				<input type="date" name="add_first_open_time" id="add_first_open_time" class="input-role-name" style="margin-top: 0;" onClick="WdatePicker()" readonly="readonly"/>
             </p>
             <div class="device-point-pic">
                 <h4>点位照片</h4>
@@ -481,12 +490,12 @@
                 <i class="red-color pdl10">*</i>
 
                 <label for="mac1" class="">MAC&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
-                <input type="text" name="" id="change_mac1" class="input-mac" onkeyup="value=value.replace(/[^\w\.\/]/ig,'')" maxlength="2"/>-
-                <input type="text" name="" id="change_mac2" class="input-mac" onkeyup="value=value.replace(/[^\w\.\/]/ig,'')" maxlength="2"/>-
-                <input type="text" name="" id="change_mac3" class="input-mac" onkeyup="value=value.replace(/[^\w\.\/]/ig,'')" maxlength="2"/>-
-                <input type="text" name="" id="change_mac4" class="input-mac" onkeyup="value=value.replace(/[^\w\.\/]/ig,'')" maxlength="2"/>-
-                <input type="text" name="" id="change_mac5" class="input-mac" onkeyup="value=value.replace(/[^\w\.\/]/ig,'')" maxlength="2"/>-
-                <input type="text" name="" id="change_mac6" class="input-mac" onkeyup="value=value.replace(/[^\w\.\/]/ig,'')" maxlength="2"/>
+                <input type="text" name="" id="change_mac1" class="input-mac" onkeyup="value=value.replace(/[^\a-fA-F0-9\.\/]/ig,'')" maxlength="2"/>-
+                <input type="text" name="" id="change_mac2" class="input-mac" onkeyup="value=value.replace(/[^\a-fA-F0-9\.\/]/ig,'')" maxlength="2"/>-
+                <input type="text" name="" id="change_mac3" class="input-mac" onkeyup="value=value.replace(/[^\a-fA-F0-9\.\/]/ig,'')" maxlength="2"/>-
+                <input type="text" name="" id="change_mac4" class="input-mac" onkeyup="value=value.replace(/[^\a-fA-F0-9\.\/]/ig,'')" maxlength="2"/>-
+                <input type="text" name="" id="change_mac5" class="input-mac" onkeyup="value=value.replace(/[^\a-fA-F0-9\.\/]/ig,'')" maxlength="2"/>-
+                <input type="text" name="" id="change_mac6" class="input-mac" onkeyup="value=value.replace(/[^\a-fA-F0-9\.\/]/ig,'')" maxlength="2"/>
 				<input type="text" name="change_mac_txt" id="change_mac_txt" class="input-mac" style="display:none;"/>
                 <i class="red-color pdl10">*</i>
             </p>
@@ -541,16 +550,17 @@
             </p>
             <p>
                 <label for="channel-addname" class="role-lab">SIM卡卡号</label>
-                <input type="text" name="add_device_no_txt" id="" class="input-role-name"/>
+               <!-- <input type="text" name="add_device_no_txt" id="" class="input-role-name"/>-->
+				<input type="text" name="simcard" id="simcard" class="input-role-name"/>
                 <i class="red-color pdl10" style="color: #ffffff;">*</i>
                 <label for="channel-addname" class="role-lab">手机号码</label>
-                <input type="text" name="add_device_no_txt" id="" class="input-role-name"/>
-
+                <!--<input type="text" name="add_device_no_txt" id="" class="input-role-name"/>-->
+				<input type="text" name="phonenumber" id="phonenumber" class="input-role-name"/>
             </p>
             <p>
                 <label for="channel-addname" class="role-lab w130">SIM卡首次启用日期</label>
-                <input type="text" name="add_device_no_txt" id="" class="input-role-name"/>
-
+                <!--<input type="text" name="add_device_no_txt" id="" class="input-role-name"/>-->
+				<input type="date" name="qysj" id="qysj" class="input-org-info"style="margin-top: 0;" onClick="WdatePicker()" readonly="readonly"/>
             </p>
             <div class="device-point-pic">
                 <h4>点位照片</h4>
@@ -637,6 +647,8 @@
 
 		place_name_blurry();
 		device_mac_blurry();
+		device_sim_blurry();
+		device_sswd_blurry();
 		device_no_blurry();
 		add_place_name_blurry();
 		change_place_name_blurry();
@@ -742,6 +754,14 @@
 					$("#change_address_txt").val(data['address']);
 					$("#change_power_on_time_sel").val(data['power_on_time']);
 					$("#change_power_off_time_sel").val(data['power_off_time']);
+					//<!--  SIM 卡  手机号码 -->
+					//<!--$("#change_address_txt").val(data['address']);-->
+					$("#simcard").val(data['sim_card']);//  <!-- SIM 卡 -->
+					$("#phonenumber").val(data['phone_number']);// <!-- 手机号码 -->
+					$("#qysj").val(data['first_open_time']);// <!-- 首次启用日期 -->
+					
+					
+					
 					var image_path_0 = "<?php echo C('image_url');?>"+data['image_path_0'];
 					var image_path_1 = "<?php echo C('image_url');?>"+data['image_path_1'];
 					var image_path_2 = "<?php echo C('image_url');?>"+data['image_path_2'];
@@ -795,6 +815,8 @@
 			var add_device_type_txt=$("#add_device_type_txt").val();//终端型号
 			var add_address_txt=$("#add_address_txt").val();//终端地址
 			var begin_time=$("#add_power_on_time_sel").val();//开机时间
+			var add_power_on_time_sel=$("#add_power_on_time_sel").val();
+			var add_power_off_time_sel=$("#add_power_off_time_sel").val();
 			
 			var on_strs= new Array(); //定义一数组 
 			on_strs=begin_time.split(":"); //字符分割 
@@ -807,7 +829,7 @@
 					var on_m=on_strs[i]*60; //分割后的字符输出
 				}
 				if(i==2){
-					var on_s=on_strs[i]; //分割后的字符输出
+					var on_s=on_strs[i]*1; //分割后的字符输出
 				}
 			} 
 			var add_power_on_time_sel= on_h+on_m+on_s;//开机时间转换时间戳
@@ -825,7 +847,7 @@
 					var off_m=off_strs[i]*60; //分割后的字符输出
 				}
 				if(i==2){
-					var off_s=off_strs[i]; //分割后的字符输出
+					var off_s=off_strs[i]*1; //分割后的字符输出
 				}
 			} 
 			var add_power_off_time_sel= off_h+off_m+off_s;//关机时间转换时间戳
@@ -833,6 +855,9 @@
 			var add_image_path_0=tmp_image_path_0;
 			var add_image_path_1=tmp_image_path_1;
 			var add_image_path_2=tmp_image_path_2;
+			var add_sim_card_text=$("#add_sim_card_text").val(); //SIM卡
+			var add_phone_number_text=$("#add_phone_number_text").val(); //手机号码
+			var add_first_open_time=$("#add_first_open_time").val(); //首次启用日期
 			if (add_device_no_txt=="") {
 				alert("加油站编号不能为空");
 				return false;
@@ -849,16 +874,12 @@
 				alert("请选择加油站状态");
 				return false;
 			} 
-			if (add_power_on_time_sel=="") {
-				alert("启用日期不能为空");
-				return false;
-			} 
 			$.getJSON(handleUrl,{"add_device_no_txt":add_device_no_txt,"add_mac_txt":add_mac_txt,"add_place_name_txt":add_place_name_txt,
 								 "add_deploy_time_sel":add_deploy_time_sel,"add_begin_time_sel":add_begin_time_sel,
 								 "add_status_sel":add_status_sel,"add_device_type_txt":add_device_type_txt,
 								 "add_address_txt":add_address_txt,
 								 "add_power_on_time_sel":add_power_on_time_sel,"add_power_off_time_sel":add_power_off_time_sel,
-								 "add_image_path_0":add_image_path_0,"add_image_path_1":add_image_path_1,"add_image_path_2":add_image_path_2
+								 "add_image_path_0":add_image_path_0,"add_image_path_1":add_image_path_1,"add_image_path_2":add_image_path_2,"add_sim_card_text":add_sim_card_text,"add_phone_number_text":add_phone_number_text,"add_first_open_time":add_first_open_time
 								 },
 				function (data){
 					var tmp_msg = "<?php echo C('add_device_success');?>";
@@ -898,6 +919,8 @@
 			var change_status_sel=$("#change_status_sel").val();//终端状态
 			var change_device_type_txt=$("#change_device_type_txt").val();//终端型号
 			var change_address_txt=$("#change_address_txt").val();//终端地址
+			var change_power_on_time_sel=$("#change_power_on_time_sel").val();
+			var change_power_off_time_sel=$("#change_power_off_time_sel").val();
 
 			var begin_time=$("#change_power_on_time_sel").val();//开机时间
 			
@@ -912,7 +935,7 @@
 					var on_m=on_strs[i]*60; //分割后的字符输出
 				}
 				if(i==2){
-					var on_s=on_strs[i]; //分割后的字符输出
+					var on_s=on_strs[i]*1; //分割后的字符输出
 				}
 			} 
 			var change_power_on_time_sel= on_h+on_m+on_s;//开机时间转换时间戳
@@ -930,7 +953,7 @@
 					var off_m=off_strs[i]*60; //分割后的字符输出
 				}
 				if(i==2){
-					var off_s=off_strs[i]; //分割后的字符输出
+					var off_s=off_strs[i]*1; //分割后的字符输出
 				}
 			} 
 			var change_power_off_time_sel= off_h+off_m+off_s;//关机时间转换时间戳
@@ -941,6 +964,10 @@
 			var change_image_path_0=tmp_change_image_path_0;
 			var change_image_path_1=tmp_change_image_path_1;
 			var change_image_path_2=tmp_change_image_path_2;
+			<!-- hm -->  
+			var simcard=$("#simcard").val();//SIM 卡
+			var phonenumber=$("#phonenumber").val();//号码
+			var qysj=$("#qysj").val();//起始时间
 			if (change_device_no_txt=="") {
 				alert("加油站编号不能为空");
 				return false;
@@ -957,10 +984,6 @@
 				alert("请选择加油站状态");
 				return false;
 			} 
-			if (change_power_on_time_sel=="") {
-				alert("启用日期不能为空");
-				return false;
-			} 
 			$.getJSON(handleUrl,{"change_device_id_txt":change_device_id_txt,"change_device_no_txt":change_device_no_txt,
 								 "change_mac_txt":change_mac_txt,"change_place_name_txt":change_place_name_txt,
 								 "change_deploy_time_sel":change_deploy_time_sel,"change_begin_time_sel":change_begin_time_sel,
@@ -968,7 +991,9 @@
 								 "change_address_txt":change_address_txt,
 								 "change_power_on_time_sel":change_power_on_time_sel,"change_power_off_time_sel":change_power_off_time_sel,
 								 "change_image_id_0":change_image_id_0,"change_image_id_1":change_image_id_1,"change_image_id_2":change_image_id_2,
-								 "change_image_path_0":change_image_path_0,"change_image_path_1":change_image_path_1,"change_image_path_2":change_image_path_2
+								 "change_image_path_0":change_image_path_0,"change_image_path_1":change_image_path_1,"change_image_path_2":change_image_path_2,
+								 "simcard":simcard,"phonenumber":phonenumber,<!-- SIM卡 和 手机号码 -->
+								 "qysj":qysj<!-- -->
 								 },
 				function (data){
 					var tmp_msg = "<?php echo C('change_device_success');?>";
@@ -1031,6 +1056,34 @@
 				//alert(data);
 				//alert(str[1]['title']);
 				$("#mac_txt").bigAutocomplete({width:150,data:data,callback:function(data){}});
+			}
+			,'json'
+		);
+	}
+//<!-- SIM 模糊查询方法  hm-->
+	function device_sim_blurry()
+	{
+		var handleUrl = "<?php echo U('channel/Device/devicesimblurry');?>";
+		$.getJSON(handleUrl,{},
+			function (data){
+				var str = data;
+				$("#sim_text").bigAutocomplete({width:150,data:data,callback:function(data){}});
+			}
+			,'json'
+		);
+	}
+	
+	//<!-- 所属网点查询方法  hm-->
+	function device_sswd_blurry()
+	{
+		var handleUrl = "<?php echo U('channel/Device/deviceSswdblurry');?>";
+		$.getJSON(handleUrl,{},
+			function (data){
+				var str = data;
+				//alert(data);
+				//alert(str[1]['title']);
+				
+				$("#sswd").bigAutocomplete({width:150,data:data,callback:function(data){}});
 			}
 			,'json'
 		);

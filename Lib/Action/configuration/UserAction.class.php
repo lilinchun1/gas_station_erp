@@ -21,6 +21,7 @@ class UserAction extends Action {
 		$realname = I('realname_txt');
 		$org_name = I('org_name_txt');
 		$username = I('username_txt');
+
 		//$page_show_number = 30;       //每页显示的数量
 		C('page_show_number')?$page_show_number=C('page_show_number'):$page_show_number=30;  //每页显示的数量
 		$where = '1=1 ';
@@ -130,7 +131,8 @@ class UserAction extends Action {
 			$msg = C("add_user_failed");
 		}
 		$tmp_user_id = $user->query('select last_insert_id() as id');
-
+		
+		$roleid = trim($roleid,",");
 		$roleid_array = explode(",", $roleid);
 		foreach($roleid_array as $key=>$val){
 			$data_role['userid'] = $tmp_user_id[0]['id'];
@@ -262,6 +264,33 @@ class UserAction extends Action {
 
 		$this->ajaxReturn($msg,'json');
 	}
+		
+		//姓名 模糊查询
+		public function UserSelect(){
+		$agent_name = trim(I('realname'));
+		$agent = M('user');
+		$map['realname'] =array('like', '%' . $agent_name . '%');
+		$agentInfo = $agent->where($map)->distinct(true)->field('realname')->select();
+		for($i=0; $i< count($agentInfo); $i++)
+		{
+			$agent_name_arr[$i]['title'] = $agentInfo[$i]['realname'];
+		}
+		$this->ajaxReturn($agent_name_arr,'json');
+	}
+	
+	    //账号 模糊查询
+		public function UsernameSelect(){
+		$name = trim(I('username'));
+		$re = M('user');
+		$mapp['username'] =array('like', '%' . $name . '%');
+		$agentIn = $re->where($mapp)->distinct(true)->field('username')->select();
+		for($i=0; $i< count($agentIn); $i++)
+		{
+			$name_arr[$i]['title'] = $agentIn[$i]['username'];
+		}
+		$this->ajaxReturn($name_arr,'json');
+	}
+	
 
 }
 ?>

@@ -2,8 +2,8 @@
 <html lang="zh-CN">
 <head>
 <meta charset="UTF-8">
-<title>登陆</title>
-<link rel="stylesheet" href="../../Public/css/configuration.css" />
+<title>登录</title>
+<!--<link rel="stylesheet" href="../../Public/css/configuration.css" />-->
 <link rel="stylesheet" href="__PUBLIC__/css/configuration.css" />
 <script src="__PUBLIC__/js/jquery-1.6.1.js"></script>
 </head>

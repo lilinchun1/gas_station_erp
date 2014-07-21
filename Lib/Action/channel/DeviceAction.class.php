@@ -18,12 +18,20 @@ class DeviceAction extends Action {
 		$this->display(':device_index');
 	}
 
-	//查询设备信息
-	public function deviceSelect(){
+	//查询设备信息						//------------------------------------------------------- 查 ----------------------------------------------------------------------
+	public function deviceSelect(){         
 		$userinfo = getUserInfo();
 	    $Model = new Model();
 		$place_no = trim(I('place_no_txt'));
-		$place_name = trim(I('place_name_txt'));
+		$place_name = trim(I('place_name_txt')); 
+	
+		$firstopentime= strtotime(trim(I('firstopentime'))); //首次启用日期
+		
+		$sim_text = trim(I('sim_text'));  //SIM 卡
+		$sswd = trim(I('sswd'));   //所属网点
+		//echo $sswd;
+		
+		//echo $sim_text;return false;
 		$device_no = trim(I('device_no_txt'));
 		$MAC = trim(I('mac_txt'));
 		$place_first_type_id = trim(I('place_first_type_sel'));
@@ -31,7 +39,9 @@ class DeviceAction extends Action {
 		$province = trim(I('select_province'));
 		$city = trim(I('select_city'));
 		$status = trim(I('select_device_status'));
-		$del_flag_txt = trim(I('select_del_flag_txt'));
+		$del_flag_txt = trim(I('select_del_flag_txt')); 
+		
+
 		$is_device_select_show = 1;
 		//$page_show_number = 30;       //每页显示的数量
 		C('page_show_number')?$page_show_number=C('page_show_number'):$page_show_number=30;  //每页显示的数量
@@ -48,6 +58,34 @@ class DeviceAction extends Action {
 		{
 			$where .= " and a.device_no='$device_no'";
 		}
+		if(!empty($sim_text))
+		{
+			$where .= " and a.sim_card='$sim_text'";
+		}
+		if(!empty($sswd))
+		{
+			$where .= " and a.place_id='$sswd'";
+			
+		}
+		if(!empty($firstopentime))
+		{
+			$where .= " and a.first_open_time='$firstopentime'";
+			
+		}
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
 		if(!empty($MAC))
 		{
 			$where .= " and a.MAC='$MAC'";
@@ -85,13 +123,16 @@ class DeviceAction extends Action {
 			$where .= " and (a.agent_id='{$userinfo['orgid']}' or a.agent_id in $sub_agent_id)"; //权限限制
 		}
 
-		$count = $Model->table('qd_device a')->join('qd_place b on a.place_id=b.place_id')->where($where)->count();
+		$count = $Model->table('qd_device a')->join('qd_place b on a.place_id=b.place_id ')->where($where)->count();
+		
+		
+		
 		//$tmp_count = $Model->query("select count(*) as count from qd_device a left join qd_place b on a.place_no=b.place_no" . $where);
 		//$count = $tmp_count[0]['count'];
 		$Page       = new Page($count, $page_show_number);// 实例化分页类 传入总记录数
 		$show       = $Page->show();// 分页显示输出
 		// 进行分页数据查询
-		$list = $Model->table('qd_device a')->join('qd_place b on a.place_id=b.place_id')->where($where)->order('a.device_id												desc')->limit($Page->firstRow.','. $Page->listRows)->
+		$list = $Model->table('qd_device a')->join('qd_place b on a.place_id=b.place_id')->where($where)->order('a.device_id desc')->limit($Page->firstRow.','. $Page->listRows)->
 					field('a.device_id, a.device_no, a.MAC, a.place_id, a.channel_id, a.agent_id, a.province, a.city, a.address, a.status, a.device_type,
 					a.begin_time, a.deploy_time, a.repair_user, a.repair_user_tel, a.description, a.isDelete')->select();
 		//$list = $Model->query("select * from qd_device a left join qd_place b on a.place_no=b.place_no" . $where . " order by a.device_no desc" . " limit " . //$Page->firstRow . ',' . $Page->listRows);
@@ -200,23 +241,32 @@ class DeviceAction extends Action {
 		}
 		$this->ajaxReturn($data,'json');
 	}
-
-     //根据设备ID查询设备详细信息
+  
+     //根据设备ID查询设备详细信息                                                         查
      public function deviceDetailSelect(){
 	    $Model = new Model();
+			
 		$device_id = I('get.device_id');
 		$where = "a.device_id='$device_id'";
 		$dataDevice = $Model->table('qd_device a')->where($where)->select();// 查询满足要求的总记录数
 		$imageDetail = $Model->query("select image_id, image_path, image_description from qd_device_image where device_id='$device_id'");
+	
+	
 		$dataDevice[0]['image_id_0'] = $imageDetail[0]['image_id'];
 		$dataDevice[0]['image_path_0'] = $imageDetail[0]['image_path'];
 		$dataDevice[0]['image_id_1'] = $imageDetail[1]['image_id'];
 		$dataDevice[0]['image_path_1'] = $imageDetail[1]['image_path'];
 		$dataDevice[0]['image_id_2'] = $imageDetail[2]['image_id'];
 		$dataDevice[0]['image_path_2'] = $imageDetail[2]['image_path'];
-		$dataDevice[0]['begin_time'] = getDateFromTime($dataDevice[0]['begin_time']);
+		$dataDevice[0]['begin_time'] = getDateFromTime($dataDevice[0]['begin_time']); 
 		$dataDevice[0]['deploy_time'] = getDateFromTime($dataDevice[0]['deploy_time']);
 		$dataDevice[0]['place_name'] = getPlaceNameFromPlaceID($dataDevice[0]['place_id']);
+		//hm 查
+		$dataDevice[0]['simcard'] = getPlaceNameFromPlaceID($dataDevice[0]['device_id']);  //SIM
+		$dataDevice[0]['phonenumber'] = getPlaceNameFromPlaceID($dataDevice[0]['phone_number']);  //手机号码
+ 		$dataDevice[0]['first_open_time'] = getDateFromTime($dataDevice[0]['first_open_time']); //首启时间
+		
+		
 		$device_mac_array = explode("-", $dataDevice[0]['MAC']);
 		$dataDevice[0]['MAC1'] = $device_mac_array[0];
 		$dataDevice[0]['MAC2'] = $device_mac_array[1];
@@ -224,9 +274,10 @@ class DeviceAction extends Action {
 		$dataDevice[0]['MAC4'] = $device_mac_array[3];
 		$dataDevice[0]['MAC5'] = $device_mac_array[4];
 		$dataDevice[0]['MAC6'] = $device_mac_array[5];
-		$dataDevice[0]['power_on_time'] = date("H:i:s", $dataDevice[0]['power_on_time']);
-		$dataDevice[0]['power_off_time'] = date("H:i:s", $dataDevice[0]['power_off_time']);
-
+		
+		$dataDevice[0]['power_on_time'] = $dataDevice[0]['power_on_time']?date("H:i:s", strtotime(date("Y-m-d"))+$dataDevice[0]['power_on_time']):"";			
+		$dataDevice[0]['power_off_time'] = $dataDevice[0]['power_off_time']?date("H:i:s", strtotime(date("Y-m-d"))+$dataDevice[0]['power_off_time']):"";
+		
 		$data = $dataDevice[0];
 		$this->ajaxReturn($data,'json');
 	}
@@ -258,6 +309,54 @@ class DeviceAction extends Action {
 		}
 		$this->ajaxReturn($device_mac_arr,'json');
 	}
+//---------------------------------------------------------------------------------------------------------------------	
+	//SIM 模糊查询  ----------hm
+	public function devicesimblurry(){
+	    //$Model = new Model();
+		$sim_text = trim(I('sim_text'));
+		$device = M('device');
+		$map['sim_card'] =array('like', '%' . $sim_text . '%');
+		$deviceInfo = $device->where($map)->distinct(true)->field('sim_card')->select();
+		for($i=0; $i< count($deviceInfo); $i++)
+		{
+			$sim_text_arr[$i]['title'] = $deviceInfo[$i]['sim_card'];
+		}
+		$this->ajaxReturn($sim_text_arr,'json');
+	}
+	
+	//SIM 所属网点  ----------hm
+	public function deviceSswdblurry(){
+	    //$Model = new Model();
+		$sim_text = trim(I('sswd'));
+		$device = M('device');
+		$map['place_id'] =array('like', '%' . $sswd . '%');
+		$deviceInfo = $device->where($map)->distinct(true)->field('place_id')->select();
+		for($i=0; $i< count($deviceInfo); $i++)
+		{
+			$sswd[$i]['title'] = $deviceInfo[$i]['place_id'];
+		}
+		$this->ajaxReturn($sswd,'json');
+	}	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 
 	//上传图片
 	public function uploadImage(){
@@ -267,7 +366,7 @@ class DeviceAction extends Action {
 		echo $image_path;
 	}
 
-    //添加设备信息
+    //添加设备信       --------------------------------------------------------------------------------------------------------------------------------------------------------- /tianjia                 
 	public function deviceAdd(){
 		$userinfo = getUserInfo();
 		$device_no = trim(I('add_device_no_txt'));
@@ -283,13 +382,17 @@ class DeviceAction extends Action {
 		$repair_user = trim(I('add_repair_user_txt'));
 		$repair_user_tel = trim(I('add_repair_user_tel_txt'));
 		$description = trim(I('add_description_txt'));
-		$power_on_time = strtotime(trim(I('add_power_on_time_sel')));
-		$power_off_time = strtotime(trim(I('add_power_off_time_sel')));
+		$power_on_time = trim(I('add_power_on_time_sel'));
+		$power_off_time = trim(I('add_power_off_time_sel'));
 		$image_path_0 = trim(I('add_image_path_0'));
 		$image_path_1 = trim(I('add_image_path_1'));
 		$image_path_2 = trim(I('add_image_path_2'));
-		$msg = C('add_device_success');
+		 
+		$add_sim_card_text=trim(I('add_sim_card_text')); //SIM卡
+		$add_phone_number_text=trim(I('add_phone_number_text'));//手机号码
+		$add_first_open_time = strtotime(trim(I('add_first_open_time'))); //首次获取日期
 
+		$msg = C('add_device_success');
 		$Model = new Model();
 		$device = M("device");
 		$device_image = M("device_image");
@@ -300,6 +403,9 @@ class DeviceAction extends Action {
 		$mac_count = $Model->query("select count(*) as count from qd_device where MAC='$mac'");
 		$place_area = $Model->query("select province, city from qd_place where place_id='$place_id'");
 		$is_purview = judgeAgentPurview($userinfo['agentsid'], $agent_id);
+		
+		
+	
 		if(!$is_purview)
 		{
 			$msg = C('no_purview');
@@ -350,7 +456,18 @@ class DeviceAction extends Action {
 			$data['channel_id'] = $channel_id;
 			$data['agent_id'] = $agent_id;
 			$data['isDelete'] = 0;
-			$is_set = $device->add($data);
+			
+			if($add_sim_card_text){
+				$data['sim_card'] = $add_sim_card_text; // SIM卡
+			}
+			if($add_phone_number_text){
+				$data['phone_number'] = $add_phone_number_text; //移动电话
+			}
+			if($add_first_open_time){
+				$data['first_open_time']=$add_first_open_time;//首次启用日期
+			}
+			$is_set = $device->add($data);// hm
+			
 			if($is_set)
 			{
 				$tmp_device_id = $device->query('select last_insert_id() as id');
@@ -377,8 +494,11 @@ class DeviceAction extends Action {
 			changeNum('device', $place_id, $device_id, 'add');
 			addOptionLog('device', $device_id, 'add', '');
 			addDeviceLog($agent_id, $channel_id, $place_id, $device_id, $begin_time, '');
+			
 		}
+		
 		$this->ajaxReturn($msg,'json');
+		
 	}
 
     //修改设备信息
@@ -401,14 +521,22 @@ class DeviceAction extends Action {
 		$image_id_0 = trim(I('change_image_id_0'));
 		$image_id_1 = trim(I('change_image_id_1'));
 		$image_id_2 = trim(I('change_image_id_2'));
-		$power_on_time = strtotime(trim(I('change_power_on_time_sel')));
-		$power_off_time = strtotime(trim(I('change_power_off_time_sel')));
+		$power_on_time = trim(I('change_power_on_time_sel'));
+		$power_off_time = trim(I('change_power_off_time_sel'));
 		$image_path_0 = trim(I('change_image_path_0'));
 		$image_path_1 = trim(I('change_image_path_1'));
 		$image_path_2 = trim(I('change_image_path_2'));
+		
+		//----hm----
+		$simcard = trim(I('simcard'));// SIM卡 
+		$phonenumber = trim(I('phonenumber')); //手机号码
+		$qysj = strtotime(trim(I('qysj')));//首次开启时间
+		
 		$msg = C('change_device_success');
 		$log_description = '';
 		$log_photo_change_num = 0;
+		
+		
 		$place_id = getPlaceIDFromPlaceName($place_name);
 		$channel_id = getChannelIDFromPlaceID($place_id);
 		$agent_id = getAgentIDFromChannelID($channel_id);
@@ -445,12 +573,7 @@ class DeviceAction extends Action {
 		}
 		else
 		{
-			$src_place_id = getPlaceIDFromDeviceID($device_id);
-			$src_channel_id = getChannelIDFromPlaceID($src_place_id);
-			$src_agent_id = getAgentIDFromChannelID($src_channel_id);
-			$src_image_path_0 = getDevicePhotoPathFromID($image_id_0);
-			$src_image_path_1 = getDevicePhotoPathFromID($image_id_1);
-			$src_image_path_2 = getDevicePhotoPathFromID($image_id_2);
+			
 			if($image_path_0 != $src_image_path_0)
 			{
 				$log_photo_change_num += 1;
@@ -473,7 +596,8 @@ class DeviceAction extends Action {
 			$src_device_log_info[0]['deploy_time'] = getDateFromTime($src_device_log_info[0]['deploy_time']);
 			$src_device_log_info[0]['power_on_time'] = date('H:i:s', $src_device_log_info[0]['power_on_time']);
 			$src_device_log_info[0]['power_off_time'] = date('H:i:s', $src_device_log_info[0]['power_off_time']);
-
+			
+			$data = array();
 			$data['device_no'] = $device_no;
 			$data['MAC'] = $mac;
 			$data['place_id'] = $place_id;
@@ -510,21 +634,32 @@ class DeviceAction extends Action {
 			$data['repair_user'] = $repair_user;
 			$data['repair_user_tel'] = $repair_user_tel;
 			$data['description'] = $description;
-			$is_set = $device->where("device_id='%d'", $device_id)->save($data);
-		
+			//hm修
+			if($simcard){
+				$data['sim_card'] = $simcard; // SIM卡
+			}
+			if($phonenumber){
+				$data['phone_number'] = $phonenumber; //移动电话
+			}
+			if($qysj){
+				$data['first_open_time']=$qysj;//首次启用日期
+			}
+			
+			$is_set = $device->where("device_id  =$device_id")->save($data);
 			$device_image = M("device_image");
-			$image['image_path'] = $image_path_0;
-			$is_image_0 = $device_image->where("image_id=" . $image_id_0)->save($image);
-
-			$image['image_path'] = $image_path_1;
-			$is_image_1 = $device_image->where("image_id=" . $image_id_1)->save($image);
-
-			$image['image_path'] = $image_path_2;
-			$is_image_2 = $device_image->where("image_id=" . $image_id_2)->save($image);
-
-			if(!($is_set) && !($is_image_0) && !($is_image_1) && !($is_image_2))
-			{
-				$msg = C('change_device_failed');
+			if($image_path_0){
+				$image['image_path'] = $image_path_0;
+				$is_image_0 = $device_image->where("image_id=" . $image_id_0)->save($image);
+			}
+			
+			if($image_path_1){
+				$image['image_path'] = $image_path_1;
+				$is_image_1 = $device_image->where("image_id=" . $image_id_1)->save($image);
+			}
+			
+			if($image_path_2){
+				$image['image_path'] = $image_path_2;
+				$is_image_2 = $device_image->where("image_id=" . $image_id_2)->save($image);
 			}
 		}
 

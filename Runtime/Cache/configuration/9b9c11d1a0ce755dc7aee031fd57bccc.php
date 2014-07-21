@@ -2,7 +2,7 @@
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
-    <title>默认页</title>
+    <title>欢迎页</title>
     <style>
         body .head-wrap{min-width: 1024px;}
        body #footer{min-width: 1024px;}
@@ -10,12 +10,15 @@
        #df-cont{min-width: 1024px;}
         #container.df-cont{min-width: 1024px;}
     </style>
-	<script type="text/javascript" src="__PUBLIC__/js/jquery-1.6.1.js"></script>
+	<link rel="stylesheet" href="__PUBLIC__/css/configuration.css"/>
+	<script type="text/javascript" src="__PUBLIC__/js/jquery-1.10.2.min.js"></script>
+	<script type="text/javascript" src="__PUBLIC__/js/jquery.SuperSlide.2.1.1.js"></script>
+	<script type="text/javascript" src="__PUBLIC__/js/My97DatePicker/WdatePicker.js"></script>
 </head>
 <body>
 <div class="head-wrap">
 <div id="head">
-    <h1 class="head-logo"><a href="index.html">ERP管理系统</a></h1>
+    <h1 class="head-logo"><a href="<?php echo U('configuration/Login/default_index');?>">ERP管理系统</a></h1>
     <h2 class="head-tt">智能手机加油站业务支撑系统</h2>
     <div class="login">
         <div class="left">
@@ -265,11 +268,6 @@
         return false;
     }
 </script>
-	<script>
-		$(document).ready(function(){
-			$("#j-nav-active").find('li').attr("class","");
-		})
-	</script>
 </body>
 	<link rel="stylesheet" href="__PUBLIC__/css/configuration.css"/>
 	
