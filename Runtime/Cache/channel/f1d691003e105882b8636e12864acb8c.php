@@ -159,22 +159,15 @@
 
 
 <div class="role-table over-h-y rizhi">
-    <div class="hd">
-        <ul class="channel-tab">
-            <li class="on" style="background: #ffffff;color: #000000;">操作日志</li>
-            <!--<li>删除日志</li>-->
-        </ul>
-
+    <div class="data-log">
+        <h3>操作日志</h3>
     </div>
-    <div class="bd">
-		<ul class="role-table-list role-table-list2">
-			<li><span class='span-3'><b>操作人</b></span><span class='span-3'><b>操作时间</b></span><span class='span-3'><b>操作日志</b></span></li>
-		</ul>
-        <ul id="place_log_info" class="role-table-list role-table-list2">
-        </ul>
-
-    </div>
-
+	<ul class="role-table-list role-table-list2">
+		<li><span class='span-3'><b>操作人</b></span><span class='span-3'><b>操作时间</b></span><span class='span-3'><b>操作日志</b></span></li>
+	</ul>
+    <ul id="place_log_info" class="role-table-list role-table-list2">
+		
+    </ul>
 </div>
 </div>
 </div>
@@ -773,8 +766,17 @@
 				alert("所属渠道不能为空");
 				return false;
 			}
+			if(add_select_province=="省份"){
+				alert("请选择省份");
+				return false;	
+			}
+			if(add_select_city=="地级市"){
+				alert("请选择城市");
+				return false;	
+			}
 			if(add_region_txt==""){
 				alert("网点地址不能为空");
+				return false;
 			}
 			if(add_status_sel=="test"&&(add_test_begin_time_sel==""||add_test_end_time_sel=="")){
 				alert("测试期 测试开始时间和测试结束时间不能为空");
@@ -866,6 +868,14 @@
 			if(change_channel_name_txt==""){
 				alert("所属渠道不能为空");
 				return false;
+			}
+			if(change_select_province=="省份"){
+				alert("请选择省份");
+				return false;	
+			}
+			if(change_select_city=="地级市"){
+				alert("请选择城市");
+				return false;	
 			}
 			if(change_region_txt==""){
 				alert("网点地址不能为空");

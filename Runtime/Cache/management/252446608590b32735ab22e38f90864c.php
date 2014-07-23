@@ -623,25 +623,25 @@
 				<div class="verup-alert-con-left">
 					<p>
 						<label for="smartApp">SmartApp</label>
-						<input type="file" name="smartApp" id="smartApp" class="" style="border: 0 none; width: 73px;"/>
+						<input type="file" name="smartApp" id="smartApp" class="" style="border: 0 none; width: 69px;"/>
 						<label for="main-pg">版本号</label>
 						<input type="text" name="smartAppNo" id="smartAppNo" class="input-org-info"/>
 					</p>
 					<p>
 						<label for="videoPlayer">VideoPlayer</label>
-						<input type="file" name="videoPlayer" id="videoPlayer" class="input-org-info" style="border: 0 none; width: 73px;"/>
+						<input type="file" name="videoPlayer" id="videoPlayer" class="input-org-info" style="border: 0 none; width: 72px;"/>
 						<label for="main-pg">版本号</label>
 						<input type="text" name="videoPlayerNo" id="videoPlayerNo" class="input-org-info"/>
 					</p>
 					<p>
 						<label for="updateApp">UpdateApp</label>
-						<input type="file" name="updateApp" id="updateApp" class="input-org-info" style="border: 0 none; width: 73px;"/>
+						<input type="file" name="updateApp" id="updateApp" class="input-org-info" style="border: 0 none; width: 72px;"/>
 						<label for="main-pg">版本号</label>
 						<input type="text" name="updateAppNo" id="updateAppNo" class="input-org-info"/>
 					</p>
 					<p>
 						<label for="smartGuard">SmartGuard</label>
-						<input type="file" name="smartGuard" id="smartGuard" class="input-org-info" style="border: 0 none; width: 73px;"/>
+						<input type="file" name="smartGuard" id="smartGuard" class="input-org-info" style="border: 0 none; width: 72px;"/>
 						<label for="main-pg">版本号</label>
 						<input type="text" name="smartGuardNo" id="smartGuardNo" class="input-org-info"/>
 					</p>

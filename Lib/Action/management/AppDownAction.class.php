@@ -5,6 +5,14 @@ class AppDownAction extends Action {
 	private $updateapp_uploaded_url   = "DevAppDownLoad/UpdateApp/";
 	private $videoplayer_uploaded_url = "DevAppDownLoad/VideoPlayer/";
 	
+	
+	/**
+	 * appDown 下载
+	 */
+	function index(){
+		phpinfo();
+	}
+	
 	/**
 	 * appDown 下载
 	 */

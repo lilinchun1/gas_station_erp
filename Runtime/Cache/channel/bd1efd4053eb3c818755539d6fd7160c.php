@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>加油站信息</title>
-    <link rel="stylesheet" href="../../Public/css/configuration.css"/>
+    <!--<link rel="stylesheet" href="../../Public/css/configuration.css"/>-->
 	<link href="__PUBLIC__/js/AjaxFileUploaderV2.1/ajaxfileupload.css" rel="stylesheet" type="text/css" /><!--引用上传的css样式-->
 	<script type="text/javascript" src="__PUBLIC__/js/script_city.js"></script>
 	<style type="text/css">
@@ -113,17 +113,16 @@
                 </select>
                 <label for="channel-ss-channel" class="">所属网点</label>
                 <!--<input type="text" name="place_name_txt" id="place_name_txt" value="<?php echo ($_GET['place_name_txt']); ?>" class="input-org-info"/>-->
- 			
-				<input type="text" name="sswd" id="sswd" value="" class="input-org-info" autocomplete='off'/>
+				<input type="text" name="sswd" id="sswd" value="<?php echo ($_GET['sswd']); ?>" class="input-org-info" autocomplete='off'/>
             </p>
             <p>
                 <label for="channel-ss-channel" class="">SIM卡号</label>
                 <!--<input type="text" name="place_name_txt" id="place_name_txt" value="" class="input-org-info"/>-->
-				<input type="text" name="sim_text" id="sim_text" value="<?php echo ($_GET['sim_text']); ?>" class="input-org-info" autocomplete='off'/>
+				<input type="text" name="sim_text" id="sim_text" value="<?php echo ($_GET['sim_text']); ?>" class="input-org-info" autocomplete='off'/>                                           <!-- 3 -->
 
                 <label for="channel-ss-channel" class="">首次启用日期</label>
-                <input type="text" name="place_name_txt" id="place_name_txt" value="" class="input-org-info"/>
-				<input type="text" name="select_del_flag_txt" id="select_del_flag_txt" value="0" style="display:none;"/>
+                <input type="text" name="firstopentime" id="firstopentime" value="<?php echo ($_GET['firstopentime']); ?>" class="input-org-info" onClick="WdatePicker()"/>
+				<input type="text" name="select_del_flag_txt" id="select_del_flag_txt" value="<?php echo ($_GET['select_del_flag_txt']); ?>" style="display:none;"/> <!-- -->
                 <input type="submit" class="role-control-btn" value="查询"/>
             </p>
         </form>
@@ -157,7 +156,7 @@
 				<span class="span-1"><b>启用时间</b></span>
                 <span class="span-1"><b>图片预览</b></span>
             </li>
-			<?php if(is_array($list)): $i = 0; $__LIST__ = $list;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$vo): $mod = ($i % 2 );++$i;?><li class="list_sel" onclick="selectDeviceRadio('<?php echo ($vo['device_id']); ?>','<?php echo ($vo['isDelete']); ?>');">
+			<?php if(is_array($list)): $i = 0; $__LIST__ = $list;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$vo): $mod = ($i % 2 );++$i;?><li class="list_sel" onClick="selectDeviceRadio('<?php echo ($vo['device_id']); ?>','<?php echo ($vo['isDelete']); ?>');">
 					<span class="span-1">
 						<input type="radio" name="deviceRadioID" id="<?php echo ($vo['deviceRadioID']); ?>" value="<?php echo ($vo['device_id']); ?>"
 							  class="role-table-radio"/></span>
@@ -376,12 +375,12 @@
                 <input type="text" name="add_device_no_txt" id="add_device_no_txt" class="input-role-name"/>
                 <i class="red-color pdl10">*</i>
                 <label for="mac1" class="">MAC&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
-                <input type="text" name="" id="add_mac1" class="input-mac" onkeyup="value=value.replace(/[^\a-fA-F0-9\.\/]/ig,'')" maxlength="2"/>-
-                <input type="text" name="" id="add_mac2" class="input-mac" onkeyup="value=value.replace(/[^\a-fA-F0-9\.\/]/ig,'')" maxlength="2"/>-
-                <input type="text" name="" id="add_mac3" class="input-mac" onkeyup="value=value.replace(/[^\a-fA-F0-9\.\/]/ig,'')" maxlength="2"/>-
-                <input type="text" name="" id="add_mac4" class="input-mac" onkeyup="value=value.replace(/[^\a-fA-F0-9\.\/]/ig,'')" maxlength="2"/>-
-                <input type="text" name="" id="add_mac5" class="input-mac" onkeyup="value=value.replace(/[^\a-fA-F0-9\.\/]/ig,'')" maxlength="2"/>-
-                <input type="text" name="" id="add_mac6" class="input-mac" onkeyup="value=value.replace(/[^\a-fA-F0-9\.\/]/ig,'')" maxlength="2"/>
+                <input type="text" name="" id="add_mac1" class="input-mac" onKeyUp="value=value.replace(/[^\a-fA-F0-9\.\/]/ig,'')" maxlength="2"/>-
+                <input type="text" name="" id="add_mac2" class="input-mac" onKeyUp="value=value.replace(/[^\a-fA-F0-9\.\/]/ig,'')" maxlength="2"/>-
+                <input type="text" name="" id="add_mac3" class="input-mac" onKeyUp="value=value.replace(/[^\a-fA-F0-9\.\/]/ig,'')" maxlength="2"/>-
+                <input type="text" name="" id="add_mac4" class="input-mac" onKeyUp="value=value.replace(/[^\a-fA-F0-9\.\/]/ig,'')" maxlength="2"/>-
+                <input type="text" name="" id="add_mac5" class="input-mac" onKeyUp="value=value.replace(/[^\a-fA-F0-9\.\/]/ig,'')" maxlength="2"/>-
+                <input type="text" name="" id="add_mac6" class="input-mac" onKeyUp="value=value.replace(/[^\a-fA-F0-9\.\/]/ig,'')" maxlength="2"/>
 				<input type="text" name="add_mac_txt" id="add_mac_txt" class="input-mac" style="display:none;"/>
                 <i class="red-color pdl10">*</i>
             </p>
@@ -392,7 +391,7 @@
                 <i class="red-color pdl10">*</i>
 
                 <label for="channel-point" class="role-lab">所在点位</label>
-                <input type="text" name="add_address_txt" id="add_address_txt" class="input-role-name"/>
+                <input type="text" name="add_address_txt" id="add_address_txt" class="input-role-name" style="width:240px;"/>
                 <i class="red-color pdl10">*</i>
             </p>
 
@@ -490,12 +489,12 @@
                 <i class="red-color pdl10">*</i>
 
                 <label for="mac1" class="">MAC&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
-                <input type="text" name="" id="change_mac1" class="input-mac" onkeyup="value=value.replace(/[^\a-fA-F0-9\.\/]/ig,'')" maxlength="2"/>-
-                <input type="text" name="" id="change_mac2" class="input-mac" onkeyup="value=value.replace(/[^\a-fA-F0-9\.\/]/ig,'')" maxlength="2"/>-
-                <input type="text" name="" id="change_mac3" class="input-mac" onkeyup="value=value.replace(/[^\a-fA-F0-9\.\/]/ig,'')" maxlength="2"/>-
-                <input type="text" name="" id="change_mac4" class="input-mac" onkeyup="value=value.replace(/[^\a-fA-F0-9\.\/]/ig,'')" maxlength="2"/>-
-                <input type="text" name="" id="change_mac5" class="input-mac" onkeyup="value=value.replace(/[^\a-fA-F0-9\.\/]/ig,'')" maxlength="2"/>-
-                <input type="text" name="" id="change_mac6" class="input-mac" onkeyup="value=value.replace(/[^\a-fA-F0-9\.\/]/ig,'')" maxlength="2"/>
+                <input type="text" name="" id="change_mac1" class="input-mac" onKeyUp="value=value.replace(/[^\a-fA-F0-9\.\/]/ig,'')" maxlength="2"/>-
+                <input type="text" name="" id="change_mac2" class="input-mac" onKeyUp="value=value.replace(/[^\a-fA-F0-9\.\/]/ig,'')" maxlength="2"/>-
+                <input type="text" name="" id="change_mac3" class="input-mac" onKeyUp="value=value.replace(/[^\a-fA-F0-9\.\/]/ig,'')" maxlength="2"/>-
+                <input type="text" name="" id="change_mac4" class="input-mac" onKeyUp="value=value.replace(/[^\a-fA-F0-9\.\/]/ig,'')" maxlength="2"/>-
+                <input type="text" name="" id="change_mac5" class="input-mac" onKeyUp="value=value.replace(/[^\a-fA-F0-9\.\/]/ig,'')" maxlength="2"/>-
+                <input type="text" name="" id="change_mac6" class="input-mac" onKeyUp="value=value.replace(/[^\a-fA-F0-9\.\/]/ig,'')" maxlength="2"/>
 				<input type="text" name="change_mac_txt" id="change_mac_txt" class="input-mac" style="display:none;"/>
                 <i class="red-color pdl10">*</i>
             </p>
@@ -506,7 +505,7 @@
                 <i class="red-color pdl10">*</i>
 
                 <label for="channel-point" class="role-lab">所在点位</label>
-                <input type="text" name="change_address_txt" id="change_address_txt" class="input-role-name"/>
+                <input type="text" name="change_address_txt" id="change_address_txt" class="input-role-name" style="width:240px;"/>
                 <i class="red-color pdl10">*</i>
             </p>
 
@@ -874,6 +873,14 @@
 				alert("请选择加油站状态");
 				return false;
 			} 
+			if (add_deploy_time_sel=="") {
+				alert("部署日期不能为空");
+				return false;
+			} 
+			if((add_power_on_time_sel==add_power_off_time_sel)&&(add_power_on_time_sel!=""||add_power_off_time_sel!=="")){
+				alert("开始时间不能与关机时间一致");
+				return false;
+			}
 			$.getJSON(handleUrl,{"add_device_no_txt":add_device_no_txt,"add_mac_txt":add_mac_txt,"add_place_name_txt":add_place_name_txt,
 								 "add_deploy_time_sel":add_deploy_time_sel,"add_begin_time_sel":add_begin_time_sel,
 								 "add_status_sel":add_status_sel,"add_device_type_txt":add_device_type_txt,
@@ -984,6 +991,14 @@
 				alert("请选择加油站状态");
 				return false;
 			} 
+			if (change_deploy_time_sel=="") {
+				alert("部署日期不能为空");
+				return false;
+			} 
+			if((change_power_on_time_sel==change_power_off_time_sel)&&(change_power_on_time_sel!=""||change_power_off_time_sel!=="")){
+				alert("开始时间不能与关机时间一致");
+				return false;
+			}
 			$.getJSON(handleUrl,{"change_device_id_txt":change_device_id_txt,"change_device_no_txt":change_device_no_txt,
 								 "change_mac_txt":change_mac_txt,"change_place_name_txt":change_place_name_txt,
 								 "change_deploy_time_sel":change_deploy_time_sel,"change_begin_time_sel":change_begin_time_sel,
@@ -1060,7 +1075,7 @@
 			,'json'
 		);
 	}
-//<!-- SIM 模糊查询方法  hm-->
+// SIM 模糊查询方法 
 	function device_sim_blurry()
 	{
 		var handleUrl = "<?php echo U('channel/Device/devicesimblurry');?>";
@@ -1073,16 +1088,13 @@
 		);
 	}
 	
-	//<!-- 所属网点查询方法  hm-->
+
 	function device_sswd_blurry()
 	{
-		var handleUrl = "<?php echo U('channel/Device/deviceSswdblurry');?>";
+		var handleUrl = "<?php echo U('channel/Device/devicsswdblurry');?>";
 		$.getJSON(handleUrl,{},
 			function (data){
 				var str = data;
-				//alert(data);
-				//alert(str[1]['title']);
-				
 				$("#sswd").bigAutocomplete({width:150,data:data,callback:function(data){}});
 			}
 			,'json'
@@ -1378,13 +1390,13 @@
 	});
 var ImgPreview=function(){
 	$(".smaallimg").hover(function(e){ 
-		jQuery("<img class='preview' src='"+this.src+"'/>").appendTo("#select_results");
-		$(".preview").css("top",(e.pageY-5)+"px").css("position","absolute").css("margin-left","80px").css("margin-bottom","300px").css("width","550px").css("height","400px").fadeIn("fast");
+		jQuery("<img class='preview' src='"+this.src+"'/>").appendTo("#container");
+		$(".preview").css("top",(e.pageY-5)+"px").css("position","absolute").css("width","550px").css("height","400px").css("z-index",'11111').css("margin","0px auto").fadeIn("fast");
 	},function(){
 		$(".preview").remove();
 	});
 	$(".smaallimg").mousemove(function(e){
-		$(".preview").css("top",(e.pageY-5)+"px").css("position","absolute").css("margin-left","80px");
+		$(".preview").css("top",(e.pageY-5)+"px").css("position","absolute").css("margin-left","320px").css("margin-bottom","200px");
 	});
 };
 </script>

@@ -1,20 +1,30 @@
 <?php
 class SendDevAction extends Action {
-	private $fJuBing = null;
+	//加油站状态请求log文件
+	private $logDevFile = "";
+	//APP更新log文件
+	private $logUdpFile = "";
+	//日志字符串
+	private $logStr = "";
+	//创建时间戳
+	private $createTime;
+	//延迟时间5分钟
+	private $delayTime = 300; 
 	
 	//用于发送接收的socket
 	private $socket;
 	//连接socket
 	private $connect;
 	//对方服务器ip
-	private $host = "211.155.82.229";
+	private $host = "211.155.82.229";//"203.195.129.181";//
 	//服务器端口
 	private $port = 14527;
 	
 	//socket发送序号
 	public static $sendNum = 1000000;
-	//所有机器各部分问题集合，机器编号做索引
-	public static $devInfoArr = array();
+	
+	//没有机器返回字符串
+	private $noDevReturnStr = "sorry, this terminal isn't recorded";
 	
 	function __construct(){
 		parent::__construct();
@@ -24,33 +34,29 @@ class SendDevAction extends Action {
 		$this->connect = socket_connect ( $this->socket, $this->host, $this->port );
 		//设置网页等待时间无限
 		set_time_limit ( 0 );
+		//信息创建时间
+		$this->createTime = time();
 		//第一次握手，如果失败则返回不再执行
 		if(!$this->firstHandshake()){
-			return;
+			echo "握手失败";exit;
 		}
 		
 		//日志部分
-		$file = date("Y-m-d").".log";
+		$fileDev = date("Y-m-d")."Dev.log";
+		$fileUdp = date("Y-m-d")."Udp.log";
 		$url = "Runtime/Temp/socket_log/";
-		if(!is_dir($url)){
-			mkdir($url);
-			chmod($url, 0777);
-		}
-		$this->fJuBing = fopen($url.$file, 'a'); //创建指定文件写操作的句柄
+		$this->logDevFile = $url.$fileDev;
+		$this->logUdpFile = $url.$fileUdp;
 	}
-
+	
+	//请求加油站信息
 	public function getDevInfo() {
 		$model = new Model();
 		$dev_monitor = new Model("DevMonitor");
 		$sql_dev = "SELECT * FROM qd_device WHERE isDelete = 0";
-				/*
-				LEFT JOIN rule_send b ON b.target_num LIKE CONCAT('3-',a.channel_id,',') AND b.rule_status = 2
-				LEFT JOIN app_upgrade c ON c.target_num LIKE CONCAT('3-',a.channel_id,',') AND c.status = 1
-				*/
+
 		$que_dev = $model->query($sql_dev);
-		//信息创建时间
-		$createTime = time();
-		//查看所有机器是否都没有问题
+		//标识所有机器是否都没有问题
 		$hasWrongDev = 0;
 		//获取上次监控批次和本次监控批次
 		$sql_monitor_no = "SELECT MAX(monitor_no) monitor_no FROM dev_monitor";
@@ -78,9 +84,9 @@ class SendDevAction extends Action {
 			$data = array();
 			$data['dev_mac'] = $v['MAC'];
 			$data['dev_no']  = $v['device_no'];
-			$data['createtime'] = $createTime;
+			$data['createtime'] = $this->createTime;
 			$data['monitor_no'] = $monitor_no;
-			//默认0是全正常，无需存储
+			//默认0是各项属性全正常，无需存储
 			$hasTrouble = 0;
 			
 			//判断系统是否正常在线，下线
@@ -92,17 +98,20 @@ class SendDevAction extends Action {
 			$dValue = $nowTime - $dateTime;
 			//如果在正常开机允许延迟时间后和正常关机允许提前时间前关机则算不正常不在线
 			//要区分开关机时间是否跨天
+			//是否在线不判断开关机延迟情况。开关机是否正常则判断
 			if($v['power_off_time']>=$v['power_on_time']){
 				if($dValue >= $v['power_on_time'] && $dValue <= $v['power_off_time']){
 					if($station_system != 0){
 						$data['on_line'] = 1;
 						$hasTrouble++;
+						$ii = 1;
 					}
 					//如果在指定时间外还在开机则也返回故障
 				}else if($dValue <= $v['power_on_time'] || $dValue >= $v['power_off_time']){
 					if($station_system == 0){
 						$data['on_line'] = 1;
 						$hasTrouble++;
+						$ii = 2;
 					}
 				}
 			}else{
@@ -110,20 +119,27 @@ class SendDevAction extends Action {
 					if($station_system != 0){
 						$data['on_line'] = 1;
 						$hasTrouble++;
+						$ii = 3;
 					}
 				}else if($dValue >= $v['power_off_time'] && $dValue <= $v['power_on_time']){
 					if($station_system == 0){
 						$data['on_line'] = 1;
 						$hasTrouble++;
+						$ii = 4;
 					}
 					//如果在指定时间外还在开机则也返回故障
 				}
 			}
-			
+			/*
+				$str = "";
+				$str .= "\r\n\r\n ii:$ii MAC:$v[MAC]dValue:$dValue----------power_on_time:$v[power_on_time]-----------power_off_time:$v[power_off_time]-----------station_system:$station_system\r\n\r\n";
+				echo $str,"<br/>";
+				file_put_contents($this->logUdpFile, $this->logStr,FILE_APPEND);
+			*/
 			//只有当在线或者正常关机时判断开机是否正常
 			if(($station_system == 0 || $station_system == 1) && $poweron_time){
 				//判断是否正常开机
-				if(($poweron_time - $dateTime) < $v['power_on_time'] || ($poweron_time - $dateTime) > $v['power_on_time']){
+				if(($poweron_time - $dateTime) < ($v['power_on_time'] - $this->delayTime) || ($poweron_time - $dateTime) > ($v['power_on_time'] + $this->delayTime)){
 					$data['start_time'] = 1;
 					$hasTrouble++;
 				}
@@ -132,7 +148,7 @@ class SendDevAction extends Action {
 			//只有正常关机，并且存在关机时间时，判断关机是否正常
 			if($station_system == 1 && $poweroff_time){
 				//判断是否正常关机
-				if(($poweroff_time - $dateTime) < $v['power_off_time']  || ($poweroff_time - $dateTime) > $v['power_off_time'] ){
+				if(($poweroff_time - $dateTime) < ($v['power_off_time'] - $this->delayTime)  || ($poweroff_time - $dateTime) > ($v['power_off_time'] + $this->delayTime) ){
 					$data['shutdown_time'] = 1;
 					$hasTrouble++;
 				}
@@ -147,7 +163,7 @@ class SendDevAction extends Action {
 				if($que){
 					$data['wrong_begin_time'] = $que[0]['wrong_begin_time'];
 				}else{
-					$data['wrong_begin_time'] = $createTime;
+					$data['wrong_begin_time'] = $this->createTime;
 				}
 				
 				$dev_monitor->add($data);
@@ -158,10 +174,15 @@ class SendDevAction extends Action {
 			$data = array();
 			$data['all_ok'] = 1;
 			$data['monitor_no'] = $monitor_no;
-			$data['createtime'] = $createTime;
+			$data['createtime'] = $this->createTime;
 			$dev_monitor->add($data);
 		}
-		fclose($this->fJuBing);
+		
+		//删除前5次请求之外的数据
+		$sql_del = "DELETE FROM `dev_monitor` WHERE monitor_no < ".($monitor_no-5);
+		$model->query($sql_del);
+		
+		file_put_contents($this->logDevFile, $this->logStr,FILE_APPEND);
 		socket_close ( $this->connect );
 		socket_close ( $this->socket );
 		//循环刷新
@@ -187,6 +208,7 @@ class SendDevAction extends Action {
 			//获取连接数
 			//$link_num = $this->getAttributeVal($getStrArr,"DEV_STATUS_R");
 		}
+		file_put_contents($this->logUdpFile, $this->logStr,FILE_APPEND);
 	}
 	
 	
@@ -211,6 +233,7 @@ class SendDevAction extends Action {
 	}
 	//socket第一次握手
 	function firstHandshake(){
+		$this->logStr .= "\r\n\r\n".date("Y-m-d H:i:s",$this->createTime)."\r\n";
 		//初次发送参数
 		$auth_method = 1; // 1 - MD5。2-99 - 保留未用。
 		//用户名
@@ -244,15 +267,15 @@ class SendDevAction extends Action {
 		//发送字符串
 		socket_write ( $this->socket, $sendStr, strlen ( $sendStr ) );
 		echo $sendStr,"<br/>";
-		fwrite($$this->fJuBing, $sendStr.'\r\n');
+		$this->logStr .= $sendStr."\r\n";
 		//接收
 		$resp = socket_read ( $this->socket, $getStrLength );
 		echo $resp,"<br/><br/>";
-		fwrite($this->fJuBing, $resp.'\r\n');
+		$this->logStr .= $resp."\r\n\r\n";
 		$resp = rtrim($resp,";");
-		
-		
-		
+		if(strpos($resp,$this->noDevReturnStr)>=0){
+			return false;
+		}
 		return explode(",",$resp);
 	}
 }

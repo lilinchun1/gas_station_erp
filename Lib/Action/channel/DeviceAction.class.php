@@ -18,7 +18,7 @@ class DeviceAction extends Action {
 		$this->display(':device_index');
 	}
 
-	//查询设备信息						//------------------------------------------------------- 查 ----------------------------------------------------------------------
+	//查询设备信息						
 	public function deviceSelect(){         
 		$userinfo = getUserInfo();
 	    $Model = new Model();
@@ -64,7 +64,7 @@ class DeviceAction extends Action {
 		}
 		if(!empty($sswd))
 		{
-			$where .= " and a.place_id='$sswd'";
+			$where .= " and b.place_name='$sswd'";
 			
 		}
 		if(!empty($firstopentime))
@@ -160,7 +160,7 @@ class DeviceAction extends Action {
 			$list[$i]['deploy_time'] = getDateFromTime($list[$i]['deploy_time']);
 			$list[$i]['place_name'] = getPlaceNameFromPlaceID($list[$i]['place_id']);
 			$list[$i]['address'] = $list[$i]['address'];
-			$device_image_info = $Model->query("select image_id, image_path, image_description from qd_device_image where device_id='" .					$list[$i]['device_id'] . "'");
+			$device_image_info = $Model->query("select image_id, image_path, image_description from qd_device_image where device_id='" .$list[$i]['device_id'] . "'");
 			if(empty($device_image_info[0]['image_path']))
 			{
 				$list[$i]['device_image_0'] = null;
@@ -210,6 +210,7 @@ class DeviceAction extends Action {
 		$this->assign('page',$show);// 赋值分页输出
 		$this->assign('is_device_select_show',$is_device_select_show); //是否显示结果集
 		$this->assign('device_select_number',$count); //查询结果集的数量
+		$this->assign('sswd',$sswd);// 网店值返回页面
 		$this->index();
 	}
 
@@ -324,18 +325,21 @@ class DeviceAction extends Action {
 		$this->ajaxReturn($sim_text_arr,'json');
 	}
 	
-	//SIM 所属网点  ----------hm
-	public function deviceSswdblurry(){
-	    //$Model = new Model();
-		$sim_text = trim(I('sswd'));
-		$device = M('device');
-		$map['place_id'] =array('like', '%' . $sswd . '%');
-		$deviceInfo = $device->where($map)->distinct(true)->field('place_id')->select();
+	// 所属网点  ----------hm
+	public function devicsswdblurry(){
+	    $model = new Model();
+		$sswd = trim(I('sswd'));
+		//$map['MAC'] =array('like', '%' . $sswd . '%');
+		//$deviceInfo = $dev->where($map)->distinct(true)->field('MAC')->select();
+		//$deviceInfo = $Model->table('device_id a')->join('qd_place b on a.device_id=b.place_id')->where($map)distinct(true)->field('place_name')->select();
+		$sql = "select * from qd_place where place_name like '%$sswd%'";
+		$deviceInfo = $model->query($sql);
 		for($i=0; $i< count($deviceInfo); $i++)
 		{
-			$sswd[$i]['title'] = $deviceInfo[$i]['place_id'];
+			$sswd_text_arr[$i]['title'] = $deviceInfo[$i]['place_name'];
 		}
-		$this->ajaxReturn($sswd,'json');
+		$this->ajaxReturn($sswd_text_arr,'json');
+
 	}	
 	
 	

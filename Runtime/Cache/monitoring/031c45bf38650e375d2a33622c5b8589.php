@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <title>监控平台</title>
     <link rel="stylesheet" href="__PUBLIC__/css/configuration.css"/>
+    <script type="text/javascript" src="__PUBLIC__/js/jquery-1.6.1.js"></script>
     <script type="text/javascript" src="__PUBLIC__/js/jquery-1.10.2.min.js"></script>
 	<script type="text/javascript" src="__PUBLIC__/js/jquery.SuperSlide.2.1.1.js"></script>
 	<script type="text/javascript" src="__PUBLIC__/js/My97DatePicker/WdatePicker.js"></script>
@@ -69,6 +70,7 @@
                             <dl class="station-zhuangtai">
                                 <dt><b class="icon-checkmark-circle green-color"></b><em><?php echo ($devRightNum); ?></em></dt>
                                 <dt><b class="icon-cancel-circle red-color"></b><em><?php echo ($devBreakNum); ?></em></dt>
+                                <dt><b class="icon-bulb yellow-color"></b><em>111</em></dt>
                             </dl>
                         </li>
                         <li>
@@ -90,32 +92,19 @@
                         <li>
                             <h4>远程操作</h4>
                             <span><img src="__PUBLIC__/image/5.png" alt=""/></span>
-                            <dl class="station-zhuangtai">
+                            <!--<dl class="station-zhuangtai">
                                 <dt><b class="icon-checkmark-circle green-color"></b><em>0</em></dt>
                                 <dt><b class="icon-cancel-circle red-color"></b><em>0</em></dt>
-                            </dl>
+                            </dl>-->
                         </li>
                     </ul>
-                    <!-- 
                     <div class="station-state-list-cx">
 						<span id="hide">
-							<label for="channel-ss-are">所属网点</label>
-							<select name="add_agent_type_sel" id="channel-ss-are" class="channel-select-min">
-								<option selected value="">省份</option>
-								<option class="industry" value="trade">2</option>
-								<option class="area" value="area">3</option>
-							</select>
-							<select name="add_agent_type_sel" id="channel-class2" class="channel-select-min">
-								<option selected value="">城市</option>
-								<option class="industry" value="trade">2</option>
-								<option class="area" value="area">3</option>
-							</select>
-						  -- <select name="add_agent_type_sel" id="channel-class3" class="channel-select-min">
-								<option selected value="">区域</option>
-								<option class="industry" value="trade">2</option>
-								<option class="area" value="area">3</option>
-							</select>--
-							<input placeholder="请输入渠道名称" type="text" name="" id="channel-ss-channel" class="station-info"/>
+							<label for="channel-ss-channel">渠道名称</label>
+							<input  type="text" name="" id="channel-ss-channel" class="station-info"/>
+							&nbsp;&nbsp;&nbsp;&nbsp;
+							<label for="pla-ss-channel">网点名称</label>
+							<input  type="text" name="" id="pla-ss-channel" class="station-info"/>
 							<button type="button" class="role-control-btn">查询</button>
 							<button type="button" class="role-control-btn">导出</button>
 						</span>
@@ -123,7 +112,6 @@
                             <a href="" class="active">监控台模式</a> <a href="">列表模式</a>
                         </div>
                     </div>
-                    -->
                 </div>
             </div>
             <div class="station-state-list"  id="j-station-sh1">
@@ -162,16 +150,16 @@
 	                            </div>
 	                            <div class="row-lt">
 	                                <span class="row-lt-l">
-	                                    <em>APP刊例</em>
-	                                    <span class="icon-close red-color"></span>
+	                                    <em class="ccc-color">APP刊例</em>
+	                                    <span class="icon-spam yellow-color"></span>
 	                                </span>
 	                                <span class="row-lt-l">
-	                                    <em>上屏程序版本</em>
-	                                    <span class="icon-checkmark green-color"></span>
+	                                    <em class="ccc-color">上屏程序版本</em>
+	                                    <span class="icon-spam yellow-color"></span>
 	                                </span>
 	                                <span class="row-lt-l">
-	                                    <em>下屏程序版本</em>
-	                                    <span class="icon-close red-color"></span>
+	                                    <em class="ccc-color">下屏程序版本</em>
+	                                    <span class="icon-spam yellow-color"></span>
 	                                </span>
 	                            </div>
 	                            <div class="row-lt">
@@ -213,9 +201,20 @@
                 </ul>
             </div>
 			<div class="resultpage">
-				<a id="up_page">上一页</a>
+				<a id="up_page" style="cursor:pointer">«</a>
+				<span>
+				<span class="up" style="cursor:pointer"></span>
 				<span class="current"><?php echo ($pageNum); ?></span>
-				<a id="down_page">下一页</a>
+				<span class="down" style="cursor:pointer"></span>
+				</span>
+				<a id="down_page" style="cursor:pointer">»</a>
+				<span id="count" style="border:0" class="pages-number">共<span id="page_num" style="border:0"><?php echo ($countPageNum); ?></span>页</span>
+				<span class="pages-number">
+				到第
+				<select id="select_page"></select>
+				页
+				</span>
+				
 			</div>
             <!-- 
             <div class="station-state-list table-state" id="j-station-sh2">
@@ -267,6 +266,7 @@
     </div>
     <input type="hidden" name="pageNum" class="pageNum" id="pageNum" value="<?php echo ($pageNum); ?>"/>
     <input type="hidden" name="areaId" class="areaId" id="areaId" value="<?php echo ($areaId); ?>"/>
+	<input type="text" name="level" class="level" id="level" value="<?php echo ($level); ?>" />
 </div>
 <div id="footer">
     <p>© 大连捷诺科技有限公司 | <a style="color: #ffffff;" href="http://www.jienuo-service.net/" target="_blank">关于捷诺</a> | 服务热线 0411-86887659</p>
@@ -434,13 +434,59 @@
         return false;
     }
 </script>
-<script type="text/javascript" src="__PUBLIC__/js/jquery-1.6.1.js"></script>
+<div class="alert-table1">
+    <div class="role-inquire channel-index-btns">
+        <form name="deviceSelect" method="get" action="<?php echo U('channel/Device/deviceSelect');?>">
+            <p>
+                <label for="channel-class1" class="">区域</label>
+                <span id="select_showcity"></span>
+                <script type="text/javascript">
+                    showprovince("select_province", "select_city", "<?php echo ($_GET['select_province']); ?>", "select_showcity");
+                    showcity("select_city", "<?php echo ($_GET['select_city']); ?>", "select_province", "select_showcity");
+                </script>
+                <label for="device-drive-id" class="">渠道名称</label>
+                <input type="text" name="device_no_txt" id="device_no_txt" value="<?php echo ($_GET['device_no_txt']); ?>" class="input-org-info"/>
+                <label for="device-drive-id" class="">网点名称</label>
+                <input type="text" name="device_no_txt" id="device_no_txt" value="<?php echo ($_GET['device_no_txt']); ?>" class="input-org-info"/>
+                <label for="device-drive-id" class="">点位名称</label>
+                <input type="text" name="device_no_txt" id="device_no_txt" value="<?php echo ($_GET['device_no_txt']); ?>" class="input-org-info"/>
+                <label for="mac1" class="">MAC</label>
+                <input type="text" name="mac_txt" id="mac_txt" value="<?php echo ($_GET['mac_txt']); ?>" class="input-org-info"/>
+                <label for="mac1" class="">加油站编号</label>
+                <input type="text" name="mac_txt" id="mac_txt" value="<?php echo ($_GET['mac_txt']); ?>" class="input-org-info"/>
+                <button type="button" class="role-control-btn">查询</button>
+                <button type="button" class="role-control-btn">导出</button>
+            </p>
+
+        </form>
+    </div>
+    <ul class="statistics-list">
+        <li>
+            <span class='span-1'><b>省份</b></span>
+            <span class='span-1'><b>城市</b></span>
+            <span class='span-1'><b>渠道名称</b></span>
+            <span class='span-1'><b>网点名称</b></span>
+            <span class='span-1'><b>MAC</b></span>
+            <span class='span-1'><b>编号</b></span>
+        </li>
+        <li>
+            <span class='span-1'>11111111</span>
+            <span class='span-1'>22222222</span>
+            <span class='span-1'>33333333</span>
+            <span class='span-1'>444444444</span>
+            <span class='span-1'>55555555</span>
+            <span class='span-1'>666666666</span>
+        </li>
+
+    </ul>
+</div>
+
 <!--树形结构类-->
 <link rel="stylesheet" href="__PUBLIC__/css/tree/tree.css" type="text/css">
 <script type="text/javascript" src="__PUBLIC__/js/tree/jquery.ztree.core-3.5.js"></script>
 <script type="text/javascript" src="__PUBLIC__/js/tree/jquery.ztree.excheck-3.5.js"></script>
 <script type="text/javascript" src="__PUBLIC__/js/jquery.SuperSlide.2.1.1.js"></script>
-<script type="text/javascript">jQuery(".alert-set-tab").slide({trigger:"click"});</script>
+
 <script>
 //===================================================树形结构js==========================
 var setting = {
@@ -454,7 +500,10 @@ var setting = {
     },
     view: {
         fontCss: getFontCss
-    }
+    },
+	callback: {
+		beforeClick: zTreeOnClick
+	}
 };
 var handleUrl="<?php echo U('monitoring/Index/getProvinceCity');?>";
 var zNodes=new Array();
@@ -469,7 +518,8 @@ $.ajax({
             var kid=val['area_id'];
             var parent=val['pid'];
             var value=val['area_name'];
-            zNodes[key]= {'id':kid, 'pId':parent, 'name':value, 'open':true ,'t':kid};
+			var level=val['level'];
+            zNodes[key]= {'id':kid, 'pId':parent, 'name':value, 'open':true ,'t':level};
         });
     },
 
@@ -547,7 +597,15 @@ function getFontCss(treeId, treeNode) {
 function filter(node) {
     return !node.isParent && node.isFirstNode;
 }
-
+function zTreeOnClick(event, treeId, treeNode) {
+    //$("#level").val(treeId.level);
+	var agent_id=treeId.id;//省市ID
+	$('#areaId').val(agent_id);
+	$('#pageNum').val(1);//页数初始化
+	var page_Num=$('#pageNum').val();//页数
+	var level=treeId.t;//等级
+	window.location.href="<?php echo U('monitoring/Index/station');?>"+"?pageNum="+page_Num+"&areaId="+agent_id+"&level="+level;
+};
 var key;
 
 //===================================================树形结构js结束==========
@@ -586,26 +644,71 @@ var key;
         //循环刷新
         var iID=setTimeout(function(){location.reload();},1000*60*60);
 		$("#treeDemo a").click(function(){
-			var agent_id=$(this).attr("title");//省市ID
-			$('#areaId').val(agent_id);
-			$('#pageNum').val(1);//页数初始化
-			var page_Num=$('#pageNum').val();//页数
-			window.location.href="<?php echo U('monitoring/Index/station');?>"+"?pageNum="+page_Num+"&areaId="+agent_id;
+
 		 });
         $("#down_page").click(function(){
 			var page_Num=$('#pageNum').val();//页数
 			var agent_id=$('#areaId').val();//省市ID
 			var new_page_Num=Number(page_Num)+1;
-			window.location.href="<?php echo U('monitoring/Index/station');?>"+"?pageNum="+new_page_Num+"&areaId="+agent_id;
+			var level=$("#level").val();//等级
+			window.location.href="<?php echo U('monitoring/Index/station');?>"+"?pageNum="+new_page_Num+"&areaId="+agent_id+"&level="+level;
 		});
 		$("#up_page").click(function(){
 			var page_Num=$('#pageNum').val();//页数
 			var agent_id=$('#areaId').val();//省市ID
 			var new_page_Num=page_Num-1;
-			window.location.href="<?php echo U('monitoring/Index/station');?>"+"?pageNum="+new_page_Num+"&areaId="+agent_id;
+			var level=$("#level").val();//等级
+			window.location.href="<?php echo U('monitoring/Index/station');?>"+"?pageNum="+new_page_Num+"&areaId="+agent_id+"&level="+level;
+		});
+		var count=Number($("#page_num").text());//获取总页数
+		var dangqian_page=Number($(".current").text());//获取当前页码
+		//前面的页码
+		for (var i=dangqian_page-3;i<=dangqian_page-1 ; i++)
+		{
+			if(i<=1){
+				break;
+			}
+			if(i>1){
+				$(".up").append("<a class='page_uu' value='"+i+"'>"+i+"</a>");
+			}
+		}
+		//后面的页码
+		for (var i=dangqian_page+1;i<=dangqian_page+3; i++)
+		{
+			if(i<=count){
+				$(".down").append("<a class='page_uu' value='"+i+"'>"+i+"</a>");
+			}
+		}
+
+		if(dangqian_page=="1"){
+			$("#up_page").hide();
+		}
+		if(dangqian_page==count){
+			$("#down_page").hide();
+		}
+		for(var i=1;i<=count;i++){
+			if(i==dangqian_page){
+				$("#select_page").append("<option value='"+i+"' selected='selected'>"+i+"</option>");
+			}else{
+				$("#select_page").append("<option value='"+i+"'>"+i+"</option>");
+			}
+		}
+		$(".page_uu").click(function(){
+			var page_Num=$(this).text();//页数
+			var agent_id=$('#areaId').val();//省市ID
+			var level=$("#level").val();//等级
+			window.location.href="<?php echo U('monitoring/Index/station');?>"+"?pageNum="+page_Num+"&areaId="+agent_id+"&level="+level;
+		})
+		$("#select_page").change(function(){
+			var page_Num=$(this).val();//页数
+			var agent_id=$('#areaId').val();//省市ID
+			var level=$("#level").val();//等级
+			window.location.href="<?php echo U('monitoring/Index/station');?>"+"?pageNum="+page_Num+"&areaId="+agent_id+"&level="+level;
 		});
     });
+jQuery(".alert-set-tab").slide({trigger:"click"});
 
+setInterval(function(){window.location.reload()},1000*5*60);
 </script>
 </body>
 </html>

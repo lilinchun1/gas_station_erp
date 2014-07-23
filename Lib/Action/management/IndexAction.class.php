@@ -494,8 +494,10 @@ class IndexAction extends Action {
 		foreach($channel_id_arr as $k=>$v){
 			$channel_id_str .= "'$v',";
 		}
+		//渠道id字符串
 		$channel_id_str=trim($channel_id_str,',');
 		$sendDev = new SendDevAction();
+		//日志文件
 		if($app_dev_update_list[0]['smart_app']){
 			$file = $this->smartapp_uploaded_url.$app_dev_update_list[0]['smart_app'].'/'.C("SmartAppName");
 			$down_url = C("web_url")."gas_station_erp/".$file;
@@ -527,11 +529,13 @@ class IndexAction extends Action {
 			$file_md5 = md5_file($file);
 			$sendDev->updateApp($channel_id_str, $down_url, $save_path, $file_md5);
 		}
+		
 		$date = array();
 		$date['status'] = 1;
 		$date['status_date'] = time();
 		$date['update_user_id'] = $this->$userinfo['uid'] == "root"?0:$this->$userinfo['uid'];
 		$app_dev_update->where("id = $updateId")->save($date);
+		
 		$this->redirect('Index/verup', array('cate_id'=>2), 5,' 更新完毕，页面跳转中 ~');
 	}
 

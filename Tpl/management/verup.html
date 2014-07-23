@@ -92,48 +92,49 @@
 				//弹出窗口
 				showWindow(1,16,17,'#j_add_win');
 			});
-
-			//file判断
-			$("#smartApp").change(function(){
-				 var val=$(this).val();  
-				 if(val=="SmartApp.exe"){  
-					return true;
-				 } else{
-					alert("请选择SmartApp.exe文件");
-					$(this).val("");  
-					return false;
-				 }
-			});
-			$("#videoPlayer").change(function(){
-				 var val=$(this).val();  
-				 if(val=="VideoPlayer.exe"){  
-					return true;
-				 } else{
-					alert("请选择VideoPlayer.exe文件");
-					$(this).val("");  
-					return false;
-				 }
-			});
-			$("#updateApp").change(function(){
-				 var val=$(this).val();
-				 if(val=="UpdateApp.exe"){
-					return true;
-				 } else{
-					alert("请选择UpdateApp.exe文件");
-					$(this).val("");  
-					return false;
-				 }
-			});
-			$("#smartGuard").change(function(){
-				 var val=$(this).val();  
-				 if(val=="SmartGuard.exe"){  
-					return true;
-				 } else{
-					alert("请选择SmartGuard.exe文件");
-					$(this).val("");  
-					return false;
-				 }
-			});
+			if($.browser.mozilla) {
+				//file判断
+				$("#smartApp").change(function(){
+					 var val=$(this).val();  
+					 if(val=="SmartApp.exe"){  
+						return true;
+					 } else{
+						alert("请选择SmartApp.exe文件");
+						$(this).val("");  
+						return false;
+					 }
+				});
+				$("#videoPlayer").change(function(){
+					 var val=$(this).val();  
+					 if(val=="VideoPlayer.exe"){  
+						return true;
+					 } else{
+						alert("请选择VideoPlayer.exe文件");
+						$(this).val("");  
+						return false;
+					 }
+				});
+				$("#updateApp").change(function(){
+					 var val=$(this).val();
+					 if(val=="UpdateApp.exe"){
+						return true;
+					 } else{
+						alert("请选择UpdateApp.exe文件");
+						$(this).val("");  
+						return false;
+					 }
+				});
+				$("#smartGuard").change(function(){
+					 var val=$(this).val();  
+					 if(val=="SmartGuard.exe"){  
+						return true;
+					 } else{
+						alert("请选择SmartGuard.exe文件");
+						$(this).val("");  
+						return false;
+					 }
+				});
+			}
 			//保存约束
 			$("#add_submit").click(function(){
 				var smartApp_file =$("#smartApp").val();
@@ -422,25 +423,25 @@
 				<div class="verup-alert-con-left">
 					<p>
 						<label for="smartApp">SmartApp</label>
-						<input type="file" name="smartApp" id="smartApp" class="" style="border: 0 none; width: 73px;"/>
+						<input type="file" name="smartApp" id="smartApp" class="" style="border: 0 none; width: 69px;"/>
 						<label for="main-pg">版本号</label>
 						<input type="text" name="smartAppNo" id="smartAppNo" class="input-org-info"/>
 					</p>
 					<p>
 						<label for="videoPlayer">VideoPlayer</label>
-						<input type="file" name="videoPlayer" id="videoPlayer" class="input-org-info" style="border: 0 none; width: 73px;"/>
+						<input type="file" name="videoPlayer" id="videoPlayer" class="input-org-info" style="border: 0 none; width: 72px;"/>
 						<label for="main-pg">版本号</label>
 						<input type="text" name="videoPlayerNo" id="videoPlayerNo" class="input-org-info"/>
 					</p>
 					<p>
 						<label for="updateApp">UpdateApp</label>
-						<input type="file" name="updateApp" id="updateApp" class="input-org-info" style="border: 0 none; width: 73px;"/>
+						<input type="file" name="updateApp" id="updateApp" class="input-org-info" style="border: 0 none; width: 72px;"/>
 						<label for="main-pg">版本号</label>
 						<input type="text" name="updateAppNo" id="updateAppNo" class="input-org-info"/>
 					</p>
 					<p>
 						<label for="smartGuard">SmartGuard</label>
-						<input type="file" name="smartGuard" id="smartGuard" class="input-org-info" style="border: 0 none; width: 73px;"/>
+						<input type="file" name="smartGuard" id="smartGuard" class="input-org-info" style="border: 0 none; width: 72px;"/>
 						<label for="main-pg">版本号</label>
 						<input type="text" name="smartGuardNo" id="smartGuardNo" class="input-org-info"/>
 					</p>

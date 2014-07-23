@@ -20,7 +20,7 @@
 <body>
 <div class="head-wrap">
 <div id="head">
-    <h1 class="head-logo"><a href="index.html">ERP管理系统</a></h1>
+    <h1 class="head-logo"><a href="<?php echo U('configuration/Login/default_index');?>">ERP管理系统</a></h1>
     <h2 class="head-tt">智能手机加油站业务支撑系统</h2>
     <div class="login">
         <div class="left">
@@ -98,8 +98,8 @@
                             <label for="linkman">联系人</label><input readonly="true" type="text" name="" id="change_legal_txt" class="input-org-info"/>
                             <label for="address">办公地址</label><input readonly="true" type="text" name="" id="change_companyAddr_txt" class="input-org-info"/>
                             <label for="contract-number">合同编号</label><input readonly="true" type="text" name="" id="change_contract_number_txt" class="input-org-info"/>
-                            <input type="text" id="agent_id_hid" value=""/>
-                            <input type="text" id="agent_pid_hid" value=""/>
+                            <input type="hidden" id="agent_id_hid" value=""/>
+                            <input type="hidden" id="agent_pid_hid" value=""/>
                         </div>
                     <div class="info-right cf">
 
@@ -324,7 +324,7 @@
 					<input type="text" name="" id="j_add_sq-date" class="input-org-info min-w" onClick="WdatePicker()" readonly="readonly"/>
                     <input type="text" name="" id="j_add_date" class="input-org-info min-w" onClick="WdatePicker()" readonly="readonly"/>
                     <input type="checkbox" name="" id="j_add_forever_check" class="org-input-c"/>
-					<label class="lab-ckbox" for="forver">永久</label>
+					<span>永久</span>
                 </em>
             </div>
         </form>
@@ -621,6 +621,13 @@ $(document).ready(function(){
 
             var add_end_time_sel=$('#j_add_date').val();//授权日期
 
+			var z_begin_date	=	add_begin_time_sel.replace('-','').replace('-','');
+			var z_end_date	=	add_end_time_sel.replace('-','').replace('-','');
+			if((add_begin_time_sel!=""||add_end_time_sel!="")&&(z_end_date<=z_begin_date)){
+				alert("授权结束时间必须大于授权开始时间");
+				return false;
+			}
+
             var is_add_forever_checked = $("#j_add_forever_check").attr('checked');
             var add_forever_check="";
             if('checked' == is_add_forever_checked)
@@ -795,6 +802,12 @@ $(document).ready(function(){
 
             var add_end_time_sel=$('#j_add_date').val();//授权日期
 
+			var z_begin_date	=	add_begin_time_sel.replace('-','').replace('-','');
+			var z_end_date	=	add_end_time_sel.replace('-','').replace('-','');
+			if((add_begin_time_sel!=""||add_end_time_sel!="")&&(z_end_date<=z_begin_date)){
+				alert("授权结束时间必须大于授权开始时间");
+				return false;
+			}
             var is_add_forever_checked = $("#j_add_forever_check").attr('checked');
             var add_forever_check="";
             if('checked' == is_add_forever_checked)

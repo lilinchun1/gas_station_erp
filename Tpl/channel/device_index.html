@@ -73,13 +73,12 @@
                 </select>
                 <label for="channel-ss-channel" class="">所属网点</label>
                 <!--<input type="text" name="place_name_txt" id="place_name_txt" value="{$_GET['place_name_txt']}" class="input-org-info"/>-->
- 			
-				<input type="text" name="sswd" id="sswd" value="" class="input-org-info" autocomplete='off'/>
+				<input type="text" name="sswd" id="sswd" value="{$_GET['sswd']}" class="input-org-info" autocomplete='off'/>
             </p>
             <p>
                 <label for="channel-ss-channel" class="">SIM卡号</label>
                 <!--<input type="text" name="place_name_txt" id="place_name_txt" value="" class="input-org-info"/>-->
-				<input type="text" name="sim_text" id="sim_text" value="{$_GET['sim_text']}" class="input-org-info" autocomplete='off'/>
+				<input type="text" name="sim_text" id="sim_text" value="{$_GET['sim_text']}" class="input-org-info" autocomplete='off'/>                                           <!-- 3 -->
 
                 <label for="channel-ss-channel" class="">首次启用日期</label>
                 <input type="text" name="firstopentime" id="firstopentime" value="{$_GET['firstopentime']}" class="input-org-info" onClick="WdatePicker()"/>
@@ -883,7 +882,7 @@
 			,'json'
 		);
 	}
-//<!-- SIM 模糊查询方法  hm-->
+// SIM 模糊查询方法 
 	function device_sim_blurry()
 	{
 		var handleUrl = "{:U('channel/Device/devicesimblurry')}";
@@ -896,16 +895,13 @@
 		);
 	}
 	
-	//<!-- 所属网点查询方法  hm-->
+
 	function device_sswd_blurry()
 	{
-		var handleUrl = "{:U('channel/Device/deviceSswdblurry')}";
+		var handleUrl = "{:U('channel/Device/devicsswdblurry')}";
 		$.getJSON(handleUrl,{},
 			function (data){
 				var str = data;
-				//alert(data);
-				//alert(str[1]['title']);
-				
 				$("#sswd").bigAutocomplete({width:150,data:data,callback:function(data){}});
 			}
 			,'json'

@@ -132,7 +132,7 @@
                 <span class="span-1"><b>启用网点数量</b></span>
                 <span class="span-1"><b>投放加油站数量</b></span>
             </li>
-            <?php if(is_array($list)): $i = 0; $__LIST__ = $list;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$vo): $mod = ($i % 2 );++$i;?><li class="list_sel" onclick="selectChannelRadio('<?php echo ($vo['channel_id']); ?>','<?php echo ($vo['channel_type_father_id']); ?>',
+            <?php if(is_array($list)): $i = 0; $__LIST__ = $list;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$vo): $mod = ($i % 2 );++$i;?><li class="list_sel" onClick="selectChannelRadio('<?php echo ($vo['channel_id']); ?>','<?php echo ($vo['channel_type_father_id']); ?>',
 							'<?php echo ($vo['channel_type_id']); ?>','<?php echo ($vo['isDelete']); ?>');">
                     <span class="span-1">
 						<input type="radio" name="channelDetailID" id="<?php echo ($vo['channelDetailID']); ?>" value="<?php echo ($vo['channel_id']); ?>" 
@@ -350,7 +350,7 @@
 
             <p>
                 <label for="channel-addname" class="role-lab">渠道名称</label>
-                <input type="text" name="add_channel_name_txt" id="add_channel_name_txt" class="input-role-name"/>
+                <input type="text" name="add_channel_name_txt" id="add_channel_name_txt" class="input-role-name" style="width:405px;"/>
                 <i class="red-color pdl10">*</i>
             </p>
 
@@ -443,7 +443,7 @@
         <form action="">
             <p>
 				<label for="channel-address1" class="">所属组织机构</label>
-				<select name="change_belong_agent_id_sel" id="change_belong_agent_id_sel" class="channel-select-min" style="width:150px">
+				<select name="change_belong_agent_id_sel" id="change_belong_agent_id_sel" class="channel-select-min" style="width:200px">
 					<option value="">请选择组织</option>
 				</select>
                 <i class="red-color pdl10">*</i>
@@ -452,7 +452,7 @@
 
             <p>
                 <label for="channel-addname" class="role-lab">渠道名称</label>
-                <input type="text" name="change_channel_name_txt" id="change_channel_name_txt" class="input-role-name"/>
+                <input type="text" name="change_channel_name_txt" id="change_channel_name_txt" class="input-role-name" style="width:405px;"/>
                 <i class="red-color pdl10">*</i>
 
             </p>
@@ -654,6 +654,8 @@
 			//赋组织值
 			var getAgentUrl = "<?php echo U('configuration/Org/show_org_tree');?>";
 			$.post(getAgentUrl,{},function(data){
+				$("#add_agent_id_sel option").remove();
+				$("#add_agent_id_sel").append("<option value=''>请选择组织</option>");
 				$.each(data,function(i,n){
 					var mstr = "";
 					switch(n['lv']){
@@ -708,6 +710,14 @@
 			if(add_channel_second_type_sel==""){
 				alert("请选择渠道属性");
 				return false;				
+			}
+			if(add_select_province=="省份"){
+				alert("请选择省份");
+				return false;	
+			}
+			if(add_select_city=="地级市"){
+				alert("请选择城市");
+				return false;	
 			}
 			if(add_channel_address_txt==""){
 				alert("请选择渠道商地址");
@@ -954,6 +964,14 @@
 			if(change_channel_second_type_sel==""){
 				alert("请选择渠道属性");
 				return false;				
+			}
+			if(change_dst_province=="省份"){
+				alert("请选择省份");
+				return false;	
+			}
+			if(change_dst_city=="地级市"){
+				alert("请选择城市");
+				return false;	
 			}
 			if(change_channel_address_txt==""){
 				alert("请输入渠道商地址");
