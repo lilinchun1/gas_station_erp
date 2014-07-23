@@ -466,6 +466,7 @@
             <span class='span-1'><b>城市</b></span>
             <span class='span-1'><b>渠道名称</b></span>
             <span class='span-1'><b>网点名称</b></span>
+            <span class='span-1'><b>点位名称</b></span>
             <span class='span-1'><b>MAC</b></span>
             <span class='span-1'><b>编号</b></span>
         </li>
@@ -476,6 +477,7 @@
             <span class='span-1'>444444444</span>
             <span class='span-1'>55555555</span>
             <span class='span-1'>666666666</span>
+            <span class='span-1'>777777777</span>
         </li>
 
     </ul>
