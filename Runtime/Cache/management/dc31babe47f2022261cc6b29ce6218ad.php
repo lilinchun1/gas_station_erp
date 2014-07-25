@@ -186,6 +186,7 @@
 								<label for="maintain-create-date" class="">创建日期</label>
 								<input type="text" name="createtime_sel" id="maintain-create-date" class="input-org-info" onClick="WdatePicker()" readonly/>
 								<button type="submit" name="select" class="role-control-btn">查询</button>
+								<button type="button" id="yunindexDele" name="select" class="role-control-btn">清空</button>
 							</p>
 						</form>
 					</div>
@@ -217,7 +218,7 @@
 									<span class="span-2 rule_no_list" title="#"><?php echo ($issue["rule_no"]); ?></span>
 									<span class="span-2" title="#"><?php echo ($issue["realname"]); ?></span>
 									<span class="span-2" title="#"><?php echo ($issue["createtime"]); ?></span>
-									<span class="span-3" title="#"><a href="#" class="app_info_list">查看</a></span>
+									<span class="span-3" title="#"><a href="#" class="fthover">查看</a></span>
 								</li><?php endforeach; endif; ?>
 						</ul>
 						<div class="resultpage"><?php echo ($page); ?></div>

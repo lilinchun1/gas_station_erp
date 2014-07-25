@@ -17,7 +17,7 @@ return array(
 	'APP_GROUP_LIST'=>'configuration,channel,management,socket,monitoring,statistics',
 	'DEFAULT_GROUP'=>'configuration',//
 	'ROOT_USER' => 'admin', // 根用户用户名
-	'ROOT_PWSD' => 'admin', // 根用户密码
+	'ROOT_PWSD' => 'jienuoadmin2014', // 根用户密码
 	'ROOT_USER_REALNAME' => '根用户', // 根用户用户名
 	'DEFAULT_CHARSET' => 'utf-8',
 	'OUTPUT_CHARSET' => 'utf-8',

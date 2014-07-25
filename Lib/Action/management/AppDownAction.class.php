@@ -10,7 +10,8 @@ class AppDownAction extends Action {
 	 * appDown 下载
 	 */
 	function index(){
-		phpinfo();
+		echo php_sapi_name();
+		//phpinfo();
 	}
 	
 	/**

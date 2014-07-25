@@ -25,7 +25,8 @@ class DeviceAction extends Action {
 		$place_no = trim(I('place_no_txt'));
 		$place_name = trim(I('place_name_txt')); 
 	
-		$firstopentime= strtotime(trim(I('firstopentime'))); //首次启用日期
+		$firstopentime1= strtotime(trim(I('firstopentime1'))); //首次启用日期
+		$firstopentime2= strtotime(trim(I('firstopentime2'))); //首次启用日期
 		
 		$sim_text = trim(I('sim_text'));  //SIM 卡
 		$sswd = trim(I('sswd'));   //所属网点
@@ -67,11 +68,17 @@ class DeviceAction extends Action {
 			$where .= " and b.place_name='$sswd'";
 			
 		}
-		if(!empty($firstopentime))
+		if(!empty($firstopentime1))
 		{
-			$where .= " and a.first_open_time='$firstopentime'";
+			$where .= " and a.first_open_time>='$firstopentime'";
 			
 		}
+		if(!empty($firstopentime2))
+		{
+			$where .= " and a.first_open_time<='$firstopentime'";
+			
+		}
+		
 		
 		
 		

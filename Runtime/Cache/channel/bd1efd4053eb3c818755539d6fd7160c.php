@@ -120,10 +120,13 @@
                 <!--<input type="text" name="place_name_txt" id="place_name_txt" value="" class="input-org-info"/>-->
 				<input type="text" name="sim_text" id="sim_text" value="<?php echo ($_GET['sim_text']); ?>" class="input-org-info" autocomplete='off'/>                                           <!-- 3 -->
 
-                <label for="channel-ss-channel" class="">首次启用日期</label>
-                <input type="text" name="firstopentime" id="firstopentime" value="<?php echo ($_GET['firstopentime']); ?>" class="input-org-info" onClick="WdatePicker()"/>
+                <label for="channel-ss-channel" class="">SIM卡首次启用日期</label>
+                <input type="text" name="firstopentime1" id="firstopentime1" value="<?php echo ($_GET['firstopentime1']); ?>" class="input-org-info" onClick="WdatePicker()"/>
+         		  &nbsp;&nbsp;&nbsp;--&nbsp;&nbsp;&nbsp;
+				   <input type="text" name="firstopentime2" id="firstopentime2" value="<?php echo ($_GET['firstopentime2']); ?>" class="input-org-info" onClick="WdatePicker()"/>
 				<input type="text" name="select_del_flag_txt" id="select_del_flag_txt" value="<?php echo ($_GET['select_del_flag_txt']); ?>" style="display:none;"/> <!-- -->
-                <input type="submit" class="role-control-btn" value="查询"/>
+				
+                <input type="submit" class="role-control-btn" value="查询"/> <input type="button" id="deviceDala" class="role-control-btn" value="清空"/> 
             </p>
         </form>
     </div>
@@ -1399,6 +1402,8 @@ var ImgPreview=function(){
 		$(".preview").css("top",(e.pageY-5)+"px").css("position","absolute").css("margin-left","320px").css("margin-bottom","200px");
 	});
 };
+
+
 </script>
 <script type="text/javascript">jQuery(".role-table").slide({trigger: "click"});</script>
 <script>

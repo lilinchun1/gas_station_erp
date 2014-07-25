@@ -79,7 +79,7 @@
                 <input type="text" name="place_name_txt" id="place_name_txt" autocomplete="off" value="<?php echo ($_GET['place_name_txt']); ?>" 
 					class="input-org-info"/>
                 <label for="channel-ss-are" class="">所属区域</label>&nbsp;
-                 <span id="select_showcity"></span>
+                <span id="select_showcity"></span>
                 <script type="text/javascript">
                     showprovince("select_province", "select_city", "<?php echo ($_GET['select_province']); ?>", "select_showcity");
                     showcity("select_city", "<?php echo ($_GET['select_city']); ?>", "select_province", "select_showcity");
@@ -103,7 +103,8 @@
                 <input type="text" name="select_test_end_time_2" id="select_test_end_time_2" class="input-org-info"
                 value="<?php echo ($_GET['select_test_end_time_2']); ?>" onClick="WdatePicker()"/>
 				<input type="text" name="select_del_flag_txt" id="select_del_flag_txt" value="0" style="display:none;"/>
-                <input type="submit" class="role-control-btn" value="查询"/>
+				
+                <input type="submit" class="role-control-btn" value="查询"/><input type="button" id="placeDala" class="role-control-btn" value="清空"/> 
             </p>
 
 
@@ -138,7 +139,7 @@
 			<?php elseif($isDeleteResult == 1): ?>
 				<span class="span-1"><b>撤销日期</b></span><?php endif; ?>
         </li>
-		 <?php if(is_array($list)): $i = 0; $__LIST__ = $list;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$vo): $mod = ($i % 2 );++$i;?><li class="list_sel" onclick="selectPlaceRadio('<?php echo ($vo['place_id']); ?>','<?php echo ($vo['isDelete']); ?>');">
+		 <?php if(is_array($list)): $i = 0; $__LIST__ = $list;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$vo): $mod = ($i % 2 );++$i;?><li class="list_sel" onClick="selectPlaceRadio('<?php echo ($vo['place_id']); ?>','<?php echo ($vo['isDelete']); ?>');">
 				<span class="span-1">
 					<input type="radio" name="placeRadioID" id="<?php echo ($vo['placeRadioID']); ?>" value="<?php echo ($vo['place_id']); ?>" 
 						 class="role-table-radio"/></span>

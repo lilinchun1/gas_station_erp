@@ -358,6 +358,7 @@
 								<label for="maintain-create-date" class="">SmartGuard</label>
 								<input type="text" name="smartGuard" id="maintain-create-date" class="input-org-info"/>
 								<button type="submit" name="select" class="role-control-btn">查询</button>
+								<button type="button" id="verupDele" name="select" class="role-control-btn">清空</button>
 							</p>
 						</form>
 					</div>
@@ -391,7 +392,7 @@
 								<span class="span-1 videoPlayer_list">{$app_dev_update['video_player']}</span>
 								<span class="span-1 updateApp_list">{$app_dev_update['update_app']}</span>
 								<span class="span-1 smartGuard_list">{$app_dev_update['smart_guard']}</span>
-								<span class="j_selrole_button span-1" title="发布渠道">发布渠道</span>
+								<span class="fthover span-1" title="发布渠道">发布渠道</span>
 								<span class="span-1">
 									<if condition="$app_dev_update['status'] eq 0">
 										待更新
@@ -499,6 +500,67 @@
 		</a>
 		<div class="bk10"></div>
 	</div>
+</div>
+<!--弹出表格框-->
+<div id="j_show_purview" style="display:block">
+    <div class="alert-table1" style="background:#fff;width:100%">
+        <div class="role-inquire channel-index-btns">
+            <form name="deviceSelect" method="get" action="{:U('channel/Device/deviceSelect')}">
+                <p>
+                    <label for="channel-class1" class="">区域</label>
+                    <span id="select_showcity"></span>
+                    <script type="text/javascript">
+                        showprovince("select_province", "select_city", "{$_GET['select_province']}", "select_showcity");
+                        showcity("select_city", "{$_GET['select_city']}", "select_province", "select_showcity");
+                    </script>
+                    <label for="yichang_place_name" class="">渠道名称</label>
+                    <input type="text" name="yichang_place_name" id="yichang_place_name" value="" class="input-org-info"/>
+                    <label for="yichang_address" class="">网点名称</label>
+                    <input type="text" name="yichang_address" id="yichang_address" value="" class="input-org-info"/>
+                    <label for="yichang_devMac" class="">MAC</label>
+                    <input type="text" name="yichang_devMac" id="yichang_devMac" value="" class="input-org-info"/>
+                    <br>
+                    <label for="yichang_devNo" class="">状态</label>
+                    <select class="channel-select">
+                        <option>更新成功</option>
+                        <option>更新失败</option>
+                    </select>
+                    <button type="button" class="role-control-btn" id="yichang_select">查询</button>
+                    <button type="button" class="role-control-btn">导出</button>
+                </p>
+
+            </form>
+        </div>
+        <ul class="statistics-list" style="border:0">
+            <li>
+                <span class='span-1'><b>省份</b></span>
+                <span class='span-1'><b>城市</b></span>
+                <span class='span-1'><b>渠道名称</b></span>
+                <span class='span-1'><b>所属网点</b></span>
+                <span class='span-1'><b>加油站编号</b></span>
+                <span class='span-1'><b>MAC</b></span>
+                <span class='span-1'><b>SmartApp</b></span>
+                <span class='span-1'><b>VideoPlayer</b></span>
+                <span class='span-1'><b>Update-App</b></span>
+                <span class='span-1'><b>SmartGuard</b></span>
+            </li>
+            <li>
+                <span class='span-1'>11111111</span>
+                <span class='span-1'>22222222</span>
+                <span class='span-1'>33333333</span>
+                <span class='span-1'>444444444</span>
+                <span class='span-1'>55555555</span>
+                <span class='span-1'>666666666</span>
+                <span class='span-1'>777777777</span>
+                <span class='span-1'>888888888</span>
+                <span class='span-1'>999999999</span>
+                <span class='span-1'>xxxxxxxxx</span>
+            </li>
+        </ul>
+        <a href="." class="closeDOMWindow">
+            <button type="button" class="alert-btn2">关闭</button>
+        </a>
+    </div>
 </div>
 <link rel="stylesheet" type="text/css" href="__PUBLIC__/css/jquery.bigautocomplete.css"/>
 <script type="text/javascript" src="__PUBLIC__/js/jquery.bigautocomplete.js"></script>

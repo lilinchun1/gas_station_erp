@@ -297,6 +297,7 @@
 								<label for="maintain-create-date" class="">发布日期</label>
 								<input type="text" name="release_time_sel" id="maintain-create-date" class="input-org-info" readonly="true" onClick="WdatePicker()"/>
 								<button type="submit" name="select" class="role-control-btn">查询</button>
+								<button type="button" id="addRuleDele" name="select" class="role-control-btn">清空</button>
 							</p>
 						</form>
 					</div>
@@ -329,7 +330,7 @@
 									</span>
 									<span class="span-2 rule_no_list" title="#">{$issue.rule_no}</span>
 									<span class="span-2 start_time_list" title="#">{$issue.start_time}</span>
-									<span class="j_selrole_button span-2" title="发布渠道">发布渠道</span>
+									<span class="fthover span-2" title="发布渠道">发布渠道</span>
 									<span class="span-2" title="#">
 										<if condition="$issue['rule_status'] eq 1">
 											待发布

@@ -7,6 +7,7 @@
     <script type="text/javascript" src="__PUBLIC__/js/jquery-1.6.1.js"></script>
     <script type="text/javascript" src="__PUBLIC__/js/jquery-1.10.2.min.js"></script>
 	<script type="text/javascript" src="__PUBLIC__/js/jquery.SuperSlide.2.1.1.js"></script>
+	<script type="text/javascript" src="__PUBLIC__/js/script_city.js"></script>
 	<script type="text/javascript" src="__PUBLIC__/js/My97DatePicker/WdatePicker.js"></script>
     <style>
         #head,.head-wrap,#footer,#container{
@@ -68,9 +69,9 @@
                             <h4>系统监控</h4>
                             <span><img src="__PUBLIC__/image/6.png" alt=""/></span>
                             <dl class="station-zhuangtai">
-                                <dt><b class="icon-checkmark-circle green-color"></b><em><?php echo ($devRightNum); ?></em></dt>
-                                <dt><b class="icon-cancel-circle red-color"></b><em><?php echo ($devBreakNum); ?></em></dt>
-                                <dt><b class="icon-bulb yellow-color"></b><em>111</em></dt>
+                                <dt id="xitong_1"><b class="icon-checkmark-circle green-color"></b><em><?php echo ($devRightNum); ?></em></dt>
+                                <dt id="xitong_0"><b class="icon-cancel-circle red-color"></b><em><?php echo ($devBreakNum); ?></em></dt>
+                                <dt id="xitong_2"><b class="icon-bulb yellow-color"></b><em><?php echo ($devUnfindNum); ?></em></dt>
                             </dl>
                         </li>
                         <li>
@@ -100,12 +101,14 @@
                     </ul>
                     <div class="station-state-list-cx">
 						<span id="hide">
-							<label for="channel-ss-channel">渠道名称</label>
-							<input  type="text" name="" id="channel-ss-channel" class="station-info"/>
+							<label for="channelName">渠道名称</label>
+							<input  type="text" name="channelName" id="channelName" class="station-info" value="<?php echo ($channelName); ?>"/>
 							&nbsp;&nbsp;&nbsp;&nbsp;
-							<label for="pla-ss-channel">网点名称</label>
-							<input  type="text" name="" id="pla-ss-channel" class="station-info"/>
-							<button type="button" class="role-control-btn">查询</button>
+							<label for="place_name">网点名称</label>
+							<input  type="text" name="place_name" id="place_name" class="station-info" value="<?php echo ($place_name); ?>" />
+
+							<button type="button" class="role-control-btn" id="channel_select">查询</button>
+							<button type="button" class="role-control-btn" id="stationDele">清空</button>
 							<button type="button" class="role-control-btn">导出</button>
 						</span>
                         <div class="mode-change">
@@ -121,11 +124,15 @@
 					</div>
                 </div>
                 <ul class="station-state-list-con">
-                    <?php if(is_array($devPageBreakArr)): foreach($devPageBreakArr as $key=>$devBreak): ?><li>
+                    <?php if(is_array($showDevPageArr)): foreach($showDevPageArr as $key=>$devBreak): ?><li>
 	                        <div class="station-state-info">
-	                            <em>报警时间 ： <?php echo ($devBreak['wrong_begin_time']); ?></em>
-	                            <em>报警时长  ： <?php echo ($devBreak['continueTime']); ?></em>
-	                            <em><?php echo ($devBreak['province']); ?>  <?php echo ($devBreak['city']); ?>  <?php echo ($devBreak['address']); ?> <?php echo ($devBreak['dev_mac']); ?> <?php echo ($devBreak['dev_no']); ?></em>
+								<em><?php echo ($devBreak['province']); ?>  <?php echo ($devBreak['city']); ?> <?php echo ($devBreak['place_name']); ?> <?php echo ($devBreak['address']); ?> <?php echo ($devBreak['dev_mac']); ?> <?php echo ($devBreak['dev_no']); ?></em>
+								<p style="margin-top:5px;color:#5c97ee">
+								<b>
+									<em>报警时间 ： <?php echo ($devBreak['wrong_begin_time']); ?></em>
+									<em>报警时长  ： <?php echo ($devBreak['continueTime']); ?></em>
+								</b>
+								</p>
 	                        </div>
 	                        <div class="station-state-dl">
 	                            <div class="row-lt">
@@ -216,18 +223,17 @@
 				</span>
 				
 			</div>
-            <!-- 
+           
             <div class="station-state-list table-state" id="j-station-sh2">
                 <ul class="station-list2-wz">
                     <li class="first-line">
                         <span>加油站所属网点</span>
                         <span>MAC地址</span>
+                        <span>报警时间</span>
+                        <span>报警时长</span>
                         <span>在线状态</span>
                         <span>正常开机</span>
                         <span>正常关机</span>
-                        <span>APP刊例</span>
-                        <span>上屏程序版本</span>
-                        <span>下屏程序版本</span>
                     </li>
                     <li>
                         <span title="#">11111111111111111111Lorem ipsum dolor sit amet.</span>
@@ -261,12 +267,14 @@
                     </li>
                 </ul>
             </div>
-             -->
+             
         </div>
     </div>
-    <input type="hidden" name="pageNum" class="pageNum" id="pageNum" value="<?php echo ($pageNum); ?>"/>
-    <input type="hidden" name="areaId" class="areaId" id="areaId" value="<?php echo ($areaId); ?>"/>
-	<input type="text" name="level" class="level" id="level" value="<?php echo ($level); ?>" />
+    <input type="hidden" name="pageNum" class="pageNum" id="pageNum" value="<?php echo ($pageNum); ?>"/><!--页数-->
+    <input type="hidden" name="areaId" class="areaId" id="areaId" value="<?php echo ($areaId); ?>"/><!--省市ID-->
+	<input type="hidden" name="level" class="level" id="level" value="<?php echo ($level); ?>" /><!--等级-->
+	<input type="hidden" name="showModel" class="showModel" id="showModel" value="<?php echo ($showModel); ?>" /><!--监控模式-->
+
 </div>
 <div id="footer">
     <p>© 大连捷诺科技有限公司 | <a style="color: #ffffff;" href="http://www.jienuo-service.net/" target="_blank">关于捷诺</a> | 服务热线 0411-86887659</p>
@@ -434,55 +442,51 @@
         return false;
     }
 </script>
-<div class="alert-table1">
-    <div class="role-inquire channel-index-btns">
-        <form name="deviceSelect" method="get" action="<?php echo U('channel/Device/deviceSelect');?>">
-            <p>
-                <label for="channel-class1" class="">区域</label>
-                <span id="select_showcity"></span>
-                <script type="text/javascript">
-                    showprovince("select_province", "select_city", "<?php echo ($_GET['select_province']); ?>", "select_showcity");
-                    showcity("select_city", "<?php echo ($_GET['select_city']); ?>", "select_province", "select_showcity");
-                </script>
-                <label for="device-drive-id" class="">渠道名称</label>
-                <input type="text" name="device_no_txt" id="device_no_txt" value="<?php echo ($_GET['device_no_txt']); ?>" class="input-org-info"/>
-                <label for="device-drive-id" class="">网点名称</label>
-                <input type="text" name="device_no_txt" id="device_no_txt" value="<?php echo ($_GET['device_no_txt']); ?>" class="input-org-info"/>
-                <label for="device-drive-id" class="">点位名称</label>
-                <input type="text" name="device_no_txt" id="device_no_txt" value="<?php echo ($_GET['device_no_txt']); ?>" class="input-org-info"/>
-                <label for="mac1" class="">MAC</label>
-                <input type="text" name="mac_txt" id="mac_txt" value="<?php echo ($_GET['mac_txt']); ?>" class="input-org-info"/>
-                <label for="mac1" class="">加油站编号</label>
-                <input type="text" name="mac_txt" id="mac_txt" value="<?php echo ($_GET['mac_txt']); ?>" class="input-org-info"/>
-                <button type="button" class="role-control-btn">查询</button>
-                <button type="button" class="role-control-btn">导出</button>
-            </p>
+<div id="station_win" style="display:none">
+	<div class="alert-table1" style="background:#fff;width:100%">
+		<div class="role-inquire channel-index-btns">
+			<form name="deviceSelect" method="get" action="<?php echo U('channel/Device/deviceSelect');?>">
+				<p>
+					<label for="yachang_channelName" class="">渠道名称</label>
+					<input type="text" name="yachang_channelName" id="yachang_channelName" value="" class="input-org-info"/>
+					<label for="yichang_place_name" class="">网点名称</label>
+					<input type="text" name="yichang_place_name" id="yichang_place_name" value="" class="input-org-info"/>
+					<label for="yichang_address" class="">点位名称</label>
+					<input type="text" name="yichang_address" id="yichang_address" value="" class="input-org-info"/>
+					<label for="yichang_devMac" class="">MAC</label>
+					<input type="text" name="yichang_devMac" id="yichang_devMac" value="" class="input-org-info"/>
+					<br>
+					<label for="yichang_devNo" class="">加油站编号</label>
+					<input type="text" name="yichang_devNo" id="yichang_devNo" value="" class="input-org-info"/>
+					<button type="button" class="role-control-btn" id="yichang_select">查询</button>
+					<button type="button" class="role-control-btn">导出</button>
+				</p>
 
-        </form>
-    </div>
-    <ul class="statistics-list">
-        <li>
-            <span class='span-1'><b>省份</b></span>
-            <span class='span-1'><b>城市</b></span>
-            <span class='span-1'><b>渠道名称</b></span>
-            <span class='span-1'><b>网点名称</b></span>
-            <span class='span-1'><b>点位名称</b></span>
-            <span class='span-1'><b>MAC</b></span>
-            <span class='span-1'><b>编号</b></span>
-        </li>
-        <li>
-            <span class='span-1'>11111111</span>
-            <span class='span-1'>22222222</span>
-            <span class='span-1'>33333333</span>
-            <span class='span-1'>444444444</span>
-            <span class='span-1'>55555555</span>
-            <span class='span-1'>666666666</span>
-            <span class='span-1'>777777777</span>
-        </li>
+			</form>
+		</div>
+		<ul class="statistics-list" style="border:0">
+			<li>
+				<span class='span-1'><b>省份</b></span>
+				<span class='span-1'><b>城市</b></span>
+				<span class='span-1'><b>渠道名称</b></span>
+				<span class='span-1'><b>网点名称</b></span>
+				<span class='span-1'><b>点位名称</b></span>
+				<span class='span-1'><b>MAC</b></span>
+				<span class='span-1'><b>编号</b></span>
+			</li>
+			<li>
+				<span class='span-1'>11111111</span>
+				<span class='span-1'>22222222</span>
+				<span class='span-1'>33333333</span>
+				<span class='span-1'>444444444</span>
+				<span class='span-1'>55555555</span>
+				<span class='span-1'>666666666</span>
+				<span class='span-1'>777777777</span>
+			</li>
 
-    </ul>
+		</ul>
+	</div>
 </div>
-
 <!--树形结构类-->
 <link rel="stylesheet" href="__PUBLIC__/css/tree/tree.css" type="text/css">
 <script type="text/javascript" src="__PUBLIC__/js/tree/jquery.ztree.core-3.5.js"></script>
@@ -606,12 +610,21 @@ function zTreeOnClick(event, treeId, treeNode) {
 	$('#pageNum').val(1);//页数初始化
 	var page_Num=$('#pageNum').val();//页数
 	var level=treeId.t;//等级
-	window.location.href="<?php echo U('monitoring/Index/station');?>"+"?pageNum="+page_Num+"&areaId="+agent_id+"&level="+level;
+	var showModel=$("#showModel").val();//监控模式
+	window.location.href="<?php echo U('monitoring/Index/station');?>"+"?pageNum="+page_Num+"&areaId="+agent_id+"&level="+level+"&showModel="+showModel;
 };
 var key;
 
 //===================================================树形结构js结束==========
     $(function () {
+		//系统监控框 默认样式
+		var showModel_mode=$("#showModel").val();
+		if(showModel_mode==0){
+			$("#xitong_0").css("background-color","#effcff");
+		}
+		if(showModel_mode==1){
+			$("#xitong_1").css("background-color","#effcff");
+		}
 		//===================================================树形结构js传递==========
 		$.fn.zTree.init($("#treeDemo"), setting, zNodes);
 		key = $("#key");
@@ -645,22 +658,87 @@ var key;
         
         //循环刷新
         var iID=setTimeout(function(){location.reload();},1000*60*60);
-		$("#treeDemo a").click(function(){
-
-		 });
         $("#down_page").click(function(){
 			var page_Num=$('#pageNum').val();//页数
 			var agent_id=$('#areaId').val();//省市ID
 			var new_page_Num=Number(page_Num)+1;
 			var level=$("#level").val();//等级
-			window.location.href="<?php echo U('monitoring/Index/station');?>"+"?pageNum="+new_page_Num+"&areaId="+agent_id+"&level="+level;
+			var showModel=$("#showModel").val();//监控模式
+			var channelName=$("#channelName").val();//渠道
+			var place_name=$("#place_name").val();//网点
+			window.location.href="<?php echo U('monitoring/Index/station');?>"+"?pageNum="+new_page_Num+"&areaId="+agent_id+"&level="+level+"&showModel="+showModel+"&channelName="+channelName+"&place_name="+place_name;
 		});
 		$("#up_page").click(function(){
 			var page_Num=$('#pageNum').val();//页数
 			var agent_id=$('#areaId').val();//省市ID
 			var new_page_Num=page_Num-1;
 			var level=$("#level").val();//等级
-			window.location.href="<?php echo U('monitoring/Index/station');?>"+"?pageNum="+new_page_Num+"&areaId="+agent_id+"&level="+level;
+			var showModel=$("#showModel").val();//监控模式
+			var channelName=$("#channelName").val();//渠道
+			var place_name=$("#place_name").val();//网点
+			window.location.href="<?php echo U('monitoring/Index/station');?>"+"?pageNum="+new_page_Num+"&areaId="+agent_id+"&level="+level+"&showModel="+showModel+"&channelName="+channelName+"&place_name="+place_name;
+		});
+		//点击系统监控显示数据success
+		$("#xitong_1").click(function(){
+			var page_Num=1;//页数
+			var agent_id=$('#areaId').val();//省市ID
+			var level=$("#level").val();//等级
+			var showModel=1;//监控模式
+			var channelName=$("#channelName").val();//渠道
+			var place_name=$("#place_name").val();//网点
+			window.location.href="<?php echo U('monitoring/Index/station');?>"+"?pageNum="+page_Num+"&areaId="+agent_id+"&level="+level+"&showModel="+showModel+"&channelName="+channelName+"&place_name="+place_name;
+		});
+		//点击系统监控显示数据error
+		$("#xitong_0").click(function(){
+			var page_Num=1;//页数
+			var agent_id=$('#areaId').val();//省市ID
+			var level=$("#level").val();//等级
+			var showModel=0;//监控模式
+			var channelName=$("#channelName").val();//渠道
+			var place_name=$("#place_name").val();//网点
+			window.location.href="<?php echo U('monitoring/Index/station');?>"+"?pageNum="+page_Num+"&areaId="+agent_id+"&level="+level+"&showModel="+showModel+"&channelName="+channelName+"&place_name="+place_name;
+		});
+		//点击系统监控显示数据异常弹出框
+		$("#xitong_2").click(function(){
+			$("#yichang_select").click(function(){
+				var channelName=$("#yichang_channelName").val();//渠道
+				var place_name=$("#yichang_place_name").val();//网点
+				var address=$("#yichang_address").val();//点位
+				var devMac=$("#yichang_devMac").val();//mac
+				var devNo=$("#yichang_devNo").val();//编号
+				var agent_id=$('#areaId').val();//省市ID
+				var level=$("#level").val();//等级
+				var handleUrl = "<?php echo U('monitoring/Index/station');?>";
+				$.getJSON(handleUrl,{
+					"channelName":channelName,
+					"place_name":place_name,
+					"address":address,
+					"devMac":devMac,
+					"devNo":devNo,
+					"agent_id":agent_id,
+					"level":level
+					},
+					function (data){
+						alert(data['channelName']);
+					}
+				,'json'
+				);
+			});
+			$.openDOMWindow({
+			    loader:1,
+				loaderHeight:16,
+				loaderWidth:17,
+				width:900,
+				windowSourceID:'#station_win'
+			});
+			return false;
+		});
+		$("#channel_select").click(function(){
+			var page_Num=1;//页数
+			var channelName=$("#channelName").val();//渠道
+			var place_name=$("#place_name").val();//网点
+			var showModel=$("#showModel").val();//监控模式
+			window.location.href="<?php echo U('monitoring/Index/station');?>"+"?pageNum="+page_Num+"&showModel="+showModel+"&channelName="+channelName+"&place_name="+place_name;
 		});
 		var count=Number($("#page_num").text());//获取总页数
 		var dangqian_page=Number($(".current").text());//获取当前页码
@@ -699,13 +777,19 @@ var key;
 			var page_Num=$(this).text();//页数
 			var agent_id=$('#areaId').val();//省市ID
 			var level=$("#level").val();//等级
-			window.location.href="<?php echo U('monitoring/Index/station');?>"+"?pageNum="+page_Num+"&areaId="+agent_id+"&level="+level;
+			var showModel=$("#showModel").val();//监控模式
+			var channelName=$("#channelName").val();//渠道
+			var place_name=$("#place_name").val();//网点
+			window.location.href="<?php echo U('monitoring/Index/station');?>"+"?pageNum="+page_Num+"&areaId="+agent_id+"&level="+level+"&showModel="+showModel+"&channelName="+channelName+"&place_name="+place_name;
 		})
 		$("#select_page").change(function(){
 			var page_Num=$(this).val();//页数
 			var agent_id=$('#areaId').val();//省市ID
 			var level=$("#level").val();//等级
-			window.location.href="<?php echo U('monitoring/Index/station');?>"+"?pageNum="+page_Num+"&areaId="+agent_id+"&level="+level;
+			var showModel=$("#showModel").val();//监控模式
+			var channelName=$("#channelName").val();//渠道
+			var place_name=$("#place_name").val();//网点
+			window.location.href="<?php echo U('monitoring/Index/station');?>"+"?pageNum="+page_Num+"&areaId="+agent_id+"&level="+level+"&showModel="+showModel+"&channelName="+channelName+"&place_name="+place_name;
 		});
     });
 jQuery(".alert-set-tab").slide({trigger:"click"});

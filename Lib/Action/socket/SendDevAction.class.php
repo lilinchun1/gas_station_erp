@@ -65,20 +65,6 @@ class SendDevAction extends Action {
 		$monitor_no = $last_monitor_no + 1;
 		
 		foreach ($que_dev as $k=>$v){
-			//发送机器状态请求
-			$dev_status = "DEV_STATUS:".$this->getNewSendNum().",dev_uid:".$v['device_no'].",dev_mac:".$v['MAC'].",above_screen,touch_screen,conn_line_1,conn_line_2,conn_line_3,boot_time_length,boot_times,vol,cpu_usage,cpu,mem_usage,mem,disk_usage,disk,wifi,station_3g,wifi_conn_num,station_3g_flow,wifi_send_flow,wifi_recv_flow,conn_line_1_send,conn_line_1_recv,conn_line_2_send,conn_line_2_recv,conn_line_3_send,conn_line_3_recv,station_system,station_client,poweron_time,poweroff_time;";
-			//发送信息并获取返回各属性值数组
-			$getStrArr = $this->sendRespStrGetRespArr($dev_status,4096);
-			//获取连接数
-			$link_num = $this->getAttributeVal($getStrArr,"DEV_STATUS_R");
-			//获取开机时长
-			$boot_time_length = $this->getAttributeVal($getStrArr,"boot_time_length");
-			//蓝屏、系统崩溃、死机
-			$station_system = $this->getAttributeVal($getStrArr,"station_system");
-			//开机时间
-			$poweron_time = $this->getAttributeVal($getStrArr,"poweron_time");
-			//关机时间
-			$poweroff_time = $this->getAttributeVal($getStrArr,"poweroff_time");
 			
 			//判断各项问题，插入数据库
 			$data = array();
@@ -89,70 +75,89 @@ class SendDevAction extends Action {
 			//默认0是各项属性全正常，无需存储
 			$hasTrouble = 0;
 			
-			//判断系统是否正常在线，下线
-			//现在时间
-			$nowTime = time();
-			//当天0点时间
-			$dateTime = strtotime(date("Y-m-d"));
-			//差值
-			$dValue = $nowTime - $dateTime;
-			//如果在正常开机允许延迟时间后和正常关机允许提前时间前关机则算不正常不在线
-			//要区分开关机时间是否跨天
-			//是否在线不判断开关机延迟情况。开关机是否正常则判断
-			if($v['power_off_time']>=$v['power_on_time']){
-				if($dValue >= $v['power_on_time'] && $dValue <= $v['power_off_time']){
-					if($station_system != 0){
-						$data['on_line'] = 1;
-						$hasTrouble++;
-						$ii = 1;
-					}
-					//如果在指定时间外还在开机则也返回故障
-				}else if($dValue <= $v['power_on_time'] || $dValue >= $v['power_off_time']){
-					if($station_system == 0){
-						$data['on_line'] = 1;
-						$hasTrouble++;
-						$ii = 2;
-					}
-				}
+			//发送机器状态请求
+			$dev_status = "DEV_STATUS:".$this->getNewSendNum().",dev_uid:".$v['device_no'].",dev_mac:".$v['MAC'].",above_screen,touch_screen,conn_line_1,conn_line_2,conn_line_3,boot_time_length,boot_times,vol,cpu_usage,cpu,mem_usage,mem,disk_usage,disk,wifi,station_3g,wifi_conn_num,station_3g_flow,wifi_send_flow,wifi_recv_flow,conn_line_1_send,conn_line_1_recv,conn_line_2_send,conn_line_2_recv,conn_line_3_send,conn_line_3_recv,station_system,station_client,poweron_time,poweroff_time;";
+			//发送信息并获取返回各属性值数组
+			$getStrArr = $this->sendRespStrGetRespArr($dev_status,4096);
+			//如果$getStrArr返回空或false则此设备不存在，进行下次循环
+			if(!$getStrArr){
+				$data['unfind'] = 1;
+				$hasTrouble++;
 			}else{
-				if($dValue <= $v['power_off_time'] || $dValue >= $v['power_on_time']){
-					if($station_system != 0){
-						$data['on_line'] = 1;
-						$hasTrouble++;
-						$ii = 3;
+				//获取连接数
+				$link_num = $this->getAttributeVal($getStrArr,"DEV_STATUS_R");
+				//获取开机时长
+				$boot_time_length = $this->getAttributeVal($getStrArr,"boot_time_length");
+				//蓝屏、系统崩溃、死机
+				$station_system = $this->getAttributeVal($getStrArr,"station_system");
+				//开机时间
+				$poweron_time = $this->getAttributeVal($getStrArr,"poweron_time");
+				//关机时间
+				$poweroff_time = $this->getAttributeVal($getStrArr,"poweroff_time");
+					
+					
+				//判断系统是否正常在线，下线
+				//现在时间
+				$nowTime = time();
+				//当天0点时间
+				$dateTime = strtotime(date("Y-m-d"));
+				//差值
+				$dValue = $nowTime - $dateTime;
+				//如果在正常开机允许延迟时间后和正常关机允许提前时间前关机则算不正常不在线
+				//要区分开关机时间是否跨天
+				//是否在线不判断开关机延迟情况。开关机是否正常则判断
+				if($v['power_off_time']>=$v['power_on_time']){
+					if($dValue >= $v['power_on_time'] && $dValue <= $v['power_off_time']){
+						if($station_system != 0){
+							$data['on_line'] = 1;
+							$hasTrouble++;
+						}
+						//如果在指定时间外还在开机则也返回故障
+					}else if($dValue <= $v['power_on_time'] || $dValue >= $v['power_off_time']){
+						if($station_system == 0){
+							$data['on_line'] = 1;
+							$hasTrouble++;
+						}
 					}
-				}else if($dValue >= $v['power_off_time'] && $dValue <= $v['power_on_time']){
-					if($station_system == 0){
-						$data['on_line'] = 1;
-						$hasTrouble++;
-						$ii = 4;
+				}else{
+					if($dValue <= $v['power_off_time'] || $dValue >= $v['power_on_time']){
+						if($station_system != 0){
+							$data['on_line'] = 1;
+							$hasTrouble++;
+						}
+					}else if($dValue >= $v['power_off_time'] && $dValue <= $v['power_on_time']){
+						if($station_system == 0){
+							$data['on_line'] = 1;
+							$hasTrouble++;
+						}
+						//如果在指定时间外还在开机则也返回故障
 					}
-					//如果在指定时间外还在开机则也返回故障
 				}
-			}
-			/*
-				$str = "";
-				$str .= "\r\n\r\n ii:$ii MAC:$v[MAC]dValue:$dValue----------power_on_time:$v[power_on_time]-----------power_off_time:$v[power_off_time]-----------station_system:$station_system\r\n\r\n";
+				/*
+				 $str = "";
+				$str .= "\r\n\r\n MAC:$v[MAC]dValue:$dValue----------power_on_time:$v[power_on_time]-----------power_off_time:$v[power_off_time]-----------station_system:$station_system\r\n\r\n";
 				echo $str,"<br/>";
 				file_put_contents($this->logUdpFile, $this->logStr,FILE_APPEND);
-			*/
-			//只有当在线或者正常关机时判断开机是否正常
-			if(($station_system == 0 || $station_system == 1) && $poweron_time){
-				//判断是否正常开机
-				if(($poweron_time - $dateTime) < ($v['power_on_time'] - $this->delayTime) || ($poweron_time - $dateTime) > ($v['power_on_time'] + $this->delayTime)){
-					$data['start_time'] = 1;
-					$hasTrouble++;
+				*/
+				//只有当在线或者正常关机时判断开机是否正常
+				if(($station_system == 0 || $station_system == 1) && $poweron_time){
+					//判断是否正常开机
+					if(($poweron_time - $dateTime) < ($v['power_on_time'] - $this->delayTime) || ($poweron_time - $dateTime) > ($v['power_on_time'] + $this->delayTime)){
+						$data['start_time'] = 1;
+						$hasTrouble++;
+					}
+				}
+					
+				//只有正常关机，并且存在关机时间时，判断关机是否正常
+				if($station_system == 1 && $poweroff_time){
+					//判断是否正常关机
+					if(($poweroff_time - $dateTime) < ($v['power_off_time'] - $this->delayTime)  || ($poweroff_time - $dateTime) > ($v['power_off_time'] + $this->delayTime) ){
+						$data['shutdown_time'] = 1;
+						$hasTrouble++;
+					}
 				}
 			}
 			
-			//只有正常关机，并且存在关机时间时，判断关机是否正常
-			if($station_system == 1 && $poweroff_time){
-				//判断是否正常关机
-				if(($poweroff_time - $dateTime) < ($v['power_off_time'] - $this->delayTime)  || ($poweroff_time - $dateTime) > ($v['power_off_time'] + $this->delayTime) ){
-					$data['shutdown_time'] = 1;
-					$hasTrouble++;
-				}
-			}
 			
 			
 			//只存储有故障机器
@@ -262,7 +267,7 @@ class SendDevAction extends Action {
 	}
 	
 	
-	//发送信息
+	//发送接收信息返回数组
 	function sendRespStrGetRespArr($sendStr,$getStrLength){
 		//发送字符串
 		socket_write ( $this->socket, $sendStr, strlen ( $sendStr ) );
@@ -273,7 +278,7 @@ class SendDevAction extends Action {
 		echo $resp,"<br/><br/>";
 		$this->logStr .= $resp."\r\n\r\n";
 		$resp = rtrim($resp,";");
-		if(strpos($resp,$this->noDevReturnStr)>=0){
+		if(substr_count($resp,$this->noDevReturnStr) > 0){
 			return false;
 		}
 		return explode(",",$resp);

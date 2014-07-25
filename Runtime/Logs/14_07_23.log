@@ -511,3 +511,16 @@ SQL:
 				 [ RunTime:0.001000s ]
 NOTIC: [8] Undefined index: orgid D:\trunk\gas_station_erp\Lib\Action\monitoring\IndexAction.class.php 第 125 行.
 
+[ 2014-07-23T17:59:31+08:00 ] 127.0.0.1 /gas_station_erp/index.php/monitoring/Index/getProvinceCity
+INFO: [ app_begin ] --START--
+INFO: ReadHtmlCache Behavior ::run [ RunTime:0.000000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000000s ]
+NOTIC: [8] Undefined index: orgid D:\trunk\gas_station_erp\Lib\Action\monitoring\IndexAction.class.php 第 114 行.
+SQL: 
+				SELECT b.area_id,b.area_name,b.pid,b.level FROM qd_agent_area a
+				LEFT JOIN bi_area b ON a.area_id = b.area_id
+				 where 1 
+				GROUP BY a.area_id
+				 [ RunTime:0.001000s ]
+NOTIC: [8] Undefined index: orgid D:\trunk\gas_station_erp\Lib\Action\monitoring\IndexAction.class.php 第 125 行.
+
