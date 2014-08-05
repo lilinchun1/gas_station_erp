@@ -128,11 +128,12 @@
 			}else if($(this).hasClass("status_2")){
 				var start_time = $("input[name='role-list']:checked").parent().parent().find(".start_time_list").text();
 				var d=new Date();
-				var newdate=(d.getFullYear())+"-"+(d.getMonth() + 1)+"-"+(d.getDate());
-				var z_begin_date	=	start_time.replace('-','').replace('-','');
-				var z_end_date	=	newdate.replace('-','').replace('-','');
-				
-				if(z_end_date<=z_begin_date){
+				var vYear = d.getFullYear();
+				var vMon = d.getMonth() + 1;
+				var vDay = d.getDate();
+				var adngqian_time=vYear+(vMon<10 ? "0" + vMon : vMon)+(vDay<10 ? "0"+ vDay : vDay);
+				var toufang_time	=	start_time.replace('-','').replace('-','');
+				if(toufang_time<=adngqian_time){
 					alert("投放日期必须大于当前日期，请修改投放日期");
 					return false;
 				}
@@ -330,7 +331,7 @@
 									</span>
 									<span class="span-2 rule_no_list" title="#">{$issue.rule_no}</span>
 									<span class="span-2 start_time_list" title="#">{$issue.start_time}</span>
-									<span class="fthover span-2" title="发布渠道">发布渠道</span>
+									<span class="j_selrole_button fthover span-2" title="发布渠道">发布渠道</span>
 									<span class="span-2" title="#">
 										<if condition="$issue['rule_status'] eq 1">
 											待发布
@@ -371,7 +372,7 @@
 		
 				<p>
 					<label for="start_time" class="role-lab">投放日期</label>
-					<input type="text" name="start_time" id="start_time" class="input-role-name" readonly="true" onFocus="WdatePicker({minDate:'new Date();'})"/>
+					<input type="text" name="start_time" id="start_time" class="input-role-name" readonly="true" onFocus="WdatePicker({minDate:'%y-%M-{%d+1}'})"/>
                     <i class="red-color pdl10">*</i>
 				</p>
 		

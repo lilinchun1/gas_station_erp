@@ -128,11 +128,12 @@
 			}else if($(this).hasClass("status_2")){
 				var start_time = $("input[name='role-list']:checked").parent().parent().find(".start_time_list").text();
 				var d=new Date();
-				var newdate=(d.getFullYear())+"-"+(d.getMonth() + 1)+"-"+(d.getDate());
-				var z_begin_date	=	start_time.replace('-','').replace('-','');
-				var z_end_date	=	newdate.replace('-','').replace('-','');
-				
-				if(z_end_date<=z_begin_date){
+				var vYear = d.getFullYear();
+				var vMon = d.getMonth() + 1;
+				var vDay = d.getDate();
+				var adngqian_time=vYear+(vMon<10 ? "0" + vMon : vMon)+(vDay<10 ? "0"+ vDay : vDay);
+				var toufang_time	=	start_time.replace('-','').replace('-','');
+				if(toufang_time<=adngqian_time){
 					alert("投放日期必须大于当前日期，请修改投放日期");
 					return false;
 				}
@@ -337,6 +338,7 @@
 								<label for="maintain-create-date" class="">发布日期</label>
 								<input type="text" name="release_time_sel" id="maintain-create-date" class="input-org-info" readonly="true" onClick="WdatePicker()"/>
 								<button type="submit" name="select" class="role-control-btn">查询</button>
+								<button type="button" id="addRuleDele" name="select" class="role-control-btn">清空</button>
 							</p>
 						</form>
 					</div>
@@ -368,7 +370,7 @@
 									</span>
 									<span class="span-2 rule_no_list" title="#"><?php echo ($issue["rule_no"]); ?></span>
 									<span class="span-2 start_time_list" title="#"><?php echo ($issue["start_time"]); ?></span>
-									<span class="j_selrole_button span-2" title="发布渠道">发布渠道</span>
+									<span class="j_selrole_button fthover span-2" title="发布渠道">发布渠道</span>
 									<span class="span-2" title="#">
 										<?php if($issue['rule_status'] == 1): ?>待发布<?php endif; ?>
 										<?php if($issue['rule_status'] == 2): ?>已发布<?php endif; ?>
@@ -567,7 +569,7 @@
 		
 				<p>
 					<label for="start_time" class="role-lab">投放日期</label>
-					<input type="text" name="start_time" id="start_time" class="input-role-name" readonly="true" onFocus="WdatePicker({minDate:'new Date();'})"/>
+					<input type="text" name="start_time" id="start_time" class="input-role-name" readonly="true" onFocus="WdatePicker({minDate:'%y-%M-{%d+1}'})"/>
                     <i class="red-color pdl10">*</i>
 				</p>
 		

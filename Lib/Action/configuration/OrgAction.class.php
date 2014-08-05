@@ -127,16 +127,21 @@ class OrgAction extends Action {
 	public function show_org_area_tree(){
 		$Model = new Model();
 		$org_id = I('org_id');
-		$agent_area_info = $Model->query("select * from qd_agent_area where agent_id=" . $org_id);
-		$area_id_array = null;
-		foreach($agent_area_info as $key=>$val){
-			$area_id_array .= $val['area_id'] . ",";
+		if ($org_id > 0){
+			$agent_area_info = $Model->query("select * from qd_agent_area where agent_id=" . $org_id);
+			$area_id_array = null;
+			foreach($agent_area_info as $key=>$val){
+				$area_id_array .= $val['area_id'] . ",";
+			}
+			if(!empty($area_id_array)){
+				$area_id_array = substr($area_id_array, 0 , -1);
+			}
+			
+			$province_info = $Model->query("select * from bi_area where area_id in ( " . $area_id_array . " )");
+		}else{
+			$province_info = $Model->query("select * from bi_area where level = '1'");
 		}
-		if(!empty($area_id_array)){
-			$area_id_array = substr($area_id_array, 0 , -1);
-		}
-
-		$province_info = $Model->query("select * from bi_area where area_id in ( " . $area_id_array . " )");
+		
 		$data = null;
 		foreach($province_info as $p_key=>$p_val){
 			if(0 == $p_key){
@@ -173,7 +178,6 @@ class OrgAction extends Action {
 		}
 		$data = substr($data, 0 , -1);
 
-		//echo $data;
 		$this->ajaxReturn($data, 'json');
 	}
 

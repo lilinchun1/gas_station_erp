@@ -10,13 +10,14 @@ class SendDevAction extends Action {
 	private $createTime;
 	//延迟时间5分钟
 	private $delayTime = 300; 
-	
+	//判断时间范围（机器指定开机时间前后时间）15分钟
+	private $areaTime = 900;
 	//用于发送接收的socket
 	private $socket;
 	//连接socket
 	private $connect;
 	//对方服务器ip
-	private $host = "211.155.82.229";//"203.195.129.181";//
+	private $host = "211.155.82.229";//"203.195.129.181";//"211.155.82.229"
 	//服务器端口
 	private $port = 14527;
 	
@@ -53,18 +54,35 @@ class SendDevAction extends Action {
 	public function getDevInfo() {
 		$model = new Model();
 		$dev_monitor = new Model("DevMonitor");
+		//事务开始
+		$model->startTrans();
+		$rollback = 0;
 		$sql_dev = "SELECT * FROM qd_device WHERE isDelete = 0";
 
 		$que_dev = $model->query($sql_dev);
 		//标识所有机器是否都没有问题
 		$hasWrongDev = 0;
 		//获取上次监控批次和本次监控批次
-		$sql_monitor_no = "SELECT MAX(monitor_no) monitor_no FROM dev_monitor";
-		$que_monitor_no = $model->query($sql_monitor_no);
-		$last_monitor_no = $que_monitor_no[0]['monitor_no']?$que_monitor_no[0]['monitor_no']:0;
+		$sql_last_monitor_no = "SELECT MAX(monitor_no) monitor_no FROM dev_monitor";
+		$que_last_monitor_no = $model->query($sql_last_monitor_no);
+		$last_monitor_no = $que_last_monitor_no[0]['monitor_no']?$que_last_monitor_no[0]['monitor_no']:0;
 		$monitor_no = $last_monitor_no + 1;
 		
+		//上次问题记录(有些需要延续)
+		$sql_last_monitor = "SELECT * FROM dev_monitor WHERE monitor_no = $last_monitor_no";
+		$que_last_monitor = $model->query($sql_last_monitor);
+		
 		foreach ($que_dev as $k=>$v){
+			//上次请求该设备错误信息
+			$dev_last_monitor = array();
+			foreach($que_last_monitor as $last_k=>$last_v){
+				if($last_v['dev_no'] == $v['device_no']){
+					$dev_last_monitor = $last_v;
+					break;
+				}
+			}
+			
+			
 			
 			//判断各项问题，插入数据库
 			$data = array();
@@ -76,12 +94,23 @@ class SendDevAction extends Action {
 			$hasTrouble = 0;
 			
 			//发送机器状态请求
-			$dev_status = "DEV_STATUS:".$this->getNewSendNum().",dev_uid:".$v['device_no'].",dev_mac:".$v['MAC'].",above_screen,touch_screen,conn_line_1,conn_line_2,conn_line_3,boot_time_length,boot_times,vol,cpu_usage,cpu,mem_usage,mem,disk_usage,disk,wifi,station_3g,wifi_conn_num,station_3g_flow,wifi_send_flow,wifi_recv_flow,conn_line_1_send,conn_line_1_recv,conn_line_2_send,conn_line_2_recv,conn_line_3_send,conn_line_3_recv,station_system,station_client,poweron_time,poweroff_time;";
+			$dev_status = "DEV_STATUS:".$this->getNewSendNum().",dev_uid:".$v['device_no'].",dev_mac:".$v['MAC'].",station_system,poweron_time,poweroff_time;";
 			//发送信息并获取返回各属性值数组
 			$getStrArr = $this->sendRespStrGetRespArr($dev_status,4096);
+			//返回1则未返回数据
+			if($getStrArr == 1){
+				$rollback++;
+				break;
+			}
+			
+			
 			//如果$getStrArr返回空或false则此设备不存在，进行下次循环
 			if(!$getStrArr){
 				$data['unfind'] = 1;
+				$hasTrouble++;
+			//机器未设开机时间的，进行下次循环
+			}else if(!$v['power_on_time']){
+				$data['dev_no_begin_time'] = 1;
 				$hasTrouble++;
 			}else{
 				//获取连接数
@@ -110,12 +139,16 @@ class SendDevAction extends Action {
 					if($dValue >= $v['power_on_time'] && $dValue <= $v['power_off_time']){
 						if($station_system != 0){
 							$data['on_line'] = 1;
+							$data['start_time'] = $poweron_time;
+							$data['shutdown_time'] = $poweroff_time;
 							$hasTrouble++;
 						}
 						//如果在指定时间外还在开机则也返回故障
 					}else if($dValue <= $v['power_on_time'] || $dValue >= $v['power_off_time']){
 						if($station_system == 0){
 							$data['on_line'] = 1;
+							$data['start_time'] = $poweron_time;
+							$data['shutdown_time'] = $poweroff_time;
 							$hasTrouble++;
 						}
 					}
@@ -123,37 +156,18 @@ class SendDevAction extends Action {
 					if($dValue <= $v['power_off_time'] || $dValue >= $v['power_on_time']){
 						if($station_system != 0){
 							$data['on_line'] = 1;
+							$data['start_time'] = $poweron_time;
+							$data['shutdown_time'] = $poweroff_time;
 							$hasTrouble++;
 						}
 					}else if($dValue >= $v['power_off_time'] && $dValue <= $v['power_on_time']){
 						if($station_system == 0){
 							$data['on_line'] = 1;
+							$data['start_time'] = $poweron_time;
+							$data['shutdown_time'] = $poweroff_time;
 							$hasTrouble++;
 						}
 						//如果在指定时间外还在开机则也返回故障
-					}
-				}
-				/*
-				 $str = "";
-				$str .= "\r\n\r\n MAC:$v[MAC]dValue:$dValue----------power_on_time:$v[power_on_time]-----------power_off_time:$v[power_off_time]-----------station_system:$station_system\r\n\r\n";
-				echo $str,"<br/>";
-				file_put_contents($this->logUdpFile, $this->logStr,FILE_APPEND);
-				*/
-				//只有当在线或者正常关机时判断开机是否正常
-				if(($station_system == 0 || $station_system == 1) && $poweron_time){
-					//判断是否正常开机
-					if(($poweron_time - $dateTime) < ($v['power_on_time'] - $this->delayTime) || ($poweron_time - $dateTime) > ($v['power_on_time'] + $this->delayTime)){
-						$data['start_time'] = 1;
-						$hasTrouble++;
-					}
-				}
-					
-				//只有正常关机，并且存在关机时间时，判断关机是否正常
-				if($station_system == 1 && $poweroff_time){
-					//判断是否正常关机
-					if(($poweroff_time - $dateTime) < ($v['power_off_time'] - $this->delayTime)  || ($poweroff_time - $dateTime) > ($v['power_off_time'] + $this->delayTime) ){
-						$data['shutdown_time'] = 1;
-						$hasTrouble++;
 					}
 				}
 			}
@@ -163,14 +177,11 @@ class SendDevAction extends Action {
 			//只存储有故障机器
 			if($hasTrouble){
 				//如果上次错误中有此机器则报错时间仍维持上次时间，否则本次时间
-				$sql = "SELECT wrong_begin_time FROM dev_monitor WHERE monitor_no = $last_monitor_no AND dev_no = '$v[device_no]'";
-				$que = $model->query($sql);
-				if($que){
-					$data['wrong_begin_time'] = $que[0]['wrong_begin_time'];
+				if($dev_last_monitor){
+					$data['wrong_begin_time'] = $dev_last_monitor['wrong_begin_time'];
 				}else{
 					$data['wrong_begin_time'] = $this->createTime;
 				}
-				
 				$dev_monitor->add($data);
 				$hasWrongDev++;
 			}
@@ -184,8 +195,14 @@ class SendDevAction extends Action {
 		}
 		
 		//删除前5次请求之外的数据
-		$sql_del = "DELETE FROM `dev_monitor` WHERE monitor_no < ".($monitor_no-5);
+		$sql_del = "DELETE FROM `dev_monitor` WHERE monitor_no < ".($monitor_no-10);
 		$model->query($sql_del);
+		
+		if($rollback){
+			$model->rollback();
+		}else{
+			$model->commit();
+		}
 		
 		file_put_contents($this->logDevFile, $this->logStr,FILE_APPEND);
 		socket_close ( $this->connect );
@@ -195,23 +212,66 @@ class SendDevAction extends Action {
 	}
 	
 	//发送更新请求
-	function updateApp($channel_id_str,$down_url,$save_path,$file_md5){
+	function updateApp($channel_id_str,$down_url,$save_path,$file_md5,$updateId,$appType){
 		$model = new Model();
+		$appUpdateStatus = new Model("AppUpdateStatus");
 		$where = "where 1";
 		//如果$channel_id_str不存在值则推送全部机器
 		if($channel_id_str){
 			$where .= " and CONCAT('3-',channel_id) IN ($channel_id_str) ";
 		}
 		$sql_dev = "SELECT MAC,device_no FROM qd_device $where";
-		//$sql_dev = "SELECT MAC,device_no FROM qd_device WHERE CONCAT('3-',channel_id) IN ('3-22','3-2')";
 		$que_dev = $model->query($sql_dev);
+		
+		$sql_status = "SELECT * FROM app_update_status WHERE update_id = $updateId";
+		$que_status = $model->query($sql_status);
+		//$sql_dev = "SELECT MAC,device_no FROM qd_device WHERE CONCAT('3-',channel_id) IN ('3-22','3-2')";
+		
 		foreach ($que_dev as $k=>$v){
 			//发送机器状态请求
 			$online_handle = "ONLINE_HANDLE:".$this->getNewSendNum().",dev_uid:".$v['device_no'].",dev_mac:".$v['MAC'].",command:update,web_url:$down_url,path:$save_path,md5:$file_md5;";
 			//发送信息并获取返回各属性值数组
 			$getStrArr = $this->sendRespStrGetRespArr($online_handle,4096);
-			//获取连接数
-			//$link_num = $this->getAttributeVal($getStrArr,"DEV_STATUS_R");
+			//获取更新状态
+			$result = $this->getAttributeVal($getStrArr,"result");
+			$status = $result == 0?1:2;
+			$data = array();
+			//填入对呀字段更新成功状态及时间
+			switch($appType){
+				case C("SmartAppName"):
+					$data['smart_app'] = $status;
+					$data['smart_app_time'] = time();
+					break;
+				case C("VideoPlayerName"):
+					$data['video_player'] = $status;
+					$data['video_player_time'] = time();
+					break;
+				case C("UpdateAppName"):
+					$data['update_app'] = $status;
+					$data['update_app_time'] = time();
+					break;
+				case C("SmartGuardName"):
+					$data['smart_guard'] = $status;
+					$data['smart_guard_time'] = time();
+					break;
+			}
+			
+			//数据库中是否已有该加油站信息0没有，否则有
+			$hasStatus = 0;
+			foreach ($que_status as $statusK=>$statusV){
+				if($statusV['dev_no'] == $v['device_no']){
+					$appUpdateStatus->where("update_id = '$updateId'")->save($data);
+					$hasStatus++;
+					break;
+				}
+			}
+			//没有则添加
+			if($hasStatus == 0){
+				$data['update_id'] = $updateId;
+				$data['dev_mac'] = $v['MAC'];
+				$data['dev_no'] = $v['device_no'];
+				$appUpdateStatus->add($data);
+			}
 		}
 		file_put_contents($this->logUdpFile, $this->logStr,FILE_APPEND);
 	}
@@ -268,7 +328,7 @@ class SendDevAction extends Action {
 	
 	
 	//发送接收信息返回数组
-	function sendRespStrGetRespArr($sendStr,$getStrLength){
+	function sendRespStrGetRespArr($sendStr,$getStrLength,$sendNum = 1,$getNum = 1){
 		//发送字符串
 		socket_write ( $this->socket, $sendStr, strlen ( $sendStr ) );
 		echo $sendStr,"<br/>";
@@ -278,6 +338,9 @@ class SendDevAction extends Action {
 		echo $resp,"<br/><br/>";
 		$this->logStr .= $resp."\r\n\r\n";
 		$resp = rtrim($resp,";");
+		if(!trim($resp)){
+			return 2;
+		}
 		if(substr_count($resp,$this->noDevReturnStr) > 0){
 			return false;
 		}

@@ -399,7 +399,13 @@ function role_check(role_agent_id){
 		//删除框弹出
 		$("#j_del_button").click(function(){
 			//弹出窗口
-			showWindow(1,16,17,'#j_del_win');
+			var aac = $("input[name='radio_list']:checked").val();
+			if (parseInt(aac,10)){
+				showWindow(1,16,17,'#j_del_win');
+			}else{
+				alert("请选择一条职员信息再进行删除！");
+			}
+			
 			return false;
 		});
 		//单击删除确认按钮

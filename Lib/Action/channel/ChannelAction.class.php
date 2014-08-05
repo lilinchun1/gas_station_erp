@@ -272,15 +272,17 @@ class ChannelAction extends Action {
 		$channel_area = M("channel_area");
 		$channel_type_link = M('channel_type_link');
 		$count = $Model->query("select count(*) as count from qd_channel a where a.channel_name='$channel_name'
-		    and	a.province='$province' and a.city='$city'");
-		$channel_delete_count = $Model->query("select count(*) as count from qd_channel where channel_name='$channel_name' and isDelete='1'");
+		    and	a.province='$province' and a.city='$city' and  a.isDelete = '0'");
+		/*$channel_delete_count = $Model->query("select count(*) as count from qd_channel where channel_name='$channel_name' and isDelete='1'");
 		if($channel_delete_count[0]['count'] > 0)
-		{
+		 {
 			$msg = C('add_delete_channel');
 			$this->ajaxReturn($msg,'json');
 			return;
-		}
-		else if($count[0]['count'] > 0)
+		} 
+		else*/
+		
+			 if($count[0]['count'] > 0)
 		{
 			$msg = C('channel_exist');
 			$this->ajaxReturn($msg,'json');
@@ -391,7 +393,7 @@ class ChannelAction extends Action {
 		$Model = new Model();
 		$channel = M("channel");
 		$channel_area = M("channel_area");
-		$result = $channel->query("select ifnull(channel_id,0) as channel_id from qd_channel where channel_name='$channel_name'");
+		$result = $channel->query("select ifnull(channel_id,0) as channel_id from qd_channel where channel_name='$channel_name' and isDelete='0'");
 		$src_agent_id = getAgentIDFromChannelID($channel_id);
 		$src_channel_log_info = $Model->table('qd_channel')->where("channel_id=" . $channel_id)->select();  //查询修改前的信息，用于日志对比
 		$src_channel_log_info[0]['channel_agent_name'] = getAgentNameFromAgentID($src_channel_log_info[0]['agent_id']);

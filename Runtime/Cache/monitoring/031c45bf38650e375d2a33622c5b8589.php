@@ -78,16 +78,20 @@
                             <h4>APP应用</h4>
                             <span><img src="__PUBLIC__/image/1.png" alt=""/></span>
                             <dl class="station-zhuangtai">
+							<!--
                                 <dt><b class="icon-checkmark-circle green-color"></b><em>0</em></dt>
                                 <dt><b class="icon-cancel-circle red-color"></b><em>0</em></dt>
+							-->
                             </dl>
                         </li>
                         <li>
                             <h4>媒体广告</h4>
                             <span><img src="__PUBLIC__/image/4.png" alt=""/></span>
                             <dl class="station-zhuangtai">
+							<!--
                                 <dt><b class="icon-checkmark-circle green-color"></b><em>0</em></dt>
                                 <dt><b class="icon-cancel-circle red-color"></b><em>0</em></dt>
+							-->
                             </dl>
                         </li>
                         <li>
@@ -109,10 +113,12 @@
 
 							<button type="button" class="role-control-btn" id="channel_select">查询</button>
 							<button type="button" class="role-control-btn" id="stationDele">清空</button>
+							<!--
 							<button type="button" class="role-control-btn">导出</button>
+							-->
 						</span>
                         <div class="mode-change">
-                            <a href="" class="active">监控台模式</a> <a href="">列表模式</a>
+                            <!--<a href="" class="active">监控台模式</a><a href="">列表模式</a>-->
                         </div>
                     </div>
                 </div>
@@ -127,11 +133,9 @@
                     <?php if(is_array($showDevPageArr)): foreach($showDevPageArr as $key=>$devBreak): ?><li>
 	                        <div class="station-state-info">
 								<em><?php echo ($devBreak['province']); ?>  <?php echo ($devBreak['city']); ?> <?php echo ($devBreak['place_name']); ?> <?php echo ($devBreak['address']); ?> <?php echo ($devBreak['dev_mac']); ?> <?php echo ($devBreak['dev_no']); ?></em>
-								<p style="margin-top:5px;color:#5c97ee">
-								<b>
-									<em>报警时间 ： <?php echo ($devBreak['wrong_begin_time']); ?></em>
-									<em>报警时长  ： <?php echo ($devBreak['continueTime']); ?></em>
-								</b>
+								<p style="margin-top:5px;">
+									<?php if($devBreak['on_line'] != 0): ?><em>报警时间 ： <?php echo ($devBreak['wrong_begin_time']); ?></em><?php endif; ?>
+									<?php if($devBreak['on_line'] != 0): ?><em>报警时长  ： <?php echo ($devBreak['continueTime']); ?></em><?php endif; ?>
 								</p>
 	                        </div>
 	                        <div class="station-state-dl">
@@ -142,17 +146,20 @@
 										<?php else: ?>
 											<span class="icon-close red-color"></span><?php endif; ?>
 	                                </span>
-	                                <span class="row-lt-l">
-	                                    <em>正常开机</em>
+	                                <span class="row-lt-l" style="color: #5095fc">
+	                                	<?php if($devBreak['on_line'] != 0): echo ($devBreak['start_time']); endif; ?>
+                                        
+	                                    <!--<em>正常开机</em>
 	                                    <?php if($devBreak['start_time'] == 0): ?><span class="icon-checkmark green-color"></span>
 										<?php else: ?>
-											<span class="icon-close red-color"></span><?php endif; ?>
+											<span class="icon-close red-color"></span><?php endif; ?>-->
 	                                </span>
-	                                <span class="row-lt-l">
+	                                <span class="row-lt-l" style="color: #5095fc">
+                                        <!--<?php if($devBreak['on_line'] != 0): echo ($devBreak['shutdown_time']); endif; ?>
 	                                    <em>正常关机</em>
 	                                    <?php if($devBreak['shutdown_time'] == 0): ?><span class="icon-checkmark green-color"></span>
 										<?php else: ?>
-											<span class="icon-close red-color"></span><?php endif; ?>
+											<span class="icon-close red-color"></span><?php endif; ?>-->
 	                                </span>
 	                            </div>
 	                            <div class="row-lt">
@@ -443,12 +450,11 @@
     }
 </script>
 <div id="station_win" style="display:none">
-	<div class="alert-table1" style="background:#fff;width:100%">
+	<div class="alert-table1" style="background:#fff;width:100%;padding-bottom:20px">
 		<div class="role-inquire channel-index-btns">
-			<form name="deviceSelect" method="get" action="<?php echo U('channel/Device/deviceSelect');?>">
 				<p>
-					<label for="yachang_channelName" class="">渠道名称</label>
-					<input type="text" name="yachang_channelName" id="yachang_channelName" value="" class="input-org-info"/>
+					<label for="yichang_channelName" class="">渠道名称</label>
+					<input type="text" name="yachang_channelName" id="yichang_channelName" value="" class="input-org-info"/>
 					<label for="yichang_place_name" class="">网点名称</label>
 					<input type="text" name="yichang_place_name" id="yichang_place_name" value="" class="input-org-info"/>
 					<label for="yichang_address" class="">点位名称</label>
@@ -458,13 +464,21 @@
 					<br>
 					<label for="yichang_devNo" class="">加油站编号</label>
 					<input type="text" name="yichang_devNo" id="yichang_devNo" value="" class="input-org-info"/>
+
+					<label for="yichang_devNoBeginTime" class="">查询数据类型</label>
+					<select class="input-org-info" id="devNoBeginTime" name="devNoBeginTime" value="" style="width:150px">
+						<option value="1">未返回数据的机器</option>
+						<option value="2">未设开机时间的机器</option>
+					</select>
 					<button type="button" class="role-control-btn" id="yichang_select">查询</button>
-					<button type="button" class="role-control-btn">导出</button>
+					<!--<button type="button" class="role-control-btn">导出</button>-->
+					<button type="button" class="role-control-btn" id="yichang_close">关闭</button>
+					<span id="showDevNum"></span>
 				</p>
 
-			</form>
 		</div>
-		<ul class="statistics-list" style="border:0">
+		<div id="table">
+		<ul class="statistics-list" style="border:0" id="yichang_list">
 			<li>
 				<span class='span-1'><b>省份</b></span>
 				<span class='span-1'><b>城市</b></span>
@@ -474,17 +488,8 @@
 				<span class='span-1'><b>MAC</b></span>
 				<span class='span-1'><b>编号</b></span>
 			</li>
-			<li>
-				<span class='span-1'>11111111</span>
-				<span class='span-1'>22222222</span>
-				<span class='span-1'>33333333</span>
-				<span class='span-1'>444444444</span>
-				<span class='span-1'>55555555</span>
-				<span class='span-1'>666666666</span>
-				<span class='span-1'>777777777</span>
-			</li>
-
 		</ul>
+		</div>
 	</div>
 </div>
 <!--树形结构类-->
@@ -492,9 +497,12 @@
 <script type="text/javascript" src="__PUBLIC__/js/tree/jquery.ztree.core-3.5.js"></script>
 <script type="text/javascript" src="__PUBLIC__/js/tree/jquery.ztree.excheck-3.5.js"></script>
 <script type="text/javascript" src="__PUBLIC__/js/jquery.SuperSlide.2.1.1.js"></script>
+<link rel="stylesheet" href="__PUBLIC__/css/jquery.bigautocomplete.css" type="text/css" />
+<script type="text/javascript" src="__PUBLIC__/js/jquery.bigautocomplete.js"></script>
 
 <script>
 //===================================================树形结构js==========================
+var curMenu = null, zTree_Menu = null;
 var setting = {
     data: {
         key: {
@@ -514,11 +522,13 @@ var setting = {
 var handleUrl="<?php echo U('monitoring/Index/getProvinceCity');?>";
 var zNodes=new Array();
 var now=new Date().getTime();//加个时间戳表示每次是新的请求
+var showModel=$("#showModel").val();
 $.ajax({
     type: "POST",
     url: handleUrl,
     async: false,
     dataType: "json",
+	data:{"showModel":showModel},
     success: function(data){
         $.each(data,function(key,val){
             var kid=val['area_id'];
@@ -614,9 +624,206 @@ function zTreeOnClick(event, treeId, treeNode) {
 	window.location.href="<?php echo U('monitoring/Index/station');?>"+"?pageNum="+page_Num+"&areaId="+agent_id+"&level="+level+"&showModel="+showModel;
 };
 var key;
+var p=1;
+function show_yichang(){
+	$(".select_li").remove();//初始化
+	$(".resultpage").remove();//初始化
+	var channelName=$("#yichang_channelName").val();//渠道
+	var place_name=$("#yichang_place_name").val();//网点
+	var address=$("#yichang_address").val();//点位
+	var devMac=$("#yichang_devMac").val();//mac
+	var devNo=$("#yichang_devNo").val();//编号
+	var devNoBeginTime=$("#devNoBeginTime").val();
+	var agent_id=$('#areaId').val();//省市ID
+	var level=$("#level").val();//等级
+	var showModel=2;//监控模式
 
+	var handleUrl = "<?php echo U('monitoring/Index/station');?>";
+	$.getJSON(handleUrl,{
+		"channelName":channelName,
+		"place_name":place_name,
+		"address":address,
+		"devMac":devMac,
+		"devNo":devNo,
+		"devNoBeginTime":devNoBeginTime,
+		"areaId":agent_id,
+		"level":level,
+		"showModel":showModel,
+		"pageNum":p
+		},
+		function (data){
+			var showDevNum=data['showDevNum']//查询总数
+			$("#showDevNum").html("查询共"+showDevNum+"条数据");
+			var showDevPageArr=data['showDevPageArr'];
+			$.each(showDevPageArr, function(i,item){
+				$("#yichang_list").append("<li class='select_li'><span class='span-1'>"+item['province']+"</span><span class='span-1'>"+
+				item['city']+"</span><span class='span-1'>"+
+				item['channel_name']+"</span><span class='span-1'>"+
+				item['place_name']+"</span><span class='span-1'>"+
+				item['address']+"</span><span class='span-1'>"+
+				item['dev_mac']+"</span><span class='span-1'>"+
+				item['dev_no']+"</span></li>");
+			});
+			p = Number(data['pageNum']);//接收当前页
+			var countPageNum = data['countPageNum'];//接收总页数
+			$("#table").append("<div class='resultpage' style=''>"+"<a id='yichang_up_page' style='cursor:pointer'>«</a>"+"<span id='up_pages'></span>"+"<span class='current'>"+p+"</span>"+"<span id='down_pages'></span>"+"<a id='yichang_down_page' style='cursor:pointer'>»</a>"+"<span class='pages-number'>共"+countPageNum+"页</span>"+"<span>到第<select id='select_page_yichang'></select>页</span>"+"</div>");
+			if(p=="1"){
+				$("#yichang_up_page").hide();
+			}
+			if(p==countPageNum){
+				$("#yichang_down_page").hide();
+			}
+			//前面的页码
+			for (var i=p-3;i<=p-1 ; i++)
+			{
+				if(i<=1){
+					break;
+				}
+				if(i>1){
+					$("#up_pages").append("<a class='page_pp' value='"+i+"' style='cursor:pointer'>"+i+"</a>");
+				}
+			}
+			//后面的页码
+			for (var i=p+1;i<=p+3; i++)
+			{
+				if(i<=countPageNum){
+					$("#down_pages").append("<a class='page_pp' value='"+i+"' style='cursor:pointer'>"+i+"</a>");
+				}
+			}
+			//页码select
+			for(var i=1;i<=countPageNum;i++){
+				if(i==p){
+					$("#select_page_yichang").append("<option value='"+i+"' selected='selected'>"+i+"</option>");
+				}else{
+					$("#select_page_yichang").append("<option value='"+i+"'>"+i+"</option>");
+				}
+			}
+			$("#select_page_yichang").change(function(){
+				p=$(this).val();//页数
+				up_yichang();
+			});
+			$(".page_pp").click(function(){
+				p=$(this).text();
+				up_yichang();
+			});
+			$("#yichang_up_page").click(function(){
+				p--;	
+				up_yichang();
+			});
+			$("#yichang_down_page").click(function(){
+				p++;	
+				down_yichang();
+			});
+		}
+	,'json'
+	);
+}
+function up_yichang(){
+	show_yichang(); 
+}
+function down_yichang(){
+	show_yichang(); 
+}
+//网点渠道自动补全方法
+	function channel_name_blurry()
+	{
+		var handleUrl = "<?php echo U('channel/Channel/channelnameBlurrySelect');?>";
+		var channel_name = '';
+		$.getJSON(handleUrl,{},
+			function (data){
+				var str = data;
+				$("#channelName").bigAutocomplete({width:150,data:data,callback:function(data){}});
+			}
+			,'json'
+		);
+	}
+
+	function place_name_blurry()
+	{
+		var handleUrl = "<?php echo U('channel/Place/placenameBlurrySelect');?>";
+		var place_name = '';
+		$.getJSON(handleUrl,{},
+			function (data){
+				var str = data;
+				$("#place_name").bigAutocomplete({width:150,data:data,callback:function(data){}});
+			}
+			,'json'
+		);
+	}
+
+
+
+	function yichang_channel_name_blurry()
+	{
+		var handleUrl = "<?php echo U('channel/Channel/channelnameBlurrySelect');?>";
+		var channel_name = '';
+		$.getJSON(handleUrl,{},
+			function (data){
+				var str = data;
+				$("#yichang_channelName").bigAutocomplete({width:150,data:data,callback:function(data){}});
+			}
+			,'json'
+		);
+	}
+
+	function yichang_place_name_blurry()
+	{
+		var handleUrl = "<?php echo U('channel/Place/placenameBlurrySelect');?>";
+		var place_name = '';
+		$.getJSON(handleUrl,{},
+			function (data){
+				var str = data;
+				$("#yichang_place_name").bigAutocomplete({width:150,data:data,callback:function(data){}});
+			}
+			,'json'
+		);
+	}
+	function address_name_blurry()
+	{
+		var handleUrl = "<?php echo U('channel/Device/deviceAddress');?>";
+		var place_name = '';
+		$.getJSON(handleUrl,{},
+			function (data){
+				var str = data;
+				$("#yichang_address").bigAutocomplete({width:150,data:data,callback:function(data){}});
+			}
+			,'json'
+		);
+	}
+	function mac_name_blurry()
+	{
+		var handleUrl = "<?php echo U('channel/Device/devicemacBlurrySelect');?>";
+		var place_name = '';
+		$.getJSON(handleUrl,{},
+			function (data){
+				var str = data;
+				$("#yichang_devMac").bigAutocomplete({width:150,data:data,callback:function(data){}});
+			}
+			,'json'
+		);
+	}
+	function no_name_blurry()
+	{
+		var handleUrl = "<?php echo U('channel/Device/devicenoBlurrySelect');?>";
+		var place_name = '';
+		$.getJSON(handleUrl,{},
+			function (data){
+				var str = data;
+				$("#yichang_devNo").bigAutocomplete({width:150,data:data,callback:function(data){}});
+			}
+			,'json'
+		);
+	}
+	//自动补全结束
 //===================================================树形结构js结束==========
     $(function () {
+		place_name_blurry();
+		channel_name_blurry();
+		yichang_channel_name_blurry();
+		yichang_place_name_blurry();
+		address_name_blurry();
+		mac_name_blurry();
+		no_name_blurry();
 		//系统监控框 默认样式
 		var showModel_mode=$("#showModel").val();
 		if(showModel_mode==0){
@@ -627,6 +834,10 @@ var key;
 		}
 		//===================================================树形结构js传递==========
 		$.fn.zTree.init($("#treeDemo"), setting, zNodes);
+
+		//console.log(curMenu);
+
+
 		key = $("#key");
 		key.bind("focus", focusKey)
 				.bind("blur", blurKey)
@@ -698,31 +909,14 @@ var key;
 			var place_name=$("#place_name").val();//网点
 			window.location.href="<?php echo U('monitoring/Index/station');?>"+"?pageNum="+page_Num+"&areaId="+agent_id+"&level="+level+"&showModel="+showModel+"&channelName="+channelName+"&place_name="+place_name;
 		});
+
 		//点击系统监控显示数据异常弹出框
 		$("#xitong_2").click(function(){
 			$("#yichang_select").click(function(){
-				var channelName=$("#yichang_channelName").val();//渠道
-				var place_name=$("#yichang_place_name").val();//网点
-				var address=$("#yichang_address").val();//点位
-				var devMac=$("#yichang_devMac").val();//mac
-				var devNo=$("#yichang_devNo").val();//编号
-				var agent_id=$('#areaId').val();//省市ID
-				var level=$("#level").val();//等级
-				var handleUrl = "<?php echo U('monitoring/Index/station');?>";
-				$.getJSON(handleUrl,{
-					"channelName":channelName,
-					"place_name":place_name,
-					"address":address,
-					"devMac":devMac,
-					"devNo":devNo,
-					"agent_id":agent_id,
-					"level":level
-					},
-					function (data){
-						alert(data['channelName']);
-					}
-				,'json'
-				);
+				show_yichang();
+			});
+			$("#yichang_close").click(function(){
+				window.location.href = window.location.href;
 			});
 			$.openDOMWindow({
 			    loader:1,

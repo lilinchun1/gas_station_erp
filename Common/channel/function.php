@@ -168,8 +168,8 @@ function changeNum($option_name='', $up_option_id='', $option_id='', $option='')
 		{
 			$Model->execute("update qd_place set device_num=device_num-1 where place_id='$place_id'");
 			$Model->execute("update qd_channel set device_num=device_num-1 where channel_id=" . $channel_id);
-			$Model->execute("update qd_agent set device_num=device_num-1 where agent_id=" . $agent_id);
-			$Model->execute("update qd_agent set device_num=device_num-1 where agent_id in " . $father_agent_id_string);
+			$Model->execute("update qd_agent set device_num=device_num-1 where agent_id='" . $agent_id."'");
+			$Model->execute("update qd_agent set device_num=device_num-1 where agent_id in " . $father_agent_id_string); 
 		}
 	}
 }

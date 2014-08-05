@@ -23,37 +23,45 @@ class RoleAction extends Action {
 		//echo json_encode($orgid);exit;
 		$role_name = trim(I('role_name_txt')); 
 		$org_name = I('org_name_txt');//h
-		
+		$sub_agent_id = getSubAgentStringFromFatherAgent($userinfo['orgid']);
 		//$page_show_number = 30;       //每页显示的数量
 		C('page_show_number')?$page_show_number=C('page_show_number'):$page_show_number=30;  //每页显示的数量
-		$where = ' where 1=1 ';
+		$where = ' where a.rolename is not null and a.del_flag="0" and b.isDelete = "0"';
 		if(!empty($role_name))
 		{
 			$where .= " and a.rolename='$role_name'";
+			//$where_count .= " and rolename='$role_name'";
 		}
 		if(!empty($org_name)) 
 		{
 			$org_id = getAgentIDFromAgentName($org_name);
-			$where .= " and a.role_agent_id='$org_id'";
+			$where .= " and a.role_agent_id=$org_id ";
+			//$where .= " and a.role_agent_id=$orgid";
+			//$where_count .= " and role_agent_id=$orgid ";
 		}
 	
 		if($orgid){
-			$where .= " and a.role_agent_id=$orgid";
+			$where .= " and (a.role_agent_id = $orgid or a.role_agent_id in $sub_agent_id)";
+			//$where .= " and a.role_agent_id = $orgid ";
 			
-			$where_count = " where role_agent_id=$orgid and agent_id=$org_id";
+			//$where_count .= " and (role_agent_id=$orgid or role_agent_id in $sub_agent_id)";
+			//$where_count = " where role_agent_id=$orgid and agent_id=$org_id";
 		}
-
-		$que_count = $model->query("select count(*) count from bi_role $where_count");
+		
+		$que_count = $model->query("SELECT count(*) count FROM qd_agent b LEFT JOIN bi_role a ON a.role_agent_id = b.agent_id $where");
+		//$que_count = $model->query("select count(*) count from bi_role a $where_count");
+		
 		$count = $que_count[0]['count'];
 		//echo $count;exit;
 		$Page       = new Page($count, $page_show_number);// 实例化分页类 传入总记录数
 		$show       = $Page->show();// 分页显示输出
 		// 进行分页数据查询
+
 		//$list = $model->table('bi_role a')->order('a.roleid desc')->limit($Page->firstRow.','. $Page->listRows)->select();
 		$sql = "
-				SELECT * FROM bi_role a
-				LEFT JOIN qd_agent b ON a.role_agent_id = b.agent_id
-				$where
+				SELECT * FROM qd_agent b 
+				LEFT JOIN bi_role a ON a.role_agent_id = b.agent_id 
+				$where 
 				order by a.roleid desc
 				limit $Page->firstRow,$Page->listRows
 				";
@@ -275,10 +283,15 @@ class RoleAction extends Action {
 			$menu_info = $model->query("select menu_id, menuname, url, pid from bi_menu");
 		}
 		$data = null;
+		$loopid = -1;
 		foreach($menu_info as $key=>$val){
-			$data[$key]['id'] = $val['menu_id'];
-			$data[$key]['value'] = $val['menuname'];
-			$data[$key]['parent'] = $val['pid'];
+			if (!empty($val['menu_id'])){
+				$loopid ++;
+				$data[$loopid]['id'] = $val['menu_id'];
+				$data[$loopid]['value'] = $val['menuname'];
+				$data[$loopid]['parent'] = $val['pid'];
+			}
+			
 		}
 		$this->ajaxReturn($data, 'json');
 	}
@@ -319,5 +332,7 @@ class RoleAction extends Action {
 		$que = $model->query($sql);
 		echo json_encode($que);
 	}
+	
+	
 }
 ?>

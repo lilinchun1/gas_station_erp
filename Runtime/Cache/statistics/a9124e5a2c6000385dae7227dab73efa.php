@@ -2,7 +2,7 @@
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
-    <title>渠道信息</title>
+    <title>用户行为分析</title>
     <link rel="stylesheet" href="__PUBLIC__/css/configuration.css"/>
     <link rel="stylesheet" href="../../Public/css/configuration.css"/>
     <script type="text/javascript" src="__PUBLIC__/js/jquery-1.10.2.min.js"></script>
@@ -13,7 +13,7 @@
             min-width: 990px;
         }
         .role-control{
-            width: 98%;}
+            width: 99.7%;}
     </style>
 </head>
 <body>
@@ -49,8 +49,8 @@
 </div>
 
 <div id="container" style="min-width: 990px">
-<div class="left">
-    
+    <div class="left">
+        
 <ul class="aside-nav">
     <li class="aside-nav-nth1"><a>运营分析<i class="j-show-list">-</i></a>
         <ul>
@@ -84,147 +84,109 @@
         </ul>
     </li>
 </ul>
-</div>
-<div class="right">
-<div class="right-con">
-<div class="org-right-con">
-<div class="role-control" id="j-fixed-top">
-    <div class="role-inquire channel-index-btns">
-        <form name="channelSelect" method="get" action="">
-            <p>
-                <label for="channel-class1" class="">组织机构</label>
-                <select name="channel_first_type_sel" id="channel-class1" class="channel-select">
-                    <option value="">总公司</option>
-                </select>
-                <label for="channel-class1" class="">区域</label>
-                <select name="channel_first_type_sel" id="channel-class1" class="channel-select-min">
-                    <option value="">省份</option>
-                </select>
-                <select name="channel_second_type_sel" id="channel_second_type_sel" class="channel-select-min">
-                    <option value="">城市</option>
-                </select>
-                <label for="channel-class1" class="">渠道类型</label>
-                <select name="channel_first_type_sel" id="channel-class1" class="channel-select-min">
-                    <option value="">全部</option>
-                </select>
-                <select name="channel_second_type_sel" id="channel_second_type_sel" class="channel-select-min">
-                    <option value="">全部</option>
-                </select>
-                <label for="channel-org-name" class="">渠道名称</label>
-                <input type="text" name="channel-org-name" id="channel-org-name"  class="input-org-info"
-                       value=""/>
-                <label for="channel-org-name" class="">网点名称</label>
-                <input type="text" name="channel-org-name" id="channel-org-name"  class="input-org-info"
-                       value=""/>
-            </p>
-            <p>
-                <label for="channel-org-name" class="">加油站编号</label>
-                <input type="text" name="channel-org-name" id="channel-org-name"  class="input-org-info"
-                       value=""/>
-                <input type="radio" name="period" id="month"/>
-                <label for="month">按月统计</label>
-                <input type="radio" name="period" id="week"/>
-                <label for="week">按周统计</label>
-                <input type="radio" name="period" id="day"/>
-                <label for="day">按天统计</label>
-                <input type="text" name="contract_end_time_1" id="contract_end_time_1" class="input-org-info"
-                       value="<?php echo ($_GET['contract_end_time_1']); ?>" onClick="WdatePicker()"/>
-                &nbsp;至&nbsp;
-                <input type="text" name="contract_end_time_2" id="contract_end_time_2" class="input-org-info"
-                       value="<?php echo ($_GET['contract_end_time_2']); ?>" onClick="WdatePicker()"/>
-                <input type="text" name="select_del_flag_txt" id="select_del_flag_txt" value="0" style="display:none;"/>
-                <input type="submit" class="role-control-btn" value="查询" />
-            </p>
-        </form>
     </div>
+    <div class="right">
+        <div class="right-con">
+            <div class="org-right-con">
+                <div class="role-control" id="j-fixed-top">
+                    <div class="role-inquire channel-index-btns">
+                        <form name="channelSelect" method="get" action="">
+                            <p>
+                                <label for="channel-class1" class="">组织机构</label>
+                                <select name="channel_first_type_sel" id="channel-class1" class="channel-select">
+                                    <option value="">总公司</option>
+                                </select>
+                                <label for="channel-class1" class="">区域</label>
+                                <select name="channel_first_type_sel" id="channel-class1" class="channel-select-min">
+                                    <option value="">省份</option>
+                                </select>
+                                <select name="channel_second_type_sel" id="channel_second_type_sel" class="channel-select-min">
+                                    <option value="">城市</option>
+                                </select>
+                                <label for="channel-class1" class="">渠道类型</label>
+                                <select name="channel_first_type_sel" id="channel-class1" class="channel-select-min">
+                                    <option value="">全部</option>
+                                </select>
+                                <select name="channel_second_type_sel" id="channel_second_type_sel" class="channel-select-min">
+                                    <option value="">全部</option>
+                                </select>
+                                <label for="channel-org-name" class="">渠道名称</label>
+                                <input type="text" name="channel-org-name" id="channel-org-name"  class="input-org-info"
+                                       value=""/>
+                                <label for="channel-org-name" class="">网点名称</label>
+                                <input type="text" name="channel-org-name" id="channel-org-name"  class="input-org-info"
+                                       value=""/>
+                            </p>
+                            <p>
+                                <label for="channel-org-name" class="">加油站编号</label>
+                                <input type="text" name="channel-org-name" id="channel-org-name"  class="input-org-info"
+                                       value=""/>
 
-</div>
-<div class="role-table station-chart">
-    <div class="hd">
-        <ul class="channel-tab">
-            <li>按用户量分析</li>
-            <li>按用户类型分析</li>
-        </ul>
-    </div>
-    <div class="bd">
-        <div class="div-tab-chart">
-            <div class="tongji-tu">
-                <div id="container_table" style="min-width: 400px; height: 350px; margin: 0 auto"></div>
-            </div>
-            <div class="list-wrap-statistics">
-                <!--<div class="bingtu">
-                    <div class="bingtu-tt">
-                        安装量分析
+                                <label for="day">统计日期</label>
+                                <input type="text" name="contract_end_time_1" id="contract_end_time_1" class="input-org-info"
+                                       value="<?php echo ($_GET['contract_end_time_1']); ?>" onClick="WdatePicker()"/>
+                                &nbsp;至&nbsp;
+                                <input type="text" name="contract_end_time_2" id="contract_end_time_2" class="input-org-info"
+                                       value="<?php echo ($_GET['contract_end_time_2']); ?>" onClick="WdatePicker()"/>
+                                <input type="text" name="select_del_flag_txt" id="select_del_flag_txt" value="0" style="display:none;"/>
+                                <label for="channel-class1" class="">用户类型</label>
+                                <select name="channel_first_type_sel" id="channel-class1" class="channel-select">
+                                    <option value="">全部</option>
+                                </select>
+                                <input type="submit" class="role-control-btn" value="查询" />
+                            </p>
+                        </form>
                     </div>
-                    <div id="dabing_container" style="min-width:200px;height: 325px"></div>
-                </div>-->
-                <div class="role-table">
-                    <div class="data-log">
-                        <h3 class="biao-tt">用户接入量明细<input type="submit" class="role-control-btn fr-btn" value="导出" /></h3>
 
-                    </div>
-                    <ul class="statistics-list">
-                        <li>
-                            <span class='span-1'><b>日期</b></span>
-                            <span class='span-1'><b>使用人数</b></span>
-                            <span class='span-1'><b>下载应用人数</b></span>
-                            <span class='span-1'><b>用户转化率</b></span>
-                        </li>
-                        <li>
-                            <span class='span-1'>11111111</span>
-                            <span class='span-1'>22222222</span>
-                            <span class='span-1'>33333333</span>
-                            <span class='span-1'>44444444</span>
-
-                        </li>
-
-                    </ul>
                 </div>
-            </div>
-        </div>
-        <div class="div-tab-chart">
-
-            <div class="list-wrap-statistics">
-				<div class="tongji-tu" id="avg_div">
-					<div id="type_container" style="min-width:400px; height: 400px; margin: 0 auto; "></div>
-                </div>
-                <div class="role-table">
-                    <div class="data-log">
-                        <h3 class="biao-tt">平均安装量<input type="submit" class="role-control-btn fr-btn" value="导出" /></h3>
-
+                <div class="role-table station-chart">
+                    <div class="tubiao tubiao2">
+                        <div class="bingtu bingtu2">
+                            <div class="bingtu-tt">
+                                安装次数分析
+                            </div>
+                            <div id="dabing_container"></div>
+                        </div>
+                        <div class="bingtu bingtu2">
+                            <div class="bingtu-tt">
+                                安装内容分析
+                            </div>
+                            <div id="dabing_container"></div>
+                        </div>
+                        <div class="bingtu bingtu2">
+                            <div class="bingtu-tt">
+                                用户粘度分析
+                            </div>
+                            <div id="dabing_container"></div>
+                        </div>
                     </div>
-                    <ul class="statistics-list">
-                        <li>
-                            <span class='span-1'><b>日期</b></span>
-                            <span class='span-1'><b>ios使用人数</b></span>
-                            <span class='span-1'><b>ios下载应用人数</b></span>
-                            <span class='span-1'><b>ios用户转化率</b></span>
-                            <span class='span-1'><b>Android使用人数</b></span>
-                            <span class='span-1'><b>Android下载应用人数</b></span>
-                            <span class='span-1'><b>android用户转化率</b></span>
-                        </li>
-                        <li>
-                            <span class='span-1'>11111111</span>
-                            <span class='span-1'>22222222</span>
-                            <span class='span-1'>33333333</span>
-                            <span class='span-1'>44444444</span>
-                            <span class='span-1'>22222222</span>
-                            <span class='span-1'>33333333</span>
-                            <span class='span-1'>44444444</span>
-                        </li>
-                    </ul>
+                    <div class="div-tab-chart">
+                            <div class="list-wrap-statistics">
+                                <div class="role-table w66p">
+                                    <div class="data-log">
+                                        <h3>人均安装量</h3>
+
+                                    </div>
+                                    <div class="tubiao3">
+                                        111111111111111111111111
+                                    </div>
+                                </div>
+                            </div>
+                        <div class="bingtu">
+                            <div class="bingtu-tt">
+                                用户停留时长分析
+                            </div>
+                            <div id="dabing_container"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bk3">
+
                 </div>
             </div>
         </div>
     </div>
-</div>
-
-<div class="bk3">
-
-</div>
-</div>
-</div>
-</div>
 </div>
 
 <script type="text/javascript" src="__PUBLIC__/js/jquery.SuperSlide.2.1.1.js"></script>
@@ -407,7 +369,7 @@ $(function () {
             zoomType: 'xy'
         },
         title: {
-            text: '用户量分析'
+            text: '安装量分析'
         },
         subtitle: {
             text: ''
@@ -416,9 +378,117 @@ $(function () {
             categories: ['1月份', '2月份', '3月份', '4月份', '5月份', '6月份',
                 '7月份', '8月份', '9月份', '10月份', '11月份', '12月份']
         }],
-		colors:[
+        yAxis: [{ // Primary yAxis
+            labels: {
+                format: '{value}%',
+                style: {
+                    color: Highcharts.getOptions().colors[1]
+                }
+            },
+            title: {
+                text: '',
+                style: {
+                    color: Highcharts.getOptions().colors[1]
+                }
+            }
+        }, { // Secondary yAxis
+            title: {
+                text: '',
+                style: {
+                    color: Highcharts.getOptions().colors[0]
+                }
+            },
+            labels: {
+                format: '{value} ',
+                style: {
+                    color: Highcharts.getOptions().colors[0]
+                }
+            },
+            opposite: true
+        }],
+        tooltip: {
+            shared: true
+        },
+        plotOptions: {
+            line: {
+                dataLabels: {
+                    enabled: true
+                },
+                enableMouseTracking: false
+            }
+        },
+
+        series: [{
+            name: '安装总量',
+            type: 'column',
+            yAxis: 1,
+            data: [49.9, 71.5, 106.4, 129.2, 144.0, 176.0, 135.6, 148.5, 216.4, 194.1, 95.6, 54.4],
+            tooltip: {
+                valueSuffix: ' '
+            }
+
+
+        },{
+            name: 'ios安装量',
+            type: 'column',
+            yAxis: 1,
+            data: [49.9, 71.5, 106.4, 129.2, 144.0, 176.0, 135.6, 148.5, 216.4, 194.1, 95.6, 54.4],
+            tooltip: {
+                valueSuffix: ' '
+            },
+            visible: false//默认隐藏
+        },
+            {
+                name: 'Android安装量',
+                type: 'column',
+                yAxis: 1,
+                data: [49.9, 71.5, 106.4, 129.2, 144.0, 176.0, 135.6, 148.5, 216.4, 194.1, 95.6, 54.4],
+                tooltip: {
+                    valueSuffix: ' '
+                },
+                visible: false//默认隐藏
+            },{
+                name: '成功安装率',
+                type: 'spline',
+                data: [7.0, 6.9, 9.5, 14.5, 18.2, 21.5, 25.2, 26.5, 23.3, 18.3, 13.9, 9.6],
+                tooltip: {
+                    valueSuffix: '%'
+                }
+            },
+            {
+                name: 'IOS安装率',
+                type: 'spline',
+                data: [9.6, 10.9, 19.5, 24.5, 38.2, 11.5, 15.2, 16.5, 13.3, 28.3, 33.9, 29.6],
+                tooltip: {
+                    valueSuffix: '%'
+                },
+                visible: false//默认隐藏
+            },
+            {
+                name: 'Android安装率',
+                type: 'spline',
+                data: [17.0, 26.9, 39.5, 44.5, 28.2, 11.5, 15.2, 26.5, 33.3, 48.3, 53.9, 19.6],
+                tooltip: {
+                    valueSuffix: '%'
+                },
+                visible: false//默认隐藏
+            }
+        ]
+    });
+
+//大饼图
+    $('#dabing_container').highcharts({
+        chart: {
+            type: 'pie',
+            options3d: {
+                enabled: true,
+                alpha: 45,
+                beta: 0
+            }
+        },
+        colors:[
             '#77a1e5',//第一个颜色
-            'red',//第二个颜色
+            '#f15c80',//第二个颜色
             '#a6c96a',//第三个颜色
             '#1aadce', //。。。。
             '#492970',
@@ -427,226 +497,108 @@ $(function () {
             '#c42525',
             '#a6c96a'
         ],
-		yAxis: [
-				{ // Primary yAxis
-					labels: {
-						format: '{value}%',
-						style: {
-							color: Highcharts.getOptions().colors[0]
-						}
-					},
-					title: {
-						text: '',
-						style: {
-							color: Highcharts.getOptions().colors[0]
-						}
-					},
-					opposite: true
-				},
-				{ // Secondary yAxis
-					title: {
-						text: '',
-						style: {
-							color: Highcharts.getOptions().colors[1]
-						}
-					},
-					labels: {
-						format: '{value}',
-						style: {
-							color: Highcharts.getOptions().colors[1]
-						}
-					}
-				}
-				],
-
-			tooltip: { 
-				formatter: function() { 
-					if(this.point.stackTotal!=undefined){
-						return '<b>'+ this.x +'</b><br>'+ this.series.name +': '+ this.y +'<br>'+ '接入用户总量: '+ this.point.stackTotal; 
-					}else{
-						return '<b>'+ this.x +'</b><br>'+ this.series.name +': '+ this.y +'<br>'; 
-					}
-				} 
-			}, 
-			plotOptions: { 
-					column: {
-						stacking: 'normal',
-						/*dataLabels: {
-							enabled: true, color: (Highcharts.theme && Highcharts.theme.dataLabelsColor) || 'white' 
-						} */
-					} 
-			},
-
-
-        series: [{
-				name:'未安装用户数量',
-                type: 'column',
-                data: [3, 4, 4, 2, 5,3,1,4,1,6,7,4],
-				yAxis: 1
-            },{
-                name: '安装用户数量',
-				type: 'column',
-                data: [5, 3, 4, 7, 2 ,3,1,4,1,4,1,2],
-				yAxis: 1
-            },
-			{
-				name: '用户转化率',
-				type: 'spline',
-				data: [7.0, 6.9, 9.5, 14.5, 18.2, 21.5, 25.2, 26.5, 23.3, 18.3, 13.9, 9.6],
-				tooltip: {
-					valueSuffix: '%'
-				},
-				yAxis: 0
-			}]
-    });
-
-    //用户类型分析
-    $('#type_container').highcharts({
-           chart: {
-                zoomType: 'xy'
-            },
-            title: {
-                text: '用户类型分析'
-            },
-            subtitle: {
-                text: ''
-            },
-            xAxis: [{
-                categories: ['1月份', '2月份', '3月份', '4月份', '5月份', '6月份',
-                    '7月份', '8月份', '9月份', '10月份', '11月份', '12月份']
-            }],
-			lang: {
-				printChart:"打印图表",
-				downloadJPEG:"下载JPEG格式图片",
-				downloadPDF:"下载PDF格式文件",
-				downloadPNG:"下载PNG格式图片",
-				downloadSVG:"下载SVG格式文件"
-			},
-			colors:[
-				'#77a1e5',//第一个颜色
-				'red',//第二个颜色
-				'#1aadce', //。。。。
-				'#f15c80',//第三个颜色
-				
-				   '#492970',
-				   '#f28f43', 
-				   'blue', 
-				   '#c42525', 
-				   '#a6c96a'
-			],
-            yAxis: [
-				{ // Primary yAxis
-					labels: {
-						format: '{value}%',
-						style: {
-							//color: Highcharts.getOptions().colors[0]
-						}
-					},
-					title: {
-						text: '',
-						style: {
-							//color: Highcharts.getOptions().colors[0]
-						}
-					},
-					opposite: true
-				},
-				{ // Secondary yAxis
-					title: {
-						text: '',
-						style: {
-							color: Highcharts.getOptions().colors[1]
-						}
-					},
-					labels: {
-						format: '{value}',
-						style: {
-							color: Highcharts.getOptions().colors[1]
-						}
-					}
-					
-				}
-				],
-			tooltip: { 
-				formatter: function() { 
-						//console.log(this.series.name);
-						if(this.series.name=="IOS安装用户数量"){
-							return '<b>'+ this.x +'IOS</b><br>接入用户总量: '+ this.point.stackTotal+'<br>安装用户数量:'+this.y+'<br>未安装用户数量'+ (this.point.stackTotal-this.y) +'<br>'; 
-						};
-						if(this.series.name=="IOS未安装用户数量"){
-							return '<b>'+ this.x +'IOS</b><br>接入用户总量: '+ this.point.stackTotal+'<br>安装用户数量:'+(this.point.stackTotal-this.y)+'<br>未安装用户数量'+ this.y +'<br>'; 
-						};
-						if(this.series.name=="Android安装用户数量"){
-							return '<b>'+ this.x +'Android</b><br>接入用户总量: '+ this.point.stackTotal+'<br>安装用户数量:'+this.y+'<br>未安装用户数量'+ (this.point.stackTotal-this.y) +'<br>'; 
-						};
-						if(this.series.name=="Android未安装用户数量"){
-							return '<b>'+ this.x +'Android</b><br>接入用户总量: '+ this.point.stackTotal+'<br>安装用户数量:'+(this.point.stackTotal-this.y)+'<br>未安装用户数量'+ this.y +'<br>'; 
-						};
-						if(this.series.name=="ios用户转化率"||this.series.name=="Android用户转化率"){
-							return '<b>'+ this.x +'</b><br>'+ this.series.name + this.y +'<br>';
-						};
-				} 
-
-			}, 
-			plotOptions: { 
-					column: {
-						stacking: 'normal',
-						dataLabels: {
-							enabled: false, color: (Highcharts.theme && Highcharts.theme.dataLabelsColor) || 'white' 
-						} 
-					} 
-			},
-
-            series: [{
-                name: 'IOS未安装用户数量',
-                type: 'column',
-                yAxis: 1,
-                data: [49, 71, 106, 129, 144, 176, 135, 148, 216, 194, 95, 54],
-				stack: 'ios'
-    
-            },
-			{
-                name: 'IOS安装用户数量',
-				type: 'column',
-				yAxis: 1,
-                data: [115, 113, 114, 117, 121 ,113,111,141,111,141,111,121],
-				stack: 'ios'
-            },
-			{
-				name:'Android未安装用户数量',
-                type: 'column',
-				yAxis: 1,
-                data: [33, 44, 14, 52, 75,73,61,64,61,66,74,44],
-				stack: 'Android'
-            },{
-			    name: 'Android安装用户数量',
-                type: 'column',
-                yAxis: 1,
-                data: [49, 71, 106, 129, 144, 176, 135, 148, 216, 194, 95, 54],
-				stack: 'Android'
-				//visible: false//默认隐藏
-            },
-
-
-			{
-                name: 'ios用户转化率',
-                type: 'spline',
-                data: [7.0, 6.9, 9.5, 14.5, 18.2, 21.5, 25.2, 26.5, 23.3, 18.3, 13.9, 9.6],
-                tooltip: {
-                    valueSuffix: '%'
-                },
-				yAxis: 0
-            },
-			 {
-                name: 'Android用户转化率',
-                type: 'spline',
-                data: [9.6, 10.9, 19.5, 24.5, 38.2, 11.5, 15.2, 16.5, 13.3, 28.3, 33.9, 29.6],
-                tooltip: {
-                    valueSuffix: '%'
-                },
-				yAxis: 0
-				//visible: false//默认隐藏
+        title: {
+            text: '安装量类型分析'
+        },
+        tooltip: {
+            pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+        },
+        plotOptions: {
+            pie: {
+                allowPointSelect: true,
+                cursor: 'pointer',
+                depth: 35,
+                dataLabels: {
+                    enabled: true,
+                    format: '{point.name}'
+                }
             }
-			]
+        },
+        series: [{
+            type: 'pie',
+            name: '安装率',
+            data: [
+                ['游戏',   45.0],
+                ['图书',   26.8],
+                ['应用',    8.5]
+            ]
+        }]
+    });
+    //平均安装量
+    $('#avg_container').highcharts({
+        chart: {
+            type: 'area'
+        },
+        xAxis: [{
+            categories: ['1月份', '2月份', '3月份', '4月份', '5月份', '6月份',
+                '7月份', '8月份', '9月份', '10月份', '11月份', '12月份']
+        }],
+        yAxis: {
+            min: 0,
+            title: {
+                text: '平均安装量'
+            }
+        },
+        colors:[
+            '#77a1e5',//第一个颜色
+            '#f15c80',//第二个颜色
+            '#a6c96a',//第三个颜色
+            '#1aadce', //。。。。
+            '#492970',
+            '#f28f43',
+            'blue',
+            '#c42525',
+            '#a6c96a'
+        ],
+        title: {
+            text: '平均安装量分析'
+        },
+        labels: {
+            format: '{value} ',
+            style: {
+                color: Highcharts.getOptions().colors[0]
+            }
+        },
+        series: [{
+            type: 'area',
+            name: '平均总安装量',
+            data: [17.0, 26.9, 39.5, 44.5, 28.2, 11.5, 15.2, 26.5, 33.3, 48.3, 53.9, 19.6],
+        }]
+    });
+    //top10
+    $('#top_container').highcharts({
+        chart: {
+            type: 'bar'
+        },
+        title: {
+            text: '平均安装量排名'
+        },
+        xAxis: {
+            categories: ['大连', '北京', '鞍山', '长春', '哈尔滨','济南','天津','重庆','桂林','宁夏']
+        },
+        yAxis: {
+            title: {
+                text: ''
+            }
+        },
+        legend: {
+            reversed: true
+        },
+        labels: {
+            format: '{value} ',
+            style: {
+                color: Highcharts.getOptions().colors[0]
+            }
+        },
+        plotOptions: {
+            series: {
+                stacking: 'normal'
+            }
+        },
+        series: [{
+            name: '平均安装量',
+            data: [50, 40, 35, 30, 25,20,18,15,10,5]
+        }]
     });
     jQuery(".role-table").slide({trigger:"click"});
 });

@@ -13,7 +13,7 @@
 <body>
 <div class="head-wrap">
 <div id="head">
-    <h1 class="head-logo"><a href="index.html">ERP管理系统</a></h1>
+    <h1 class="head-logo"><a href="<?php echo U('configuration/Login/default_index');?>">ERP管理系统</a></h1>
     <h2 class="head-tt">智能手机加油站业务支撑系统</h2>
     <div class="login">
         <div class="left">
@@ -66,7 +66,9 @@
 						
 							<label for="role-name" class="role-lab">角色名称</label>
 							<input type="text" name="role_name_txt" id="role_name_txt" value="<?php echo ($_GET['role_name_txt']); ?>" autocomplete="off" class="input-org-info"/>
+							
 							<input type="submit" id="select_button" name="select_button" class="role-control-btn" value="查询" />
+							<input type="button" id="roleDala" class="role-control-btn" value="清空"/> 
 						</form>
 					</div>
 					<div class="org-right-btns">
@@ -115,7 +117,7 @@
 <!-- 控制当期页面菜单样式 -->
 <input type="hidden" class="nowUrl" value="<?php echo ($nowUrl); ?>">
 <script type="text/javascript" src="__PUBLIC__/js/default_load.js"></script>
-<script type="text/javascript" src="__PUBLIC__/js/jquery-1.6.1.js"></script>
+
 <script type="text/javascript" src="__PUBLIC__/js/jquery.DOMwindow.js" type="text/javascript"></script><!--模框JS插件-->
 <div id="change_password_id" style="display:none;">
     <div class="alert-role-add" >
@@ -144,7 +146,7 @@
 </div>
 
 <div class="divout" id="j_logout_win" style="display:none;">
-	<div class="alert-role-add" >
+	<div class="alert-role-add exit-alert" >
 		<h3>退出</h3>
 		<div class="alert-role-add-con">
 			<p class="delete-message">确认退出？</p>
@@ -308,7 +310,7 @@
 				<!--权限树形-->
 				<div class="zTreeDemoBackground left">
 					<ul id="treeDemo" class="ztree"></ul>
-					<input type="text" value="" id="add_quanxian_id"/>
+					<input type="hidden" value="" id="add_quanxian_id"/>
 				</div>
 				
 			</p>
@@ -345,7 +347,7 @@
 					<button type="button" class="alert-btn2" id="j_mod_close">关闭</button>
 
 				</p>
-				<input type="text" id="mod_id_hide" value=""/>
+				<input type="hidden" id="mod_id_hide" value=""/>
 			</form>
 		</div>
 		<div class="tree">
@@ -355,7 +357,7 @@
                 <!--权限树形-->
 				<div class="zTreeDemoBackground left">
 					<ul id="mod_treeDemo" class="ztree"></ul>
-					<input type="text" value="" id="mod_quanxian_id"/>
+					<input type="hidden" value="" id="mod_quanxian_id"/>
 				</div>
 			<div id="mod_menuContent" class="menuContent" style="display:none; ">
 				<ul id="mod_treeDemo" class="ztree" style="margin-top:0; width:50px; height: 50px;"></ul>
@@ -411,7 +413,7 @@ $(function(){
 	//===================================================================默认执行
 
 	//给添加修改赋组织值
-	var getAgentUrl = "<?php echo U('configuration/Role/getAgentArr');?>";
+	var getAgentUrl = "<?php echo U('configuration/Org/show_org_tree');?>";
 	$.post(getAgentUrl,{},function(data){
 		$.each(data,function(i,n){
 			var mstr = "";
@@ -423,7 +425,7 @@ $(function(){
 				case 5:mstr = "==========";break;
 				case 6:mstr = "============";break;
 			}
-			$(".role_agent_id").append("<option value='"+n['agent_id']+"'>"+mstr+n['agent_name']+"</option>");
+			$(".role_agent_id").append("<option value='"+n['id']+"'>"+mstr+n['value']+"</option>");
 		})
 	},"json");
 	
@@ -480,8 +482,21 @@ $(function(){
 			var add_menu_id_txt = $("#add_quanxian_id").val();// 权限ID
 			// alert(add_menu_id_txt);return;
 			var role_agent_id = $("#role_agent_id_add").val();
-			// alert(add_role_name_txt);
-			// return false;
+			if (add_role_name_txt=="")
+			{
+				alert("请输入角色名称");
+				return false;
+			}
+			if (role_agent_id=="")
+			{
+				alert("请选择所属组织机构");
+				return false;
+			}
+			if (add_menu_id_txt=="")
+			{
+				alert("请设置权限");
+				return false;
+			}
 			var add_handleUrl = "<?php echo U('configuration/Role/add_role');?>";
 			$.getJSON(add_handleUrl, {
 				"add_role_name_txt" : add_role_name_txt,
@@ -727,6 +742,21 @@ $(function(){
 					var role_agent_id = $("#role_agent_id_udp").val();
 					var modify_memo_txt = $("#mod_memo").val();// 描述
 					var modify_menu_id_txt = $("#mod_quanxian_id").val();// 权限id
+					if (modify_role_name_txt=="")
+					{
+						alert("请输入角色名称");
+						return false;
+					}
+					if (role_agent_id=="")
+					{
+						alert("请选择所属组织机构");
+						return false;
+					}
+					if (modify_menu_id_txt=="")
+					{
+						alert("请设置权限");
+						return false;
+					}
 					var mod_save_handleUrl = "<?php echo U('configuration/Role/edit_role');?>";
 					$.getJSON(
 						mod_save_handleUrl,

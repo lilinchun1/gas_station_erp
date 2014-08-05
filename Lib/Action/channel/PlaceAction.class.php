@@ -28,8 +28,8 @@ class PlaceAction extends Action {
 		$channel_name = trim(I('channel_name_txt'));
 		$province = trim(I('select_province'));
 		$city = trim(I('select_city'));
-		$test_end_time_1 = trim(I('select_test_end_time_1'));
-		$test_end_time_2 = trim(I('select_test_end_time_2'));
+		$test_end_time_1 = strtotime(trim(I('select_test_end_time_1')));
+		$test_end_time_2 = strtotime(trim(I('select_test_end_time_2')));
 		$del_flag_txt = trim(I('select_del_flag_txt'));
 		$is_place_select_show = 1;
 		//$page_show_number = 30;       //每页显示的数量
@@ -84,6 +84,7 @@ class PlaceAction extends Action {
 		$show       = $Page->show();// 分页显示输出
 		// 进行分页数据查询
 		$list = $Model->table('qd_place a')->where($where)->order('a.place_id desc')->limit($Page->firstRow.','. $Page->listRows)->select();
+
 		if($list=="")
 		{
 			$listCount = 0;
@@ -294,11 +295,13 @@ class PlaceAction extends Action {
 		$Model = new Model();
 		$place = M("place");
 		$place_image = M("place_image");
-		$place_no_count = $Model->query("select count(*) as count from qd_place where place_no='$place_no'");
-		$place_name_count = $Model->query("select count(*) as count from qd_place where place_name='$place_name'");
+		/* modify 2014-7-25*/
+		$place_no_count = $Model->query("select count(*) as count from qd_place where place_no='$place_no' and isDelete='0'");
+		$place_name_count = $Model->query("select count(*) as count from qd_place where place_name='$place_name' and isDelete='0'");
 		$channel_id = getChannelIDFromChannelName($channel_name);
 		$agent_id = getAgentIDFromChannelID($channel_id);
-		$channel_count = $Model->query("select count(*) as count from qd_channel where channel_id='$channel_id'");
+		$channel_count = $Model->query("select count(*) as count from qd_channel where channel_id='$channel_id' and isDelete='0'");
+		/* modify end*/
 		$is_purview = judgeAgentPurview($userinfo['agentsid'], $agent_id);
 		if(!$is_purview)
 		{
@@ -447,9 +450,9 @@ class PlaceAction extends Action {
 		$place = M("place");
 		$channel_id = getChannelIDFromChannelName($channel_name);
 		$agent_id = getAgentIDFromChannelID($channel_id);
-		$place_no_count = $place->query("select count(*) as count from qd_place where place_no='$place_no'");
-		$place_name_count = $place->query("select count(*) as count from qd_place where place_name='$place_name'");
-		$channel_count = $Model->query("select count(*) as count from qd_channel where channel_id='$channel_id'");
+		$place_no_count = $place->query("select count(*) as count from qd_place where place_no='$place_no' and isDelete='0'");
+		$place_name_count = $place->query("select count(*) as count from qd_place where place_name='$place_name' and isDelete='0'");
+		$channel_count = $Model->query("select count(*) as count from qd_channel where channel_id='$channel_id' and isDelete='0'");
 		$src_channel_id = getChannelIDFromPlaceID($place_id);
 		$src_agent_id = getAgentIDFromChannelID($src_channel_id);
 		$src_image_path_0 = getPlacePhotoPathFromID($image_id_0);
@@ -467,7 +470,8 @@ class PlaceAction extends Action {
 		{
 			$log_photo_change_num += 1;
 		}
-		$src_place_info = $Model->table('qd_place')->where("place_id='%d'", $place_id)->select(); //记录原来的网点信息
+		//$src_place_info = $Model->table('qd_place')->where("place_id='%d'", $place_id)->select(); //记录原来的网点信息
+		$src_place_info = $Model->table('qd_place')->where("place_id='{$place_id}' and isDelete='0'")->select();
 		$src_place_log_info = $Model->table('qd_place')->where("place_id='%d'", $place_id)->select();  //查询修改前的信息，用于日志对比
 		$src_place_log_info[0]['place_begin_time'] = getDateFromTime($src_place_log_info[0]['begin_time']);
 		unset($src_place_log_info[0]['begin_time']);

@@ -4,7 +4,7 @@
 //弹出层
 $.openLayer = function(p){
 	var param = $.extend({
-		maxItems : 5,					//最多选取项数字限制
+		maxItems : 999,					//最多选取项数字限制
 		showLevel : 5,					//显示级别
 		oneLevel : false,				//是否限制选择相同级别的数据，可以不为同一个父节点，
 										//false为不限制，可以同时选择不同级别的数据，true为限制。
@@ -30,7 +30,9 @@ $.openLayer = function(p){
 	var fs = {
 		init_Container : function(){	//初始化头部和内容容器
 			//标题
-			var TITLE = param.title + ",最多能选择 " + param.maxItems + " 项！";
+			//var TITLE = param.title + ",最多能选择 " + param.maxItems + " 项！";
+
+			var TITLE = param.title;
 			var CLOSE = "<span id='_cancel' style='cursor:pointer;'>[取消]</span>&nbsp;&nbsp;<span id='_ok' style='cursor:pointer;'>[确定]</span>";
 			//头部
 			var htmlDiv = "<div id='heads'><div id='headdiv'><span id='title'>" + TITLE + "</span><span id='close'>" + CLOSE + "</span></div>";

@@ -9,15 +9,39 @@ class IndexAction extends Action {
 	private $updateapp_uploaded_url   = "DevAppDownLoad/UpdateApp/";
 	private $smartguard_uploaded_url  = "DevAppDownLoad/SmartGuard/";
 	
-	
+	//当前代理商及下属所有子代理商id列表
+	public $agentIdStr = "";
+	//当前登陆者可访问的所有地区id列表
+	private $ableAreaIdStr = "";
 
 	//区域顶级父id值
 	public $top_pid = 0;
 	public $userinfo = null;
 	function __construct(){
 		parent::__construct();
+		//设置网页等待时间无限
+		set_time_limit ( 0 );
 		//获取用户信息
 		$this->userinfo = getUserInfo();
+		
+		//迭代出当前登录代理商及下属所有子代理商
+		$model = new Model();
+		if($this->userinfo['orgid']){
+			$sql_agent = "SELECT * FROM qd_agent";
+			$que_agent = $model->query($sql_agent);
+			$this->getAllChildAgent($que_agent,$this->userinfo['orgid']);
+			$this->agentIdStr .= $this->userinfo['orgid'];
+			$this->agentIdStr = trim($this->agentIdStr,',');
+			//获取当前登录代理商及下属所有子代理商所属所有地区id
+			$sqlArea = "SELECT * FROM qd_agent_area WHERE agent_id IN (".$this->agentIdStr.") GROUP BY area_id;";
+			$queArea = $model->query($sqlArea);
+			foreach ($queArea as $k=>$v){
+				$this->ableAreaIdStr .= $v['area_id'].",";
+			}
+			$this->ableAreaIdStr = trim($this->ableAreaIdStr,',');
+		}
+		
+		
 		//获取可查看菜单路径
 		$this->assign('urlStr', $this->userinfo['urlstr']);
 		$this->assign('username', $this->userinfo['realname']);
@@ -328,6 +352,10 @@ class IndexAction extends Action {
 		$this->display(':addRuleTarget');
 	}
 	
+	
+	
+	
+	
 	/**
 	 * verup版本升级列表
 	 * @param
@@ -383,6 +411,135 @@ class IndexAction extends Action {
 		$this->assign('nowUrl', "management/Index/verup");
 		$this->display(':verup');
 	}
+//------------------------------------------------------------------------------更新信息------------------------------------------------------------------------------------
+	 function  verupUpda(){
+	// echo "11111111111111111111111111111";exit;
+	 	$model = new Model();
+	
+		
+		$hy_province = trim($_REQUEST['select_province']);		
+		$hy_city = trim($_REQUEST['select_city']);		
+		$hy_place_name=trim($_REQUEST['yichang_place_name']);
+		$hy_address=trim($_REQUEST['yichang_address']);
+		$hy_devMac=trim($_REQUEST['yichang_devMac']);		
+		$hy_select=trim($_REQUEST['channelselect']);
+		$hy_id=trim($_REQUEST['select_id']);
+		
+		$where = "where d.update_id=$hy_id ";		
+		/*
+		$hy_select_up;
+		
+		if('更新成功'==$hy_select){
+			$hy_select_up=1;
+		}else if('更新失败'==$hy_select){
+			$hy_select_up=2;
+		}
+		*/
+		
+		if(!empty($hy_province) && ('省份' != $hy_province))
+		{
+			if(!empty($hy_city) && ('地级市' != $hy_city))
+			{
+				$where .= "  and a.province='$hy_province' and a.city='$hy_city' ";
+			}
+			else
+			{
+				$where .= " and a.province='$hy_province' ";
+			}
+		}
+		
+		if(!empty($hy_place_name))
+		{
+			$where .= " and c.channel_name='$hy_place_name' ";
+		}
+		if(!empty($hy_address))
+		{
+			$where .= " and b.place_name='$hy_address'";
+		}
+		if(!empty($hy_devMac))
+		{
+			$where .= " and  d.dev_mac='$hy_devMac'";
+		}
+		if(!empty($hy_select) && ('更新成功'==$hy_select))
+		{
+			$where .= " and  d.smart_app= 1 ";
+		}else if( !empty($hy_select) && '更新失败'==$hy_select) {
+			$where .= " and  d.smart_app= 2 ";
+		}
+		
+		
+		/*
+		if(!empty($hy_select_up))
+		{
+			$where .= " and d.'$hy_select_up'";
+		}
+		*/
+		
+		$pag_sql="select a.province,a.city,c.channel_name,b.place_name,a.device_no,d.dev_mac,d.smart_app,d.video_player,d.update_app,d.smart_guard   from qd_device a 
+		right  join qd_place b  on a.place_id=b.place_id 
+		right join qd_channel c on b.channel_id=c.channel_id  
+		right join app_update_status d on a.device_no=d.dev_no  
+		$where ";
+		$inrs=$model->query($pag_sql);
+		foreach($inrs as $k=>$item){
+			//smart_app
+			if($item['smart_app']==1){
+			   	$inrs[$k]['smart_app']="更新成功";
+			}else if($item['smart_app']==2){
+				$inrs[$k]['smart_app']="更新失败";
+			}else {
+				$inrs[$k]['smart_app']="等待中";
+			}
+			//video_player
+			if($item['video_player']==1){
+			   	$inrs[$k]['video_player']="更新成功";
+			}else if($item['video_player']==2){
+				$inrs[$k]['video_player']="更新失败";
+			}else {
+				$inrs[$k]['video_player']="等待中";
+			}
+			//update_app
+			if($item['update_app']==1){
+			   	$inrs[$k]['update_app']="更新成功";
+			}else if($item['update_app']==2){
+				$inrs[$k]['update_app']="更新失败";
+			}else {
+				$inrs[$k]['update_app']="等待中";
+			}
+			//smart_guard
+			if($item['smart_guard']==1){
+			   	$inrs[$k]['smart_guard']="更新成功";
+			}else if($item['smart_guard']==2){
+				$inrs[$k]['smart_guard']="更新失败";
+			}else {
+				$inrs[$k]['smart_guard']="等待中";
+			}
+		
+		}
+		//$this->assign('cou',$hy_count);
+		echo json_encode($inrs);
+		
+}
+		
+		
+	// 所属网点  ----------hm
+	public function devicsswdblurry(){
+	    $model = new Model();
+		$yichang_address = trim(I('yichang_address'));
+		//$map['MAC'] =array('like', '%' . $sswd . '%');
+		//$deviceInfo = $dev->where($map)->distinct(true)->field('MAC')->select();
+		//$deviceInfo = $Model->table('device_id a')->join('qd_place b on a.device_id=b.place_id')->where($map)distinct(true)->field('place_name')->select();
+		$sql = "select * from qd_place where place_name like '%$yichang_address%'";
+		$deviceInfo = $model->query($sql);
+		for($i=0; $i< count($deviceInfo); $i++)
+		{
+			$sswd_text_arr[$i]['title'] = $deviceInfo[$i]['place_name'];
+		}
+		$this->ajaxReturn($sswd_text_arr,'json');
+
+	}	
+	
+		
 	/**
 	 * verup_add_udp 版本升级添加，修改
 	 * @param
@@ -503,7 +660,7 @@ class IndexAction extends Action {
 			$down_url = C("web_url")."gas_station_erp/".$file;
 			$save_path = "D:\SmartApp\SmartApp.exe";
 			$file_md5 = md5_file($file);
-			$sendDev->updateApp($channel_id_str, $down_url, $save_path, $file_md5);
+			$sendDev->updateApp($channel_id_str, $down_url, $save_path, $file_md5,$updateId,C("SmartAppName"));
 		}
 
 		if($app_dev_update_list[0]['video_player']){
@@ -511,7 +668,7 @@ class IndexAction extends Action {
 			$down_url = C("web_url")."gas_station_erp/".$file;
 			$save_path = "D:\VideoPlayer\VideoPlayer.exe";
 			$file_md5 = md5_file($file);
-			$sendDev->updateApp($channel_id_str, $down_url, $save_path, $file_md5);
+			$sendDev->updateApp($channel_id_str, $down_url, $save_path, $file_md5,$updateId,C("VideoPlayerName"));
 		}
 		
 		if($app_dev_update_list[0]['update_app']){
@@ -519,7 +676,7 @@ class IndexAction extends Action {
 			$down_url = C("web_url")."gas_station_erp/".$file;
 			$save_path = "D:\UpdateApp\UpdateApp.exe";
 			$file_md5 = md5_file($file);
-			$sendDev->updateApp($channel_id_str, $down_url, $save_path, $file_md5);
+			$sendDev->updateApp($channel_id_str, $down_url, $save_path, $file_md5,$updateId,C("UpdateAppName"));
 		}
 		
 		if($app_dev_update_list[0]['smart_guard']){
@@ -527,7 +684,7 @@ class IndexAction extends Action {
 			$down_url = C("web_url")."gas_station_erp/".$file;
 			$save_path = "D:\SmartGuard\SmartGuard.exe";
 			$file_md5 = md5_file($file);
-			$sendDev->updateApp($channel_id_str, $down_url, $save_path, $file_md5);
+			$sendDev->updateApp($channel_id_str, $down_url, $save_path, $file_md5,$updateId,C("SmartGuardName"));
 		}
 		
 		$date = array();
@@ -595,8 +752,8 @@ class IndexAction extends Action {
 		$model = new Model();
 		
 		$where = " where 1 ";
-		if($this->userinfo['orgid']){
-			$where .= " and a.agent_id = ".$this->userinfo['orgid'];
+		if($this->agentIdStr){
+			$where .= " and a.agent_id in (".$this->agentIdStr.")";
 		}
 		
 		$sql_channel = "
@@ -724,5 +881,19 @@ class IndexAction extends Action {
 		$sql = "select target_num from app_dev_update where id = '$id'";
 		$que = $model->query($sql);
 		echo json_encode($que[0]['target_num']);
+	}
+	
+	/**
+	 * getAllChildAgent获取所有子代理商id
+	 * @param
+	 * @return mixed
+	 */
+	function getAllChildAgent($agentArr,$pid){
+		foreach ($agentArr as $k=>$v){
+			if($v['father_agentid'] == $pid){
+				$this->agentIdStr .= $v['agent_id'].',';
+				$this->getAllChildAgent($agentArr,$v['agent_id']);
+			}
+		}
 	}
 }

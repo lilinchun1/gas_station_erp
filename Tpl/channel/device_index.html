@@ -71,6 +71,10 @@
 						<option value="not_use" <if condition="$_GET['select_device_status'] eq 'not_use'">selected="selected"</if>>未运行</option> 
 					</optgroup>
                 </select>
+                
+                  <label for="channel-ss-channel" class="">所属渠道</label>&nbsp;
+                <input type="text" name="channel_name_txt" id="channel_name_txt" value="{$_GET['channel_name_txt']}"  class="input-org-info" autocomplete="off"  />
+                
                 <label for="channel-ss-channel" class="">所属网点</label>
                 <!--<input type="text" name="place_name_txt" id="place_name_txt" value="{$_GET['place_name_txt']}" class="input-org-info"/>-->
 				<input type="text" name="sswd" id="sswd" value="{$_GET['sswd']}" class="input-org-info" autocomplete='off'/>
@@ -93,9 +97,11 @@
     <div class="org-right-btns">
         <form action="">
             <button type="button" class="area-btn" id="b_add_device">添加</button>
-            <button type="button" class="area-btn" id="b_change_device">编辑/查看</button>
+	        <button type="button" class="area-btn" id="b_change_device">编辑/查看</button> 
             <button type="button" id="j_del_button" class="area-btn">删除</button>
             <button type="button" id="j_repeal_button" class="area-btn">撤销</button>
+            
+            <button type="button" class="area-btn" id="b_change_ac">复制添加</button>
         </form>
     </div>
 </div>
@@ -238,13 +244,13 @@
             </p>
 
             <p>
-                <label for="sq-date">设置开机时间</label>
+                <label for="sq-date">加油站开机时间</label>
                 <!--<input type="input" name="add_power_on_time_sel" id="add_power_on_time_sel" class="input-org-info" 
 					style="margin-top: 0;" onClick="WtimePicker()" readonly="readonly"/>-->
 				<input type="text" name="add_power_on_time_sel" id="add_power_on_time_sel" class="input-org-info" 
 					style="margin-top: 0;" onClick="WtimePicker()" readonly="readonly"/>
                 <i class="red-color pdl10" style="color: #ffffff;">*</i>
-                <label for="sq-date">设置关机时间</label>
+                <label for="sq-date">加油站关机时间</label>
                 <input type="input" name="add_power_off_time_sel" id="add_power_off_time_sel" class="input-org-info" 
 					style="margin-top: 0;" onClick="WtimePicker()" readonly="readonly"/>
             </p>
@@ -263,19 +269,14 @@
 				<input type="date" name="add_first_open_time" id="add_first_open_time" class="input-role-name" style="margin-top: 0;" onClick="WdatePicker()" readonly="readonly"/>
             </p>
             <div class="device-point-pic">
-                <h4>点位照片</h4>
-                <form action="" id="imageForm" enctype="multipart/form-data" method="POST">
-					<div id="img_up" class="img_up">
-						<input type="file" class="file" name="add_image_path_0" id="add_image_path_0" value="" onChange="upimg()"/>
-					</div>
-					<div id="img_up_2" class="img_up">
-						<input type="file" class="file" name="add_image_path_1" id="add_image_path_1" value="" onChange="upimg_2()"/>
-					</div>
-					<div id="img_up_3" class="img_up">
-						<input type="file" class="file" name="add_image_path_2" id="add_image_path_2" value="" onChange="upimg_3()"/>
-					</div>
-				</form>
+				<iframe id="I1" name="I1" width="668px" height="75px" src="http://img.jienuo-service.net/upload/add_img_up.html?131232221" frameborder="no" border="0" marginwidth="0" marginheight="0" scrolling="no" allowtransparency="yes"></iframe>
             </div>
+			<script type="text/javascript">
+				document.domain="jienuo-service.net";//设置iframe同域
+			</script>
+			<div id="iframe_test_0" style="display:none" value=""></div><!--iframe子页面返回的值-->
+			<div id="iframe_test_1" style="display:none" value=""></div><!--iframe子页面返回的值-->
+			<div id="iframe_test_2" style="display:none" value=""></div><!--iframe子页面返回的值-->
             <p>
                 <button type="button" class="alert-btn4" id="submit_add_device">保存</button>
 				<a href="." class="closeDOMWindow">
@@ -349,11 +350,11 @@
             </p>
 
             <p>
-                <label for="sq-date">设置开机时间</label>
+                <label for="sq-date">加油站开机时间</label>
                 <input type="input" name="change_power_on_time_sel" id="change_power_on_time_sel" class="input-org-info" 
 					style="margin-top: 0;" onClick="WtimePicker()" readonly="readonly"/>
                 <i class="red-color pdl10" style="color: #ffffff;">*</i>
-                <label for="sq-date">设置关机时间</label>
+                <label for="sq-date">加油站关机时间</label>
                 <input type="input" name="change_power_off_time_sel" id="change_power_off_time_sel" class="input-org-info" 
 					style="margin-top: 0;" onClick="WtimePicker()" readonly="readonly"/>
             </p>
@@ -371,27 +372,23 @@
                 <!--<input type="text" name="add_device_no_txt" id="" class="input-role-name"/>-->
 				<input type="date" name="qysj" id="qysj" class="input-org-info"style="margin-top: 0;" onClick="WdatePicker()" readonly="readonly"/>
             </p>
-            <div class="device-point-pic">
-                <h4>点位照片</h4>
-                <form action="" id="imageForm" enctype="multipart/form-data" method="POST">
-					<div id="change_img_up" class="img_up">
-						<input type="file" class="file" name="change_image_path_0" id="change_image_path_0" value="" onChange="change_upimg()"/>
-						<input type="hidden" name="change_image_id_0" id="change_image_id_0" class="change_image_id_0" style="width:164px"/>
-					</div>
-					<div id="change_img_up_2" class="img_up">
-						<input type="file" class="file" name="change_image_path_1" id="change_image_path_1" value="" onChange="change_upimg_2()"/>
-						<input type="hidden" name="change_image_id_1" id="change_image_id_1" class="change_image_id_1" style="width:164px"/>
-					</div>
-					<div id="change_img_up_3" class="img_up">
-						<input type="file" class="file" name="change_image_path_2" id="change_image_path_2" value="" onChange="change_upimg_3()"/>
-						<input type="hidden" name="change_image_id_2" id="change_image_id_2" class="change_image_id_2" style="width:164px"/>
-					</div>
-				</form>
+			<input type="hidden" name="change_image_id_0" id="change_image_id_0" class="change_image_id_0" style="width:164px"/>
+			<input type="hidden" name="change_image_id_1" id="change_image_id_1" class="change_image_id_1" style="width:164px"/>
+			<input type="hidden" name="change_image_id_2" id="change_image_id_2" class="change_image_id_2" style="width:164px"/>
+			<div id="change_img_up_0" class="img_up" style="position:absolute;margin-top:0px;margin-left:166px;z-index:101;margin-top:0px"></div>
+			<div id="change_img_up_1" class="img_up" style="position:absolute;margin-top:0px;margin-left:288px;z-index:101;margin-top:0px"></div>
+			<div id="change_img_up_2" class="img_up" style="position:absolute;margin-top:0px;margin-left:410px;z-index:101;margin-top:0px"></div>
+            <div class="device-point-pic" style='z-index:100'>
+				<iframe id="mod_I1" name="mod_I1" width="668px" height="79px" src="http://img.jienuo-service.net/upload/mod_up.html?13123222222222221" frameborder="no" border="0" marginwidth="0" marginheight="0" scrolling="no" allowtransparency="yes"></iframe>
+				<div id="mod_iframe_test_0" style="display:none" value=""></div><!--iframe子页面返回的值-->
+				<div id="mod_iframe_test_1" style="display:none" value=""></div><!--iframe子页面返回的值-->
+				<div id="mod_iframe_test_2" style="display:none" value=""></div><!--iframe子页面返回的值-->
             </div>
+
             <p>
                 <button type="button" class="alert-btn4" id="submit_change_device">保存</button>
 				<a href="." class="closeDOMWindow">
-					<button type="button" class="alert-btn2">关闭</button>
+					<button type="button" class="alert-btn2" onClick="history.go(0);">关闭</button>
 				</a>
             </p>
         </form>
@@ -461,7 +458,8 @@
 		device_no_blurry();
 		add_place_name_blurry();
 		change_place_name_blurry();
-
+		channel_name_blurry();
+		
 		 $('#j_del_button').click(function(){
 		     if(device_val == '')
 			 {
@@ -530,6 +528,76 @@
 			 });
 			 return false;
         });
+		
+		//复制和添加
+			$('#b_change_ac').click(function(){
+			if(device_val == '')
+			{
+				alert("{:C('no_select_data')}");
+				return;
+			}
+			if(device_flag == 1)
+			{
+				alert("{:C('repeal_no_edit')}");
+				return;
+			}
+			var handleUrl = "{:U('channel/Device/deviceDetailSelect')}";
+			var device_id=device_val;
+			$.getJSON(handleUrl,{"device_id":device_val},
+			
+				function (data){
+					$("#change_device_id_txt").val(data['device_id']);
+					$("#add_device_no_txt").val(data['device_no']);
+					//$("#change_mac_txt").val(data['MAC']);
+					$("#add_mac1").val(data['MAC1']);
+					$("#add_mac2").val(data['MAC2']);
+					$("#add_mac3").val(data['MAC3']);
+					$("#add_mac4").val(data['MAC4']);
+					$("#add_mac5").val(data['MAC5']);
+					$("#add_mac6").val(data['MAC6']);
+					$("#add_place_name_txt").val(data['place_name']);
+					$("#add_deploy_time_sel").val(data['deploy_time']);
+					$("#add_begin_time_sel").val(data['begin_time']);					
+					$("#add_status_sel").val(data['status']);					
+					$("#add_device_type_txt").val(data['device_type']);
+					$("#add_address_txt").val(data['address']);		
+					$("#add_power_on_time_sel").val(data['power_on_time']);					
+					$("#add_power_off_time_sel").val(data['power_off_time']);
+					//<!--  SIM 卡  手机号码 -->
+					//<!--$("#change_address_txt").val(data['address']);-->
+					$("#add_sim_card_text").val(data['sim_card']);//  <!-- SIM 卡 -->
+					$("#add_phone_number_text").val(data['phone_number']);// <!-- 手机号码 -->
+					$("#add_first_open_time").val(data['first_open_time']);// <!-- 首次启用日期 -->
+					var add_image_path_0=$("#iframe_test_0").text();
+					var add_image_path_1=$("#iframe_test_1").text();
+					var add_image_path_2=$("#iframe_test_2").text();
+					
+
+					$("#img_up").css("background-image","url("+image_path_0+")"); 
+					$("#img_up2").css("background-image","url("+image_path_1+")"); 
+					$("#img_up3").css("background-image","url("+image_path_2+")"); 
+					$("#img_up").css("background-size","100% 100%"); //文本框手势
+					$("#img_up2").css("background-size","100% 100%"); //文本框手势
+					$("#img_up3").css("background-size","100% 100%"); //文本框手势
+					tmp_change_image_path_0 = data['image_path_0'];
+					tmp_change_image_path_1 = data['image_path_1'];
+					tmp_change_image_path_2 = data['image_path_2'];
+					$("#add_image_path_0").val(data['image_id_0']);
+					$("#add_image_path_1").val(data['image_id_1']);
+					$("#add_image_path_2").val(data['image_id_2']);
+				}
+			,'json'
+			);
+            $.openDOMWindow({
+			     loader:1,
+				 loaderHeight:16,
+				 loaderWidth:17,
+				 windowSourceID:'#j_add_device'
+			 });
+			 return false;
+        });
+		
+		
 
 		$('#b_change_device').click(function(){
 			if(device_val == '')
@@ -544,7 +612,21 @@
 			}
 			var handleUrl = "{:U('channel/Device/deviceDetailSelect')}";
 			var device_id=device_val;
+			//点击修改图片事件
+			$("#change_img_up_0").click(function(){
+				//$("#change_img_up_0").remove();
+				$("#change_img_up_0").css("z-index","-1");
+			});
+			$("#change_img_up_1").click(function(){
+				//$("#change_img_up_1").remove();
+				$("#change_img_up_1").css("z-index","-1");
+			});
+			$("#change_img_up_2").click(function(){
+				//$("#change_img_up_2").remove();
+				$("#change_img_up_2").css("z-index","-1");
+			});
 			$.getJSON(handleUrl,{"device_id":device_val},
+			
 				function (data){
 					$("#change_device_id_txt").val(data['device_id']);
 					$("#change_device_no_txt").val(data['device_no']);
@@ -568,19 +650,16 @@
 					$("#simcard").val(data['sim_card']);//  <!-- SIM 卡 -->
 					$("#phonenumber").val(data['phone_number']);// <!-- 手机号码 -->
 					$("#qysj").val(data['first_open_time']);// <!-- 首次启用日期 -->
-					
-					
-					
 					var image_path_0 = "{:C('image_url')}"+data['image_path_0'];
 					var image_path_1 = "{:C('image_url')}"+data['image_path_1'];
 					var image_path_2 = "{:C('image_url')}"+data['image_path_2'];
 
-					$("#change_img_up").css("background-image","url("+image_path_0+")"); 
-					$("#change_img_up_2").css("background-image","url("+image_path_1+")"); 
-					$("#change_img_up_3").css("background-image","url("+image_path_2+")"); 
-					$("#change_img_up").css("background-size","100% 100%"); //文本框手势
+					$("#change_img_up_0").css("background-image","url("+image_path_0+")"); 
+					$("#change_img_up_1").css("background-image","url("+image_path_1+")"); 
+					$("#change_img_up_2").css("background-image","url("+image_path_2+")"); 
+					$("#change_img_up_0").css("background-size","100% 100%"); //文本框手势
+					$("#change_img_up_1").css("background-size","100% 100%"); //文本框手势
 					$("#change_img_up_2").css("background-size","100% 100%"); //文本框手势
-					$("#change_img_up_3").css("background-size","100% 100%"); //文本框手势
 					tmp_change_image_path_0 = data['image_path_0'];
 					tmp_change_image_path_1 = data['image_path_1'];
 					tmp_change_image_path_2 = data['image_path_2'];
@@ -660,10 +739,9 @@
 				}
 			} 
 			var add_power_off_time_sel= off_h+off_m+off_s;//关机时间转换时间戳
-
-			var add_image_path_0=tmp_image_path_0;
-			var add_image_path_1=tmp_image_path_1;
-			var add_image_path_2=tmp_image_path_2;
+			var add_image_path_0=$("#iframe_test_0").text();
+			var add_image_path_1=$("#iframe_test_1").text();
+			var add_image_path_2=$("#iframe_test_2").text();
 			var add_sim_card_text=$("#add_sim_card_text").val(); //SIM卡
 			var add_phone_number_text=$("#add_phone_number_text").val(); //手机号码
 			var add_first_open_time=$("#add_first_open_time").val(); //首次启用日期
@@ -776,11 +854,33 @@
 			var change_power_off_time_sel= off_h+off_m+off_s;//关机时间转换时间戳
 
 			var change_image_id_0=$("#change_image_id_0").val();
+			//alert(change_image_id_0);
 			var change_image_id_1=$("#change_image_id_1").val();
 			var change_image_id_2=$("#change_image_id_2").val();
-			var change_image_path_0=tmp_change_image_path_0;
-			var change_image_path_1=tmp_change_image_path_1;
-			var change_image_path_2=tmp_change_image_path_2;
+			if('' == $("#mod_iframe_test_0").text())
+			{
+				var change_image_path_0 = tmp_change_image_path_0;
+			}
+			else
+			{
+				var change_image_path_0 = $("#mod_iframe_test_0").text();
+			}
+			if('' == $("#mod_iframe_test_1").text())
+			{
+				var change_image_path_1 = tmp_change_image_path_1;
+			}
+			else
+			{
+				var change_image_path_1 = $("#mod_iframe_test_1").text();
+			}
+			if('' == $("#mod_iframe_test_2").text())
+			{
+				var change_image_path_2 = tmp_change_image_path_2;
+			}
+			else
+			{
+				var change_image_path_2 = $("#mod_iframe_test_2").text();
+			}
 			<!-- hm -->  
 			var simcard=$("#simcard").val();//SIM 卡
 			var phonenumber=$("#phonenumber").val();//号码
@@ -925,6 +1025,23 @@
 			,'json'
 		);
 	}
+	
+	
+	function channel_name_blurry()
+	{
+		var handleUrl = "{:U('channel/Channel/channelnameBlurrySelect')}";
+		var channel_name = '';
+		$.getJSON(handleUrl,{},
+			function (data){
+				var str = data;
+				//alert(data);
+				//alert(str[1]['title']);
+				$("#channel_name_txt").bigAutocomplete({width:150,data:data,callback:function(data){}});
+			}
+			,'json'
+		);
+	}
+	
 
 	function add_place_name_blurry()
 	{

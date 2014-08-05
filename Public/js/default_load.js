@@ -46,8 +46,8 @@ function showWindow(loader,loaderHeight,loaderWidth,id){
 //==========树形开始
 var code;
 function onCheck(e, treeId, treeNode) {
-	var zTree = $.fn.zTree.getZTreeObj("treeDemo"), nodes = zTree
-			.getCheckedNodes(true), v = "";
+	var zTree = $.fn.zTree.getZTreeObj("treeDemo"), 
+	nodes = zTree.getCheckedNodes(true), v = "";
 	for ( var i = 0, l = nodes.length; i < l; i++) {
 		v += nodes[i].id + ",";
 	}
@@ -182,6 +182,7 @@ $("#deviceDala").bind("click",function(){
 	$("#mac_txt").val("");
 	$("#sswd").val("");	
 	$("#sim_text").val("");
+	$("#channel_name_txt").val("");
 
 });
 //======================================device_index.html end==========================================================================
@@ -199,6 +200,7 @@ $("#channelDala").bind("click",function(){
 	$("#contract_begin_time_2").val("");
 	$("#contract_end_time_1").val("");
 	$("#contract_end_time_2").val("");
+	
 });		
 //======================================channel_index.html end=========================================================================
 

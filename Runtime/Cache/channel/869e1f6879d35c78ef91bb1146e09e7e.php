@@ -371,7 +371,7 @@
 					<option value="">全部</option>
 				</select>
                 <i class="red-color pdl10">*</i>
-                <a class="channel-wz-a"  id="sort_button">修改类别</a><a class="channel-wz-a" id="attr_button">修改属性</a>
+                <a class="channel-wz-a" id="attr_button">修改属性</a><a class="channel-wz-a"  id="sort_button">修改类别</a>
 				<html>
 
 <div class="mod_sort" style="display:none;" id="mod_sort">

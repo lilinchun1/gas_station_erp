@@ -19,7 +19,7 @@ class DeviceAction extends Action {
 	}
 
 	//查询设备信息						
-	public function deviceSelect(){         
+	public function deviceSelect(){         	
 		$userinfo = getUserInfo();
 	    $Model = new Model();
 		$place_no = trim(I('place_no_txt'));
@@ -41,8 +41,8 @@ class DeviceAction extends Action {
 		$city = trim(I('select_city'));
 		$status = trim(I('select_device_status'));
 		$del_flag_txt = trim(I('select_del_flag_txt')); 
+		$channel_name=trim(I('channel_name_txt'));
 		
-
 		$is_device_select_show = 1;
 		//$page_show_number = 30;       //每页显示的数量
 		C('page_show_number')?$page_show_number=C('page_show_number'):$page_show_number=30;  //每页显示的数量
@@ -78,18 +78,11 @@ class DeviceAction extends Action {
 			$where .= " and a.first_open_time<='$firstopentime'";
 			
 		}
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
+		if(!empty($channel_name))
+		{
+			$channel_id = getChannelIDFromChannelName($channel_name);
+			$where .= " and b.channel_id=" . $channel_id;
+		}
 		
 		
 		
@@ -303,6 +296,20 @@ class DeviceAction extends Action {
 		}
 		$this->ajaxReturn($device_no_arr,'json');
 	}
+	
+	//设备编号模糊查询
+	public function deviceAddress(){
+	    //$Model = new Model();
+		$device_address = trim(I('address'));
+		$device = M('device');
+		$map['address'] =array('like', '%' . $device_address . '%');
+		$deviceInfo = $device->where($map)->distinct(true)->field('address')->select();
+		for($i=0; $i< count($deviceInfo); $i++)
+		{
+			$device_address_arr[$i]['title'] = $deviceInfo[$i]['address'];
+		}
+		$this->ajaxReturn($device_address_arr,'json');
+	}
 
 	//mac地址模糊查询
 	public function devicemacBlurrySelect(){
@@ -339,7 +346,7 @@ class DeviceAction extends Action {
 		//$map['MAC'] =array('like', '%' . $sswd . '%');
 		//$deviceInfo = $dev->where($map)->distinct(true)->field('MAC')->select();
 		//$deviceInfo = $Model->table('device_id a')->join('qd_place b on a.device_id=b.place_id')->where($map)distinct(true)->field('place_name')->select();
-		$sql = "select * from qd_place where place_name like '%$sswd%'";
+		$sql = "select * from qd_place where place_name like '%$sswd%' and isDelete = 0";
 		$deviceInfo = $model->query($sql);
 		for($i=0; $i< count($deviceInfo); $i++)
 		{
@@ -348,26 +355,6 @@ class DeviceAction extends Action {
 		$this->ajaxReturn($sswd_text_arr,'json');
 
 	}	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 
 	//上传图片
 	public function uploadImage(){
@@ -410,9 +397,11 @@ class DeviceAction extends Action {
 		$place_id = getPlaceIDFromPlaceName($place_name);
 		$channel_id = getChannelIDFromPlaceID($place_id);
 		$agent_id = getAgentIDFromChannelID($channel_id);
-		$device_no_count = $Model->query("select count(*) as count from qd_device where device_no='$device_no'");
-		$mac_count = $Model->query("select count(*) as count from qd_device where MAC='$mac'");
-		$place_area = $Model->query("select province, city from qd_place where place_id='$place_id'");
+		/* modify 2014-7-25 */
+		$device_no_count = $Model->query("select count(*) as count from qd_device where device_no='$device_no' and isDelete= '0'");
+		$mac_count = $Model->query("select count(*) as count from qd_device where MAC='$mac' and isDelete= '0'");
+		$place_area = $Model->query("select province, city from qd_place where place_id='$place_id' and isDelete= '0'");
+		/* modify end */
 		$is_purview = judgeAgentPurview($userinfo['agentsid'], $agent_id);
 		
 		
@@ -478,7 +467,7 @@ class DeviceAction extends Action {
 				$data['first_open_time']=$add_first_open_time;//首次启用日期
 			}
 			$is_set = $device->add($data);// hm
-			
+
 			if($is_set)
 			{
 				$tmp_device_id = $device->query('select last_insert_id() as id');
@@ -553,10 +542,11 @@ class DeviceAction extends Action {
 		$agent_id = getAgentIDFromChannelID($channel_id);
 		$Model = new Model();
 		$device = M("device");
-		$device_no_count = $Model->query("select count(*) as count from qd_device where device_no='$device_no'");
-		$mac_count = $Model->query("select count(*) as count from qd_device where MAC='$mac'");
+		$device_no_count = $Model->query("select count(*) as count from qd_device where device_no='$device_no' and isDelete= '0'");
+		$mac_count = $Model->query("select count(*) as count from qd_device where MAC='$mac' and isDelete= '0'");
 		$place_area = $Model->query("select province, city from qd_place where place_id='$place_id'");
-		$src_device_info = $Model->table('qd_device')->where("device_id='%d'", $device_id)->select(); //记录原来的设备信息
+		//$src_device_info = $Model->table('qd_device')->where("device_id='%d'", $device_id)->select(); //记录原来的设备信息
+		$src_device_info = $Model->table('qd_device')->where("device_id='{$device_id}' and isDelete= '0'" )->select();
 		$is_purview = judgeAgentPurview($userinfo['agentsid'], $agent_id);
 		if(!$is_purview)
 		{
