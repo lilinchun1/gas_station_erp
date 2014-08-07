@@ -111,6 +111,10 @@
 						<option value="not_use" <?php if($_GET['select_device_status'] == 'not_use'): ?>selected="selected"<?php endif; ?>>未运行</option> 
 					</optgroup>
                 </select>
+                
+                  <label for="channel-ss-channel" class="">所属渠道</label>&nbsp;
+                <input type="text" name="channel_name_txt" id="channel_name_txt" value="<?php echo ($_GET['channel_name_txt']); ?>"  class="input-org-info" autocomplete="off"  />
+                
                 <label for="channel-ss-channel" class="">所属网点</label>
                 <!--<input type="text" name="place_name_txt" id="place_name_txt" value="<?php echo ($_GET['place_name_txt']); ?>" class="input-org-info"/>-->
 				<input type="text" name="sswd" id="sswd" value="<?php echo ($_GET['sswd']); ?>" class="input-org-info" autocomplete='off'/>
@@ -196,6 +200,7 @@
 			<li><span class='span-3'><b>操作人</b></span><span class='span-3'><b>操作时间</b></span><span class='span-3'><b>操作日志</b></span></li>
 		</ul>
         <ul id="device_log_info" class="role-table-list role-table-list2">
+        
         </ul>
     </div>
 </div>
@@ -577,7 +582,7 @@
             <p>
                 <button type="button" class="alert-btn4" id="submit_change_device">保存</button>
 				<a href="." class="closeDOMWindow">
-					<button type="button" class="alert-btn2" onclick="history.go(0);">关闭</button>
+					<button type="button" class="alert-btn2" onClick="history.go(0);">关闭</button>
 				</a>
             </p>
         </form>
@@ -627,6 +632,7 @@
 
 
 	$(document).ready(function () {
+		$("#device_log_info").attr("style","display:block");
 		var sum = $("#sum").text();
 		if(sum==""){
 			$("#sum").text("0");
@@ -647,7 +653,8 @@
 		device_no_blurry();
 		add_place_name_blurry();
 		change_place_name_blurry();
-
+		channel_name_blurry();
+		
 		 $('#j_del_button').click(function(){
 		     if(device_val == '')
 			 {
@@ -1042,7 +1049,7 @@
 			var change_power_off_time_sel= off_h+off_m+off_s;//关机时间转换时间戳
 
 			var change_image_id_0=$("#change_image_id_0").val();
-			alert(change_image_id_0);
+			//alert(change_image_id_0);
 			var change_image_id_1=$("#change_image_id_1").val();
 			var change_image_id_2=$("#change_image_id_2").val();
 			if('' == $("#mod_iframe_test_0").text())
@@ -1127,15 +1134,16 @@
 		});
 
 		$(".list_sel").click(function(){
+			
 			$(this).find(".role-table-radio").attr("checked",'checked');
 			$("#device_log_info").empty();
 			//$("#device_log_info").append("<li><span class='span-3'><b>操作人</b></span><span class='span-3'><b>操作时间</b></span><span class='span-3'><b>操作日志</b></span></li>");
 			var handleUrl = "<?php echo U('channel/Device/deviceLogSelect');?>";
 			var device_id=device_val;
-			$.getJSON(handleUrl,{"device_id":device_id},
+			$.getJSON(handleUrl,{"device_id":device_id},						
 				function (data){
 					$.each(data, function(i,item){
-						    $("#device_log_info").append("<li><span class='span-3'>" + item.user + "</span><span class='span-3'>" +
+						 $("#device_log_info").append("<li><span class='span-3'>" + item.user + "</span><span class='span-3'>" +
 								item.time + "</span><span class='span-3' title='" + item.info + "'>" + item.info + "</span></li>");
 					});
 			}
@@ -1213,6 +1221,23 @@
 			,'json'
 		);
 	}
+	
+	
+	function channel_name_blurry()
+	{
+		var handleUrl = "<?php echo U('channel/Channel/channelnameBlurrySelect');?>";
+		var channel_name = '';
+		$.getJSON(handleUrl,{},
+			function (data){
+				var str = data;
+				//alert(data);
+				//alert(str[1]['title']);
+				$("#channel_name_txt").bigAutocomplete({width:150,data:data,callback:function(data){}});
+			}
+			,'json'
+		);
+	}
+	
 
 	function add_place_name_blurry()
 	{

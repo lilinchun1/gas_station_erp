@@ -218,10 +218,10 @@ class DeviceAction extends Action {
 	public function deviceLogSelect(){
 		$Model = new Model();
 		$device_id = trim(I('device_id'));;
-		$device_log = $Model->query("select a.logs_id, a.userid, a.timestamp, a.option_type from qd_logs_option a where a.option_id='$device_id' and 
+		$channel_log = $Model->query("select a.logs_id, a.userid, a.timestamp, a.option_type from qd_logs_option a where a.option_id='$device_id' and 
 			a.option_name='device'");
 		$data = null;
-		foreach($device_log as $key=>$val){
+		foreach($channel_log as $key=>$val){
 			if(0 == $val['userid']){
 				$data[$key]['user'] = "根用户";
 			}else{

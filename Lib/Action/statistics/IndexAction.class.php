@@ -4,8 +4,8 @@ class IndexAction extends Action {
 	//区域顶级父id值
 	public $top_pid = 0;
 	public $userinfo;
-	static $page_show_number = 15;
-	static $ajax_page = 5;
+	public  $page_show_number = 15;
+	public $ajax_pagenum = 5;
 	
  	function __construct(){
 		parent::__construct();
@@ -81,6 +81,7 @@ class IndexAction extends Action {
 	}
 	
 	function installed_daily_doseach(){
+		
 		$where = "";
 		$select_province = I("get.select_province");
 		$select_city = I("get.select_city");
@@ -121,22 +122,80 @@ class IndexAction extends Action {
 		$this->display(':installed_daily');
 	}
 	
-	
-	public function installed_daily_json(){
+	public function ajax_report(){
 		$pageinfo = array();
-		$where = "";
-		$pageinfo = M("statistics_install_detaill_day")->where($where)->select();
-		$pageinfo['pageNum'];
-		$pageinfo['countPageNum'];
-		$pageinfo['showDevNum'];
-		$pageinfo['channelName'];
-		$pageinfo['address'];
-		$pageinfo['devMac'];
-		$pageinfo['devNo'];
-		$pageinfo['devNoBeginTime'];
-		echo json_encode($pageinfo);
+		$select_id = I("select_id");
+		$report_type = I("showModel");
+		$where = "master_id='$select_id'";
+		
+		//判断表名
+		switch ($report_type){
+			case '0':
+				$table_name = 'statistics_report_succ';
+				break;
+			case '1':
+				$table_name = 'statistics_report_fail';
+				$where .= " and flag = '0'"; 
+				break;
+			default:
+				$table_name = 'statistics_report_undefine';
+				break;
+		}
+		
+		if( I('pageNum') == ''){
+			$page_number = 1;
+		}else{
+			$page_number = I('pageNum');
+		}		
+		$Model = M($table_name);
+		$count = ceil($Model->where($where)->count()/$this->ajax_pagenum);
+		$firstRow = ($page_number - 1) * $this->ajax_pagenum;	
+		//定义数组	
+		$result=$Model->where($where)->order('reg_date DESC')->limit($firstRow.','. $this->ajax_pagenum)->select();
+		foreach ($result as $k => $v){
+			$list[$k] = $v;
+			$list[$k]['reg_date'] = date("Y-m-d", $v['reg_date']);
+		}
+		//echo $Model->getLastSql();
+		$pageinfo['showDevPageArr'] = $list;
+		$pageinfo['pageNum'] = $page_number;
+		$pageinfo['countPageNum'] = $count;
+		$pageinfo['showDevNum'] = $this->ajax_pagenum;
+		$pageinfo['select_id'] = $select_id;
+		$pageinfo['showModel'] = $report_type;
+		echo json_encode($pageinfo);		
 	}
-
+	
+	public function change_count(){
+		$Model = M("statistics_report_fail");
+		$id = I("id");
+		$finddata = $Model->where("id='$id'")->find();
+		$master_id = $finddata['master_id'];
+		if (!empty($finddata)){
+			$data ['master_id']		= $master_id; 
+			$data ['reg_date'] 		= $finddata['reg_date']; 
+			$data ['point_address']	= $finddata['point_address'];
+			$data ['point_info']  	= $finddata['point_info'];
+			$data ['mac']			= $finddata['mac'];
+			$data ['dev_id']		= $finddata['dev_id']; 
+			$data ['all_num']		= 0;
+			$data ['ios_num']		= 0;
+			$data ['android_num']	= 0;
+			$data ['province_name']	= $finddata['province_name'];
+			$data ['city_name'] 	= $finddata['city_name'];
+			$result = M("statistics_report_succ")->add($data);
+			if ($result){
+				$finddata = $Model->where("id='$id'")->setInc("flag");
+				if ($finddata){
+					$Model = M("statistics_report_all");
+					$Model->where("id = '$master_id'")->setInc("succ_num");
+					$Model->where("id = '$master_id'")->setDec("fail_num");
+				}
+			}	
+		}
+		true;
+	}
+	
 	
 	
 /**处理用**/	

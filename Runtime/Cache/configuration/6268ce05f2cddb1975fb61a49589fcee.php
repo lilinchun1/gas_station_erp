@@ -7,15 +7,15 @@
 	<link rel="stylesheet" href="	__PUBLIC__/css/configuration.css"/>
 	<script type="text/javascript" src="__PUBLIC__/js/jquery-1.10.2.min.js"></script>
     <style>
-        .role-table-list{
+       /* .role-table-list{
             min-width: 1250px;
-        }
+        }*/
     </style>
 </head>
 <body>
 <div class="head-wrap">
 <div id="head">
-    <h1 class="head-logo"><a href="index.html">ERP管理系统</a></h1>
+    <h1 class="head-logo"><a href="<?php echo U('configuration/Login/default_index');?>">ERP管理系统</a></h1>
     <h2 class="head-tt">智能手机加油站业务支撑系统</h2>
     <div class="login">
         <div class="left">
@@ -65,12 +65,16 @@
 					<div class="role-inquire">
 						<form name="userSelect" method="get" action="<?php echo U('configuration/User/show_user');?>">
 							<label for="user-name" class="">姓名</label>
-							<input type="text" name="realname_txt" id="realname_txt" class="input-org-info"/>
+							<!--<input type="text" name="realname_txt" id="realname_txt" class="input-org-info"/>-->
+                            <input type="text" name="realname_txt" id="realname_txt" value="<?php echo ($_GET['realname_txt']); ?>" autocomplete="off" class="input-org-info"/>
 							<label for="at-org" class="">所属组织机构</label>
-							<input type="text" name="org_name_txt" id="org_name_txt" class="input-org-info"/>
+							<!--<input type="text" name="org_name_txt" id="org_name_txt" class="input-org-info"/>-->
+                            <input type="text" name="org_name_txt" id="org_name_txt" value="<?php echo ($_GET['org_name_txt']); ?>" autocomplete="off" class="input-org-info"/>
 							<label for="use-id" class="use-id">账号</label>
-							<input type="text" name="username_txt" id="username_txt" class="input-org-info"/>
+							<!--<input type="text" name="username_txt" id="username_txt" class="input-org-info"/>-->
+             				<input type="text" name="username_txt" id="username_txt" value="<?php echo ($_GET['username_txt']); ?>" autocomplete="off" class="input-org-info"/>
 							<input type="submit" id="select_button" name="select_button" class="role-control-btn" value="查询"/>
+							<input type="button" id="userDele" class="role-control-btn" value="清空"/> 
 						</form>
 					</div>
 					<div class="org-right-btns">
@@ -371,9 +375,55 @@
 <script type="text/javascript" src="__PUBLIC__/js/tree/jquery.ztree.excheck-3.5.js"></script>
 <script type="text/javascript" src="__PUBLIC__/js/jquery.bigautocomplete.js"></script>
 <script>
+function agent_name_blurry() { //	所属组织机构 模糊查询
+	var handleUrl = "<?php echo U('channel/Agent/agentnameBlurrySelect');?>";
+	var agent_name = '';
+	$.getJSON(handleUrl, {"agent_name": agent_name},
+			function (data) {
+				var str = data;
+				//alert(data);
+				//alert(str[1]['title']);
+				$("#org_name_txt").bigAutocomplete({width: 150, data: data, callback: function (data) {
+				}});
+			}
+			, 'json'
+	);
+}
+
+function role_name_blurry() {  // 姓名 模糊查询
+	var handleUrl = "<?php echo U('configuration/User/UserSelect');?>";
+	var realname = '';
+	$.getJSON(handleUrl, {"realname": realname},
+			function (data) {
+				var str = data;
+
+				$("#realname_txt").bigAutocomplete({width: 150, data: data, callback: function (data) {
+				}});
+			}
+			, 'json'
+	);
+}
+function username_blurry() {  // 账号 模糊查询
+	var handleUrl = "<?php echo U('configuration/User/UsernameSelect');?>";
+	var username = '';
+	$.getJSON(handleUrl, {"username": username},
+			function (data) {
+				var str = data;
+
+				$("#username_txt").bigAutocomplete({width: 150, data: data, callback: function (data) {
+				}});
+			}
+			, 'json'
+	);
+}
+
+
+
 $(function(){
 	//赋组织值
-	var getAgentUrl = "<?php echo U('configuration/Role/getAgentArr');?>";
+	role_name_blurry() ;
+	username_blurry();
+	var getAgentUrl = "<?php echo U('configuration/Org/show_org_tree');?>";
 	$.post(getAgentUrl,{},function(data){
 		$.each(data,function(i,n){
 			var mstr = "";
@@ -385,7 +435,8 @@ $(function(){
 				case 5:mstr = "==========";break;
 				case 6:mstr = "============";break;
 			}
-			$(".role_agent_id").append("<option value='"+n['agent_id']+"'>"+mstr+n['agent_name']+"</option>");
+			//$(".role_agent_id").append("<option value='"+n['agent_id']+"'>"+mstr+n['agent_name']+"</option>");
+			$(".role_agent_id").append("<option value='"+n['id']+"'>"+mstr+n['value']+"</option>");
 		})
 	},"json");
 	//组织改变触发
@@ -501,12 +552,29 @@ function role_check(role_agent_id){
 			var add_user_email = $('#email').val();	  //邮箱*/
 			var user_sex = $(':radio[name="change-sex"]:checked').val(); //性别
 			var org_id = $('#role_agent_id').val();  //所属组织机构
-			var emailRegExp = new RegExp(		 "[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?");
-			if (!emailRegExp.test(add_user_email)||add_user_email.indexOf('.')==-1){
-				alert("请检查邮箱格式");
+			if(realname==""){
+				alert("请输入姓名");
+				return false;
+			}
+			if(login_id==""){
+				alert("请输入登录账号");
+				return false;
+			}
+			if(org_id==""){
+				alert("请选择组织结构");
+				return false;
+			}
+			if(roleStr==""){
+				alert("请选择角色");
 				return false;
 			}
 
+
+			var emailRegExp = new RegExp(		 "[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?");
+			if ((!emailRegExp.test(add_user_email)||add_user_email.indexOf('.')==-1)&&(add_user_email!="")){
+				alert("请检查邮箱格式");
+				return false;
+			}
 			$.getJSON(handleUrl,{
 					"userid_txt":user_id,
 					"realname_txt":realname,
@@ -530,7 +598,18 @@ function role_check(role_agent_id){
 		$("#j_close").click(function(){
 			window.location.href = window.location.href;
 		});
-
+		//删除框弹出
+		$("#j_del_button").click(function(){
+			//弹出窗口
+			var aac = $("input[name='radio_list']:checked").val();
+			if (parseInt(aac,10)){
+				showWindow(1,16,17,'#j_del_win');
+			}else{
+				alert("请选择一条职员信息再进行删除！");
+			}
+			
+			return false;
+		});
 		//单击删除确认按钮
 		$('#j_del_ok').click(function(){
 			var delete_user_id_txt= $("input[name='radio_list']:checked").val();

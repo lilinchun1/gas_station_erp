@@ -29,14 +29,21 @@
                         <form name="channelSelect" method="get" action="">
                             <p>
                                 <label for="channel-class1" class="">组织机构</label>
-                                <select name="channel_first_type_sel" id="channel-class1" class="channel-select">
-                                    <option value="">总公司</option>
+                                <select name="company_type" id="channel-class1" class="channel-select">
+                                    <option value="">请选择组织</option>
+                                    <foreach name="company_info" item="type">
+                                    	<if condition="$type.agent_id eq $_GET['company_type']">
+                                    	 <option value="{$type.agent_id}" selected=selected >{$type.agent_name}</option>
+                                    	 <else/>
+                                    	 <option value="{$type.agent_id}">{$type.agent_name}</option>
+                                    	 </if>
+                                    </foreach>
                                 </select>
                                 <label for="channel-class1" class="">区域</label>
-                                <select name="channel_first_type_sel" id="channel-class1" class="channel-select-min">
+                                <select name="channel_coutry" id="channel-class1" class="channel-select-min">
                                     <option value="">省份</option>
                                 </select>
-                                <select name="channel_second_type_sel" id="channel_second_type_sel" class="channel-select-min">
+                                <select name="channel_city id="channel_second_type_sel" class="channel-select-min">
                                     <option value="">城市</option>
                                 </select>
                                 <label for="channel-class1" class="">渠道类型</label>
@@ -57,11 +64,11 @@
                                 <label for="channel-org-name" class="">加油站编号</label>
                                 <input type="text" name="channel-org-name" id="channel-org-name"  class="input-org-info"
                                        value=""/>
-                                <input type="radio" name="period" id="month"/>
+                                <input type="radio" name="period" id="month" value='month' <if condition="'month' eq $_GET['period']">checked</if>/>
                                 <label for="month">按月统计</label>
-                                <input type="radio" name="period" id="week"/>
+                                <input type="radio" name="period" id="week" value='week' <if condition="'week' eq $_GET['period']">checked</if>/>
                                 <label for="week">按周统计</label>
-                                <input type="radio" name="period" id="day"/>
+                                <input type="radio" name="period" id="day" value='day' <if condition="'day' eq $_GET['period']">checked</if>/>
                                 <label for="day">按天统计</label>
                                 <input type="text" name="contract_end_time_1" id="contract_end_time_1" class="input-org-info"
                                        value="{$_GET['contract_end_time_1']}" onClick="WdatePicker()"/>

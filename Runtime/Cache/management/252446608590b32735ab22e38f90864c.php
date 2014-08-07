@@ -6,10 +6,8 @@
 	<link rel="stylesheet" href="__PUBLIC__/css/configuration.css"/>
 	<script type="text/javascript" src="__PUBLIC__/js/jquery-1.10.2.min.js"></script>
 	<script type="text/javascript" src="__PUBLIC__/js/jquery-1.6.1.js"></script>
-	<script type="text/javascript" src="__PUBLIC__/js/jquery.SuperSlide.2.1.1.js"></script>
 	<script type="text/javascript" src="__PUBLIC__/js/My97DatePicker/WdatePicker.js"></script>
-
-
+						<script type="text/javascript" src="__PUBLIC__/js/script_city.js"></script>
 	<script type="text/javascript">
 		$(function(){
 			//================================================================默认动作
@@ -22,6 +20,11 @@
 					var updateId = $("input[name='app-info']:checked").val();
 					if(!updateId){
 						alert("请选择编辑条目");
+						return;
+					}
+					var update_status = $("input[name='app-info']:checked").parent().parent().find(".update_status_list").val();
+					if(update_status != 0){
+						alert("不能编辑");
 						return;
 					}
 					//获取各版本号
@@ -96,7 +99,7 @@
 				//file判断
 				$("#smartApp").change(function(){
 					 var val=$(this).val();  
-					 if(val=="SmartApp.exe"){  
+					 if(val=="SmartApp.exe"){
 						return true;
 					 } else{
 						alert("请选择SmartApp.exe文件");
@@ -196,7 +199,7 @@
 					return false;
 				}
 			});
-			//删除，发布，作废弹出框
+			//删除，更新弹出框
 			$(".status_del,.status_send").click(function(){
 				var updateId = $("input[name='app-info']:checked").val();
 				//获取状态值
@@ -209,7 +212,7 @@
 					$(".del_fb_zf").val("1");
 					$("#j_del_win").find("form").attr("action","<?php echo U('management/Index/verup_del');?>");
 					if(update_status != 0){
-						alert("请选择删除条目");
+						alert("不能删除");
 						return;
 					}
 				}else if($(this).hasClass("status_send")){
@@ -219,7 +222,7 @@
 					$(".del_fb_zf").val("2");
 					$("#j_del_win").find("form").attr("action","<?php echo U('management/Index/verup_use');?>");
 					if(update_status != 0){
-						alert("请选择更新信息");
+						alert("不能更新");
 						return;
 					}
 				}
@@ -229,7 +232,7 @@
 					return;
 				}
 				$("#updateId_hid").val(updateId);
-
+				
 				//弹出页面
 				$.openDOMWindow({
 					loader:1,
@@ -239,7 +242,9 @@
 				});
 				return false;
 			});
-
+			
+		channel_name_blurry();
+		device_sswd_blurry();
 		//查看发布渠道
 		$(".j_selrole_button").click(function() {
 			var send_id=$(this).parent().find(".app_list_radio").val();
@@ -332,8 +337,44 @@
 		$("#j_close").click(function(){
 			window.location.href = window.location.href;
 		});
-
+		
+		$(".role-control-update").click(function(){
+			 $.openDOMWindow({
+				loader:1,
+				loaderHeight:16,
+				loaderWidth:17,
+				width:1300,
+				windowSourceID:'#j_show_update'
+			});
+			return false;
+		});
 	});
+	function device_sswd_blurry()
+	{
+		var handleUrl = "<?php echo U('management/Index/devicsswdblurry');?>";
+		$.getJSON(handleUrl,{},
+			function (data){
+				var str = data;
+				$("#yichang_address").bigAutocomplete({width:150,data:data,callback:function(data){}});
+			}
+			,'json'
+		);
+	}
+	function channel_name_blurry()
+	{
+		var handleUrl = "<?php echo U('channel/Channel/channelnameBlurrySelect');?>";
+		var channel_name = '';
+		$.getJSON(handleUrl,{},
+			function (data){
+				var str = data;
+				//alert(data);
+				//alert(str[1]['title']);
+				$("#yichang_place_name").bigAutocomplete({width:150,data:data,callback:function(data){}});
+			}
+			,'json'
+		);
+	}
+
 	</script>
 </head>
 <body>
@@ -431,7 +472,7 @@
 								<span class="span-1 videoPlayer_list"><?php echo ($app_dev_update['video_player']); ?></span>
 								<span class="span-1 updateApp_list"><?php echo ($app_dev_update['update_app']); ?></span>
 								<span class="span-1 smartGuard_list"><?php echo ($app_dev_update['smart_guard']); ?></span>
-								<span class="fthover span-1" title="发布渠道">发布渠道</span>
+								<span class="j_selrole_button fthover span-1" title="发布渠道">发布渠道</span>
 								<span class="span-1">
 									<?php if($app_dev_update['status'] == 0): ?>待更新
 									<?php else: ?>
@@ -439,7 +480,7 @@
 									<input type="hidden" class="update_status_list" value="<?php echo ($app_dev_update['status']); ?>"/>
 								</span>
 								<span class="span-2"><?php echo ($app_dev_update['status_date']); ?></span>
-								<span class="span-1"><a href="" class="fthover">更新信息</a></span>
+								<span id="select_cli" class="role-control-update span-1" value="<?php echo ($app_dev_update['id']); ?>" >更新信息</span>
 							</li><?php endforeach; endif; ?>
 						</ul>
 						<div class="resultpage"><?php echo ($page); ?></div>
@@ -703,17 +744,13 @@
 	</div>
 </div>
 <!--弹出表格框-->
-<div id="j_show_purview" style="display:block">
+<div id="j_show_update" style="display:none">
     <div class="alert-table1" style="background:#fff;width:100%">
         <div class="role-inquire channel-index-btns">
-            <form name="deviceSelect" method="get" action="<?php echo U('channel/Device/deviceSelect');?>">
+            <form name="deviceSelect" method="post" action="<?php echo U('management/Index/verupUpda');?>">
                 <p>
-                    <label for="channel-class1" class="">区域</label>
-                    <span id="select_showcity"></span>
-                    <script type="text/javascript">
-                        showprovince("select_province", "select_city", "<?php echo ($_GET['select_province']); ?>", "select_showcity");
-                        showcity("select_city", "<?php echo ($_GET['select_city']); ?>", "select_province", "select_showcity");
-                    </script>
+                    <label for="select_showcity" class="">所在区域</label>
+               		<span id="select_showcity_up"></span>
                     <label for="yichang_place_name" class="">渠道名称</label>
                     <input type="text" name="yichang_place_name" id="yichang_place_name" value="" class="input-org-info"/>
                     <label for="yichang_address" class="">网点名称</label>
@@ -722,17 +759,21 @@
                     <input type="text" name="yichang_devMac" id="yichang_devMac" value="" class="input-org-info"/>
                     <br>
                     <label for="yichang_devNo" class="">状态</label>
-                    <select class="channel-select">
+                    <select class="channel-select" name="channelselect" id="channelselect">
                         <option>更新成功</option>
                         <option>更新失败</option>
                     </select>
-                    <button type="button" class="role-control-btn" id="yichang_select">查询</button>
-                    <button type="button" class="role-control-btn">导出</button>
+              <!--   <button type="submit" class="role-control-btn">查询</button>-->
+				   <button type="button" class="role-control-btn" id="yichang_select" onClick="show_yichang()">查询</button>
+                     <button type="button" class="role-control-btn">导出</button>
+					   <a href="." class="closeDOMWindow">
+           			 		<button type="button" class="alert-btn2">关闭</button>
+      				   </a>
                 </p>
 
             </form>
         </div>
-        <ul class="statistics-list" style="border:0">
+        <ul class="statistics-list" style="border:0" id="ul_list">
             <li>
                 <span class='span-1'><b>省份</b></span>
                 <span class='span-1'><b>城市</b></span>
@@ -745,22 +786,9 @@
                 <span class='span-1'><b>Update-App</b></span>
                 <span class='span-1'><b>SmartGuard</b></span>
             </li>
-            <li>
-                <span class='span-1'>11111111</span>
-                <span class='span-1'>22222222</span>
-                <span class='span-1'>33333333</span>
-                <span class='span-1'>444444444</span>
-                <span class='span-1'>55555555</span>
-                <span class='span-1'>666666666</span>
-                <span class='span-1'>777777777</span>
-                <span class='span-1'>888888888</span>
-                <span class='span-1'>999999999</span>
-                <span class='span-1'>xxxxxxxxx</span>
-            </li>
         </ul>
-        <a href="." class="closeDOMWindow">
-            <button type="button" class="alert-btn2">关闭</button>
-        </a>
+		<span id="yichang_up_page">上一页</span> <span id="dang_page" ></span> <span id="yichang_down_page">下一页</span>     共<span id="zong_page"></span>页
+      
     </div>
 </div>
 <link rel="stylesheet" type="text/css" href="__PUBLIC__/css/jquery.bigautocomplete.css"/>
@@ -772,6 +800,13 @@
 <script type="text/javascript" src="__PUBLIC__/js/tree/jquery.ztree.core-3.5.js"></script>
 <script type="text/javascript" src="__PUBLIC__/js/tree/jquery.ztree.excheck-3.5.js"></script>
 <script type="text/javascript">
+showprovince("select_province", "select_city", "<?php echo ($_GET['select_province']); ?>", "select_showcity_up");
+showcity("select_city", "<?php echo ($_GET['select_city']); ?>", "select_province", "select_showcity_up");
+</script>
+<script type="text/javascript">
+
+
+
 //===================================================树形结构js==========================
 var setting = {
 	check: {
@@ -800,8 +835,6 @@ function onCheck(event, treeId, treeNode) {
 	var halfCheck = treeObj.getNodes()[0].getCheckStatus();
 	
 	//console.log(node);
-
-
 	v = "";
 	for (var i=0, l=nodes.length; i<l; i++) {
 		v += nodes[i].id + ",";
@@ -812,6 +845,91 @@ function onCheck(event, treeId, treeNode) {
 	cityObj.attr("value", v);
 }
 //===================================================树形结构js结束==========
+
+var key=1;
+var p=1;
+
+
+$("#yichang_up_page").click(function(){
+	if(p--<=1){
+		p=1;
+	}	
+	show_yichang();
+});
+$("#yichang_down_page").click(function(){
+	if(p++>=key){
+		p=key;		
+	}
+	show_yichang();
+});
+
+function show_yichang(){
+	
+	$(".select_li").remove();//初始化
+	var select_id=$('input:radio:checked').val();
+	var select_province=$("#select_province").val();
+	var select_city=$("#select_city").val();
+	var yichang_place_name=$("#yichang_place_name").val();
+	var yichang_address=$("#yichang_address").val();
+	var yichang_devMac=$("#yichang_devMac").val();
+	var channelselect=$("#channelselect").val();
+	
+	var handleUrl = "<?php echo U('management/Index/verupUpda');?>";
+	$.getJSON(handleUrl,{
+		"select_province":select_province,
+		"select_city":select_city,
+		"yichang_place_name":yichang_place_name,
+		"yichang_address":yichang_address,
+		"yichang_devMac":yichang_devMac,
+		"channelselect":channelselect,
+		"select_id":select_id,
+		},
+		function (data){
+		if(data==''){
+			$("#dang_page").text(1);
+			$("#zong_page").text(1);
+			key=1;
+		}
+			$("#dang_page").text(p);
+			//alert($('#pageNum').val());//页数
+			$.each(data, function(i,item){
+		
+			var count_page=parseInt(data.length/5)+1;//共多少页
+			$("#zong_page").text(count_page);
+			var cou_page=parseInt(data.length%5);//最后一页
+			key=count_page;
+				if((p<count_page) && (i>=(p-1)*5) && (i<p*5)){
+					$("#ul_list").append("<li class='select_li'><span class='span-1'>"+item['province']+"</span><span class='span-1'>"+
+					item['city']+"</span><span class='span-1'>"+
+					item['channel_name']+"</span><span class='span-1'>"+
+					item['place_name']+"</span><span class='span-1'>"+
+					item['device_no']+"</span><span class='span-1'>"+
+					item['dev_mac']+"</span><span class='span-1'>"+
+					item['smart_app']+"</span><span class='span-1'>"+
+					item['video_player']+"</span><span class='span-1'>"+
+					item['update_app']+"</span><span class='span-1'>"+
+					item['smart_guard']+"</span></li>");		
+				}else if((p==count_page) && (i>=p-1*5) && (i<cou_page)){
+					$("#ul_list").append("<li class='select_li'><span class='span-1'>"+item['province']+"</span><span class='span-1'>"+
+					item['city']+"</span><span class='span-1'>"+
+					item['channel_name']+"</span><span class='span-1'>"+
+					item['place_name']+"</span><span class='span-1'>"+
+					item['device_no']+"</span><span class='span-1'>"+
+					item['dev_mac']+"</span><span class='span-1'>"+
+					item['smart_app']+"</span><span class='span-1'>"+
+					item['video_player']+"</span><span class='span-1'>"+
+					item['update_app']+"</span><span class='span-1'>"+
+					item['smart_guard']+"</span></li>");		
+				}
+			});
+			
+		}
+	,'json'
+	);
+	
+
+
+}
 </script>
 </body>
 </html>

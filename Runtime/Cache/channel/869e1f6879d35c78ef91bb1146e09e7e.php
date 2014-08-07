@@ -1379,5 +1379,10 @@
 			showprovince("add_select_province", "add_select_city", "省份", "add_select_showcity");
 			showcity("add_select_city", "城市", "add_select_province", "add_select_showcity"); 
 </script>
+<script>
+    $(function(){
+        $('.head-wrap,#head,#footer,#container').css('min-width','1500px');
+    })
+</script>
 </body>
 </html>

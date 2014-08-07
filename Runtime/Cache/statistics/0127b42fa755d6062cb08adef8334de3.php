@@ -92,14 +92,17 @@
                         <form name="channelSelect" method="get" action="">
                             <p>
                                 <label for="channel-class1" class="">组织机构</label>
-                                <select name="channel_first_type_sel" id="channel-class1" class="channel-select">
-                                    <option value="">总公司</option>
+                                <select name="company_type" id="channel-class1" class="channel-select">
+                                    <option value="">请选择组织</option>
+                                    <?php if(is_array($company_info)): foreach($company_info as $key=>$type): if($type["agent_id"] == $_GET['company_type']): ?><option value="<?php echo ($type["agent_id"]); ?>" selected=selected ><?php echo ($type["agent_name"]); ?></option>
+                                    	 <?php else: ?>
+                                    	 <option value="<?php echo ($type["agent_id"]); ?>"><?php echo ($type["agent_name"]); ?></option><?php endif; endforeach; endif; ?>
                                 </select>
                                 <label for="channel-class1" class="">区域</label>
-                                <select name="channel_first_type_sel" id="channel-class1" class="channel-select-min">
+                                <select name="channel_coutry" id="channel-class1" class="channel-select-min">
                                     <option value="">省份</option>
                                 </select>
-                                <select name="channel_second_type_sel" id="channel_second_type_sel" class="channel-select-min">
+                                <select name="channel_city id="channel_second_type_sel" class="channel-select-min">
                                     <option value="">城市</option>
                                 </select>
                                 <label for="channel-class1" class="">渠道类型</label>
@@ -120,11 +123,11 @@
                                 <label for="channel-org-name" class="">加油站编号</label>
                                 <input type="text" name="channel-org-name" id="channel-org-name"  class="input-org-info"
                                        value=""/>
-                                <input type="radio" name="period" id="month"/>
+                                <input type="radio" name="period" id="month" value='month' <?php if('month' == $_GET['period']): ?>checked<?php endif; ?>/>
                                 <label for="month">按月统计</label>
-                                <input type="radio" name="period" id="week"/>
+                                <input type="radio" name="period" id="week" value='week' <?php if('week' == $_GET['period']): ?>checked<?php endif; ?>/>
                                 <label for="week">按周统计</label>
-                                <input type="radio" name="period" id="day"/>
+                                <input type="radio" name="period" id="day" value='day' <?php if('day' == $_GET['period']): ?>checked<?php endif; ?>/>
                                 <label for="day">按天统计</label>
                                 <input type="text" name="contract_end_time_1" id="contract_end_time_1" class="input-org-info"
                                        value="<?php echo ($_GET['contract_end_time_1']); ?>" onClick="WdatePicker()"/>

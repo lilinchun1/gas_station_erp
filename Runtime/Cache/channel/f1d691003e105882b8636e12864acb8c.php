@@ -991,5 +991,10 @@
 		placeSelect.submit();
 	}
 </script>
+<script>
+    $(function(){
+        $('.head-wrap,#head,#footer,#container').css('min-width','1500px');
+    })
+</script>
 </body>
 </html>

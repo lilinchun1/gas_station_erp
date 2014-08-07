@@ -135,9 +135,10 @@
 					                    <span class="span-1" title="<?php echo ($vo["install_num"]); ?>"><?php echo ($vo["install_num"]); ?></span>
 					                    <span class="span-1" title="<?php echo ($vo["ios_num"]); ?>"><?php echo ($vo["ios_num"]); ?></span>
 					                    <span class="span-1" title="<?php echo ($vo["android_num"]); ?>"><?php echo ($vo["android_num"]); ?></span>
-					                    <span class="span-1" title="<?php echo ($vo["succ_num"]); ?>" onclick="succ_num_click();"><?php echo ($vo["succ_num"]); ?></span>
-					                    <span class="span-1" title="<?php echo ($vo["fail_num"]); ?>"><?php echo ($vo["fail_num"]); ?></span>
-					                    <span class="span-1" title="<?php echo ($vo["unfind_num"]); ?>"><?php echo ($vo["unfind_num"]); ?></span>
+					                    <span class="span-1" title="<?php echo ($vo["succ_num"]); ?>" onclick="succ_num_click(this);"><?php echo ($vo["succ_num"]); ?></span>
+					                    <span class="span-1" title="<?php echo ($vo["fail_num"]); ?>" onclick="fail_num_click(this);"><?php echo ($vo["fail_num"]); ?></span>
+					                    <span class="span-1" title="<?php echo ($vo["unfind_num"]); ?>" onclick="unfind_num_click(this);"><?php echo ($vo["unfind_num"]); ?></span>
+										<input type="hidden" class="select_id" value="<?php echo ($vo["id"]); ?>" />
 					                </li><?php endforeach; endif; else: echo "" ;endif; ?>
                             </ul>
                             <div class="resultpage"><?php echo ($page); ?></div>
@@ -318,32 +319,36 @@
         return false;
     }
 </script>
-<div class="alert-table1">
-    <div class="data-log">
-        <h3>未统计加油站安装量明细<input type="submit" class="role-control-btn fr" value="导出" /><input type="submit" class="role-control-btn fr" value="关闭" /></h3>
-    </div>
-    <ul class="statistics-list">
-        <li>
-            <span class='span-1'><b>网点地址</b></span>
-            <span class='span-1'><b>点位信息</b></span>
-            <span class='span-1'><b>MAC</b></span>
-            <span class='span-1'><b>操作</b></span>
-        </li>
-        <li>
-            <span class='span-1'>11111111</span>
-            <span class='span-1'>22222222</span>
-            <span class='span-1'>33333333</span>
-            <span class='span-1'><input type="submit" class="role-control-btn" value="已统计" /></span>
-        </li>
+<div id="fail_num_win" style="display:none">
+	<div class="alert-table1" style="background-color:#ffffff;width:100%;padding-bottom:15px" id="fail_num_table">
+		<div class="data-log">
+			<h3>未统计加油站安装量明细<input type="button" class="role-control-btn fr" id="fail_export_bt" value="导出" />
+			<input type="submit" class="role-control-btn fr" value="关闭" onClick="window.location=window.location"/></h3>
+		</div>
+		<ul class="statistics-list" id="fail_num_list">
+			<li>
+				<span class='span-1'><b>网点地址</b></span>
+				<span class='span-1'><b>点位信息</b></span>
+				<span class='span-1'><b>MAC</b></span>
+				<span class='span-1'><b>操作</b></span>
+			</li>
+			<!--<li>
+				<span class='span-1'>11111111</span>
+				<span class='span-1'>22222222</span>
+				<span class='span-1'>33333333</span>
+				<span class='span-1'><input type="submit" class="role-control-btn" value="统计" /></span>
+			</li>-->
 
-    </ul>
+		</ul>
+	</div>
 </div>
 <div id="succ_num_win" style="display:none">
-	<div class="alert-table1" style="background-color:#ffffff;width:100%">
+	<div class="alert-table1" style="background-color:#ffffff;width:100%;padding-bottom:15px" id="succ_num_table">
 		<div class="data-log">
-			<h3>已统计加油站<input type="submit" class="role-control-btn fr" value="导出" /><input type="submit" class="role-control-btn fr" value="关闭" /></h3>
+			<h3>已统计加油站<input type="button" class="role-control-btn fr" id="succ_export_bt" value="导出" />
+			<input type="submit" class="role-control-btn fr" value="关闭" onClick="window.location=window.location"/></h3>
 		</div>
-		<ul class="statistics-list">
+		<ul class="statistics-list" id="succ_num_list">
 			<li>
 				<span class='span-1'><b>网点地址</b></span>
 				<span class='span-1'><b>点位信息</b></span>
@@ -352,15 +357,26 @@
 				<span class='span-1'><b>IOS安装量</b></span>
 				<span class='span-1'><b>Abdrid安装量</b></span>
 			</li>
-			<li>
-				<span class='span-1'>11111111</span>
-				<span class='span-1'>22222222</span>
-				<span class='span-1'>33333333</span>
-				<span class='span-1'>44444444</span>
-				<span class='span-1'>55555555</span>
-				<span class='span-1'>66666666</span>
-			</li>
 
+
+		</ul>
+	</div>
+</div>
+
+<div id="unfind_num_win" style="display:none">
+	<div class="alert-table1" style="background-color:#ffffff;width:100%;padding-bottom:15px" id="unfind_num_table">
+		<div class="data-log">
+			<h3>异常加油站<input type="button" class="role-control-btn fr" id="undefine_export_bt"  value="导出" />
+			<input type="submit" class="role-control-btn fr" value="关闭" onClick="window.location=window.location" /></h3>
+		</div>
+		<ul class="statistics-list" id="unfind_num_list">
+			<li>
+				<span class='span-1'><b>日期</b></span>
+				<span class='span-1'><b>MAC地址</b></span>
+				<span class='span-1'><b>安装总量</b></span>
+				<span class='span-1'><b>IOS安装量</b></span>
+				<span class='span-1'><b>Abdrid安装量</b></span>
+			</li>
 		</ul>
 	</div>
 </div>
@@ -379,14 +395,181 @@
 		$("#formid").attr("action",url);
 		$("#formid").submit();
 	});
-	function succ_num_click(){
+	function succ_num_click(which){
+		var select_id=$(which).parent().find(".select_id").val();
+		ajax_post(select_id,0);
 		$.openDOMWindow({
 			loader:1,
 			loaderHeight:16,
 			loaderWidth:17,
 			windowSourceID:'#succ_num_win'
 		});
+		$("#succ_export_bt").attr("onclick","downexelc('"+select_id+"','succ')");
 		return false;
+	}
+	function fail_num_click(which){
+		var select_id=$(which).parent().find(".select_id").val();
+		ajax_post(select_id,1);
+		$.openDOMWindow({
+			loader:1,
+			loaderHeight:16,
+			loaderWidth:17,
+			windowSourceID:'#fail_num_win'
+		});
+		$("#fail_export_bt").attr("onclick","downexelc('"+select_id+"','fail')");
+		return false;
+	}
+	function unfind_num_click(which){
+		var select_id=$(which).parent().find(".select_id").val();
+		ajax_post(select_id,2);
+		$.openDOMWindow({
+			loader:1,
+			loaderHeight:16,
+			loaderWidth:17,
+			windowSourceID:'#unfind_num_win'
+		});
+		$("#undefine_export_bt").attr("onclick","downexelc('"+select_id+"','unfind')");
+		return false;
+	}
+	var p=1;
+	function ajax_post(select_id,showModel){
+		$(".select_li").remove();//初始化
+		$(".resultpage").remove();//初始化
+		var url="<?php echo U('statistics/Index/ajax_report');?>";
+		$.ajax({
+			type : "post",						//post方式
+			url : url,							//ajax查询url
+			data : {"select_id":select_id,"showModel":showModel,"pageNum":p},	//参数
+			async : false,						//同步方式，便于拿到返回数据做统一处理
+			dataType: "json",
+			beforeSend : function (){ },		//ajax查询请求之前动作，比如提示信息……
+			success : function (data) {			//ajax请求成功后返回数据
+				p = Number(data['pageNum']);//接收当前页
+				var countPageNum = data['countPageNum'];//接收总页数
+				switch(showModel)
+				{
+				case 0:
+					var showDevPageArr=data['showDevPageArr'];
+					$.each(showDevPageArr, function(i,item){
+						$("#succ_num_list").append("<li class='select_li'><span class='span-1'>"+item['point_address']+"</span><span class='span-1'>"+
+						item['point_info']+"</span><span class='span-1'>"+
+						item['mac']+"</span><span class='span-1'>"+
+						item['all_num']+"</span><span class='span-1'>"+
+						item['ios_num']+"</span><span class='span-1'>"+
+						item['android_num']+"</span></li>");
+					});
+					$("#succ_num_table").append("<div class='resultpage' style=''>"+"<a id='yichang_up_page' style='cursor:pointer'>«</a>"+"<span id='up_pages'></span>"+"<span class='current'>"+p+"</span>"+"<span id='down_pages'></span>"+"<a id='yichang_down_page' style='cursor:pointer'>»</a>"+"<span class='pages-number'>共"+countPageNum+"页</span>"+"<span>到第<select id='select_page_yichang'></select>页</span>"+"</div>");
+					break;
+				case 1:
+					var showDevPageArr=data['showDevPageArr'];
+					$.each(showDevPageArr, function(i,item){
+						$("#fail_num_list").append("<li class='select_li'><span class='span-1'>"+item['point_address']+"</span><span class='span-1'>"+
+						item['point_info']+"</span><span class='span-1'>"+
+						item['mac']+"</span><span class='span-1'><a class='statistics_button' style='color:##5095fc;text-decoration:underline;cursor: pointer;'>统计</a></span><input type='hidden' class='id' value='"+item['id']+"'/>"+"</li>");
+					});
+					$(".statistics_button").click(function(){
+						statistics_button(this,select_id,showModel);
+					})
+					$("#fail_num_table").append("<div class='resultpage' style=''>"+"<a id='yichang_up_page' style='cursor:pointer'>«</a>"+"<span id='up_pages'></span>"+"<span class='current'>"+p+"</span>"+"<span id='down_pages'></span>"+"<a id='yichang_down_page' style='cursor:pointer'>»</a>"+"<span class='pages-number'>共"+countPageNum+"页</span>"+"<span>到第<select id='select_page_yichang'></select>页</span>"+"</div>");
+				  break;
+				case 2:
+					var showDevPageArr=data['showDevPageArr'];
+					$.each(showDevPageArr, function(i,item){
+						$("#unfind_num_list").append("<li class='select_li'><span class='span-1'>"+item['reg_date']+"</span><span class='span-1'>"+
+						item['mac']+"</span><span class='span-1'>"+
+						item['all_num']+"</span><span class='span-1'>"+
+						item['ios_num']+"</span><span class='span-1'>"+
+						item['android_num']+"</span></li>");
+					});
+					$("#unfind_num_table").append("<div class='resultpage' style=''>"+"<a id='yichang_up_page' style='cursor:pointer'>«</a>"+"<span id='up_pages'></span>"+"<span class='current'>"+p+"</span>"+"<span id='down_pages'></span>"+"<a id='yichang_down_page' style='cursor:pointer'>»</a>"+"<span class='pages-number'>共"+countPageNum+"页</span>"+"<span>到第<select id='select_page_yichang'></select>页</span>"+"</div>");
+				  break;
+				default:
+					alert("请求错误");
+				}
+				
+
+				if(p=="1"){
+					$("#yichang_up_page").hide();
+				}
+				if(p==countPageNum){
+					$("#yichang_down_page").hide();
+				}
+				//前面的页码
+				for (var i=p-3;i<=p-1 ; i++)
+				{
+					if(i<=1){
+						break;
+					}
+					if(i>1){
+						$("#up_pages").append("<a class='page_pp' value='"+i+"' style='cursor:pointer'>"+i+"</a>");
+					}
+				}
+				//后面的页码
+				for (var i=p+1;i<=p+3; i++)
+				{
+					if(i<=countPageNum){
+						$("#down_pages").append("<a class='page_pp' value='"+i+"' style='cursor:pointer'>"+i+"</a>");
+					}
+				}
+				//页码select
+				for(var i=1;i<=countPageNum;i++){
+					if(i==p){
+						$("#select_page_yichang").append("<option value='"+i+"' selected='selected'>"+i+"</option>");
+					}else{
+						$("#select_page_yichang").append("<option value='"+i+"'>"+i+"</option>");
+					}
+				}
+				$("#select_page_yichang").change(function(){
+					p=$(this).val();//页数
+					up_yichang(select_id,showModel);
+				});
+				$(".page_pp").click(function(){
+					p=$(this).text();
+					up_yichang(select_id,showModel);
+				});
+				$("#yichang_up_page").click(function(){
+					p--;	
+					up_yichang(select_id,showModel);
+				});
+				$("#yichang_down_page").click(function(){
+					p++;	
+					down_yichang(select_id,showModel);
+				});
+
+
+			}
+		});
+
+	}
+	function up_yichang(select_id,showModel){
+		ajax_post(select_id,showModel); 
+	}
+	function down_yichang(select_id,showModel){
+		ajax_post(select_id,showModel); 
+	}
+	
+	function downexelc(id,model){
+		window.location.href="<?php echo U('statistics/export/smart_export');?>?id="+id+"&model="+model;
+	}
+	
+	function statistics_button(wei_id,select_id,showModel){
+		var id = $(wei_id).parent().parent().find(".id").val();
+		var handleUrl="<?php echo U('statistics/Index/change_count');?>";
+		$.ajax({
+			type: "POST",
+			url: handleUrl,
+			async: false,
+			dataType: "json",
+			data:{"id":id},	
+			success: function(data){
+				alert("统计成功!");
+				ajax_post(select_id,showModel);
+			},
+
+			error: function(XMLHttpRequest, textStatus, errorThrown) {
+				alert("请求失败!");
+			}
+		});
 	}
 </script>
 
