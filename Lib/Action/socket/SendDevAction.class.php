@@ -98,11 +98,10 @@ class SendDevAction extends Action {
 			//发送信息并获取返回各属性值数组
 			$getStrArr = $this->sendRespStrGetRespArr($dev_status,4096);
 			//返回1则未返回数据
-			if($getStrArr == 1){
+			if($getStrArr == 2){
 				$rollback++;
 				break;
 			}
-			
 			
 			//如果$getStrArr返回空或false则此设备不存在，进行下次循环
 			if(!$getStrArr){
@@ -195,8 +194,8 @@ class SendDevAction extends Action {
 		}
 		
 		//删除前5次请求之外的数据
-		$sql_del = "DELETE FROM `dev_monitor` WHERE monitor_no < ".($monitor_no-10);
-		$model->query($sql_del);
+		//$sql_del = "DELETE FROM `dev_monitor` WHERE monitor_no < ".($monitor_no-10);
+		//$model->query($sql_del);
 		
 		if($rollback){
 			$model->rollback();
@@ -232,6 +231,7 @@ class SendDevAction extends Action {
 			$online_handle = "ONLINE_HANDLE:".$this->getNewSendNum().",dev_uid:".$v['device_no'].",dev_mac:".$v['MAC'].",command:update,web_url:$down_url,path:$save_path,md5:$file_md5;";
 			//发送信息并获取返回各属性值数组
 			$getStrArr = $this->sendRespStrGetRespArr($online_handle,4096);
+
 			//获取更新状态
 			$result = $this->getAttributeVal($getStrArr,"result");
 			$status = $result == 0?1:2;
@@ -345,5 +345,13 @@ class SendDevAction extends Action {
 			return false;
 		}
 		return explode(",",$resp);
+	}
+	
+	
+	
+	
+	function postTest(){
+		$test = $_POST['postTest'];
+		echo json_encode($test);
 	}
 }

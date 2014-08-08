@@ -83,10 +83,13 @@ class IndexAction extends Action {
 	function installed_daily_doseach(){
 		
 		$where = "";
-		$select_province = I("get.select_province");
-		$select_city = I("get.select_city");
+		$select_province	 = I("get.select_province");
+		$select_city 		 = I("get.select_city");
 		$contract_end_time_1 = I("get.contract_end_time_1");
 		$contract_end_time_2 = I("get.contract_end_time_2");
+		$channel_name 		 = I("get.channel_name");
+		$place_name			 = I("get.place_name");
+		
 		if(!empty($select_province)){
 			$where .=" province_name='".$select_province."'";
 		}
@@ -99,6 +102,13 @@ class IndexAction extends Action {
 		}
 		if (!empty($contract_end_time_2)){
 			$where .=" and reg_date <'".(strtotime($contract_end_time_2)+24*3600)."'";
+		}
+		
+		if (!empty($channel_name)){
+			$where .=" and channel_name='$channel_name'";
+		}
+		if (!empty($place_name)){
+			$where .=" and place_name='$place_name'";
 		}
 		
 		

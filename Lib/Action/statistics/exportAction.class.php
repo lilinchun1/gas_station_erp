@@ -21,10 +21,14 @@ class ExportAction extends Action{
 	/*明细execl导出*/
 	public function all_export(){
 		$where = "";
-		$select_province = I("get.select_province");
-		$select_city = I("get.select_city");
+		$select_province	 = I("get.select_province");
+		$select_city 		 = I("get.select_city");
 		$contract_end_time_1 = I("get.contract_end_time_1");
 		$contract_end_time_2 = I("get.contract_end_time_2");
+		$channel_name 		 = I("get.channel_name");
+		$place_name			 = I("get.place_name");
+		
+		
 		if(!empty($select_province)){
 			$where .=" province_name='".$select_province."'";
 		}
@@ -37,6 +41,12 @@ class ExportAction extends Action{
 		}
 		if (!empty($contract_end_time_2)){
 			$where .=" and reg_date <'".(strtotime($contract_end_time_2)+24*3600)."'";
+		}
+		if (!empty($channel_name)){
+			$where .=" and channel_name='$channel_name'";
+		}
+		if (!empty($place_name)){
+			$where .=" and place_name='$place_name'";
 		}
 		
 		$Model = M("statistics_report_all");
@@ -272,7 +282,7 @@ class ExportAction extends Action{
 	//异常统计
 	private function _undefine_export($master_id){
 		$where = "master_id='$master_id'";
-		$Model = M("statistics_report_fail");
+		$Model = M("statistics_report_undefine");
 		$list = $Model->where($where)->order('reg_date DESC')->select();
 		if(!empty($list) && !empty($where)){
 	
@@ -314,7 +324,7 @@ class ExportAction extends Action{
 				$resultPHPExcel->getActiveSheet()->setCellValue('A'.$coll, $v['mac']);
 				$resultPHPExcel->getActiveSheet()->setCellValue('B'.$coll, $v['all_num']);
 				$resultPHPExcel->getActiveSheet()->setCellValue('C'.$coll, $v['ios_num']);
-				$resultPHPExcel->getActiveSheet()->setCellValue('C'.$coll, $v['android_num']);
+				$resultPHPExcel->getActiveSheet()->setCellValue('D'.$coll, $v['android_num']);
 			}
 			//设置导出文件名
 			$outputFileName = date("Ymd").'_异常加油站安装量明细.xls';

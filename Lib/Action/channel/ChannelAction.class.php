@@ -39,11 +39,14 @@ class ChannelAction extends Action {
 		$userinfo = getUserInfo();
 	    $Model = new Model();
 		$agent_name = trim(I('agent_name_txt'));
+		//渠道类型
 		$channel_first_type = trim(I('channel_first_type_sel'));
 		$channel_second_type = trim(I('channel_second_type_sel'));
-		$channel_name = trim(I('channel_name_txt'));
+		//渠道城市
 		$province = trim(I('select_province'));
 		$city = trim(I('select_city'));
+		
+		$channel_name = trim(I('channel_name_txt'));		
 		$contract_begin_time_1 = strtotime(trim(I('contract_begin_time_1')));
 		$contract_begin_time_2 = strtotime(trim(I('contract_begin_time_2')));
 		$contract_end_time_1 = strtotime(trim(I('contract_end_time_1')));
@@ -78,6 +81,7 @@ class ChannelAction extends Action {
 		{
 			$where .= " and a.end_time<='$contract_end_time_2'";
 		}
+		
 		if(!empty($channel_first_type))
 		{
 			if(!empty($channel_second_type))
@@ -100,6 +104,7 @@ class ChannelAction extends Action {
 				$where .= " and a.province='$province'";
 			}
 		}
+		
 		
 		if((!empty($userinfo['orgid'])) && (1 != $userinfo['orgid']))
 		{

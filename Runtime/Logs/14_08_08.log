@@ -5750,3 +5750,192 @@ INFO: [ app_begin ] --END-- [ RunTime:0.001000s ]
 NOTIC: [8] Undefined index: orgid D:\trunk\gas_station_erp\Lib\Action\management\IndexAction.class.php 第 29 行.
 SQL: select * from qd_place where place_name like '%%' [ RunTime:0.005000s ]
 
+[ 2014-08-08T13:41:50+08:00 ] 127.0.0.1 /gas_station_erp/index.php/configuration/Org/show_org_tree
+INFO: [ app_begin ] --START--
+INFO: ReadHtmlCache Behavior ::run [ RunTime:0.002000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.002000s ]
+NOTIC: [2] urldecode() expects parameter 1 to be string, array given D:\trunk\gas_station_erp\Lib\Action\configuration\OrgAction.class.php 第 4 行.
+SQL: select * from qd_agent a where a.isDelete=0 [ RunTime:0.002000s ]
+
+[ 2014-08-08T13:41:59+08:00 ] 127.0.0.1 /gas_station_erp/index.php/monitoring/Index/getProvinceCity
+NOTIC: [2] htmlspecialchars() expects parameter 2 to be long, string given D:\trunk\frame\Lib\Core\App.class.php 第 56 行.
+INFO: [ app_begin ] --START--
+INFO: ReadHtmlCache Behavior ::run [ RunTime:0.000000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000000s ]
+NOTIC: [8] Undefined index: orgid D:\trunk\gas_station_erp\Lib\Action\monitoring\IndexAction.class.php 第 18 行.
+SQL: SELECT MAX(monitor_no) monitor_no FROM dev_monitor [ RunTime:0.003001s ]
+SQL: 
+				SELECT b.province,b.city,COUNT(*) count FROM dev_monitor a
+				LEFT JOIN qd_device b ON a.dev_no = b.device_no
+				WHERE
+				a.monitor_no = 87
+				AND a.unfind <> 1 AND a.dev_no_begin_time <>1
+				GROUP BY b.province,b.city
+				ORDER BY b.province,b.city
+				 [ RunTime:0.015000s ]
+SQL: 
+				SELECT b.area_id,b.area_name,b.pid,b.level,0 count
+				FROM qd_agent_area a
+				LEFT JOIN bi_area b ON a.area_id = b.area_id
+				 where 1 
+				GROUP BY a.area_id
+				 [ RunTime:0.001000s ]
+NOTIC: [8] Undefined index: orgid D:\trunk\gas_station_erp\Lib\Action\monitoring\IndexAction.class.php 第 299 行.
+
+[ 2014-08-08T13:41:59+08:00 ] 127.0.0.1 /gas_station_erp/index.php/channel/Place/placenameBlurrySelect
+INFO: [ app_begin ] --START--
+INFO: ReadHtmlCache Behavior ::run [ RunTime:0.001000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001000s ]
+NOTIC: [2] urldecode() expects parameter 1 to be string, array given D:\trunk\gas_station_erp\Lib\Action\channel\PlaceAction.class.php 第 4 行.
+NOTIC: [2] htmlspecialchars() expects parameter 2 to be long, string given D:\trunk\frame\Common\common.php 第 110 行.
+SQL: SHOW COLUMNS FROM `qd_place` [ RunTime:0.003000s ]
+SQL: SELECT DISTINCT  `place_name` FROM `qd_place` WHERE ( `place_name` LIKE '%%' )  [ RunTime:0.003001s ]
+
+[ 2014-08-08T13:41:59+08:00 ] 127.0.0.1 /gas_station_erp/index.php/channel/Channel/channelnameBlurrySelect
+INFO: [ app_begin ] --START--
+INFO: ReadHtmlCache Behavior ::run [ RunTime:0.000000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000000s ]
+NOTIC: [2] urldecode() expects parameter 1 to be string, array given D:\trunk\gas_station_erp\Lib\Action\channel\ChannelAction.class.php 第 4 行.
+NOTIC: [2] htmlspecialchars() expects parameter 2 to be long, string given D:\trunk\frame\Common\common.php 第 110 行.
+SQL: SHOW COLUMNS FROM `qd_channel` [ RunTime:0.003000s ]
+SQL: SELECT DISTINCT  `channel_name` FROM `qd_channel` WHERE ( `channel_name` LIKE '%%' )  [ RunTime:0.011001s ]
+
+[ 2014-08-08T13:41:59+08:00 ] 127.0.0.1 /gas_station_erp/index.php/channel/Device/devicenoBlurrySelect
+INFO: [ app_begin ] --START--
+INFO: ReadHtmlCache Behavior ::run [ RunTime:0.000000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000000s ]
+NOTIC: [2] urldecode() expects parameter 1 to be string, array given D:\trunk\gas_station_erp\Lib\Action\channel\DeviceAction.class.php 第 4 行.
+NOTIC: [2] htmlspecialchars() expects parameter 2 to be long, string given D:\trunk\frame\Common\common.php 第 110 行.
+SQL: SHOW COLUMNS FROM `qd_device` [ RunTime:0.004001s ]
+SQL: SELECT DISTINCT  `device_no` FROM `qd_device` WHERE ( `device_no` LIKE '%%' )  [ RunTime:0.004000s ]
+
+[ 2014-08-08T13:41:59+08:00 ] 127.0.0.1 /gas_station_erp/index.php/channel/Device/deviceAddress
+INFO: [ app_begin ] --START--
+INFO: ReadHtmlCache Behavior ::run [ RunTime:0.001000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.002000s ]
+NOTIC: [2] urldecode() expects parameter 1 to be string, array given D:\trunk\gas_station_erp\Lib\Action\channel\DeviceAction.class.php 第 4 行.
+NOTIC: [2] htmlspecialchars() expects parameter 2 to be long, string given D:\trunk\frame\Common\common.php 第 110 行.
+SQL: SHOW COLUMNS FROM `qd_device` [ RunTime:0.003001s ]
+SQL: SELECT DISTINCT  `address` FROM `qd_device` WHERE ( `address` LIKE '%%' )  [ RunTime:0.005000s ]
+
+[ 2014-08-08T13:41:59+08:00 ] 127.0.0.1 /gas_station_erp/index.php/channel/Device/devicemacBlurrySelect
+INFO: [ app_begin ] --START--
+INFO: ReadHtmlCache Behavior ::run [ RunTime:0.001000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001000s ]
+NOTIC: [2] urldecode() expects parameter 1 to be string, array given D:\trunk\gas_station_erp\Lib\Action\channel\DeviceAction.class.php 第 4 行.
+NOTIC: [2] htmlspecialchars() expects parameter 2 to be long, string given D:\trunk\frame\Common\common.php 第 110 行.
+SQL: SHOW COLUMNS FROM `qd_device` [ RunTime:0.003000s ]
+SQL: SELECT DISTINCT  `MAC` FROM `qd_device` WHERE ( `MAC` LIKE '%%' )  [ RunTime:0.004001s ]
+
+[ 2014-08-08T13:41:59+08:00 ] 127.0.0.1 /gas_station_erp/index.php/channel/Place/placenameBlurrySelect
+INFO: [ app_begin ] --START--
+INFO: ReadHtmlCache Behavior ::run [ RunTime:0.000000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000000s ]
+NOTIC: [2] urldecode() expects parameter 1 to be string, array given D:\trunk\gas_station_erp\Lib\Action\channel\PlaceAction.class.php 第 4 行.
+NOTIC: [2] htmlspecialchars() expects parameter 2 to be long, string given D:\trunk\frame\Common\common.php 第 110 行.
+SQL: SHOW COLUMNS FROM `qd_place` [ RunTime:0.003000s ]
+SQL: SELECT DISTINCT  `place_name` FROM `qd_place` WHERE ( `place_name` LIKE '%%' )  [ RunTime:0.002000s ]
+
+[ 2014-08-08T13:41:59+08:00 ] 127.0.0.1 /gas_station_erp/index.php/channel/Channel/channelnameBlurrySelect
+INFO: [ app_begin ] --START--
+INFO: ReadHtmlCache Behavior ::run [ RunTime:0.000000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001000s ]
+NOTIC: [2] urldecode() expects parameter 1 to be string, array given D:\trunk\gas_station_erp\Lib\Action\channel\ChannelAction.class.php 第 4 行.
+NOTIC: [2] htmlspecialchars() expects parameter 2 to be long, string given D:\trunk\frame\Common\common.php 第 110 行.
+SQL: SHOW COLUMNS FROM `qd_channel` [ RunTime:0.003000s ]
+SQL: SELECT DISTINCT  `channel_name` FROM `qd_channel` WHERE ( `channel_name` LIKE '%%' )  [ RunTime:0.005001s ]
+
+[ 2014-08-08T13:42:06+08:00 ] 127.0.0.1 /gas_station_erp/index.php/monitoring/Index/getProvinceCity
+NOTIC: [2] htmlspecialchars() expects parameter 2 to be long, string given D:\trunk\frame\Lib\Core\App.class.php 第 56 行.
+INFO: [ app_begin ] --START--
+INFO: ReadHtmlCache Behavior ::run [ RunTime:0.001000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001000s ]
+NOTIC: [8] Undefined index: orgid D:\trunk\gas_station_erp\Lib\Action\monitoring\IndexAction.class.php 第 18 行.
+SQL: SELECT MAX(monitor_no) monitor_no FROM dev_monitor [ RunTime:0.003000s ]
+SQL: 
+				SELECT b.province,b.city,COUNT(*) count FROM dev_monitor a
+				LEFT JOIN qd_device b ON a.dev_no = b.device_no
+				WHERE
+				a.monitor_no = 87
+				AND a.unfind <> 1 AND a.dev_no_begin_time <>1
+				GROUP BY b.province,b.city
+				ORDER BY b.province,b.city
+				 [ RunTime:0.016001s ]
+SQL: 
+				SELECT b.area_id,b.area_name,b.pid,b.level,0 count
+				FROM qd_agent_area a
+				LEFT JOIN bi_area b ON a.area_id = b.area_id
+				 where 1 
+				GROUP BY a.area_id
+				 [ RunTime:0.001000s ]
+NOTIC: [8] Undefined index: orgid D:\trunk\gas_station_erp\Lib\Action\monitoring\IndexAction.class.php 第 299 行.
+
+[ 2014-08-08T13:42:07+08:00 ] 127.0.0.1 /gas_station_erp/index.php/channel/Place/placenameBlurrySelect
+INFO: [ app_begin ] --START--
+INFO: ReadHtmlCache Behavior ::run [ RunTime:0.000000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000000s ]
+NOTIC: [2] urldecode() expects parameter 1 to be string, array given D:\trunk\gas_station_erp\Lib\Action\channel\PlaceAction.class.php 第 4 行.
+NOTIC: [2] htmlspecialchars() expects parameter 2 to be long, string given D:\trunk\frame\Common\common.php 第 110 行.
+SQL: SHOW COLUMNS FROM `qd_place` [ RunTime:0.004000s ]
+SQL: SELECT DISTINCT  `place_name` FROM `qd_place` WHERE ( `place_name` LIKE '%%' )  [ RunTime:0.003000s ]
+
+[ 2014-08-08T13:42:07+08:00 ] 127.0.0.1 /gas_station_erp/index.php/channel/Channel/channelnameBlurrySelect
+INFO: [ app_begin ] --START--
+INFO: ReadHtmlCache Behavior ::run [ RunTime:0.000000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000000s ]
+NOTIC: [2] urldecode() expects parameter 1 to be string, array given D:\trunk\gas_station_erp\Lib\Action\channel\ChannelAction.class.php 第 4 行.
+NOTIC: [2] htmlspecialchars() expects parameter 2 to be long, string given D:\trunk\frame\Common\common.php 第 110 行.
+SQL: SHOW COLUMNS FROM `qd_channel` [ RunTime:0.003000s ]
+SQL: SELECT DISTINCT  `channel_name` FROM `qd_channel` WHERE ( `channel_name` LIKE '%%' )  [ RunTime:0.005000s ]
+
+[ 2014-08-08T13:42:07+08:00 ] 127.0.0.1 /gas_station_erp/index.php/channel/Device/devicenoBlurrySelect
+INFO: [ app_begin ] --START--
+INFO: ReadHtmlCache Behavior ::run [ RunTime:0.000000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001000s ]
+NOTIC: [2] urldecode() expects parameter 1 to be string, array given D:\trunk\gas_station_erp\Lib\Action\channel\DeviceAction.class.php 第 4 行.
+NOTIC: [2] htmlspecialchars() expects parameter 2 to be long, string given D:\trunk\frame\Common\common.php 第 110 行.
+SQL: SHOW COLUMNS FROM `qd_device` [ RunTime:0.003000s ]
+SQL: SELECT DISTINCT  `device_no` FROM `qd_device` WHERE ( `device_no` LIKE '%%' )  [ RunTime:0.005001s ]
+
+[ 2014-08-08T13:42:07+08:00 ] 127.0.0.1 /gas_station_erp/index.php/channel/Device/devicemacBlurrySelect
+INFO: [ app_begin ] --START--
+INFO: ReadHtmlCache Behavior ::run [ RunTime:0.000000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000000s ]
+NOTIC: [2] urldecode() expects parameter 1 to be string, array given D:\trunk\gas_station_erp\Lib\Action\channel\DeviceAction.class.php 第 4 行.
+NOTIC: [2] htmlspecialchars() expects parameter 2 to be long, string given D:\trunk\frame\Common\common.php 第 110 行.
+SQL: SHOW COLUMNS FROM `qd_device` [ RunTime:0.007000s ]
+SQL: SELECT DISTINCT  `MAC` FROM `qd_device` WHERE ( `MAC` LIKE '%%' )  [ RunTime:0.005001s ]
+
+[ 2014-08-08T13:42:07+08:00 ] 127.0.0.1 /gas_station_erp/index.php/channel/Place/placenameBlurrySelect
+INFO: [ app_begin ] --START--
+INFO: ReadHtmlCache Behavior ::run [ RunTime:0.013000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.013000s ]
+NOTIC: [2] urldecode() expects parameter 1 to be string, array given D:\trunk\gas_station_erp\Lib\Action\channel\PlaceAction.class.php 第 4 行.
+NOTIC: [2] htmlspecialchars() expects parameter 2 to be long, string given D:\trunk\frame\Common\common.php 第 110 行.
+SQL: SHOW COLUMNS FROM `qd_place` [ RunTime:0.004000s ]
+SQL: SELECT DISTINCT  `place_name` FROM `qd_place` WHERE ( `place_name` LIKE '%%' )  [ RunTime:0.003000s ]
+
+[ 2014-08-08T13:42:07+08:00 ] 127.0.0.1 /gas_station_erp/index.php/channel/Device/deviceAddress
+INFO: [ app_begin ] --START--
+INFO: ReadHtmlCache Behavior ::run [ RunTime:0.001000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001000s ]
+NOTIC: [2] urldecode() expects parameter 1 to be string, array given D:\trunk\gas_station_erp\Lib\Action\channel\DeviceAction.class.php 第 4 行.
+NOTIC: [2] htmlspecialchars() expects parameter 2 to be long, string given D:\trunk\frame\Common\common.php 第 110 行.
+SQL: SHOW COLUMNS FROM `qd_device` [ RunTime:0.003000s ]
+SQL: SELECT DISTINCT  `address` FROM `qd_device` WHERE ( `address` LIKE '%%' )  [ RunTime:0.006001s ]
+
+[ 2014-08-08T13:42:07+08:00 ] 127.0.0.1 /gas_station_erp/index.php/channel/Channel/channelnameBlurrySelect
+INFO: [ app_begin ] --START--
+INFO: ReadHtmlCache Behavior ::run [ RunTime:0.001000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001000s ]
+NOTIC: [2] urldecode() expects parameter 1 to be string, array given D:\trunk\gas_station_erp\Lib\Action\channel\ChannelAction.class.php 第 4 行.
+NOTIC: [2] htmlspecialchars() expects parameter 2 to be long, string given D:\trunk\frame\Common\common.php 第 110 行.
+SQL: SHOW COLUMNS FROM `qd_channel` [ RunTime:0.004001s ]
+SQL: SELECT DISTINCT  `channel_name` FROM `qd_channel` WHERE ( `channel_name` LIKE '%%' )  [ RunTime:0.005000s ]
+
+[ 2014-08-08T13:42:12+08:00 ] 127.0.0.1 /gas_station_erp/index.php/statistics//gas_station_erp/gas_station_erp/Tpl/statistics/Public/css/configuration.css
+ERR: 无法加载模块:gas_station_erp
+
+[ 2014-08-08T13:42:15+08:00 ] 127.0.0.1 /gas_station_erp/index.php/statistics//gas_station_erp/gas_station_erp/Tpl/statistics/Public/css/configuration.css
+ERR: 无法加载模块:gas_station_erp
+
