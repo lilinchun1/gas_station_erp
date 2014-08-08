@@ -451,6 +451,9 @@
 </script>
 <div id="station_win" style="display:none">
 	<div class="alert-table1" style="background:#fff;width:100%;padding-bottom:20px">
+        <div class="defult-tt">
+            未监控加油站信息
+        </div>
 		<div class="role-inquire channel-index-btns">
 				<p>
 					<label for="yichang_channelName" class="">渠道名称</label>
@@ -465,7 +468,7 @@
 					<label for="yichang_devNo" class="">加油站编号</label>
 					<input type="text" name="yichang_devNo" id="yichang_devNo" value="" class="input-org-info"/>
 
-					<label for="yichang_devNoBeginTime" class="">查询数据类型</label>
+					<label for="devNoBeginTime" class="">查询数据类型</label>
 					<select class="input-org-info" id="devNoBeginTime" name="devNoBeginTime" value="" style="width:150px">
 						<option value="1">未返回数据的机器</option>
 						<option value="2">未设开机时间的机器</option>

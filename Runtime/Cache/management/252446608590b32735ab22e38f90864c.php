@@ -445,7 +445,7 @@
 					</div>
 					<div class="org-right-btns">
 						<form action="">
-							<button type="button" class="area-btn status_add">创建</button>
+							<button type="button" class="area-btn status_add">添加</button>
 							<button type="button" class="area-btn status_udp">编辑</button>
 							<button type="button" class="area-btn status_del">删除</button>
 							<button type="button" class="area-btn status_send">更新</button>
@@ -665,7 +665,7 @@
 			<div class="verup-alert-con">
 				<div class="verup-alert-con-left">
 					<p>
-						<label for="smartApp">SmartApp</label>
+						<label for="smartApp">SmartApp&nbsp;&nbsp;&nbsp;&nbsp;</label>
 						<input type="file" name="smartApp" id="smartApp" class="" style="border: 0 none; width: 69px;"/>
 						<label for="main-pg">版本号</label>
 						<input type="text" name="smartAppNo" id="smartAppNo" class="input-org-info"/>
