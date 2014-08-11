@@ -346,12 +346,4 @@ class SendDevAction extends Action {
 		}
 		return explode(",",$resp);
 	}
-	
-	
-	
-	
-	function postTest(){
-		$test = $_POST['postTest'];
-		echo json_encode($test);
-	}
 }

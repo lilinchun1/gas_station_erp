@@ -192,7 +192,7 @@ $heiti:"SimHei";
 #nav{
   position: absolute;
   top: 50px;
-  right: 280px;
+  left: 280px;
   z-index: 1;
   min-width: 886px;
   height: $nav-height;
@@ -1147,6 +1147,8 @@ $heiti:"SimHei";
 .role-inquire{
   min-width: $min-width-kuang2;
   padding: 0 30px;
+  input{
+    width: 120px;}
 }
 input.input-org-info,input.channel-select{
   margin-bottom: 5px;}
