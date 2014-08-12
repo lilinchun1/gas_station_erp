@@ -692,7 +692,7 @@
             $.getJSON(del_handleUrl,{"device_id":device_id},
                     function (data){
 						if(confirm("确定要撤销吗？")){
-							alert(data);
+							//alert(data);
 							window.location.href = window.location.href;
 						}
                     }

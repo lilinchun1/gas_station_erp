@@ -459,8 +459,7 @@
                 <label for="channel-qd" class="role-lab">所属渠道</label>
                 <input type="text" name="change_channel_name_txt" id="change_channel_name_txt" class="input-role-name"/>
 				<i class="red-color pdl10">*</i>
-            </p>
-            <p>
+
                 <label for="channel-address1" class="">网点状态</label>
 				<select name="change_status_sel" id="change_status_sel" class="channel-select-min">
 					<option value="test">测试期</option>
@@ -474,9 +473,7 @@
                        style="margin-top: 0;" onClick="WdatePicker()" readonly="readonly"/>
                 <input type="date" name="change_test_end_time_sel" id="change_test_end_time_sel" class="input-org-info min-w"
                        style="margin-top: 0;" onClick="WdatePicker()" readonly="readonly"/>
-            </p>
 
-            <p>
                 <label for="sq-date">启用日期</label>
                 <input type="date" name="change_begin_time_sel" id="change_begin_time_sel" class="input-org-info"
 					style="margin-top: 0;" onClick="WdatePicker()" readonly="readonly"/>
@@ -726,7 +723,7 @@
             $.getJSON(del_handleUrl,{"place_id":place_id},
                     function (data){
 						if(confirm("确定要撤销吗？")){
-							alert(data);
+							//alert(data);
 							window.location.href = window.location.href;
 						}
                     }

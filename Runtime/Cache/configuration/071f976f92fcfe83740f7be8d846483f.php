@@ -104,6 +104,23 @@
 					</ul>
 					<div class="resultpage"><?php echo ($page); ?></div>
 				</div>
+                <div class="role-table over-h-y rizhi">
+                    <div class="data-log">
+                        <h3>操作日志</h3>
+                    </div>
+                    <ul class="role-table-list role-table-list2">
+                        <li>
+                            <span class="span-3"><b>操作人</b></span>
+                            <span class="span-3"><b>操作时间</b></span>
+                            <span class="span-3"><b>操作日志</b></span>
+                        </li>
+                        <li>
+                            <span class="span-3" title="#">Lorem ipsum dolor sit amet.</span>
+                            <span class="span-3" title="#">Beatae fugiat impedit ipsa porro!</span>
+                            <span class="span-3" title="#">Atque corporis laudantium perspiciatis qui?</span>
+                        </li>
+                    </ul>
+                </div>
 			</div>
 		</div>
 	</div>

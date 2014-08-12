@@ -1494,9 +1494,12 @@ input.input-org-info,input.channel-select{
   border-bottom: 1px solid #dadada;
   background: #f6f6f6;
 }
-#add_region_txt,#change_region_txt,#change_channel_name_txt{
+#add_region_txt,#change_region_txt{
   width: 276px;}
 #add_status_sel{
   width: 162px;}
 #add_channel_address_txt{
   width: 200px;}
+#change_channel_name_txt{
+  width: 162px;
+ }
