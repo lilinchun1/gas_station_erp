@@ -5,8 +5,9 @@
     <title>网点信息</title>
     <!--<link rel="stylesheet" href="../../Public/css/configuration.css"/>-->
     <script type="text/javascript" src="__PUBLIC__/js/jquery-1.10.2.min.js"></script>
-	<script type="text/javascript" src="__PUBLIC__/js/script_city.js"></script>
+	<script type="text/javascript" src="__PUBLIC__/js/city.js"></script>
 	<script language="javascript" type="text/javascript" src="__PUBLIC__/js/My97DatePicker/WdatePicker.js"></script>
+
 	<script>
 		var place_val='';
 		var place_flag='';
@@ -21,12 +22,6 @@
 <div id="container">
 <div class="left">
     <include file="./Tpl/include/pb-channel-aside.html"/>
-    <!--<ul class="aside-nav">
-        <li class="aside-nav-nth1"><a href="{:U('channel/Channel/index')}">渠道管理</a></li>
-        <li><a href="{:U('channel/Channel/index')}"><input type="button" value="渠道信息"></a></li>
-        <li class="active"><a href="{:U('channel/Place/index')}"><input type="button" class="" value="网点信息"></a></li>
-        <li><a href="{:U('channel/Device/index')}"><input type="button" class="" value="加油站信息"></a></li>
-    </ul>-->
 </div>
 <div class="right">
 <div class="right-con">
@@ -36,17 +31,20 @@
         <form name="placeSelect" method="get" action="{:U('channel/Place/placeSelect')}">
             <p>
                 <label for="channel-org-name" class="">网点名称&nbsp;&nbsp;&nbsp;</label>
-                <input type="text" name="place_name_txt" id="place_name_txt" autocomplete="off" value="{$_GET['place_name_txt']}" 
-					class="input-org-info"/>
+                <input type="text" name="place_name_txt" id="place_name_txt" autocomplete="off" value="{$_GET['place_name_txt']}"  class="input-org-info"
+				onfocus="blurry('place_name','{:U('channel/Channel/getAllLike')}',this)"/>
                 <label for="channel-ss-are" class="">所属区域</label>&nbsp;
-                <span id="select_showcity"></span>
-                <script type="text/javascript">
-                    showprovince("select_province", "select_city", "{$_GET['select_province']}", "select_showcity");
-                    showcity("select_city", "{$_GET['select_city']}", "select_province", "select_showcity");
-                </script>
+				<span class="select_showcity">
+					<select class="select_province" name="select_province" onChange="getCity('{:U('channel/Channel/getCity')}',this,'');" value=''>
+						<option class='0' value='0'>省份</option>
+					</select>
+					<select class="select_city" name="select_city" value=''>
+						<option class='0' value='0'>地级市</option>
+					</select>
+				</span><!--省市联动-->
                 <label for="channel-ss-channel" class="">所属渠道</label>&nbsp;
-                <input type="text" name="channel_name_txt" id="channel_name_txt" autocomplete="off" value="{$_GET['channel_name_txt']}"
-					class="input-org-info"/>
+                <input type="text" name="channel_name_txt" id="channel_name_txt" autocomplete="off" value="{$_GET['channel_name_txt']}" class="input-org-info"
+				onfocus="blurry('channel_name','{:U('channel/Channel/getAllLike')}',this)"/>
                 <label for="channel-state" class="">网点状态</label>
                 <select name="place_state_sel" id="place_state_sel" class="channel-select-min">
                     <option value="" <if condition="$_GET['place_state_sel'] eq ''">selected="selected"</if>>全部</option>
@@ -161,17 +159,6 @@
                 <i class="red-color pdl10">*</i>
             </p>
 
-
-		<!--	<p>
-                <label for="channel-addname" class="role-lab">网点地址</label>
-                <input type="text" name="add_region_txt" id="add_region_txt" class="input-role-name"/>
-                <i class="red-color pdl10">*</i>
-
-                <label for="channel-addname" class="role-lab">网点电话</label>
-                <input type="text" name="add_place_tel_txt" id="add_place_tel_txt" class="input-role-name"/>
-            </p>-->
-
-
 			<p>
                 <label for="channel-addname" class="role-lab">联系人</label>
                 <input type="text" name="add_contacts_txt" id="add_contacts_txt" class="input-role-name"/>
@@ -183,13 +170,20 @@
 
             <p>
                 <label for="channel-address1" class="">网点地址</label>
-                <span id="add_select_showcity"></span><!--省市联动-->
-                <input type="text" name="" id="add_region_txt" class="input-role-name long-input"/>
+                <span class="select_showcity">
+					<select class="select_province" id="add_select_province" name="add_select_province" onChange="getCity('{:U('channel/Channel/getCity')}',this,'');" value=''>
+						<option class='0' value='0'>省份</option>
+					</select>
+					<select class="select_city" name="add_select_city" value='' id="add_select_city">
+						<option class='0' value='0'>地级市</option>
+					</select>
+				</span><!--省市联动-->                
+				<input type="text" name="" id="add_region_txt" class="input-role-name long-input"/>
                 <i class="red-color pdl10">*</i>
             </p>
             <p>
                 <label for="channel-qd" class="role-lab">所属渠道</label>
-                <input type="text" name="add_channel_name_txt" id="add_channel_name_txt" class="input-role-name"/>
+                <input type="text" name="add_channel_name_txt" id="add_channel_name_txt" class="input-role-name" onfocus="blurry('channel_name','{:U('channel/Channel/getAllLike')}',this)"/>
                 <i class="red-color pdl10">*</i>
                 <label for="channel-address1" class="">网点状态</label>
                 <select name="add_status_sel" id="add_status_sel" class="channel-select-min">
@@ -255,14 +249,21 @@
 
             <p>
                 <label for="channel-address1" class="">网点地址</label>
-                <span id="change_select_showcity"></span><!--省市联动-->
-                <input type="text" name="" id="change_region_txt" class="input-role-name long-input"/>
+                <span class="select_showcity">
+					<select class="select_province" id="change_select_province" name="change_select_province" onChange="getCity('{:U('channel/Channel/getCity')}',this,'');" value=''>
+						<option class='0' value='0'>省份</option>
+					</select>
+					<select class="select_city" name="change_select_city" value='' id="change_select_city">
+						<option class='0' value='0'>地级市</option>
+					</select>
+				</span><!--省市联动-->              
+				<input type="text" name="" id="change_region_txt" class="input-role-name long-input"/>
                 <i class="red-color pdl10">*</i>
 
             </p>
             <p>
                 <label for="channel-qd" class="role-lab">所属渠道</label>
-                <input type="text" name="change_channel_name_txt" id="change_channel_name_txt" class="input-role-name"/>
+                <input type="text" name="change_channel_name_txt" id="change_channel_name_txt" class="input-role-name" onfocus="blurry('channel_name','{:U('channel/Channel/getAllLike')}',this)"/>
 				<i class="red-color pdl10">*</i>
 
                 <label for="channel-address1" class="">网点状态</label>
@@ -334,12 +335,16 @@
 <script type="text/javascript" src="__PUBLIC__/js/jquery.SuperSlide.2.1.1.js"></script>
 <script type="text/javascript" src="__PUBLIC__/js/jquery.bigautocomplete.js"></script>
 <script type="text/javascript" src="__PUBLIC__/js/jquery.DOMwindow.js" type="text/javascript"></script><!--模框JS插件-->
+<script type="text/javascript" src="__PUBLIC__/js/blurrySelect.js"></script>
 <script>
 
 
 	 $(document).ready(function () {
 		 //设置page显示
 		$(".resultpage").css("display:block");
+		//省份传地址
+		getProvince("{:U('channel/Channel/getProvince')}","{$_GET['select_province']}","{:U('channel/Channel/getCity')}","{$_GET['select_city']}");
+
 		var sum = $("#sum").text();
 		if(sum==""){
 			$("#sum").text("0");
@@ -352,11 +357,6 @@
 			$("#place_select_result_ul").empty();
 			$("#place_select_result_ul").append("<li class='on' onclick='place_use_select();'>启用</li><li onclick='place_remove_select();'>撤销</li>");
 		}
-
-		channel_name_blurry();
-		place_name_blurry();
-		add_channel_name_blurry();
-		change_channel_name_blurry();
 
 		$('#j_del_button').click(function(){
 		    if(place_val == '')
@@ -392,9 +392,6 @@
         });
 
 		$("#b_add_place").click(function () {
-			$("#add_select_showcity").empty();
-		    showprovince("add_select_province", "add_select_city", "省份", "add_select_showcity");
-			showcity("add_select_city", "城市", "add_select_province", "add_select_showcity");
              $.openDOMWindow({
 			     loader:1,
 				 loaderHeight:16,
@@ -424,8 +421,8 @@
 					$("#change_place_no_txt").val(data['place_no']);
 					$("#change_place_tel_txt").val(data['place_tel']);
 					$("#change_select_showcity").empty();
-					showprovince("change_select_province", "change_select_city", data['province'], "change_select_showcity");
-					showcity("change_select_city", data['city'], "change_select_province", "change_select_showcity");
+					//编辑查询传参省市联动
+					getProvince("{:U('channel/Channel/getProvince')}",data['province_id'],"{:U('channel/Channel/getCity')}",data['city_id']);
 					$("#change_channel_name_txt").val(data['channel_name']);
 					$("#change_contacts_txt").val(data['contacts']);
 					$("#change_contacts_tel_txt").val(data['contacts_tel']);
@@ -725,66 +722,6 @@
 			);
 			jQuery(".role-table").slide({trigger: "click"});
 	});
-
-	function channel_name_blurry()
-	{
-		var handleUrl = "{:U('channel/Channel/channelnameBlurrySelect')}";
-		var channel_name = '';
-		$.getJSON(handleUrl,{},
-			function (data){
-				var str = data;
-				//alert(data);
-				//alert(str[1]['title']);
-				$("#channel_name_txt").bigAutocomplete({width:150,data:data,callback:function(data){}});
-			}
-			,'json'
-		);
-	}
-
-	function place_name_blurry()
-	{
-		var handleUrl = "{:U('channel/Place/placenameBlurrySelect')}";
-		var place_name = '';
-		$.getJSON(handleUrl,{},
-			function (data){
-				var str = data;
-				//alert(data);
-				//alert(str[1]['title']);
-				$("#place_name_txt").bigAutocomplete({width:150,data:data,callback:function(data){}});
-			}
-			,'json'
-		);
-	}
-
-	function add_channel_name_blurry()
-	{
-		var handleUrl = "{:U('channel/Channel/channelnameBlurrySelect')}";
-		$.getJSON(handleUrl,{},
-			function (data){
-				var str = data;
-				//alert(data);
-				//alert(str[1]['title']);
-				$("#add_channel_name_txt").bigAutocomplete({width:100,data:data,callback:function(data){}});
-			}
-			,'json'
-		);
-	}
-
-	function change_channel_name_blurry()
-	{
-		var handleUrl = "{:U('channel/Channel/channelnameBlurrySelect')}";
-		var channel_name = '';
-		$.getJSON(handleUrl,{},
-			function (data){
-				var str = data;
-				//alert(data);
-				//alert(str[1]['title']);
-				$("#change_channel_name_txt").bigAutocomplete({width:100,data:data,callback:function(data){}});
-			}
-			,'json'
-		);
-	}
-
 	function place_use_select(){
 		$("#select_del_flag_txt").val(0);
 		placeSelect.submit();

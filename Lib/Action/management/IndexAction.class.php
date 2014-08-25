@@ -2,6 +2,7 @@
 import ( "@.MyClass.Spreadsheet_Excel_Reader" );
 import ( "@.Action.socket.SendDevAction" );
 import( "@.MyClass.Page" );//导入分页类
+import( "@.MyClass.Common" );//导入公共类
 class IndexAction extends Action {
 	private $uploaded_url = "Runtime/Temp";
 	private $smartapp_uploaded_url    = "DevAppDownLoad/SmartApp/";
@@ -11,8 +12,6 @@ class IndexAction extends Action {
 	
 	//当前代理商及下属所有子代理商id列表
 	public $agentIdStr = "";
-	//当前登陆者可访问的所有地区id列表
-	private $ableAreaIdStr = "";
 
 	//区域顶级父id值
 	public $top_pid = 0;
@@ -27,21 +26,10 @@ class IndexAction extends Action {
 		//迭代出当前登录代理商及下属所有子代理商
 		$model = new Model();
 		if($this->userinfo['orgid']){
-			$sql_agent = "SELECT * FROM qd_agent";
-			$que_agent = $model->query($sql_agent);
-			$this->getAllChildAgent($que_agent,$this->userinfo['orgid']);
-			$this->agentIdStr .= $this->userinfo['orgid'];
-			$this->agentIdStr = trim($this->agentIdStr,',');
-			//获取当前登录代理商及下属所有子代理商所属所有地区id
-			$sqlArea = "SELECT * FROM qd_agent_area WHERE agent_id IN (".$this->agentIdStr.") GROUP BY area_id;";
-			$queArea = $model->query($sqlArea);
-			foreach ($queArea as $k=>$v){
-				$this->ableAreaIdStr .= $v['area_id'].",";
-			}
-			$this->ableAreaIdStr = trim($this->ableAreaIdStr,',');
+			$common = new Common();
+			$this->agentIdStr = $common->getAgentIdAndChildId($this->userinfo['orgid']);
 		}
-		
-		
+
 		//获取可查看菜单路径
 		$this->assign('urlStr', $this->userinfo['urlstr']);
 		$this->assign('username', $this->userinfo['realname']);
@@ -546,7 +534,7 @@ class IndexAction extends Action {
 	 * @return mixed
 	 */
 	function verup_add_udp(){
-		$app_dev_update = new Model('AppDevUpdate');
+		$app_dev_update = new Model("AppDevUpdate");
 		$smartAppNo     = $_POST['smartAppNo'];
 		$videoPlayerNo  = $_POST['videoPlayerNo'];
 		$updateAppNo    = $_POST['updateAppNo'];
@@ -881,19 +869,5 @@ class IndexAction extends Action {
 		$sql = "select target_num from app_dev_update where id = '$id'";
 		$que = $model->query($sql);
 		echo json_encode($que[0]['target_num']);
-	}
-	
-	/**
-	 * getAllChildAgent获取所有子代理商id
-	 * @param
-	 * @return mixed
-	 */
-	function getAllChildAgent($agentArr,$pid){
-		foreach ($agentArr as $k=>$v){
-			if($v['father_agentid'] == $pid){
-				$this->agentIdStr .= $v['agent_id'].',';
-				$this->getAllChildAgent($agentArr,$v['agent_id']);
-			}
-		}
 	}
 }

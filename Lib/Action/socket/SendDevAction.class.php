@@ -49,7 +49,7 @@ class SendDevAction extends Action {
 		$this->logDevFile = $url.$fileDev;
 		$this->logUdpFile = $url.$fileUdp;
 	}
-	
+
 	//请求加油站信息
 	public function getDevInfo() {
 		$model = new Model();

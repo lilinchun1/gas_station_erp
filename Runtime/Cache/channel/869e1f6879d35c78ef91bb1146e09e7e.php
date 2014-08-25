@@ -8,7 +8,8 @@
 	<link rel="stylesheet" href="__PUBLIC__/css/attribute.css"/>
 
 	<script type="text/javascript" src="__PUBLIC__/js/jquery-1.6.1.js"></script>
-	<script type="text/javascript" src="__PUBLIC__/js/script_city.js"></script>
+	<script type="text/javascript" src="__PUBLIC__/js/city.js"></script>
+
 	<script language="javascript" type="text/javascript" src="__PUBLIC__/js/My97DatePicker/WdatePicker.js"></script>
 </head>
 <body>
@@ -35,7 +36,7 @@
     <ul class="main-nav" id="j-nav-active">
         <li class="url_link" url="<?php echo U('monitoring/Index/station');?>"><a href="<?php echo U('monitoring/Index/station');?>">加油站监控</a></li>
         <li class="url_link" url="<?php echo U('channel/Channel/index');?>"><a href="<?php echo U('channel/Channel/index');?>">渠道管理</a></li>
-        <li class="url_link" url="<?php echo U('management/Index/importingApp');?>"><a href="<?php echo U('management/Index/importingApp');?>">运营管理</a></li>
+        <!-- <li class="url_link" url="<?php echo U('management/Index/importingApp');?>"><a href="<?php echo U('management/Index/importingApp');?>">运营管理</a></li> -->
         <li class="url_link" url="<?php echo U('statistics/Index/index');?>"><a href="<?php echo U('statistics/Index/index');?>">统计分析</a></li>
      <!--   <li class="url_link" url="<?php echo U('ad/Index/index');?>"><a href="<?php echo U('ad/Index/index');?>">广告管理</a></li> -->
         <li class="url_link" url="<?php echo U('configuration/Org/index');?>"><a href="<?php echo U('configuration/Org/index');?>">系统设置</a></li>
@@ -66,7 +67,7 @@
             <p>
                 <label for="channel-org-name" class="">渠道商名称&nbsp;&nbsp;&nbsp;</label>
                 <input type="text" name="channel_name_txt" id="channel_name_txt" autocomplete="off" class="input-org-info"
-					value="<?php echo ($_GET['channel_name_txt']); ?>"/>
+				value="<?php echo ($_GET['channel_name_txt']); ?>" onfocus="blurry('channel_name','<?php echo U('channel/Channel/getAllLike');?>',this)"/>
                 <label for="channel-class1" class="">渠道类型</label>
                 <select name="channel_first_type_sel" id="channel_first_type_sel" class="channel-select-min">
                     <option value="">全部</option>
@@ -79,13 +80,16 @@
                 </select>
                 <label for="channel-org-in" class="">所属组织机构</label>
                 <input type="text" name="agent_name_txt" id="agent_name_txt" autocomplete="off" class="channel-select"
-                       value="<?php echo ($_GET['agent_name_txt']); ?>"/>
+                value="<?php echo ($_GET['agent_name_txt']); ?>" onfocus="blurry('agent_name','<?php echo U('channel/Channel/getAllLike');?>',this)"/>
                 <label for="channel-are1" class="">所在区域</label>
-                <span id="select_showcity"></span>
-                <script type="text/javascript">
-                    showprovince("select_province", "select_city", "<?php echo ($_GET['select_province']); ?>", "select_showcity");
-                    showcity("select_city", "<?php echo ($_GET['select_city']); ?>", "select_province", "select_showcity");
-                </script>
+				<span class="select_showcity">
+					<select class="select_province" name="select_province" onChange="getCity('<?php echo U('channel/Channel/getCity');?>',this,'');" value=''>
+						<option class='0' value='0'>省份</option>
+					</select>
+					<select class="select_city" name="select_city" value=''>
+						<option class='0' value='0'>地级市</option>
+					</select>
+				</span><!--省市联动-->
             </p>
             <p>
                 <label for="channel-org-name" class="">合同开始日期</label>
@@ -136,7 +140,7 @@
             <?php if(is_array($list)): $i = 0; $__LIST__ = $list;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$vo): $mod = ($i % 2 );++$i;?><li class="list_sel" onClick="selectChannelRadio('<?php echo ($vo['channel_id']); ?>','<?php echo ($vo['channel_type_father_id']); ?>',
 							'<?php echo ($vo['channel_type_id']); ?>','<?php echo ($vo['isDelete']); ?>');">
                     <span class="span-1">
-						<input type="radio" name="channelDetailID" id="<?php echo ($vo['channelDetailID']); ?>" value="<?php echo ($vo['channel_id']); ?>" 
+						<input type="radio" name="channelDetailID" value="<?php echo ($vo['channel_id']); ?>" 
 							 class="role-table-radio"/>
 					</span>
                     <span class="span-2" title="<?php echo ($vo["channel_name"]); ?>"><?php echo ($vo["channel_name"]); ?></span>
@@ -357,7 +361,14 @@
 
             <p>
                 <label for="channel-address1" class="">渠道地址</label>
-                <span id="add_select_showcity"></span><!--省市联动-->
+                <span class="select_showcity">
+					<select class="select_province" id="add_select_province" name="add_select_province" onChange="getCity('<?php echo U('channel/Channel/getCity');?>',this,'');" value=''>
+						<option class='0' value='0'>省份</option>
+					</select>
+					<select class="select_city" name="add_select_city" value='' id="add_select_city">
+						<option class='0' value='0'>地级市</option>
+					</select>
+				</span><!--省市联动-->
                 <input type="text" name="channel_address"  class="input-role-name long-input" id="add_channel_address_txt"/>
                 <i class="red-color pdl10">*</i>
             </p>
@@ -460,7 +471,14 @@
 
             <p>
                 <label for="channel-address1" class="">渠道地址</label>
-                <span id="change_select_showcity"></span><!--省市联动-->
+                <span class="select_showcity">
+					<select class="select_province" id="change_select_province" name="change_src_province" onChange="getCity('<?php echo U('channel/Channel/getCity');?>',this,'');" value=''>
+						<option class='0' value='0'>省份</option>
+					</select>
+					<select class="select_city" name="change_select_city" value='' id="change_src_city">
+						<option class='0' value='0'>地级市</option>
+					</select>
+				</span><!--省市联动-->
                 <input type="text" name="channel_address" id="change_channel_address_txt"  class="input-role-name long-input"/>
                 <i class="red-color pdl10">*</i>
 
@@ -547,8 +565,12 @@
 <!--<script type="text/javascript">jQuery(".role-table").slide({trigger: "click"});</script>-->
 <link rel="stylesheet" href="__PUBLIC__/css/jquery.bigautocomplete.css" type="text/css" />
 <script type="text/javascript" src="__PUBLIC__/js/jquery.bigautocomplete.js"></script>
+<script type="text/javascript" src="__PUBLIC__/js/blurrySelect.js"></script>
 <script type="text/javascript">
     $(document).ready(function () {
+		//省份传地址
+		getProvince("<?php echo U('channel/Channel/getProvince');?>","<?php echo ($_GET['select_province']); ?>","<?php echo U('channel/Channel/getCity');?>","<?php echo ($_GET['select_city']); ?>");
+		//getCity();
 		var sum = $("#sum").text();
 		if(sum==""){
 			$("#sum").text("0");
@@ -559,8 +581,6 @@
 		}else{
 			$(".channel-tab").append("<li class='on' onclick='channel_use_select();'>启用</li><li onclick='channel_remove_select();'>撤销</li>");
 		}
-        agent_name_blurry();
-        channel_name_blurry();
         var channel_first_type_sel = $("#channel_first_type_sel").val();
         if ('' != channel_first_type_sel) {
             var channel_second_type_sel = "<?php echo ($_GET['channel_second_type_sel']); ?>";
@@ -571,7 +591,7 @@
                         $("#channel_second_type_sel").append("<option value=''>全部</option>");
                         $.each(data, function (key, val) {
                             if (val['channel_type_id'] == channel_second_type_sel) {
-                                $("#channel_second_type_sel").append("<option selected=selected																			value=" + val['channel_type_id'] + ">" + val['channel_type_name'] + "</option>");
+                                $("#channel_second_type_sel").append("<option selected=selected	value=" + val['channel_type_id'] + ">" + val['channel_type_name'] + "</option>");
                             }
                             else {
                                 $("#channel_second_type_sel").append("<option value=" + val['channel_type_id'] + ">" + val['channel_type_name'] + "</option>");
@@ -658,17 +678,7 @@
 				$("#add_agent_id_sel option").remove();
 				$("#add_agent_id_sel").append("<option value=''>请选择组织</option>");
 				$.each(data,function(i,n){
-					var mstr = "";
-					switch(n['lv']){
-						case 1:mstr = "==";break;
-						case 2:mstr = "====";break;
-						case 3:mstr = "======";break;
-						case 4:mstr = "========";break;
-						case 5:mstr = "==========";break;
-						case 6:mstr = "============";break;
-					}
-					//$(".role_agent_id").append("<option value='"+n['agent_id']+"'>"+mstr+n['agent_name']+"</option>");
-					$("#add_agent_id_sel").append("<option value='"+n['id']+"'>"+mstr+n['value']+"</option>");
+					$("#add_agent_id_sel").append("<option value='"+n['agent_id']+"'>"+n['agent_name']+"</option>");
 				})
 			},"json");
              $.openDOMWindow({
@@ -772,30 +782,22 @@
 			$.getJSON(handleUrl,{"channel_id":channel_val},
 				function (data){
 					$("#change_channel_name_txt").val(data['channel_name']);
-					//$("#change_agent_id_sel").val(data['agent_id']);
-
-					var handleUrl = "<?php echo U('channel/Channel/getAllAgent');?>";
-					var agentTab = "";
-					var tmp_agentid;
 					var belong_agent_id = data['agent_id'];
-					$.getJSON(handleUrl,{},
-						function (data){
-							//agentTab += "<option value=\"\">请选择所属代理商</option>";
-							$.each(data, function(i,item){
-								tmp_agentid = item.agent_id;
-								if(tmp_agentid == belong_agent_id)
-								{
-									agentTab += "<option value =" + "'" + item.agent_id + "' selected='selected'>" + item.agent_name + "</option>";
-								}
-								else
-								{
-									agentTab += "<option value =" + "'" + item.agent_id + "'>" + item.agent_name + "</option>";
-								}
-						});
-						$("#change_belong_agent_id_sel").html(agentTab);
-					}
-					,'json'
-					);
+					var getAgentUrl = "<?php echo U('configuration/Org/show_org_tree');?>";
+					$.post(getAgentUrl,{},function(data){
+						$("#change_belong_agent_id_sel option").remove();
+						$("#change_belong_agent_id_sel").append("<option value=''>请选择组织</option>");
+						$.each(data,function(i,n){
+							if( n['agent_id'] == belong_agent_id)
+							{
+								$("#change_belong_agent_id_sel").append("<option value='"+n['agent_id']+"' selected='selected' >"+n['agent_name']+"</option>");
+							}
+							else
+							{
+								$("#change_belong_agent_id_sel").append("<option value='"+n['agent_id']+"'>"+n['agent_name']+"</option>");
+							}
+						})
+					},"json");
 
 					if('' == channel_first_type)
 					{
@@ -896,10 +898,8 @@
 						,'json'
 						);
 					}
-
-					$("#change_select_showcity").empty();
-					showprovince("change_select_province", "change_select_city", data['province'], "change_select_showcity");
-					showcity("change_select_city", data['city'], "change_select_province", "change_select_showcity");
+					//编辑查询传参省市联动
+					getProvince("<?php echo U('channel/Channel/getProvince');?>",data['province_id'],"<?php echo U('channel/Channel/getCity');?>",data['city_id']);
 					//alert(channel_val);
 					if('0' == channel_first_type)
 					{
@@ -1085,35 +1085,6 @@
 		});
 
     });
-
-    function agent_name_blurry() {
-        var handleUrl = "<?php echo U('channel/Agent/agentnameBlurrySelect');?>";
-        var agent_name = '';
-        $.getJSON(handleUrl, {"agent_name": agent_name},
-                function (data) {
-                    var str = data;
-                    //alert(data);
-                    //alert(str[1]['title']);
-                    $("#agent_name_txt").bigAutocomplete({width: 150, data: data, callback: function (data) {
-                    }});
-                }
-                , 'json'
-        );
-    }
-
-    function channel_name_blurry() {
-        var handleUrl = "<?php echo U('channel/Channel/channelnameBlurrySelect');?>";
-        $.getJSON(handleUrl, {},
-                function (data) {
-                    var str = data;
-                    //alert(data);
-                    //alert(str[1]['title']);
-                    $("#channel_name_txt").bigAutocomplete({width: 150, data: data, callback: function (data) {
-                    }});
-                }
-                , 'json'
-        );
-    }
 
 	function channel_use_select(){
 		$("#select_del_flag_txt").val(0);
@@ -1375,10 +1346,7 @@
 		$(".sel_sort").css("cursor","pointer");//文本框手势
 	}
 </script>
-<script type="text/javascript">
-			showprovince("add_select_province", "add_select_city", "省份", "add_select_showcity");
-			showcity("add_select_city", "城市", "add_select_province", "add_select_showcity"); 
-</script>
+
 <script>
     $(function(){
         $('.head-wrap,#head,#footer,#container').css('min-width','1500px');

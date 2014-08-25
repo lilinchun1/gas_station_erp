@@ -38,7 +38,7 @@ class LoginAction extends Action {
 			// 查看是否是根用户
 			$userinfo = getRoot($username, $password);
 			if (!$userinfo) {
-				$userm = M('user');
+				$userm = new Model("BiUser");
 				// 检查是否有该用户
 				$uinfo = $userm->where("username='$username' and del_flag=0")->find();
 				if (!empty($uinfo)) {
@@ -111,7 +111,7 @@ class LoginAction extends Action {
 		$re_new_password = I('re_new_password_txt');
 		$user_id = $_SESSION['userinfo']['uid'];
 		$Model = new Model();
-		$user = M("user");
+		$user = new Model("BiUser");
 		$msg = C("change_password_success");
 		$uinfo = $user->where("uid='$user_id' && password='$old_password'")->find();
 		if(!empty($uinfo)){

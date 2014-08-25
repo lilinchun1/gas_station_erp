@@ -13,7 +13,7 @@ class AreaAction extends Action {
 	//显示区域信息
 	public function show_area(){
 		$Model = new Model();
-		$area = M("area");
+		$area = new Model("BiArea");
 		$area_info = $Model->query("select * from bi_area");
 		$this->ajaxReturn($area_info, 'json');
 	}
@@ -25,7 +25,7 @@ class AreaAction extends Action {
 		$memo = trim(I('add_memo_txt'));
 		$msg =	C('add_area_success');
 		$Model = new Model();
-		$area = M("area");
+		$area = new Model("BiArea");
 
 		$data['area_name'] = $area_name;
 		$data['pid'] = $pid;
@@ -40,7 +40,7 @@ class AreaAction extends Action {
 		$memo = trim(I('modify_memo_txt'));
 		$msg =	C('modify_area_success');
 		$Model = new Model();
-		$area = M("area");
+		$area = new Model("BiArea");
 
 		$data['area_name'] = $area_name;
 		$data['memo'] = $memo;
@@ -52,7 +52,7 @@ class AreaAction extends Action {
 		$id = trim(I('delete_area_id_txt'));
 		$msg =	C('delete_area_success');
 		$Model = new Model();
-		$area = M("area");
+		$area = new Model("BiArea");
 
 		$is_delete = $area->where("id=%d", $id)->delete();
 	}
@@ -62,7 +62,7 @@ class AreaAction extends Action {
 		$id = trim(I('up_area_id_txt'));
 		$msg =	C('up_area_success');
 		$Model = new Model();
-		$area = M("area");
+		$area = new Model("BiArea");
 		$area_info = $Model->query("select * from bi_area where id=" . $id);
 		if($area_info[0]['order'] == 1){
 			return;
@@ -81,7 +81,7 @@ class AreaAction extends Action {
 		$id = trim(I('down_area_id_txt'));
 		$msg =	C('down_area_success');
 		$Model = new Model();
-		$area = M("area");
+		$area = new Model("BiArea");
 		$area_info = $Model->query("select * from bi_area where id=" . $id);
 		$is_bigest = $Model->query("select * from bi_area where pid=%d and order>%d", $area_info[0]['pid'], $area_info[0]['order']);
 		if(!$is_bigest){

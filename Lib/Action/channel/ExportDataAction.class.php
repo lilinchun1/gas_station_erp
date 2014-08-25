@@ -13,7 +13,7 @@ class ExportDataAction extends Action {
 
 	public function addData(){
 		$Model = new Model();
-		$device_image = M("device_image");
+		$device_image = new Model("QdDeviceImage");
 		$deviceList = $Model->query("select * from qd_device");
 		foreach($deviceList as $key=>$val)
 		{
@@ -24,47 +24,11 @@ class ExportDataAction extends Action {
 		}
 	}
 
-	//导出代理商数据
-	public function agentDataExport(){
-		$Model = new Model();
-		$agent = M("agent");
-		$agent_area = M("agent_area");
-		$sql = 'select * from `360`.`qd_agent`';
-		$agentList = $Model->query($sql);
-		foreach($agentList as $key=>$val)
-		{
-			$data['agent_type'] = 'area';
-			$data['agent_id'] = $val['agentid'];
-			$data['agent_name'] = $val['agentname'];
-			$data['companyAddr'] = $val['companyAddr'];
-			//$data['contract_number'] = $val[''];
-			$data['legal'] = $val['legal'];
-			$data['tel'] = $val['tel'];
-			$data['legal_tel'] = $val['tel'];
-			$data['agent_level'] = 1;
-			$data['sub_agent_num'] = 0;
-			$data['channel_num'] = 0;
-			$data['place_num'] = 0;
-			$data['device_num'] = 0;
-			$data['begin_time'] = 0;
-			$data['end_time'] = 0;
-			$data['forever_type'] = 0;
-			$data['isDelete'] = 0;
-			$is_set = $agent->add($data);
-
-			$area['agent_id'] = $val['agentid'];
-			$area['province'] = $val['province'];
-			$area['city'] = $val['city'];
-			$is_set = $agent_area->add($area);
-		}
-	}
-
 	//导出渠道商数据
 	public function channelDataExport(){
 		$Model = new Model();
-		$channel = M("channel");
-		//$channel_area = M("channel_area");
-		$channel_type_link = M("channel_type_link");
+		$channel = new Model("QdChannel");
+		$channel_type_link = new Model("QdChannelTypeLink");
 		$sql = 'select * from `360`.`qd_place`';
 		$channelList = $Model->query($sql);
 		foreach($channelList as $key=>$val)
@@ -109,8 +73,8 @@ class ExportDataAction extends Action {
 	//导出网点数据
 	public function placeDataExport(){
 		$Model = new Model();
-		$place = M("place");
-		$place_image = M("place_image");
+		$place = new Model("QdPlace");
+		$place_image = new Model("QdPlaceImage");
 		$sql = 'select * from `360`.`qd_place`';
 		$placeList = $Model->query($sql);
 		foreach($placeList as $key=>$val)
@@ -159,8 +123,8 @@ class ExportDataAction extends Action {
 	//导出设备数据
 	public function deviceDataExport(){
 		$Model = new Model();
-		$device = M("device");
-		$device_image = M("device_image");
+		$device = new Model("QdDevice");
+		$device_image = new Model("QdDeviceImage");
 		$sql = 'select * from `360`.`qd_device`';
 		$deviceList = $Model->query($sql);
 		foreach($deviceList as $key=>$val)
@@ -195,9 +159,9 @@ class ExportDataAction extends Action {
 	//计算更新相关数据
 	public function calUpdateData(){
 		$Model = new Model();
-		$agent = M("agent");
-		$channel = M("channel");
-		$place = M("place");
+		$agent = new Model("QdAgent");
+		$channel = new Model("QdChannel");
+		$place = new Model("QdPlace");
 		$agentList = $Model->query("select * from qd_agent");
 		$channelList = $Model->query("select * from qd_channel");
 		$placeList = $Model->query("select * from qd_place");

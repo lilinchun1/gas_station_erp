@@ -23,10 +23,11 @@
 					<div class="role-inquire">
 						<form name="roleSelect" method="get" action="{:U('configuration/Role/show_role')}">
 							<label for="at-org" class="">所属组织机构</label>
-							<input type="text" name="org_name_txt" id="org_name_txt" value="{$_GET['org_name_txt']}" autocomplete="off" class="input-org-info"/>
+							<input type="text" name="org_name_txt" id="org_name_txt" value="{$_GET['org_name_txt']}" autocomplete="off" class="input-org-info"
+							onfocus="blurry('agent_name','{:U('channel/Channel/getAllLike')}',this)"/>
 						
 							<label for="role-name" class="role-lab">角色名称</label>
-							<input type="text" name="role_name_txt" id="role_name_txt" value="{$_GET['role_name_txt']}" autocomplete="off" class="input-org-info"/>
+							<input type="text" name="role_name_txt" id="role_name_txt" value="{$_GET['role_name_txt']}" autocomplete="off" class="input-org-info" onfocus="blurry('role_name','{:U('channel/Channel/getAllLike')}',this)"/>
 							
 							<input type="submit" id="select_button" name="select_button" class="role-control-btn" value="查询" />
 							<input type="button" id="roleDala" class="role-control-btn" value="清空"/> 
@@ -57,7 +58,7 @@
 									<span class="span-1"><input type="radio" name="role-info_rad" id="" class="role-table-radio"/></span>
 									<span class="span-1" title="{$vo.rolename}">{$vo.rolename}</span>
 									<span class="span-2" title="{$vo.memo}">{$vo.memo}</span>
-									<span class="span-2" title="{$vo.memo}">{$vo.agent_name}</span>
+									<span class="span-2" title="{$vo.agent_name}">{$vo.agent_name}</span>
 									<span class="span-1" title="{$vo.addusername}">{$vo.addusername}</span>
 									<span class="span-1" title="{$vo.adddate}">{$vo.adddate}</span>
 									<!--角色ID-->
@@ -223,6 +224,7 @@
 <script type="text/javascript" src="__PUBLIC__/js/tree/jquery.ztree.core-3.5.js"></script>
 <script type="text/javascript" src="__PUBLIC__/js/tree/jquery.ztree.excheck-3.5.js"></script>
 <script type="text/javascript" src="__PUBLIC__/js/jquery.bigautocomplete.js"></script>
+<script type="text/javascript" src="__PUBLIC__/js/blurrySelect.js"></script>
 <script>
 $(function(){
 	//===================================================================默认执行
@@ -231,16 +233,7 @@ $(function(){
 	var getAgentUrl = "{:U('configuration/Org/show_org_tree')}";
 	$.post(getAgentUrl,{},function(data){
 		$.each(data,function(i,n){
-			var mstr = "";
-			switch(n['lv']){
-				case 1:mstr = "==";break;
-				case 2:mstr = "====";break;
-				case 3:mstr = "======";break;
-				case 4:mstr = "========";break;
-				case 5:mstr = "==========";break;
-				case 6:mstr = "============";break;
-			}
-			$(".role_agent_id").append("<option value='"+n['id']+"'>"+mstr+n['value']+"</option>");
+			$(".role_agent_id").append("<option value='"+n['agent_id']+"'>"+n['agent_name']+"</option>");
 		})
 	},"json");
 	
@@ -521,8 +514,7 @@ $(function(){
 					alert("请选择一条角色信息再进行编辑");
 					return false;
 				}
-				var mod_handleUrl = "{:U('configuration/Role/roleDetailSelect')}/role_id/"
-						+ role_id;
+				var mod_handleUrl = "{:U('configuration/Role/roleDetailSelect')}/role_id/"+role_id;
 				var now = new Date().getTime();// 加个时间戳表示每次是新的请求
 				$.ajax({
 					type : "POST",
@@ -619,38 +611,8 @@ $(document).ready(function(){
 				}
 		});
 	});
-	role_name_blurry();
-	agent_name_blurry();
+
 
 });
-
-	function role_name_blurry()
-	{
-		var handleUrl = "{:U('configuration/Role/rolenameBlurrySelect')}";
-		var role_name = '';
-		$.getJSON(handleUrl,{"role_name":role_name},
-			function (data){
-				var str = data;
-				//alert(data);
-				//alert(str[1]['title']);
-				$("#role_name_txt").bigAutocomplete({width:150,data:data,callback:function(data){}});
-			}
-			,'json'
-		);
-	}
-    function agent_name_blurry() {
-        var handleUrl = "{:U('channel/Agent/agentnameBlurrySelect')}";
-        var agent_name = '';
-        $.getJSON(handleUrl, {"agent_name": agent_name},
-                function (data) {
-                    var str = data;
-                    //alert(data);
-                    //alert(str[1]['title']);
-                    $("#org_name_txt").bigAutocomplete({width: 150, data: data, callback: function (data) {
-                    }});
-                }
-                , 'json'
-        );
-    }
 </script>
 </html>

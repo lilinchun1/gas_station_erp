@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <title>组织结构</title>
     <link rel="stylesheet" href="__PUBLIC__/css/configuration.css"/>
-    <!--<link rel="stylesheet" href="../../Public/css/configuration.css"/>-->
     <style>
         @media screen and (max-width: 1300px){
             input.input-org-info,input{width: 160px;
@@ -183,9 +182,9 @@ $.ajax({
     dataType: "json",
     success: function(data){
         $.each(data,function(key,val){
-            var kid=val['id'];
-            var parent=val['parent'];
-            var value=val['value'];
+            var kid=val['agent_id'];
+            var parent=val['father_agentid'];
+            var value=val['agent_name'];
             zNodes[key]= {'id':kid, 'pId':parent, 'name':value, 'open':true ,'t':kid};
         });
     },

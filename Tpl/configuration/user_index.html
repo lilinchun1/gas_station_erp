@@ -26,14 +26,14 @@
 					<div class="role-inquire">
 						<form name="userSelect" method="get" action="{:U('configuration/User/show_user')}">
 							<label for="user-name" class="">姓名</label>
-							<!--<input type="text" name="realname_txt" id="realname_txt" class="input-org-info"/>-->
-                            <input type="text" name="realname_txt" id="realname_txt" value="{$_GET['realname_txt']}" autocomplete="off" class="input-org-info"/>
+                            <input type="text" name="realname_txt" id="realname_txt" value="{$_GET['realname_txt']}" autocomplete="off" class="input-org-info"
+							onfocus="blurry('realname','{:U('channel/Channel/getAllLike')}',this)"/>
 							<label for="at-org" class="">所属组织机构</label>
-							<!--<input type="text" name="org_name_txt" id="org_name_txt" class="input-org-info"/>-->
-                            <input type="text" name="org_name_txt" id="org_name_txt" value="{$_GET['org_name_txt']}" autocomplete="off" class="input-org-info"/>
+                            <input type="text" name="org_name_txt" id="org_name_txt" value="{$_GET['org_name_txt']}" autocomplete="off" class="input-org-info"
+							onfocus="blurry('agent_name','{:U('channel/Channel/getAllLike')}',this)"/>
 							<label for="use-id" class="use-id">账号</label>
-							<!--<input type="text" name="username_txt" id="username_txt" class="input-org-info"/>-->
-             				<input type="text" name="username_txt" id="username_txt" value="{$_GET['username_txt']}" autocomplete="off" class="input-org-info"/>
+             				<input type="text" name="username_txt" id="username_txt" value="{$_GET['username_txt']}" autocomplete="off" class="input-org-info"
+							onfocus="blurry('username','{:U('channel/Channel/getAllLike')}',this)"/>
 							<input type="submit" id="select_button" name="select_button" class="role-control-btn" value="查询"/>
 							<input type="button" id="userDele" class="role-control-btn" value="清空"/> 
 						</form>
@@ -63,7 +63,7 @@
 						<volist name="list" id="vo">
 							<li class="list_sel">
 								<span class="span-1">
-									<input type="radio" name="radio_list" id="{$vo['userRadioID']}" value="{$vo['uid']}"  class="role-table-radio"/>
+									<input type="radio" name="radio_list" value="{$vo['uid']}"  class="role-table-radio"/>
 								</span>
 								<span class="span-1" title="{$vo.realname}">{$vo.realname}</span>
 								<span class="span-1" title="{$vo.sex}">{$vo.sex}</span>
@@ -172,69 +172,14 @@
 <script type="text/javascript" src="__PUBLIC__/js/tree/jquery.ztree.core-3.5.js"></script>
 <script type="text/javascript" src="__PUBLIC__/js/tree/jquery.ztree.excheck-3.5.js"></script>
 <script type="text/javascript" src="__PUBLIC__/js/jquery.bigautocomplete.js"></script>
+<script type="text/javascript" src="__PUBLIC__/js/blurrySelect.js"></script>
 <script>
-function agent_name_blurry() { //	所属组织机构 模糊查询
-	var handleUrl = "{:U('channel/Agent/agentnameBlurrySelect')}";
-	var agent_name = '';
-	$.getJSON(handleUrl, {"agent_name": agent_name},
-			function (data) {
-				var str = data;
-				//alert(data);
-				//alert(str[1]['title']);
-				$("#org_name_txt").bigAutocomplete({width: 150, data: data, callback: function (data) {
-				}});
-			}
-			, 'json'
-	);
-}
-
-function role_name_blurry() {  // 姓名 模糊查询
-	var handleUrl = "{:U('configuration/User/UserSelect')}";
-	var realname = '';
-	$.getJSON(handleUrl, {"realname": realname},
-			function (data) {
-				var str = data;
-
-				$("#realname_txt").bigAutocomplete({width: 150, data: data, callback: function (data) {
-				}});
-			}
-			, 'json'
-	);
-}
-function username_blurry() {  // 账号 模糊查询
-	var handleUrl = "{:U('configuration/User/UsernameSelect')}";
-	var username = '';
-	$.getJSON(handleUrl, {"username": username},
-			function (data) {
-				var str = data;
-
-				$("#username_txt").bigAutocomplete({width: 150, data: data, callback: function (data) {
-				}});
-			}
-			, 'json'
-	);
-}
-
-
-
 $(function(){
 	//赋组织值
-	role_name_blurry() ;
-	username_blurry();
 	var getAgentUrl = "{:U('configuration/Org/show_org_tree')}";
 	$.post(getAgentUrl,{},function(data){
 		$.each(data,function(i,n){
-			var mstr = "";
-			switch(n['lv']){
-				case 1:mstr = "==";break;
-				case 2:mstr = "====";break;
-				case 3:mstr = "======";break;
-				case 4:mstr = "========";break;
-				case 5:mstr = "==========";break;
-				case 6:mstr = "============";break;
-			}
-			//$(".role_agent_id").append("<option value='"+n['agent_id']+"'>"+mstr+n['agent_name']+"</option>");
-			$(".role_agent_id").append("<option value='"+n['id']+"'>"+mstr+n['value']+"</option>");
+			$(".role_agent_id").append("<option value='"+n['agent_id']+"'>"+n['agent_name']+"</option>");
 		})
 	},"json");
 	//组织改变触发
@@ -258,9 +203,10 @@ var roleStr = "";
 //复选框触发
 function j_checkbox(obj){
 	if($(obj).attr("checked")){
-		roleStr += $(obj).val()+",";
+		//为区分，在每个角色id加上单引号
+		roleStr += "'"+$(obj).val()+"',";
 	}else{
-		roleStr = roleStr.replace($(obj).val()+",","");
+		roleStr = roleStr.replace("'"+$(obj).val()+"',","");
 	}
 }
 //给定组织id显示该组织下角色，并赋已选中的角色
@@ -270,7 +216,8 @@ function role_check(role_agent_id){
 		$('#j_ul_checkbox li').remove();
 		$.each(data,function(i,n){
 			checked = "";
-			if(roleStr.indexOf(n['roleid']+",") >= 0 )
+			//为区分，在每个角色id加上单引号
+			if(roleStr.indexOf("'"+n['roleid']+"',") >= 0 )
 			{
 				checked = "checked"
 			}
@@ -454,22 +401,7 @@ function role_check(role_agent_id){
 				,'json'
 			);
 		});
-			agent_name_blurry();
 });
-    function agent_name_blurry() {
-        var handleUrl = "{:U('channel/Agent/agentnameBlurrySelect')}";
-        var agent_name = '';
-        $.getJSON(handleUrl, {"agent_name": agent_name},
-                function (data) {
-                    var str = data;
-                    //alert(data);
-                    //alert(str[1]['title']);
-                    $("#org_name_txt").bigAutocomplete({width: 150, data: data, callback: function (data) {
-                    }});
-                }
-                , 'json'
-        );
-    }
 </script>
 </body>
 </html>

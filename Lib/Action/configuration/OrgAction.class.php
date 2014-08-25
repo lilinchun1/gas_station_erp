@@ -1,5 +1,6 @@
 <?php
 import( "@.MyClass.Page" );//导入分页类
+import( "@.MyClass.Common" );//导入公共类
 foreach ($_GET as $k=>$v) {
 	$_GET[$k] = urldecode($v);
 }
@@ -14,198 +15,66 @@ class OrgAction extends Action {
 		$this->display(':org_index');
 	}
 
-	//树形结构测试
-	public function tree_test(){
-		$this->display(':tree_test');
-	}
-
-	//导入所需数据
-	public function export_data(){
-		$this->export_area();
-		$this->export_total_agent_area();
-	}
-
-	//导入区域数据bi_area
-	public function export_area(){
-		$Model = new Model();
-		$province = M("province");
-		$city = M("city");
-		$area = M("area");
-		$province_info = $Model->query("select * from bi_province");
-		$city_info = $Model->query("select * from bi_city");
-		foreach($province_info as $p_key=>$p_val){
-			$data['area_name'] = $p_val['prov_name'];
-			$data['pid'] = 0;
-			$is_set = $area->add($data);
-		}
-		foreach($city_info as $key=>$val){
-			$data['area_name'] = $val['city_name'];
-			$data['pid'] = $val['prov_id'];
-			$is_set = $area->add($data);
-		}
-	}
-
-	//导入总公司区域数据
-	public function export_total_agent_area(){
-		$Model = new Model();
-		$agent_area = M("agent_area","qd_");
-		$province_info = $Model->query("select * from bi_province");
-
-		foreach($province_info as $p_key=>$p_val){
-			$data['agent_id'] = 1;
-			$data['area_id'] = $p_val['prov_id'];
-			$is_set = $agent_area->add($data);
-		}
-	}
-
 	//展示组织结构
 	public function show_org_tree(){
 		$Model = new Model();
-		$sql = "select * from qd_agent a where a.isDelete=0";
 		$userinfo = getUserInfo();
-		if((!empty($userinfo['orgid'])) && (1 != $userinfo['orgid']))
-		{
-			$sub_agent_id = getSubAgentStringFromFatherAgent($userinfo['orgid']);
-			$sql .= " and (a.agent_id='{$userinfo['orgid']}' or a.agent_id in $sub_agent_id)"; //权限限制
-		}
+		$common = new Common();
+		$sub_agent_id = $common->getAgentIdAndChildId(trim($userinfo['orgid']));
+		$sql = " select agent_id,agent_name,father_agentid from qd_agent a where a.agent_id in ($sub_agent_id) and a.isDelete=0 ";//权限限制
 		$company_info = $Model->query($sql);
-		$data = null;
-		foreach($company_info as $key=>$val){
-			$data[$key]['id'] = $val['agent_id'];
-			$data[$key]['value'] = $val['agent_name'];
-			$data[$key]['parent'] = $val['father_agentid'];
-		}
-		
-		$this->ajaxReturn($data, 'json');
-	}
-
-	//展示区域树形结构
-	public function show_area_tree(){
-		$Model = new Model();
-		$province_info = $Model->query("select * from bi_province");
-		$data = null;
-		foreach($province_info as $p_key=>$p_val){
-			if(0 == $p_key){
-				$data .= '"' . "0" . '"' . ":" . '"' . $p_val['prov_id'] . ":" . $p_val['prov_name'] . ",";
-				//$data .= "0" . ":" . $p_val['prov_id'] . ":" . $p_val['prov_name'] . ",";
-			}else{
-				$data .= $p_val['prov_id'] . ":" . $p_val['prov_name'] . ",";
-			}
-		}
-		$data = substr($data, 0 , -1);
-		$data = $data . '",';
-		foreach($province_info as $p_key=>$p_val){
-			/*
-			$data[$key]['id'] = $val['area_id'];
-			$data[$key]['value'] = $val['area_name'];
-			$data[$key]['parent'] = $val['pid'];
-			*/
-			$city_info = $Model->query("select * from bi_area where pid=" . $p_val['prov_id']);
-			foreach($city_info as $c_key=>$c_val){
-				if(!empty($c_val['area_id'])){
-					if(0 == $c_key){
-						$data .= '"' . $c_val['pid'] . '"' . ":" . '"' . $c_val['area_id'] . ":" . $c_val['area_name'] . ",";
-						//$data .= $c_val['pid'] . ":" . $c_val['area_id'] . ":" . $c_val['area_name'] . ",";
-					}
-					else{
-						$data .= $c_val['area_id'] . ":" . $c_val['area_name'] . ",";
-					}
-				}
-			}
-			if(!empty($city_info[0]['area_id'])){
-				$data = substr($data, 0 , -1);
-				$data = $data . '",';
-			}
-		}
-		$data = substr($data, 0 , -1);
-
-		//echo $data;
-		$this->ajaxReturn($data, 'json');
+		$this->ajaxReturn($company_info, 'json');
 	}
 
 	//展示组织结构区域树形结构
 	public function show_org_area_tree(){
-		$Model = new Model();
-		$org_id = I('org_id');
-		if ($org_id > 0){
-			$agent_area_info = $Model->query("select * from qd_agent_area where agent_id=" . $org_id);
-			$area_id_array = null;
-			foreach($agent_area_info as $key=>$val){
-				$area_id_array .= $val['area_id'] . ",";
-			}
-			if(!empty($area_id_array)){
-				$area_id_array = substr($area_id_array, 0 , -1);
-			}
-			
-			$province_info = $Model->query("select * from bi_area where area_id in ( " . $area_id_array . " )");
-		}else{
-			$province_info = $Model->query("select * from bi_area where level = '1'");
+		$model = new Model();
+		$common = new Common();
+		$org_id = $_REQUEST['org_id'];
+		//判断当前代理商是不是顶级代理商，不存在该代理商则代表要查看全国区域
+		$sql_agent = "
+				SELECT count(*) count FROM qd_agent WHERE agent_id = $org_id
+				";
+		$que_agent = $model->query($sql_agent);
+		//如果不是0则为区域代理商，拥有区域查看权
+		$where = " WHERE 1 ";
+		if($que_agent[0]['count']){
+			$area_id_str = $common->getAreaIdAndProvinceStr($org_id);
+			$where .= " AND area_id IN ($area_id_str) ";
 		}
-		
-		$data = null;
-		foreach($province_info as $p_key=>$p_val){
-			if(0 == $p_key){
-				$data .= '"' . "0" . '"' . ":" . '"' . $p_val['area_id'] . ":" . $p_val['area_name'] . ",";
-				//$data .= "0" . ":" . $p_val['prov_id'] . ":" . $p_val['prov_name'] . ",";
+		//如果$que_agent[0]['count'] 为0的话则当前代理商拥有全国区域权限
+		$sql_area = "
+				SELECT * FROM bi_area $where ORDER BY level,pid,area_id
+				";
+		$que_area = $model->query($sql_area);
+		//获取所有直辖市id数组
+		$onlyCityArr = $common->getAllOnlyCity();
+		$hasOnlyCityArr = array();
+		$area_json = '"0":"';
+		$pid = null;
+		foreach($que_area as $k_area =>$v_area){
+			if(in_array($v_area['area_id'], $onlyCityArr)){
+				$hasOnlyCityArr[] = $v_area;
+			}
+			//level = 1 为省级区域
+			if($v_area['level'] == 1){
+				$area_json .= ($v_area['area_id'].':'.$v_area['area_name']).',';
 			}else{
-				$data .= $p_val['area_id'] . ":" . $p_val['area_name'] . ",";
-			}
-		}
-		$data = substr($data, 0 , -1);
-		$data = $data . '",';
-		foreach($province_info as $p_key=>$p_val){
-			/*
-			$data[$key]['id'] = $val['area_id'];
-			$data[$key]['value'] = $val['area_name'];
-			$data[$key]['parent'] = $val['pid'];
-			*/
-			$city_info = $Model->query("select * from bi_area where pid=" . $p_val['area_id']);
-			foreach($city_info as $c_key=>$c_val){
-				if(!empty($c_val['area_id'])){
-					if(0 == $c_key){
-						$data .= '"' . $c_val['pid'] . '"' . ":" . '"' . $c_val['area_id'] . ":" . $c_val['area_name'] . ",";
-						//$data .= $c_val['pid'] . ":" . $c_val['area_id'] . ":" . $c_val['area_name'] . ",";
-					}
-					else{
-						$data .= $c_val['area_id'] . ":" . $c_val['area_name'] . ",";
-					}
+				if($v_area['pid'] != $pid){
+					$area_json = trim($area_json,',');
+					$area_json .= '","'.$v_area['pid'].'":"';
+					$pid = $v_area['pid'];
 				}
-			}
-			if(!empty($city_info[0]['area_id'])){
-				$data = substr($data, 0 , -1);
-				$data = $data . '",';
+				$area_json .= ($v_area['area_id'].':'.$v_area['area_name']).',';
 			}
 		}
-		$data = substr($data, 0 , -1);
-
-		$this->ajaxReturn($data, 'json');
-	}
-
-	//获取所有省
-	public function get_province(){
-		$Model = new Model();
-		$province_info = $Model->query("select * from bi_province");
-		$data = null;
-		foreach($province_info as $key=>$val){
-			$data[$key]['id'] = $val['prov_id'];
-			$data[$key]['value'] = $val['prov_name'];
+		$area_json = trim($area_json,',');
+		$area_json .= '"';
+		//添加直辖市的市级
+		foreach($hasOnlyCityArr as $k=>$v){
+			$area_json .= ',"'.$v['area_id'].'":"'.$v['area_id'].':'.$v['area_name'].'"';
 		}
-		
-		$this->ajaxReturn($data, 'json');
-	}
-
-	//获取某省下所有市
-	public function get_city(){
-		$Model = new Model();
-		$prov_id = I('prov_id');
-		$city_info = $Model->query("select * from bi_area where pid=" . $prov_id);
-		$data = null;
-		foreach($city_info as $key=>$val){
-			$data[$key]['id'] = $val['area_id'];
-			$data[$key]['value'] = $val['area_name'];
-		}
-		
-		$this->ajaxReturn($data, 'json');
+		echo $area_json;
 	}
 
 	//添加组织结构
@@ -227,8 +96,8 @@ class OrgAction extends Action {
 
 		$Model = new Model();
 	
-		$agent = M("agent","qd_");
-		$agent_area = M("agent_area", "qd_");
+		$agent = new Model("QdAgent");
+		$agent_area = new Model("QdAgentArea");
 		$data['agent_name'] = $agent_name;
 		//$data['agent_type'] = $agent_type;
 		$data['companyAddr'] = $companyAddr;
@@ -243,11 +112,11 @@ class OrgAction extends Action {
 		$data['channel_num'] = 0;
 		$data['device_num'] = 0;
 		$data['forever_type'] = $add_forever_check;
-		if(0 != $begin_time)
+		if($begin_time)
 		{
 			$data['begin_time'] = $begin_time;
 		}
-		if(0 != $end_time)
+		if($end_time)
 		{
 			$data['end_time'] = $end_time;
 		}
@@ -261,20 +130,12 @@ class OrgAction extends Action {
 			foreach($tmp_org_array as $key=>$val){
 				$area['agent_id'] = $agent_id;
 				$area['area_id'] = $val;
-				$is_set = $agent_area->add($area);
+				$agent_area->add($area);
 			}
 		}
 		else
 		{
 			$msg = C("add_agent_failed");
-		}
-		if(C('add_agents_success') == $msg)
-		{
-			if($agent_level == '2')
-			{
-				//changeNum('agent', $father_agentid, $agent_id, 'add');
-			}
-			//addOptionLog('agent', $agent_id, 'add', '');
 		}
 		$this->ajaxReturn($msg,'json');
 	}
@@ -282,50 +143,61 @@ class OrgAction extends Action {
 	//根据代理商ID查询代理商详细信息
      public function orgDetailSelect(){
 	    $Model = new Model();
-		$agent_id = I('get.agent_id');
-		//p($_GET['agent_id']);
-		$where = "a.agent_id=" . $agent_id;
-		$dataAgent = $Model->table('qd_agent a')->where($where)->select();// 查询满足要求的总记录数
-		$dataAgent[0]['begin_time'] = getDateFromTime($dataAgent[0]['begin_time']);
-		$dataAgent[0]['end_time'] = getDateFromTime($dataAgent[0]['end_time']);
-		if(0 == $dataAgent[0]['father_agentid']){
-			$dataAgent[0]['father_agent_name'] = '';
-		}else{
-			$tmp_father_agentname = $Model->query("select agent_name from qd_agent where agent_id=" . $dataAgent[0]['father_agentid']);
-			$dataAgent[0]['father_agent_name'] = $tmp_father_agentname[0]['agent_name'];
-		}
-
-		$area_id = $Model->query("select area_id from qd_agent_area where agent_id=" . $agent_id);
+		$agent_id = trim($_GET['agent_id']);
+		//查找指定代理商信息，及其父级代理商名称
+		$sql_agent = "
+				SELECT a.*,b.agent_name father_agent_name FROM qd_agent a
+				LEFT JOIN qd_agent b ON a.father_agentid = b.agent_id
+				WHERE a.agent_id = $agent_id
+				";
+		$dataAgent = $Model->query($sql_agent);
+		//格式化日期格式
+		$dataAgent[0]['begin_time'] = date('Y-m-d', $dataAgent[0]['begin_time']);
+		$dataAgent[0]['end_time'] = date('Y-m-d', $dataAgent[0]['end_time']);
+		//查找该代理商下所有区域名称
+		$sql_area = "
+				SELECT b.* FROM qd_agent_area a
+				LEFT JOIN bi_area b ON a.area_id = b.area_id
+				WHERE a.agent_id = $agent_id
+				";
+		$que_area = $Model->query($sql_area);
 		$area = null;
 		$area_id_string = null;
-		foreach($area_id as $key=>$val){
-			$area_name = $Model->query("select area_name from bi_area where area_id=" . $val['area_id']);
-			$area .= $area_name[0]['area_name'] . ",";
+		//赋值代理商区域名称
+		foreach($que_area as $key=>$val){
+			$area           .= $val['area_name'] . ",";
 			$area_id_string .= $val['area_id'] . ",";
 		}
-		if(!empty($area_id[0]['area_id'])){
-			$area = substr($area, 0, -1);
-			$area_id_string = substr($area_id_string, 0, -1);
-		}
+		$area           = trim($area,',');
+		$area_id_string = trim($area_id_string,',');
+		
 		$dataAgent[0]['area_name'] = $area;
 		$dataAgent[0]['area_id'] = $area_id_string;
+		//获取自身及下属所有代理商id字符串
+		$common = new Common();
+		$sub_agent_id = $common->getAgentIdAndChildId($agent_id);
+		//查找下属所有渠道数量
+		$sql_channel = "SELECT COUNT(*) count FROM qd_channel WHERE agent_id IN ($sub_agent_id) and isDelete = 0";
+		$que_channel = $Model->query($sql_channel);
+		$dataAgent[0]['channel_num'] = $que_channel[0]['count'];
+		//查找下属所有加油站数量
+		$sql_dev = "SELECT COUNT(*) count FROM qd_device WHERE agent_id IN ($sub_agent_id) and isDelete = 0";
+		$que_dev = $Model->query($sql_dev);
+		$dataAgent[0]['device_num'] = $que_dev[0]['count'];
 
 		$data = $dataAgent[0];
 		$this->ajaxReturn($data,'json');
 	}
 
-     //编辑组织结构
-     public function edit_org(){
+	//编辑组织结构
+	public function edit_org(){
 		$agent_name = trim(I('change_agent_name_txt'));
 		$agent_id = trim(I('change_agent_id_txt'));
 		$companyAddr = trim(I('change_companyAddr_txt'));
-		//$agent_type = trim(I('change_agent_type_sel'));
 		$contract_number = trim(I('change_contract_number_txt'));
 		$legal = trim(I('change_legal_txt'));
 		$tel = trim(I('change_tel_txt'));
 		$legal_tel = trim(I('change_legal_tel_txt'));
-		//$agent_level = trim(I('change_agent_level_sel'));
-		//$father_agentid = trim(I('change_father_agentid_sel'));
 		$begin_time = strtotime(trim(I('change_begin_time_sel')));
 		$end_time = strtotime(trim(I('change_end_time_sel')));
 		$dst_area = trim(I('change_dst_area'));
@@ -334,22 +206,10 @@ class OrgAction extends Action {
 		$log_description = '';
 
 		$Model = new Model();
-		$agent = M("agent","qd_");
-		$agent_area = M("agent_area","qd_");
+		$agent = new Model("QdAgent");
+		$agent_area = new Model("QdAgentArea");
 
 		$result = $agent->query("select ifnull(agent_id,0) as agent_id from qd_agent where agent_name='$agent_name'");
-		$src_agent_log_info = $agent->where("agent_id=" . $agent_id)->select();  //查询修改前的信息，用于日志对比
-		unset($src_agent_log_info[0]['father_agentid']);
-		if('1' == $src_agent_log_info[0]['forever_type'])
-		{
-			$src_agent_log_info[0]['forever_type'] = "是";
-		}
-		else
-		{
-			$src_agent_log_info[0]['forever_type'] = "否";
-		}
-		$src_agent_log_info[0]['begin_time'] = getDateFromTime($src_agent_log_info[0]['begin_time']);
-		$src_agent_log_info[0]['end_time'] = getDateFromTime($src_agent_log_info[0]['end_time']);
 		if(($result[0]['agent_id'] != $agent_id) && ($result[0]['agent_id'] != 0))
 		{
 			$msg = C("change_agent_name_failed");
@@ -366,25 +226,17 @@ class OrgAction extends Action {
 			//$data['agent_level'] = $agent_level;
 			//$data['father_agentid'] = $father_agentid;
 			$data['forever_type'] = $change_forever_check;
-			if(0 != $begin_time)
+			if($begin_time)
 			{
 				$data['begin_time'] = $begin_time;
 			}
-			else
-			{
-				$data['begin_time'] = null;
-			}
-			if(0 != $end_time)
+			if($end_time)
 			{
 				$data['end_time'] = $end_time;
 			}
-			else
-			{
-				$data['end_time'] = null;
-			}
-			$is_set = $agent->where("agent_id=%d", $agent_id)->save($data);
+			$is_set = $agent->where("agent_id = $agent_id")->save($data);
 		
-			$is_set = $agent_area->where("agent_id=%d", $agent_id)->delete();
+			$is_set = $agent_area->where(" agent_id = $agent_id ")->delete();
 			$dst_area_array = explode(",", $dst_area);
 			foreach($dst_area_array as $key=>$val){
 				$area['agent_id'] = $agent_id;
@@ -396,111 +248,35 @@ class OrgAction extends Action {
 				$msg = C("change_agent_failed");
 			}
 		}
-		if(C('change_agent_success') == $msg)
-		{
-			if($src_father_agent_id != $father_agentid)
-			{
-				changeNum('agent', $src_father_agent_id, $agent_id, 'minus');
-				changeNum('agent', $father_agentid, $agent_id, 'add');
-			}
-			$dst_agent_log_info = $agent->where("agent_id=" . $agent_id)->select();  //查询修改后的信息，用于日志对比
-			if('1' == $dst_agent_log_info[0]['forever_type'])
-			{
-				$dst_agent_log_info[0]['forever_type'] = "是";
-			}
-			else
-			{
-				$dst_agent_log_info[0]['forever_type'] = "否";
-			}
-			$dst_agent_log_info[0]['begin_time'] = getDateFromTime($dst_agent_log_info[0]['begin_time']);
-			$dst_agent_log_info[0]['end_time'] = getDateFromTime($dst_agent_log_info[0]['end_time']);
-			$log_description = getChangeLogDescription($src_agent_log_info[0], $dst_agent_log_info[0]);  //获取修改的详细记录
-
-			//addOptionLog('agent', $agent_id, 'change', $log_description);
-		}
 		$this->ajaxReturn($msg,'json');
 	}
 
-    //删除组织结构
+	//删除组织结构
 	public function delete_org(){
-		$agent_id = trim(I('get.agent_id'));
+		$agent_id = trim($_GET['agent_id']);
 	    $Model = new Model();
-		$agent = M("agent","qd_");
-		$agent_area = M("agent_area","qd_");
+		$agent = new Model("QdAgent");
 		$msg = C("delete_agent_success");
 
-		$child_agent_info = $Model->query("select agent_id from qd_agent where isDelete=0 and father_agentid=" . $agent_id);
-		if(!empty($child_agent_info[0]['agent_id'])){
-			$msg = C("delete_agent_have_child");
+		$common = new Common();
+		$agentIdStr = $common->getAgentIdAndChildId($agent_id);
+		
+		$sql_dev = "
+				SELECT COUNT(*) count FROM qd_device WHERE agent_id IN ($agentIdStr) AND isDelete = 0
+				";
+		$que_dev = $Model->query($sql_dev);
+		//substr_count($agentIdStr, ',')，表示有除自身外其他代理商，即子代理商
+		if($que_dev[0]['count']>0 || substr_count($agentIdStr, ',')){
+			$msg = "有下级代理商或者加油站机器";
 
-		}
-		else{
+		}else{
 			$is_set = $agent->where("agent_id=" . $agent_id)->setField('isDelete', 1);
 			if($is_set <= 0)
 			{
 				$msg = C("delete_agent_failed");
 			}
 		}
-
-		/*
-		$isDelete = $agent_area->where("agent_id=" . $agent_id)->delete();
-		if($isDelete <= 0){
-			$msg = C("delete_agent_failed");
-		}
-		*/
-		//$this->msg = $msg;
-		//$this->agentSelect();
-		if($msg == C("delete_agent_success"))
-		{
-			$agent_info = $Model->query("select father_agentid, agent_level from qd_agent where agent_id=" . $agent_id);
-			if('2' == $agent_info[0]['agent_level'])
-			{
-				//changeNum('agent', $agent_info[0]['father_agentid'], $agent_id, 'minus');
-			}
-			//addOptionLog('agent', $agent_id, 'del', '');
-		}
 		$this->ajaxReturn($msg,'json');
 	}
-
-	//上移组织结构
-	public function up_org(){
-		$id = trim(I('up_org_id_txt'));
-		$msg =	C('up_org_success');
-		$Model = new Model();
-		$company = M("company");
-		$company_info = $Model->query("select * from bi_company where id=" . $id);
-		if($company_info[0]['order'] == 1){
-			return;
-		}
-		$up_order = $company_info[0]['order'] - 1;
-		$pid = $company_info[0]['pid'];
-		$up_company_info = $Model->query("select * from bi_area where pid=%d and order=%d", $pid, $up_order);
-		$data['order'] = $up_order;
-		$is_set = $company->where("id=%d", $id)->save($data);
-		$data['order'] = $up_order + 1;
-		$is_set = $company->where("id=%d", $up_company_info[0]['id'])->save($data);
-	}
-
-	//下移组织结构
-	public function down_org(){
-		$id = trim(I('down_company_id_txt'));
-		$msg =	C('down_org_success');
-		$Model = new Model();
-		$company = M("company");
-		$company_info = $Model->query("select * from bi_company where id=" . $id);
-		$is_bigest = $Model->query("select * from bi_company where pid=%d and order>%d", $company_info[0]['pid'], $company_info[0]['order']);
-		if(!$is_bigest){
-			return;
-		}
-
-		$down_order = $company_info[0]['order'] + 1;
-		$pid = $company_info[0]['pid'];
-		$down_company_info = $Model->query("select * from bi_company where pid=%d and order=%d", $pid, $down_order);
-		$data['order'] = $down_order;
-		$is_set = $company->where("id=%d", $id)->save($data);
-		$data['order'] = $down_order - 1;
-		$is_set = $company->where("id=%d", $down_company_info[0]['id'])->save($data);
-	}
-
 }
 ?>

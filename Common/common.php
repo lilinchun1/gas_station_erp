@@ -54,23 +54,6 @@ function getSubAgentArrayFromFatherAgent($father_agent_id) {
 	return $sub_agent_id;
 }
 
-// 根据代理商得到下属代理商字符串
-function getSubAgentStringFromFatherAgent($father_agent_id) {
-	$Model = new Model ();
-	$sub_agent_id = $Model->query ( "select agent_id from qd_agent where father_agentid=" . $father_agent_id );
-	// $second_type_id_array = array();
-	foreach ( $sub_agent_id as $key => $val ) {
-		$sub_agent_id_array [] = $val ['agent_id'];
-		$sub_sub_agent_id = $Model->query ( "select agent_id from qd_agent where father_agentid=" . $val ['agent_id'] );
-		foreach ( $sub_sub_agent_id as $sub_key => $sub_val ) {
-			$sub_agent_id_array [] = $sub_val ['agent_id'];
-		}
-	}
-	$sub_agent_id_array_string = " ('" . implode ( "','", $sub_agent_id_array ) . "')";
-	
-	return $sub_agent_id_array_string;
-}
-
 // 根据代理商得到上级代理商字符串
 function getFatherAgentStringFromAgent($agent_id) {
 	$Model = new Model ();

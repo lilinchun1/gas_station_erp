@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+	<meta charset="UTF-8">
+	<title>监控导出</title>
+	<script type="text/javascript" src="__PUBLIC__/js/jquery-1.10.2.min.js"></script>
+	<script type="text/javascript" src="__PUBLIC__/js/My97DatePicker/WdatePicker.js"></script>
+	<script type="text/javascript">
+	function exportNow(){
+		window.location="{:U('socket/PostDev/exportChoose')}?export=1";
+	}
+	function exportTime(){
+		var beginTime = $(".beginTime").val();
+		var endTime = $(".endTime").val();
+		window.location="{:U('socket/PostDev/exportChoose')}?export=2&beginTime="+beginTime+"&endTime="+endTime;
+	}
+	</script>
+	<STYLE type="text/css">
+	.kanli-btn{
+		width: 100px;
+		border-radius: 5px;
+		height: 30px;
+		background: #3dcdff;
+		text-align: center;
+		line-height: 30px;
+		color: #fff;
+		cursor: pointer;
+		float:right;
+	}
+	.sen_div{
+		width:600px;
+		height:30px;
+		margin: 0 auto;
+		margin-top:50px;
+		text-align:center;
+		vertical-align:center
+	}
+	.time_txt{
+		width: 200px;
+		line-height: 25px;
+		height: 25px;
+		border: 1px #ccc solid;
+		text-indent: 4px;
+	}
+	</STYLE>
+</head>
+<body>
+<div style="border:1px solid red;width:700px;height:200px;margin: 0 auto;margin-top:100px;">
+	<div class="sen_div">
+		<input type="button" value="导出当前" class="kanli-btn" onclick="exportNow()"/>
+	</div>
+	<div class="sen_div">
+		<input type="text" class="beginTime time_txt" readonly="true" onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss'})"/> - <input type="text" class="endTime time_txt" readonly="true" onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss'})"/><input type="button" value="按时间导出" class="kanli-btn" onclick="exportTime()" />
+	</div>
+</div>
+</body>
+</html>

@@ -1,14 +1,4 @@
 <?php
-//����������ڻ���ַ�����
-function getDateFromTime($time) {
-	$date = null;
-	if(!empty($time))
-	{
-		$date = date('Y-m-d', $time);
-	}
-
-	return $date;
-}
 
 //������ͼƬID�õ�ͼƬ·��
 function getDevicePhotoPathFromID($device_photo_id) {
@@ -174,48 +164,6 @@ function changeNum($option_name='', $up_option_id='', $option_id='', $option='')
 	}
 }
 
-//�жϴ�����Ȩ��
-function judgeAgentPurview($user_agent_id='', $option_agent_id='') {
-	if(empty($user_agent_id))
-	{
-		return true;
-	}
-
-	$is_have_purview = false;
-	$Model = new Model();
-	$agent_user_info = $Model->query("select father_agentid, agent_level from qd_agent where agent_id=" . $user_agent_id);
-	$agent_option_info = $Model->query("select father_agentid, agent_level from qd_agent where agent_id=" . $option_agent_id);
-	if('2' == $agent_user_info[0]['agent_level'])
-	{
-		if('2' == $agent_option_info[0]['agent_level'])
-		{
-			if($user_agent_id == $option_agent_id)
-			{
-				$is_have_purview = true;
-			}
-		}
-	}
-	else
-	{
-		if('2' == $agent_option_info[0]['agent_level'])
-		{
-			if($user_agent_id == $agent_option_info[0]['father_agentid'])
-			{
-				$is_have_purview = true;
-			}
-		}
-		else
-		{
-			if($user_agent_id == $option_agent_id)
-			{
-				$is_have_purview = true;
-			}
-		}
-	}
-
-	return $is_have_purview;
-}
-
 //��ݴ����̺�ͬ��ŷ��ش�����ID
 function getAgentIDFromAgentContract($contract_number='') {
 	$Model = new Model();
@@ -329,19 +277,6 @@ function getAllChannelType() {
 	return $first_channel_type;
 }
 
-//�õ����д�����
-function getAllAgent() {
-	$userinfo = getUserInfo();
-	$orgid = $userinfo['orgid'];
-	if($orgid){
-		$where = " and agent_id = $orgid";
-	}
-	
-	$Model = new Model();
-	$all_agent  = $Model->query("select agent_id, agent_name from qd_agent where isDelete='0' $where");
-	return $all_agent;
-}
-
 //�������ID��ѯ��������ID
 function getChannelTypeIDFromChannelID($channel_id='') {
 	$Model = new Model();
@@ -352,10 +287,10 @@ function getChannelTypeIDFromChannelID($channel_id='') {
 //�������ID��ѯ��������
 function getChannelTypeFromID($channel_id='') {
 	$Model = new Model();
-	$first_channel_type  = $Model->query("select a.channel_type_father_id, a.channel_type_name from qd_channel_type a, qd_channel_type_link b where							a.channel_type_id=b.channel_type_id and b.channel_id=" . $channel_id);
+	$first_channel_type  = $Model->query("select a.channel_type_father_id, a.channel_type_name from qd_channel_type a, qd_channel_type_link b where	a.channel_type_id=b.channel_type_id and b.channel_id=" . $channel_id);
 	if('0' != $first_channel_type[0]['channel_type_father_id'])
 	{
-		$first_channel_type_father  = $Model->query("select channel_type_name from qd_channel_type where channel_type_id=" .									$first_channel_type[0]['channel_type_father_id']);
+		$first_channel_type_father  = $Model->query("select channel_type_name from qd_channel_type where channel_type_id=" . $first_channel_type[0]['channel_type_father_id']);
 		$first_channel_type[0]['channel_type_name'] = $first_channel_type_father[0]['channel_type_name'] . ' ' . $first_channel_type[0]['channel_type_name'];
 	}
 	return $first_channel_type[0]['channel_type_name'];
@@ -376,8 +311,8 @@ function getTypeNameFromID($type_id='') {
 //�����־��Ϣ
 function addOptionLog($optin_name='', $option_id='', $option_type='', $option_descrption=''){
 	$Model = new Model();
-	$logs_option = M("logs_option");
-	$logs_option_description = M("logs_option_description");
+	$logs_option = new Model("QdLogsOption");
+	$logs_option_description = new Model("QdLogsOptionDescription");
 
 	$option_time = time();
 	$data['option_name'] = $optin_name;
@@ -399,7 +334,7 @@ function addOptionLog($optin_name='', $option_id='', $option_type='', $option_de
 //����豸��־��Ϣ
 function addDeviceLog($agent_id='', $channel_id='', $place_id='', $device_id='', $begin_time='', $end_time=''){
 	$Model = new Model();
-	$logs_device = M("logs_device");
+	$logs_device = new Model("QdLogsDevice");
 
 	$data['agent_id'] = $agent_id;
 	$data['channel_id'] = $channel_id;
@@ -413,7 +348,7 @@ function addDeviceLog($agent_id='', $channel_id='', $place_id='', $device_id='',
 
 function changeDeviceLogTime($device_id='', $begin_time='', $end_time=''){
 	$Model = new Model();
-	$logs_device = M("logs_device");
+	$logs_device = new Model("QdLogsDevice");
 
 	$Model->execute("update qd_logs_device set end_time=" . $end_time . " where device_id=" . $device_id);
 	return;

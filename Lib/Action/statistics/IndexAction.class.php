@@ -1,5 +1,6 @@
 <?php
 import( "@.MyClass.Page" );//导入分页类
+import( "@.MyClass.Common" );//导入公共类
 class IndexAction extends Action {
 	//区域顶级父id值
 	public $top_pid = 0;
@@ -213,9 +214,11 @@ class IndexAction extends Action {
 		$Model = new Model();
 		$sql = "select * from qd_agent a where a.isDelete=0 ";
 		$userinfo = getUserInfo();
-		if((!empty($userinfo['orgid'])) && (1 != $userinfo['orgid'])){
-			$sub_agent_id = getSubAgentStringFromFatherAgent($userinfo['orgid']);
-			$sql .= " and (a.agent_id='{$userinfo['orgid']}' or a.agent_id in $sub_agent_id)"; //权限限制
+		if(trim($userinfo['orgid']))
+		{
+			$common = new Common();
+			$sub_agent_id = $common->getAgentIdAndChildId(trim($userinfo['orgid']));
+			$sql .= " and a.agent_id in ($sub_agent_id)"; //权限限制
 		}
 		$company_info = $Model->query($sql);
 		

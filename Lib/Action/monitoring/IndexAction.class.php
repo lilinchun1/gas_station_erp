@@ -1,11 +1,10 @@
 <?php
 import( "@.MyClass.Page" );//导入分页类
+import( "@.MyClass.Common" );//导入公共类
 class IndexAction extends Action {
 	private $userinfo = null;
 	//当前代理商及下属所有子代理商id列表
 	public $agentIdStr = "";
-	//当前登陆者可访问的所有地区id列表
-	private $ableAreaIdStr = "";
 	//最新更新批号
 	private $monitor_no;
 	function __construct(){
@@ -16,19 +15,9 @@ class IndexAction extends Action {
 		//获取用户信息
 		$this->userinfo = getUserInfo();
 		if($this->userinfo['orgid']){
-			//迭代出当前登录代理商及下属所有子代理商
-			$sql_agent = "SELECT * FROM qd_agent";
-			$que_agent = $model->query($sql_agent);
-			$this->getAllChildAgent($que_agent,$this->userinfo['orgid']);
-			$this->agentIdStr .= $this->userinfo['orgid'];
-			$this->agentIdStr = trim($this->agentIdStr,',');
-			//获取当前登录代理商及下属所有子代理商所属所有地区id
-			$sqlArea = "SELECT * FROM qd_agent_area WHERE agent_id IN (".$this->agentIdStr.") GROUP BY area_id;";
-			$queArea = $model->query($sqlArea);
-			foreach ($queArea as $k=>$v){
-				$this->ableAreaIdStr .= $v['area_id'].",";
-			}
-			$this->ableAreaIdStr = trim($this->ableAreaIdStr,',');
+			//获取当前登录代理商及下属所有子代理商
+			$common = new Common();
+			$this->agentIdStr = $common->getAgentIdAndChildId($this->userinfo['orgid']);
 		}
 		
 		//获取最近通信保存批号
@@ -275,17 +264,14 @@ class IndexAction extends Action {
 		$showModel = $_REQUEST['showModel']?$_REQUEST['showModel']:0;
 		$dev_count_arr = $this->getRightOrWrongNum($showModel);
 		//echo json_encode($dev_count_arr);exit;
-		$where = " where 1 ";
-		if($this->ableAreaIdStr){
-			$where .= " and a.agent_id IN (".$this->agentIdStr.") ";
-		}
+		$common = new Common();
+		$ableAreaIdStr = $common->getAreaIdAndProvinceStr($this->userinfo['orgid']);
+		$where .= " where area_id IN ($ableAreaIdStr) ";
 		$sql = "
-				SELECT b.area_id,b.area_name,b.pid,b.level,0 count
-				FROM qd_agent_area a
-				LEFT JOIN bi_area b ON a.area_id = b.area_id
-				$where
-				GROUP BY a.area_id
-				";
+		SELECT area_id,area_name,pid,level,0 count
+		FROM bi_area a
+		$where
+		";
 		$que = $model->query($sql);
 		foreach ($que as $k=>$v){
 			foreach($dev_count_arr as $countK=>$countV){
@@ -348,19 +334,5 @@ class IndexAction extends Action {
 	 */
 	function record(){
 		$this->display(':record_index');
-	}
-	
-	/**
-	 * getAllChildAgent获取所有子代理商id
-	 * @param
-	 * @return mixed
-	 */
-	function getAllChildAgent($agentArr,$pid){
-		foreach ($agentArr as $k=>$v){
-			if($v['father_agentid'] == $pid){
-				$this->agentIdStr .= $v['agent_id'].',';
-				$this->getAllChildAgent($agentArr,$v['agent_id']);
-			}
-		}
 	}
 }

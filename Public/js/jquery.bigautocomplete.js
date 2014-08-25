@@ -1,7 +1,7 @@
 (function($){
 	var bigAutocomplete = new function(){
-		this.currentInputText = null;//Ŀǰ��ù�������򣨽��һ��ҳ�����������Զ���ȫ���ܣ�
-		this.functionalKeyArray = [9,20,13,16,17,18,91,92,93,45,36,33,34,35,37,39,112,113,114,115,116,117,118,119,120,121,122,123,144,19,145,40,38,27];//�����Ϲ��ܼ��ֵ����
+		this.currentInputText = null;//Ŀǰ��ù�������򣨽��һ��ҳ�����������Զ���ȫ���ܣ�?
+		this.functionalKeyArray = [9,20,13,16,17,18,91,92,93,45,36,33,34,35,37,39,112,113,114,115,116,117,118,119,120,121,122,123,144,19,145,40,38,27];//�����Ϲ��ܼ��ֵ����?
 		this.holdText = null;//�������ԭʼ���������
 		
 		//��ʼ�������Զ���ȫdiv������documentע��mousedown�������div��������div
@@ -14,7 +14,7 @@
 				}
 			})
 			
-			//�����ͣʱѡ�е�ǰ��
+			//�����ͣʱѡ�е�ǰ��?
 			$("#bigAutocompleteContent").delegate("tr", "mouseover", function() {
 				$("#bigAutocompleteContent tr").removeClass("ct");
 				$(this).addClass("ct");
@@ -25,8 +25,12 @@
 			
 			//����ѡ���к�ѡ�����������õ�������У���ִ��callback����
 			$("#bigAutocompleteContent").delegate("tr", "click", function() {
+				/*
 				bigAutocomplete.currentInputText.val( $(this).find("div:last").html());
 				var callback_ = bigAutocomplete.currentInputText.data("config").callback;
+				*/
+				$(a_this).val( $(this).find("div:last").html());
+				var callback_ = $(a_this).data("config").callback;
 				if($("#bigAutocompleteContent").css("display") != "none" && callback_ && $.isFunction(callback_)){
 					callback_($(this).data("jsonData"));
 					
@@ -46,7 +50,7 @@
 			var $bigAutocompleteContent = $("#bigAutocompleteContent");
 			
 			this.config = {
-			               //width:������Ŀ�ȣ�Ĭ��ʹ���������
+			               //width:������Ŀ�ȣ�Ĭ��ʹ���������?
 			               width:$this.outerWidth() - 2,
 			               //url����ʽurl:""����ajax��̨��ȡ��ݣ����ص���ݸ�ʽΪdata����һ��
 			               url:null,
@@ -74,9 +78,9 @@
 					}
 					$bigAutocompleteContent.find("tr").removeClass("ct");
 					
-					if($nextSiblingTr.length > 0){//����һ��ʱ���������һ�У�
+					if($nextSiblingTr.length > 0){//����һ��ʱ���������һ�У�?
 						$nextSiblingTr.addClass("ct");//ѡ�е��мӱ���
-						$this.val($nextSiblingTr.find("div:last").html());//ѡ�����������õ��������
+						$this.val($nextSiblingTr.find("div:last").html());//ѡ�����������õ��������?
 						
 						//div������ѡ�е���,jquery-1.6.1 $nextSiblingTr.offset().top ��bug����ֵ������
 						$bigAutocompleteContent.scrollTop($nextSiblingTr[0].offsetTop - $bigAutocompleteContent.height() + $nextSiblingTr.height() );
@@ -91,7 +95,7 @@
 					if($bigAutocompleteContent.css("display") == "none")return;
 					
 					var $previousSiblingTr = $bigAutocompleteContent.find(".ct");
-					if($previousSiblingTr.length <= 0){//û��ѡ����ʱ��ѡ�����һ����
+					if($previousSiblingTr.length <= 0){//û��ѡ����ʱ��ѡ�����һ����?
 						$previousSiblingTr = $bigAutocompleteContent.find("tr:last");
 					}else{
 						$previousSiblingTr = $previousSiblingTr.prev();
@@ -100,7 +104,7 @@
 					
 					if($previousSiblingTr.length > 0){//����һ��ʱ�����ǵ�һ�У�
 						$previousSiblingTr.addClass("ct");//ѡ�е��мӱ���
-						$this.val($previousSiblingTr.find("div:last").html());//ѡ�����������õ��������
+						$this.val($previousSiblingTr.find("div:last").html());//ѡ�����������õ��������?
 						
 						//div������ѡ�е���,jquery-1.6.1 $$previousSiblingTr.offset().top ��bug����ֵ������
 						$bigAutocompleteContent.scrollTop($previousSiblingTr[0].offsetTop - $bigAutocompleteContent.height() + $previousSiblingTr.height());
@@ -152,7 +156,7 @@
 						}
 						
 						makeContAndShow(data_);
-					}else if(url != null && url != ""){//ajax�������
+					}else if(url != null && url != ""){//ajax�������?
 						$.post(url,{keyword:keyword_},function(result){
 							makeContAndShow(result.data)
 						},"json")

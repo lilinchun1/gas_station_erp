@@ -5,7 +5,7 @@
     <title>加油站信息</title>
     <!--<link rel="stylesheet" href="../../Public/css/configuration.css"/>-->
 	<link href="__PUBLIC__/js/AjaxFileUploaderV2.1/ajaxfileupload.css" rel="stylesheet" type="text/css" /><!--引用上传的css样式-->
-	<script type="text/javascript" src="__PUBLIC__/js/script_city.js"></script>
+	<script type="text/javascript" src="__PUBLIC__/js/city.js"></script>
 	<style type="text/css">
 	.img_up{
 		width:110px;
@@ -55,7 +55,7 @@
     <ul class="main-nav" id="j-nav-active">
         <li class="url_link" url="<?php echo U('monitoring/Index/station');?>"><a href="<?php echo U('monitoring/Index/station');?>">加油站监控</a></li>
         <li class="url_link" url="<?php echo U('channel/Channel/index');?>"><a href="<?php echo U('channel/Channel/index');?>">渠道管理</a></li>
-        <li class="url_link" url="<?php echo U('management/Index/importingApp');?>"><a href="<?php echo U('management/Index/importingApp');?>">运营管理</a></li>
+        <!-- <li class="url_link" url="<?php echo U('management/Index/importingApp');?>"><a href="<?php echo U('management/Index/importingApp');?>">运营管理</a></li> -->
         <li class="url_link" url="<?php echo U('statistics/Index/index');?>"><a href="<?php echo U('statistics/Index/index');?>">统计分析</a></li>
      <!--   <li class="url_link" url="<?php echo U('ad/Index/index');?>"><a href="<?php echo U('ad/Index/index');?>">广告管理</a></li> -->
         <li class="url_link" url="<?php echo U('configuration/Org/index');?>"><a href="<?php echo U('configuration/Org/index');?>">系统设置</a></li>
@@ -91,15 +91,20 @@
         <form name="deviceSelect" method="get" action="<?php echo U('channel/Device/deviceSelect');?>">
             <p>
                 <label for="channel-class1" class="">区域</label>
-                 <span id="select_showcity"></span>
-                <script type="text/javascript">
-                    showprovince("select_province", "select_city", "<?php echo ($_GET['select_province']); ?>", "select_showcity");
-                    showcity("select_city", "<?php echo ($_GET['select_city']); ?>", "select_province", "select_showcity");
-                </script>
+				<span class="select_showcity">
+					<select class="select_province" name="select_province" onChange="getCity('<?php echo U('channel/Channel/getCity');?>',this,'');" value=''>
+						<option class='0' value='0'>省份</option>
+					</select>
+					<select class="select_city" name="select_city" value=''>
+						<option class='0' value='0'>地级市</option>
+					</select>
+				</span><!--省市联动-->
                 <label for="device-drive-id" class="">设备编号</label>
-                <input type="text" name="device_no_txt" id="device_no_txt" value="<?php echo ($_GET['device_no_txt']); ?>" class="input-org-info"/>
+                <input type="text" name="device_no_txt" id="device_no_txt" value="<?php echo ($_GET['device_no_txt']); ?>" class="input-org-info"
+				onfocus="blurry('device_no','<?php echo U('channel/Channel/getAllLike');?>',this)"/>
                 <label for="mac1" class="">MAC</label>
-                <input type="text" name="mac_txt" id="mac_txt" value="<?php echo ($_GET['mac_txt']); ?>" class="input-org-info"/>
+                <input type="text" name="mac_txt" id="mac_txt" value="<?php echo ($_GET['mac_txt']); ?>" class="input-org-info" 
+				onfocus="blurry('device_mac','<?php echo U('channel/Channel/getAllLike');?>',this)"/>
                 <label for="device-state" class="">加油站状态</label>
                 <select name="select_device_status" id="select_device_status" class="channel-select-min">
                     <option selected value="">选择状态</option> 
@@ -112,18 +117,19 @@
 					</optgroup>
                 </select>
                 
-                  <label for="channel-ss-channel" class="">所属渠道</label>&nbsp;
-                <input type="text" name="channel_name_txt" id="channel_name_txt" value="<?php echo ($_GET['channel_name_txt']); ?>"  class="input-org-info" autocomplete="off"  />
+                 <label for="channel-ss-channel" class="">所属渠道</label>&nbsp;
+                <input type="text" name="channel_name_txt" id="channel_name_txt" value="<?php echo ($_GET['channel_name_txt']); ?>"  class="input-org-info" autocomplete="off" onfocus="blurry('channel_name','<?php echo U('channel/Channel/getAllLike');?>',this)" />
                 
                 <label for="channel-ss-channel" class="">所属网点</label>
-                <!--<input type="text" name="place_name_txt" id="place_name_txt" value="<?php echo ($_GET['place_name_txt']); ?>" class="input-org-info"/>-->
-				<input type="text" name="sswd" id="sswd" value="<?php echo ($_GET['sswd']); ?>" class="input-org-info" autocomplete='off'/>
+				<input type="text" name="sswd" id="sswd" value="<?php echo ($_GET['sswd']); ?>" class="input-org-info" autocomplete='off' 
+				onfocus="blurry('place_name','<?php echo U('channel/Channel/getAllLike');?>',this)"/>
             </p>
             <p>
                 <label for="channel-ss-channel" class="">SIM卡号</label>
                 <!--<input type="text" name="place_name_txt" id="place_name_txt" value="" class="input-org-info"/>-->
-				<input type="text" name="sim_text" id="sim_text" value="<?php echo ($_GET['sim_text']); ?>" class="input-org-info" autocomplete='off'/>                                           <!-- 3 -->
-
+				<input type="text" name="sim_text" id="sim_text" value="<?php echo ($_GET['sim_text']); ?>" class="input-org-info" autocomplete='off'
+				onfocus="blurry('sim_card','<?php echo U('channel/Channel/getAllLike');?>',this)"/>                                          
+				<!-- 3 -->
                 <label for="channel-ss-channel" class="">SIM卡首次启用日期</label>
                 <input type="text" name="firstopentime1" id="firstopentime1" value="<?php echo ($_GET['firstopentime1']); ?>" class="input-org-info" onClick="WdatePicker()"/>
          		  &nbsp;&nbsp;&nbsp;--&nbsp;&nbsp;&nbsp;
@@ -397,7 +403,8 @@
 
             <p>
                 <label for="channel-line-p" class="role-lab">所属网点</label>
-                <input type="text" name="add_place_name_txt" id="add_place_name_txt" class="input-role-name"/>
+                <input type="text" name="add_place_name_txt" id="add_place_name_txt" class="input-role-name"
+				onfocus="blurry('place_name','<?php echo U('channel/Channel/getAllLike');?>',this)"/>
                 <i class="red-color pdl10">*</i>
 
                 <label for="channel-point" class="role-lab">所在点位</label>
@@ -506,7 +513,8 @@
 
             <p>
                 <label for="channel-line-p" class="role-lab">所属网点</label>
-                <input type="text" name="change_place_name_txt" id="change_place_name_txt" class="input-role-name"/>
+                <input type="text" name="change_place_name_txt" id="change_place_name_txt" class="input-role-name"
+				onfocus="blurry('place_name','<?php echo U('channel/Channel/getAllLike');?>',this)"/>
                 <i class="red-color pdl10">*</i>
 
                 <label for="channel-point" class="role-lab">所在点位</label>
@@ -616,6 +624,7 @@
 <script language="javascript" type="text/javascript" src="__PUBLIC__/js/My97DatePicker/WdatePicker.js"></script>
 <script language="javascript" type="text/javascript" src="__PUBLIC__/js/My97DatePicker/WtimePicker.js"></script>
 <script src="__PUBLIC__/js/AjaxFileUploaderV2.1/ajaxfileupload.js"></script><!--图片上传-->
+<script type="text/javascript" src="__PUBLIC__/js/blurrySelect.js"></script>
 <script>
 	var device_val='';
 	var device_flag='';
@@ -633,6 +642,9 @@
 
 	$(document).ready(function () {
 		$("#device_log_info").attr("style","display:block");
+		//省份传地址
+		getProvince("<?php echo U('channel/Channel/getProvince');?>","<?php echo ($_GET['select_province']); ?>","<?php echo U('channel/Channel/getCity');?>","<?php echo ($_GET['select_city']); ?>");
+
 		var sum = $("#sum").text();
 		if(sum==""){
 			$("#sum").text("0");
@@ -645,15 +657,6 @@
 			$("#device_select_result_ul").empty();
 			$("#device_select_result_ul").append("<li class='on' onclick='device_use_select();'>启用</li><li onclick='device_remove_select();'>撤销</li>");
 		}
-
-		place_name_blurry();
-		device_mac_blurry();
-		device_sim_blurry();
-		device_sswd_blurry();
-		device_no_blurry();
-		add_place_name_blurry();
-		change_place_name_blurry();
-		channel_name_blurry();
 		
 		 $('#j_del_button').click(function(){
 		     if(device_val == '')
@@ -1153,121 +1156,6 @@
 		$(".resultpage").attr("style","display:block");
 	});
 
-	function place_name_blurry()
-	{
-		var handleUrl = "<?php echo U('channel/Place/placenameBlurrySelect');?>";
-		var place_name = '';
-		$.getJSON(handleUrl,{"place_name":place_name},
-			function (data){
-				var str = data;
-				//alert(data);
-				//alert(str[1]['title']);
-				$("#place_name_txt").bigAutocomplete({width:150,data:data,callback:function(data){}});
-			}
-			,'json'
-		);
-	}
-
-	function device_mac_blurry()
-	{
-		var handleUrl = "<?php echo U('channel/Device/devicemacBlurrySelect');?>";
-		$.getJSON(handleUrl,{},
-			function (data){
-				var str = data;
-				//alert(data);
-				//alert(str[1]['title']);
-				$("#mac_txt").bigAutocomplete({width:150,data:data,callback:function(data){}});
-			}
-			,'json'
-		);
-	}
-// SIM 模糊查询方法 
-	function device_sim_blurry()
-	{
-		var handleUrl = "<?php echo U('channel/Device/devicesimblurry');?>";
-		$.getJSON(handleUrl,{},
-			function (data){
-				var str = data;
-				$("#sim_text").bigAutocomplete({width:150,data:data,callback:function(data){}});
-			}
-			,'json'
-		);
-	}
-	
-
-	function device_sswd_blurry()
-	{
-		var handleUrl = "<?php echo U('channel/Device/devicsswdblurry');?>";
-		$.getJSON(handleUrl,{},
-			function (data){
-				var str = data;
-				$("#sswd").bigAutocomplete({width:150,data:data,callback:function(data){}});
-			}
-			,'json'
-		);
-	}
-
-	function device_no_blurry()
-	{
-		var handleUrl = "<?php echo U('channel/Device/devicenoBlurrySelect');?>";
-		var device_no = '';
-		$.getJSON(handleUrl,{"device_no":device_no},
-			function (data){
-				var str = data;
-				//alert(data);
-				//alert(str[1]['title']);
-				$("#device_no_txt").bigAutocomplete({width:150,data:data,callback:function(data){}});
-			}
-			,'json'
-		);
-	}
-	
-	
-	function channel_name_blurry()
-	{
-		var handleUrl = "<?php echo U('channel/Channel/channelnameBlurrySelect');?>";
-		var channel_name = '';
-		$.getJSON(handleUrl,{},
-			function (data){
-				var str = data;
-				//alert(data);
-				//alert(str[1]['title']);
-				$("#channel_name_txt").bigAutocomplete({width:150,data:data,callback:function(data){}});
-			}
-			,'json'
-		);
-	}
-	
-
-	function add_place_name_blurry()
-	{
-		var handleUrl = "<?php echo U('channel/Place/placenameBlurrySelect');?>";
-		var place_name = '';
-		$.getJSON(handleUrl,{},
-			function (data){
-				var str = data;
-				//alert(data);
-				//alert(str[1]['title']);
-				$("#add_place_name_txt").bigAutocomplete({width:250,data:data,callback:function(data){}});
-			}
-			,'json'
-		);
-	}
-
-	function change_place_name_blurry()
-	{
-		var handleUrl = "<?php echo U('channel/Place/placenameBlurrySelect');?>";
-		var place_name = '';
-		$.getJSON(handleUrl,{"place_name":place_name},
-			function (data){
-				var str = data;
-				//alert(data);
-				//alert(str[1]['title']);
-				$("#change_place_name_txt").bigAutocomplete({width:250,data:data,callback:function(data){}});
-			}
-			,'json'
-		);
-	}
 
 	function device_use_select(){
 		$("#select_del_flag_txt").val(0);

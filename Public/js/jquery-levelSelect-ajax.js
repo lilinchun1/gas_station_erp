@@ -5,7 +5,7 @@
 $.openLayer = function(p){
 	var param = $.extend({
 		maxItems : 999,					//最多选取项数字限制
-		showLevel : 5,					//显示级别
+		showLevel : 2,					//显示级别
 		oneLevel : false,				//是否限制选择相同级别的数据，可以不为同一个父节点，
 										//false为不限制，可以同时选择不同级别的数据，true为限制。
 		onePLevel : false,				//是否限制选择相同级别,并且是同一个父节点的数据，
@@ -117,6 +117,7 @@ $.openLayer = function(p){
 				$(this).parent().remove();
 				$("#container_td > div").find(":input[value="+this.value+"]").attr("checked",false);
 			});
+			$("#d1").find("input:checkbox").hide();
 			$("#_cancel").click(function(){
 				$("#bodybg").hide();
 				$("#popupAddr").fadeOut();

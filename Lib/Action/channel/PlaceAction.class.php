@@ -1,5 +1,6 @@
 <?php
 import( "@.MyClass.Page" );//导入分页类
+import( "@.MyClass.Common" );//导入公共类
 foreach ($_GET as $k=>$v) {
 	$_GET[$k] = urldecode($v);
 }
@@ -60,22 +61,19 @@ class PlaceAction extends Action {
 			$channel_id = getChannelIDFromChannelName($channel_name);
 			$where .= " and a.channel_id=" . $channel_id;
 		}
-		if(!empty($province) && ('省份' != $province))
-		{
-			if(!empty($city) && ('地级市' != $city))
-			{
-				$where .= " and a.province='$province' and a.city='$city'";
-			}
-			else
-			{
-				$where .= " and a.province='$province'";
+		if($province){
+			if($city){
+				$where .= " and a.province_id='$province' and a.city_id='$city'";
+			}else{
+				$where .= " and a.province_id='$province'";
 			}
 		}
-
-		if((!empty($userinfo['orgid'])) && (1 != $userinfo['orgid']))
+		
+		if(trim($userinfo['orgid']))
 		{
-			$sub_agent_id = getSubAgentStringFromFatherAgent($userinfo['orgid']);
-			$where .= " and (a.agent_id='{$userinfo['orgid']}' or a.agent_id in $sub_agent_id)"; //权限限制
+			$common = new Common();
+			$sub_agent_id = $common->getAgentIdAndChildId(trim($userinfo['orgid']));
+			$where .= " and a.agent_id in ($sub_agent_id)"; //权限限制
 		}
 
 		$count = $Model->table('qd_place a')->where($where)->count();
@@ -105,10 +103,10 @@ class PlaceAction extends Action {
 		for($i=0; $i< $listCount; $i++)
 		{
 			$list[$i]['number'] = ($page_number-1) * $page_show_number + $i + 1;
-			$list[$i]['begin_time'] = getDateFromTime($list[$i]['begin_time']);
-			$list[$i]['end_time'] = getDateFromTime($list[$i]['end_time']);
-			$list[$i]['test_begin_time'] = getDateFromTime($list[$i]['test_begin_time']);
-			$list[$i]['test_end_time'] = getDateFromTime($list[$i]['test_end_time']);
+			$list[$i]['begin_time'] = date('Y-m-d', $list[$i]['begin_time']);
+			$list[$i]['end_time'] = date('Y-m-d', $list[$i]['end_time']);
+			$list[$i]['test_begin_time'] = date('Y-m-d', $list[$i]['test_begin_time']);
+			$list[$i]['test_end_time'] = date('Y-m-d', $list[$i]['test_end_time']);
 			$list[$i]['channel_name'] = getChannelNameFromChannelID($list[$i]['channel_id']);
 			$list[$i]['place_type_name'] = getTypeNameFromID($list[$i]['place_type_id']);
 			if('test' == $list[$i]['status'])
@@ -206,10 +204,10 @@ class PlaceAction extends Action {
 		$dataPlace[0]['image_path_1'] = $imageDetail[1]['image_path'];
 		$dataPlace[0]['image_id_2'] = $imageDetail[2]['image_id'];
 		$dataPlace[0]['image_path_2'] = $imageDetail[2]['image_path'];
-		$dataPlace[0]['begin_time'] = getDateFromTime($dataPlace[0]['begin_time']);
-		$dataPlace[0]['end_time'] = getDateFromTime($dataPlace[0]['end_time']);
-		$dataPlace[0]['test_begin_time'] = getDateFromTime($dataPlace[0]['test_begin_time']);
-		$dataPlace[0]['test_end_time'] = getDateFromTime($dataPlace[0]['test_end_time']);
+		$dataPlace[0]['begin_time'] = date('Y-m-d', $dataPlace[0]['begin_time']);
+		$dataPlace[0]['end_time'] = date('Y-m-d', $dataPlace[0]['end_time']);
+		$dataPlace[0]['test_begin_time'] = date('Y-m-d', $dataPlace[0]['test_begin_time']);
+		$dataPlace[0]['test_end_time'] = date('Y-m-d', $dataPlace[0]['test_end_time']);
 
 		$dataPlace[0]['power_on_hour_time'] = intval($dataPlace[0]['power_on_time']/100);
 		$dataPlace[0]['power_on_minute_time'] = $dataPlace[0]['power_on_time']%100;
@@ -227,7 +225,7 @@ class PlaceAction extends Action {
 	public function placenameBlurrySelect(){
 	    //$Model = new Model();
 		$place_name = trim(I('place_name'));
-		$place = M('place');
+		$place = new Model("QdPlace");
 		$map['place_name'] =array('like', '%' . $place_name . '%');
 		$placeInfo = $place->where($map)->distinct(true)->field('place_name')->select();
 		for($i=0; $i< count($placeInfo); $i++)
@@ -241,7 +239,7 @@ class PlaceAction extends Action {
 	public function placenoBlurrySelect(){
 	    //$Model = new Model();
 		$place_no = trim(I('place_no'));
-		$place = M('place');
+		$place = new Model("QdPlace");
 		$map['place_no'] =array('like', '%' . $place_no . '%');
 		$placeInfo = $place->where($map)->distinct(true)->field('place_no')->select();
 		for($i=0; $i< count($placeInfo); $i++)
@@ -262,6 +260,7 @@ class PlaceAction extends Action {
     //添加网点信息
 	public function placeAdd(){
 		$userinfo = getUserInfo();
+		$common = new Common();
 		$place_no = trim(I('add_place_no_txt'));
 		$place_name = trim(I('add_place_name_txt'));
 		$province = trim(I('add_select_province'));
@@ -293,8 +292,8 @@ class PlaceAction extends Action {
 		$msg = C('add_place_success');
 
 		$Model = new Model();
-		$place = M("place");
-		$place_image = M("place_image");
+		$place = new Model("QdPlace");
+		$place_image = new Model("QdPlaceImage");
 		/* modify 2014-7-25*/
 		$place_no_count = $Model->query("select count(*) as count from qd_place where place_no='$place_no' and isDelete='0'");
 		$place_name_count = $Model->query("select count(*) as count from qd_place where place_name='$place_name' and isDelete='0'");
@@ -302,7 +301,20 @@ class PlaceAction extends Action {
 		$agent_id = getAgentIDFromChannelID($channel_id);
 		$channel_count = $Model->query("select count(*) as count from qd_channel where channel_id='$channel_id' and isDelete='0'");
 		/* modify end*/
-		$is_purview = judgeAgentPurview($userinfo['agentsid'], $agent_id);
+		$is_purview = $common->agentPurview($userinfo['agentsid'], $agent_id);
+		
+		//获取省市id
+		/*$sql = " select * from bi_area ";
+		$que = $Model->query($sql);
+		foreach($que as $k=>$v){
+			if(substr_count($province,$v['area_name']) >= 1){
+				$province_id = $v['area_id'];
+			}
+			if(substr_count($city,$v['area_name']) >= 1){
+				$city_id = $v['area_id'];
+			}
+		}*/
+		
 		if(!$is_purview)
 		{
 			$msg = C('no_purview');
@@ -331,13 +343,15 @@ class PlaceAction extends Action {
 		{
 			$data['place_no'] = $place_no;
 			$data['place_name'] = $place_name;
-			$data['province'] = $province;
-			$data['city'] = $city;
+			$data['province_id'] = $province;
+			$data['city_id'] = $city;
 			$data['region'] = $region;
 			$data['place_tel'] = $place_tel;
 			$data['contacts'] = $contacts;
 			$data['contacts_tel'] = $contacts_tel;
 			$data['status'] = $status;
+			/*$data['province_id']=$province_id;
+			$data['city_id']=$city_id;*/
 			if('test' == $status)
 			{
 				if(0 != $test_begin_time)
@@ -447,7 +461,8 @@ class PlaceAction extends Action {
 		$log_photo_change_num = 0;
 
 		$Model = new Model();
-		$place = M("place");
+		$common = new Common();
+		$place = new Model("QdPlace");
 		$channel_id = getChannelIDFromChannelName($channel_name);
 		$agent_id = getAgentIDFromChannelID($channel_id);
 		$place_no_count = $place->query("select count(*) as count from qd_place where place_no='$place_no' and isDelete='0'");
@@ -458,6 +473,20 @@ class PlaceAction extends Action {
 		$src_image_path_0 = getPlacePhotoPathFromID($image_id_0);
 		$src_image_path_1 = getPlacePhotoPathFromID($image_id_1);
 		$src_image_path_2 = getPlacePhotoPathFromID($image_id_2);
+		
+		
+		/*//获取省市id
+		$sql = " select * from bi_area ";
+		$que = $Model->query($sql);
+		foreach($que as $k=>$v){
+			if(substr_count($province,$v['area_name']) >= 1){
+				$province_id = $v['area_id'];
+			}
+			if(substr_count($city,$v['area_name']) >= 1){
+				$city_id = $v['area_id'];
+			}
+		}*/
+		
 		if($image_path_0 != $src_image_path_0)
 		{
 			$log_photo_change_num += 1;
@@ -473,12 +502,12 @@ class PlaceAction extends Action {
 		//$src_place_info = $Model->table('qd_place')->where("place_id='%d'", $place_id)->select(); //记录原来的网点信息
 		$src_place_info = $Model->table('qd_place')->where("place_id='{$place_id}' and isDelete='0'")->select();
 		$src_place_log_info = $Model->table('qd_place')->where("place_id='%d'", $place_id)->select();  //查询修改前的信息，用于日志对比
-		$src_place_log_info[0]['place_begin_time'] = getDateFromTime($src_place_log_info[0]['begin_time']);
+		$src_place_log_info[0]['place_begin_time'] = date('Y-m-d', $src_place_log_info[0]['begin_time']);
 		unset($src_place_log_info[0]['begin_time']);
-		$src_place_log_info[0]['place_end_time'] = getDateFromTime($src_place_log_info[0]['end_time']);
+		$src_place_log_info[0]['place_end_time'] = date('Y-m-d', $src_place_log_info[0]['end_time']);
 		unset($src_place_log_info[0]['end_time']);
-		$src_place_log_info[0]['test_begin_time'] = getDateFromTime($src_place_log_info[0]['test_begin_time']);
-		$src_place_log_info[0]['test_end_time'] = getDateFromTime($src_place_log_info[0]['test_end_time']);
+		$src_place_log_info[0]['test_begin_time'] = date('Y-m-d', $src_place_log_info[0]['test_begin_time']);
+		$src_place_log_info[0]['test_end_time'] = date('Y-m-d', $src_place_log_info[0]['test_end_time']);
 
 		$src_place_log_info[0]['place_channel_name'] = getChannelNameFromChannelID($src_place_log_info[0]['channel_id']);
 		unset($src_place_log_info[0]['channel_id']);
@@ -493,7 +522,7 @@ class PlaceAction extends Action {
 		$src_place_log_info[0]['power_on_duration'] = intval($src_place_log_info[0]['power_on_duration']/100) . '时' .
 			$src_place_log_info[0]['power_on_duration']%100 . "分";
 			*/
-		$is_purview = judgeAgentPurview($userinfo['agentsid'], $agent_id);
+		$is_purview = $common->agentPurview($userinfo['agentsid'], $agent_id);
 		if(!$is_purview)
 		{
 			$msg = C('no_purview');
@@ -522,13 +551,15 @@ class PlaceAction extends Action {
 		{
 			$data['place_no'] = $place_no;
 			$data['place_name'] = $place_name;
-			$data['province'] = $province;
-			$data['city'] = $city;
+			$data['province_id'] = $province;
+			$data['city_id'] = $city;
 			$data['region'] = $region;
 			$data['place_tel'] = $place_tel;
 			$data['contacts'] = $contacts;
 			$data['contacts_tel'] = $contacts_tel;
 			$data['status'] = $status;
+			/*$data['province_id']=$province_id;
+			$data['city_id']=$city_id;*/
 			if('test' == $status)
 			{
 				if(0 != $test_begin_time)
@@ -584,7 +615,7 @@ class PlaceAction extends Action {
 			$data['power_on_duration'] = $power_on_duration;
 			$is_set = $place->where("place_id='%d'", $place_id)->save($data);
 		
-			$place_image = M("place_image");
+			$place_image = new Model("QdPlaceImage");
 			$image['image_path'] = $image_path_0;
 			$is_image_0 = $place_image->where("image_id=" . $image_id_0)->save($image);
 
@@ -607,12 +638,12 @@ class PlaceAction extends Action {
 				changeNum('place', $channel_id, $place_id, 'add');
 			}
 			$dst_place_log_info = $Model->table('qd_place')->where("place_id='%d'", $place_id)->select();  //查询修改后的信息，用于日志对比
-			$dst_place_log_info[0]['place_begin_time'] = getDateFromTime($dst_place_log_info[0]['begin_time']);
+			$dst_place_log_info[0]['place_begin_time'] = date('Y-m-d', $dst_place_log_info[0]['begin_time']);
 			unset($dst_place_log_info[0]['begin_time']);
-			$dst_place_log_info[0]['place_end_time'] = getDateFromTime($dst_place_log_info[0]['end_time']);
+			$dst_place_log_info[0]['place_end_time'] = date('Y-m-d', $dst_place_log_info[0]['end_time']);
 			unset($dst_place_log_info[0]['end_time']);
-			$dst_place_log_info[0]['test_begin_time'] = getDateFromTime($dst_place_log_info[0]['test_begin_time']);
-			$dst_place_log_info[0]['test_end_time'] = getDateFromTime($dst_place_log_info[0]['test_end_time']);
+			$dst_place_log_info[0]['test_begin_time'] = date('Y-m-d', $dst_place_log_info[0]['test_begin_time']);
+			$dst_place_log_info[0]['test_end_time'] = date('Y-m-d', $dst_place_log_info[0]['test_end_time']);
 
 			$dst_place_log_info[0]['place_channel_name'] = getChannelNameFromChannelID($dst_place_log_info[0]['channel_id']);
 			unset($dst_place_log_info[0]['channel_id']);
@@ -641,7 +672,7 @@ class PlaceAction extends Action {
 	public function placeDelete(){
 		$place_id = trim(I('place_id'));
 	    $Model = new Model();
-		$place = M("place");
+		$place = new Model("QdPlace");
 		$msg = C('delete_place_success');
 		$device_info = $Model->query("select device_id from qd_device where place_id=" . $place_id);
 		$channel_id = getChannelIDFromPlaceID($place_id);
@@ -668,8 +699,8 @@ class PlaceAction extends Action {
 		$place_id = trim(I('place_id'));
 
 	    $Model = new Model();
-		$place = M("place","qd_");
-		$device = M("device","qd_");
+		$place = new Model("QdPlace");
+		$device = new Model("QdDevice");
 		$msg = C('repeal_place_success');
 		$is_set = $place->where("place_id='$place_id'")->setField('isDelete', 1);
 		if($is_set <= 0)
@@ -697,7 +728,7 @@ class PlaceAction extends Action {
 	{
 		$place_id = trim(I('get.place_id'));
 		$Model = new Model();
-		$place = M("place");
+		$place = new Model("QdPlace");
 		$is_set = $place->where("place_id='$place_id'")->setField('isDelete', 0);
 		$channel_id = getChannelIDFromPlaceID($place_id);
 		changeNum('place', $channel_id, $place_id, 'add');
