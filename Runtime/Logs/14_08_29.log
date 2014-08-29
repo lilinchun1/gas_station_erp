@@ -1,0 +1,278 @@
+[ 2014-08-29T11:01:22+08:00 ] 127.0.0.1 /gas_station_erp/index.php/Login/login
+NOTIC: [2] htmlspecialchars() expects parameter 2 to be long, string given D:\trunk\frame\Lib\Core\App.class.php 第 56 行.
+NOTIC: [2] htmlspecialchars() expects parameter 2 to be long, string given D:\trunk\frame\Lib\Core\App.class.php 第 56 行.
+NOTIC: [2] htmlspecialchars() expects parameter 2 to be long, string given D:\trunk\frame\Lib\Core\App.class.php 第 56 行.
+NOTIC: [2] htmlspecialchars() expects parameter 2 to be long, string given D:\trunk\frame\Lib\Core\App.class.php 第 56 行.
+NOTIC: [2] htmlspecialchars() expects parameter 2 to be long, string given D:\trunk\frame\Lib\Core\App.class.php 第 56 行.
+INFO: [ app_begin ] --START--
+INFO: ReadHtmlCache Behavior ::run [ RunTime:0.001000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001000s ]
+SQL: SELECT url FROM bi_menu [ RunTime:0.010001s ]
+
+[ 2014-08-29T11:01:28+08:00 ] 127.0.0.1 /gas_station_erp/index.php/Login/login
+NOTIC: [2] htmlspecialchars() expects parameter 2 to be long, string given D:\trunk\frame\Lib\Core\App.class.php 第 56 行.
+NOTIC: [2] htmlspecialchars() expects parameter 2 to be long, string given D:\trunk\frame\Lib\Core\App.class.php 第 56 行.
+NOTIC: [2] htmlspecialchars() expects parameter 2 to be long, string given D:\trunk\frame\Lib\Core\App.class.php 第 56 行.
+NOTIC: [2] htmlspecialchars() expects parameter 2 to be long, string given D:\trunk\frame\Lib\Core\App.class.php 第 56 行.
+NOTIC: [2] htmlspecialchars() expects parameter 2 to be long, string given D:\trunk\frame\Lib\Core\App.class.php 第 56 行.
+INFO: [ app_begin ] --START--
+INFO: ReadHtmlCache Behavior ::run [ RunTime:0.001000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001000s ]
+SQL: SELECT url FROM bi_menu [ RunTime:0.001000s ]
+
+[ 2014-08-29T11:01:43+08:00 ] 127.0.0.1 /gas_station_erp/index.php/monitoring/Index/getProvinceCity
+NOTIC: [2] htmlspecialchars() expects parameter 2 to be long, string given D:\trunk\frame\Lib\Core\App.class.php 第 56 行.
+INFO: [ app_begin ] --START--
+INFO: ReadHtmlCache Behavior ::run [ RunTime:0.001000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001000s ]
+NOTIC: [8] Undefined index: orgid D:\trunk\gas_station_erp\Lib\Action\monitoring\IndexAction.class.php 第 17 行.
+SQL: SELECT MAX(monitor_no) monitor_no FROM dev_monitor [ RunTime:0.003001s ]
+SQL: 
+				SELECT b.province,b.city,COUNT(*) count FROM dev_monitor a
+				LEFT JOIN qd_device b ON a.dev_no = b.device_no
+				WHERE
+				a.monitor_no = 87
+				AND a.unfind <> 1 AND a.dev_no_begin_time <>1
+				GROUP BY b.province,b.city
+				ORDER BY b.province,b.city
+				 [ RunTime:0.017001s ]
+NOTIC: [8] Undefined index: orgid D:\trunk\gas_station_erp\Lib\Action\monitoring\IndexAction.class.php 第 268 行.
+SQL: 
+				SELECT b.area_id
+				FROM qd_agent_area a
+				LEFT JOIN bi_area b ON a.area_id = b.area_id
+				
+				UNION
+				SELECT area_id
+				FROM bi_area
+				WHERE level = 1
+				AND area_id IN(
+					SELECT b.pid
+					FROM qd_agent_area a
+					LEFT JOIN bi_area b ON a.area_id = b.area_id
+					
+				)
+				 [ RunTime:0.007000s ]
+NOTIC: [8] Undefined variable: where D:\trunk\gas_station_erp\Lib\Action\monitoring\IndexAction.class.php 第 269 行.
+SQL: 
+		SELECT area_id,area_name,pid,level,0 count
+		FROM bi_area a
+		 where area_id IN (5,16,23,17,183,88,87,68) 
+		 [ RunTime:0.000000s ]
+NOTIC: [8] Undefined index: orgid D:\trunk\gas_station_erp\Lib\Action\monitoring\IndexAction.class.php 第 285 行.
+
+[ 2014-08-29T11:01:44+08:00 ] 127.0.0.1 /gas_station_erp/index.php/channel//gas_station_erp/gas_station_erp/Tpl/channel/Public/css/configuration.css
+ERR: 无法加载模块:gas_station_erp
+
+[ 2014-08-29T11:01:44+08:00 ] 127.0.0.1 /gas_station_erp/index.php/channel/Channel/getProvince
+INFO: [ app_begin ] --START--
+INFO: ReadHtmlCache Behavior ::run [ RunTime:0.000000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000000s ]
+NOTIC: [2] urldecode() expects parameter 1 to be string, array given D:\trunk\gas_station_erp\Lib\Action\channel\ChannelAction.class.php 第 6 行.
+SQL: select area_id,area_name from bi_area where pid=0 [ RunTime:0.001000s ]
+
+[ 2014-08-29T11:01:46+08:00 ] 127.0.0.1 /gas_station_erp/index.php/channel/Channel/getProvince
+INFO: [ app_begin ] --START--
+INFO: ReadHtmlCache Behavior ::run [ RunTime:0.000000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000000s ]
+NOTIC: [2] urldecode() expects parameter 1 to be string, array given D:\trunk\gas_station_erp\Lib\Action\channel\ChannelAction.class.php 第 6 行.
+SQL: select area_id,area_name from bi_area where pid=0 [ RunTime:0.001001s ]
+
+[ 2014-08-29T11:01:47+08:00 ] 127.0.0.1 /gas_station_erp/index.php/channel/Channel/getProvince
+INFO: [ app_begin ] --START--
+INFO: ReadHtmlCache Behavior ::run [ RunTime:0.000000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000000s ]
+NOTIC: [2] urldecode() expects parameter 1 to be string, array given D:\trunk\gas_station_erp\Lib\Action\channel\ChannelAction.class.php 第 6 行.
+SQL: select area_id,area_name from bi_area where pid=0 [ RunTime:0.001000s ]
+
+[ 2014-08-29T11:01:47+08:00 ] 127.0.0.1 /gas_station_erp/index.php/channel//gas_station_erp/gas_station_erp/Tpl/channel/Public/css/configuration.css
+ERR: 无法加载模块:gas_station_erp
+
+[ 2014-08-29T11:01:47+08:00 ] 127.0.0.1 /gas_station_erp/index.php/channel/Channel/getProvince
+INFO: [ app_begin ] --START--
+INFO: ReadHtmlCache Behavior ::run [ RunTime:0.000000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000000s ]
+NOTIC: [2] urldecode() expects parameter 1 to be string, array given D:\trunk\gas_station_erp\Lib\Action\channel\ChannelAction.class.php 第 6 行.
+SQL: select area_id,area_name from bi_area where pid=0 [ RunTime:0.001000s ]
+
+[ 2014-08-29T11:02:06+08:00 ] 127.0.0.1 /gas_station_erp/index.php/channel//gas_station_erp/gas_station_erp/Tpl/channel/Public/css/configuration.css
+ERR: 无法加载模块:gas_station_erp
+
+[ 2014-08-29T11:02:06+08:00 ] 127.0.0.1 /gas_station_erp/index.php/channel/Channel/getProvince
+INFO: [ app_begin ] --START--
+INFO: ReadHtmlCache Behavior ::run [ RunTime:0.001000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001000s ]
+NOTIC: [2] urldecode() expects parameter 1 to be string, array given D:\trunk\gas_station_erp\Lib\Action\channel\ChannelAction.class.php 第 6 行.
+SQL: select area_id,area_name from bi_area where pid=0 [ RunTime:0.001000s ]
+
+[ 2014-08-29T11:03:49+08:00 ] 127.0.0.1 /gas_station_erp/index.php/channel//gas_station_erp/gas_station_erp/Tpl/channel/Public/css/configuration.css
+ERR: 无法加载模块:gas_station_erp
+
+[ 2014-08-29T11:03:49+08:00 ] 127.0.0.1 /gas_station_erp/index.php/channel/Channel/getProvince
+INFO: [ app_begin ] --START--
+INFO: ReadHtmlCache Behavior ::run [ RunTime:0.001000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001000s ]
+NOTIC: [2] urldecode() expects parameter 1 to be string, array given D:\trunk\gas_station_erp\Lib\Action\channel\ChannelAction.class.php 第 6 行.
+SQL: select area_id,area_name from bi_area where pid=0 [ RunTime:0.001000s ]
+
+[ 2014-08-29T11:03:50+08:00 ] 127.0.0.1 /gas_station_erp/index.php/channel//gas_station_erp/gas_station_erp/Tpl/channel/Public/css/configuration.css
+ERR: 无法加载模块:gas_station_erp
+
+[ 2014-08-29T11:03:50+08:00 ] 127.0.0.1 /gas_station_erp/index.php/channel/Channel/getProvince
+INFO: [ app_begin ] --START--
+INFO: ReadHtmlCache Behavior ::run [ RunTime:0.001000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001000s ]
+NOTIC: [2] urldecode() expects parameter 1 to be string, array given D:\trunk\gas_station_erp\Lib\Action\channel\ChannelAction.class.php 第 6 行.
+SQL: select area_id,area_name from bi_area where pid=0 [ RunTime:0.001000s ]
+
+[ 2014-08-29T11:04:00+08:00 ] 127.0.0.1 /gas_station_erp/index.php/channel/Channel/getProvince
+INFO: [ app_begin ] --START--
+INFO: ReadHtmlCache Behavior ::run [ RunTime:0.000000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000000s ]
+NOTIC: [2] urldecode() expects parameter 1 to be string, array given D:\trunk\gas_station_erp\Lib\Action\channel\ChannelAction.class.php 第 6 行.
+SQL: select area_id,area_name from bi_area where pid=0 [ RunTime:0.001000s ]
+
+[ 2014-08-29T11:04:03+08:00 ] 127.0.0.1 /gas_station_erp/index.php/channel/Channel/getProvince
+INFO: [ app_begin ] --START--
+INFO: ReadHtmlCache Behavior ::run [ RunTime:0.000000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000000s ]
+NOTIC: [2] urldecode() expects parameter 1 to be string, array given D:\trunk\gas_station_erp\Lib\Action\channel\ChannelAction.class.php 第 6 行.
+SQL: select area_id,area_name from bi_area where pid=0 [ RunTime:0.001000s ]
+
+[ 2014-08-29T11:04:05+08:00 ] 127.0.0.1 /gas_station_erp/index.php/channel/Channel/logSelect?option_id=255&option_name=place
+NOTIC: [2] htmlspecialchars() expects parameter 2 to be long, string given D:\trunk\frame\Lib\Core\App.class.php 第 57 行.
+NOTIC: [2] htmlspecialchars() expects parameter 2 to be long, string given D:\trunk\frame\Lib\Core\App.class.php 第 57 行.
+INFO: [ app_begin ] --START--
+INFO: ReadHtmlCache Behavior ::run [ RunTime:0.001000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001000s ]
+NOTIC: [2] urldecode() expects parameter 1 to be string, array given D:\trunk\gas_station_erp\Lib\Action\channel\ChannelAction.class.php 第 6 行.
+NOTIC: [2] htmlspecialchars() expects parameter 2 to be long, string given D:\trunk\frame\Common\common.php 第 110 行.
+NOTIC: [2] htmlspecialchars() expects parameter 2 to be long, string given D:\trunk\frame\Common\common.php 第 110 行.
+NOTIC: [2] htmlspecialchars() expects parameter 2 to be long, string given D:\trunk\frame\Common\common.php 第 110 行.
+NOTIC: [2] htmlspecialchars() expects parameter 2 to be long, string given D:\trunk\frame\Common\common.php 第 110 行.
+NOTIC: [2] htmlspecialchars() expects parameter 2 to be long, string given D:\trunk\frame\Common\common.php 第 110 行.
+NOTIC: [2] htmlspecialchars() expects parameter 2 to be long, string given D:\trunk\frame\Common\common.php 第 110 行.
+SQL: 
+			SELECT
+			a.logs_id,
+			IF(b.username IS NULL,'根用户',b.username) user,
+			CASE option_type WHEN 'add' THEN '添加' WHEN 'del' THEN '撤销' WHEN 'change' THEN (SELECT option_descrption FROM qd_logs_option_description WHERE option_log_id=a.logs_id  ) END info,
+			FROM_UNIXTIME( a.timestamp, '%Y-%m-%d') time
+			FROM qd_logs_option a
+			LEFT JOIN bi_user b ON a.userid = b.uid
+			WHERE
+			a.option_id = 255
+			AND a.option_name = 'place'
+		 [ RunTime:0.039003s ]
+
+[ 2014-08-29T11:04:07+08:00 ] 127.0.0.1 /gas_station_erp/index.php/channel/Channel/logSelect?option_id=16&option_name=place
+NOTIC: [2] htmlspecialchars() expects parameter 2 to be long, string given D:\trunk\frame\Lib\Core\App.class.php 第 57 行.
+NOTIC: [2] htmlspecialchars() expects parameter 2 to be long, string given D:\trunk\frame\Lib\Core\App.class.php 第 57 行.
+INFO: [ app_begin ] --START--
+INFO: ReadHtmlCache Behavior ::run [ RunTime:0.001000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001000s ]
+NOTIC: [2] urldecode() expects parameter 1 to be string, array given D:\trunk\gas_station_erp\Lib\Action\channel\ChannelAction.class.php 第 6 行.
+NOTIC: [2] htmlspecialchars() expects parameter 2 to be long, string given D:\trunk\frame\Common\common.php 第 110 行.
+NOTIC: [2] htmlspecialchars() expects parameter 2 to be long, string given D:\trunk\frame\Common\common.php 第 110 行.
+NOTIC: [2] htmlspecialchars() expects parameter 2 to be long, string given D:\trunk\frame\Common\common.php 第 110 行.
+NOTIC: [2] htmlspecialchars() expects parameter 2 to be long, string given D:\trunk\frame\Common\common.php 第 110 行.
+NOTIC: [2] htmlspecialchars() expects parameter 2 to be long, string given D:\trunk\frame\Common\common.php 第 110 行.
+NOTIC: [2] htmlspecialchars() expects parameter 2 to be long, string given D:\trunk\frame\Common\common.php 第 110 行.
+SQL: 
+			SELECT
+			a.logs_id,
+			IF(b.username IS NULL,'根用户',b.username) user,
+			CASE option_type WHEN 'add' THEN '添加' WHEN 'del' THEN '撤销' WHEN 'change' THEN (SELECT option_descrption FROM qd_logs_option_description WHERE option_log_id=a.logs_id  ) END info,
+			FROM_UNIXTIME( a.timestamp, '%Y-%m-%d') time
+			FROM qd_logs_option a
+			LEFT JOIN bi_user b ON a.userid = b.uid
+			WHERE
+			a.option_id = 16
+			AND a.option_name = 'place'
+		 [ RunTime:0.014001s ]
+
+[ 2014-08-29T11:04:08+08:00 ] 127.0.0.1 /gas_station_erp/index.php/channel/Channel/logSelect?option_id=8&option_name=place
+NOTIC: [2] htmlspecialchars() expects parameter 2 to be long, string given D:\trunk\frame\Lib\Core\App.class.php 第 57 行.
+NOTIC: [2] htmlspecialchars() expects parameter 2 to be long, string given D:\trunk\frame\Lib\Core\App.class.php 第 57 行.
+INFO: [ app_begin ] --START--
+INFO: ReadHtmlCache Behavior ::run [ RunTime:0.002000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.002000s ]
+NOTIC: [2] urldecode() expects parameter 1 to be string, array given D:\trunk\gas_station_erp\Lib\Action\channel\ChannelAction.class.php 第 6 行.
+NOTIC: [2] htmlspecialchars() expects parameter 2 to be long, string given D:\trunk\frame\Common\common.php 第 110 行.
+NOTIC: [2] htmlspecialchars() expects parameter 2 to be long, string given D:\trunk\frame\Common\common.php 第 110 行.
+NOTIC: [2] htmlspecialchars() expects parameter 2 to be long, string given D:\trunk\frame\Common\common.php 第 110 行.
+NOTIC: [2] htmlspecialchars() expects parameter 2 to be long, string given D:\trunk\frame\Common\common.php 第 110 行.
+NOTIC: [2] htmlspecialchars() expects parameter 2 to be long, string given D:\trunk\frame\Common\common.php 第 110 行.
+NOTIC: [2] htmlspecialchars() expects parameter 2 to be long, string given D:\trunk\frame\Common\common.php 第 110 行.
+SQL: 
+			SELECT
+			a.logs_id,
+			IF(b.username IS NULL,'根用户',b.username) user,
+			CASE option_type WHEN 'add' THEN '添加' WHEN 'del' THEN '撤销' WHEN 'change' THEN (SELECT option_descrption FROM qd_logs_option_description WHERE option_log_id=a.logs_id  ) END info,
+			FROM_UNIXTIME( a.timestamp, '%Y-%m-%d') time
+			FROM qd_logs_option a
+			LEFT JOIN bi_user b ON a.userid = b.uid
+			WHERE
+			a.option_id = 8
+			AND a.option_name = 'place'
+		 [ RunTime:0.002001s ]
+
+[ 2014-08-29T11:04:08+08:00 ] 127.0.0.1 /gas_station_erp/index.php/channel/Channel/logSelect?option_id=13&option_name=place
+NOTIC: [2] htmlspecialchars() expects parameter 2 to be long, string given D:\trunk\frame\Lib\Core\App.class.php 第 57 行.
+NOTIC: [2] htmlspecialchars() expects parameter 2 to be long, string given D:\trunk\frame\Lib\Core\App.class.php 第 57 行.
+INFO: [ app_begin ] --START--
+INFO: ReadHtmlCache Behavior ::run [ RunTime:0.001000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001000s ]
+NOTIC: [2] urldecode() expects parameter 1 to be string, array given D:\trunk\gas_station_erp\Lib\Action\channel\ChannelAction.class.php 第 6 行.
+NOTIC: [2] htmlspecialchars() expects parameter 2 to be long, string given D:\trunk\frame\Common\common.php 第 110 行.
+NOTIC: [2] htmlspecialchars() expects parameter 2 to be long, string given D:\trunk\frame\Common\common.php 第 110 行.
+NOTIC: [2] htmlspecialchars() expects parameter 2 to be long, string given D:\trunk\frame\Common\common.php 第 110 行.
+NOTIC: [2] htmlspecialchars() expects parameter 2 to be long, string given D:\trunk\frame\Common\common.php 第 110 行.
+NOTIC: [2] htmlspecialchars() expects parameter 2 to be long, string given D:\trunk\frame\Common\common.php 第 110 行.
+NOTIC: [2] htmlspecialchars() expects parameter 2 to be long, string given D:\trunk\frame\Common\common.php 第 110 行.
+SQL: 
+			SELECT
+			a.logs_id,
+			IF(b.username IS NULL,'根用户',b.username) user,
+			CASE option_type WHEN 'add' THEN '添加' WHEN 'del' THEN '撤销' WHEN 'change' THEN (SELECT option_descrption FROM qd_logs_option_description WHERE option_log_id=a.logs_id  ) END info,
+			FROM_UNIXTIME( a.timestamp, '%Y-%m-%d') time
+			FROM qd_logs_option a
+			LEFT JOIN bi_user b ON a.userid = b.uid
+			WHERE
+			a.option_id = 13
+			AND a.option_name = 'place'
+		 [ RunTime:0.002000s ]
+
+[ 2014-08-29T11:04:08+08:00 ] 127.0.0.1 /gas_station_erp/index.php/channel/Channel/logSelect?option_id=19&option_name=place
+NOTIC: [2] htmlspecialchars() expects parameter 2 to be long, string given D:\trunk\frame\Lib\Core\App.class.php 第 57 行.
+NOTIC: [2] htmlspecialchars() expects parameter 2 to be long, string given D:\trunk\frame\Lib\Core\App.class.php 第 57 行.
+INFO: [ app_begin ] --START--
+INFO: ReadHtmlCache Behavior ::run [ RunTime:0.001000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001000s ]
+NOTIC: [2] urldecode() expects parameter 1 to be string, array given D:\trunk\gas_station_erp\Lib\Action\channel\ChannelAction.class.php 第 6 行.
+NOTIC: [2] htmlspecialchars() expects parameter 2 to be long, string given D:\trunk\frame\Common\common.php 第 110 行.
+NOTIC: [2] htmlspecialchars() expects parameter 2 to be long, string given D:\trunk\frame\Common\common.php 第 110 行.
+NOTIC: [2] htmlspecialchars() expects parameter 2 to be long, string given D:\trunk\frame\Common\common.php 第 110 行.
+NOTIC: [2] htmlspecialchars() expects parameter 2 to be long, string given D:\trunk\frame\Common\common.php 第 110 行.
+NOTIC: [2] htmlspecialchars() expects parameter 2 to be long, string given D:\trunk\frame\Common\common.php 第 110 行.
+NOTIC: [2] htmlspecialchars() expects parameter 2 to be long, string given D:\trunk\frame\Common\common.php 第 110 行.
+SQL: 
+			SELECT
+			a.logs_id,
+			IF(b.username IS NULL,'根用户',b.username) user,
+			CASE option_type WHEN 'add' THEN '添加' WHEN 'del' THEN '撤销' WHEN 'change' THEN (SELECT option_descrption FROM qd_logs_option_description WHERE option_log_id=a.logs_id  ) END info,
+			FROM_UNIXTIME( a.timestamp, '%Y-%m-%d') time
+			FROM qd_logs_option a
+			LEFT JOIN bi_user b ON a.userid = b.uid
+			WHERE
+			a.option_id = 19
+			AND a.option_name = 'place'
+		 [ RunTime:0.002000s ]
+
+[ 2014-08-29T11:04:10+08:00 ] 127.0.0.1 /gas_station_erp/index.php/channel/Channel/getProvince
+INFO: [ app_begin ] --START--
+INFO: ReadHtmlCache Behavior ::run [ RunTime:0.001000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001000s ]
+NOTIC: [2] urldecode() expects parameter 1 to be string, array given D:\trunk\gas_station_erp\Lib\Action\channel\ChannelAction.class.php 第 6 行.
+SQL: select area_id,area_name from bi_area where pid=0 [ RunTime:0.001000s ]
+

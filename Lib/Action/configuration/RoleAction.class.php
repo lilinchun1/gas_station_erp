@@ -172,16 +172,6 @@ class RoleAction extends Action {
 		$this->ajaxReturn($data,'json');
 	}
 
-	//角色名字自动补全
-	public function rolenameBlurrySelect(){
-	    //$model = new Model();
-		$role_name = trim(I('role_name'));
-		$model = new Model();
-		$sql = "SELECT rolename title FROM bi_role WHERE rolename LIKE '%$role_name%' GROUP BY rolename";
-		$que = $model->query($sql);
-		$this->ajaxReturn($que,'json');
-	}
-
 	//查看所有权限
 	public function select_all_purview(){
 		$model = new Model();

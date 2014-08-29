@@ -5,8 +5,9 @@
     <title>网点信息</title>
     <!--<link rel="stylesheet" href="../../Public/css/configuration.css"/>-->
     <script type="text/javascript" src="__PUBLIC__/js/jquery-1.10.2.min.js"></script>
-	<script type="text/javascript" src="__PUBLIC__/js/script_city.js"></script>
+	<script type="text/javascript" src="__PUBLIC__/js/city.js"></script>
 	<script language="javascript" type="text/javascript" src="__PUBLIC__/js/My97DatePicker/WdatePicker.js"></script>
+
 	<script>
 		var place_val='';
 		var place_flag='';
@@ -40,7 +41,7 @@
     <ul class="main-nav" id="j-nav-active">
         <li class="url_link" url="<?php echo U('monitoring/Index/station');?>"><a href="<?php echo U('monitoring/Index/station');?>">加油站监控</a></li>
         <li class="url_link" url="<?php echo U('channel/Channel/index');?>"><a href="<?php echo U('channel/Channel/index');?>">渠道管理</a></li>
-        <li class="url_link" url="<?php echo U('management/Index/importingApp');?>"><a href="<?php echo U('management/Index/importingApp');?>">运营管理</a></li>
+        <!-- <li class="url_link" url="<?php echo U('management/Index/importingApp');?>"><a href="<?php echo U('management/Index/importingApp');?>">运营管理</a></li> -->
         <li class="url_link" url="<?php echo U('statistics/Index/index');?>"><a href="<?php echo U('statistics/Index/index');?>">统计分析</a></li>
      <!--   <li class="url_link" url="<?php echo U('ad/Index/index');?>"><a href="<?php echo U('ad/Index/index');?>">广告管理</a></li> -->
         <li class="url_link" url="<?php echo U('configuration/Org/index');?>"><a href="<?php echo U('configuration/Org/index');?>">系统设置</a></li>
@@ -61,12 +62,6 @@
     </li>
 </ul>
 
-    <!--<ul class="aside-nav">
-        <li class="aside-nav-nth1"><a href="<?php echo U('channel/Channel/index');?>">渠道管理</a></li>
-        <li><a href="<?php echo U('channel/Channel/index');?>"><input type="button" value="渠道信息"></a></li>
-        <li class="active"><a href="<?php echo U('channel/Place/index');?>"><input type="button" class="" value="网点信息"></a></li>
-        <li><a href="<?php echo U('channel/Device/index');?>"><input type="button" class="" value="加油站信息"></a></li>
-    </ul>-->
 </div>
 <div class="right">
 <div class="right-con">
@@ -76,17 +71,20 @@
         <form name="placeSelect" method="get" action="<?php echo U('channel/Place/placeSelect');?>">
             <p>
                 <label for="channel-org-name" class="">网点名称&nbsp;&nbsp;&nbsp;</label>
-                <input type="text" name="place_name_txt" id="place_name_txt" autocomplete="off" value="<?php echo ($_GET['place_name_txt']); ?>" 
-					class="input-org-info"/>
+                <input type="text" name="place_name_txt" id="place_name_txt" autocomplete="off" value="<?php echo ($_GET['place_name_txt']); ?>"  class="input-org-info"
+				onfocus="blurry('place_name','<?php echo U('channel/Channel/getAllLike');?>',this)"/>
                 <label for="channel-ss-are" class="">所属区域</label>&nbsp;
-                <span id="select_showcity"></span>
-                <script type="text/javascript">
-                    showprovince("select_province", "select_city", "<?php echo ($_GET['select_province']); ?>", "select_showcity");
-                    showcity("select_city", "<?php echo ($_GET['select_city']); ?>", "select_province", "select_showcity");
-                </script>
+				<span class="select_showcity">
+					<select class="select_province" name="select_province" onChange="getCity('<?php echo U('channel/Channel/getCity');?>',this,'');" value=''>
+						<option class='0' value='0'>省份</option>
+					</select>
+					<select class="select_city" name="select_city" value=''>
+						<option class='0' value='0'>地级市</option>
+					</select>
+				</span><!--省市联动-->
                 <label for="channel-ss-channel" class="">所属渠道</label>&nbsp;
-                <input type="text" name="channel_name_txt" id="channel_name_txt" autocomplete="off" value="<?php echo ($_GET['channel_name_txt']); ?>"
-					class="input-org-info"/>
+                <input type="text" name="channel_name_txt" id="channel_name_txt" autocomplete="off" value="<?php echo ($_GET['channel_name_txt']); ?>" class="input-org-info"
+				onfocus="blurry('channel_name','<?php echo U('channel/Channel/getAllLike');?>',this)"/>
                 <label for="channel-state" class="">网点状态</label>
                 <select name="place_state_sel" id="place_state_sel" class="channel-select-min">
                     <option value="" <?php if($_GET['place_state_sel'] == ''): ?>selected="selected"<?php endif; ?>>全部</option>
@@ -141,7 +139,7 @@
         </li>
 		 <?php if(is_array($list)): $i = 0; $__LIST__ = $list;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$vo): $mod = ($i % 2 );++$i;?><li class="list_sel" onClick="selectPlaceRadio('<?php echo ($vo['place_id']); ?>','<?php echo ($vo['isDelete']); ?>');">
 				<span class="span-1">
-					<input type="radio" name="placeRadioID" id="<?php echo ($vo['placeRadioID']); ?>" value="<?php echo ($vo['place_id']); ?>" 
+					<input type="radio" name="placeRadioID" value="<?php echo ($vo['place_id']); ?>" 
 						 class="role-table-radio"/></span>
 				<span class="span-2" title="<?php echo ($vo["place_name"]); ?>"><?php echo ($vo["place_name"]); ?></span>
 				<span class="span-3" title="<?php echo ($vo["channel_name"]); ?>"><?php echo ($vo["channel_name"]); ?></span>
@@ -166,7 +164,7 @@
 	<ul class="role-table-list role-table-list2">
 		<li><span class='span-3'><b>操作人</b></span><span class='span-3'><b>操作时间</b></span><span class='span-3'><b>操作日志</b></span></li>
 	</ul>
-    <ul id="place_log_info" class="role-table-list role-table-list2">
+    <ul id="log_info" class="role-table-list role-table-list2">
 		
     </ul>
 </div>
@@ -356,17 +354,6 @@
                 <i class="red-color pdl10">*</i>
             </p>
 
-
-		<!--	<p>
-                <label for="channel-addname" class="role-lab">网点地址</label>
-                <input type="text" name="add_region_txt" id="add_region_txt" class="input-role-name"/>
-                <i class="red-color pdl10">*</i>
-
-                <label for="channel-addname" class="role-lab">网点电话</label>
-                <input type="text" name="add_place_tel_txt" id="add_place_tel_txt" class="input-role-name"/>
-            </p>-->
-
-
 			<p>
                 <label for="channel-addname" class="role-lab">联系人</label>
                 <input type="text" name="add_contacts_txt" id="add_contacts_txt" class="input-role-name"/>
@@ -378,13 +365,20 @@
 
             <p>
                 <label for="channel-address1" class="">网点地址</label>
-                <span id="add_select_showcity"></span><!--省市联动-->
-                <input type="text" name="" id="add_region_txt" class="input-role-name long-input"/>
+                <span class="select_showcity">
+					<select class="select_province" id="add_select_province" name="add_select_province" onChange="getCity('<?php echo U('channel/Channel/getCity');?>',this,'');" value=''>
+						<option class='0' value='0'>省份</option>
+					</select>
+					<select class="select_city" name="add_select_city" value='' id="add_select_city">
+						<option class='0' value='0'>地级市</option>
+					</select>
+				</span><!--省市联动-->                
+				<input type="text" name="" id="add_region_txt" class="input-role-name long-input"/>
                 <i class="red-color pdl10">*</i>
             </p>
             <p>
                 <label for="channel-qd" class="role-lab">所属渠道</label>
-                <input type="text" name="add_channel_name_txt" id="add_channel_name_txt" class="input-role-name"/>
+                <input type="text" name="add_channel_name_txt" id="add_channel_name_txt" class="input-role-name" onFocus="blurry('channel_name','<?php echo U('channel/Channel/getAllLike');?>',this)"/>
                 <i class="red-color pdl10">*</i>
                 <label for="channel-address1" class="">网点状态</label>
                 <select name="add_status_sel" id="add_status_sel" class="channel-select-min">
@@ -398,12 +392,12 @@
             <p>
                 <label for="sq-date">测试日期</label>
                 <input type="date" name="add_test_begin_time_sel" id="add_test_begin_time_sel" class="input-org-info min-w"
-					style="margin-top: 0;" onClick="WdatePicker()" readonly="readonly"/>
+					style="margin-top: 0;" onClick="WdatePicker()" readonly/>
                 <input type="date" name="add_test_end_time_sel" id="add_test_end_time_sel" class="input-org-info min-w"
-					style="margin-top: 0;" onClick="WdatePicker()" readonly="readonly"/>
+					style="margin-top: 0;" onClick="WdatePicker()" readonly/>
                 <label for="sq-date">启用日期</label>
                 <input type="date" name="add_begin_time_sel" id="add_begin_time_sel" class="input-org-info"
-                       style="margin-top: 0;" onClick="WdatePicker()" readonly="readonly"/>
+                       style="margin-top: 0;" onClick="WdatePicker()" readonly/>
             </p>
 
             <p>
@@ -435,8 +429,6 @@
                 <label for="channel-addname" class="role-lab">网点地址</label>
                 <input type="text" name="change_region_txt" id="change_region_txt" class="input-role-name"/>
                 <i class="red-color pdl10">*</i>
-                <label for="channel-addname" class="role-lab">网点电话</label>
-                <input type="text" name="change_place_tel_txt" id="change_place_tel_txt" class="input-role-name"/>
             </p>-->
 
 			<p>
@@ -450,14 +442,21 @@
 
             <p>
                 <label for="channel-address1" class="">网点地址</label>
-                <span id="change_select_showcity"></span><!--省市联动-->
-                <input type="text" name="" id="change_region_txt" class="input-role-name long-input"/>
+                <span class="select_showcity">
+					<select class="select_province" id="change_select_province" name="change_select_province" onChange="getCity('<?php echo U('channel/Channel/getCity');?>',this,'');" value=''>
+						<option class='0' value='0'>省份</option>
+					</select>
+					<select class="select_city" name="change_select_city" value='' id="change_select_city">
+						<option class='0' value='0'>地级市</option>
+					</select>
+				</span><!--省市联动-->              
+				<input type="text" name="" id="change_region_txt" class="input-role-name long-input"/>
                 <i class="red-color pdl10">*</i>
 
             </p>
             <p>
                 <label for="channel-qd" class="role-lab">所属渠道</label>
-                <input type="text" name="change_channel_name_txt" id="change_channel_name_txt" class="input-role-name"/>
+                <input type="text" name="change_channel_name_txt" id="change_channel_name_txt" class="input-role-name" onFocus="blurry('channel_name','<?php echo U('channel/Channel/getAllLike');?>',this)"/>
 				<i class="red-color pdl10">*</i>
 
                 <label for="channel-address1" class="">网点状态</label>
@@ -470,13 +469,13 @@
             <p>
                 <label for="sq-date">测试日期</label>
                 <input type="date" name="change_test_begin_time_sel" id="change_test_begin_time_sel" class="input-org-info min-w"
-                       style="margin-top: 0;" onClick="WdatePicker()" readonly="readonly"/>
+                       style="margin-top: 0;" onClick="WdatePicker()" readonly/>
                 <input type="date" name="change_test_end_time_sel" id="change_test_end_time_sel" class="input-org-info min-w"
-                       style="margin-top: 0;" onClick="WdatePicker()" readonly="readonly"/>
+                       style="margin-top: 0;" onClick="WdatePicker()" readonly/>
 
                 <label for="sq-date">启用日期</label>
                 <input type="date" name="change_begin_time_sel" id="change_begin_time_sel" class="input-org-info"
-					style="margin-top: 0;" onClick="WdatePicker()" readonly="readonly"/>
+					style="margin-top: 0;" onClick="WdatePicker()" readonly/>
             </p>
 
             <p>
@@ -529,12 +528,17 @@
 <script type="text/javascript" src="__PUBLIC__/js/jquery.SuperSlide.2.1.1.js"></script>
 <script type="text/javascript" src="__PUBLIC__/js/jquery.bigautocomplete.js"></script>
 <script type="text/javascript" src="__PUBLIC__/js/jquery.DOMwindow.js" type="text/javascript"></script><!--模框JS插件-->
+<script type="text/javascript" src="__PUBLIC__/js/blurrySelect.js"></script>
+<script type="text/javascript" src="__PUBLIC__/js/log.js"></script>
 <script>
 
 
 	 $(document).ready(function () {
 		 //设置page显示
 		$(".resultpage").css("display:block");
+		//省份传地址
+		getProvince("<?php echo U('channel/Channel/getProvince');?>","<?php echo ($_GET['select_province']); ?>","<?php echo U('channel/Channel/getCity');?>","<?php echo ($_GET['select_city']); ?>");
+
 		var sum = $("#sum").text();
 		if(sum==""){
 			$("#sum").text("0");
@@ -547,11 +551,6 @@
 			$("#place_select_result_ul").empty();
 			$("#place_select_result_ul").append("<li class='on' onclick='place_use_select();'>启用</li><li onclick='place_remove_select();'>撤销</li>");
 		}
-
-		channel_name_blurry();
-		place_name_blurry();
-		add_channel_name_blurry();
-		change_channel_name_blurry();
 
 		$('#j_del_button').click(function(){
 		    if(place_val == '')
@@ -587,9 +586,6 @@
         });
 
 		$("#b_add_place").click(function () {
-			$("#add_select_showcity").empty();
-		    showprovince("add_select_province", "add_select_city", "省份", "add_select_showcity");
-			showcity("add_select_city", "城市", "add_select_province", "add_select_showcity");
              $.openDOMWindow({
 			     loader:1,
 				 loaderHeight:16,
@@ -617,10 +613,9 @@
 					$("#change_place_id_txt").val(data['place_id']);
 					$("#change_place_name_txt").val(data['place_name']);
 					$("#change_place_no_txt").val(data['place_no']);
-					$("#change_place_tel_txt").val(data['place_tel']);
 					$("#change_select_showcity").empty();
-					showprovince("change_select_province", "change_select_city", data['province'], "change_select_showcity");
-					showcity("change_select_city", data['city'], "change_select_province", "change_select_showcity");
+					//编辑查询传参省市联动
+					getProvince("<?php echo U('channel/Channel/getProvince');?>",data['province_id'],"<?php echo U('channel/Channel/getCity');?>",data['city_id']);
 					$("#change_channel_name_txt").val(data['channel_name']);
 					$("#change_contacts_txt").val(data['contacts']);
 					$("#change_contacts_tel_txt").val(data['contacts_tel']);
@@ -628,72 +623,7 @@
 					$("#change_test_begin_time_sel").val(data['test_begin_time']);
 					$("#change_test_end_time_sel").val(data['test_end_time']);
 					$("#change_region_txt").val(data['region']);
-					$("#change_contract_number_txt").val(data['contract_number']);
 					$("#change_begin_time_sel").val(data['begin_time']);
-
-					tmp_first_place_type_id = data['first_place_type_id'];
-					tmp_place_type_id = data['place_type_id'];
-					if('' == tmp_first_place_type_id)
-					{
-						handleUrl = "<?php echo U('channel/Channel/getAllChannelType');?>";
-						var typeTab = "";
-						$.getJSON(handleUrl,{},
-							function (data){
-								typeTab += "<option value=\"\">全部</option>";
-								$.each(data, function(i,item){
-									typeTab += "<option value =" + "'" + item.channel_type_id + "'>" + item.channel_type_name + "</option>";
-							});
-							$("#change_place_first_type_sel").html(typeTab);
-						}
-						,'json'
-						);
-					}
-					else
-					{
-						handleUrl = "<?php echo U('channel/Channel/getAllChannelType');?>";
-						var typeTab = "";
-						var tmp_typeid;
-						$.getJSON(handleUrl,{},
-							function (data){
-								typeTab += "<option value=\"\">全部</option>";
-								$.each(data, function(i,item){
-									tmp_typeid = item.channel_type_id;
-									if(tmp_typeid == tmp_first_place_type_id)
-									{
-										typeTab += "<option value =" + "'" + item.channel_type_id + "' selected='selected'>" + item.channel_type_name + "</option>";
-									}
-									else
-									{
-										typeTab += "<option value =" + "'" + item.channel_type_id + "'>" + item.channel_type_name + "</option>";
-									}
-							});
-							$("#change_place_first_type_sel").html(typeTab);
-						}
-						,'json'
-						);
-
-						handleUrl = "<?php echo U('channel/Channel/channelSecondTypeSelect');?>";
-						var secondTypeTab = "";
-						var tmp_secondTypeid;
-						$.getJSON(handleUrl,{'channel_first_type_sel':tmp_first_place_type_id},
-							function (data){
-								secondTypeTab += "<option value=\"\">全部</option>";
-								$.each(data, function(i,item){
-									tmp_secondTypeid = item.channel_type_id;
-									if(tmp_secondTypeid == tmp_place_type_id)
-									{
-										secondTypeTab += "<option value =" + "'" + item.channel_type_id + "' selected='selected'>" + item.channel_type_name + "</option>";
-									}
-									else
-									{
-										secondTypeTab += "<option value =" + "'" + item.channel_type_id + "'>" + item.channel_type_name + "</option>";
-									}
-							});
-							$("#change_place_second_type_sel").html(secondTypeTab);
-						}
-						,'json'
-						);
-					}
 				}
 			,'json'
 			);
@@ -735,7 +665,6 @@
 			var handleUrl = "<?php echo U('channel/Place/placeAdd');?>";
 			var add_place_name_txt=$("#add_place_name_txt").val();
 			var add_place_no_txt=$("#add_place_no_txt").val();
-			var add_place_tel_txt=$("#add_place_tel_txt").val();
 			var add_channel_name_txt=$("#add_channel_name_txt").val();
 			var add_contacts_txt=$("#add_contacts_txt").val();
 			var add_contacts_tel_txt=$("#add_contacts_tel_txt").val();
@@ -746,14 +675,8 @@
 			var add_test_begin_time_sel=$("#add_test_begin_time_sel").val();
 			var add_test_end_time_sel=$("#add_test_end_time_sel").val();
 			var add_region_txt=$("#add_region_txt").val();
-			//var add_sigh_time_sel=$("#add_sigh_time_sel").val();
-			var add_sigh_time_sel = 1111111;
-			var add_image_path_0=$("#iframe_test_0").text();
-			var add_image_path_1=$("#iframe_test_1").text();
-			var add_image_path_2=$("#iframe_test_2").text();
+			
 			var add_begin_time_sel=$("#add_begin_time_sel").val();
-			//var add_end_time_sel=$("#add_end_time_sel").val();
-			var add_end_time_sel = 22222222;
 			if(add_place_name_txt==""){
 				alert("网点名称不能为空");
 				return false;
@@ -792,20 +715,18 @@
 				alert("测试结束时间必须大于测试开始时间");
 				return false;
 			}
-			$.getJSON(handleUrl,{"add_place_name_txt":add_place_name_txt,"add_place_no_txt":add_place_no_txt,"add_place_tel_txt":add_place_tel_txt,
+			$.getJSON(handleUrl,{"add_place_name_txt":add_place_name_txt,"add_place_no_txt":add_place_no_txt,
 								 "add_select_province":add_select_province,"add_select_city":add_select_city,
 								 "add_channel_name_txt":add_channel_name_txt,"add_contacts_txt":add_contacts_txt,
 								 "add_contacts_tel_txt":add_contacts_tel_txt,"add_status_sel":add_status_sel,
 								 "add_test_begin_time_sel":add_test_begin_time_sel,"add_test_end_time_sel":add_test_end_time_sel,
-								 "add_region_txt":add_region_txt,"add_sigh_time_sel":add_sigh_time_sel,
-								 "add_image_path_0":add_image_path_0,"add_image_path_1":add_image_path_1,"add_image_path_2":add_image_path_2,
-								 "add_begin_time_sel":add_begin_time_sel,"add_end_time_sel":add_end_time_sel
+								 "add_region_txt":add_region_txt,
+								 "add_begin_time_sel":add_begin_time_sel
 								 },
 				function (data){
 					var tmp_msg = "<?php echo C('add_place_success');?>";
 					if(tmp_msg == data)
 					{
-						alert(data);
 						window.location.href = window.location.href;
 					}
 					else
@@ -819,19 +740,12 @@
 
 		$(".list_sel").click(function(){
 			$(this).find(".role-table-radio").attr("checked",'checked');
-			$("#place_log_info").empty();
-			//$("#place_log_info").append("<li><span class='span-3'><b>操作人</b></span><span class='span-3'><b>操作时间</b></span><span class='span-3'><b>操作日志</b></span></li>");
-			var handleUrl = "<?php echo U('channel/Place/placeLogSelect');?>";
+			$("#log_info").empty();
+			//$("#log_info").append("<li><span class='span-3'><b>操作人</b></span><span class='span-3'><b>操作时间</b></span><span class='span-3'><b>操作日志</b></span></li>");
+			var handleUrl = "<?php echo U('channel/Channel/logSelect');?>";
 			var place_id=place_val;
-			$.getJSON(handleUrl,{"place_id":place_id},
-				function (data){
-					$.each(data, function(i,item){
-						    $("#place_log_info").append("<li><span class='span-3'>" + item.user + "</span><span class='span-3'>" +
-								item.time + "</span><span class='span-3' title='" + item.info + "'>" + item.info + "</span></li>");
-					});
-			}
-			,'json'
-			);
+			log(handleUrl,place_id,"place");
+
 		});
 
 	});
@@ -842,7 +756,6 @@
 		var change_place_id_txt= place_val;
 		var change_place_name_txt=$("#change_place_name_txt").val();
 		var change_place_no_txt=$("#change_place_no_txt").val();
-		var change_place_tel_txt=$("#change_place_tel_txt").val();
 		var change_select_province=$("#change_select_province").val();
 		var change_select_city=$("#change_select_city").val();
 		var change_channel_name_txt=$("#change_channel_name_txt").val();
@@ -852,11 +765,7 @@
 		var change_test_begin_time_sel=$("#change_test_begin_time_sel").val();
 		var change_test_end_time_sel=$("#change_test_end_time_sel").val();
 		var change_region_txt=$("#change_region_txt").val();
-		//var change_image_id_0 = $("#change_image_id_0").val();
-		//var change_image_id_1 = $("#change_image_id_1").val();
-		//var change_image_id_2 = $("#change_image_id_2").val();
 		var change_begin_time_sel=$("#change_begin_time_sel").val();
-		//var change_end_time_sel=$("#change_end_time_sel").val();
 			if(change_place_name_txt==""){
 				alert("网点名称不能为空");
 				return false;
@@ -896,7 +805,7 @@
 				return false;
 			}
 		$.getJSON(handleUrl,{"change_place_id_txt":change_place_id_txt,"change_place_name_txt":change_place_name_txt,
-								 "change_place_no_txt":change_place_no_txt,"change_place_tel_txt":change_place_tel_txt,
+								 "change_place_no_txt":change_place_no_txt,
 								 "change_select_province":change_select_province,"change_select_city":change_select_city,
 								 "change_channel_name_txt":change_channel_name_txt,"change_contacts_txt":change_contacts_txt,
 								 "change_contacts_tel_txt":change_contacts_tel_txt,"change_status_sel":change_status_sel,
@@ -920,66 +829,6 @@
 			);
 			jQuery(".role-table").slide({trigger: "click"});
 	});
-
-	function channel_name_blurry()
-	{
-		var handleUrl = "<?php echo U('channel/Channel/channelnameBlurrySelect');?>";
-		var channel_name = '';
-		$.getJSON(handleUrl,{},
-			function (data){
-				var str = data;
-				//alert(data);
-				//alert(str[1]['title']);
-				$("#channel_name_txt").bigAutocomplete({width:150,data:data,callback:function(data){}});
-			}
-			,'json'
-		);
-	}
-
-	function place_name_blurry()
-	{
-		var handleUrl = "<?php echo U('channel/Place/placenameBlurrySelect');?>";
-		var place_name = '';
-		$.getJSON(handleUrl,{},
-			function (data){
-				var str = data;
-				//alert(data);
-				//alert(str[1]['title']);
-				$("#place_name_txt").bigAutocomplete({width:150,data:data,callback:function(data){}});
-			}
-			,'json'
-		);
-	}
-
-	function add_channel_name_blurry()
-	{
-		var handleUrl = "<?php echo U('channel/Channel/channelnameBlurrySelect');?>";
-		$.getJSON(handleUrl,{},
-			function (data){
-				var str = data;
-				//alert(data);
-				//alert(str[1]['title']);
-				$("#add_channel_name_txt").bigAutocomplete({width:100,data:data,callback:function(data){}});
-			}
-			,'json'
-		);
-	}
-
-	function change_channel_name_blurry()
-	{
-		var handleUrl = "<?php echo U('channel/Channel/channelnameBlurrySelect');?>";
-		var channel_name = '';
-		$.getJSON(handleUrl,{},
-			function (data){
-				var str = data;
-				//alert(data);
-				//alert(str[1]['title']);
-				$("#change_channel_name_txt").bigAutocomplete({width:100,data:data,callback:function(data){}});
-			}
-			,'json'
-		);
-	}
-
 	function place_use_select(){
 		$("#select_del_flag_txt").val(0);
 		placeSelect.submit();

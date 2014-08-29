@@ -8,14 +8,6 @@ function getDevicePhotoPathFromID($device_photo_id) {
 	return $device_photo_path[0]['image_path'];
 }
 
-//������ͼƬID�õ�ͼƬ·��
-function getPlacePhotoPathFromID($place_photo_id) {
-	$Model = new Model();
-	$place_photo_path  =  $Model->query("select image_path from qd_place_image where image_id=" . $place_photo_id);
-
-	return $place_photo_path[0]['image_path'];
-}
-
 //������͵õ���������
 function getTypeAttrString($first_type_id) {
 	$Model = new Model();
@@ -236,8 +228,8 @@ function getAgentNameFromAgentID($agent_id='') {
 
 //������������ַ���������ID
 function getChannelIDFromChannelName($channel_name='') {
-	$Model = new Model();
-	$channel_id  = $Model->query("select channel_id from qd_channel where channel_name='$channel_name'");
+	$model = new Model();
+	$channel_id  = $model->query("select channel_id from qd_channel where channel_name='$channel_name'");
 	return $channel_id[0]['channel_id'];
 }
 
@@ -316,15 +308,15 @@ function addOptionLog($optin_name='', $option_id='', $option_type='', $option_de
 
 	$option_time = time();
 	$data['option_name'] = $optin_name;
-	$data['option_id'] = $option_id;
+	$data['option_id']   = $option_id;
 	$data['option_type'] = $option_type;
-	$data['userid'] = $_SESSION['userinfo']['uid'];
-	$data['timestamp'] = $option_time;
-	$is_set = $logs_option->add($data);
-	$tmp_logs_id = $Model->query('select last_insert_id() as id');
-	if(('change' == $option_type) && ($is_set) )
+	$data['userid']      = $_SESSION['userinfo']['uid'];
+	$data['timestamp']   = $option_time;
+	
+	$tmp_logs_id = $logs_option->add($data);
+	if(($option_type == 'change') && $tmp_logs_id )
 	{
-		$descrption['option_log_id'] = $tmp_logs_id[0]['id'];
+		$descrption['option_log_id']     = $tmp_logs_id;
 		$descrption['option_descrption'] = $option_descrption;
 		$is_set_descrption = $logs_option_description->add($descrption);
 	}

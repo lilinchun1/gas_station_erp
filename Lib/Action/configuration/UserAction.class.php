@@ -245,32 +245,7 @@ class UserAction extends Action {
 		$this->ajaxReturn($msg,'json');
 	}
 		
-	//姓名 模糊查询，自动补全
-	public function UserSelect(){
-		$agent_name = trim(I('realname'));
-		$agent      = new Model("BiUser");
-		$map['realname'] =array('like', '%' . $agent_name . '%');
-		$agentInfo = $agent->where($map)->distinct(true)->field('realname')->select();
-		for($i=0; $i< count($agentInfo); $i++)
-		{
-			$agent_name_arr[$i]['title'] = $agentInfo[$i]['realname'];
-		}
-		$this->ajaxReturn($agent_name_arr,'json');
-	}
-	
-	//账号 模糊查询，自动补全
-	public function UsernameSelect(){
-		$name = trim(I('username'));
-		$re   = new Model("BiUser");
-		$mapp['username'] =array('like', '%' . $name . '%');
-		$agentIn = $re->where($mapp)->distinct(true)->field('username')->select();
-		for($i=0; $i< count($agentIn); $i++)
-		{
-			$name_arr[$i]['title'] = $agentIn[$i]['username'];
-		}
-		$this->ajaxReturn($name_arr,'json');
-	}
-	
+
 
 }
 ?>

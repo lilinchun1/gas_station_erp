@@ -164,7 +164,7 @@
 	<ul class="role-table-list role-table-list2">
 		<li><span class='span-3'><b>操作人</b></span><span class='span-3'><b>操作时间</b></span><span class='span-3'><b>操作日志</b></span></li>
 	</ul>
-    <ul id="channel_log_info" class="role-table-list role-table-list2">
+    <ul id="log_info" class="role-table-list role-table-list2">
 		
     </ul>
 </div>
@@ -431,9 +431,9 @@
             <p>
                 <label for="sq-date">授权日期</label>
                 <input type="text" name="add_begin_time_sel" id="add_begin_time_sel" class="input-org-info min-w" 
-					onClick="WdatePicker()" readonly="readonly" style="margin-top: 0;"/>
+					onClick="WdatePicker()" readonly style="margin-top: 0;"/>
                 <input type="text" name="add_end_time_sel" id="add_end_time_sel" class="input-org-info min-w" 
-					onClick="WdatePicker()" readonly="readonly" style="margin-top: 0;"/>
+					onClick="WdatePicker()" readonly style="margin-top: 0;"/>
             </p>
 
             <p>
@@ -475,7 +475,7 @@
 					<select class="select_province" id="change_select_province" name="change_src_province" onChange="getCity('<?php echo U('channel/Channel/getCity');?>',this,'');" value=''>
 						<option class='0' value='0'>省份</option>
 					</select>
-					<select class="select_city" name="change_select_city" value='' id="change_src_city">
+					<select class="select_city" name="change_select_city" value='' id="change_select_city">
 						<option class='0' value='0'>地级市</option>
 					</select>
 				</span><!--省市联动-->
@@ -514,9 +514,9 @@
             <p>
                 <label for="sq-date">授权日期</label>
                 <input type="text" name="change_begin_time_sel" id="change_begin_time_sel" class="input-org-info min-w" 
-					onClick="WdatePicker()" readonly="readonly" style="margin-top: 0;"/>
+					onClick="WdatePicker()" readonly style="margin-top: 0;"/>
                 <input type="text" name="change_end_time_sel" id="change_end_time_sel" class="input-org-info min-w" 
-					onClick="WdatePicker()" readonly="readonly" style="margin-top: 0;"/>
+					onClick="WdatePicker()" readonly style="margin-top: 0;"/>
             </p>
 
             <p>
@@ -566,6 +566,7 @@
 <link rel="stylesheet" href="__PUBLIC__/css/jquery.bigautocomplete.css" type="text/css" />
 <script type="text/javascript" src="__PUBLIC__/js/jquery.bigautocomplete.js"></script>
 <script type="text/javascript" src="__PUBLIC__/js/blurrySelect.js"></script>
+<script type="text/javascript" src="__PUBLIC__/js/log.js"></script>
 <script type="text/javascript">
     $(document).ready(function () {
 		//省份传地址
@@ -1069,19 +1070,10 @@
 //===============================================单击查询框里某一条数据=======================================
 		$(".list_sel").click(function(){
 			$(this).find(".role-table-radio").attr("checked",'checked');
-			$("#channel_log_info").empty();
-			//$("#channel_log_info").append("");
-			var handleUrl = "<?php echo U('channel/Channel/channelLogSelect');?>";
+			$("#log_info").empty();
+			var handleUrl = "<?php echo U('channel/Channel/logSelect');?>";
 			var channel_id=channel_val;
-			$.getJSON(handleUrl,{"channel_id":channel_id},
-				function (data){
-					$.each(data, function(i,item){
-						    $("#channel_log_info").append("<li><span class='span-3'>" + item.user + "</span><span class='span-3'>" +
-								item.time + "</span><span class='span-3' title='" + item.info + "'>" + item.info + "</span></li>");
-					});
-			}
-			,'json'
-			);
+			log(handleUrl,channel_id,"channel");
 		});
 
     });

@@ -131,4 +131,23 @@ class Common{
 		}
 		return $is_have_purview;
 	}
+	
+	//日志信息
+	public function logByOptionId($option_id,$option_name){
+		$model = new Model();
+		$sql = "
+			SELECT
+			a.logs_id,
+			IF(b.username IS NULL,'根用户',b.username) user,
+			CASE option_type WHEN 'add' THEN '添加' WHEN 'del' THEN '撤销' WHEN 'change' THEN (SELECT option_descrption FROM qd_logs_option_description WHERE option_log_id=a.logs_id  ) END info,
+			FROM_UNIXTIME( a.timestamp, '%Y-%m-%d') time
+			FROM qd_logs_option a
+			LEFT JOIN bi_user b ON a.userid = b.uid
+			WHERE
+			a.option_id = $option_id
+			AND a.option_name = '$option_name'
+		";
+		$que = $model->query($sql);
+		return $que;
+	}
 }

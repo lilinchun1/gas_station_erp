@@ -55,23 +55,24 @@ class ChannelAction extends Action {
 	public function channelSelect(){
 		$userinfo = getUserInfo();
 	    $model = new Model();
-		$agent_name = trim(I('agent_name_txt'));
+		$agent_name            = trim(I('agent_name_txt'));
 		//渠道类型
-		$channel_first_type = trim(I('channel_first_type_sel'));
-		$channel_second_type = trim(I('channel_second_type_sel'));
+		$channel_first_type    = trim(I('channel_first_type_sel'));
+		$channel_second_type   = trim(I('channel_second_type_sel'));
 		//渠道城市
-		$province = trim(I('select_province'));
-		$city = trim(I('select_city'));
+		$province              = trim(I('select_province'));
+		$city                  = trim(I('select_city'));
 		//渠道名称
-		$channel_name = trim(I('channel_name_txt'));
+		$channel_name          = trim(I('channel_name_txt'));
 		//合同开始日期
 		$contract_begin_time_1 = strtotime(trim(I('contract_begin_time_1')));
 		$contract_begin_time_2 = strtotime(trim(I('contract_begin_time_2')));
 		//合同结束日期
-		$contract_end_time_1 = strtotime(trim(I('contract_end_time_1')));
-		$contract_end_time_2 = strtotime(trim(I('contract_end_time_2')));
+		$contract_end_time_1   = strtotime(trim(I('contract_end_time_1')));
+		$contract_end_time_2   = strtotime(trim(I('contract_end_time_2')));
 		//显示的是使用的还是删除的
-		$del_flag_txt = trim(I('select_del_flag_txt'));
+		$del_flag_txt          = trim(I('select_del_flag_txt'))?trim(I('select_del_flag_txt')):0;
+		
 		//每页显示的数量
 		$page_show_number = C('page_show_number')?C('page_show_number'):30;  //每页显示的数量
 		$where = " WHERE a.isDelete='$del_flag_txt' ";
@@ -128,7 +129,7 @@ class ChannelAction extends Action {
 				SELECT
 				a.channel_id, a.channel_name, a.agent_id, a.contacts, a.contacts_tel, a.channel_tel,
 				CONCAT(f.area_name,g.area_name,a.channel_address) channel_address, a.contract_number,
-				a.place_num, a.device_num,
+				h.place_num, i.device_num,
 				IF(a.begin_time IS NOT NULL,FROM_UNIXTIME( a.begin_time, '%Y-%m-%d' ),'') begin_time,
 				IF(a.end_time IS NOT NULL,FROM_UNIXTIME( a.end_time, '%Y-%m-%d' ),'') end_time,
 				a.forever_type, a.isDelete, a.province, a.city, b.channel_type_id,
@@ -142,9 +143,11 @@ class ChannelAction extends Action {
 				LEFT JOIN qd_agent e ON a.agent_id = e.agent_id
 				LEFT JOIN bi_area f ON a.province_id = f.area_id
 				LEFT JOIN bi_area g ON a.city_id = g.area_id
+				LEFT JOIN (SELECT COUNT(place_id) place_num,channel_id FROM qd_place WHERE STATUS = 'use' AND isDelete = 0 GROUP BY channel_id) h ON a.channel_id = h.channel_id
+				LEFT JOIN (SELECT COUNT(device_id) device_num,channel_id FROM qd_device WHERE isDelete = 0 GROUP BY channel_id) i ON a.channel_id = i.channel_id
 				$where
 				ORDER BY a.agent_id,a.channel_id desc
-				";
+		";
 		$que = $model->query($sql);
 		$count = count($que);
 
@@ -165,53 +168,6 @@ class ChannelAction extends Action {
 		$this->assign('page',$show);// 赋值分页输出
 		$this->assign('channel_select_number',$count); //查询结果集的数量
 		$this->index();
-	}
-
-	//查询渠道商日志信息
-	public function channelLogSelect(){
-		$model = new Model();
-		$channel_id = trim(I('channel_id'));
-		$sql = "
-				SELECT
-				a.logs_id,FROM_UNIXTIME( a.timestamp, '%Y-%m-%d') time,
-				IF(b.username IS NULL,'根用户',b.username) user,
-				CASE option_type WHEN 'add' THEN '添加' WHEN 'del' THEN '撤销' WHEN 'change' THEN (SELECT option_descrption FROM qd_logs_option_description WHERE option_log_id=a.logs_id  ) END info
-				FROM qd_logs_option a
-				LEFT JOIN bi_user b ON a.userid = b.uid
-				where a.option_id='$channel_id' and a.option_name='channel'
-				";
-		//echo $sql;exit;
-		$channel_log = $model->query($sql);
-		$this->ajaxReturn($channel_log,'json');
-	}
-
-	//根据渠道ID查询渠道商详细信息
-	public function channelDetailSelect(){
-		$Model = new Model();
-		$channel_id = trim($_GET['channel_id']);
-		$where = " where 1 ";
-		if($channel_id){
-			$where .= " and channel_id= $channel_id ";
-		}
-		$sql = "
-				SELECT a.channel_id,channel_name,agent_id,province_id,city_id,contacts,contacts_tel,channel_tel,channel_address,
-				contract_number,place_num,device_num,FROM_UNIXTIME( begin_time, '%Y-%m-%d') begin_time,FROM_UNIXTIME( end_time, '%Y-%m-%d') end_time,forever_type,isDelete
-				FROM qd_channel a
-				$where
-				";
-		$dataChannel = $Model->query($sql);
-		echo json_encode($dataChannel[0]);
-	}
-
-    //渠道商名字模糊查询自动补全，字段要重命名为title
-	public function channelnameBlurrySelect(){
-		$channel_name = trim(I('channel_name'));
-		$model = new Model();
-		$sql = "
-				SELECT channel_name title FROM qd_channel WHERE channel_name LIKE '%$channel_name%' AND isDelete = 0
-				";
-		$channelInfo = $model->query($sql);
-		echo json_encode($channelInfo);
 	}
 
     //添加渠道商信息
@@ -239,7 +195,7 @@ class ChannelAction extends Action {
 		//验证是否已有渠道名
 		$count_sql = "
 				select count(*) as count from qd_channel a where a.channel_name='$channel_name'
-				and	a.agent_id = $agent_id and  a.isDelete = '0'
+				and	a.agent_id = $agent_id and a.isDelete = '0'
 		";
 		$count = $model->query($count_sql);
 		 if($count[0]['count'] > 0)
@@ -272,7 +228,7 @@ class ChannelAction extends Action {
 			$type_link['channel_type_id'] = $channel_second_type?$channel_second_type:$channel_first_type;
 			$channel_type_link->add($type_link);
 			//修改代理商渠道数量及相关日志
-			changeNum('channel', $agent_id, $channel_id, 'add');
+			//changeNum('channel', $agent_id, $channel_id, 'add');
 			addOptionLog('channel', $channel_id, 'add', '');
 			
 			$this->ajaxReturn($msg,'json');
@@ -306,146 +262,133 @@ class ChannelAction extends Action {
 		$dst_province = trim(I('change_dst_province'));
 		$dst_city = trim(I('change_dst_city'));
 		$change_forever_check = trim(I('change_forever_check'));
-		$msg = C('change_channel_success');
 		$log_description = '';
-
-		$model = new Model();
-		$channel = new Model("QdChannel");
-		$result = $channel->query("select ifnull(channel_id,0) as channel_id from qd_channel where channel_name='$channel_name' and isDelete='0'");
-		$src_agent_id = getAgentIDFromChannelID($channel_id);
-		$src_channel_log_info = $model->table('qd_channel')->where("channel_id=" . $channel_id)->select();  //查询修改前的信息，用于日志对比
-		$src_channel_log_info[0]['channel_agent_name'] = getAgentNameFromAgentID($src_channel_log_info[0]['agent_id']);
-		$src_channel_log_info[0]['channel_type_name'] = getChannelTypeFromID($src_channel_log_info[0]['channel_id']);
-		unset($src_channel_log_info[0]['agent_id']);
-		if('1' == $src_channel_log_info[0]['forever_type'])
-		{
-			$src_channel_log_info[0]['forever_type'] = "是";
-		}
-		else
-		{
-			$src_channel_log_info[0]['forever_type'] = "否";
-		}
-		$src_channel_log_info[0]['begin_time'] = date('Y-m-d', $src_channel_log_info[0]['begin_time']);
-		$src_channel_log_info[0]['end_time'] = date('Y-m-d', $src_channel_log_info[0]['end_time']);
-		//$src_channel_log_info[0]['province'] = $src_province;
-		//$src_channel_log_info[0]['city'] = $src_city;
+		$model        = new Model();
+		$channel      = new Model("QdChannel");
 		
-		if(($result[0]['channel_id'] != $channel_id) && ($result[0]['channel_id'] != 0))
+		//查询是否已有同名
+		$result_sql = "
+			select channel_id
+			from qd_channel
+			where channel_name='$channel_name' and agent_id = $agent_id and isDelete='0'
+		";
+		$result = $channel->query($result_sql);
+		if( $result[0]['channel_id'] && ($result[0]['channel_id'] != $channel_id))
 		{
 			$msg = C('change_channel_name_failed');
 			$this->ajaxReturn($msg,'json');
 			return;
 		}
-		else
-		{
-			$data['channel_name'] = $channel_name;
-			$data['agent_id'] = $agent_id;
-			$data['contacts'] = $contacts;
-			$data['contacts_tel'] = $contacts_tel;
-			$data['channel_tel'] = $channel_tel;
-			$data['channel_address'] = $channel_address;
-			$data['contract_number'] = $contract_number;
-			$data['province_id'] = $dst_province;
-			$data['city_id'] = $dst_city;
-			$data['forever_type'] = $change_forever_check;
-			/*$data['province_id']=$province_id;
-			$data['city_id']=$city_id;*/
-			if(0 != $begin_time)
-			{
-				$data['begin_time'] = $begin_time;
-			}
-			else
-			{
-				$data['begin_time'] = null;
-			}
-			if(0 != $end_time)
-			{
-				$data['end_time'] = $end_time;
-			}
-			else
-			{
-				$data['end_time'] = null;
-			}
-			$is_set = $channel->where("channel_id=%d", $channel_id)->save($data);
+		
+		//获取修改前代理商id
+		$src_agent_id = getAgentIDFromChannelID($channel_id);
+		//日志部分 查询修改前的信息，用于日志对比
+		$src_channel_log_info = $this->getChannelInfoByChannelId($channel_id);
+		unset($src_channel_log_info['agent_id']);
 
-			$channel_type_link = new Model("QdChannelTypeLink");
-			if(empty($dst_channel_second_type))
-			{
-				$change_type_link['channel_type_id'] = $dst_channel_first_type;
-			}
-			else
-			{
-				$change_type_link['channel_type_id'] = $dst_channel_second_type;
-			}
-			$is_type_link = $channel_type_link->where("channel_id='$channel_id' and channel_type_id='$src_channel_second_type'")->save($change_type_link);	
+		//执行修改
+		$data = array();
+		$data['channel_name'] = $channel_name;
+		$data['agent_id'] = $agent_id;
+		$data['contacts'] = $contacts;
+		$data['contacts_tel'] = $contacts_tel;
+		$data['channel_tel'] = $channel_tel;
+		$data['channel_address'] = $channel_address;
+		$data['contract_number'] = $contract_number;
+		$data['province_id'] = $dst_province;
+		$data['city_id']     = $dst_city;
+		$data['forever_type'] = $change_forever_check;
+		$begin_time?$data['begin_time'] = $begin_time:1;
+		$end_time?$data['end_time'] = $end_time:1;
+		$is_set = $channel->where("channel_id = $channel_id")->save($data);
+		//渠道类型修改
+		$channel_type_link = new Model("QdChannelTypeLink");
+		$change_type_link['channel_type_id'] = $dst_channel_second_type?$dst_channel_second_type:$dst_channel_first_type;
+		$is_type_link = $channel_type_link->where("channel_id = $channel_id")->save($change_type_link);	
 
-			if(($is_set) || ($is_type_link)){
-				$msg = C('change_channel_success');
-			}else{
-				$msg = C('change_channel_failed');
-			}
-		}
-		if($msg == C('change_channel_success'))
-		{
+		if($is_set || $is_type_link){
+			$msg = C('change_channel_success');
+			//如果渠道修改了所属代理商
 			if($src_agent_id != $agent_id)
 			{
+				//修改改渠道下面网点及机器代理商id到新代理商id
 				changeID('channel', $agent_id, $channel_id);
-				changeNum('channel', $src_agent_id, $channel_id, 'minus');
-				changeNum('channel', $agent_id, $channel_id, 'add');
 			}
-			$dst_channel_log_info = $model->table('qd_channel')->where("channel_id=" . $channel_id)->select();  //查询修改后的信息，用于日志对比
-			$dst_channel_log_info[0]['channel_agent_name'] = getAgentNameFromAgentID($dst_channel_log_info[0]['agent_id']);
-			$dst_channel_log_info[0]['channel_type_name'] = getChannelTypeFromID($dst_channel_log_info[0]['channel_id']);
-			unset($dst_channel_log_info[0]['agent_id']);
-			$dst_channel_log_info[0]['begin_time'] = date('Y-m-d', $dst_channel_log_info[0]['begin_time']);
-			$dst_channel_log_info[0]['end_time'] = date('Y-m-d', $dst_channel_log_info[0]['end_time']);
-			//$dst_channel_log_info[0]['province'] = $dst_province;
-			//$dst_channel_log_info[0]['city'] = $dst_city;
-			$log_description = getChangeLogDescription($src_channel_log_info[0], $dst_channel_log_info[0]);  //获取修改的详细记录
+			//查询修改后的信息，用于日志对比
+			$dst_channel_log_info = $this->getChannelInfoByChannelId($channel_id);
+			unset($dst_channel_log_info['agent_id']);
+			$log_description = getChangeLogDescription($src_channel_log_info, $dst_channel_log_info);  //获取修改的详细记录
 			addOptionLog('channel', $channel_id, 'change', $log_description);
+		}else{
+			$msg = C('change_channel_failed');
 		}
 		$this->ajaxReturn($msg,'json');
 	}
 
-    //删除渠道商信息
-	public function channelDelete(){
-		$channel_id = trim(I('get.channel_id'));
-		$province = trim(I('get.province'));
-		$city = trim(I('get.city'));
-
-	    $Model = new Model();
-		$channel = new Model("QdChannel");
-		$msg = C('delete_channel_success');
-		$count = $Model->query("select count(*) as count from qd_channel where channel_id=" . $channel_id);
-		if($count[0]['count'] <= 1)
-		{
-			$is_set = $channel->where("channel_id=" . $channel_id)->setField('isDelete', 1);
-			if($is_set <= 0)
-			{
-				$msg = C('delete_channel_failed');
-				$this->ajaxReturn($msg,'json');
-				return;
-			}
-		}
-
-		if($msg == C('delete_channel_success'))
-		{
-			$agent_id = getAgentIDFromChannelID($channel_id);
-			changeNum('channel', $agent_id, $channel_id, 'minus');
-			addOptionLog('channel', $channel_id, 'del', '');
-		}
-
-		$this->ajaxReturn($msg,'json');
+	//根据渠道id获取渠道相关信息
+	function getChannelInfoByChannelId($channel_id){
+		$model = new Model();
+		$sql = "
+		SELECT a.channel_name,a.agent_id,a.province_id,a.city_id,a.contacts,a.contacts_tel,a.channel_address,a.contract_number,
+		IF(a.forever_type = 1,'是','否') forever_type,
+		FROM_UNIXTIME( a.begin_time, '%Y-%m-%d') begin_time,FROM_UNIXTIME( a.end_time, '%Y-%m-%d') end_time,
+		b.agent_name channel_agent_name,
+		IF(e.channel_type_name IS NOT NULL,CONCAT(e.channel_type_name,' ',d.channel_type_name),d.channel_type_name) channel_type_name,
+		f.area_name province,g.area_name city
+		FROM qd_channel a
+		LEFT JOIN qd_agent b ON a.agent_id = b.agent_id
+		LEFT JOIN qd_channel_type_link c ON a.channel_id = c.channel_id
+		LEFT JOIN qd_channel_type d ON c.channel_type_id = d.channel_type_id
+		LEFT JOIN qd_channel_type e ON d.channel_type_father_id = e.channel_type_id
+		LEFT JOIN bi_area f ON a.province_id = f.area_id
+		LEFT JOIN bi_area g ON a.city_id = g.area_id
+		WHERE a.channel_id = $channel_id
+		";
+		$que = $model->query($sql);
+		return $que[0];
+	}
+	
+	//AJAX根据渠道ID返回详细信息
+	public function channelDetailSelect(){
+		$Model = new Model();
+		$channel_id = trim($_GET['channel_id']);
+		$dataChannel = $this->getChannelInfoByChannelId($channel_id);
+		echo json_encode($dataChannel);
+	}
+	
+	//查询渠道商日志信息
+	public function channelLogSelect(){
+		$model = new Model();
+		$channel_id = trim(I('channel_id'));
+		$sql = "
+		SELECT
+		a.logs_id,FROM_UNIXTIME( a.timestamp, '%Y-%m-%d') time,
+		IF(b.username IS NULL,'根用户',b.username) user,
+		CASE option_type WHEN 'add' THEN '添加' WHEN 'del' THEN '撤销' WHEN 'change' THEN (SELECT option_descrption FROM qd_logs_option_description WHERE option_log_id=a.logs_id  ) END info
+		FROM qd_logs_option a
+		LEFT JOIN bi_user b ON a.userid = b.uid
+		where a.option_id='$channel_id' and a.option_name='channel'
+		";
+		$channel_log = $model->query($sql);
+		$this->ajaxReturn($channel_log,'json');
+	}
+	//根据对象id及对象名称获取日志，对象名称:device,place,channel
+	function logSelect(){
+		$option_id   = trim(I('option_id'));
+		$option_name = trim(I('option_name'));;
+		$common = new Common();
+		$data = $common->logByOptionId($option_id, $option_name);
+		$this->ajaxReturn($data,'json');
 	}
 
 	//终止合同
 	public function channelContractDelete(){
-		$channel_id = trim(I('get.channel_id'));
+		$channel_id = trim($_GET['channel_id']);
 
-	    $Model = new Model();
+		$model   = new Model();
 		$channel = new Model("QdChannel");
-		$place = new Model("QdPlace");
-		$device = new Model("QdDevice");
+		$place   = new Model("QdPlace");
+		$device  = new Model("QdDevice");
 		$msg = C('delete_channel_success');
 
 		$is_set = $channel->where("channel_id=" . $channel_id)->setField('isDelete', 1);
@@ -454,59 +397,31 @@ class ChannelAction extends Action {
 			$msg = C('delete_channel_failed');
 			$this->ajaxReturn($msg,'json');
 			return;
-		}
-	
-
-		if($msg == C('delete_channel_success'))
-		{
-			$place_info = $Model->query("select place_id from qd_place where channel_id=" . $channel_id);
+		}else{
+			//删除下级网点及加油站
+			$place_info = $model->query("select place_id from qd_place where channel_id=" . $channel_id);
 			foreach($place_info as $key=>$val){
 				$is_set = $place->where("place_id=" . $val['place_id'])->setField('isDelete', 1);
 				addOptionLog('place', $val['place_id'], 'del', '');
-				$device_info = $Model->query("select device_id from qd_device where place_id=" . $val['place_id']);
+				$device_info = $model->query("select device_id from qd_device where place_id=" . $val['place_id']);
 				foreach($device_info as $d_key=>$d_val){
 					$is_set = $device->where("device_id=" . $d_val['device_id'])->setField('isDelete', 1);
 					addOptionLog('device', $d_val['device_id'], 'del', '');
 				}
 			}
-			$agent_id = getAgentIDFromChannelID($channel_id);
-			changeNum('channel', $agent_id, $channel_id, 'minus');
+			//$agent_id = getAgentIDFromChannelID($channel_id);
+			//changeNum('channel', $agent_id, $channel_id, 'minus');
 			addOptionLog('channel', $channel_id, 'del', '');
 		}
 
 		$this->ajaxReturn($msg,'json');
 	}
 
-	//恢复已经删除的渠道商信息
-	public function channelRecover()
-	{
-		$channel_id = trim(I('get.channel_id'));
-		$Model = new Model();
-		$channel = new Model("QdChannel");
-		$is_set = $channel->where("channel_id=" . $channel_id)->setField('isDelete', 0);
-		$agent_id = getAgentIDFromChannelID($channel_id);
-		changeNum('channel', $agent_id, $channel_id, 'add');
-		addOptionLog('channel', $channel_id, 'add', '');
-		//$this->channelSelect();
-	}
-
-    //查询渠道商类型
-	public function channelTypeSelect(){
-		$channel_type = new Model("QdChannelType");
-		$channel_type_list = $channel_type->query("select channel_type_id, channel_type_name from qd_channel_type where channel_type_father_id=0");
-		for($i=0;$i< count($channel_type_list); $i++)
-		{
-			$channel_type_list[$i]['second_channel_type'] = $channel_type->query("select channel_type_id, channel_type_name from qd_channel_type
-			    where channel_type_father_id=%d", $channel_type_list[$i]['channel_type_id']);
-		}
-		$this->ajaxReturn($channel_type_list, 'json');
-	}
-
 	//根据1级渠道商类型查询二级渠道商类型
 	public function channelSecondTypeSelect(){
 		$channel_type = new Model("QdChannelType");
 		$channel_first_type_sel = trim(I('get.channel_first_type_sel'));
-		if(!empty($channel_first_type_sel))
+		if($channel_first_type_sel)
 		{
 			$channel_type_list = $channel_type->query("select channel_type_id, channel_type_name from qd_channel_type where	 channel_type_father_id='$channel_first_type_sel'");
 		}
@@ -516,10 +431,10 @@ class ChannelAction extends Action {
 	//添加渠道商类型
 	public function channelTypeAdd(){
 		$msg = C('add_type_success');
-	    $channel_type_father_id = trim(I('channel_type_father_id'));
-		$channel_type_name = trim(I('channel_type_name'));
+		$channel_type_father_id = trim(I('channel_type_father_id'));
+		$channel_type_name      = trim(I('channel_type_name'));
 
-		$Model = new Model();
+		$Model        = new Model();
 		$channel_type = new Model("QdChannelType");
 		$tmp_channel_type_count = $Model->query("select count(*) as count from qd_channel_type where channel_type_name='$channel_type_name'");
 		if($tmp_channel_type_count[0]['count'] > 0)
@@ -528,7 +443,7 @@ class ChannelAction extends Action {
 			$this->ajaxReturn($msg, 'json');
 			return;
 		}
-		if(!empty($channel_type_father_id))
+		if($channel_type_father_id)
 		{
 			$data['channel_type_father_id'] = $channel_type_father_id;
 		}
@@ -540,9 +455,6 @@ class ChannelAction extends Action {
 			$this->ajaxReturn($msg, 'json');
 			return;
 		}
-
-		//$tmp_channel_type_id = $Model->query('select last_insert_id() as id');
-		//$channel_type_id = $tmp_channel_type_id[0]['id'];
 		$this->ajaxReturn($msg, 'json');
 	}
 
@@ -554,28 +466,21 @@ class ChannelAction extends Action {
 		$dst_channel_type_name = trim(I('dst_channel_type_name'));
 
 		$channel_type = new Model("QdChannelType");
-		if(!empty($first_channel_type_id))
-		{
-			if(!empty($second_channel_type_id))
-			{
-				$is_set = $channel_type->where("channel_type_id='$second_channel_type_id' and channel_type_father_id='$first_channel_type_id'")
-					->setField('channel_type_name', $dst_channel_type_name);
+		if($first_channel_type_id){
+			//有二级类型id则修改的是二级类型
+			if($second_channel_type_id){
+				$is_set = $channel_type->where("channel_type_id='$second_channel_type_id' and channel_type_father_id='$first_channel_type_id'")->setField('channel_type_name', $dst_channel_type_name);
+			//没有二级类型id则修改的是一级类型
+			}else{
+				$is_set = $channel_type->where("channel_type_id='$first_channel_type_id' and channel_type_father_id='0'")->setField('channel_type_name', $dst_channel_type_name);
 			}
-			else
-			{
-				$is_set = $channel_type->where("channel_type_id='$first_channel_type_id' and channel_type_father_id='0'")
-					->setField('channel_type_name', $dst_channel_type_name);
+			if($is_set <= 0){
+				$msg = C('type_name_exist');
+				$this->ajaxReturn($msg, 'json');
+				return;
 			}
-		}
-		else
-		{
+		}else{
 			$msg = C('change_type_failed');
-		}
-		if($is_set <= 0)
-		{
-			$msg = C('type_name_exist');
-			$this->ajaxReturn($msg, 'json');
-			return;
 		}
 		$this->ajaxReturn($msg, 'json');
 	}
@@ -587,35 +492,39 @@ class ChannelAction extends Action {
 
 		$Model = new Model();
 		$channel_type = new Model("QdChannelType");
-		$channel_type_count = $Model->query("select count(*) as count from qd_channel_type a, qd_channel_type_link b where 
-		  a.channel_type_id=b.channel_type_id and (a.channel_type_id='$channel_type_id' or 
-		  a.channel_type_father_id='$channel_type_id')");
+		$count_sql = "
+				select count(*) as count from qd_channel_type a, qd_channel_type_link b where 
+				a.channel_type_id=b.channel_type_id and (a.channel_type_id='$channel_type_id' or 
+				a.channel_type_father_id='$channel_type_id')
+		";
+		$channel_type_count = $Model->query($count_sql);
+		//如果有渠道商在用该渠道类型则不能删除
 		if($channel_type_count[0]['count'] > 0)
 		{
 			$msg = C('delete_channel_type_exist');
 			$this->ajaxReturn($msg, 'json');
 			return;
 		}
-		$place_type_count = $Model->query("select count(*) as count from qd_channel_type a, qd_place b where 
-		  a.channel_type_id=b.place_type_id and (a.channel_type_id='$channel_type_id' or 
-		  a.channel_type_father_id='$channel_type_id')");
+		$count_sql = "
+				select count(*) as count from qd_channel_type a, qd_place b where 
+				a.channel_type_id=b.place_type_id and (a.channel_type_id='$channel_type_id' or 
+				a.channel_type_father_id='$channel_type_id')
+		";
+		$place_type_count = $Model->query($count_sql);
+		//同样验证如有网点使用该类型也不能删除
 		if($place_type_count[0]['count'] > 0)
 		{
 			$msg = C('delete_place_type_exist');
 			$this->ajaxReturn($msg, 'json');
 			return;
 		}
-		$is_set = $channel_type->where("channel_type_id=" . $channel_type_id)->delete();
+		//开始删除该id类型及其子类型
+		$is_set = $channel_type->where("channel_type_id = $channel_type_id or channel_type_father_id = $channel_type_id")->delete();
 		if($is_set <= 0)
 		{
 			$msg = C('delete_type_failed');
 			$this->ajaxReturn($msg, 'json');
 			return;
-		}
-		$second_type_id  =  $channel_type->query("select channel_type_id from qd_channel_type where channel_type_father_id=" . $channel_type_id);
-		foreach($second_type_id as $key=>$val)
-		{
-			$channel_type->where("channel_type_id=" . $val['channel_type_id'])->delete();
 		}
 		$this->ajaxReturn($msg, 'json');
 	}

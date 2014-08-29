@@ -86,7 +86,6 @@
             </p>
             <p>
                 <label for="channel-ss-channel" class="">SIM卡号</label>
-                <!--<input type="text" name="place_name_txt" id="place_name_txt" value="" class="input-org-info"/>-->
 				<input type="text" name="sim_text" id="sim_text" value="{$_GET['sim_text']}" class="input-org-info" autocomplete='off'
 				onfocus="blurry('sim_card','{:U('channel/Channel/getAllLike')}',this)"/>                                          
 				<!-- 3 -->
@@ -177,7 +176,7 @@
 		<ul class="role-table-list role-table-list2">
 			<li><span class='span-3'><b>操作人</b></span><span class='span-3'><b>操作时间</b></span><span class='span-3'><b>操作日志</b></span></li>
 		</ul>
-        <ul id="device_log_info" class="role-table-list role-table-list2">
+        <ul id="log_info" class="role-table-list role-table-list2">
         
         </ul>
     </div>
@@ -241,13 +240,13 @@
             <p>
                 <label for="bs-date">部署日期</label>
                 <input type="input" name="add_deploy_time_sel" id="add_deploy_time_sel" class="input-org-info" 
-				 style="margin-top: 0;" onClick="WdatePicker()" readonly="readonly"/>
+				 style="margin-top: 0;" onClick="WdatePicker()" readonly/>
                 <i class="red-color pdl10">*</i>
                 <label for="sq-date">加油站启用日期</label>
                <!-- <input type="input" name="add_begin_time_sel" id="add_begin_time_sel" class="input-org-info" 
 				 style="margin-top: 0;" onClick="WdatePicker()" readonly="readonly"/>-->
 				<input type="date" name="add_begin_time_sel" id="add_begin_time_sel" class="input-org-info" 
-				 style="margin-top: 0;" onClick="WdatePicker()" readonly="readonly"/>
+				 style="margin-top: 0;" onClick="WdatePicker()" readonly/>
 
             </p>
 
@@ -256,11 +255,11 @@
                 <!--<input type="input" name="add_power_on_time_sel" id="add_power_on_time_sel" class="input-org-info" 
 					style="margin-top: 0;" onClick="WtimePicker()" readonly="readonly"/>-->
 				<input type="text" name="add_power_on_time_sel" id="add_power_on_time_sel" class="input-org-info" 
-					style="margin-top: 0;" onClick="WtimePicker()" readonly="readonly"/>
+					style="margin-top: 0;" onClick="WtimePicker()" readonly/>
                 <i class="red-color pdl10" style="color: #ffffff;">*</i>
                 <label for="sq-date">加油站关机时间</label>
                 <input type="input" name="add_power_off_time_sel" id="add_power_off_time_sel" class="input-org-info" 
-					style="margin-top: 0;" onClick="WtimePicker()" readonly="readonly"/>
+					style="margin-top: 0;" onClick="WtimePicker()" readonly/>
             </p>
             <p>
                 <label for="channel-addname" class="role-lab">SIM卡卡号</label>
@@ -274,7 +273,7 @@
             <p>
                 <label for="channel-addname" class="role-lab w130">SIM卡首次启用日期</label>
                 <!--<input type="text" name="add_device_no_txt" id="" class="input-role-name"/>-->
-				<input type="date" name="add_first_open_time" id="add_first_open_time" class="input-role-name" style="margin-top: 0;" onClick="WdatePicker()" readonly="readonly"/>
+				<input type="date" name="add_first_open_time" id="add_first_open_time" class="input-role-name" style="margin-top: 0;" onClick="WdatePicker()" readonly/>
             </p>
             <div class="device-point-pic">
 				<iframe id="I1" name="I1" width="668px" height="75px" src="http://img.jienuo-service.net/upload/add_img_up.html?131232221" frameborder="no" border="0" marginwidth="0" marginheight="0" scrolling="no" allowtransparency="yes"></iframe>
@@ -351,21 +350,21 @@
             <p>
                 <label for="bs-date">部署日期</label>
                 <input type="input" name="change_deploy_time_sel" id="change_deploy_time_sel" class="input-org-info" 
-					style="margin-top: 0;" onClick="WdatePicker()" readonly="readonly"/>
+					style="margin-top: 0;" onClick="WdatePicker()" readonly/>
                 <i class="red-color pdl10">*</i>
                 <label for="sq-date">加油站启用日期</label>
                 <input type="input" name="change_begin_time_sel" id="change_begin_time_sel" class="input-org-info" 
-					style="margin-top: 0;" onClick="WdatePicker()" readonly="readonly"/>
+					style="margin-top: 0;" onClick="WdatePicker()" readonly/>
             </p>
 
             <p>
                 <label for="sq-date">加油站开机时间</label>
                 <input type="input" name="change_power_on_time_sel" id="change_power_on_time_sel" class="input-org-info" 
-					style="margin-top: 0;" onClick="WtimePicker()" readonly="readonly"/>
+					style="margin-top: 0;" onClick="WtimePicker()" readonly/>
                 <i class="red-color pdl10" style="color: #ffffff;">*</i>
                 <label for="sq-date">加油站关机时间</label>
                 <input type="input" name="change_power_off_time_sel" id="change_power_off_time_sel" class="input-org-info" 
-					style="margin-top: 0;" onClick="WtimePicker()" readonly="readonly"/>
+					style="margin-top: 0;" onClick="WtimePicker()" readonly/>
             </p>
             <p>
                 <label for="channel-addname" class="role-lab">SIM卡卡号</label>
@@ -379,7 +378,7 @@
             <p>
                 <label for="channel-addname" class="role-lab w130">SIM卡首次启用日期</label>
                 <!--<input type="text" name="add_device_no_txt" id="" class="input-role-name"/>-->
-				<input type="date" name="qysj" id="qysj" class="input-org-info"style="margin-top: 0;" onClick="WdatePicker()" readonly="readonly"/>
+				<input type="date" name="qysj" id="qysj" class="input-org-info"style="margin-top: 0;" onClick="WdatePicker()" readonly/>
             </p>
 			<input type="hidden" name="change_image_id_0" id="change_image_id_0" class="change_image_id_0" style="width:164px"/>
 			<input type="hidden" name="change_image_id_1" id="change_image_id_1" class="change_image_id_1" style="width:164px"/>
@@ -432,6 +431,7 @@
 <script language="javascript" type="text/javascript" src="__PUBLIC__/js/My97DatePicker/WtimePicker.js"></script>
 <script src="__PUBLIC__/js/AjaxFileUploaderV2.1/ajaxfileupload.js"></script><!--图片上传-->
 <script type="text/javascript" src="__PUBLIC__/js/blurrySelect.js"></script>
+<script type="text/javascript" src="__PUBLIC__/js/log.js"></script>
 <script>
 	var device_val='';
 	var device_flag='';
@@ -448,7 +448,7 @@
 
 
 	$(document).ready(function () {
-		$("#device_log_info").attr("style","display:block");
+		$("#log_info").attr("style","display:block");
 		//省份传地址
 		getProvince("{:U('channel/Channel/getProvince')}","{$_GET['select_province']}","{:U('channel/Channel/getCity')}","{$_GET['select_city']}");
 
@@ -529,6 +529,7 @@
 			     loader:1,
 				 loaderHeight:16,
 				 loaderWidth:17,
+				 width:766,
 				 windowSourceID:'#j_add_device'
 			 });
 			 return false;
@@ -597,6 +598,7 @@
 			     loader:1,
 				 loaderHeight:16,
 				 loaderWidth:17,
+				 width:766,
 				 windowSourceID:'#j_add_device'
 			 });
 			 return false;
@@ -678,6 +680,7 @@
 			     loader:1,
 				 loaderHeight:16,
 				 loaderWidth:17,
+				 width:766,
 				 windowSourceID:'#j_change_device'
 			 });
 			 return false;
@@ -946,19 +949,11 @@
 		$(".list_sel").click(function(){
 			
 			$(this).find(".role-table-radio").attr("checked",'checked');
-			$("#device_log_info").empty();
-			//$("#device_log_info").append("<li><span class='span-3'><b>操作人</b></span><span class='span-3'><b>操作时间</b></span><span class='span-3'><b>操作日志</b></span></li>");
-			var handleUrl = "{:U('channel/Device/deviceLogSelect')}";
+			$("#log_info").empty();
+			//$("#log_info").append("<li><span class='span-3'><b>操作人</b></span><span class='span-3'><b>操作时间</b></span><span class='span-3'><b>操作日志</b></span></li>");
+			var handleUrl = "{:U('channel/Channel/logSelect')}";
 			var device_id=device_val;
-			$.getJSON(handleUrl,{"device_id":device_id},						
-				function (data){
-					$.each(data, function(i,item){
-						 $("#device_log_info").append("<li><span class='span-3'>" + item.user + "</span><span class='span-3'>" +
-								item.time + "</span><span class='span-3' title='" + item.info + "'>" + item.info + "</span></li>");
-					});
-			}
-			,'json'
-			);
+			log(handleUrl,device_id,"device");
 		});
 		$(".resultpage").attr("style","display:block");
 	});

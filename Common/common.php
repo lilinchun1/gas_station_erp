@@ -91,7 +91,7 @@ function getChangeLogDescription($src_log_info, $dst_log_info) {
 			if (C ( $key )) {
 				$property = C ( $key );
 			}
-			if (! empty ( $val )) {
+			if ($val) {
 				$src_property_info = C ( $val );
 				$src_property_info = empty ( $src_property_info ) ? $val : $src_property_info;
 			} else {

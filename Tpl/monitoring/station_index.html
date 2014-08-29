@@ -67,10 +67,12 @@
                     <div class="station-state-list-cx">
 						<span id="hide">
 							<label for="channelName">渠道名称</label>
-							<input  type="text" name="channelName" id="channelName" class="station-info" value="{$channelName}"/>
+							<input  type="text" name="channelName" id="channelName" class="station-info" value="{$channelName}"
+							onfocus="blurry('channel_name','{:U('channel/Channel/getAllLike')}',this)"/>
 							&nbsp;&nbsp;&nbsp;&nbsp;
 							<label for="place_name">网点名称</label>
-							<input  type="text" name="place_name" id="place_name" class="station-info" value="{$place_name}" />
+							<input  type="text" name="place_name" id="place_name" class="station-info" value="{$place_name}" 
+							onfocus="blurry('place_name','{:U('channel/Channel/getAllLike')}',this)"/>
 
 							<button type="button" class="role-control-btn" id="channel_select">查询</button>
 							<button type="button" class="role-control-btn" id="stationDele">清空</button>
@@ -269,16 +271,21 @@
 		<div class="role-inquire channel-index-btns">
 				<p>
 					<label for="yichang_channelName" class="">渠道名称</label>
-					<input type="text" name="yachang_channelName" id="yichang_channelName" value="" class="input-org-info"/>
+					<input type="text" name="yachang_channelName" id="yichang_channelName" value="" class="input-org-info"
+					onfocus="blurry('channel_name','{:U('channel/Channel/getAllLike')}',this)"/>
 					<label for="yichang_place_name" class="">网点名称</label>
-					<input type="text" name="yichang_place_name" id="yichang_place_name" value="" class="input-org-info"/>
+					<input type="text" name="yichang_place_name" id="yichang_place_name" value="" class="input-org-info"
+					onfocus="blurry('place_name','{:U('channel/Channel/getAllLike')}',this)"/>
 					<label for="yichang_address" class="">点位名称</label>
-					<input type="text" name="yichang_address" id="yichang_address" value="" class="input-org-info"/>
+					<input type="text" name="yichang_address" id="yichang_address" value="" class="input-org-info"
+					onfocus="blurry('device_address','{:U('channel/Channel/getAllLike')}',this)"/>
 					<label for="yichang_devMac" class="">MAC</label>
-					<input type="text" name="yichang_devMac" id="yichang_devMac" value="" class="input-org-info"/>
+					<input type="text" name="yichang_devMac" id="yichang_devMac" value="" class="input-org-info"
+					onfocus="blurry('device_mac','{:U('channel/Channel/getAllLike')}',this)"/>
 					<br>
 					<label for="yichang_devNo" class="">加油站编号</label>
-					<input type="text" name="yichang_devNo" id="yichang_devNo" value="" class="input-org-info"/>
+					<input type="text" name="yichang_devNo" id="yichang_devNo" value="" class="input-org-info"
+					onfocus="blurry('device_no','{:U('channel/Channel/getAllLike')}',this)"/>
 
 					<label for="devNoBeginTime" class="">查询数据类型</label>
 					<select class="input-org-info" id="devNoBeginTime" name="devNoBeginTime" value="" style="width:150px">
@@ -314,7 +321,7 @@
 <script type="text/javascript" src="__PUBLIC__/js/jquery.SuperSlide.2.1.1.js"></script>
 <link rel="stylesheet" href="__PUBLIC__/css/jquery.bigautocomplete.css" type="text/css" />
 <script type="text/javascript" src="__PUBLIC__/js/jquery.bigautocomplete.js"></script>
-
+<script type="text/javascript" src="__PUBLIC__/js/blurrySelect.js"></script>
 <script>
 //===================================================树形结构js==========================
 var curMenu = null, zTree_Menu = null;
@@ -539,106 +546,9 @@ function up_yichang(){
 function down_yichang(){
 	show_yichang(); 
 }
-//网点渠道自动补全方法
-	function channel_name_blurry()
-	{
-		var handleUrl = "{:U('channel/Channel/channelnameBlurrySelect')}";
-		var channel_name = '';
-		$.getJSON(handleUrl,{},
-			function (data){
-				var str = data;
-				$("#channelName").bigAutocomplete({width:150,data:data,callback:function(data){}});
-			}
-			,'json'
-		);
-	}
 
-	function place_name_blurry()
-	{
-		var handleUrl = "{:U('channel/Place/placenameBlurrySelect')}";
-		var place_name = '';
-		$.getJSON(handleUrl,{},
-			function (data){
-				var str = data;
-				$("#place_name").bigAutocomplete({width:150,data:data,callback:function(data){}});
-			}
-			,'json'
-		);
-	}
-
-
-
-	function yichang_channel_name_blurry()
-	{
-		var handleUrl = "{:U('channel/Channel/channelnameBlurrySelect')}";
-		var channel_name = '';
-		$.getJSON(handleUrl,{},
-			function (data){
-				var str = data;
-				$("#yichang_channelName").bigAutocomplete({width:150,data:data,callback:function(data){}});
-			}
-			,'json'
-		);
-	}
-
-	function yichang_place_name_blurry()
-	{
-		var handleUrl = "{:U('channel/Place/placenameBlurrySelect')}";
-		var place_name = '';
-		$.getJSON(handleUrl,{},
-			function (data){
-				var str = data;
-				$("#yichang_place_name").bigAutocomplete({width:150,data:data,callback:function(data){}});
-			}
-			,'json'
-		);
-	}
-	function address_name_blurry()
-	{
-		var handleUrl = "{:U('channel/Device/deviceAddress')}";
-		var place_name = '';
-		$.getJSON(handleUrl,{},
-			function (data){
-				var str = data;
-				$("#yichang_address").bigAutocomplete({width:150,data:data,callback:function(data){}});
-			}
-			,'json'
-		);
-	}
-	function mac_name_blurry()
-	{
-		var handleUrl = "{:U('channel/Device/devicemacBlurrySelect')}";
-		var place_name = '';
-		$.getJSON(handleUrl,{},
-			function (data){
-				var str = data;
-				$("#yichang_devMac").bigAutocomplete({width:150,data:data,callback:function(data){}});
-			}
-			,'json'
-		);
-	}
-	function no_name_blurry()
-	{
-		var handleUrl = "{:U('channel/Device/devicenoBlurrySelect')}";
-		var place_name = '';
-		$.getJSON(handleUrl,{},
-			function (data){
-				var str = data;
-				$("#yichang_devNo").bigAutocomplete({width:150,data:data,callback:function(data){}});
-			}
-			,'json'
-		);
-	}
-	//自动补全结束
 //===================================================树形结构js结束==========
     $(function () {
-		place_name_blurry();
-		channel_name_blurry();
-		yichang_channel_name_blurry();
-		yichang_place_name_blurry();
-		address_name_blurry();
-		mac_name_blurry();
-		no_name_blurry();
 		//系统监控框 默认样式
 		var showModel_mode=$("#showModel").val();
 		if(showModel_mode==0){
