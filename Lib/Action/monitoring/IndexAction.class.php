@@ -53,14 +53,12 @@ class IndexAction extends Action {
 		//选中的地区id
 		$areaId = $_REQUEST['areaId'];
 		//地区等级0全国，1省级，2市级
-		$level = $_REQUEST['level'];
+		$level  = $_REQUEST['level'];
 		if($areaId){
-			$sqlArea = "SELECT area_name FROM bi_area WHERE area_id = $areaId";
-			$queArea = $model->query($sqlArea);
 			if($level ==1){
-				$and .= " and b.province like '%".$queArea[0]['area_name']."%'";
+				$and .= " and b.province_id = $areaId ";
 			}else if($level ==2){
-				$and .= " and b.city like '%".$queArea[0]['area_name']."%'";
+				$and .= " and b.city_id = $areaId ";
 			}
 		}
 		
@@ -140,14 +138,16 @@ class IndexAction extends Action {
 
 			//最近一次所有有问题机器
 			$allBreakSql = "
-			SELECT a.*,b.province,b.city,b.address,c.place_name,d.channel_name
-			FROM dev_monitor a
-			LEFT JOIN qd_device b ON a.dev_no = b.device_no
-			LEFT JOIN qd_place c ON b.place_id = c.place_id
-			LEFT JOIN qd_channel d ON b.channel_id = d.channel_id
-			LEFT JOIN qd_agent e ON b.agent_id = e.agent_id
-			WHERE monitor_no = ".$this->monitor_no." $and $andNoTimeOrUnfind
-			ORDER BY a.wrong_begin_time
+				SELECT a.*,f.area_name province,g.area_name city,b.address,c.place_name,d.channel_name
+				FROM dev_monitor a
+				LEFT JOIN qd_device b ON a.dev_no = b.device_no
+				LEFT JOIN qd_place c ON b.place_id = c.place_id
+				LEFT JOIN qd_channel d ON b.channel_id = d.channel_id
+				LEFT JOIN qd_agent e ON b.agent_id = e.agent_id
+				LEFT JOIN bi_area f ON b.province_id = f.area_id
+				LEFT JOIN bi_area g ON b.city_id = g.area_id
+				WHERE monitor_no = ".$this->monitor_no." $and $andNoTimeOrUnfind
+				ORDER BY a.wrong_begin_time
 			";
 			//echo $allBreakSql;exit;
 			$allBreakQue = $model->query($allBreakSql);
@@ -188,14 +188,17 @@ class IndexAction extends Action {
 		$whereRightDev .= $badDevNoStr?" and device_no NOT IN ($badDevNoStr) ":'';
 		//查找所有无问题机器
 		$sqlRightDev = "
-		SELECT b.MAC dev_mac, b.device_no dev_no, b.province, b.city,b.address,
-		0 continueTime,0 wrong_begin_time,0 on_line,0 start_time,0 shutdown_time,
-		c.place_name,d.channel_name
-		FROM qd_device b
-		LEFT JOIN qd_place c ON b.place_id = c.place_id
-		LEFT JOIN qd_channel d ON b.channel_id = d.channel_id
-		LEFT JOIN qd_agent e ON b.agent_id = e.agent_id
-		$whereRightDev $and $order";
+			SELECT b.MAC dev_mac, b.device_no dev_no, f.area_name province, g.area_name city,b.address,
+			0 continueTime,0 wrong_begin_time,0 on_line,0 start_time,0 shutdown_time,
+			c.place_name,d.channel_name
+			FROM qd_device b
+			LEFT JOIN qd_place c ON b.place_id = c.place_id
+			LEFT JOIN qd_channel d ON b.channel_id = d.channel_id
+			LEFT JOIN qd_agent e ON b.agent_id = e.agent_id
+			LEFT JOIN bi_area f ON b.province_id = f.area_id
+			LEFT JOIN bi_area g ON b.city_id = g.area_id
+			$whereRightDev $and $order
+		";
 		$devRightArr = $model->query($sqlRightDev);
 		$devRightNum = count($devRightArr);
 		for($i=$beginNum;$i<=$endNum;$i++){
@@ -265,17 +268,19 @@ class IndexAction extends Action {
 		$dev_count_arr = $this->getRightOrWrongNum($showModel);
 		//echo json_encode($dev_count_arr);exit;
 		$common = new Common();
+		//获取有权限查看的地区id
 		$ableAreaIdStr = $common->getAreaIdAndProvinceStr($this->userinfo['orgid']);
 		$where .= " where area_id IN ($ableAreaIdStr) ";
 		$sql = "
-		SELECT area_id,area_name,pid,level,0 count
-		FROM bi_area a
-		$where
+			SELECT area_id,area_name,pid,level,0 count
+			FROM bi_area a
+			$where
 		";
 		$que = $model->query($sql);
+		//为省叠加数量
 		foreach ($que as $k=>$v){
 			foreach($dev_count_arr as $countK=>$countV){
-				if(substr_count($countV['province'],$v['area_name'])>0 || substr_count($countV['city'],$v['area_name'])>0){
+				if( $countV['province_id'] == $v['area_id'] || $countV['city_id'] == $v['area_id']){
 					$que[$k]['count'] += $countV['count'];
 				}
 			}
@@ -293,24 +298,25 @@ class IndexAction extends Action {
 		$sql = "";
 		if($showModel == 0){
 			$sql = "
-				SELECT b.province,b.city,COUNT(*) count FROM dev_monitor a
+				SELECT b.province_id, b.city_id,COUNT(*) count
+				FROM dev_monitor a
 				LEFT JOIN qd_device b ON a.dev_no = b.device_no
 				WHERE
 				a.monitor_no = ".$this->monitor_no."
 				AND a.unfind <> 1 AND a.dev_no_begin_time <>1
-				GROUP BY b.province,b.city
-				ORDER BY b.province,b.city
-				";
+				GROUP BY b.province_id,b.city_id
+				ORDER BY b.province_id,b.city_id
+			";
 		}else if($showModel == 1){
 			$sql = "
-				SELECT province,city,COUNT(*) count FROM qd_device
+				SELECT province_id, city_id, COUNT(*) count
+				FROM qd_device
 				WHERE device_no NOT IN(SELECT dev_no FROM dev_monitor WHERE monitor_no = ".$this->monitor_no.")
-				and isDelete = 0
-				GROUP BY province,city
-				ORDER BY province,city
-				";
+				AND isDelete = 0
+				GROUP BY province_id,city_id
+				ORDER BY province_id,city_id
+			";
 		}
-		
 		$que = $model->query($sql);
 		return $que;
 	}

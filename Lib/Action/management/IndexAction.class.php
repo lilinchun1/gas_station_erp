@@ -401,7 +401,6 @@ class IndexAction extends Action {
 	}
 //------------------------------------------------------------------------------更新信息------------------------------------------------------------------------------------
 	 function  verupUpda(){
-	// echo "11111111111111111111111111111";exit;
 	 	$model = new Model();
 	
 		
@@ -413,7 +412,7 @@ class IndexAction extends Action {
 		$hy_select=trim($_REQUEST['channelselect']);
 		$hy_id=trim($_REQUEST['select_id']);
 		
-		$where = "where d.update_id=$hy_id ";		
+		$where = "where d.update_id = $hy_id ";		
 		/*
 		$hy_select_up;
 		
@@ -428,11 +427,11 @@ class IndexAction extends Action {
 		{
 			if(!empty($hy_city) && ('地级市' != $hy_city))
 			{
-				$where .= "  and a.province='$hy_province' and a.city='$hy_city' ";
+				$where .= "  and a.province_id='$hy_province' and a.city_id='$hy_city' ";
 			}
 			else
 			{
-				$where .= " and a.province='$hy_province' ";
+				$where .= " and a.province_id='$hy_province' ";
 			}
 		}
 		
@@ -455,19 +454,16 @@ class IndexAction extends Action {
 			$where .= " and  d.smart_app= 2 ";
 		}
 		
-		
-		/*
-		if(!empty($hy_select_up))
-		{
-			$where .= " and d.'$hy_select_up'";
-		}
-		*/
-		
-		$pag_sql="select a.province,a.city,c.channel_name,b.place_name,a.device_no,d.dev_mac,d.smart_app,d.video_player,d.update_app,d.smart_guard   from qd_device a 
-		right  join qd_place b  on a.place_id=b.place_id 
-		right join qd_channel c on b.channel_id=c.channel_id  
-		right join app_update_status d on a.device_no=d.dev_no  
-		$where ";
+		$pag_sql="
+			SELECT e.area_name province,f.area_name city,c.channel_name,b.place_name,a.device_no,d.dev_mac,d.smart_app,d.video_player,d.update_app,d.smart_guard
+			FROM qd_device a 
+			LEFT JOIN qd_place b  ON a.place_id=b.place_id
+			LEFT JOIN qd_channel c ON b.channel_id=c.channel_id
+			LEFT JOIN app_update_status d ON a.device_no=d.dev_no
+			LEFT JOIN bi_area e ON a.province_id = e.area_id
+			LEFT JOIN bi_area f ON a.city_id = f.area_id
+			$where
+		";
 		$inrs=$model->query($pag_sql);
 		foreach($inrs as $k=>$item){
 			//smart_app
@@ -733,10 +729,7 @@ class IndexAction extends Action {
 	public $que_channel;
 	//获取所有省市渠道
 	function getChannelArr(){
-		$provinceIdArr = array();
-		$cityIdArr = array();
 		$cityArr = array();
-		$areaIdStr = "";
 		$model = new Model();
 		
 		$where = " where 1 ";
@@ -745,52 +738,32 @@ class IndexAction extends Action {
 		}
 		
 		$sql_channel = "
-				SELECT a.channel_id area_id,a.channel_name area_name,a.city pid FROM qd_channel a
-				$where
-				and a.isDelete = 0
-				";
-		$this->que_channel = $model->query($sql_channel);
-		
-		$sql_province = "SELECT a.channel_id,a.province,a.city
+				SELECT a.channel_id area_id,a.channel_name area_name,a.city_id pid
 				FROM qd_channel a
 				$where
-				GROUP BY a.province
-				";
-		$que_province = $model->query($sql_province);
-		foreach ($que_province as $k=>$v){
-			$sql_province_id = "SELECT * FROM bi_area WHERE area_name LIKE '%$v[province]%' OR CONCAT(area_name,'省') LIKE '$v[province]'";
-			$que_province_id = $model->query($sql_province_id);
-			$provinceIdArr[] = $que_province_id[0]['area_id'];
-		}
-		
-		$sql_city = "SELECT a.channel_id,a.province,a.city FROM
-				qd_channel a
-				$where
-				GROUP BY a.city
-				";
-		$que_city = $model->query($sql_city);
-		foreach ($que_city as $k=>$v){
-			$sql_city_id = "SELECT * FROM bi_area WHERE area_name LIKE '%$v[city]%' OR CONCAT(area_name,'市') LIKE '$v[city]'";
-			$que_city_id = $model->query($sql_city_id);
-			$cityIdArr[] = $que_city_id[0]['area_id'];
-			//echo json_encode($this->que_channel);exit;
-			foreach ($this->que_channel as $ck=>$cv){
-				if($cv['pid'] == $v['city']){
-					$this->que_channel[$ck]['pid'] = $que_city_id[0]['area_id'];
-				}
-			}
-			
-		}
-		//echo json_encode($this->que_channel);exit;
-		$areaIdArr = array_merge($provinceIdArr,$cityIdArr);
-		
-		$areaIdStr = implode(",",$areaIdArr);
+				and a.isDelete = 0
+			";
+		$this->que_channel = $model->query($sql_channel);
+
 		$sql_area = "
-				SELECT * FROM bi_area WHERE area_id IN ($areaIdStr)
+				SELECT * FROM bi_area
+				WHERE area_id IN (
+								SELECT a.province_id
+								FROM
+								qd_channel a
+								$where
+								GROUP BY a.province_id
+								)
+				OR area_id IN (
+								SELECT a.city_id
+								FROM
+								qd_channel a
+								$where
+								GROUP BY a.city_id
+								)
+				
 				";
 		$que_area = $model->query($sql_area);
-		
-		//$que = array_merge($que_area,$que_channel);
 		
 		$this->getProvinceCity($que_area, $this->top_pid);
 		
@@ -802,10 +775,10 @@ class IndexAction extends Action {
 	//沥遍排序获取区域数组
 	function getProvinceCity($arr,$parentId){
 		//同父级区域的数量
-		$length = 0;
+		//$length = 0;
 		foreach($arr as $k=>$v){
 			if($v['pid'] == $parentId){
-				$length++;
+				//$length++;
 				//当前等级
 				$this->lv++;
 				$this->areaArr[count($this->areaArr)]['value'] = $v['area_name'];

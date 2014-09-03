@@ -132,7 +132,7 @@ class ChannelAction extends Action {
 				h.place_num, i.device_num,
 				IF(a.begin_time IS NOT NULL,FROM_UNIXTIME( a.begin_time, '%Y-%m-%d' ),'') begin_time,
 				IF(a.end_time IS NOT NULL,FROM_UNIXTIME( a.end_time, '%Y-%m-%d' ),'') end_time,
-				a.forever_type, a.isDelete, a.province, a.city, b.channel_type_id,
+				a.forever_type, a.isDelete, f.area_name province, g.area_name city, b.channel_type_id,
 				c.channel_type_father_id,
 				IF(d.channel_type_name IS NOT NULL,CONCAT(d.channel_type_name,' ',c.channel_type_name),c.channel_type_name) channel_type_name,
 				e.agent_name
@@ -173,20 +173,20 @@ class ChannelAction extends Action {
     //添加渠道商信息
 	public function channelAdd(){
 		$userinfo = getUserInfo();
-		$channel_name = trim(I('add_channel_name_txt'));
-		$agent_id = trim(I('add_agent_id_sel'));
-		$contacts = trim(I('add_contacts_txt'));
-		$contacts_tel = trim(I('add_contacts_tel_txt'));
-		$channel_tel = trim(I('add_channel_tel_txt'));
-		$channel_address = trim(I('add_channel_address_txt'));
-		$contract_number = trim(I('add_contract_number_txt'));
-		$begin_time = strtotime(trim(I('add_begin_time_sel')));
-		$end_time = strtotime(I('add_end_time_sel'));
-		$channel_first_type = trim(I('add_channel_first_type_sel'));
+		$channel_name        = trim(I('add_channel_name_txt'));
+		$agent_id            = trim(I('add_agent_id_sel'));
+		$contacts            = trim(I('add_contacts_txt'));
+		$contacts_tel        = trim(I('add_contacts_tel_txt'));
+		$channel_tel         = trim(I('add_channel_tel_txt'));
+		$channel_address     = trim(I('add_channel_address_txt'));
+		$contract_number     = trim(I('add_contract_number_txt'));
+		$begin_time          = strtotime(trim(I('add_begin_time_sel')));
+		$end_time            = strtotime(I('add_end_time_sel'));
+		$channel_first_type  = trim(I('add_channel_first_type_sel'));
 		$channel_second_type = trim(I('add_channel_second_type_sel'));
-		$province = trim(I('add_select_province'));
-		$city = trim(I('add_select_city'));
-		$add_forever_check = trim(I('add_forever_check'));
+		$province            = trim(I('add_select_province'))?trim(I('add_select_province')):null;
+		$city                = trim(I('add_select_city'))?trim(I('add_select_city')):null;
+		$add_forever_check   = trim(I('add_forever_check'));
 		$msg = C('add_channel_success');
 
 		$model             = new Model();
@@ -227,8 +227,7 @@ class ChannelAction extends Action {
 			//保存渠道类型
 			$type_link['channel_type_id'] = $channel_second_type?$channel_second_type:$channel_first_type;
 			$channel_type_link->add($type_link);
-			//修改代理商渠道数量及相关日志
-			//changeNum('channel', $agent_id, $channel_id, 'add');
+			//修改相关日志
 			addOptionLog('channel', $channel_id, 'add', '');
 			
 			$this->ajaxReturn($msg,'json');
@@ -243,29 +242,27 @@ class ChannelAction extends Action {
     //修改渠道商信息
 	public function channelSave(){
 		$userinfo = getUserInfo();
-		$channel_name = trim(I('change_channel_name_txt'));
-		$channel_id = trim(I('change_channel_id_txt'));
-		$agent_id = trim(I('change_agent_id_sel'));
-		$contacts = trim(I('change_contacts_txt'));
-		$contacts_tel = trim(I('change_contacts_tel_txt'));
-		$channel_tel = trim(I('change_channel_tel_txt'));
-		$channel_address = trim(I('change_channel_address_txt'));
-		$contract_number = trim(I('change_contract_number_txt'));
-		$begin_time = strtotime(trim(I('change_begin_time_sel')));
-		$end_time = strtotime(trim(I('change_end_time_sel')));
-		$src_channel_first_type = trim(I('src_channel_first_type'));
+		$channel_name            = trim(I('change_channel_name_txt'));
+		$channel_id              = trim(I('change_channel_id_txt'));
+		$agent_id                = trim(I('change_agent_id_sel'));
+		$contacts                = trim(I('change_contacts_txt'));
+		$contacts_tel            = trim(I('change_contacts_tel_txt'));
+		$channel_tel             = trim(I('change_channel_tel_txt'));
+		$channel_address         = trim(I('change_channel_address_txt'));
+		$contract_number         = trim(I('change_contract_number_txt'));
+		$begin_time              = strtotime(trim(I('change_begin_time_sel')));
+		$end_time                = strtotime(trim(I('change_end_time_sel')));
+		$src_channel_first_type  = trim(I('src_channel_first_type'));
 		$src_channel_second_type = trim(I('src_channel_second_type'));
-		$dst_channel_first_type = trim(I('dst_channel_first_type_sel'));
+		$dst_channel_first_type  = trim(I('dst_channel_first_type_sel'));
 		$dst_channel_second_type = trim(I('dst_channel_second_type_sel'));
-		$src_province = trim(I('change_src_province'));
-		$src_city = trim(I('change_src_city'));
-		$dst_province = trim(I('change_dst_province'));
-		$dst_city = trim(I('change_dst_city'));
-		$change_forever_check = trim(I('change_forever_check'));
+		$dst_province            = trim(I('change_dst_province'))?trim(I('change_dst_province')):null;
+		$dst_city                = trim(I('change_dst_city'))?trim(I('change_dst_city')):null;
+		$change_forever_check    = trim(I('change_forever_check'));
 		$log_description = '';
 		$model        = new Model();
 		$channel      = new Model("QdChannel");
-		
+
 		//查询是否已有同名
 		$result_sql = "
 			select channel_id
@@ -355,23 +352,7 @@ class ChannelAction extends Action {
 		$dataChannel = $this->getChannelInfoByChannelId($channel_id);
 		echo json_encode($dataChannel);
 	}
-	
-	//查询渠道商日志信息
-	public function channelLogSelect(){
-		$model = new Model();
-		$channel_id = trim(I('channel_id'));
-		$sql = "
-		SELECT
-		a.logs_id,FROM_UNIXTIME( a.timestamp, '%Y-%m-%d') time,
-		IF(b.username IS NULL,'根用户',b.username) user,
-		CASE option_type WHEN 'add' THEN '添加' WHEN 'del' THEN '撤销' WHEN 'change' THEN (SELECT option_descrption FROM qd_logs_option_description WHERE option_log_id=a.logs_id  ) END info
-		FROM qd_logs_option a
-		LEFT JOIN bi_user b ON a.userid = b.uid
-		where a.option_id='$channel_id' and a.option_name='channel'
-		";
-		$channel_log = $model->query($sql);
-		$this->ajaxReturn($channel_log,'json');
-	}
+
 	//根据对象id及对象名称获取日志，对象名称:device,place,channel
 	function logSelect(){
 		$option_id   = trim(I('option_id'));
@@ -409,8 +390,6 @@ class ChannelAction extends Action {
 					addOptionLog('device', $d_val['device_id'], 'del', '');
 				}
 			}
-			//$agent_id = getAgentIDFromChannelID($channel_id);
-			//changeNum('channel', $agent_id, $channel_id, 'minus');
 			addOptionLog('channel', $channel_id, 'del', '');
 		}
 

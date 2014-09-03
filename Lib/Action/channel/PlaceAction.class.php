@@ -105,24 +105,6 @@ class PlaceAction extends Action {
 		$this->index();
 	}
 
-	//查询网点日志信息
-	public function placeLogSelect(){
-		$model = new Model();
-		$place_id = trim(I('place_id'));
-		$log_sql = "
-				SELECT IF(a.userid = 0,'跟用户',b.username) user,
-				FROM_UNIXTIME(a.timestamp, '%Y-%m-%d' ) time, a.option_type,
-				CASE a.option_type WHEN 'add' THEN '添加' WHEN 'del' THEN '撤销' WHEN 'change' THEN c.option_descrption END info
-				FROM qd_logs_option a
-				LEFT JOIN bi_user b ON a.userid = b.uid
-				LEFT JOIN qd_logs_option_description c ON a.logs_id = c.option_log_id
-				WHERE a.option_id = $place_id
-				AND a.option_name='place'
-		";
-		$place_log = $model->query($log_sql);
-		$this->ajaxReturn($place_log,'json');
-	}
-
      //根据网点ID查询网点详细信息
      public function placeDetailSelect(){
 	    $model = new Model();
@@ -135,8 +117,8 @@ class PlaceAction extends Action {
 	public function placeAdd(){
 		$place_no        = trim(I('add_place_no_txt'));
 		$place_name      = trim(I('add_place_name_txt'));
-		$province        = trim(I('add_select_province'));
-		$city            = trim(I('add_select_city'));
+		$province        = trim(I('add_select_province'))?trim(I('add_select_province')):null;
+		$city            = trim(I('add_select_city'))?trim(I('add_select_city')):null;
 		$region          = trim(I('add_region_txt'));
 		$contacts        = trim(I('add_contacts_txt'));
 		$contacts_tel    = trim(I('add_contacts_tel_txt'));
@@ -205,8 +187,8 @@ class PlaceAction extends Action {
 		$place_id        = trim(I('change_place_id_txt'));
 		$place_no        = trim(I('change_place_no_txt'));
 		$place_name      = trim(I('change_place_name_txt'));
-		$province        = trim(I('change_select_province'));
-		$city            = trim(I('change_select_city'));
+		$province        = trim(I('change_select_province'))?trim(I('change_select_province')):null;
+		$city            = trim(I('change_select_city'))?trim(I('change_select_city')):null;
 		$region          = trim(I('change_region_txt'));
 		$contacts        = trim(I('change_contacts_txt'));
 		$contacts_tel    = trim(I('change_contacts_tel_txt'));
@@ -337,21 +319,17 @@ class PlaceAction extends Action {
 			$is_set = $device->where("device_id=" . $val['device_id'])->setField('isDelete', 1);
 			addOptionLog('device', $val['device_id'], 'del', '');
 		}
-		//changeNum('place', $channel_id, $place_id, 'minus');
 		addOptionLog('place', $place_id, 'del', '');
 		$this->ajaxReturn($msg,'json');
 		//$this->placeSelect();
 	}
 
 	//恢复已经删除的网点信息
-	public function placeRecover()
-	{
+	public function placeRecover(){
 		$place_id = trim($_GET['place_id']);
 		$place = new Model("QdPlace");
 		$is_set = $place->where("place_id='$place_id'")->setField('isDelete', 0);
-		//changeNum('place', $channel_id, $place_id, 'add');
 		addOptionLog('place', $place_id, 'add', '');
-		//$this->placeSelect();
 	}
 }
 ?>

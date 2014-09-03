@@ -68,7 +68,7 @@ class PostDevAction extends Action {
 		$model = new Model();
 		$sql = "
 				SELECT
-				b.province,b.city,e.agent_name,d.channel_name,c.place_name,b.address,a.dev_mac,a.dev_no,
+				f.area_name province,g.area_name city,e.agent_name,d.channel_name,c.place_name,b.address,a.dev_mac,a.dev_no,
 				IF(a.unfind = 1,'无返回数据','正常') unfind,
 				IF(a.unfind = 0,IF(a.dev_no_begin_time = 1,'未设开机时间','正常'),'') dev_no_begin_time,
 				IF(a.unfind = 0 AND a.dev_no_begin_time = 0,IF(a.on_line = 1,'不正常','正常'),'') on_line,
@@ -80,9 +80,11 @@ class PostDevAction extends Action {
 				LEFT JOIN qd_place c ON b.place_id = c.place_id
 				LEFT JOIN qd_channel d ON b.channel_id = d.channel_id
 				LEFT JOIN qd_agent e ON b.agent_id = e.agent_id
+				LEFT JOIN bi_area f ON b.province_id = f.area_id
+				LEFT JOIN bi_area g ON b.city_id = g.area_id
 				$whereSql
 				ORDER BY b.agent_id,b.channel_id,b.place_id,a.dev_mac,a.dev_no,a.unfind DESC,a.dev_no_begin_time DESC,a.on_line DESC
-				";
+			";
 		$que = $model->query($sql);
 		
 		$fileName = $que[0]['createtime'];

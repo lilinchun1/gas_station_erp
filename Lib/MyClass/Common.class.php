@@ -46,17 +46,18 @@ class Common{
 	 * @return String
 	 */
 	function getAreaIdAndProvinceStr($father_agent_id = null){
-		$where = "";
+		$where = " WHERE 1 ";
 		if($father_agent_id){
 			$agentIdStr = $this->getAgentIdAndChildId($father_agent_id);
-			$where = " WHERE 1 AND a.agent_id IN($agentIdStr)";
+			$where .= " AND a.agent_id IN($agentIdStr)";
 		}
 		
 		$sql_area_id = "
-				SELECT b.area_id
+				SELECT a.area_id
 				FROM qd_agent_area a
-				LEFT JOIN bi_area b ON a.area_id = b.area_id
+				LEFT JOIN qd_agent b ON a.agent_id = b.agent_id
 				$where
+				AND b.isDelete = 0
 				UNION
 				SELECT area_id
 				FROM bi_area
@@ -65,7 +66,9 @@ class Common{
 					SELECT b.pid
 					FROM qd_agent_area a
 					LEFT JOIN bi_area b ON a.area_id = b.area_id
+					LEFT JOIN qd_agent c ON a.agent_id = c.agent_id
 					$where
+					AND c.isDelete = 0
 				)
 				";
 		$que_area = $this->model->query($sql_area_id);
