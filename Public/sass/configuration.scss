@@ -557,14 +557,14 @@ $heiti:"SimHei";
   margin-top: 20px;
     h3 {
       margin: 0 auto;
-      padding: 10px;
+      padding: 5px 0;
       width: 98%;
       height: 30px;
       text-indent: 10px;
       font-size: 14px;
       color: #000;
       line-height: 30px;
-
+      background: $bg-color;
     }
 }
 .role-table-list2 li span:first-child{
@@ -1353,7 +1353,7 @@ input.input-org-info,input.channel-select{
       h3{
         width: 100%;
         background: $bg-color;
-        border: 1px solid $border-color;}
+        }
   }
   .role-control-btn{
     margin: 3px 10px 0 0;
@@ -1392,7 +1392,9 @@ input.input-org-info,input.channel-select{
   .span-1{
     width: 13%;
 }
-
+  .span-2{
+    width: auto;
+  }
 }
 .pdl50{
   padding-left: 50px;}
@@ -1503,3 +1505,12 @@ input.input-org-info,input.channel-select{
 #change_channel_name_txt{
   width: 162px;
  }
+
+input.lb-radio{
+  width: 20px;
+}
+.statistics-index-list{
+  margin-top: 0;
+}
+.mgr10{
+  margin-right: 10px;}

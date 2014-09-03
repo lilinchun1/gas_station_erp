@@ -41,7 +41,7 @@
     <ul class="main-nav" id="j-nav-active">
         <li class="url_link" url="<?php echo U('monitoring/Index/station');?>"><a href="<?php echo U('monitoring/Index/station');?>">加油站监控</a></li>
         <li class="url_link" url="<?php echo U('channel/Channel/index');?>"><a href="<?php echo U('channel/Channel/index');?>">渠道管理</a></li>
-        <li class="url_link" url="<?php echo U('management/Index/importingApp');?>"><a href="<?php echo U('management/Index/importingApp');?>">运营管理</a></li>
+        <!-- <li class="url_link" url="<?php echo U('management/Index/importingApp');?>"><a href="<?php echo U('management/Index/importingApp');?>">运营管理</a></li> -->
         <li class="url_link" url="<?php echo U('statistics/Index/index');?>"><a href="<?php echo U('statistics/Index/index');?>">统计分析</a></li>
      <!--   <li class="url_link" url="<?php echo U('ad/Index/index');?>"><a href="<?php echo U('ad/Index/index');?>">广告管理</a></li> -->
         <li class="url_link" url="<?php echo U('configuration/Org/index');?>"><a href="<?php echo U('configuration/Org/index');?>">系统设置</a></li>
@@ -100,6 +100,11 @@
 				                    showcity("select_city", "<?php echo ($_GET['select_city']); ?>", "select_province", "select_showcity");
 				                </script>
 
+                                <label for="channel_name">渠道名称</label>
+                                <input type="text" name="channel_name" id="channel_name" class="input-org-info" value="<?php echo ($_GET['channel_name']); ?>" />
+								<label for="place_name">网点名称</label>
+                                <input type="text" name="place_name" id="place_name" class="input-org-info" value="<?php echo ($_GET['place_name']); ?>" />
+
                                 <label for="day">查询日期</label>
                                 <input type="text" name="contract_end_time_1" id="contract_end_time_1" class="input-org-info"
                                        value="<?php echo ($_GET['contract_end_time_1']); ?>" onClick="WdatePicker()"/>
@@ -117,7 +122,7 @@
                     <div class="list-wrap-statistics">
                         <div class="role-table">
                             <div class="data-log">
-                                <h3>安装量日报表<input id="all_export_execl_bt" type="button" class="role-control-btn" value="导出" /></h3>
+                                <h3>安装量日报表<?php if($list): ?><input id="all_export_execl_bt" type="button" class="role-control-btn" value="导出" /><?php endif; ?></h3>
 
                             </div>
                             <ul class="statistics-list">
@@ -322,12 +327,14 @@
 <div id="fail_num_win" style="display:none">
 	<div class="alert-table1" style="background-color:#ffffff;width:100%;padding-bottom:15px" id="fail_num_table">
 		<div class="data-log">
-			<h3>未统计加油站安装量明细<input type="button" class="role-control-btn fr" id="fail_export_bt" value="导出" />
-			<input type="submit" class="role-control-btn fr" value="关闭" onClick="window.location=window.location"/></h3>
+			<h3>未统计加油站安装量明细
+				<input type="submit" class="role-control-btn fr" value="关闭" onClick="window.location=window.location"/>
+				<input type="button" class="role-control-btn fr" id="fail_export_bt" value="导出" />
+			</h3>
 		</div>
 		<ul class="statistics-list" id="fail_num_list">
 			<li>
-				<span class='span-1'><b>网点地址</b></span>
+				<span class='span-1'><b>网点名称</b></span>
 				<span class='span-1'><b>点位信息</b></span>
 				<span class='span-1'><b>MAC</b></span>
 				<span class='span-1'><b>操作</b></span>
@@ -345,12 +352,14 @@
 <div id="succ_num_win" style="display:none">
 	<div class="alert-table1" style="background-color:#ffffff;width:100%;padding-bottom:15px" id="succ_num_table">
 		<div class="data-log">
-			<h3>已统计加油站<input type="button" class="role-control-btn fr" id="succ_export_bt" value="导出" />
-			<input type="submit" class="role-control-btn fr" value="关闭" onClick="window.location=window.location"/></h3>
+			<h3>已统计加油站
+				<input type="submit" class="role-control-btn fr" value="关闭" onClick="window.location=window.location"/>
+				<input type="button" class="role-control-btn fr" id="succ_export_bt" value="导出" />
+			</h3>
 		</div>
 		<ul class="statistics-list" id="succ_num_list">
 			<li>
-				<span class='span-1'><b>网点地址</b></span>
+				<span class='span-1'><b>网点名称</b></span>
 				<span class='span-1'><b>点位信息</b></span>
 				<span class='span-1'><b>MAC</b></span>
 				<span class='span-1'><b>安装总量</b></span>
@@ -366,8 +375,10 @@
 <div id="unfind_num_win" style="display:none">
 	<div class="alert-table1" style="background-color:#ffffff;width:100%;padding-bottom:15px" id="unfind_num_table">
 		<div class="data-log">
-			<h3>异常加油站<input type="button" class="role-control-btn fr" id="undefine_export_bt"  value="导出" />
-			<input type="submit" class="role-control-btn fr" value="关闭" onClick="window.location=window.location" /></h3>
+			<h3>异常加油站
+				<input type="submit" class="role-control-btn fr" value="关闭" onClick="window.location=window.location" />
+				<input type="button" class="role-control-btn fr" id="undefine_export_bt"  value="导出" />
+			</h3>
 		</div>
 		<ul class="statistics-list" id="unfind_num_list">
 			<li>
@@ -383,6 +394,8 @@
 <script type="text/javascript" src="__PUBLIC__/js/jquery-1.6.1.js"></script>
 <script type="text/javascript" src="__PUBLIC__/js/jquery.SuperSlide.2.1.1.js"></script>
 <script type="text/javascript" src="__PUBLIC__/js/jquery.DOMwindow.js" type="text/javascript"></script><!--模框JS插件-->
+<link rel="stylesheet" href="__PUBLIC__/css/jquery.bigautocomplete.css" type="text/css" />
+<script type="text/javascript" src="__PUBLIC__/js/jquery.bigautocomplete.js"></script>
 <script language="javascript">
 	$("#all_export_execl_bt").click(function (){
 		var url = "<?php echo U('statistics/export/all_export');?>";
@@ -398,38 +411,20 @@
 	function succ_num_click(which){
 		var select_id=$(which).parent().find(".select_id").val();
 		ajax_post(select_id,0);
-		$.openDOMWindow({
-			loader:1,
-			loaderHeight:16,
-			loaderWidth:17,
-			windowSourceID:'#succ_num_win'
-		});
+
 		$("#succ_export_bt").attr("onclick","downexelc('"+select_id+"','succ')");
-		return false;
+
 	}
 	function fail_num_click(which){
 		var select_id=$(which).parent().find(".select_id").val();
 		ajax_post(select_id,1);
-		$.openDOMWindow({
-			loader:1,
-			loaderHeight:16,
-			loaderWidth:17,
-			windowSourceID:'#fail_num_win'
-		});
 		$("#fail_export_bt").attr("onclick","downexelc('"+select_id+"','fail')");
-		return false;
 	}
 	function unfind_num_click(which){
 		var select_id=$(which).parent().find(".select_id").val();
 		ajax_post(select_id,2);
-		$.openDOMWindow({
-			loader:1,
-			loaderHeight:16,
-			loaderWidth:17,
-			windowSourceID:'#unfind_num_win'
-		});
+
 		$("#undefine_export_bt").attr("onclick","downexelc('"+select_id+"','unfind')");
-		return false;
 	}
 	var p=1;
 	function ajax_post(select_id,showModel){
@@ -446,10 +441,14 @@
 			success : function (data) {			//ajax请求成功后返回数据
 				p = Number(data['pageNum']);//接收当前页
 				var countPageNum = data['countPageNum'];//接收总页数
+				var showDevPageArr=data['showDevPageArr'];
+				if(showDevPageArr==null){
+					alert("未查到数据!");
+					window.location=window.location;
+				}
 				switch(showModel)
 				{
 				case 0:
-					var showDevPageArr=data['showDevPageArr'];
 					$.each(showDevPageArr, function(i,item){
 						$("#succ_num_list").append("<li class='select_li'><span class='span-1'>"+item['point_address']+"</span><span class='span-1'>"+
 						item['point_info']+"</span><span class='span-1'>"+
@@ -459,21 +458,34 @@
 						item['android_num']+"</span></li>");
 					});
 					$("#succ_num_table").append("<div class='resultpage' style=''>"+"<a id='yichang_up_page' style='cursor:pointer'>«</a>"+"<span id='up_pages'></span>"+"<span class='current'>"+p+"</span>"+"<span id='down_pages'></span>"+"<a id='yichang_down_page' style='cursor:pointer'>»</a>"+"<span class='pages-number'>共"+countPageNum+"页</span>"+"<span>到第<select id='select_page_yichang'></select>页</span>"+"</div>");
+					$.openDOMWindow({
+						loader:1,
+						width:1000,
+						loaderHeight:16,
+						loaderWidth:17,
+						windowSourceID:'#succ_num_win'
+					});
 					break;
 				case 1:
-					var showDevPageArr=data['showDevPageArr'];
 					$.each(showDevPageArr, function(i,item){
 						$("#fail_num_list").append("<li class='select_li'><span class='span-1'>"+item['point_address']+"</span><span class='span-1'>"+
 						item['point_info']+"</span><span class='span-1'>"+
 						item['mac']+"</span><span class='span-1'><a class='statistics_button' style='color:##5095fc;text-decoration:underline;cursor: pointer;'>统计</a></span><input type='hidden' class='id' value='"+item['id']+"'/>"+"</li>");
 					});
 					$(".statistics_button").click(function(){
-						statistics_button(this,select_id,showModel);
+						if(confirm("确定要统计吗?")){
+							statistics_button(this,select_id,showModel);
+						}
 					})
 					$("#fail_num_table").append("<div class='resultpage' style=''>"+"<a id='yichang_up_page' style='cursor:pointer'>«</a>"+"<span id='up_pages'></span>"+"<span class='current'>"+p+"</span>"+"<span id='down_pages'></span>"+"<a id='yichang_down_page' style='cursor:pointer'>»</a>"+"<span class='pages-number'>共"+countPageNum+"页</span>"+"<span>到第<select id='select_page_yichang'></select>页</span>"+"</div>");
+					$.openDOMWindow({
+						loader:1,
+						loaderHeight:16,
+						loaderWidth:17,
+						windowSourceID:'#fail_num_win'
+					});
 				  break;
 				case 2:
-					var showDevPageArr=data['showDevPageArr'];
 					$.each(showDevPageArr, function(i,item){
 						$("#unfind_num_list").append("<li class='select_li'><span class='span-1'>"+item['reg_date']+"</span><span class='span-1'>"+
 						item['mac']+"</span><span class='span-1'>"+
@@ -482,6 +494,12 @@
 						item['android_num']+"</span></li>");
 					});
 					$("#unfind_num_table").append("<div class='resultpage' style=''>"+"<a id='yichang_up_page' style='cursor:pointer'>«</a>"+"<span id='up_pages'></span>"+"<span class='current'>"+p+"</span>"+"<span id='down_pages'></span>"+"<a id='yichang_down_page' style='cursor:pointer'>»</a>"+"<span class='pages-number'>共"+countPageNum+"页</span>"+"<span>到第<select id='select_page_yichang'></select>页</span>"+"</div>");
+					$.openDOMWindow({
+						loader:1,
+						loaderHeight:16,
+						loaderWidth:17,
+						windowSourceID:'#unfind_num_win'
+					});
 				  break;
 				default:
 					alert("请求错误");
@@ -571,6 +589,36 @@
 			}
 		});
 	}
+	//渠道自动补全
+	function channel_name_blurry()
+	{
+		var handleUrl = "<?php echo U('channel/Channel/channelnameBlurrySelect');?>";
+		var channel_name = '';
+		$.getJSON(handleUrl,{},
+			function (data){
+				var str = data;
+				$("#channel_name").bigAutocomplete({width:150,data:data,callback:function(data){}});
+			}
+			,'json'
+		);
+	}
+	//网点自动补全
+	function place_name_blurry()
+	{
+		var handleUrl = "<?php echo U('channel/Place/placenameBlurrySelect');?>";
+		var place_name = '';
+		$.getJSON(handleUrl,{},
+			function (data){
+				var str = data;
+				$("#place_name").bigAutocomplete({width:150,data:data,callback:function(data){}});
+			}
+			,'json'
+		);
+	};
+	$(document).ready(function () {
+		channel_name_blurry();
+		place_name_blurry();
+	});
 </script>
 
 

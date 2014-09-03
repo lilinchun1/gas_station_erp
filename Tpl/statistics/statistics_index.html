@@ -46,13 +46,7 @@
                                 <select name="channel_city id="channel_second_type_sel" class="channel-select-min">
                                     <option value="">城市</option>
                                 </select>
-                                <label for="channel-class1" class="">渠道类型</label>
-                                <select name="channel_first_type_sel" id="channel-class1" class="channel-select-min">
-                                    <option value="">全部</option>
-                                </select>
-                                <select name="channel_second_type_sel" id="channel_second_type_sel" class="channel-select-min">
-                                    <option value="">全部</option>
-                                </select>
+
                                 <label for="channel-org-name" class="">渠道名称</label>
                                 <input type="text" name="channel-org-name" id="channel-org-name"  class="input-org-info"
                                        value=""/>
@@ -64,12 +58,11 @@
                                 <label for="channel-org-name" class="">加油站编号</label>
                                 <input type="text" name="channel-org-name" id="channel-org-name"  class="input-org-info"
                                        value=""/>
-                                <input type="radio" name="period" id="month" value='month' <if condition="'month' eq $_GET['period']">checked</if>/>
+                                <input class="lb-radio" type="radio" name="period" id="month" value='month' <if condition="'month' eq $_GET['period']">checked</if>/>
                                 <label for="month">按月统计</label>
-                                <input type="radio" name="period" id="week" value='week' <if condition="'week' eq $_GET['period']">checked</if>/>
-                                <label for="week">按周统计</label>
-                                <input type="radio" name="period" id="day" value='day' <if condition="'day' eq $_GET['period']">checked</if>/>
-                                <label for="day">按天统计</label>
+
+                                <input class="lb-radio" type="radio" name="period" id="day" value='day' <if condition="'day' eq $_GET['period']">checked</if>/>
+                                <label for="day">按日统计</label>
                                 <input type="text" name="contract_end_time_1" id="contract_end_time_1" class="input-org-info"
                                        value="{$_GET['contract_end_time_1']}" onClick="WdatePicker()"/>
                                 &nbsp;至&nbsp;
@@ -95,133 +88,39 @@
                                 <div id="container_table" style="min-width: 400px; height: 350px; margin: 0 auto"></div>
                             </div>
                             <div class="list-wrap-statistics">
-                                <div class="bingtu">
-                                    <div class="bingtu-tt">
-                                        安装量分析
-                                    </div>
-									<div id="dabing_container" style="min-width:200px;height: 325px"></div>
-                                </div>
-                                <div class="role-table w66p">
-                                    <div class="data-log">
-                                        <h3>安装量明细<input type="submit" class="role-control-btn" value="导出" /></h3>
 
+                                <div class="role-table">
+                                    <div class="data-log">
+                                        <h3>安装量明细<input type="submit" class="role-control-btn fr mgr10" value="导出" /></h3>
                                     </div>
-                                    <ul class="statistics-list">
+                                    <ul class="statistics-list statistics-index-list">
                                         <li>
-                                            <span class='span-1'><b>日期</b></span>
-                                            <span class='span-1'><b>安装总量</b></span>
-                                            <span class='span-1'><b>ios安装量</b></span>
-                                            <span class='span-1'><b>Android安装量</b></span>
-                                            <span class='span-1'><b>游戏</b></span>
-                                            <span class='span-1'><b>应用</b></span>
-                                            <span class='span-1'><b>图书</b></span>
+                                            <span class='span-2'><b>日期</b></span>
+                                            <span class='span-2'><b>安装总量</b></span>
+                                            <span class='span-2'><b>成功安装总量</b></span>
+                                            <span class='span-2'><b>成功转化率</b></span>
+                                            <span class='span-2'><b>ios安装量</b></span>
+                                            <span class='span-2'><b>Android安装量</b></span>
+                                            <span class='span-2'><b>强充安装量</b></span>
+                                            <span class='span-2'><b>快充安装量</b></span>
+                                            <span class='span-2'><b>普通安装量</b></span>
+                                            <span class='span-2'><b>游戏</b></span>
+                                            <span class='span-2'><b>应用</b></span>
+                                            <span class='span-2'><b>图书</b></span>
                                         </li>
                                         <li>
-                                            <span class='span-1'>11111111</span>
-                                            <span class='span-1'>22222222</span>
-                                            <span class='span-1'>33333333</span>
-                                            <span class='span-1'>44444444</span>
-                                            <span class='span-1'>55555555</span>
-                                            <span class='span-1'>66666666</span>
-                                            <span class='span-1'>77777777</span>
-                                        </li>
-                                        <li>
-                                            <span class='span-1'>11111111</span>
-                                            <span class='span-1'>22222222</span>
-                                            <span class='span-1'>33333333</span>
-                                            <span class='span-1'>44444444</span>
-                                            <span class='span-1'>55555555</span>
-                                            <span class='span-1'>66666666</span>
-                                            <span class='span-1'>77777777</span>
-                                        </li>
-                                        <li>
-                                            <span class='span-1'>11111111</span>
-                                            <span class='span-1'>22222222</span>
-                                            <span class='span-1'>33333333</span>
-                                            <span class='span-1'>44444444</span>
-                                            <span class='span-1'>55555555</span>
-                                            <span class='span-1'>66666666</span>
-                                            <span class='span-1'>77777777</span>
-                                        </li><li>
-                                        <span class='span-1'>11111111</span>
-                                        <span class='span-1'>22222222</span>
-                                        <span class='span-1'>33333333</span>
-                                        <span class='span-1'>44444444</span>
-                                        <span class='span-1'>55555555</span>
-                                        <span class='span-1'>66666666</span>
-                                        <span class='span-1'>77777777</span>
-                                    </li>
-                                        <li>
-                                            <span class='span-1'>11111111</span>
-                                            <span class='span-1'>22222222</span>
-                                            <span class='span-1'>33333333</span>
-                                            <span class='span-1'>44444444</span>
-                                            <span class='span-1'>55555555</span>
-                                            <span class='span-1'>66666666</span>
-                                            <span class='span-1'>77777777</span>
-                                        </li>
-                                        <li>
-                                            <span class='span-1'>11111111</span>
-                                            <span class='span-1'>22222222</span>
-                                            <span class='span-1'>33333333</span>
-                                            <span class='span-1'>44444444</span>
-                                            <span class='span-1'>55555555</span>
-                                            <span class='span-1'>66666666</span>
-                                            <span class='span-1'>77777777</span>
-                                        </li>
-                                        <li>
-                                            <span class='span-1'>11111111</span>
-                                            <span class='span-1'>22222222</span>
-                                            <span class='span-1'>33333333</span>
-                                            <span class='span-1'>44444444</span>
-                                            <span class='span-1'>55555555</span>
-                                            <span class='span-1'>66666666</span>
-                                            <span class='span-1'>77777777</span>
-                                        </li>
-                                        <li>
-                                            <span class='span-1'>11111111</span>
-                                            <span class='span-1'>22222222</span>
-                                            <span class='span-1'>33333333</span>
-                                            <span class='span-1'>44444444</span>
-                                            <span class='span-1'>55555555</span>
-                                            <span class='span-1'>66666666</span>
-                                            <span class='span-1'>77777777</span>
-                                        </li>
-                                        <li>
-                                            <span class='span-1'>11111111</span>
-                                            <span class='span-1'>22222222</span>
-                                            <span class='span-1'>33333333</span>
-                                            <span class='span-1'>44444444</span>
-                                            <span class='span-1'>55555555</span>
-                                            <span class='span-1'>66666666</span>
-                                            <span class='span-1'>77777777</span>
-                                        </li>
-                                        <li>
-                                            <span class='span-1'>11111111</span>
-                                            <span class='span-1'>22222222</span>
-                                            <span class='span-1'>33333333</span>
-                                            <span class='span-1'>44444444</span>
-                                            <span class='span-1'>55555555</span>
-                                            <span class='span-1'>66666666</span>
-                                            <span class='span-1'>77777777</span>
-                                        </li>
-                                        <li>
-                                            <span class='span-1'>11111111</span>
-                                            <span class='span-1'>22222222</span>
-                                            <span class='span-1'>33333333</span>
-                                            <span class='span-1'>44444444</span>
-                                            <span class='span-1'>55555555</span>
-                                            <span class='span-1'>66666666</span>
-                                            <span class='span-1'>77777777</span>
-                                        </li>
-                                        <li>
-                                            <span class='span-1'>11111111</span>
-                                            <span class='span-1'>22222222</span>
-                                            <span class='span-1'>33333333</span>
-                                            <span class='span-1'>44444444</span>
-                                            <span class='span-1'>55555555</span>
-                                            <span class='span-1'>66666666</span>
-                                            <span class='span-1'>77777777</span>
+                                            <span class='span-2'>11111111</span>
+                                            <span class='span-2'>22222222</span>
+                                            <span class='span-2'>33333333</span>
+                                            <span class='span-2'>44444444</span>
+                                            <span class='span-2'>55555555</span>
+                                            <span class='span-2'>66666666</span>
+                                            <span class='span-2'>77777777</span>
+                                            <span class='span-2'>77777777</span>
+                                            <span class='span-2'>77777777</span>
+                                            <span class='span-2'>77777777</span>
+                                            <span class='span-2'>77777777</span>
+                                            <span class='span-2'>77777777</span>
                                         </li>
                                     </ul>
                                 </div>

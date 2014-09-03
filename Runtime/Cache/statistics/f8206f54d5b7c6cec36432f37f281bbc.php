@@ -121,11 +121,11 @@
                 <label for="channel-org-name" class="">加油站编号</label>
                 <input type="text" name="channel-org-name" id="channel-org-name"  class="input-org-info"
                        value=""/>
-                <input type="radio" name="period" id="month"/>
+                <input type="radio" class="lb-radio" name="period" id="month"/>
                 <label for="month">按月统计</label>
-                <input type="radio" name="period" id="week"/>
+                <input type="radio" class="lb-radio" name="period" id="week"/>
                 <label for="week">按周统计</label>
-                <input type="radio" name="period" id="day"/>
+                <input type="radio" class="lb-radio" name="period" id="day"/>
                 <label for="day">按天统计</label>
                 <input type="text" name="contract_end_time_1" id="contract_end_time_1" class="input-org-info"
                        value="<?php echo ($_GET['contract_end_time_1']); ?>" onClick="WdatePicker()"/>
