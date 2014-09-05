@@ -1,7 +1,7 @@
 <?php if (!defined('THINK_PATH')) exit();?><!doctype html>
 <html lang="zh-CN">
 <head>
-    <meta charset="UTF-8">
+	<meta charset="UTF-8">
     <title>渠道信息</title>
     <link rel="stylesheet" href="../../Public/css/configuration.css"/>
 	<link rel="stylesheet" href="__PUBLIC__/css/configuration.css"/>
@@ -28,20 +28,29 @@
             </ul>
         </div>
         <div class="right">
-            <a href="javascript:void(0);" onclick="show_user_logout()">退出系统</a>
-        </div>
+			<a href="javascript:void(0);" onclick="show_user_logout()">退出系统</a>
+		</div>
     </div>
 </div>
-<div id="nav">
-    <ul class="main-nav" id="j-nav-active">
-        <li class="url_link" url="<?php echo U('monitoring/Index/station');?>"><a href="<?php echo U('monitoring/Index/station');?>">加油站监控</a></li>
-        <li class="url_link" url="<?php echo U('channel/Channel/index');?>"><a href="<?php echo U('channel/Channel/index');?>">渠道管理</a></li>
-        <!-- <li class="url_link" url="<?php echo U('management/Index/importingApp');?>"><a href="<?php echo U('management/Index/importingApp');?>">运营管理</a></li> -->
-        <li class="url_link" url="<?php echo U('statistics/Index/index');?>"><a href="<?php echo U('statistics/Index/index');?>">统计分析</a></li>
-     <!--   <li class="url_link" url="<?php echo U('ad/Index/index');?>"><a href="<?php echo U('ad/Index/index');?>">广告管理</a></li> -->
-        <li class="url_link" url="<?php echo U('configuration/Org/index');?>"><a href="<?php echo U('configuration/Org/index');?>">系统设置</a></li>
-    </ul>
+<div id="nav" class="top_link">
+    <ul class="main-nav" id="j-nav-active"></ul>
 </div>
+<SCRIPT type="text/javascript">
+var getTopLink = "<?php echo U('configuration/User/getTopLink');?>";
+$.ajax({
+	url            : getTopLink,
+	type           : "get",
+	dataType       : "json",
+	async          : false,
+	success        : function(data, textStatus){
+    	$(".top_link ul li").remove();
+        $.each(data,function(i,n){
+        	$(".top_link ul").append("<li class='url_link topLink' url=\"'"+n['url']+"'\"><a href='"+n['url']+"'>"+n['top_name']+"</a></li>");
+        });
+    }
+
+});
+</SCRIPT>
 </div>
 
 <div id="container">
@@ -50,9 +59,9 @@
 <ul class="aside-nav">
     <li class="aside-nav-nth1"><a>渠道管理<i class="j-show-list">-</i></a>
         <ul>
-            <li class="url_link" url="<?php echo U('channel/Channel/index');?>"><a href="<?php echo U('channel/Channel/index');?>"><input type="button" value="渠道信息"></a></li>
-            <li class="url_link" url="<?php echo U('channel/Place/index');?>"><a href="<?php echo U('channel/Place/index');?>"><input type="button" class="" value="网点信息"></a></li>
-            <li class="url_link" url="<?php echo U('channel/Device/index');?>"><a href="<?php echo U('channel/Device/index');?>"><input type="button" class="" value="加油站信息"></a></li>
+            <li class="url_link" url="'<?php echo U('channel/Channel/index');?>'"><a href="<?php echo U('channel/Channel/index');?>"><input type="button" value="渠道信息"></a></li>
+            <li class="url_link" url="'<?php echo U('channel/Place/index');?>'"><a href="<?php echo U('channel/Place/index');?>"><input type="button" class="" value="网点信息"></a></li>
+            <li class="url_link" url="'<?php echo U('channel/Device/index');?>'"><a href="<?php echo U('channel/Device/index');?>"><input type="button" class="" value="加油站信息"></a></li>
         </ul>
     </li>
 </ul>
@@ -226,7 +235,7 @@
 
 <script>
     window.onload=function(){
-        headAct();
+        //headAct();
 
     };
 
@@ -438,9 +447,7 @@
 
             <p>
                 <button type="button" class="alert-btn2" id="submit_add_channel">保存</button>
-				<a href="." class="closeDOMWindow">
-					<button type="button" class="alert-btn2">关闭</button>
-				</a>
+				<button type="button" class="alert-btn2" onclick="window.location=window.location">关闭</button>
             </p>
     </div>
 </div>
@@ -521,9 +528,7 @@
 
             <p>
                 <button type="button" class="alert-btn2" id="submit_change_channel">保存</button>
-				<a href="." class="closeDOMWindow">
-					<button type="button" class="alert-btn2">关闭</button>
-				</a>
+				<button type="button" class="alert-btn2" onclick="window.location=window.location">关闭</button>
             </p>
         </form>
     </div>
@@ -959,11 +964,11 @@
 				alert("请输入渠道名称");
 				return false;
 			}
-			if(change_channel_first_type_sel==""){
+			if(dst_channel_first_type_sel==""){
 				alert("请选择渠道类型");
 				return false;				
 			}
-			if(change_channel_second_type_sel==""){
+			if(dst_channel_second_type_sel==""){
 				alert("请选择渠道属性");
 				return false;				
 			}
