@@ -794,27 +794,30 @@ a, .alert-btn, .role-control-btn, .alert-btn2, .alert-btn3, .alert-btn4, .alert-
 /* line 574, ../sass/configuration.scss */
 .role-table-list2 li span:nth-child(2) {
   width: 120px; }
+/* line 577, ../sass/configuration.scss */
+.role-table-list2 li span:nth-of-type(3) {
+  width: 278px; }
 
-/* line 578, ../sass/configuration.scss */
+/* line 581, ../sass/configuration.scss */
 .alert-user-add-con {
   padding: 20px 0 0 15px; }
-  /* line 580, ../sass/configuration.scss */
+  /* line 583, ../sass/configuration.scss */
   .alert-user-add-con label {
     padding-right: 20px;
     width: 100px;
     display: inline-block;
     text-align: right; }
-  /* line 585, ../sass/configuration.scss */
+  /* line 588, ../sass/configuration.scss */
   .alert-user-add-con p {
     margin-bottom: 20px; }
-  /* line 587, ../sass/configuration.scss */
+  /* line 590, ../sass/configuration.scss */
   .alert-user-add-con .sex {
     width: 10px; }
-  /* line 589, ../sass/configuration.scss */
+  /* line 592, ../sass/configuration.scss */
   .alert-user-add-con .change-sex {
     margin-left: 10px; }
 
-/* line 592, ../sass/configuration.scss */
+/* line 595, ../sass/configuration.scss */
 .channel-wz-a {
   margin-top: -10px;
   float: right;
@@ -822,22 +825,22 @@ a, .alert-btn, .role-control-btn, .alert-btn2, .alert-btn3, .alert-btn4, .alert-
   height: 20px;
   color: #5c97ee; }
 
-/* line 600, ../sass/configuration.scss */
+/* line 603, ../sass/configuration.scss */
 .user-checkbox-list {
   padding-left: 72px;
   padding-bottom: 10px; }
-  /* line 603, ../sass/configuration.scss */
+  /* line 606, ../sass/configuration.scss */
   .user-checkbox-list input {
     float: left;
     margin-right: 5px; }
-  /* line 606, ../sass/configuration.scss */
+  /* line 609, ../sass/configuration.scss */
   .user-checkbox-list li {
     margin-bottom: 5px;
     width: 150px;
     display: inline-block; }
 
 /*登陆页面*/
-/* line 614, ../sass/configuration.scss */
+/* line 617, ../sass/configuration.scss */
 .wrap {
   position: fixed;
   top: 50%;
@@ -851,7 +854,7 @@ a, .alert-btn, .role-control-btn, .alert-btn2, .alert-btn3, .alert-btn4, .alert-
   background: -o-linear-gradient(left, #4bb4ff 0%, #2a70d8 100%);
   background: linear-gradient(left, #4bb4ff 0%, #2a70d8 100%); }
 
-/* line 627, ../sass/configuration.scss */
+/* line 630, ../sass/configuration.scss */
 .logo-330 {
   float: right;
   margin-right: 8%;
@@ -860,12 +863,12 @@ a, .alert-btn, .role-control-btn, .alert-btn2, .alert-btn3, .alert-btn4, .alert-
   height: 30px;
   background: url(../../Public/image/jn-logo.png) 0 0 no-repeat; }
 
-/* line 635, ../sass/configuration.scss */
+/* line 638, ../sass/configuration.scss */
 #tishi {
   float: right;
   margin-right: 40px; }
 
-/* line 638, ../sass/configuration.scss */
+/* line 641, ../sass/configuration.scss */
 #index-login {
   position: relative;
   margin: 0 auto;
@@ -873,7 +876,7 @@ a, .alert-btn, .role-control-btn, .alert-btn2, .alert-btn3, .alert-btn4, .alert-
   min-width: 960px;
   height: 450px;
   /*background: url(../../Public/image/longin_bg.png) center right no-repeat;*/ }
-  /* line 645, ../sass/configuration.scss */
+  /* line 648, ../sass/configuration.scss */
   #index-login h1 {
     position: absolute;
     top: -70px;
@@ -883,7 +886,7 @@ a, .alert-btn, .role-control-btn, .alert-btn2, .alert-btn3, .alert-btn4, .alert-
     color: #000000;
     text-align: center;
     font-weight: normal; }
-  /* line 655, ../sass/configuration.scss */
+  /* line 658, ../sass/configuration.scss */
   #index-login span {
     position: absolute;
     top: -100px;
@@ -893,7 +896,7 @@ a, .alert-btn, .role-control-btn, .alert-btn2, .alert-btn3, .alert-btn4, .alert-
     display: block;
     background: url(../../Public/image/index-logo.png) 0 0 no-repeat; }
 
-/* line 666, ../sass/configuration.scss */
+/* line 669, ../sass/configuration.scss */
 .index-login-con {
   position: absolute;
   z-index: 2;
@@ -903,17 +906,17 @@ a, .alert-btn, .role-control-btn, .alert-btn2, .alert-btn3, .alert-btn4, .alert-
   width: 420px;
   background: rgba(62, 163, 242, 0.6);
   border-radius: 20px; }
-  /* line 676, ../sass/configuration.scss */
+  /* line 679, ../sass/configuration.scss */
   .index-login-con p {
     margin-bottom: 20px;
     margin-left: 10px; }
-    /* line 679, ../sass/configuration.scss */
+    /* line 682, ../sass/configuration.scss */
     .index-login-con p img {
       vertical-align: middle; }
-    /* line 680, ../sass/configuration.scss */
+    /* line 683, ../sass/configuration.scss */
     .index-login-con p a {
       color: #ffffff; }
-  /* line 683, ../sass/configuration.scss */
+  /* line 686, ../sass/configuration.scss */
   .index-login-con label {
     float: left;
     padding-right: 10px;
@@ -922,7 +925,7 @@ a, .alert-btn, .role-control-btn, .alert-btn2, .alert-btn3, .alert-btn4, .alert-
     text-align: right;
     font-size: 16px;
     color: #fff; }
-  /* line 692, ../sass/configuration.scss */
+  /* line 695, ../sass/configuration.scss */
   .index-login-con input {
     width: 200px;
     height: 30px;
@@ -931,16 +934,16 @@ a, .alert-btn, .role-control-btn, .alert-btn2, .alert-btn3, .alert-btn4, .alert-
     color: #ffffff;
     border: 0 none;
     text-indent: 10px; }
-  /* line 702, ../sass/configuration.scss */
+  /* line 705, ../sass/configuration.scss */
   .index-login-con button {
     width: 202px;
     height: 30px;
     margin-left: 110px; }
-  /* line 708, ../sass/configuration.scss */
+  /* line 711, ../sass/configuration.scss */
   .index-login-con .haf-input {
     width: 80px; }
 
-/* line 711, ../sass/configuration.scss */
+/* line 714, ../sass/configuration.scss */
 .login-tt-head {
   margin-bottom: 20px;
   height: 40px;
@@ -949,7 +952,7 @@ a, .alert-btn, .role-control-btn, .alert-btn2, .alert-btn3, .alert-btn4, .alert-
   line-height: 60px;
   background: rgba(3, 87, 174, 0.6); }
 
-/* line 719, ../sass/configuration.scss */
+/* line 722, ../sass/configuration.scss */
 .index-login-con-tt1 {
   margin-left: 120px;
   font-size: 22px;
@@ -957,28 +960,28 @@ a, .alert-btn, .role-control-btn, .alert-btn2, .alert-btn3, .alert-btn4, .alert-
   font-weight: normal;
   font-family: "SimHei"; }
 
-/* line 726, ../sass/configuration.scss */
+/* line 729, ../sass/configuration.scss */
 .index-login-con-tt2 {
   font-size: 16px;
   color: #fff;
   font-weight: normal; }
 
 /*登陆默认页*/
-/* line 732, ../sass/configuration.scss */
+/* line 735, ../sass/configuration.scss */
 .default-index {
   position: relative;
   min-height: 820px;
   overflow: hidden;
   background: #e8ebef; }
 
-/* line 737, ../sass/configuration.scss */
+/* line 740, ../sass/configuration.scss */
 .default-index-tt {
   margin: 40px auto 0 auto;
   width: 762px;
   height: 65px;
   background: url(../../Public/image/defult-tt.gif) 0 0 no-repeat; }
 
-/* line 743, ../sass/configuration.scss */
+/* line 746, ../sass/configuration.scss */
 .pic-dp {
   margin-left: 4%;
   width: 343px;
@@ -986,18 +989,18 @@ a, .alert-btn, .role-control-btn, .alert-btn2, .alert-btn3, .alert-btn4, .alert-
   float: left;
   background: url(../../Public/image/index-logo.png) 0 0 no-repeat; }
 
-/* line 750, ../sass/configuration.scss */
+/* line 753, ../sass/configuration.scss */
 .default-index-wz {
   float: right;
   margin-right: 20%;
   margin-top: 200px;
   width: 500px; }
-  /* line 756, ../sass/configuration.scss */
+  /* line 759, ../sass/configuration.scss */
   .default-index-wz h1 {
     width: 434px;
     height: 50px;
     background: url(../../Public/image/defult-tt2.gif) 0 0 no-repeat; }
-  /* line 760, ../sass/configuration.scss */
+  /* line 763, ../sass/configuration.scss */
   .default-index-wz em {
     margin-top: 20px;
     width: 434px;
@@ -1006,26 +1009,26 @@ a, .alert-btn, .role-control-btn, .alert-btn2, .alert-btn3, .alert-btn4, .alert-
     line-height: 30px; }
 
 /*渠道信息页*/
-/* line 769, ../sass/configuration.scss */
+/* line 772, ../sass/configuration.scss */
 .channel-select-min, .select_province, .select_city {
   padding: 2px 0;
   margin-right: 10px;
   width: 90px;
   text-indent: 0; }
 
-/* line 776, ../sass/configuration.scss */
+/* line 779, ../sass/configuration.scss */
 .channel-select {
   margin-right: 10px;
   text-indent: 0; }
 
-/* line 781, ../sass/configuration.scss */
+/* line 784, ../sass/configuration.scss */
 .channel-index-btns {
   padding-bottom: 20px; }
-  /* line 782, ../sass/configuration.scss */
+  /* line 785, ../sass/configuration.scss */
   .channel-index-btns input {
     margin: 5px 6px 5px 0; }
 
-/* line 785, ../sass/configuration.scss */
+/* line 788, ../sass/configuration.scss */
 .channel-tab {
   margin: 0 auto;
   width: 98%;
@@ -1035,7 +1038,7 @@ a, .alert-btn, .role-control-btn, .alert-btn2, .alert-btn3, .alert-btn4, .alert-
   /* border: 1px solid $font-h-color;*/
   line-height: 30px;
   /* background: $font-h-color;*/ }
-  /* line 794, ../sass/configuration.scss */
+  /* line 797, ../sass/configuration.scss */
   .channel-tab li {
     margin-right: 1px;
     border-top-left-radius: 5px;
@@ -1049,26 +1052,26 @@ a, .alert-btn, .role-control-btn, .alert-btn2, .alert-btn3, .alert-btn4, .alert-
     float: left;
     cursor: pointer;
     background: #dedede; }
-  /* line 809, ../sass/configuration.scss */
+  /* line 812, ../sass/configuration.scss */
   .channel-tab .on {
     background: #5c97ee;
     color: #fff; }
 
 /*加油站信息页*/
-/* line 816, ../sass/configuration.scss */
+/* line 819, ../sass/configuration.scss */
 .input-mac {
   width: 30px; }
 
-/* line 820, ../sass/configuration.scss */
+/* line 823, ../sass/configuration.scss */
 .device-point-pic {
   overflow: hidden; }
-  /* line 822, ../sass/configuration.scss */
+  /* line 825, ../sass/configuration.scss */
   .device-point-pic h4 {
     padding-left: 15px;
     margin-bottom: 10px;
     font-weight: bolder;
     font-size: 14px; }
-  /* line 827, ../sass/configuration.scss */
+  /* line 830, ../sass/configuration.scss */
   .device-point-pic span {
     margin-right: 10px;
     width: 110px;
@@ -1078,7 +1081,7 @@ a, .alert-btn, .role-control-btn, .alert-btn2, .alert-btn3, .alert-btn4, .alert-
     float: left;
     background: #fbfbfb;
     cursor: pointer; }
-    /* line 836, ../sass/configuration.scss */
+    /* line 839, ../sass/configuration.scss */
     .device-point-pic span:before {
       content: '点击添加图片';
       width: 110px;
@@ -1086,112 +1089,112 @@ a, .alert-btn, .role-control-btn, .alert-btn2, .alert-btn3, .alert-btn4, .alert-
       line-height: 75px;
       display: block;
       text-align: center; }
-    /* line 842, ../sass/configuration.scss */
+    /* line 845, ../sass/configuration.scss */
     .device-point-pic span img {
       width: 100%; }
 
 /*app刊例维护*/
-/* line 848, ../sass/configuration.scss */
+/* line 851, ../sass/configuration.scss */
 .maintain-download {
   padding-left: 5px;
   color: #5c97ee;
   text-decoration: underline; }
 
 /*预警设置页*/
-/* line 854, ../sass/configuration.scss */
+/* line 857, ../sass/configuration.scss */
 .alert-set-tab {
   padding-top: 40px; }
 
-/* line 856, ../sass/configuration.scss */
+/* line 859, ../sass/configuration.scss */
 .set1 {
   margin: 0 auto;
   padding: 5%;
   width: 88%;
   border: 1px solid #dadada; }
-  /* line 861, ../sass/configuration.scss */
+  /* line 864, ../sass/configuration.scss */
   .set1 em {
     padding-left: 10px; }
-  /* line 863, ../sass/configuration.scss */
+  /* line 866, ../sass/configuration.scss */
   .set1 p {
     margin-bottom: 10px; }
-  /* line 865, ../sass/configuration.scss */
+  /* line 868, ../sass/configuration.scss */
   .set1 label {
     padding: 0 10px; }
 
 /*监控平台页*/
-/* line 870, ../sass/configuration.scss */
+/* line 873, ../sass/configuration.scss */
 .station-con {
   margin: 0 auto;
   width: 98%;
   background: #ffffff; }
 
-/* line 876, ../sass/configuration.scss */
+/* line 879, ../sass/configuration.scss */
 .station-control {
   min-width: 902px;
   padding: 0 30px;
   overflow: hidden; }
 
-/* line 882, ../sass/configuration.scss */
+/* line 885, ../sass/configuration.scss */
 .station-control-list {
   overflow: hidden;
   width: 100%; }
-  /* line 885, ../sass/configuration.scss */
+  /* line 888, ../sass/configuration.scss */
   .station-control-list li {
     margin-right: 1%;
     float: left;
     width: 24%; }
-    /* line 892, ../sass/configuration.scss */
+    /* line 895, ../sass/configuration.scss */
     .station-control-list li h4 {
       font-size: 18px;
       padding-left: 40px; }
-    /* line 897, ../sass/configuration.scss */
+    /* line 900, ../sass/configuration.scss */
     .station-control-list li span {
       float: left;
       margin: 0 0 0 10%;
       width: 100px;
       height: 100px; }
-      /* line 903, ../sass/configuration.scss */
+      /* line 906, ../sass/configuration.scss */
       .station-control-list li span img {
         width: 100%; }
-    /* line 906, ../sass/configuration.scss */
+    /* line 909, ../sass/configuration.scss */
     .station-control-list li .station-zhuangtai {
       float: left;
       width: 40%;
       height: 100px;
       overflow: hidden; }
-      /* line 912, ../sass/configuration.scss */
+      /* line 915, ../sass/configuration.scss */
       .station-control-list li .station-zhuangtai [class^="icon-"], .station-control-list li .station-zhuangtai [class*=" icon-"] {
         font-size: 20px; }
-      /* line 915, ../sass/configuration.scss */
+      /* line 918, ../sass/configuration.scss */
       .station-control-list li .station-zhuangtai dt {
         height: 35px;
         line-height: 35px;
         cursor: pointer; }
-        /* line 919, ../sass/configuration.scss */
+        /* line 922, ../sass/configuration.scss */
         .station-control-list li .station-zhuangtai dt b, .station-control-list li .station-zhuangtai dt em {
           padding-left: 10px; }
 
-/* line 926, ../sass/configuration.scss */
+/* line 929, ../sass/configuration.scss */
 .green-color {
   color: #5acc27; }
 
-/* line 929, ../sass/configuration.scss */
+/* line 932, ../sass/configuration.scss */
 .red-color {
   color: #cc0b12; }
 
-/* line 932, ../sass/configuration.scss */
+/* line 935, ../sass/configuration.scss */
 .yellow-color {
   color: #ffaf04; }
 
-/* line 935, ../sass/configuration.scss */
+/* line 938, ../sass/configuration.scss */
 .ccc-color {
   color: #cccccc; }
 
-/* line 938, ../sass/configuration.scss */
+/* line 941, ../sass/configuration.scss */
 .pdl10 {
   padding: 0 10px; }
 
-/* line 941, ../sass/configuration.scss */
+/* line 944, ../sass/configuration.scss */
 .station-state-list {
   padding: 0 0;
   margin: 10px auto 0 auto;
@@ -1200,24 +1203,24 @@ a, .alert-btn, .role-control-btn, .alert-btn2, .alert-btn3, .alert-btn4, .alert-
   border: 1px solid #dadada;
   overflow: hidden; }
 
-/* line 949, ../sass/configuration.scss */
+/* line 952, ../sass/configuration.scss */
 .station-state-list-cx {
   margin-top: 15px;
   padding-left: 30px;
   height: 30px;
   overflow: hidden; }
 
-/* line 958, ../sass/configuration.scss */
+/* line 961, ../sass/configuration.scss */
 #j-station-sh2 {
   display: none; }
 
-/* line 960, ../sass/configuration.scss */
+/* line 963, ../sass/configuration.scss */
 .station-state-tree1 {
   width: 200px;
   min-height: 172px;
   float: left; }
 
-/* line 967, ../sass/configuration.scss */
+/* line 970, ../sass/configuration.scss */
 .station-state-list-con li {
   margin-left: 200px;
   padding: 20px 0;
@@ -1226,32 +1229,32 @@ a, .alert-btn, .role-control-btn, .alert-btn2, .alert-btn3, .alert-btn4, .alert-
   overflow: hidden;
   border-bottom: 1px dashed #dadada; }
 
-/* line 975, ../sass/configuration.scss */
+/* line 978, ../sass/configuration.scss */
 .station-state-info {
   padding: 0 30px;
   height: 20px;
   line-height: 20px; }
-  /* line 979, ../sass/configuration.scss */
+  /* line 982, ../sass/configuration.scss */
   .station-state-info em {
     margin-right: 50px;
     font-size: 14px; }
 
-/* line 984, ../sass/configuration.scss */
+/* line 987, ../sass/configuration.scss */
 .point-pic {
   float: left;
   margin: 20px 0 0 30px;
   width: 130px;
   height: 120px;
   background: #ffffff; }
-  /* line 990, ../sass/configuration.scss */
+  /* line 993, ../sass/configuration.scss */
   .point-pic span {
     width: 130px;
     height: 100px;
     display: block; }
-    /* line 994, ../sass/configuration.scss */
+    /* line 997, ../sass/configuration.scss */
     .point-pic span img {
       width: 100%; }
-  /* line 997, ../sass/configuration.scss */
+  /* line 1000, ../sass/configuration.scss */
   .point-pic em {
     width: 130px;
     height: 20px;
@@ -1259,51 +1262,51 @@ a, .alert-btn, .role-control-btn, .alert-btn2, .alert-btn3, .alert-btn4, .alert-
     display: block;
     text-align: center; }
 
-/* line 1005, ../sass/configuration.scss */
+/* line 1008, ../sass/configuration.scss */
 .station-state-dl {
   padding-top: 10px;
   margin: 20px 0 0 20px;
   float: left;
   width: 90%; }
-  /* line 1011, ../sass/configuration.scss */
+  /* line 1014, ../sass/configuration.scss */
   .station-state-dl [class^="icon-"], .station-state-dl [class*=" icon-"] {
     font-size: 20px; }
-  /* line 1014, ../sass/configuration.scss */
+  /* line 1017, ../sass/configuration.scss */
   .station-state-dl .row-lt {
     width: 19%;
     float: left;
     border-right: 1px dashed #dadada;
     overflow: hidden; }
-  /* line 1019, ../sass/configuration.scss */
+  /* line 1022, ../sass/configuration.scss */
   .station-state-dl .row-lt-l {
     display: block;
     text-align: center;
     margin-bottom: 10px;
     height: 30px;
     line-height: 30px; }
-    /* line 1025, ../sass/configuration.scss */
+    /* line 1028, ../sass/configuration.scss */
     .station-state-dl .row-lt-l em {
       width: 100px;
       text-align: right;
       display: inline-block; }
-    /* line 1030, ../sass/configuration.scss */
+    /* line 1033, ../sass/configuration.scss */
     .station-state-dl .row-lt-l span {
       padding-left: 10px; }
 
-/* line 1034, ../sass/configuration.scss */
+/* line 1037, ../sass/configuration.scss */
 .table-state {
   height: 500px;
   overflow-y: auto;
   overflow-x: auto; }
 
-/* line 1038, ../sass/configuration.scss */
+/* line 1041, ../sass/configuration.scss */
 .station-list2-wz {
   width: 100%;
   min-width: 1800px; }
-  /* line 1042, ../sass/configuration.scss */
+  /* line 1045, ../sass/configuration.scss */
   .station-list2-wz li {
     display: table-row; }
-    /* line 1044, ../sass/configuration.scss */
+    /* line 1047, ../sass/configuration.scss */
     .station-list2-wz li span {
       width: 200px;
       padding-left: 10px;
@@ -1311,93 +1314,93 @@ a, .alert-btn, .role-control-btn, .alert-btn2, .alert-btn3, .alert-btn4, .alert-
       line-height: 25px;
       overflow: hidden;
       display: inline-block; }
-    /* line 1051, ../sass/configuration.scss */
+    /* line 1054, ../sass/configuration.scss */
     .station-list2-wz li:nth-child(2n) {
       background: #f6f6f6; }
-    /* line 1055, ../sass/configuration.scss */
+    /* line 1058, ../sass/configuration.scss */
     .station-list2-wz li:first-child span {
       font-weight: bold; }
 
-/* line 1060, ../sass/configuration.scss */
+/* line 1063, ../sass/configuration.scss */
 .mode-change {
   float: right;
   height: 25px;
   line-height: 25px; }
-  /* line 1064, ../sass/configuration.scss */
+  /* line 1067, ../sass/configuration.scss */
   .mode-change a {
     padding-right: 10px; }
-  /* line 1067, ../sass/configuration.scss */
+  /* line 1070, ../sass/configuration.scss */
   .mode-change .active {
     color: #5c97ee;
     font-weight: bold; }
 
-/* line 1071, ../sass/configuration.scss */
+/* line 1074, ../sass/configuration.scss */
 .kl-list {
   width: 820px;
   overflow: hidden;
   background: #ffffff; }
 
 /*版本升级*/
-/* line 1077, ../sass/configuration.scss */
+/* line 1080, ../sass/configuration.scss */
 .verup-alert-add {
   width: 800px;
   background: #ffffff; }
 
-/* line 1084, ../sass/configuration.scss */
+/* line 1087, ../sass/configuration.scss */
 .verup-alert-con {
   padding-bottom: 30px;
   width: 712px;
   overflow: hidden; }
 
-/* line 1088, ../sass/configuration.scss */
+/* line 1091, ../sass/configuration.scss */
 .verup-alert-con-left {
   padding: 20px 0 0 20px;
   float: left; }
-  /* line 1091, ../sass/configuration.scss */
+  /* line 1094, ../sass/configuration.scss */
   .verup-alert-con-left p {
     margin-bottom: 20px; }
 
-/* line 1094, ../sass/configuration.scss */
+/* line 1097, ../sass/configuration.scss */
 .verup-alert-con-right {
   margin-top: 10px;
   padding-left: 80px;
   float: left; }
 
-/* line 1098, ../sass/configuration.scss */
+/* line 1101, ../sass/configuration.scss */
 .alt-btn-sc {
   float: left;
   width: 100%; }
 
-/* line 1102, ../sass/configuration.scss */
+/* line 1105, ../sass/configuration.scss */
 .verup-tree-tab {
   height: 26px;
   line-height: 26px; }
-  /* line 1105, ../sass/configuration.scss */
+  /* line 1108, ../sass/configuration.scss */
   .verup-tree-tab a {
     margin-left: 60px;
     float: left; }
-  /* line 1108, ../sass/configuration.scss */
+  /* line 1111, ../sass/configuration.scss */
   .verup-tree-tab .active {
     color: #5c97ee;
     font-weight: bold; }
 
-/* line 1112, ../sass/configuration.scss */
+/* line 1115, ../sass/configuration.scss */
 .verup-alert-query {
   margin-bottom: 25px; }
 
-/* line 1114, ../sass/configuration.scss */
+/* line 1117, ../sass/configuration.scss */
 .verup-alert-list {
   padding-top: 30px; }
 
-/* line 1118, ../sass/configuration.scss */
+/* line 1121, ../sass/configuration.scss */
 .verup-list-con {
   display: table;
   border: 1px solid #dadada; }
-  /* line 1122, ../sass/configuration.scss */
+  /* line 1125, ../sass/configuration.scss */
   .verup-list-con li {
     height: 25px;
     display: table-row; }
-    /* line 1126, ../sass/configuration.scss */
+    /* line 1129, ../sass/configuration.scss */
     .verup-list-con li span {
       padding: 0 5px;
       width: 125px;
@@ -1405,11 +1408,11 @@ a, .alert-btn, .role-control-btn, .alert-btn2, .alert-btn3, .alert-btn4, .alert-
       line-height: 25px;
       display: inline-block;
       overflow: hidden; }
-    /* line 1135, ../sass/configuration.scss */
+    /* line 1138, ../sass/configuration.scss */
     .verup-list-con li:nth-child(2n) {
       background: #f6f6f6; }
 
-/* line 1140, ../sass/configuration.scss */
+/* line 1143, ../sass/configuration.scss */
 .verup-alert-close {
   float: right;
   width: 30px;
@@ -1417,42 +1420,42 @@ a, .alert-btn, .role-control-btn, .alert-btn2, .alert-btn3, .alert-btn4, .alert-
   text-align: center;
   cursor: pointer; }
 
-/* line 1147, ../sass/configuration.scss */
+/* line 1150, ../sass/configuration.scss */
 .role-inquire {
   min-width: 750px;
   padding: 0 30px; }
-  /* line 1150, ../sass/configuration.scss */
+  /* line 1153, ../sass/configuration.scss */
   .role-inquire input {
     width: 120px; }
 
-/* line 1153, ../sass/configuration.scss */
+/* line 1156, ../sass/configuration.scss */
 input.input-org-info, input.channel-select {
   margin-bottom: 5px; }
 
 @media screen and (max-width: 1300px) {
-  /* line 1157, ../sass/configuration.scss */
+  /* line 1160, ../sass/configuration.scss */
   input.input-org-info, input.channel-select {
     width: 90px;
     margin-bottom: 15px; }
 
-  /* line 1159, ../sass/configuration.scss */
+  /* line 1162, ../sass/configuration.scss */
   .head-tt {
     top: 15px;
     left: 380px; } }
-/* line 1164, ../sass/configuration.scss */
+/* line 1167, ../sass/configuration.scss */
 #forever {
   margin-top: 18px; }
 
-/* line 1166, ../sass/configuration.scss */
+/* line 1169, ../sass/configuration.scss */
 .j-show-list {
   padding-left: 15px; }
 
-/* line 1170, ../sass/configuration.scss */
+/* line 1173, ../sass/configuration.scss */
 .url_link {
   display: none; }
 
 /*page*/
-/* line 1175, ../sass/configuration.scss */
+/* line 1178, ../sass/configuration.scss */
 .resultpage {
   background-color: #fff;
   margin-top: 20px;
@@ -1460,7 +1463,7 @@ input.input-org-info, input.channel-select {
   text-align: center;
   z-index: 3; }
 
-/* line 1182, ../sass/configuration.scss */
+/* line 1185, ../sass/configuration.scss */
 .resultpage a {
   background-color: #fff;
   width: 32px;
@@ -1474,7 +1477,7 @@ input.input-org-info, input.channel-select {
   font-family: tahoma,arial,'Hiragino Sans GB',"\5b8b\4f53",sans-serif;
   font-size: 12px; }
 
-/* line 1195, ../sass/configuration.scss */
+/* line 1198, ../sass/configuration.scss */
 .resultpage .current {
   background-color: #f5f5f5;
   color: #999;
@@ -1489,17 +1492,17 @@ input.input-org-info, input.channel-select {
   font-family: tahoma,arial,'Hiragino Sans GB',"\5b8b\4f53",sans-serif;
   font-size: 12px; }
 
-/* line 1209, ../sass/configuration.scss */
+/* line 1212, ../sass/configuration.scss */
 .resultpage .pages-number {
   margin: 4px 20px 0 10px;
   text-align: center;
   font-size: 12px; }
 
-/* line 1214, ../sass/configuration.scss */
+/* line 1217, ../sass/configuration.scss */
 .resultpage :first-child {
   border: 1px solid #ddd; }
 
-/* line 1217, ../sass/configuration.scss */
+/* line 1220, ../sass/configuration.scss */
 .resultpage select {
   text-align: center;
   font-size: 12px;
@@ -1507,27 +1510,27 @@ input.input-org-info, input.channel-select {
   border: 1px solid #ddd; }
 
 /*page-end*/
-/* line 1225, ../sass/configuration.scss */
+/* line 1228, ../sass/configuration.scss */
 .role-table .tab-list-mw {
   min-width: 1080px; }
 
-/* line 1228, ../sass/configuration.scss */
+/* line 1231, ../sass/configuration.scss */
 #channel_num, #device_num {
   color: #ed130a; }
 
-/* line 1231, ../sass/configuration.scss */
+/* line 1234, ../sass/configuration.scss */
 #add_role_name_txt, #mod_rolename {
   width: 160px; }
 
-/* line 1234, ../sass/configuration.scss */
+/* line 1237, ../sass/configuration.scss */
 .alert-user-add-con input[text] {
   width: 150px; }
 
-/* line 1237, ../sass/configuration.scss */
+/* line 1240, ../sass/configuration.scss */
 .role_agent_id {
   width: 160px; }
 
-/* line 1241, ../sass/configuration.scss */
+/* line 1244, ../sass/configuration.scss */
 .logo-360 {
   position: absolute;
   top: 30px;
@@ -1536,12 +1539,12 @@ input.input-org-info, input.channel-select {
   height: 30px;
   background: url(../../Public/image/jn-logo.png) 0 0 no-repeat; }
 
-/* line 1249, ../sass/configuration.scss */
+/* line 1252, ../sass/configuration.scss */
 #j_del_ok {
   margin-left: 50px; }
 
 /*默认登陆页*/
-/* line 1253, ../sass/configuration.scss */
+/* line 1256, ../sass/configuration.scss */
 .default-tw {
   position: absolute;
   top: 0;
@@ -1555,72 +1558,72 @@ input.input-org-info, input.channel-select {
   border-radius: 5px;
   box-shadow: 0 0 15px rgba(189, 189, 189, 0.3); }
 
-/* line 1266, ../sass/configuration.scss */
+/* line 1269, ../sass/configuration.scss */
 .default-tw-tt, .default-tw-slide, .default-tw-news {
   margin: 0 auto;
   width: 920px; }
 
-/* line 1270, ../sass/configuration.scss */
+/* line 1273, ../sass/configuration.scss */
 .default-tw-tt {
   position: relative;
   margin-top: 15px;
   height: 90px;
   background: url(../image/line-bg.jpg) center bottom no-repeat; }
-  /* line 1276, ../sass/configuration.scss */
+  /* line 1279, ../sass/configuration.scss */
   .default-tw-tt h1 {
     font-size: 24px; }
-  /* line 1279, ../sass/configuration.scss */
+  /* line 1282, ../sass/configuration.scss */
   .default-tw-tt h2 {
     font-size: 20px; }
 
-/* line 1282, ../sass/configuration.scss */
+/* line 1285, ../sass/configuration.scss */
 .default-tw-slide {
   margin-top: 15px;
   height: 260px;
   background: white url(../image/1.jpg) 0 0 no-repeat; }
 
-/* line 1289, ../sass/configuration.scss */
+/* line 1292, ../sass/configuration.scss */
 .default-tw-news {
   margin-top: 30px; }
-  /* line 1292, ../sass/configuration.scss */
+  /* line 1295, ../sass/configuration.scss */
   .default-tw-news .news-left {
     width: 530px;
     height: 180px;
     float: left; }
-    /* line 1296, ../sass/configuration.scss */
+    /* line 1299, ../sass/configuration.scss */
     .default-tw-news .news-left b {
       font-size: 18px; }
-    /* line 1299, ../sass/configuration.scss */
+    /* line 1302, ../sass/configuration.scss */
     .default-tw-news .news-left p {
       padding-right: 30px;
       margin-top: 10px;
       line-height: 24px;
       border-right: 1px solid rgba(117, 117, 117, 0.3); }
-  /* line 1306, ../sass/configuration.scss */
+  /* line 1309, ../sass/configuration.scss */
   .default-tw-news .news-right {
     float: right;
     width: 350px;
     height: 180px; }
-    /* line 1310, ../sass/configuration.scss */
+    /* line 1313, ../sass/configuration.scss */
     .default-tw-news .news-right p {
       margin-top: 10px;
       line-height: 24px; }
-    /* line 1314, ../sass/configuration.scss */
+    /* line 1317, ../sass/configuration.scss */
     .default-tw-news .news-right i {
       margin-top: 20px;
       float: right; }
 
 /*统计分析*/
-/* line 1322, ../sass/configuration.scss */
+/* line 1325, ../sass/configuration.scss */
 .station-chart {
   margin: 20px auto;
   width: 98%;
   overflow: hidden; }
-  /* line 1326, ../sass/configuration.scss */
+  /* line 1329, ../sass/configuration.scss */
   .station-chart .channel-tab li {
     width: 130px; }
 
-/* line 1330, ../sass/configuration.scss */
+/* line 1333, ../sass/configuration.scss */
 .bingtu {
   margin-top: 20px;
   float: right;
@@ -1628,7 +1631,7 @@ input.input-org-info, input.channel-select {
   border: 1px solid #dadada;
   width: 33%; }
 
-/* line 1337, ../sass/configuration.scss */
+/* line 1340, ../sass/configuration.scss */
 .bingtu-tt {
   height: 30px;
   background: #fff;
@@ -1637,37 +1640,37 @@ input.input-org-info, input.channel-select {
   background: #f6f6f6;
   border-bottom: 1px solid #dadada; }
 
-/* line 1345, ../sass/configuration.scss */
+/* line 1348, ../sass/configuration.scss */
 .w66p {
   margin-top: 20px;
   background: #ccc;
   float: left;
   width: 66%; }
-  /* line 1350, ../sass/configuration.scss */
+  /* line 1353, ../sass/configuration.scss */
   .w66p .data-log {
     margin-top: 0;
     background: #ffffff; }
-    /* line 1353, ../sass/configuration.scss */
+    /* line 1356, ../sass/configuration.scss */
     .w66p .data-log h3 {
       width: 100%;
       background: #f6f6f6; }
-  /* line 1358, ../sass/configuration.scss */
+  /* line 1361, ../sass/configuration.scss */
   .w66p .role-control-btn {
     margin: 3px 10px 0 0;
     float: right; }
 
-/* line 1363, ../sass/configuration.scss */
+/* line 1366, ../sass/configuration.scss */
 .statistics-list {
   margin: 10px auto;
   width: 98%;
   border: 1px solid #dadada;
   border-top: 0 none;
   display: table; }
-  /* line 1370, ../sass/configuration.scss */
+  /* line 1373, ../sass/configuration.scss */
   .statistics-list li {
     height: 25px;
     display: table-row; }
-    /* line 1373, ../sass/configuration.scss */
+    /* line 1376, ../sass/configuration.scss */
     .statistics-list li span {
       padding: 0 5px;
       height: 25px;
@@ -1675,44 +1678,44 @@ input.input-org-info, input.channel-select {
       display: table-cell;
       line-height: 25px;
       overflow: hidden; }
-    /* line 1381, ../sass/configuration.scss */
+    /* line 1384, ../sass/configuration.scss */
     .statistics-list li:nth-child(2n) {
       background: #f6f6f6; }
-    /* line 1383, ../sass/configuration.scss */
+    /* line 1386, ../sass/configuration.scss */
     .statistics-list li:nth-child(2n-1) {
       background: #fff; }
-    /* line 1385, ../sass/configuration.scss */
+    /* line 1388, ../sass/configuration.scss */
     .statistics-list li:nth-child(1) {
       background: #a1a1a1; }
-      /* line 1387, ../sass/configuration.scss */
+      /* line 1390, ../sass/configuration.scss */
       .statistics-list li:nth-child(1) b {
         color: #ffffff; }
-  /* line 1392, ../sass/configuration.scss */
+  /* line 1395, ../sass/configuration.scss */
   .statistics-list .span-1 {
     width: 13%; }
-  /* line 1395, ../sass/configuration.scss */
+  /* line 1398, ../sass/configuration.scss */
   .statistics-list .span-2 {
     width: auto; }
 
-/* line 1399, ../sass/configuration.scss */
+/* line 1402, ../sass/configuration.scss */
 .pdl50 {
   padding-left: 50px; }
 
-/* line 1401, ../sass/configuration.scss */
+/* line 1404, ../sass/configuration.scss */
 .w50p {
   width: 50%; }
 
-/* line 1403, ../sass/configuration.scss */
+/* line 1406, ../sass/configuration.scss */
 .w49p {
   width: 49%; }
 
-/* line 1406, ../sass/configuration.scss */
+/* line 1409, ../sass/configuration.scss */
 .tongji-tu {
   width: 95.7%;
   padding: 0 2%;
   border: 1px solid #dadada; }
 
-/* line 1410, ../sass/configuration.scss */
+/* line 1413, ../sass/configuration.scss */
 .role-control-btn2 {
   border-top-left-radius: 5px;
   border-top-right-radius: 5px;
@@ -1727,98 +1730,98 @@ input.input-org-info, input.channel-select {
   cursor: pointer;
   background: #dedede; }
 
-/* line 1426, ../sass/configuration.scss */
+/* line 1429, ../sass/configuration.scss */
 .bingtu-tt .active {
   background: #5095fc;
   color: #ffffff; }
 
-/* line 1432, ../sass/configuration.scss */
+/* line 1435, ../sass/configuration.scss */
 .default-tw-tt h1, .default-tw-tt h2 {
   color: #6c6c6c; }
 
-/* line 1434, ../sass/configuration.scss */
+/* line 1437, ../sass/configuration.scss */
 .news-left b, .news-right b {
   font-weight: normal;
   font-size: 18px; }
 
-/* line 1438, ../sass/configuration.scss */
+/* line 1441, ../sass/configuration.scss */
 .tubiao {
   width: 99.7%;
   overflow: hidden;
   border: 1px solid #dadada; }
 
-/* line 1443, ../sass/configuration.scss */
+/* line 1446, ../sass/configuration.scss */
 .bingtu2 {
   width: 31%;
   margin: 0 1%; }
 
-/* line 1445, ../sass/configuration.scss */
+/* line 1448, ../sass/configuration.scss */
 .tubiao2 {
   margin-top: 20px;
   border: 0 none; }
 
-/* line 1450, ../sass/configuration.scss */
+/* line 1453, ../sass/configuration.scss */
 .tab-wrap {
   width: 49%;
   float: right;
   overflow: hidden; }
 
-/* line 1454, ../sass/configuration.scss */
+/* line 1457, ../sass/configuration.scss */
 .tubiao4 {
   background: #cccccc;
   width: 49%;
   float: left;
   overflow: hidden; }
 
-/* line 1460, ../sass/configuration.scss */
+/* line 1463, ../sass/configuration.scss */
 .fr {
   float: right; }
 
-/* line 1463, ../sass/configuration.scss */
+/* line 1466, ../sass/configuration.scss */
 .long-input, .org-right-info .long-input {
   width: 180px; }
 
-/* line 1466, ../sass/configuration.scss */
+/* line 1469, ../sass/configuration.scss */
 .rizhi {
   min-height: 230px; }
 
-/* line 1467, ../sass/configuration.scss */
+/* line 1470, ../sass/configuration.scss */
 .role-table .biao-tt {
   width: 99.8%;
   background: #f6f6f6;
   border: 1px solid #dadada; }
 
-/* line 1471, ../sass/configuration.scss */
+/* line 1474, ../sass/configuration.scss */
 .fr-btn {
   float: right;
   margin: 3px 10px 0 0; }
 
-/* line 1474, ../sass/configuration.scss */
+/* line 1477, ../sass/configuration.scss */
 .first-line {
   background: #a1a1a1; }
-  /* line 1476, ../sass/configuration.scss */
+  /* line 1479, ../sass/configuration.scss */
   .first-line span {
     color: #ffffff; }
 
-/* line 1479, ../sass/configuration.scss */
+/* line 1482, ../sass/configuration.scss */
 .exit-alert {
   width: 500px; }
 
-/* line 1482, ../sass/configuration.scss */
+/* line 1485, ../sass/configuration.scss */
 .alert-table1 {
   width: 100%;
   background: #ffffff;
   overflow: hidden; }
 
-/* line 1487, ../sass/configuration.scss */
+/* line 1490, ../sass/configuration.scss */
 .bdb-das {
   border-bottom: 1px dashed rgba(234, 234, 234, 0.6); }
 
-/* line 1489, ../sass/configuration.scss */
+/* line 1492, ../sass/configuration.scss */
 .alert-user-add-con .w130 {
   width: 130px; }
 
-/* line 1491, ../sass/configuration.scss */
+/* line 1494, ../sass/configuration.scss */
 .defult-tt {
   padding-left: 15px;
   margin-bottom: 20px;
@@ -1827,31 +1830,31 @@ input.input-org-info, input.channel-select {
   border-bottom: 1px solid #dadada;
   background: #f6f6f6; }
 
-/* line 1499, ../sass/configuration.scss */
+/* line 1502, ../sass/configuration.scss */
 #add_region_txt, #change_region_txt {
   width: 276px; }
 
-/* line 1501, ../sass/configuration.scss */
+/* line 1504, ../sass/configuration.scss */
 #add_status_sel {
   width: 162px; }
 
-/* line 1503, ../sass/configuration.scss */
+/* line 1506, ../sass/configuration.scss */
 #add_channel_address_txt {
   width: 200px; }
 
-/* line 1505, ../sass/configuration.scss */
+/* line 1508, ../sass/configuration.scss */
 #change_channel_name_txt {
   width: 162px; }
 
-/* line 1509, ../sass/configuration.scss */
+/* line 1512, ../sass/configuration.scss */
 input.lb-radio {
   width: 20px; }
 
-/* line 1512, ../sass/configuration.scss */
+/* line 1515, ../sass/configuration.scss */
 .statistics-index-list {
   margin-top: 0; }
 
-/* line 1515, ../sass/configuration.scss */
+/* line 1518, ../sass/configuration.scss */
 .mgr10 {
   margin-right: 10px; }
 

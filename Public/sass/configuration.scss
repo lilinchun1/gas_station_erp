@@ -483,7 +483,7 @@ $heiti:"SimHei";
 }
 
 #log_info{
-  
+
   li:nth-child(1){
     background: #fff;}
 }
@@ -573,6 +573,9 @@ $heiti:"SimHei";
 .role-table-list2{
   li span:nth-child(2){
     width: 120px;
+  }
+  li span:nth-of-type(3){
+    width: 278px;
   }
 }
 .alert-user-add-con{

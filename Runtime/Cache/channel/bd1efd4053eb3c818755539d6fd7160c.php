@@ -204,9 +204,7 @@
 		<ul class="role-table-list role-table-list2">
 			<li><span class='span-3'><b>操作人</b></span><span class='span-3'><b>操作时间</b></span><span class='span-3'><b>操作日志</b></span></li>
 		</ul>
-        <ul id="log_info" class="role-table-list role-table-list2">
-        
-        </ul>
+        <ul id="log_info" class="role-table-list role-table-list2"></ul>
     </div>
 </div>
 </div>
@@ -456,16 +454,13 @@
             </p>
             <p>
                 <label for="channel-addname" class="role-lab">SIM卡卡号</label>
-                <!--<input type="text" name="add_device_no_txt" id="" class="input-role-name"/>-->
 				<input type="text" name="add_sim_card_text" id="add_sim_card_text" class="input-role-name"/>
                 <i class="red-color pdl10" style="color: #ffffff;">*</i>
                 <label for="channel-addname" class="role-lab">手机号码</label>
-                <!--<input type="text" name="add_device_no_txt" id="" class="input-role-name"/>-->
 				<input type="text" name="add_phone_number_text" id="add_phone_number_text" class="input-role-name"/>
             </p>
             <p>
                 <label for="channel-addname" class="role-lab w130">SIM卡首次启用日期</label>
-                <!--<input type="text" name="add_device_no_txt" id="" class="input-role-name"/>-->
 				<input type="date" name="add_first_open_time" id="add_first_open_time" class="input-role-name" style="margin-top: 0;" onClick="WdatePicker()" readonly/>
             </p>
             <div class="device-point-pic">
@@ -561,16 +556,13 @@
             </p>
             <p>
                 <label for="channel-addname" class="role-lab">SIM卡卡号</label>
-               <!-- <input type="text" name="add_device_no_txt" id="" class="input-role-name"/>-->
 				<input type="text" name="simcard" id="simcard" class="input-role-name"/>
                 <i class="red-color pdl10" style="color: #ffffff;">*</i>
                 <label for="channel-addname" class="role-lab">手机号码</label>
-                <!--<input type="text" name="add_device_no_txt" id="" class="input-role-name"/>-->
 				<input type="text" name="phonenumber" id="phonenumber" class="input-role-name"/>
             </p>
             <p>
                 <label for="channel-addname" class="role-lab w130">SIM卡首次启用日期</label>
-                <!--<input type="text" name="add_device_no_txt" id="" class="input-role-name"/>-->
 				<input type="date" name="qysj" id="qysj" class="input-org-info"style="margin-top: 0;" onClick="WdatePicker()" readonly/>
             </p>
 			<input type="hidden" name="change_image_id_0" id="change_image_id_0" class="change_image_id_0" style="width:164px"/>
@@ -1083,9 +1075,9 @@
 				var change_image_path_2 = $("#mod_iframe_test_2").text();
 			}
 			<!-- hm -->  
-			var simcard=$("#simcard").val();//SIM 卡
-			var phonenumber=$("#phonenumber").val();//号码
-			var qysj=$("#qysj").val();//起始时间
+			var simcard     = $("#simcard").val();//SIM 卡
+			var phonenumber = $("#phonenumber").val();//号码
+			var qysj        = $("#qysj").val();//起始时间
 			if (change_device_no_txt=="") {
 				alert("加油站编号不能为空");
 				return false;
