@@ -54,27 +54,27 @@
                 <div class="org-right-info" id="j_org">
                     <h3>组织机构信息</h3>
                         <div class="info-left cf">
-                            <label for="change_agent_name_txt">组织机构名称</label><input type="text" name="" id="change_agent_name_txt" readonly="true" class="input-org-info long-input"/>
-                            <label for="linkman">法人代表</label><input readonly="true" type="text" name="" id="change_legal_txt" class="input-org-info"/>
-                            <label for="address">办公地址</label><input readonly="true" type="text" name="" id="change_companyAddr_txt" class="input-org-info"/>
-                            <label for="contract-number">合同编号</label><input readonly="true" type="text" name="" id="change_contract_number_txt" class="input-org-info"/>
+                            <label for="change_agent_name_txt">组织机构名称</label><input type="text" name="" id="change_agent_name_txt" readonly class="input-org-info long-input"/>
+                            <label for="linkman">法人代表</label><input readonly type="text" name="" id="change_legal_txt" class="input-org-info"/>
+                            <label for="address">办公地址</label><input readonly type="text" name="" id="change_companyAddr_txt" class="input-org-info"/>
+                            <label for="contract-number">合同编号</label><input readonly type="text" name="" id="change_contract_number_txt" class="input-org-info"/>
                             <input type="hidden" id="agent_id_hid" value=""/>
                             <input type="hidden" id="agent_pid_hid" value=""/>
                         </div>
                     <div class="info-right cf">
 
-                            <label for="org-s">上级组织机构</label><input readonly="true" type="text" name="" id="father_agent_name" class="input-org-info long-input"/>
-                            <label for="phone">法人代表电话</label><input readonly="true" type="text" name="" id="change_legal_tel_txt" class="input-org-info"/>
-                        <label class="wenben">公司电话</label><input readonly="true" type="text" name="tel_txt" id="change_tel_txt" class="input-org-info" />
-                            <label for="yw-are">业务区域</label><input readonly="true" type="text" name="" id="area_name" class="input-org-info"/>
+                            <label for="org-s">上级组织机构</label><input readonly type="text" name="" id="father_agent_name" class="input-org-info long-input"/>
+                            <label for="phone">法人代表电话</label><input readonly type="text" name="" id="change_legal_tel_txt" class="input-org-info"/>
+                        <label class="wenben">公司电话</label><input readonly type="text" name="tel_txt" id="change_tel_txt" class="input-org-info" />
+                            <label for="yw-are">业务区域</label><input readonly type="text" name="" id="area_name" class="input-org-info"/>
 
 
 
 
                             <em>
                                 <label for="sq-date">授权日期</label>
-								<input readonly="true" type="text" name="" id="sq-date" class="input-org-info min-w"/>
-                                <input readonly="true" type="text" name="" id="date" class="input-org-info min-w"/>
+								<input readonly type="text" name="" id="sq-date" class="input-org-info min-w"/>
+                                <input readonly type="text" name="" id="date" class="input-org-info min-w"/>
                                 <!--<input readonly="true" type="checkbox" name="" id="forver" class="org-input-c"/>-->
 								<label class="lab-ckbox" for="forver" id="forever">永久</label>
                             </em>
@@ -106,18 +106,18 @@
                 <label for="contract-number">合同编号</label><input type="text" name="" id="j_add_contract-number" class="input-org-info"/>
             </div>
             <div class="info-right cf">
-                <label for="org-s">上级组织机构</label><input type="text" name="" id="j_add_org-s" class="input-org-info long-input" readonly="readonly" />
+                <label for="org-s">上级组织机构</label><input type="text" name="" id="j_add_org-s" class="input-org-info long-input" readonly />
                 <label for="phone">法人代表电话</label><input type="text" name="" id="j_add_phone" class="input-org-info"/>
                 <label class="wenben">公司电话</label><input type="text" name="add_tel_txt" id="add_tel_txt" class="input-org-info" />
-                <label for="yw-are">业务区域</label><input type="text" name="" id="restxts" class="input-org-info" readonly="readonly"/><i class="red-color pdl10">*</i>
+                <label for="yw-are">业务区域</label><input type="text" name="" id="restxts" class="input-org-info" readonly/><i class="red-color pdl10">*</i>
 				<input name="test"  id="j-choose" value="选择" type="button"/>
 				<input type='hidden' id='resvals' value=''>											
 
 
                 <em>
                     <label for="sq-date">授权日期</label>
-					<input type="text" name="" id="j_add_sq-date" class="input-org-info min-w" onClick="WdatePicker()" readonly="readonly"/>
-                    <input type="text" name="" id="j_add_date" class="input-org-info min-w" onClick="WdatePicker()" readonly="readonly"/>
+					<input type="text" name="" id="j_add_sq-date" class="input-org-info min-w" onClick="WdatePicker()" readonly/>
+                    <input type="text" name="" id="j_add_date" class="input-org-info min-w" onClick="WdatePicker()" readonly/>
                     <input type="checkbox" name="" id="j_add_forever_check" class="org-input-c"/>
 					<span>永久</span>
                 </em>
@@ -411,16 +411,7 @@ $(document).ready(function(){
 				return false;
 			}
 
-            var add_begin_time_sel=$('#j_add_sq-date').val();//授权日期
 
-            var add_end_time_sel=$('#j_add_date').val();//授权日期
-
-			var z_begin_date	=	add_begin_time_sel.replace('-','').replace('-','');
-			var z_end_date	=	add_end_time_sel.replace('-','').replace('-','');
-			if((add_begin_time_sel!=""||add_end_time_sel!="")&&(z_end_date<=z_begin_date)){
-				alert("授权结束时间必须大于授权开始时间");
-				return false;
-			}
 
             var is_add_forever_checked = $("#j_add_forever_check").attr('checked');
             var add_forever_check="";
@@ -431,6 +422,19 @@ $(document).ready(function(){
             else
             {
                 var add_forever_check = '0';
+			    var add_begin_time_sel=$('#j_add_sq-date').val();//授权日期
+
+            	var add_end_time_sel=$('#j_add_date').val();//授权日期
+				if(add_begin_time_sel==""||add_end_time_sel==""){
+					alert("请选择授权时间");
+					return false;
+				}
+				var z_begin_date	=	add_begin_time_sel.replace('-','').replace('-','');
+				var z_end_date	=	add_end_time_sel.replace('-','').replace('-','');
+				if((add_begin_time_sel!=""||add_end_time_sel!="")&&(z_end_date<=z_begin_date)){
+					alert("授权结束时间必须大于授权开始时间");
+					return false;
+				}
             }
 
             //return false;
@@ -458,12 +462,15 @@ $(document).ready(function(){
                     ,'json'
             );
         });//结束
+		//永久        事件
 		$("#j_add_forever_check").click(function(){
 			 var is_add_forever_checked = $("#j_add_forever_check").attr('checked');
 			if('checked' == is_add_forever_checked)
 				{
 					$('#j_add_sq-date').css("visibility","hidden");
 					$('#j_add_date').css("visibility","hidden");
+					$('#j_add_sq-date').val("");
+					$('#j_add_date').val("");
 				}
 			else
 				{
@@ -575,9 +582,6 @@ $(document).ready(function(){
 				//return false;
 			}
 
-            //var add_father_agentid_sel=$('#agent_id_hid').val();//上级组织机构
-			//alert(add_father_agentid_sel);
-
             var add_legal_tel_txt=$('#j_add_phone').val();//联系电话
 			if (add_legal_tel_txt=="")
 			{	
@@ -591,17 +595,9 @@ $(document).ready(function(){
 				return false;
 			}
 
-            var add_begin_time_sel=$('#j_add_sq-date').val();//授权日期
 
-            var add_end_time_sel=$('#j_add_date').val();//授权日期
-
-			var z_begin_date	=	add_begin_time_sel.replace('-','').replace('-','');
-			var z_end_date	=	add_end_time_sel.replace('-','').replace('-','');
-			if((add_begin_time_sel!=""||add_end_time_sel!="")&&(z_end_date<=z_begin_date)){
-				alert("授权结束时间必须大于授权开始时间");
-				return false;
-			}
             var is_add_forever_checked = $("#j_add_forever_check").attr('checked');
+			alert(is_add_forever_checked);
             var add_forever_check="";
             if('checked' == is_add_forever_checked)
             {
@@ -610,6 +606,19 @@ $(document).ready(function(){
             else
             {
                 var add_forever_check = '0';
+				var add_begin_time_sel=$('#j_add_sq-date').val();//授权日期
+
+				var add_end_time_sel=$('#j_add_date').val();//授权日期
+				if(add_begin_time_sel==""||add_end_time_sel==""){
+					alert("请选择授权时间");
+					return false;
+				}
+				var z_begin_date	=	add_begin_time_sel.replace('-','').replace('-','');
+				var z_end_date	=	add_end_time_sel.replace('-','').replace('-','');
+				if((add_begin_time_sel!=""||add_end_time_sel!="")&&(z_end_date<=z_begin_date)){
+					alert("授权结束时间必须大于授权开始时间");
+					return false;
+				}
             }
             //return false;
             var mod_save_handleUrl="{:U('configuration/Org/edit_org')}";

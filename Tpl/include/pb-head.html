@@ -13,18 +13,27 @@
             </ul>
         </div>
         <div class="right">
-            <a href="javascript:void(0);" onclick="show_user_logout()">退出系统</a>
-        </div>
+			<a href="javascript:void(0);" onclick="show_user_logout()">退出系统</a>
+		</div>
     </div>
 </div>
-<div id="nav">
-    <ul class="main-nav" id="j-nav-active">
-        <li class="url_link" url="{:U('monitoring/Index/station')}"><a href="{:U('monitoring/Index/station')}">加油站监控</a></li>
-        <li class="url_link" url="{:U('channel/Channel/index')}"><a href="{:U('channel/Channel/index')}">渠道管理</a></li>
-        <!-- <li class="url_link" url="{:U('management/Index/importingApp')}"><a href="{:U('management/Index/importingApp')}">运营管理</a></li> -->
-        <li class="url_link" url="{:U('statistics/Index/index')}"><a href="{:U('statistics/Index/index')}">统计分析</a></li>
-     <!--   <li class="url_link" url="{:U('ad/Index/index')}"><a href="{:U('ad/Index/index')}">广告管理</a></li> -->
-        <li class="url_link" url="{:U('configuration/Org/index')}"><a href="{:U('configuration/Org/index')}">系统设置</a></li>
-    </ul>
+<div id="nav" class="top_link">
+    <ul class="main-nav" id="j-nav-active"></ul>
 </div>
+<SCRIPT type="text/javascript">
+var getTopLink = "{:U('configuration/User/getTopLink')}";
+$.ajax({
+	url            : getTopLink,
+	type           : "get",
+	dataType       : "json",
+	async          : false,
+	success        : function(data, textStatus){
+    	$(".top_link ul li").remove();
+        $.each(data,function(i,n){
+        	$(".top_link ul").append("<li class='url_link topLink' url=\"'"+n['url']+"'\"><a href='"+n['url']+"'>"+n['top_name']+"</a></li>");
+        });
+    }
+
+});
+</SCRIPT>
 </div>

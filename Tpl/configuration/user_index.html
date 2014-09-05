@@ -111,7 +111,7 @@
 				<p>
 					<label for="realname" class="role-lab">姓&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;名</label>
 					<input type="text" name="addname" id="realname" class="input-role-name"/><i class="red-color pdl10">*</i>
-					<input type="radio" name="change-sex" class="change-sex" id="man" value="1"/><label for="man" class="sex">男</label>
+					<input type="radio" name="change-sex"  checked="checked" class="change-sex" id="man" value="1"/><label for="man" class="sex">男</label>
 					<input type="radio" name="change-sex" class="change-sex" id="woman" value="0"/><label for="woman" class="sex">女</label>
 				</p>
 				<p>
@@ -176,6 +176,8 @@
 <script type="text/javascript" src="__PUBLIC__/js/jquery.bigautocomplete.js"></script>
 <script type="text/javascript" src="__PUBLIC__/js/blurrySelect.js"></script>
 <script>
+//保持组织id用,分割
+var roleStr = "";
 $(function(){
 	//赋组织值
 	var getAgentUrl = "{:U('configuration/Org/show_org_tree')}";
@@ -200,8 +202,6 @@ $(function(){
 	
 });
 
-//保持组织id用,分割
-var roleStr = "";
 //复选框触发
 function j_checkbox(obj){
 	if($(obj).attr("checked")){

@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="zh-CN">
 <head>
-    <meta charset="UTF-8">
+	<meta charset="UTF-8">
     <title>渠道信息</title>
     <link rel="stylesheet" href="../../Public/css/configuration.css"/>
 	<link rel="stylesheet" href="__PUBLIC__/css/configuration.css"/>
@@ -109,7 +109,7 @@
 							 class="role-table-radio"/>
 					</span>
                     <span class="span-2" title="{$vo.channel_name}">{$vo.channel_name}</span>
-                    <span class="span-1 douhao span-1-1" title="{$vo.channel_type_name}">{$vo.channel_type_name}</span>
+                    <span class="span-1" title="{$vo.channel_type_name}">{$vo.channel_type_name}</span>
                     <span class="span-2" title="{$vo.agent_name}">{$vo.agent_name}</span>
                     <span class="span-2" title="{$vo.channel_address}">{$vo.channel_address}</span>
                     <span class="span-1" title="{$vo.begin_time}">{$vo.begin_time}</span>
@@ -214,9 +214,7 @@
 
             <p>
                 <button type="button" class="alert-btn2" id="submit_add_channel">保存</button>
-				<a href="." class="closeDOMWindow">
-					<button type="button" class="alert-btn2">关闭</button>
-				</a>
+				<button type="button" class="alert-btn2" onclick="window.location=window.location">关闭</button>
             </p>
     </div>
 </div>
@@ -299,9 +297,7 @@
 
             <p>
                 <button type="button" class="alert-btn2" id="submit_change_channel">保存</button>
-				<a href="." class="closeDOMWindow">
-					<button type="button" class="alert-btn2">关闭</button>
-				</a>
+				<button type="button" class="alert-btn2" onclick="window.location=window.location">关闭</button>
             </p>
         </form>
     </div>
@@ -737,11 +733,11 @@
 				alert("请输入渠道名称");
 				return false;
 			}
-			if(change_channel_first_type_sel==""){
+			if(dst_channel_first_type_sel==""){
 				alert("请选择渠道类型");
 				return false;				
 			}
-			if(change_channel_second_type_sel==""){
+			if(dst_channel_second_type_sel==""){
 				alert("请选择渠道属性");
 				return false;				
 			}

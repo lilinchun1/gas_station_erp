@@ -346,7 +346,7 @@ var zNodes=new Array();
 var now=new Date().getTime();//加个时间戳表示每次是新的请求
 var showModel=$("#showModel").val();
 $.ajax({
-    type: "POST",
+    type: "get",
     url: handleUrl,
     async: false,
     dataType: "json",

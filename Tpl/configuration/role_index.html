@@ -255,18 +255,29 @@ $(function(){
 					var kid = val['id'];
 					var parent = val['parent'];
 					var value = val['value'];
-					zNodes[key] = {
-						'id' : kid,
-						'pId' : parent,
-						'name' : value,
-						'open' : true,
-						't' : kid
-					};
+					if(parent=="0"){
+						zNodes[key] = {
+							'id' : kid,
+							'pId' : parent,
+							'name' : value,
+							'open' : true,
+							't' : kid,
+							'nocheck':true
+						};		
+					}else{
+						zNodes[key] = {
+							'id' : kid,
+							'pId' : parent,
+							'name' : value,
+							'open' : true,
+							't' : kid
+						};
+					}
 				});
 			},
 
 			error : function(XMLHttpRequest, textStatus, errorThrown) {
-				// alert("请求失败!");
+				 alert("请求失败!");
 			}
 		});
 		//=================树形结构js传递=====================
@@ -354,30 +365,60 @@ $(function(){
 					var kid = val['id'];
 					var parent = val['parent'];
 					var value = val['value'];
-					for ( var i = 0; i < arr.length; i++) {
-						if (arr[i] == kid) {
-							zNodes[key] = {
-								'id' : kid,
-								'pId' : parent,
-								'name' : value,
-								'open' : true,
-								'checked' : true,
-								't' : kid,
-								doCheck : false,
-								"chkDisabled":true
-							};
-							break;
-						} else {
-							zNodes[key] = {
-								'id' : kid,
-								'pId' : parent,
-								'name' : value,
-								'open' : true,
-								't' : kid,
-								doCheck : false,
-								"chkDisabled":true
-							};
+					if(parent=="0"){
+						for ( var i = 0; i < arr.length; i++) {
+							if (arr[i] == kid) {
+								zNodes[key] = {
+									'id' : kid,
+									'pId' : parent,
+									'name' : value,
+									'open' : true,
+									'checked' : true,
+									't' : kid,
+									doCheck : false,
+									"chkDisabled":true,
+									'nocheck':true
+								};
+								break;
+							} else {
+								zNodes[key] = {
+									'id' : kid,
+									'pId' : parent,
+									'name' : value,
+									'open' : true,
+									't' : kid,
+									doCheck : false,
+									"chkDisabled":true,
+									'nocheck':true
+								};
+							}
 						}
+					}else{
+						for ( var i = 0; i < arr.length; i++) {
+							if (arr[i] == kid) {
+								zNodes[key] = {
+									'id' : kid,
+									'pId' : parent,
+									'name' : value,
+									'open' : true,
+									'checked' : true,
+									't' : kid,
+									doCheck : false,
+									"chkDisabled":true
+								};
+								break;
+							} else {
+								zNodes[key] = {
+									'id' : kid,
+									'pId' : parent,
+									'name' : value,
+									'open' : true,
+									't' : kid,
+									doCheck : false,
+									"chkDisabled":true
+								};
+							}
+						}	
 					}
 
 				});
@@ -451,28 +492,59 @@ $(function(){
 							var kid = val['id'];
 							var parent = val['parent'];
 							var value = val['value'];
-							for ( var i = 0; i < arr.length; i++) {
-								if (arr[i] == kid) {
-									zNodes[key] = {
-										'id' : kid,
-										'pId' : parent,
-										'name' : value,
-										'open' : true,
-										checked : true,
-										't' : kid
-									};
-									break;
-								} else {
-									zNodes[key] = {
-										'id' : kid,
-										'pId' : parent,
-										'name' : value,
-										'open' : true,
-										't' : kid
-									};
+							if(parent=="0"){
+								for ( var i = 0; i < arr.length; i++) {
+									if (arr[i] == kid) {
+										zNodes[key] = {
+											'id' : kid,
+											'pId' : parent,
+											'name' : value,
+											'open' : true,
+											'checked' : true,
+											't' : kid,
+											doCheck : false,
+											"chkDisabled":true,
+											'nocheck':true
+										};
+										break;
+									} else {
+										zNodes[key] = {
+											'id' : kid,
+											'pId' : parent,
+											'name' : value,
+											'open' : true,
+											't' : kid,
+											doCheck : false,
+											"chkDisabled":true,
+											'nocheck':true
+										};
+									}
+								}
+							}else{
+								for ( var i = 0; i < arr.length; i++) {
+									if (arr[i] == kid) {
+										zNodes[key] = {
+											'id' : kid,
+											'pId' : parent,
+											'name' : value,
+											'open' : true,
+											'checked' : true,
+											't' : kid,
+											doCheck : false
+										};
+										break;
+									} else {
+										zNodes[key] = {
+											'id' : kid,
+											'pId' : parent,
+											'name' : value,
+											'open' : true,
+											't' : kid,
+											doCheck : false
+										};
+									}
 								}
 							}
-
 						});
 					},
 
