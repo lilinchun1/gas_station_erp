@@ -144,7 +144,7 @@
 							 class="role-table-radio"/>
 					</span>
                     <span class="span-2" title="<?php echo ($vo["channel_name"]); ?>"><?php echo ($vo["channel_name"]); ?></span>
-                    <span class="span-1" title="<?php echo ($vo["channel_type_name"]); ?>"><?php echo ($vo["channel_type_name"]); ?></span>
+                    <span class="span-1 douhao span-1-1" title="<?php echo ($vo["channel_type_name"]); ?>"><?php echo ($vo["channel_type_name"]); ?></span>
                     <span class="span-2" title="<?php echo ($vo["agent_name"]); ?>"><?php echo ($vo["agent_name"]); ?></span>
                     <span class="span-2" title="<?php echo ($vo["channel_address"]); ?>"><?php echo ($vo["channel_address"]); ?></span>
                     <span class="span-1" title="<?php echo ($vo["begin_time"]); ?>"><?php echo ($vo["begin_time"]); ?></span>

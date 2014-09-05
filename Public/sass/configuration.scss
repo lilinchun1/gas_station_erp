@@ -472,6 +472,9 @@ $heiti:"SimHei";
     .span-1{
       width: 10%;
       max-width: 100px;}
+    .span-1-1{
+      width: 90px;
+    }
     .span-2{
       width: 20%;
       max-width: 192px;
@@ -1517,3 +1520,7 @@ input.lb-radio{
 }
 .mgr10{
   margin-right: 10px;}
+.douhao{
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
