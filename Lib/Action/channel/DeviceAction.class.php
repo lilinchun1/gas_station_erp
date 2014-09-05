@@ -296,6 +296,9 @@ class DeviceAction extends Action {
 		$image_path_2   = trim(I('change_image_path_2'));		
 		$simcard        = trim(I('simcard'));// SIM卡 
 		$phonenumber    = trim(I('phonenumber')); //手机号码
+		
+		echo json_encode($power_off_time);exit;
+		
 		$qysj = strtotime(trim(I('qysj')));//首次开启时间		
 		$msg = C('change_device_success');
 		//操作日志

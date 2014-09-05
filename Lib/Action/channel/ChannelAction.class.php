@@ -146,7 +146,7 @@ class ChannelAction extends Action {
 				LEFT JOIN (SELECT COUNT(place_id) place_num,channel_id FROM qd_place WHERE STATUS = 'use' AND isDelete = 0 GROUP BY channel_id) h ON a.channel_id = h.channel_id
 				LEFT JOIN (SELECT COUNT(device_id) device_num,channel_id FROM qd_device WHERE isDelete = 0 GROUP BY channel_id) i ON a.channel_id = i.channel_id
 				$where
-				ORDER BY a.agent_id,a.channel_id desc
+				ORDER BY a.channel_id desc
 		";
 		$que = $model->query($sql);
 		$count = count($que);
