@@ -7,29 +7,39 @@ $(function() {
 	// 当前页面菜单
 	var dom = $(".url_link");
 	for (key = 0; key < dom.length; key++) {
-		thisUrl = dom.eq(key).attr("url") + ",";
+		//本次沥遍到的url
+		thisUrl = dom.eq(key).attr("url");
 		// 控制可查看页面显示
 		if (urlStr.indexOf(thisUrl) >= 0) {
 			dom.eq(key).show();
 		}
 		// 控制当前页面菜单样式
 		if (nowUrl&&(thisUrl.indexOf(nowUrl) >= 0)) {
+			//子菜单上样式
 			dom.eq(key).addClass("active");
+			//查找当前子菜单的父菜单url，赋样式
+			//getTopLink是在pb-head.html中定义的全局js变量
+			$.ajax({
+				url            : getTopLink,
+				type           : "get",
+				dataType       : "json",
+				data           : { userUrl : nowUrl },
+				async          : true,
+				success        : function(data, textStatus){
+					var nowTopLink = data[0]['url'];
+					//获取所有顶级菜单url数组
+			    	var topLinkDom = $(".topLink");
+			    	for (i = 0; i < topLinkDom.length; i++) {
+			    		var thisTopLink = topLinkDom.eq(i).attr("url");
+			    		if (thisTopLink.indexOf(nowTopLink) >= 0) {
+			    			topLinkDom.eq(i).addClass("active");
+			    		}
+			    	}
+			    }
+
+			});
 		}
 	}
-	//固定标题
-	/*if($("#j-fixed-top")){
-		window.onscroll=function(){
-			var scrollTop=document.documentElement.scrollTop||document.body.scrollTop;
-			var fixDiv=document.getElementById('j-fixed-top');
-			if(scrollTop>=280){
-				fixDiv.style.position='fixed';
-				fixDiv.style.top='0px';
-			}else if(scrollTop<1){
-				fixDiv.style.position='relative';
-			}
-		};
-	}*/
 });
 
 //显示窗口
