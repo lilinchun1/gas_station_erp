@@ -766,7 +766,7 @@ $heiti:"SimHei";
 }
 
 /*渠道信息页*/
-.channel-select-min{
+.channel-select-min,.select_province,.select_city{
   @extend %input-t;
   padding: 2px 0;
   margin-right: 10px;

@@ -235,7 +235,7 @@ a, .alert-btn, .role-control-btn, .alert-btn2, .alert-btn3, .alert-btn4, .alert-
   font-size: 14px; }
 
 /* line 42, ../sass/configuration.scss */
-.org-right-info .org-select, .input-org-info, .input-role-name, .index-login-con input, .channel-select-min, .channel-select, .input-mac, .station-info, .role_agent_id {
+.org-right-info .org-select, .input-org-info, .input-role-name, .index-login-con input, .channel-select-min, .select_province, .select_city, .channel-select, .input-mac, .station-info, .role_agent_id {
   width: 160px;
   height: 24px;
   line-height: 24px;
@@ -1007,7 +1007,7 @@ a, .alert-btn, .role-control-btn, .alert-btn2, .alert-btn3, .alert-btn4, .alert-
 
 /*渠道信息页*/
 /* line 769, ../sass/configuration.scss */
-.channel-select-min {
+.channel-select-min, .select_province, .select_city {
   padding: 2px 0;
   margin-right: 10px;
   width: 90px;
