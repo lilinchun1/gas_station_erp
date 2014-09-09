@@ -83,7 +83,7 @@ $.ajax({
              				<input type="text" name="username_txt" id="username_txt" value="<?php echo ($_GET['username_txt']); ?>" autocomplete="off" class="input-org-info"
 							onfocus="blurry('username','<?php echo U('channel/Channel/getAllLike');?>',this)"/>
 							<input type="submit" id="select_button" name="select_button" class="role-control-btn" value="查询"/>
-							<input type="button" id="userDele" class="role-control-btn" value="清空"/> 
+							<input type="button" id="userDele" class="role-control-btn" value="清空"/>
 						</form>
 					</div>
 					<div class="org-right-btns">
@@ -124,7 +124,7 @@ $.ajax({
 							</li><?php endforeach; endif; else: echo "" ;endif; ?>
 					</ul>
 					<div class="resultpage"><?php echo ($page); ?></div>
-			<!-- 
+			<!--
 			</div>
 				<div class="role-table over-h-y rizhi">
 					<div class="data-log">
@@ -319,6 +319,12 @@ $.ajax({
 		<h3 class="h_title">添加职员信息</h3>
 		<div class="alert-user-add-con">
 			<form action="">
+                <p>
+                    <label for="account-zy" class="account-name" >职员账号</label>
+                    <input type="radio" name="account-name"  checked="checked" class="change-sex" id="account-zy" value="1"/>
+                    <label for="account-kh" class="account-name">客户帐号</label>
+                    <input type="radio" name="account-name" class="change-sex" id="account-kh" value="0"/>
+                </p>
 				<p>
 					<label for="realname" class="role-lab">姓&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;名</label>
 					<input type="text" name="addname" id="realname" class="input-role-name"/><i class="red-color pdl10">*</i>
@@ -351,6 +357,22 @@ $.ajax({
 
 					</ul>
 				</div>
+                <p>
+                    <input type="checkbox" name="" id="" class="app-ad-ckbox"/>
+                    <label for="app-id" class="app-ad">APP</label>
+                    <input type="text" name="app" id="app-id" class="input-role-name"/>
+                    <a href="" class="app-ad-wz">添加</a>
+                    <input type="text" name="ad" id="ad-id" class="input-role-name mgl20"/>
+                    <i class="red-color">*</i>
+                </p>
+                <p>
+                    <input type="checkbox" name="" id="" class="app-ad-ckbox"/>
+                    <label for="ad-id" class="app-ad">广告</label>
+                    <input type="text" name="ad" id="ad-id" class="input-role-name"/>
+                    <a href="" class="app-ad-wz">添加</a>
+                    <input type="text" name="ad" id="ad-id" class="input-role-name mgl20"/>
+                    <i class="red-color">*</i>
+                </p>
 				<p>
 					<input type="hidden" name="uid_hid" class="uid_hid"/>
 					<button type="button" class="alert-btn2" id="j_add_save">保存</button>
@@ -404,13 +426,13 @@ $(function(){
 		roleStr = "";
 		role_check(role_agent_id);
 	});
-	
-	
+
+
 	//点一行则选中
 	$(".list_sel").click(function(){
-		$(this).find(".role-table-radio").attr("checked",true); 
+		$(this).find(".role-table-radio").attr("checked",true);
 	});
-	
+
 });
 
 //复选框触发
@@ -477,7 +499,7 @@ function role_check(role_agent_id){
 						roleStr = data['role_id_str'];
 						//指定组织下选中已有的角色
 						role_check(agent_id);
-						
+
 						//性别赋值
 						var sex = data['sex'];
 						if(sex == '0'){
@@ -492,7 +514,7 @@ function role_check(role_agent_id){
 			showWindow(1,16,17,'#j_add_win');
 			return false;
 		});
-		
+
 		//单击保存按钮
 		$('#j_add_save').click(function(){
 			var user_id = $(".uid_hid").val();
@@ -549,9 +571,9 @@ function role_check(role_agent_id){
 				}
 			,'json');
 		});
-		
-		
-		
+
+
+
 		//关闭按钮
 		$("#j_close").click(function(){
 			window.location.href = window.location.href;
@@ -565,7 +587,7 @@ function role_check(role_agent_id){
 			}else{
 				alert("请选择一条职员信息再进行删除！");
 			}
-			
+
 			return false;
 		});
 		//单击删除确认按钮

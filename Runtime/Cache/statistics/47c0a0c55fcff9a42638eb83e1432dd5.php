@@ -73,6 +73,7 @@ $.ajax({
         </ul>
     </li>
 </ul>
+<!--
 <div class="bk10 bdb-das"></div>
 <ul class="aside-nav">
     <li class="aside-nav-nth1"><a>用户分析<i class="j-show-list">-</i></a>
@@ -97,7 +98,8 @@ $.ajax({
             <li class="url_link" url="'<?php echo U('statistics/Index/installed_daily');?>'"><a href="<?php echo U('statistics/Index/installed_daily');?>"><input type="button" value="安装量日报"></a></li>
         </ul>
     </li>
-</ul>
+</ul>-->
+
     </div>
     <div class="right">
         <div class="right-con">

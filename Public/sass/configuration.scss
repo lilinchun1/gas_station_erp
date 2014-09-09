@@ -1402,6 +1402,9 @@ input.input-org-info,input.channel-select{
   .span-1{
     width: 13%;
 }
+  .span-haf1{
+    width: 100px;
+  }
   .span-2{
     width: auto;
   }
@@ -1531,3 +1534,17 @@ input.lb-radio{
   text-overflow: ellipsis;
   white-space: nowrap;
 }
+.alert-user-add-con{
+  .account-name{
+    padding-right: 0;
+  }
+  .app-ad{
+    width: auto;}
+  .app-ad-ckbox{
+    margin-left: 56px;
+  }
+}
+.app-ad-wz{
+  color: $color-main;}
+.mgl20{
+  margin-left: 20px;}
