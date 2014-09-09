@@ -18,7 +18,7 @@ class ChannelAction extends Action {
 		$all_agent  = $model->query("select agent_id, agent_name from qd_agent where isDelete='0' and agent_id in ($agentIdStr)");
 		$this->assign('first_channel_type', $first_channel_type);
 		$this->assign('all_agent', $all_agent);
-		$this->assign('nowUrl', "channel/Channel/index");
+		$this->assign('nowUrl', "'/gas_station_erp/index.php/channel/Channel/index'");
 		$this->assign('urlStr', $userinfo['urlstr']);
 		$this->display(':channel_index');
 	}
@@ -33,15 +33,17 @@ class ChannelAction extends Action {
 	}	
 	//获取所有省
 	public function  getProvince(){
+		$userinfo = getUserInfo();
 		$ChannCom = new ChannelCommon();
-		$province=$ChannCom->getAllProvince();
+		$province=$ChannCom->getAllProvince($userinfo['orgid']);
 		echo json_encode($province);
 	}
 	//获取所有市
 	public function  getCity(){
-		$province_id=$_GET['province_id'];
-		$ChannCom = new ChannelCommon();
-		$city=$ChannCom->getAllCity($province_id);
+		$province_id = $_GET['province_id'];
+		$userinfo    = getUserInfo();
+		$channCom    = new ChannelCommon();
+		$city=$channCom->getAllCity($province_id,$userinfo['orgid']);
 		echo json_encode($city);
 		
 	}

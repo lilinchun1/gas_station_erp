@@ -10,7 +10,7 @@ class DeviceAction extends Action {
 		$userinfo = getUserInfo();
 		//登录的用户名
 		$this->username = $userinfo['realname'];
-		$this->assign('nowUrl', "channel/Device/index");
+		$this->assign('nowUrl', "'/gas_station_erp/index.php/channel/Device/index'");
 		$this->assign('urlStr', $userinfo['urlstr']);
 		$this->display(':device_index');
 	}
@@ -289,15 +289,15 @@ class DeviceAction extends Action {
 		$image_id_0     = trim(I('change_image_id_0'));
 		$image_id_1     = trim(I('change_image_id_1'));
 		$image_id_2     = trim(I('change_image_id_2'));
-		$power_on_time  = trim(I('change_power_on_time_sel'));
-		$power_off_time = trim(I('change_power_off_time_sel'));
+		$power_on_time  = trim(I('change_power_on_time_sel'))?trim(I('change_power_on_time_sel')):null;
+		$power_off_time = trim(I('change_power_off_time_sel'))?trim(I('change_power_off_time_sel')):null;
 		$image_path_0   = trim(I('change_image_path_0'));
 		$image_path_1   = trim(I('change_image_path_1'));
 		$image_path_2   = trim(I('change_image_path_2'));		
 		$simcard        = trim(I('simcard'));// SIM卡 
 		$phonenumber    = trim(I('phonenumber')); //手机号码
 		
-		echo json_encode($power_off_time);exit;
+		//echo json_encode($power_off_time);exit;
 		
 		$qysj = strtotime(trim(I('qysj')));//首次开启时间		
 		$msg = C('change_device_success');
@@ -409,8 +409,8 @@ class DeviceAction extends Action {
 				a.place_id,a.channel_id,a.agent_id,
 				FROM_UNIXTIME( a.begin_time, '%Y-%m-%d' ) begin_time,
 				FROM_UNIXTIME( a.deploy_time, '%Y-%m-%d' ) deploy_time,
-				IF(a.power_on_time IS NOT NULL,FROM_UNIXTIME( UNIX_TIMESTAMP(UTC_DATE()) + a.power_on_time, '%H:%i:%s' ),'') power_on_time,
-				IF(a.power_off_time IS NOT NULL,FROM_UNIXTIME( UNIX_TIMESTAMP(UTC_DATE()) + a.power_off_time, '%H:%i:%s' ),'') power_off_time,
+				IF(a.power_on_time <>0,FROM_UNIXTIME( UNIX_TIMESTAMP(UTC_DATE()) + a.power_on_time, '%H:%i:%s' ),'') power_on_time,
+				IF(a.power_off_time <>0,FROM_UNIXTIME( UNIX_TIMESTAMP(UTC_DATE()) + a.power_off_time, '%H:%i:%s' ),'') power_off_time,
 				IF(a.first_open_time <> 0,FROM_UNIXTIME( a.first_open_time, '%Y-%m-%d' ),'') first_open_time,
 				b.place_name
 				FROM qd_device a

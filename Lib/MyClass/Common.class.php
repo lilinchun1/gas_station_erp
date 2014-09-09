@@ -8,7 +8,7 @@ class Common{
 	function __construct(){
 		$this->model = new Model();
 	}
-	// 根据代理商得到下属代理商字符串
+	// 根据代理商id，得到自身及下属代理商字id符串
 	function getAgentIdAndChildId($father_agent_id) {
 		$father_agent_id = $father_agent_id?$father_agent_id:0;
 		//初始化
@@ -21,23 +21,6 @@ class Common{
 		$this->agentIdStr .= $father_agent_id;
 		$this->agentIdStr = trim($this->agentIdStr,',');
 		return $this->agentIdStr;
-	}
-	/**
-	 * getAreaIdStr 根据给定代理商id获取其自身及下属所有子代理商区域id
-	 * @param $father_agent_id 给定代理商id
-	 * @return String
-	 */
-	function getAreaIdStr($father_agent_id){
-		$agentIdStr = $this->getAgentIdAndChildId($father_agent_id);
-		//获取当前登录代理商及下属所有子代理商所属所有地区id
-		$sqlArea = "SELECT * FROM qd_agent_area WHERE agent_id IN ($agentIdStr) GROUP BY area_id;";
-		$queArea = $this->model->query($sqlArea);
-		$ableAreaIdStr = "";
-		foreach ($queArea as $k=>$v){
-			$ableAreaIdStr .= $v['area_id'].",";
-		}
-		$ableAreaIdStr = trim($ableAreaIdStr,',');
-		return $ableAreaIdStr;
 	}
 	
 	/**

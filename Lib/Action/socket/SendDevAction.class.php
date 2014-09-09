@@ -194,7 +194,7 @@ class SendDevAction extends Action {
 		}
 		
 		//删除本次七天之前的数据
-		$sevDaySql = " SELECT monitor_no FROM dev_monitor WHERE createtime < NOW()-3600*24*7 LIMIT 1 ";
+		$sevDaySql = " SELECT monitor_no FROM dev_monitor WHERE (createtime < UNIX_TIMESTAMP(NOW())-3600*24*7) LIMIT 1 ";
 		$sevDayMonitorNoQue = $model->query($sevDaySql);
 		$sql_del = "DELETE FROM `dev_monitor` WHERE monitor_no <= " . $sevDayMonitorNoQue[0]['monitor_no'];
 		$model->query($sql_del);

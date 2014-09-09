@@ -26,7 +26,7 @@ class IndexAction extends Action {
 		echo I('get.select_province');
 		//$this->_export();
 		//$this->_getCompany();
-		$this->assign('nowUrl', "statistics/Index/index");
+		$this->assign('nowUrl', "'/gas_station_erp/index.php/statistics/Index/index'");
 		$this->display(':statistics_index');
 	}
 	
@@ -37,7 +37,7 @@ class IndexAction extends Action {
 	 */
 	function user_statistics(){
 		$this->_getCompany();
-		$this->assign('nowUrl', "statistics/Index/user_statistics");
+		$this->assign('nowUrl', "'/gas_station_erp/index.php/statistics/Index/user_statistics'");
 		$this->display(':user_statistics');
 	}
 	
@@ -47,7 +47,7 @@ class IndexAction extends Action {
 	 * @return mixed
 	 */
 	function user_behavior(){
-		$this->assign('nowUrl', "statistics/Index/user_behavior");
+		$this->assign('nowUrl', "'/gas_station_erp/index.php/statistics/Index/user_behavior'");
 		$this->display(':user_behavior');
 	}
 	
@@ -57,7 +57,7 @@ class IndexAction extends Action {
 	 * @return mixed
 	 */
 	function app_installed(){
-		$this->assign('nowUrl', "statistics/Index/app_installed");
+		$this->assign('nowUrl', "'/gas_station_erp/index.php/statistics/Index/app_installed'");
 		$this->display(':app_installed');
 	}
 	
@@ -67,7 +67,7 @@ class IndexAction extends Action {
 	 * @return mixed
 	 */
 	function app_analysis(){
-		$this->assign('nowUrl', "statistics/Index/app_analysis");
+		$this->assign('nowUrl', "'/gas_station_erp/index.php/statistics/Index/app_analysis'");
 		$this->display(':app_analysis');
 	}
 	
@@ -77,7 +77,7 @@ class IndexAction extends Action {
 	 * @return mixed
 	 */
 	function installed_daily(){
-		$this->assign('nowUrl', "statistics/Index/installed_daily");
+		$this->assign('nowUrl', "'/gas_station_erp/index.php/statistics/Index/installed_daily'");
 		$this->display(':installed_daily');
 	}
 	
@@ -129,7 +129,7 @@ class IndexAction extends Action {
 		$this->assign('list',$list);
 		$this->assign('page',$show);// 赋值分页输出
 		$this->assign('place_select_number',$count);  //查询结果集的数量
-		$this->assign('nowUrl', "statistics/Index/installed_daily");
+		$this->assign('nowUrl', "'/gas_station_erp/index.php/statistics/Index/installed_daily'");
 		$this->display(':installed_daily');
 	}
 	

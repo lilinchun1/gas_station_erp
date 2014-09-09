@@ -257,7 +257,7 @@ class IndexAction extends Action {
 			$date['devNoBeginTime'] = $devNoBeginTime;
 			echo json_encode($date);
 		}else{
-			$this->assign('nowUrl', "monitoring/Index/station");
+			$this->assign('nowUrl', "'/gas_station_erp/index.php/monitoring/Index/station'");
 			$this->display(':station_index');
 		}
 	}
@@ -296,6 +296,10 @@ class IndexAction extends Action {
 	function getRightOrWrongNum($showModel){
 		$model = new Model();
 		$sql = "";
+		$and = "";
+		if($this->agentIdStr){
+			$and .= " AND b.agent_id in (".$this->agentIdStr.") ";
+		}
 		if($showModel == 0){
 			$sql = "
 				SELECT b.province_id, b.city_id,COUNT(*) count
@@ -304,19 +308,22 @@ class IndexAction extends Action {
 				WHERE
 				a.monitor_no = ".$this->monitor_no."
 				AND a.unfind <> 1 AND a.dev_no_begin_time <>1
+				$and
 				GROUP BY b.province_id,b.city_id
 				ORDER BY b.province_id,b.city_id
 			";
 		}else if($showModel == 1){
 			$sql = "
-				SELECT province_id, city_id, COUNT(*) count
-				FROM qd_device
-				WHERE device_no NOT IN(SELECT dev_no FROM dev_monitor WHERE monitor_no = ".$this->monitor_no.")
-				AND isDelete = 0
-				GROUP BY province_id,city_id
-				ORDER BY province_id,city_id
+				SELECT b.province_id, b.city_id, COUNT(*) count
+				FROM qd_device b
+				WHERE b.device_no NOT IN(SELECT dev_no FROM dev_monitor WHERE monitor_no = ".$this->monitor_no.")
+				AND b.isDelete = 0
+				$and
+				GROUP BY b.province_id,b.city_id
+				ORDER BY b.province_id,b.city_id
 			";
 		}
+		//echo $sql;exit;
 		$que = $model->query($sql);
 		return $que;
 	}

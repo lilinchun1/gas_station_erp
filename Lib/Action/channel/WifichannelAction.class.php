@@ -1,8 +1,6 @@
 <?php
 class WifichannelAction extends Action {
-	public function index(){
-	
-	}
+	public function index(){}
 	
 	
 	//获取渠道类型

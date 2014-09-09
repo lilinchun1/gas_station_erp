@@ -36,12 +36,13 @@ function getRoot($username, $password) {
 		);
 		//跟用户拥有所有页面权限
 		$model = new Model ();
-		$str = "SELECT url FROM bi_menu";
+		$str = "SELECT url FROM bi_menu where is_del = 0";
 		$que = $model->query ( $str );
 		$url_str = "";
 		foreach ( $que as $k => $v ) {
-			$url_str .= $v ['url'].",";
+			$url_str .= "'".$v ['url']."',";
 		}
+		$url_str = trim($url_str,",");
 		$userinfo['urlstr'] = $url_str;
 	}
 	return $userinfo;
@@ -117,16 +118,18 @@ function ableUrlStr($uid = "") {
 		$where .= " and a.userid = '$uid' ";
 	}
 	$str = "
-	SELECT c.url FROM bi_user_role a
-	LEFT JOIN bi_role_menu b ON a.roleid = b.role_id
-	LEFT JOIN bi_menu c ON b.menu_id = c.menu_id
-	$where 
+		SELECT c.url FROM bi_user_role a
+		LEFT JOIN bi_role_menu b ON a.roleid = b.role_id
+		LEFT JOIN bi_menu c ON b.menu_id = c.menu_id
+		$where
+		AND c.is_del = 0
 	";
 	$que = $model->query ( $str );
 	$url_str = "";
 	foreach ( $que as $k => $v ) {
-		$url_str .= $v ['url'].",";
+		$url_str .= "'".$v ['url']."',";
 	}
+	$url_str = trim($url_str,",");
 	return $url_str;
 }
 ?>

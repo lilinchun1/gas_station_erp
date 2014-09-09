@@ -10,30 +10,39 @@ class ChannelCommon{
 	function __construct(){
 		$this->model = new Model();
 	}
-	//获取省市的信息
-	function getArea(){
-		$sql_are = " select area_id,area_name,pid from bi_area ";	
-		$que_are = $this->model->query($sql_are);
-		return $que_are;
-	}
 	
-		//获取省份
-	public function getAllProvince(){
-		$model = new Model();
+	//根据给定的代理商id列表获取省份，列表格式 1,2,3,4
+	public function getAllProvince($agent_id = null){
+		$common        = new Common();
+		$ableAreaIdStr = $common->getAreaIdAndProvinceStr($agent_id);
+		$model         = new Model();
 		//sql语句
-		$sql="select area_id,area_name from bi_area where pid=0";
+		$sql="
+			SELECT area_id,area_name FROM bi_area
+			WHERE pid=0
+			AND area_id IN ( $ableAreaIdStr )
+			";
 		//执行查询
 		$province=$model->query($sql);
 		return $province;
-		
 	}
-	//获取市级
-	public function getAllCity($province_id){		
+	//根据给定的代理商id列表获取市级
+	public function getAllCity($province_id,$agent_id = null){
+		$common        = new Common();
+		$ableAreaIdStr = $common->getAreaIdAndProvinceStr($agent_id);
 		$model = new Model();
 		//sql语句
-		$sql="select area_id,area_name from bi_area where pid='$province_id'";
+		$sql="
+			SELECT area_id,area_name FROM bi_area WHERE pid='$province_id'
+			AND area_id IN ( $ableAreaIdStr )
+		";
 		//执行查询
 		$city=$model->query($sql);
+		//如果没有下级则是直辖市，返回自身做下级市
+		if(!$city){
+			$sql="select area_id,area_name from bi_area where area_id='$province_id'";
+			$city=$model->query($sql);
+		}
 		return $city;
 	}
 	

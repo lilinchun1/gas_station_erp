@@ -10,7 +10,7 @@ class RoleAction extends Action {
 	public function index(){
 		$userinfo = getUserInfo();
 		$this->username = $userinfo['realname']; //登录的用户名
-		$this->assign('nowUrl', "configuration/Role/show_role");
+		$this->assign('nowUrl', "'/gas_station_erp/index.php/configuration/Role/show_role'");
 		$this->assign('urlStr', $userinfo['urlstr']);
 		$this->display(':role_index');
 	}
@@ -187,11 +187,22 @@ class RoleAction extends Action {
 			LEFT JOIN bi_menu c ON b.menu_id = c.menu_id
 			WHERE a.userid = $uid
 			AND c.menu_id IS NOT NULL
-			GROUP BY c.menu_id
+			AND c.is_del = 0
+			UNION
+			SELECT menu_id id, menuname value, url, pid parent FROM bi_menu
+			WHERE menu_id IN(
+				SELECT c.pid
+				FROM bi_user_role a
+				LEFT JOIN bi_role_menu b ON a.roleid = b.role_id
+				LEFT JOIN bi_menu c ON b.menu_id = c.menu_id
+				WHERE a.userid = $uid
+				AND c.menu_id IS NOT NULL
+				AND c.is_del = 0
+			)
 			";
 			$menu_info = $model->query($sql);
 		}else{
-			$menu_info = $model->query("select menu_id id, menuname value, url, pid parent from bi_menu");
+			$menu_info = $model->query("select menu_id id, menuname value, url, pid parent from bi_menu where is_del = 0");
 		}
 		$this->ajaxReturn($menu_info, 'json');
 	}

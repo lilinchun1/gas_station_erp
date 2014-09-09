@@ -49,14 +49,15 @@ class PostDevAction extends Action {
 	
 	
 	function exportChoose(){
+		$whereSql = " WHERE 1 ";
 		if($_GET['export'] == 1){
-			$whereSql = " WHERE monitor_no = (SELECT MAX(monitor_no) FROM dev_monitor) ";
+			$whereSql .= " AND monitor_no = (SELECT MAX(monitor_no) FROM dev_monitor) ";
 			$this->exportDo($whereSql);
 		}else if($_GET['export'] == 2){
 			$beginTime = strtotime(trim($_GET['beginTime']));
 			$endTime   = strtotime(trim($_GET['endTime']));
-			$whereSql = "
-					WHERE a.createtime >=$beginTime AND a.createtime <=$endTime
+			$whereSql .= "
+					AND a.createtime >=$beginTime AND a.createtime <=$endTime
 					GROUP BY a.dev_mac,a.dev_no,a.unfind,a.dev_no_begin_time,a.on_line
 					";
 			$this->exportDo($whereSql);
@@ -83,6 +84,7 @@ class PostDevAction extends Action {
 				LEFT JOIN bi_area f ON b.province_id = f.area_id
 				LEFT JOIN bi_area g ON b.city_id = g.area_id
 				$whereSql
+				AND b.isDelete = 0
 				ORDER BY b.agent_id,b.channel_id,b.place_id,a.dev_mac,a.dev_no,a.unfind DESC,a.dev_no_begin_time DESC,a.on_line DESC
 			";
 		$que = $model->query($sql);

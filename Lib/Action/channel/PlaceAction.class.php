@@ -9,7 +9,7 @@ class PlaceAction extends Action {
 	public function index(){
 		$userinfo = getUserInfo();
 		$this->username = $userinfo['realname']; //登录的用户名
-		$this->assign('nowUrl', "channel/Place/index");
+		$this->assign('nowUrl', "'/gas_station_erp/index.php/channel/Place/index'");
 		$this->assign('urlStr', $userinfo['urlstr']);
 		$this->display(':place_index');
 	}

@@ -116,7 +116,7 @@ class IndexAction extends Action {
 		$this->assign('page',$show);// 赋值分页输出
 		$this->assign('issueArr', $que);
 		//供菜单给当前页面加样式
-		$this->assign('nowUrl', "management/Index/importingApp");
+		$this->assign('nowUrl', "'/gas_station_erp/index.php/management/Index/importingApp'");
 		$this->display(':index');
 		
 	}
@@ -336,7 +336,7 @@ class IndexAction extends Action {
 		$this->assign('page',$show);// 赋值分页输出
 		$this->assign('issueArr', $que);
 		//供菜单给当前页面加样式
-		$this->assign('nowUrl', "management/Index/addRuleTarget");
+		$this->assign('nowUrl', "'/gas_station_erp/index.php/management/Index/addRuleTarget'");
 		$this->display(':addRuleTarget');
 	}
 	
@@ -396,7 +396,7 @@ class IndexAction extends Action {
 		$this->assign('page',$show);// 赋值分页输出
 		$this->assign('app_dev_update_arr', $que);
 		//供菜单给当前页面加样式
-		$this->assign('nowUrl', "management/Index/verup");
+		$this->assign('nowUrl', "'/gas_station_erp/index.php/management/Index/verup'");
 		$this->display(':verup');
 	}
 //------------------------------------------------------------------------------更新信息------------------------------------------------------------------------------------
@@ -498,7 +498,6 @@ class IndexAction extends Action {
 			}else {
 				$inrs[$k]['smart_guard']="等待中";
 			}
-		
 		}
 		//$this->assign('cou',$hy_count);
 		echo json_encode($inrs);
@@ -510,9 +509,6 @@ class IndexAction extends Action {
 	public function devicsswdblurry(){
 	    $model = new Model();
 		$yichang_address = trim(I('yichang_address'));
-		//$map['MAC'] =array('like', '%' . $sswd . '%');
-		//$deviceInfo = $dev->where($map)->distinct(true)->field('MAC')->select();
-		//$deviceInfo = $Model->table('device_id a')->join('qd_place b on a.device_id=b.place_id')->where($map)distinct(true)->field('place_name')->select();
 		$sql = "select * from qd_place where place_name like '%$yichang_address%'";
 		$deviceInfo = $model->query($sql);
 		for($i=0; $i< count($deviceInfo); $i++)
@@ -520,7 +516,6 @@ class IndexAction extends Action {
 			$sswd_text_arr[$i]['title'] = $deviceInfo[$i]['place_name'];
 		}
 		$this->ajaxReturn($sswd_text_arr,'json');
-
 	}	
 	
 		

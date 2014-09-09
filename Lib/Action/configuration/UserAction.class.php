@@ -9,7 +9,7 @@ class UserAction extends Action {
 	public function index(){
 		$userinfo = getUserInfo();
 		$this->username = $userinfo['realname']; //登录的用户名
-		$this->assign('nowUrl', "configuration/User/index");
+		$this->assign('nowUrl', "'/gas_station_erp/index.php/configuration/User/index'");
 		$this->assign('urlStr', $userinfo['urlstr']);
 		$this->display(':user_index');
 	}
@@ -122,7 +122,7 @@ class UserAction extends Action {
 		$roleid_array = explode(",", $roleid);
 		foreach($roleid_array as $key=>$val){
 			$data_role['userid'] = $is_set;
-			$data_role['roleid'] = $val;
+			$data_role['roleid'] = trim($val,"'");
 			$user_role->add($data_role);
 		}
 		$this->ajaxReturn($msg,'json');
@@ -163,6 +163,7 @@ class UserAction extends Action {
 		//$memo = trim(I('modify_memo_txt'));
 		$roleid       = trim(I('role_txt'));
 		$roleid       = trim($roleid,',');
+		
 		$msg       = C('modify_user_success');
 		$model     = new Model();
 		$user      = new Model("BiUser");
@@ -183,9 +184,10 @@ class UserAction extends Action {
 
 		$is_delete = $user_role->where(" userid = $userid ")->delete();
 		$roleid_array = explode(",", $roleid);
-		foreach($roleid_array as $key=>$val){
+		foreach($roleid_array as $val){
+			$data_role = array();
 			$data_role['userid'] = $userid;
-			$data_role['roleid'] = $val;
+			$data_role['roleid'] = trim($val,"'");
 			$user_role->add($data_role);
 		}
 		$this->ajaxReturn($msg,'json');
@@ -244,8 +246,37 @@ class UserAction extends Action {
 
 		$this->ajaxReturn($msg,'json');
 	}
+	
+	//根据可查看子菜单，调节顶级菜单连接路径
+	public function getTopLink(){
+		$model    = new Model();
+		$userinfo = getUserInfo();
+		$userUrl  = trim($userinfo['urlstr'],",");
+		//如果有子菜单url则获取该子菜单的顶级url
+		if($_GET['userUrl']){
+			$andStr = " AND a.pid = (select pid from bi_menu where url = ".$_GET['userUrl'].") ";
+		}
 		
-
-
+		$sql = "
+			SELECT a.menu_id,a.menuname,a.url,a.url_order,a.pid,b.menuname top_name
+			FROM bi_menu a
+			LEFT JOIN bi_menu b ON a.pid = b.menu_id
+			WHERE a.url IN ($userUrl)
+			AND a.pid <> 0
+			AND a.is_del = 0
+			$andStr
+			ORDER BY b.url_order,a.url_order
+		";
+		$que = $model->query($sql);
+		$pid = 0;
+		$topLinkArr = array();
+		foreach($que as $v){
+			if($pid != $v['pid']){
+				$pid = $v['pid'];
+				$topLinkArr[] =$v;
+			}
+		}
+		echo json_encode($topLinkArr);
+	}
 }
 ?>
