@@ -364,7 +364,7 @@ $heiti:"SimHei";
       }
     .info-right{
       @extend .info-left;
-      min-height: 280px;
+      min-height: 180px;
     }
     label{
       float: left;
@@ -783,8 +783,12 @@ $heiti:"SimHei";
   @extend %input-t;
   margin-right: 10px;
   text-indent: 0;
+  margin-top: 10px;
 }
 .channel-index-btns{
+  p{
+    margin: 5px 0;
+  }
   input{
     margin: 5px 6px 5px 0;}
   padding-bottom: 20px;}
@@ -1457,6 +1461,9 @@ input.input-org-info,input.channel-select{
   width: 49%;
   float: right;
   overflow: hidden;}
+.tab-wrap-100{
+  width: 100%;
+}
 .tubiao4{
   background: #cccccc;
   width: 49%;

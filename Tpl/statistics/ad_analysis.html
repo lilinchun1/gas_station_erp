@@ -2,7 +2,7 @@
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
-    <title>app安装量</title>
+    <title>广告分析</title>
     <link rel="stylesheet" href="__PUBLIC__/css/configuration.css"/>
     <link rel="stylesheet" href="../../Public/css/configuration.css"/>
     <script type="text/javascript" src="__PUBLIC__/js/jquery-1.10.2.min.js"></script>
@@ -30,12 +30,28 @@
                     <div class="role-inquire channel-index-btns">
                         <form id="formid" name="channelSelect" method="get" action="">
                             <p>
+                                <label for="channel-class1" class="">组织机构</label>
+                                <select name="company_type" id="channel-class1" class="channel-select">
+                                    <option value="">请选择组织</option>
+                                    <foreach name="company_info" item="type">
+                                        <if condition="$type.agent_id eq $_GET['company_type']">
+                                            <option value="{$type.agent_id}" selected=selected >{$type.agent_name}</option>
+                                            <else/>
+                                            <option value="{$type.agent_id}">{$type.agent_name}</option>
+                                        </if>
+                                    </foreach>
+                                </select>
 
-                                <label for="channel-class1" class="">APP名称</label>
+                                <label for="channel_name">广告商名称</label>
+                                <input type="text" name="channel_name" id="channel_name" class="input-org-info" value="{$_GET['channel_name']}" />
+                                <label for="place_name">素材名称</label>
+                                <input type="text" name="place_name" id="place_name" class="input-org-info" value="{$_GET['place_name']}" />
+                                <label for="channel-class1" class="">APP类型</label>
                                 <select name="channel_first_type_sel" id="channel-class1" class="channel-select">
                                     <option value="">全部</option>
                                 </select>
-
+                                </p>
+                                <p>
                                 <label for="day">查询日期</label>
                                 <input type="text" name="contract_end_time_1" id="contract_end_time_1" class="input-org-info"
                                        value="{$_GET['contract_end_time_1']}" onClick="WdatePicker()"/>
@@ -55,17 +71,23 @@
                         <div class="role-table">
                             <ul class="statistics-list">
                                 <li>
-                                    <span class='span-1'><b>日期</b></span>
-                                    <span class='span-1'><b>安装量</b></span>
-                                    <span class='span-1'><b>IOS</b></span>
-                                    <span class='span-1'><b>Android</b></span>
+                                    <span class='span-1'><b>组织机构名称</b></span>
+                                    <span class='span-1'><b>广告商名称</b></span>
+                                    <span class='span-1'><b>素材名称</b></span>
+                                    <span class='span-1'><b>素材类型</b></span>
+                                    <span class='span-1'><b>实际播放次数</b></span>
+                                    <span class='span-1'><b>实际播放时长</b></span>
+                                    <span class='span-1'><b>单词指定播放时长</b></span>
                                 </li>
                                 <li class="list_sel">
-                                    <span class="span-1" title="">111111111</span>
-                                    <span class="span-1" title="">222222222</span>
-                                    <span class="span-1" title="">333333333</span>
-                                    <span class="span-1" title="">444444444</span>
-                                </li>
+                                        <span class="span-1" title="">111111111</span>
+                                        <span class="span-1" title="">222222222</span>
+                                        <span class="span-1" title="">333333333</span>
+                                        <span class="span-1" title="">444444444</span>
+                                        <span class="span-1" title="">555555555</span>
+                                        <span class="span-1" title="">666666666</span>
+                                        <span class="span-1" title="">777777777</span>
+                                 </li>
                             </ul>
                             <div class="resultpage">{$page}</div>
                         </div>
@@ -80,73 +102,7 @@
     </div>
 </div>
 <include file="./Tpl/include/pb-foot.html"/>
-<div id="fail_num_win" style="display:none">
-    <div class="alert-table1" style="background-color:#ffffff;width:100%;padding-bottom:15px" id="fail_num_table">
-        <div class="data-log">
-            <h3>未统计加油站安装量明细
-                <input type="submit" class="role-control-btn fr" value="关闭" onClick="window.location=window.location"/>
-                <input type="button" class="role-control-btn fr" id="fail_export_bt" value="导出" />
-            </h3>
-        </div>
-        <ul class="statistics-list" id="fail_num_list">
-            <li>
-                <span class='span-1'><b>网点名称</b></span>
-                <span class='span-1'><b>点位信息</b></span>
-                <span class='span-1'><b>MAC</b></span>
-                <span class='span-1'><b>操作</b></span>
-            </li>
-            <!--<li>
-                <span class='span-1'>11111111</span>
-                <span class='span-1'>22222222</span>
-                <span class='span-1'>33333333</span>
-                <span class='span-1'><input type="submit" class="role-control-btn" value="统计" /></span>
-            </li>-->
 
-        </ul>
-    </div>
-</div>
-<div id="succ_num_win" style="display:none">
-    <div class="alert-table1" style="background-color:#ffffff;width:100%;padding-bottom:15px" id="succ_num_table">
-        <div class="data-log">
-            <h3>已统计加油站
-                <input type="submit" class="role-control-btn fr" value="关闭" onClick="window.location=window.location"/>
-                <input type="button" class="role-control-btn fr" id="succ_export_bt" value="导出" />
-            </h3>
-        </div>
-        <ul class="statistics-list" id="succ_num_list">
-            <li>
-                <span class='span-1'><b>网点名称</b></span>
-                <span class='span-1'><b>点位信息</b></span>
-                <span class='span-1'><b>MAC</b></span>
-                <span class='span-1'><b>安装总量</b></span>
-                <span class='span-1'><b>IOS安装量</b></span>
-                <span class='span-1'><b>Abdrid安装量</b></span>
-            </li>
-
-
-        </ul>
-    </div>
-</div>
-
-<div id="unfind_num_win" style="display:none">
-    <div class="alert-table1" style="background-color:#ffffff;width:100%;padding-bottom:15px" id="unfind_num_table">
-        <div class="data-log">
-            <h3>异常加油站
-                <input type="submit" class="role-control-btn fr" value="关闭" onClick="window.location=window.location" />
-                <input type="button" class="role-control-btn fr" id="undefine_export_bt"  value="导出" />
-            </h3>
-        </div>
-        <ul class="statistics-list" id="unfind_num_list">
-            <li>
-                <span class='span-1'><b>日期</b></span>
-                <span class='span-1'><b>MAC地址</b></span>
-                <span class='span-1'><b>安装总量</b></span>
-                <span class='span-1'><b>IOS安装量</b></span>
-                <span class='span-1'><b>Abdrid安装量</b></span>
-            </li>
-        </ul>
-    </div>
-</div>
 <script type="text/javascript" src="__PUBLIC__/js/jquery-1.6.1.js"></script>
 <script type="text/javascript" src="__PUBLIC__/js/jquery.SuperSlide.2.1.1.js"></script>
 <script type="text/javascript" src="__PUBLIC__/js/jquery.DOMwindow.js" type="text/javascript"></script><!--模框JS插件-->
