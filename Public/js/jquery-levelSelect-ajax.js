@@ -45,6 +45,21 @@ $.openLayer = function(p){
 			//已选择项容器
 			var selArea = $("<div id='selArea'><div>已选择项目：</div></div>");
 			_container.append(selArea); 
+			str_id = $("#resvals").val();
+			arr_id = str_id.split(',');// 注split可以用字符或字符串分割
+			
+			str_txt = $("#restxts").val();
+			arr_txt = str_txt.split(',');// 注split可以用字符或字符串分		
+			if (str_txt!=""){
+				for(var i = 0 ; i < arr_id.length ; i++){
+				var title_li=arr_txt[i]+":"+arr_id[i];
+				$("#selArea").append("<span title='"+title_li+"' name='22' style='width:120px;white-space:nowrap;float:left;'>"+
+							"<input type='checkbox' value='" + arr_id[i] + "'  checked ='checked'>"+
+							"<span name='d2' style='margin-left:3px;'>" + arr_txt[i] + "</span>"+
+							"</span>"
+					);
+				}
+			}
 			if (param.maxItems == 1){ selArea.hide(); }
 
 			//初始化第一层级数据容器，以后各级容器都clone本容器
@@ -99,10 +114,20 @@ $.openLayer = function(p){
 			var html = [];															//格式化数据存放容器，为了提高效率，使用了数组
 			var ss = [];
 			//循环获得格式化的显示字符串
+			str = $("#resvals").val();
+			arr = str.split(',');// 注split可以用字符或字符串分割
 			for(var i = 0 ; i < dat.length ; i++){
 				ss = dat[i].split(param.splitChar.charAt(1));		//第二次分隔，获得每个数据项中的数据值和显示字符串
 				html.push("<span title='"+dat[i]+"' name='"+pid+"' style='width:"+span_width+"px;white-space:nowrap;float:left;'>");
-				html.push("<input type='checkbox' value='" + ss[0] + "'>");
+				for ( var y = 0; y < arr.length; y++) {
+					if (arr[y] == ss[0]) {
+						html.push("<input type='checkbox' value='" + ss[0] + "'  checked ='checked'>");
+						break;
+					}else{
+						html.push("<input type='checkbox' value='" + ss[0] + "'>" );
+						break;
+					}
+				}
 				html.push("<span name='"+targetid.attr("id")+"' style='margin-left:"+inspan_width+"px;'>" + ss[1] + "</span>");
 				html.push("</span>");
 			}

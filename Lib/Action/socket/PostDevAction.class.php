@@ -89,27 +89,27 @@ class PostDevAction extends Action {
 			";
 		$que = $model->query($sql);
 		
-		$fileName = $que[0]['createtime'];
-		header("Content-Type:text/csv;charset=gb2312"); //'text/csv'是CSV文件，'application/vnd.ms-excel'是excel文件
-		header("Content-Disposition: attachment; filename=" . $fileName . ".csv"); //$fileName文件名，“.csv”文件扩展名也可是".xls"excel文件
+		$fileName = $que[0]['createtime'].".xls";
+		header("Content-Type:application/vnd.ms-excel;charset=UTF-8");
+		header("Content-Disposition: attachment; filename=" . $fileName);
 		header('Cache-Control:must-revalidate,post-check=0,pre-check=0');
 		header('Expires:0');
 		header('Pragma:public');
 		
-		echo iconv("utf-8", "gbk", "省,") . "\t" . iconv("utf-8", "gbk", "市,"). "\t"
-				. iconv("utf-8", "gbk", "代理商,"). "\t" . iconv("utf-8", "gbk", "渠道,"). "\t"
-				. iconv("utf-8", "gbk", "网点,"). "\t" . iconv("utf-8", "gbk", "点位,"). "\t"
-				. iconv("utf-8", "gbk", "mac地址,"). "\t" . iconv("utf-8", "gbk", "机器编号,"). "\t"
-				. iconv("utf-8", "gbk", "获取数据,"). "\t" . iconv("utf-8", "gbk", "是否已设开机时间,"). "\t"
-				. iconv("utf-8", "gbk", "在线状态,"). "\t" . iconv("utf-8", "gbk", "最近开机时间,"). "\t"
+		echo iconv("utf-8", "gbk", "省") . "\t" . iconv("utf-8", "gbk", "市"). "\t"
+				. iconv("utf-8", "gbk", "代理商"). "\t" . iconv("utf-8", "gbk", "渠道"). "\t"
+				. iconv("utf-8", "gbk", "网点"). "\t" . iconv("utf-8", "gbk", "点位"). "\t"
+				. iconv("utf-8", "gbk", "mac地址"). "\t" . iconv("utf-8", "gbk", "机器编号"). "\t"
+				. iconv("utf-8", "gbk", "获取数据"). "\t" . iconv("utf-8", "gbk", "是否已设开机时间"). "\t"
+				. iconv("utf-8", "gbk", "在线状态"). "\t" . iconv("utf-8", "gbk", "最近开机时间"). "\t"
 				. iconv("utf-8", "gbk", "报警开始时间");
 		foreach($que as $k=>$v){
-			echo "\n" . iconv("utf-8", "gbk", $v['province'].",") . "\t" . iconv("utf-8", "gbk", $v['city'].","). "\t"
-					. iconv("utf-8", "gbk", $v['agent_name'].","). "\t". iconv("utf-8", "gbk", $v['channel_name'].","). "\t"
-					. iconv("utf-8", "gbk", $v['place_name'].","). "\t". iconv("utf-8", "gbk", $v['address'].","). "\t"
-					. iconv("utf-8", "gbk", $v['dev_mac'].","). "\t". iconv("utf-8", "gbk", $v['dev_no'].","). "\t"
-					. iconv("utf-8", "gbk", $v['unfind'].","). "\t". iconv("utf-8", "gbk", $v['dev_no_begin_time'].","). "\t"
-					. iconv("utf-8", "gbk", $v['on_line'].","). "\t". iconv("utf-8", "gbk", $v['start_time'].","). "\t"
+			echo "\n" . iconv("utf-8", "gbk", $v['province']) . "\t" . iconv("utf-8", "gbk", $v['city']). "\t"
+					. iconv("utf-8", "gbk", $v['agent_name']). "\t". iconv("utf-8", "gbk", $v['channel_name']). "\t"
+					. iconv("utf-8", "gbk", $v['place_name']). "\t". iconv("utf-8", "gbk", $v['address']). "\t"
+					. iconv("utf-8", "gbk", $v['dev_mac']). "\t". iconv("utf-8", "gbk", $v['dev_no']). "\t"
+					. iconv("utf-8", "gbk", $v['unfind']). "\t". iconv("utf-8", "gbk", $v['dev_no_begin_time']). "\t"
+					. iconv("utf-8", "gbk", $v['on_line']). "\t". iconv("utf-8", "gbk", $v['start_time']). "\t"
 					. iconv("utf-8", "gbk", $v['wrong_begin_time']);
 		}
 		exit;

@@ -52,7 +52,7 @@ class RoleAction extends Action {
 				LEFT JOIN qd_agent b  ON a.role_agent_id = b.agent_id
 				LEFT JOIN bi_user c ON a.adduserid = c.uid
 				$where 
-				ORDER BY b.agent_id,a.roleid desc
+				ORDER BY a.roleid desc
 				limit $Page->firstRow,$Page->listRows
 				";
 		$list = $model->query($sql);

@@ -51,7 +51,7 @@ class UserAction extends Action {
 				FROM bi_user a
 				LEFT JOIN qd_agent b ON a.orgid = b.agent_id
 				$where
-				ORDER BY b.agent_id,a.uid
+				ORDER BY a.uid desc
 				";
 		$que = $model->query($sql);
 		$count = count($que);

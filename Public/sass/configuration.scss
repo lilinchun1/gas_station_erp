@@ -914,10 +914,10 @@ $heiti:"SimHei";
             width: 100%;}
         }
       .station-zhuangtai{
-
+        position: relative;
+        top: -25px;
         float: left;
         width: 40%;
-        height: 100px;
         overflow: hidden;
         [class^="icon-"], [class*=" icon-"]{
           font-size: 20px;

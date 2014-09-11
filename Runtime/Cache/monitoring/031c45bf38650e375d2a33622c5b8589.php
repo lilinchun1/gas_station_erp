@@ -78,6 +78,7 @@ $.ajax({
                             <h4>系统监控</h4>
                             <span><img src="__PUBLIC__/image/6.png" alt=""/></span>
                             <dl class="station-zhuangtai">
+                                <dt id="xitong_1"><b>合计</b><em>123456</em></dt>
                                 <dt id="xitong_1"><b class="icon-checkmark-circle green-color"></b><em><?php echo ($devRightNum); ?></em></dt>
                                 <dt id="xitong_0"><b class="icon-cancel-circle red-color"></b><em><?php echo ($devBreakNum); ?></em></dt>
                                 <dt id="xitong_2"><b class="icon-bulb yellow-color"></b><em><?php echo ($devUnfindNum); ?></em></dt>
@@ -117,13 +118,21 @@ $.ajax({
 							<label for="channelName">渠道名称</label>
 							<input  type="text" name="channelName" id="channelName" class="station-info" value="<?php echo ($channelName); ?>"
 							onfocus="blurry('channel_name','<?php echo U('channel/Channel/getAllLike');?>',this)"/>
+                            
 							&nbsp;&nbsp;&nbsp;&nbsp;
 							<label for="place_name">网点名称</label>
 							<input  type="text" name="place_name" id="place_name" class="station-info" value="<?php echo ($place_name); ?>" 
 							onfocus="blurry('place_name','<?php echo U('channel/Channel/getAllLike');?>',this)"/>
 
+							&nbsp;&nbsp;&nbsp;&nbsp;
+							<label for="place_name">加油站编号</label>
+							<input  type="text" name="device_no" id="device_no" class="station-info" value="<?php echo ($device_no); ?>" 
+							onfocus="blurry('device_no','<?php echo U('channel/Channel/getAllLike');?>',this)"/>
+                            
+                            
 							<button type="button" class="role-control-btn" id="channel_select">查询</button>
 							<button type="button" class="role-control-btn" id="stationDele">清空</button>
+                            <button type="button" class="role-control-btn" id="">导出</button>
 							<!--
 							<button type="button" class="role-control-btn">导出</button>
 							-->
@@ -490,9 +499,9 @@ $.ajax({
 						<option value="2">未设开机时间的机器</option>
 					</select>
 					<button type="button" class="role-control-btn" id="yichang_select">查询</button>
-					<!--<button type="button" class="role-control-btn">导出</button>-->
 					<button type="button" class="role-control-btn" id="yichang_close">关闭</button>
-					<span id="showDevNum"></span>
+                    <button type="button" class="role-control-btn">导出</button>
+                    <span id="showDevNum"></span>
 				</p>
 
 		</div>
@@ -658,7 +667,13 @@ function show_yichang(){
 	var showModel=2;//监控模式
 
 	var handleUrl = "<?php echo U('monitoring/Index/station');?>";
-	$.getJSON(handleUrl,{
+	
+	$.ajax({
+		type: "get",
+		url: handleUrl,
+		async: false,
+		dataType: "json",
+		data:{
 		"channelName":channelName,
 		"place_name":place_name,
 		"address":address,
@@ -670,7 +685,7 @@ function show_yichang(){
 		"showModel":showModel,
 		"pageNum":p
 		},
-		function (data){
+		success: function(data){
 			var showDevNum=data['showDevNum']//查询总数
 			$("#showDevNum").html("查询共"+showDevNum+"条数据");
 			var showDevPageArr=data['showDevPageArr'];
@@ -733,9 +748,12 @@ function show_yichang(){
 				p++;	
 				down_yichang();
 			});
+		},
+	
+		error: function(XMLHttpRequest, textStatus, errorThrown) {
+			alert("请求失败!");
 		}
-	,'json'
-	);
+	});
 }
 function up_yichang(){
 	show_yichang(); 
@@ -853,8 +871,9 @@ function down_yichang(){
 			var page_Num=1;//页数
 			var channelName=$("#channelName").val();//渠道
 			var place_name=$("#place_name").val();//网点
+			var device_no=$("#device_no").val();//加油站编号
 			var showModel=$("#showModel").val();//监控模式
-			window.location.href="<?php echo U('monitoring/Index/station');?>"+"?pageNum="+page_Num+"&showModel="+showModel+"&channelName="+channelName+"&place_name="+place_name;
+			window.location.href="<?php echo U('monitoring/Index/station');?>"+"?pageNum="+page_Num+"&showModel="+showModel+"&channelName="+channelName+"&place_name="+place_name+"&device_no="+device_no;
 		});
 		var count=Number($("#page_num").text());//获取总页数
 		var dangqian_page=Number($(".current").text());//获取当前页码
@@ -896,7 +915,8 @@ function down_yichang(){
 			var showModel=$("#showModel").val();//监控模式
 			var channelName=$("#channelName").val();//渠道
 			var place_name=$("#place_name").val();//网点
-			window.location.href="<?php echo U('monitoring/Index/station');?>"+"?pageNum="+page_Num+"&areaId="+agent_id+"&level="+level+"&showModel="+showModel+"&channelName="+channelName+"&place_name="+place_name;
+			var device_no=$("#device_no").val();//加油站编号
+			window.location.href="<?php echo U('monitoring/Index/station');?>"+"?pageNum="+page_Num+"&areaId="+agent_id+"&level="+level+"&showModel="+showModel+"&channelName="+channelName+"&place_name="+place_name+"&device_no="+device_no;
 		})
 		$("#select_page").change(function(){
 			var page_Num=$(this).val();//页数
@@ -905,7 +925,8 @@ function down_yichang(){
 			var showModel=$("#showModel").val();//监控模式
 			var channelName=$("#channelName").val();//渠道
 			var place_name=$("#place_name").val();//网点
-			window.location.href="<?php echo U('monitoring/Index/station');?>"+"?pageNum="+page_Num+"&areaId="+agent_id+"&level="+level+"&showModel="+showModel+"&channelName="+channelName+"&place_name="+place_name;
+			var device_no=$("#device_no").val();//加油站编号
+			window.location.href="<?php echo U('monitoring/Index/station');?>"+"?pageNum="+page_Num+"&areaId="+agent_id+"&level="+level+"&showModel="+showModel+"&channelName="+channelName+"&place_name="+place_name+"&device_no="+device_no;
 		});
     });
 jQuery(".alert-set-tab").slide({trigger:"click"});

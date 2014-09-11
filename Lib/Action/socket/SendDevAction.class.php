@@ -94,7 +94,8 @@ class SendDevAction extends Action {
 			$hasTrouble = 0;
 			
 			//发送机器状态请求
-			$dev_status = "DEV_STATUS:".$this->getNewSendNum().",dev_uid:".$v['device_no'].",dev_mac:".$v['MAC'].",station_system,poweron_time,poweroff_time;";
+			//",dev_mac:".$v['MAC'].
+			$dev_status = "DEV_STATUS:".$this->getNewSendNum().",dev_uid:".$v['device_no'].",station_system,poweron_time,poweroff_time;";
 			//发送信息并获取返回各属性值数组
 			$getStrArr = $this->sendRespStrGetRespArr($dev_status,4096);
 			//返回1则未返回数据

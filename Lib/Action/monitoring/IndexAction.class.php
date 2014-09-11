@@ -71,6 +71,10 @@ class IndexAction extends Action {
 		if($place_name){
 			$and .= " AND place_name = '$place_name' ";
 		}
+		$device_no = trim($_REQUEST['device_no']);
+		if($device_no){
+			$and .= " AND b.device_no = '$device_no' ";
+		}
 		if($this->agentIdStr){
 			$and .= " AND e.agent_id in (".$this->agentIdStr.") ";
 		}
@@ -243,6 +247,7 @@ class IndexAction extends Action {
 		$this->assign('address',$address);
 		$this->assign('devMac',$devMac);
 		$this->assign('devNo',$devNo);
+		$this->assign('device_no',$device_no);
 		
 		if($showModel == 2){
 			$date['showDevPageArr'] = $showDevPageArr;
