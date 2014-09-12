@@ -84,7 +84,7 @@ class DeviceAction extends Action {
 				FROM qd_device a
 				LEFT JOIN qd_place b ON a.place_id = b.place_id
 				LEFT JOIN bi_area c ON a.province_id = c.area_id
-				LEFT JOIN bi_area d ON a.city_id = c.area_id
+				LEFT JOIN bi_area d ON a.city_id = d.area_id
 				$where
 				ORDER BY a.agent_id,a.channel_id,a.place_id
 				";

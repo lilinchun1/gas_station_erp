@@ -278,5 +278,31 @@ class OrgAction extends Action {
 		}
 		$this->ajaxReturn($msg,'json');
 	}
+	//判断给定代理商该区域能否取消，返回0可以取消，返回1不能取消
+	function canBeDeleteArea(){
+		$agent_id = trim($_GET['agent_id']);
+		$area_id  = trim($_GET['area_id']);
+		$common       = new Common();
+		$sub_agent_id = $common->getAgentIdAndChildId($agent_id);
+		//剔除掉$sub_agent_id中含有的自身代理商id
+		$sub_agent_id = str_replace("'$agent_id',","",$sub_agent_id);
+		$sub_agent_id = str_replace(",'$agent_id'","",$sub_agent_id);
+		$sub_agent_id = str_replace("'$agent_id'","",$sub_agent_id);
+		//如果没有下级代理商则返回0，可以取消该区域
+		if(!$sub_agent_id){
+			echo 0;
+			exit;
+		}
+		
+		$model = new Model();
+		$sql = "SELECT * FROM qd_agent_area WHERE agent_id IN ($sub_agent_id) AND area_id = $area_id";
+		$que = $model->query($sql);
+		if(count($que) > 0){
+			echo 1;
+			exit;
+		}
+		echo 0;
+		exit;
+	}
 }
 ?>

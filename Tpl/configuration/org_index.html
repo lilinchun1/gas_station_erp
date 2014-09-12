@@ -502,6 +502,8 @@ $(document).ready(function(){
 		$("#j-choose").click(function(){
 			var pid=$('#agent_pid_hid').val();
 			var url="{:U('configuration/Org/show_org_area_tree')}";
+			var can_url="{:U('configuration/Org/canBeDeleteArea')}";
+			var agent_id=$("#agent_id_hid").val();
 			$.openLayer({
 				url:url,
 				pid : "0",
@@ -509,7 +511,9 @@ $(document).ready(function(){
 				returnText : "restxts",
 				returnValue : "resvals",
 				span_width : {d1:120,d2:150,d3:150},
-				index : 10005
+				index : 10005,
+				can_url:can_url,
+				agent_id:agent_id
 			});
 		});
         var mod_handleUrl = "{:U('configuration/Org/orgDetailSelect')}";

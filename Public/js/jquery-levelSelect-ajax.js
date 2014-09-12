@@ -24,7 +24,9 @@ $.openLayer = function(p){
 		cacheEnable : false,				//是否允许缓存
 		dragEnable : true,				//是否允许鼠标拖动
 		pText : "",
-		id:""//id值
+		id:"" ,//id值
+		can_url:"",//判断是否可以取消的地址
+		agent_id:""//判断是否可以取消的代理商ID
 	},p||{});
 
 	var fs = {
@@ -77,6 +79,7 @@ $.openLayer = function(p){
 			var id = param.id;
 			var url = param.url;						//ajax查询url
 			var data = "";								//返回数据变量
+			
 
 			if(param.cacheEnable){ data = _cache[pid];}	//如果cache开启则首先从cache中取得数据
 			
@@ -139,8 +142,19 @@ $.openLayer = function(p){
 		},
 		init_event : function(){		//绑定已选择框中checkbox的事件，确定，取消事件响应
 			$("#selArea").find(":input").live("click",function(){
-				$(this).parent().remove();
-				$("#container_td > div").find(":input[value="+this.value+"]").attr("checked",false);
+				//alert("上面的取消了");
+				var area_id=this.value;
+				var can_url=param.can_url;
+				var agent_id=param.agent_id;
+				canBeDeleteArea(can_url,agent_id,area_id);
+				if(data_can=="0"){
+					$(this).parent().remove();
+					$("#container_td > div").find(":input[value="+this.value+"]").attr("checked",false);	
+				}else if(data_can=="1"){
+					alert("下级代理商有该区域");
+					return false;		
+				}
+
 			});
 			$("#d1").find("input:checkbox").hide();
 			$("#_cancel").click(function(){
@@ -186,7 +200,17 @@ $.openLayer = function(p){
 					if(this.checked && fs.check_level(this) && fs.check_num(this)){
 						selArea.append($(this).parent().clone().css({"width":"","background":"","border":""}));
 					}else{
-						selArea.find(":input[value="+this.value+"]").parent().remove();
+						//alert("下面的取消了");
+						var area_id=this.value;
+						var can_url=param.can_url;
+						var agent_id=param.agent_id;
+						canBeDeleteArea(can_url,agent_id,area_id);
+						if(data_can=="0"){
+							selArea.find(":input[value="+this.value+"]").parent().remove();
+						}else if(data_can=="1"){
+							alert("下级代理商有该区域");
+							return false;		
+						}
 					}			
 				}
 			});
@@ -336,7 +360,23 @@ $.openLayer = function(p){
 }
 
 })(jQuery)
-
+//判断是否可以删除的方法  0：可删除   1：不可删除
+var data_can="";
+function canBeDeleteArea(can_url,agent_id,area_id){
+	$.ajax({
+		type: "get",
+		url: can_url,
+		async: false,
+		dataType: "json",
+		data:{"agent_id":agent_id,"area_id":area_id},
+		success: function(data){
+			data_can=data;
+		},
+		error: function(XMLHttpRequest, textStatus, errorThrown) {
+			// alert("请求失败!");
+		}
+	});	
+}
 _cache ={
 };		
 //缓存

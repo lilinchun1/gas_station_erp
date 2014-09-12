@@ -12,13 +12,13 @@ class Common{
 	function getAgentIdAndChildId($father_agent_id) {
 		$father_agent_id = $father_agent_id?$father_agent_id:0;
 		//初始化
-		$this->agentIdStr = '';
+		$this->agentIdStr = "";
 		//迭代出当前登录代理商及下属所有子代理商
 		$sql_agent = "SELECT * FROM qd_agent where isDelete = 0";
 		$que_agent = $this->model->query($sql_agent);
 		$this->getAllChildAgent($que_agent,$father_agent_id);
 		//字符串中加上自身代理商id
-		$this->agentIdStr .= $father_agent_id;
+		$this->agentIdStr .= "'".$father_agent_id."'";
 		$this->agentIdStr = trim($this->agentIdStr,',');
 		return $this->agentIdStr;
 	}
@@ -72,7 +72,7 @@ class Common{
 	function getAllChildAgent($agentArr,$pid){
 		foreach ($agentArr as $k=>$v){
 			if($v['father_agentid'] == $pid){
-				$this->agentIdStr .= $v['agent_id'].',';
+				$this->agentIdStr .= "'".$v['agent_id']."',";
 				$this->getAllChildAgent($agentArr,$v['agent_id']);
 			}
 		}
@@ -105,14 +105,15 @@ class Common{
 	 * @return mixed
 	 */
 	function agentPurview($user_agent_id='', $option_agent_id='') {
+		//格式化$option_agent_id
+		$option_agent_id = "'$option_agent_id'";
 		if(!$user_agent_id)
 		{
 			return true;
 		}
 		$is_have_purview = false;
 		$agentIdStr = $this->getAgentIdAndChildId($user_agent_id);
-		$agentIdArr=explode(",",$agentIdStr);
-		if(in_array($option_agent_id, $agentIdArr)){
+		if(substr_count($agentIdStr, $option_agent_id)){
 			$is_have_purview = true;
 		}
 		return $is_have_purview;

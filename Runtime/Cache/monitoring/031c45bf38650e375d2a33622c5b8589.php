@@ -78,10 +78,10 @@ $.ajax({
                             <h4>系统监控</h4>
                             <span><img src="__PUBLIC__/image/6.png" alt=""/></span>
                             <dl class="station-zhuangtai">
-                                <dt id="xitong_1"><b>合计</b><em>123456</em></dt>
-                                <dt id="xitong_1"><b class="icon-checkmark-circle green-color"></b><em><?php echo ($devRightNum); ?></em></dt>
-                                <dt id="xitong_0"><b class="icon-cancel-circle red-color"></b><em><?php echo ($devBreakNum); ?></em></dt>
-                                <dt id="xitong_2"><b class="icon-bulb yellow-color"></b><em><?php echo ($devUnfindNum); ?></em></dt>
+                                <dt id="xitong_3"><b>合计</b><em id="sum"></em></dt>
+                                <dt id="xitong_1"><b class="icon-checkmark-circle green-color"></b><em id="devRightNum"><?php echo ($devRightNum); ?></em></dt>
+                                <dt id="xitong_0"><b class="icon-cancel-circle red-color"></b><em id="devBreakNum"><?php echo ($devBreakNum); ?></em></dt>
+                                <dt id="xitong_2"><b class="icon-bulb yellow-color"></b><em id="devUnfindNum"><?php echo ($devUnfindNum); ?></em></dt>
                             </dl>
                         </li>
                         <li>
@@ -130,9 +130,9 @@ $.ajax({
 							onfocus="blurry('device_no','<?php echo U('channel/Channel/getAllLike');?>',this)"/>
                             
                             
-							<button type="button" class="role-control-btn" id="channel_select">查询</button>
+							<button type="button" class="channel_select role-control-btn" id="channel_select">查询</button>
 							<button type="button" class="role-control-btn" id="stationDele">清空</button>
-                            <button type="button" class="role-control-btn" id="">导出</button>
+                            <button type="button" class="station_export role-control-btn" id="station_export">导出</button>
 							<!--
 							<button type="button" class="role-control-btn">导出</button>
 							-->
@@ -498,9 +498,9 @@ $.ajax({
 						<option value="1">未返回数据的机器</option>
 						<option value="2">未设开机时间的机器</option>
 					</select>
-					<button type="button" class="role-control-btn" id="yichang_select">查询</button>
+					<button type="button" class="yichang_select role-control-btn" id="yichang_select">查询</button>
 					<button type="button" class="role-control-btn" id="yichang_close">关闭</button>
-                    <button type="button" class="role-control-btn">导出</button>
+                    <button type="button" class="yichang_export role-control-btn" id="yichang_export">导出</button>
                     <span id="showDevNum"></span>
 				</p>
 
@@ -653,7 +653,7 @@ function zTreeOnClick(event, treeId, treeNode) {
 };
 var key;
 var p=1;
-function show_yichang(){
+function show_yichang(select_export){
 	$(".select_li").remove();//初始化
 	$(".resultpage").remove();//初始化
 	var channelName=$("#yichang_channelName").val();//渠道
@@ -665,9 +665,12 @@ function show_yichang(){
 	var agent_id=$('#areaId').val();//省市ID
 	var level=$("#level").val();//等级
 	var showModel=2;//监控模式
-
-	var handleUrl = "<?php echo U('monitoring/Index/station');?>";
-	
+	if(select_export==0){
+		var handleUrl = "<?php echo U('monitoring/Index/station');?>";
+	}else if(select_export==1){
+		window.location.href="<?php echo U('monitoring/Index/monitorExport');?>"+"?showModel="+showModel+"&channelName="+channelName+"&place_name="+place_name+"&address="+address+"&devMac="+devMac+"&devNo="+devNo+"&devNoBeginTime="+devNoBeginTime+"&agent_id="+agent_id+"&level="+level;
+		return false;
+	}
 	$.ajax({
 		type: "get",
 		url: handleUrl,
@@ -764,6 +767,9 @@ function down_yichang(){
 
 //===================================================树形结构js结束==========
     $(function () {
+		//算合计
+		var sum=parseInt($("#devRightNum").text())+parseInt($("#devBreakNum").text())+parseInt($("#devUnfindNum").text());
+		$("#sum").append(sum);
 		//系统监控框 默认样式
 		var showModel_mode=$("#showModel").val();
 		if(showModel_mode==0){
@@ -852,8 +858,13 @@ function down_yichang(){
 
 		//点击系统监控显示数据异常弹出框
 		$("#xitong_2").click(function(){
-			$("#yichang_select").click(function(){
-				show_yichang();
+			//0为查询，1为导出
+			$("#yichang_select,#yichang_export").click(function(){
+				if($(this).hasClass('yichang_select')){
+					show_yichang(0);
+				}else{
+					show_yichang(1);
+				}
 			});
 			$("#yichang_close").click(function(){
 				window.location.href = window.location.href;
@@ -867,13 +878,17 @@ function down_yichang(){
 			});
 			return false;
 		});
-		$("#channel_select").click(function(){
+		$("#channel_select,#station_export").click(function(){
 			var page_Num=1;//页数
 			var channelName=$("#channelName").val();//渠道
 			var place_name=$("#place_name").val();//网点
 			var device_no=$("#device_no").val();//加油站编号
 			var showModel=$("#showModel").val();//监控模式
+			if($(this).hasClass('channel_select')){
 			window.location.href="<?php echo U('monitoring/Index/station');?>"+"?pageNum="+page_Num+"&showModel="+showModel+"&channelName="+channelName+"&place_name="+place_name+"&device_no="+device_no;
+			}else{
+			window.location.href="<?php echo U('monitoring/Index/monitorExport');?>"+"?pageNum="+page_Num+"&showModel="+showModel+"&channelName="+channelName+"&place_name="+place_name+"&device_no="+device_no;
+			}
 		});
 		var count=Number($("#page_num").text());//获取总页数
 		var dangqian_page=Number($(".current").text());//获取当前页码
