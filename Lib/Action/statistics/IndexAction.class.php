@@ -18,7 +18,7 @@ class IndexAction extends Action {
 	} 
 
 	/**
-	 * InstalledAnalysis index安装量分析
+	 * InstalledAnalysis 安装量分析
 	 * @param 
 	 * @return mixed
 	 */
@@ -31,7 +31,7 @@ class IndexAction extends Action {
 	}
 	
 	/**
-	 * user_statistics 用户接入分析
+	 * user_statistics app排名
 	 * @param
 	 * @return mixed
 	 */
@@ -42,17 +42,7 @@ class IndexAction extends Action {
 	}
 	
 	/**
-	 * user_behavior 用户行为分析
-	 * @param
-	 * @return mixed
-	 */
-	function user_behavior(){
-		$this->assign('nowUrl', "'/gas_station_erp/index.php/statistics/Index/user_behavior'");
-		$this->display(':user_behavior');
-	}
-	
-	/**
-	 * app_installed app安装量分析
+	 * app_installed App安装量
 	 * @param
 	 * @return mixed
 	 */
@@ -61,24 +51,39 @@ class IndexAction extends Action {
 		$this->display(':app_installed');
 	}
 	
+	
+	
+	
 	/**
-	 * app_analysis app分析
+	 * ad_analysis 广告分析
 	 * @param
 	 * @return mixed
 	 */
-	function app_analysis(){
-		$this->assign('nowUrl', "'/gas_station_erp/index.php/statistics/Index/app_analysis'");
-		$this->display(':app_analysis');
+	function ad_analysis(){
+		$this->assign('nowUrl', "'/gas_station_erp/index.php/statistics/Index/ad_analysis'");
+		$this->display(':ad_analysis');
+	}
+	
+	
+	
+	/**
+	 * ad_play 广告播放
+	 * @param
+	 * @return mixed
+	 */
+	function ad_play(){
+		$this->assign('nowUrl', "'/gas_station_erp/index.php/statistics/Index/ad_play'");
+		$this->display(':ad_play');
 	}
 	
 	/**
-	 * installed_daily 安装量日报
+	 * ad_maintain 广告维护
 	 * @param
 	 * @return mixed
 	 */
-	function installed_daily(){
-		$this->assign('nowUrl', "'/gas_station_erp/index.php/statistics/Index/installed_daily'");
-		$this->display(':installed_daily');
+	function ad_maintain(){
+		$this->assign('nowUrl', "'/gas_station_erp/index.php/statistics/Index/ad_maintain'");
+		$this->display(':ad_maintain');
 	}
 	
 	function installed_daily_doseach(){

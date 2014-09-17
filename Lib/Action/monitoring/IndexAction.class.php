@@ -463,7 +463,7 @@ class IndexAction extends Action {
 		}
 		
 		
-		$fileName = date("Y-m-d H:i").".xls";
+		$fileName = date("Y-m-d~H-i").".xls";
 		header("Content-Type:application/vnd.ms-excel;charset=gb2312");
 		header("Content-Disposition: attachment; filename=" . $fileName);
 		header('Cache-Control:must-revalidate,post-check=0,pre-check=0');

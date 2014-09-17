@@ -957,6 +957,10 @@ $.ajax({
 				alert("所在点位不能为空");
 				return false;
 			} 
+			if(add_device_type_txt==""){
+				alert("加油站型号不能为空");
+				return false;	
+			}
 			if (add_status_sel=="") {
 				alert("请选择加油站状态");
 				return false;
@@ -1097,6 +1101,10 @@ $.ajax({
 				alert("所在点位不能为空");
 				return false;
 			} 
+			if(change_device_type_txt==""){
+				alert("加油站型号不能为空");
+				return false;	
+			}
 			if (change_status_sel=="") {
 				alert("请选择加油站状态");
 				return false;

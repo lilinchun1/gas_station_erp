@@ -76,7 +76,7 @@ class DeviceAction extends Action {
 		$sql = "
 				SELECT a.device_id, a.device_no, a.MAC, a.place_id, a.channel_id, a.agent_id,
 				c.area_name province, c.area_name city, a.address, a.device_type,
-				CASE a.status WHEN 'normal' THEN '正常' WHEN 'abnormal' THEN '不正常' WHEN 'not_use' THEN '未运行' END STATUS,
+				CASE a.status WHEN 'normal' THEN '正常' WHEN 'abnormal' THEN '不正常' WHEN 'not_use' THEN '未运行' END status,
 				FROM_UNIXTIME( a.begin_time, '%Y-%m-%d' ) begin_time,
 				FROM_UNIXTIME( a.deploy_time, '%Y-%m-%d' ) deploy_time,
 				a.repair_user, a.repair_user_tel, a.description, a.isDelete,
@@ -86,7 +86,7 @@ class DeviceAction extends Action {
 				LEFT JOIN bi_area c ON a.province_id = c.area_id
 				LEFT JOIN bi_area d ON a.city_id = d.area_id
 				$where
-				ORDER BY a.agent_id,a.channel_id,a.place_id
+				ORDER BY a.device_id desc
 				";
 		//echo $sql;exit;
 		$que = $model->query($sql);

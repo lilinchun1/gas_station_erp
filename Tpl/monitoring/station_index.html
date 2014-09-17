@@ -280,10 +280,10 @@
 		<div class="role-inquire channel-index-btns">
 				<p>
 					<label for="yichang_channelName" class="">渠道名称</label>
-					<input type="text" name="yachang_channelName" id="yichang_channelName" value="" class="input-org-info"
+					<input type="text" name="yachang_channelName" id="yichang_channelName" value="{$channelName}" class="input-org-info"
 					onfocus="blurry('channel_name','{:U('channel/Channel/getAllLike')}',this)"/>
 					<label for="yichang_place_name" class="">网点名称</label>
-					<input type="text" name="yichang_place_name" id="yichang_place_name" value="" class="input-org-info"
+					<input type="text" name="yichang_place_name" id="yichang_place_name" value="{$place_name}" class="input-org-info"
 					onfocus="blurry('place_name','{:U('channel/Channel/getAllLike')}',this)"/>
 					<label for="yichang_address" class="">点位名称</label>
 					<input type="text" name="yichang_address" id="yichang_address" value="" class="input-org-info"
@@ -293,7 +293,7 @@
 					onfocus="blurry('device_mac','{:U('channel/Channel/getAllLike')}',this)"/>
 					<br>
 					<label for="yichang_devNo" class="">加油站编号</label>
-					<input type="text" name="yichang_devNo" id="yichang_devNo" value="" class="input-org-info"
+					<input type="text" name="yichang_devNo" id="yichang_devNo" value="{$device_no}" class="input-org-info"
 					onfocus="blurry('device_no','{:U('channel/Channel/getAllLike')}',this)"/>
 
 					<label for="devNoBeginTime" class="">查询数据类型</label>
@@ -303,7 +303,7 @@
 					</select>
 					<button type="button" class="yichang_select role-control-btn" id="yichang_select">查询</button>
                     <button type="button" class="yichang_export role-control-btn" id="yichang_export">导出</button>
-                    <button type="button" class="role-control-btn" id="yichang_close">关闭</button>
+                    <button type="button" class="role-control-btn" id="yichang_close">关闭</button><br/>
                     <span id="showDevNum"></span>
 				</p>
 
@@ -457,8 +457,6 @@ function zTreeOnClick(event, treeId, treeNode) {
 var key;
 var p=1;
 function show_yichang(select_export){
-	$(".select_li").remove();//初始化
-	$(".resultpage").remove();//初始化
 	var channelName=$("#yichang_channelName").val();//渠道
 	var place_name=$("#yichang_place_name").val();//网点
 	var address=$("#yichang_address").val();//点位
@@ -468,9 +466,11 @@ function show_yichang(select_export){
 	var agent_id=$('#areaId').val();//省市ID
 	var level=$("#level").val();//等级
 	var showModel=2;//监控模式
-	if(select_export==0){
+	if(select_export=="0"){
+		$(".select_li").remove();//初始化
+		$(".resultpage").remove();//初始化
 		var handleUrl = "{:U('monitoring/Index/station')}";
-	}else if(select_export==1){
+	}else if(select_export=="1"){
 		window.location.href="{:U('monitoring/Index/monitorExport')}"+"?showModel="+showModel+"&channelName="+channelName+"&place_name="+place_name+"&address="+address+"&devMac="+devMac+"&devNo="+devNo+"&devNoBeginTime="+devNoBeginTime+"&agent_id="+agent_id+"&level="+level;
 		return false;
 	}
@@ -506,7 +506,11 @@ function show_yichang(select_export){
 			});
 			p = Number(data['pageNum']);//接收当前页
 			var countPageNum = data['countPageNum'];//接收总页数
+			if(showDevNum!=0){
 			$("#table").append("<div class='resultpage' style=''>"+"<a id='yichang_up_page' style='cursor:pointer'>«</a>"+"<span id='up_pages'></span>"+"<span class='current'>"+p+"</span>"+"<span id='down_pages'></span>"+"<a id='yichang_down_page' style='cursor:pointer'>»</a>"+"<span class='pages-number'>共"+countPageNum+"页</span>"+"<span>到第<select id='select_page_yichang'></select>页</span>"+"</div>");
+			}else{
+				alert("未查询到相应数据");	
+			}
 			if(p=="1"){
 				$("#yichang_up_page").hide();
 			}
@@ -562,10 +566,14 @@ function show_yichang(select_export){
 	});
 }
 function up_yichang(){
-	show_yichang(); 
+	$(".select_li").remove();//初始化
+	$(".resultpage").remove();//初始化
+	show_yichang(0); 
 }
 function down_yichang(){
-	show_yichang(); 
+	$(".select_li").remove();//初始化
+	$(".resultpage").remove();//初始化
+	show_yichang(0); 
 }
 
 //===================================================树形结构js结束==========
@@ -583,6 +591,10 @@ function down_yichang(){
 		}
 		//===================================================树形结构js传递==========
 		$.fn.zTree.init($("#treeDemo"), setting, zNodes);
+		var zTree = $.fn.zTree.getZTreeObj("treeDemo");
+		var areaId=$('#areaId').val();//省市ID
+		//默认选中
+		zTree.selectNode(zTree.getNodeByParam("id", areaId));
 
 		//console.log(curMenu);
 
@@ -620,13 +632,14 @@ function down_yichang(){
         var iID=setTimeout(function(){location.reload();},1000*60*60);
         $("#down_page").click(function(){
 			var page_Num=$('#pageNum').val();//页数
-			var agent_id=$('#areaId').val();//省市ID
+			var areaId=$('#areaId').val();//省市ID
 			var new_page_Num=Number(page_Num)+1;
 			var level=$("#level").val();//等级
 			var showModel=$("#showModel").val();//监控模式
 			var channelName=$("#channelName").val();//渠道
 			var place_name=$("#place_name").val();//网点
-			window.location.href="{:U('monitoring/Index/station')}"+"?pageNum="+new_page_Num+"&areaId="+agent_id+"&level="+level+"&showModel="+showModel+"&channelName="+channelName+"&place_name="+place_name;
+			var device_no=$("#device_no").val();//加油站编
+			window.location.href="{:U('monitoring/Index/station')}"+"?pageNum="+new_page_Num+"&areaId="+areaId+"&level="+level+"&showModel="+showModel+"&channelName="+channelName+"&place_name="+place_name+"&device_no="+device_no;
 		});
 		$("#up_page").click(function(){
 			var page_Num=$('#pageNum').val();//页数
@@ -636,7 +649,8 @@ function down_yichang(){
 			var showModel=$("#showModel").val();//监控模式
 			var channelName=$("#channelName").val();//渠道
 			var place_name=$("#place_name").val();//网点
-			window.location.href="{:U('monitoring/Index/station')}"+"?pageNum="+new_page_Num+"&areaId="+agent_id+"&level="+level+"&showModel="+showModel+"&channelName="+channelName+"&place_name="+place_name;
+			var device_no=$("#device_no").val();//加油站编
+			window.location.href="{:U('monitoring/Index/station')}"+"?pageNum="+new_page_Num+"&areaId="+agent_id+"&level="+level+"&showModel="+showModel+"&channelName="+channelName+"&place_name="+place_name+"&device_no="+device_no;
 		});
 		//点击系统监控显示数据success
 		$("#xitong_1").click(function(){
@@ -646,7 +660,8 @@ function down_yichang(){
 			var showModel=1;//监控模式
 			var channelName=$("#channelName").val();//渠道
 			var place_name=$("#place_name").val();//网点
-			window.location.href="{:U('monitoring/Index/station')}"+"?pageNum="+page_Num+"&areaId="+agent_id+"&level="+level+"&showModel="+showModel+"&channelName="+channelName+"&place_name="+place_name;
+			var device_no=$("#device_no").val();//加油站编
+			window.location.href="{:U('monitoring/Index/station')}"+"?pageNum="+page_Num+"&areaId="+agent_id+"&level="+level+"&showModel="+showModel+"&channelName="+channelName+"&place_name="+place_name+"&device_no="+device_no;
 		});
 		//点击系统监控显示数据error
 		$("#xitong_0").click(function(){
@@ -656,7 +671,8 @@ function down_yichang(){
 			var showModel=0;//监控模式
 			var channelName=$("#channelName").val();//渠道
 			var place_name=$("#place_name").val();//网点
-			window.location.href="{:U('monitoring/Index/station')}"+"?pageNum="+page_Num+"&areaId="+agent_id+"&level="+level+"&showModel="+showModel+"&channelName="+channelName+"&place_name="+place_name;
+			var device_no=$("#device_no").val();//加油站编号
+			window.location.href="{:U('monitoring/Index/station')}"+"?pageNum="+page_Num+"&areaId="+agent_id+"&level="+level+"&showModel="+showModel+"&channelName="+channelName+"&place_name="+place_name+"&device_no="+device_no;
 		});
 
 		//点击系统监控显示数据异常弹出框
@@ -664,6 +680,7 @@ function down_yichang(){
 			//0为查询，1为导出
 			$("#yichang_select,#yichang_export").click(function(){
 				if($(this).hasClass('yichang_select')){
+					p=1;
 					show_yichang(0);
 				}else{
 					show_yichang(1);

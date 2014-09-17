@@ -3,6 +3,8 @@
 */
 //获取all省份
 function getProvince(handleUrl,cs_Province_id,cs_City_url,cs_City_id){
+	$(".select_province").empty();
+	$(".select_province").append("<option class='0' value='0'>省份</option>");
 	$.ajax({
 		type: "POST",
 		url: handleUrl,

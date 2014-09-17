@@ -12,8 +12,7 @@
         #head,.head-wrap,#footer{
             min-width: 990px;
         }
-        .role-control{
-            width: 99.7%;}
+        
     </style>
 </head>
 <body>
@@ -147,6 +146,7 @@ $.ajax({
                                 <input type="text" name="select_del_flag_txt" id="select_del_flag_txt" value="0" style="display:none;"/>
 
                                 <input type="submit" class="role-control-btn" value="查询" />
+                                <input type="submit" class="role-control-btn" value="导出" />
                             </p>
                         </form>
                     </div>
@@ -158,7 +158,7 @@ $.ajax({
                             <ul class="channel-tab">
                                 <li>IOS安装明细</li>
                                 <li>Android安装明细</li>
-                                <input type="submit" class="role-control-btn fr" value="导出" />
+                                
                             </ul>
                         </div>
                         <div class="bd">

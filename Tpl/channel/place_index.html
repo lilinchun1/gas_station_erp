@@ -490,11 +490,11 @@
 				alert("所属渠道不能为空");
 				return false;
 			}
-			if(add_select_province=="省份"){
+			if(add_select_province=="0"){
 				alert("请选择省份");
 				return false;	
 			}
-			if(add_select_city=="地级市"){
+			if(add_select_city=="0"){
 				alert("请选择城市");
 				return false;	
 			}
@@ -528,6 +528,7 @@
 					var tmp_msg = "{:C('add_place_success')}";
 					if(tmp_msg == data)
 					{
+						alert("成功新增网点");
 						window.location.href = window.location.href;
 					}
 					else
@@ -579,11 +580,11 @@
 				alert("所属渠道不能为空");
 				return false;
 			}
-			if(change_select_province=="省份"){
+			if(change_select_province=="0"){
 				alert("请选择省份");
 				return false;	
 			}
-			if(change_select_city=="地级市"){
+			if(change_select_city=="0"){
 				alert("请选择城市");
 				return false;	
 			}

@@ -147,10 +147,11 @@ $.openLayer = function(p){
 				var can_url=param.can_url;
 				var agent_id=param.agent_id;
 				canBeDeleteArea(can_url,agent_id,area_id);
-				if(data_can=="0"){
+				if(data_can=="0"||data_can==""){
 					$(this).parent().remove();
-					$("#container_td > div").find(":input[value="+this.value+"]").attr("checked",false);	
-				}else if(data_can=="1"){
+					$("#container_td > div").find(":input[value="+this.value+"]").attr("checked",false);
+                    return true;
+                }else if(data_can=="1"){
 					alert("下级代理商有该区域");
 					return false;		
 				}
@@ -158,7 +159,8 @@ $.openLayer = function(p){
 			});
 			$("#d1").find("input:checkbox").hide();
 			$("#_cancel").click(function(){
-				$("#bodybg").hide();
+                $("#selArea").find(":input").die('click');//解除live绑定
+				$("#bodybg").remove();
 				$("#popupAddr").fadeOut();
 			});
 			$("#_ok").click(function(){
@@ -198,14 +200,14 @@ $.openLayer = function(p){
 					$("#_ok").click();
 				}else {
 					if(this.checked && fs.check_level(this) && fs.check_num(this)){
-						selArea.append($(this).parent().clone().css({"width":"","background":"","border":""}));
+						selArea.append($(this).parent().clone().css({"width":"120px","background":"","border":""}));
 					}else{
 						//alert("下面的取消了");
 						var area_id=this.value;
 						var can_url=param.can_url;
 						var agent_id=param.agent_id;
 						canBeDeleteArea(can_url,agent_id,area_id);
-						if(data_can=="0"){
+						if(data_can=="0"||data_can==""){
 							selArea.find(":input[value="+this.value+"]").parent().remove();
 						}else if(data_can=="1"){
 							alert("下级代理商有该区域");
@@ -300,7 +302,7 @@ $.openLayer = function(p){
 			css.push("#title {line-height:30px;padding-left:20px;float:left;}");
 			css.push("#close {float:right;padding-right:12px;line-height:30px;}");
 			css.push("#container_td {width:100%;height:auto;}");
-			css.push("#selArea {width:"+_width+"px;height:48px;margin:"+_margin+"px;padding:5px;background-color:#f4f4f4;float:left;"+aotu+"}");
+			css.push("#selArea {width:"+_width+"px;height:aotu;margin:"+_margin+"px;padding:5px;background-color:#f4f4f4;float:left;"+aotu+"}");
 			css.push("#pbar {width:"+_width+"px;height:12px;margin:4px;-moz-box-sizing: border-box;display:block;overflow: hidden;font-size:1px;border:1px solid red;background:#333333;float:left;}");
 	
 			var d_css = "{width:"+_width+"px;margin:"+_margin+"px;padding:5px;height:auto;background-color:khaki;float:left;"+aotu+"}";

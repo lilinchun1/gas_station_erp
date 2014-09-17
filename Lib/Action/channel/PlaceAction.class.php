@@ -76,7 +76,7 @@ class PlaceAction extends Action {
 				LEFT JOIN qd_channel b ON a.channel_id = b.channel_id
 				LEFT JOIN (SELECT COUNT(device_id) device_num,place_id FROM qd_device WHERE isDelete = 0 GROUP BY place_id) c ON a.place_id = c.place_id
 				$where
-				ORDER BY a.agent_id,a.channel_id,a.place_id
+				ORDER BY a.place_id desc
 				";
 		$que = $model->query($sql);
 		//当前页数
@@ -258,6 +258,9 @@ class PlaceAction extends Action {
 		if($channel_id != $src_channel_id){
 			changeID('place', $channel_id, $place_id);
 		}
+		//更改下属加油站所属省市
+		$dev_sql = " UPDATE qd_device SET province_id = $province , city_id = $city WHERE place_id = $place_id ";
+		$model->query($dev_sql);
 		//查询修改后的信息，用于日志对比
 		$dst_place_log_info = $this->getPlaceInfoByPlaceId($place_id);
 		

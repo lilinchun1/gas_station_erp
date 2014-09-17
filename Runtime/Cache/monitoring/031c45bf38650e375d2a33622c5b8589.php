@@ -499,8 +499,8 @@ $.ajax({
 						<option value="2">未设开机时间的机器</option>
 					</select>
 					<button type="button" class="yichang_select role-control-btn" id="yichang_select">查询</button>
-					<button type="button" class="role-control-btn" id="yichang_close">关闭</button>
                     <button type="button" class="yichang_export role-control-btn" id="yichang_export">导出</button>
+                    <button type="button" class="role-control-btn" id="yichang_close">关闭</button>
                     <span id="showDevNum"></span>
 				</p>
 

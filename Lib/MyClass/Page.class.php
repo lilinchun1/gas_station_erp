@@ -44,7 +44,7 @@ class Page {
             'PageLink'  =>true,
             'JumpPage'  =>true,
         ),
-		'theme'=>'%upPage%%prePage%%linkPage%%downPage% %nextPage%<span class="pages-number">共有%totalPage%页</span><span class="pages-number">到第%jumppage%页<span class="pages-number">');
+		'theme'=>'%upPage%%linkPage%%downPage%<span class="pages-number">共有%totalPage%页</span><span class="pages-number">到第%jumppage%页<span class="pages-number">');
     // 默认分页变量名
     protected $varPage;
 

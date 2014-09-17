@@ -64,9 +64,21 @@ $.ajax({
         <ul>
             <li class="url_link" url="'<?php echo U('statistics/Index/index');?>'"><a href="<?php echo U('statistics/Index/index');?>"><input type="button" value="安装量分析"></a></li>
             <li class="url_link" url="'<?php echo U('statistics/Index/user_statistics');?>'"><a href="<?php echo U('statistics/Index/user_statistics');?>"><input type="button" value="app排名"></a></li>
-            <li class="url_link" url="'<?php echo U('statistics/Index/app_installed');?>'"><a href="<?php echo U('statistics/Index/app_installed');?>"><input type="button" value="App安装量"></a></li>
             <li class="url_link" url="'<?php echo U('statistics/Index/ad_analysis');?>'"><a href="<?php echo U('statistics/Index/ad_analysis');?>"><input type="button" value="广告分析"></a></li>
-            <li class="url_link" url="'<?php echo U('statistics/Index/ad_play');?>'"><a href="<?php echo U('statistics/Index/ad_play');?>"><input type="button" value="广告播放"></a></li>
+            <!--<li class="url_link" url="'<?php echo U('statistics/Index/ad_play');?>'"><a href="<?php echo U('statistics/Index/ad_play');?>"><input type="button" value="广告播放"></a></li>
+            <li class="url_link" url="'<?php echo U('statistics/Index/ad_maintain');?>'"><a href="<?php echo U('statistics/Index/ad_maintain');?>"><input type="button" value="广告维护"></a></li>
+            <li class="url_link" url="'<?php echo U('statistics/Index/app_installed');?>'"><a href="<?php echo U('statistics/Index/app_installed');?>"><input type="button" value="App安装量"></a></li>-->
+        </ul>
+    </li>
+</ul>
+<ul class="aside-nav">
+    <li class="aside-nav-nth1"><a>客户报表<i class="j-show-list">-</i></a>
+        <ul>
+            <!--<li class="url_link" url="'<?php echo U('statistics/Index/index');?>'"><a href="<?php echo U('statistics/Index/index');?>"><input type="button" value="安装量分析"></a></li>
+            <li class="url_link" url="'<?php echo U('statistics/Index/user_statistics');?>'"><a href="<?php echo U('statistics/Index/user_statistics');?>"><input type="button" value="app排名"></a></li>
+            <li class="url_link" url="'<?php echo U('statistics/Index/ad_analysis');?>'"><a href="<?php echo U('statistics/Index/ad_analysis');?>"><input type="button" value="广告分析"></a></li>-->
+            <li class="url_link" url="'<?php echo U('statistics/Index/app_installed');?>'"><a href="<?php echo U('statistics/Index/app_installed');?>"><input type="button" value="安装量明细"></a></li>
+            <li class="url_link" url="'<?php echo U('statistics/Index/ad_play');?>'"><a href="<?php echo U('statistics/Index/ad_play');?>"><input type="button" value="广告播放明细"></a></li>
             <li class="url_link" url="'<?php echo U('statistics/Index/ad_maintain');?>'"><a href="<?php echo U('statistics/Index/ad_maintain');?>"><input type="button" value="广告维护"></a></li>
         </ul>
     </li>
@@ -153,7 +165,7 @@ $.ajax({
                     <div class="hd">
                         <ul class="channel-tab">
                             <li>安装量分析</li>
-                            <li>平均安装量分析</li>
+                           <!--  <li>平均安装量分析</li> -->
                         </ul>
                     </div>
                     <div class="bd">
@@ -165,7 +177,7 @@ $.ajax({
 
                                 <div class="role-table">
                                     <div class="data-log">
-                                        <h3>安装量明细<input type="submit" class="role-control-btn" value="导出" /></h3>
+                                        <h3>安装量明细<input type="submit" class="role-control-btn fr" value="导出" /></h3>
 
                                     </div>
                                     <ul class="statistics-list statistics-index-list">
@@ -201,7 +213,7 @@ $.ajax({
                                 </div>
                             </div>
                         </div>
-                        <div class="div-tab-chart">
+                        <!-- <div class="div-tab-chart">
                             <div class="tongji-tu" id="avg_div">
 								<div id="avg_container" style="min-width:400px; height: 400px; margin: 0 auto; "></div>
                             </div>
@@ -235,7 +247,7 @@ $.ajax({
                                     </ul>
                                 </div>
                             </div>
-                        </div>
+                        </div> -->
                     </div>
                 </div>
 

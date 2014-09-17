@@ -183,8 +183,8 @@ var key;
 // =====================================device_index.html  begin ===================================================================
 $("#deviceDala").bind("click",function(){
 	//alert($("#sswd").val());
-	$("#select_province").eq(0).val("");
-	$("#select_city").eq(0).val("");		
+	$(".select_province").eq(0).val("0");
+	$(".select_city").eq(0).val("0");
 	$("#device_no_txt").val("");
 	$("#select_device_status").eq(0).val("");
 	$("#firstopentime1").val("");
@@ -204,8 +204,8 @@ $("#channelDala").bind("click",function(){
 	$("#channel_first_type_sel").eq(0).val("");
 	$("#channel_second_type_sel").eq(0).val("");
 	$("#agent_name_txt").val("");
-	$("#select_province").eq(0).val("");
-	$("#select_city").eq(0).val("");
+	$(".select_province").eq(0).val("0");
+	$(".select_city").eq(0).val("0");
 	$("#contract_begin_time_1").val("");
 	$("#contract_begin_time_2").val("");
 	$("#contract_end_time_1").val("");
@@ -217,8 +217,8 @@ $("#channelDala").bind("click",function(){
 //======================================place_index.html begin=========================================================================
 $("#placeDala").bind("click",function(){
 	$("#place_name_txt").val("");
-	$("#select_province").eq(0).val("");
-	$("#select_city").eq(0).val("");
+    $(".select_province").eq(0).val("0");
+    $(".select_city").eq(0).val("0");
 	$("#channel_name_txt").val("");		
 	$("#place_state_sel").eq(0).val("");
 	$("#select_test_end_time_1").val("");
@@ -277,6 +277,7 @@ $("#userDele").bind("click",function(){
 $("#stationDele").bind("click",function(){
 	$("#channelName").val("");
  	$("#place_name").val("");
+	$("#device_no").val("");
 });
 
 
